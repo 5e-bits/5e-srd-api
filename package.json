@@ -1,19 +1,17 @@
 {
   "name": "5e-srd-api",
-  "version": "1.0.0",
-  "description": "REST API to access D&amp;D 5th Edition SRD database",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adrpadua/5e-srd-api.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adrpadua/5e-srd-api/issues"
-  },
-  "homepage": "https://github.com/adrpadua/5e-srd-api#readme"
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
+  }
 }
