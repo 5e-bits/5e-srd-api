@@ -40,7 +40,7 @@ router.route('/spells/:index')
     if (err) {
       res.send(err);
     }
-    res.send(spell.desc);
+    res.send(spell);
   })
 })
 
@@ -57,7 +57,17 @@ router.route('/monsters')
     res.json(monsters);
   })
 })
-
+// -------------------------------------
+// find monster by index in array
+router.route('/monsters/:index')
+.get((req,res) => {
+  Monster.findOne( { index: parseInt(req.params.index) }, (err,monster) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(monster);
+  })
+})
 // -------------------------------------
 
 // register routes
