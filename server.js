@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 var router = express.Router();
+var morgan = require('morgan');
 
 var db;
 
@@ -10,6 +11,7 @@ mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api', 
     console.log(err);
     process.exit(1);
   }
+  app.set('view engine', 'ejs');
 
   db = database;
   console.log("Database connection ready");
@@ -20,19 +22,27 @@ mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api', 
   })
 }); // connect to our database
 
-var Spell = require('./models/spell');
-var Monster = require('./models/monster');
-
-// middleware to log activity
-router.use( (req, res, next) => {
-  console.log("Something is happening");
-  next();
-})
+app.use(morgan('short'));
 
 // test route at localhost:3000
-router.get('/', function (req, res) {
-  res.json( {message: 'Hello World!'} )
+router.get('/', (req, res) => {
+
+  var drinks = [
+    { name: 'Bloody Mary', drunkeness: 3 },
+    { name: 'Martini', drunkeness: 5 },
+    { name: 'Scotch', drunkeness: 10 }
+  ];
+
+  var tagline = "Any code of your own that you haven't looked at for six or more months might as well have been written by someone else.";
+  res.render('pages/index', {
+    drinks,
+    tagline
+  });
 })
+
+// set up models
+var Spell = require('./models/spell');
+var Monster = require('./models/monster');
 
 // -------------------------------------
 // add '/spells' route
