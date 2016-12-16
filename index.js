@@ -55,7 +55,7 @@ router.route('/spells/:index')
     if (err) {
       res.send(err);
     }
-    res.send(spell);
+    res.json(spell);
   })
 })
 
@@ -80,7 +80,7 @@ router.route('/monsters/:index')
     if (err) {
       res.send(err);
     }
-    res.send(monster);
+    res.json(monster);
   })
 })
 // -------------------------------------
