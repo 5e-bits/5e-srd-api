@@ -42,7 +42,7 @@ router.route('/spells')
     if (err) {
       res.send(err);
     }
-    res.json(spells);
+  res.status(200).json(spells);
   })
 })
 
@@ -55,7 +55,7 @@ router.route('/spells/:index')
     if (err) {
       res.send(err);
     }
-    res.json(spell);
+    res.status(200).json(spell);
   })
 })
 
@@ -69,7 +69,7 @@ router.route('/monsters')
     if (err) {
       res.send(err);
     }
-    res.json(monsters);
+    res.status(200).json(monsters);
   })
 })
 // -------------------------------------
@@ -80,7 +80,7 @@ router.route('/monsters/:index')
     if (err) {
       res.send(err);
     }
-    res.json(monster);
+    res.status(200).json(monster);
   })
 })
 // -------------------------------------
