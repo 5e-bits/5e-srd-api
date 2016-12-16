@@ -2,8 +2,23 @@ var express = require('express')
 var app = express()
 var router = express.Router();
 
+var db;
+
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api'); // connect to our database
+mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api', (err, database) => {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+
+  db = database;
+  console.log("Database connection ready");
+
+  var server = app.listen(process.env.PORT || 3000, () => {
+    var port = server.address().port;
+    console.log('Example app listening on port 3000!')
+  })
+}); // connect to our database
 
 var Spell = require('./models/spell');
 var Monster = require('./models/monster');
@@ -73,6 +88,3 @@ router.route('/monsters/:index')
 // register routes
 app.use('/api', router);
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!')
-})
