@@ -2,10 +2,10 @@ var express = require('express')
 var app = express()
 var router = express.Router();
 var morgan = require('morgan');
+var mongoose = require('mongoose');
 
 var db;
 
-var mongoose   = require('mongoose');
 mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api', (err, database) => {
   if (err) {
     console.log(err);
