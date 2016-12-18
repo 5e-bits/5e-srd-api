@@ -25,7 +25,7 @@ mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api', 
 app.use(morgan('short'));
 
 // test route at localhost:3000
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
 
   var drinks = [
     { name: 'Bloody Mary', drunkeness: 3 },
