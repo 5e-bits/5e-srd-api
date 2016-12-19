@@ -27,18 +27,7 @@ app.use(morgan('short'));
 
 // test route at localhost:3000
 app.get('/', (req, res) => {
-
-  var drinks = [
-    { name: 'Bloody Mary', drunkeness: 3 },
-    { name: 'Martini', drunkeness: 5 },
-    { name: 'Scotch', drunkeness: 10 }
-  ];
-
-  var tagline = "Any code of your own that you haven't looked at for six or more months might as well have been written by someone else.";
-  res.render('pages/index', {
-    drinks,
-    tagline
-  });
+  res.render('pages/index');
 })
 
 // set up models

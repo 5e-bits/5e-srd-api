@@ -1,6 +1,6 @@
-$( () => {
-    alert("Jquery Test");
-});
+// $( () => {
+//     alert("Jquery Test");
+// });
 
 function update(call){
     jQuery('#interactive').val(call);
@@ -15,18 +15,20 @@ function interactive_call(){
     }
 
     var call_url = 'api/' + content;
+
     jQuery.ajax({
-            dataType: 'json',
-            url: call_url,
-            context: document.body
-        }).complete( (data) => {
-            if(data['status'] == 200){
-                var d = jQuery.parseJSON(data['responseText']);
-                jQuery('#interactive_output').text(JSON.stringify(d, null, '\t'));
+        dataType: 'json',
+        url: call_url,
+        context: document.body,
+        complete: (data) => {
+            if (data['status'] == 200){
+                var d = $.parseJSON(data['responseText']);
+                $('#interactive_output').text(JSON.stringify(d, null, '\t'));
             }
             else if (data['status'] == 404) {
-                jQuery('#interactive_output').text(data['status'] + ' ' + data['statusText']);
+                $('#interactive_output').text(data['status'] + ' ' + data['statusText']);
             }
-        });
+        }
+    })
 }
 
