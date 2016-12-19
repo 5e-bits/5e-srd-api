@@ -52,6 +52,7 @@ router.route('/spells')
     if (err) {
       res.send(err);
     }
+
   res.status(200).json(spells);
   })
 })
@@ -65,6 +66,7 @@ router.route('/spells/:index')
     if (err) {
       res.send(err);
     }
+
     res.status(200).json(spell);
   })
 })

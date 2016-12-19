@@ -1,0 +1,82 @@
+<div class="container-fluid" style="margin-top: 60px;">
+    <div class="row center yellow">
+        <div class="jumbotron">
+            <h1>5E SRD API</h1>
+            <p>The 5th Edition D&D API</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-6 center">
+            <p>All the Star Wars data you've ever wanted:</p>
+            <p><b>Planets, Spaceships, Vehicles, People, Films and Species</b></p>
+            <p>From all <b>SEVEN</b> Star Wars films</p>
+            <p></p><h4>Now with The Force Awakens data!</h4><p></p>
+        </div>
+        <div class="col-lg-3">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 col-lg-2 col-md-2">
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <h1 class="center">
+                Try it now!
+            </h1>
+            <div class="input-group">
+                <span class="input-group-addon">http://dnd-5e-srd-api.herokuapp.com/api/</span>
+                <input id ="interactive" type="text" class="form-control" placeholder="spells/1/">
+                <span class="input-group-btn">
+                    <button onclick="interactive_call(); return false;" class="btn btn-primary">
+                        request
+                    </button>
+            </div>
+            <small>
+                Need a hint? Try "people/1"
+            </small>
+            <p class="lead pad_top">Result:</p>
+            <div class="well">
+                <pre id="interactive_output" class="pre-scrollable">
+                        {
+                "name": "Leia Organa",
+                "height": "150",
+                "mass": "49",
+                "hair_color": "brown",
+                "skin_color": "light",
+                "eye_color": "brown",
+                "birth_year": "19BBY",
+                "gender": "female",
+                "homeworld": "http://swapi.co/api/planets/2/",
+                "films": [
+                    "http://swapi.co/api/films/6/",
+                    "http://swapi.co/api/films/3/",
+                    "http://swapi.co/api/films/2/",
+                    "http://swapi.co/api/films/1/",
+                    "http://swapi.co/api/films/7/"
+                ],
+                "species": [
+                    "http://swapi.co/api/species/1/"
+                ],
+                "vehicles": [
+                    "http://swapi.co/api/vehicles/30/"
+                ],
+                "starships": [],
+                "created": "2014-12-10T15:20:09.791000Z",
+                "edited": "2014-12-20T21:17:50.315000Z",
+                "url": "http://swapi.co/api/people/5/"
+            }
+                </pre>
+            </div>
+        </div>
+        <div class="col-sm-2 col-lg-2 col-md-2">
+        </div>
+    </div>
+
+    <div class="row pad-bot">
+        <div class="col-sm-1 col-lg-1 col-md-1">
+        </div>
+    </div>
+</div>
