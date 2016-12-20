@@ -38,14 +38,28 @@ var Monster = require('./models/monster');
 // -------------------------------------
 // add '/spells' route
 router.route('/spells')
-.get((req,res,next) => {
-  Spell.find((err,spells) => {
-    if (err) {
-      res.send(err);
-    }
+.get((req,res) => {
 
-  res.status(200).json(spells);
-  })
+  let query_name = req.query.name;
+
+  if (query_name === undefined) {
+    Spell.find((err,spells) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.status(200).json(spells);
+    })
+  } else {
+    Spell.findOne({ name: query_name }, (err,spell) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.status(200).json(spell);
+    })
+  }
+
 })
 
 
@@ -63,17 +77,29 @@ router.route('/spells/:index')
 })
 
 
-
 // -------------------------------------
 // add '/monsters' route
 router.route('/monsters')
 .get((req,res,next) => {
-  Monster.find((err,monsters) => {
-    if (err) {
-      res.send(err);
-    }
-    res.status(200).json(monsters);
-  })
+
+  let query_name = req.query.name;
+
+  if (query_name === undefined) {
+    Monster.find((err,monsters) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(monsters);
+    })
+  } else {
+      Monster.findOne({ name: query_name }, (err,monster) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(monster);
+    })
+  }
+
 })
 // -------------------------------------
 // find monster by index in array
