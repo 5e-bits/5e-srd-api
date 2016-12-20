@@ -13,6 +13,7 @@ mongoose.connect('mongodb://admin:password@ds133158.mlab.com:33158/5e-srd-api', 
   }
   app.set('view engine', 'ejs');
   app.use("/js", express.static(__dirname + '/js'));
+  app.use("/public", express.static(__dirname + '/public'));
 
   db = database;
   console.log("Database connection ready");
