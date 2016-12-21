@@ -1,12 +1,10 @@
 let express = require('express'),
     router = express.Router();
 
-
 var ClassFeature = require('../models/classfeature');
-var barbarian_router = require('./class-feature-routes/barbarian');
 
 // Register class routes
-router.use('/barbarian', barbarian_router);
+router.use('/barbarian', require('./class-feature-routes/barbarian'));
 
 
 // -------------------------------------
@@ -16,7 +14,10 @@ router
       if (err) {
         res.send(err);
       }
-
+    }).sort( { index: 'asc'} ).exec( (err, features) => {
+      if (err) {
+        res.send(err);
+      }
       res.status(200).json(features);
     })
 })
@@ -28,10 +29,8 @@ router
     if (err) {
       res.send(err);
     }
-
     res.status(200).json(feature);
   })
 })
 
-console.log("is this first");
 module.exports = router;
