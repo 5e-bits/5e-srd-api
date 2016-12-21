@@ -6,8 +6,8 @@ var Spell = require('../models/spell');
 
 // -------------------------------------
 // add '/spells' route
-router.route('/spells')
-.get((req,res) => {
+router
+.get('/', (req,res) => {
 
   let query_name = req.query.name;
   let query_class = req.query.class;
@@ -21,13 +21,17 @@ router.route('/spells')
 
       res.status(200).json(spell);
     })
+
   } else if (query_class !== undefined) {
     
     Spell.find({ class: {name: query_class}}, (err,spells) => {
       if (err) {
         res.send(err);
       }
-
+    }).sort( {level: 'asc'} ).exec( (err, spells) => {
+      if (err) {
+        res.send(err);
+      }
       res.status(200).json(spells);
     })
 
@@ -36,7 +40,10 @@ router.route('/spells')
       if (err) {
         res.send(err);
       }
-
+    }).sort( {index: 'asc'} ).exec( (err, spells) => {
+      if (err) {
+        res.send(err);
+      }
       res.status(200).json(spells);
     })
   }
@@ -46,13 +53,12 @@ router.route('/spells')
 
 // -------------------------------------
 // find spell by index in array
-router.route('/spells/:index')
-.get((req,res) => {
+router
+.get('/spells/:index', (req,res) => {
   Spell.findOne( { index: parseInt(req.params.index) }, (err,spell) => {
     if (err) {
       res.send(err);
     }
-
     res.status(200).json(spell);
   })
 })

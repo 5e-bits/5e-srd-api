@@ -6,32 +6,33 @@ var Monster = require('../models/monster');
 
 // -------------------------------------
 // add '/monsters' route
-router.route('/monsters')
-.get((req,res,next) => {
+router
+.get('/', (req,res) => {
 
   let query_name = req.query.name;
 
-  if (query_name === undefined) {
-    Monster.find((err,monsters) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(monsters);
-    })
-  } else {
-      Monster.findOne({ name: query_name }, (err,monster) => {
+  if (query_name !== undefined) {
+    Monster.findOne({ name: query_name }, (err,monster) => {
       if (err) {
         res.send(err);
       }
       res.status(200).json(monster);
+    })
+  } else {
+    Monster.find((err,monsters) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {index: 'asc'} ).exec( (err, monsters) => {
+      res.status(200).json(monsters);
     })
   }
 
 })
 // -------------------------------------
 // find monster by index in array
-router.route('/monsters/:index')
-.get((req,res) => {
+router
+.get('/monsters/:index', (req,res) => {
   Monster.findOne( { index: parseInt(req.params.index) }, (err,monster) => {
     if (err) {
       res.send(err);
