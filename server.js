@@ -4,11 +4,6 @@ var router = express.Router();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 
-var class_router = require('./routes/classes');
-var spell_router = require('./routes/spells');
-var monster_router = require('./routes/monsters');
-var feature_router = require('./routes/features');
-
 // Middleware stuff
 app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
@@ -17,10 +12,10 @@ app.use(morgan('short'));
 
 
 // Register routes
-app.use("/api/classes", class_router);
-app.use("/api/spells", spell_router);
-app.use("/api/monsters", monster_router);
-app.use("/api/features", feature_router);
+app.use("/api/classes", require('./routes/classes'));
+app.use("/api/spells", require('./routes/spells'));
+app.use("/api/monsters", require('./routes/monsters'));
+app.use("/api/features", require('./routes/features'));
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
