@@ -4,6 +4,7 @@ var router = express.Router();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 
+
 // Middleware stuff
 app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
