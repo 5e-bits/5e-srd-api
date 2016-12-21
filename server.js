@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var class_router = require('./routes/classes');
 var spell_router = require('./routes/spells');
 var monster_router = require('./routes/monsters');
+var feature_router = require('./routes/features');
 
 // Middleware stuff
 app.set('view engine', 'ejs');
@@ -19,6 +20,7 @@ app.use(morgan('short'));
 app.use("/api", class_router);
 app.use("/api", spell_router);
 app.use("/api", monster_router);
+app.use("/api", feature_router);
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
