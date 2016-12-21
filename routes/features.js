@@ -1,15 +1,17 @@
-var express = require('express'),
-    router = express.Router(),
-    app = express();
+let express = require('express'),
+    router = express.Router();
+
 
 var ClassFeature = require('../models/classfeature');
+var barbarian_router = require('./class-feature-routes/barbarian');
 
-// Reguster class routes
-app.use("/barbarian", router);
+// Register class routes
+router.use('/barbarian', barbarian_router);
+
 
 // -------------------------------------
-router.route('/features')
-.get((req,res) => {
+router
+.get('/', (req,res) => {
     ClassFeature.find((err,features) => {
       if (err) {
         res.send(err);
@@ -19,10 +21,9 @@ router.route('/features')
     })
 })
 
-
 // -------------------------------------
-router.route('/features/:index')
-.get((req,res) => {
+router
+.get('/:index', (req,res) => {
   ClassFeature.findOne( { index: parseInt(req.params.index) }, (err,feature) => {
     if (err) {
       res.send(err);
@@ -32,4 +33,5 @@ router.route('/features/:index')
   })
 })
 
+console.log("is this first");
 module.exports = router;

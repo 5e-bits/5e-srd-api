@@ -20,7 +20,7 @@ app.use(morgan('short'));
 app.use("/api", class_router);
 app.use("/api", spell_router);
 app.use("/api", monster_router);
-app.use("/api", feature_router);
+app.use("/api/features", feature_router);
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
