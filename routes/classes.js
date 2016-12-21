@@ -1,8 +1,10 @@
 var express = require('express'),
-    router = express.Router(),
-    app = express();
+    router = express.Router()
 
 var Class = require('../models/class');
+
+// Register class routes
+router.use('/barbarian', require('./class-routes/barbarian'));
 
 router
 .get('/', (req,res) => {
@@ -16,6 +18,18 @@ router
         }
         res.status(200).json(classes);
     })
+})
+
+// -------------------------------------
+// find class by index in array
+router
+.get('/:index', (req,res) => {
+  Class.findOne( { index: parseInt(req.params.index) }, (err,item) => {
+    if (err) {
+      res.send(err);
+    }
+    res.status(200).json(item);
+  })
 })
 
 module.exports = router;
