@@ -17,9 +17,9 @@ app.use(morgan('short'));
 
 
 // Register routes
-app.use("/api", class_router);
-app.use("/api", spell_router);
-app.use("/api", monster_router);
+app.use("/api/classes", class_router);
+app.use("/api/spells", spell_router);
+app.use("/api/monsters", monster_router);
 app.use("/api/features", feature_router);
 
 // Connect to database and start the server
