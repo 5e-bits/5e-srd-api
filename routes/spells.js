@@ -54,7 +54,7 @@ router
 // -------------------------------------
 // find spell by index in array
 router
-.get('/spells/:index', (req,res) => {
+.get('/:index', (req,res) => {
   Spell.findOne( { index: parseInt(req.params.index) }, (err,spell) => {
     if (err) {
       res.send(err);

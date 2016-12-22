@@ -32,7 +32,7 @@ router
 // -------------------------------------
 // find monster by index in array
 router
-.get('/monsters/:index', (req,res) => {
+.get('/:index', (req,res) => {
   Monster.findOne( { index: parseInt(req.params.index) }, (err,monster) => {
     if (err) {
       res.send(err);
