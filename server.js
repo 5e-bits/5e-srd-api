@@ -18,6 +18,7 @@ app.use("/api/spells", require('./routes/spells'));
 app.use("/api/monsters", require('./routes/monsters'));
 app.use("/api/features", require('./routes/features'));
 app.use("/api/tables", require('./routes/tables'));
+app.use("/api/equipment", require('./routes/equipment'));
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
