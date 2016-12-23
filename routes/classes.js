@@ -6,6 +6,7 @@ var Class = require('../models/class');
 // Register class routes
 router.use('/barbarian', require('./class-routes/barbarian'));
 router.use('/bard', require('./class-routes/bard'));
+router.use('/cleric', require('./class-routes/cleric'));
 
 router
 .get('/', (req,res) => {

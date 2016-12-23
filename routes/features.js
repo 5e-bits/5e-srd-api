@@ -6,6 +6,7 @@ var ClassFeature = require('../models/classfeature');
 // Register class routes
 router.use('/barbarian', require('./class-feature-routes/barbarian'));
 router.use('/bard', require('./class-feature-routes/bard'));
+router.use('/cleric', require('./class-feature-routes/cleric'));
 
 
 // -------------------------------------

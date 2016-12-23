@@ -6,7 +6,7 @@ var ClassFeature = require('../../models/classfeature');
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassFeature.find({ class: "Bard" } , (err,features) => {
+  ClassFeature.find({ class: "Cleric" } , (err,features) => {
     if (err) {
       res.send(err);
     }

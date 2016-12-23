@@ -1,20 +1,20 @@
 var express = require('express'),
     router = express.Router();
 
-var ClassFeature = require('../../models/classfeature');
+var ClassTable = require('../../models/classtable');
 
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassFeature.find({ class: "Bard" } , (err,features) => {
+  ClassTable.find({ class: "Cleric" } , (err,tables) => {
     if (err) {
       res.send(err);
     }
-  }).sort( {index : 'asc'} ).exec( (err, features) => {
+  }).sort( {level : 'asc'} ).exec( (err, tables) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(features);
+    res.status(200).json(tables);
   })
 
 })

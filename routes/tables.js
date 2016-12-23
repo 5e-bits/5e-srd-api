@@ -6,6 +6,7 @@ var ClassTable = require('../models/classtable');
 // Register class routes
 router.use('/barbarian', require('./class-table-routes/barbarian'));
 router.use('/bard', require('./class-table-routes/bard'));
+router.use('/cleric', require('./class-table-routes/cleric'));
 
 
 // -------------------------------------

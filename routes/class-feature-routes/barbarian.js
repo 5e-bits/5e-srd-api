@@ -10,7 +10,7 @@ router.route('/')
     if (err) {
       res.send(err);
     }
-  }).sort( {level : 'asc'} ).exec( (err, features) => {
+  }).sort( {index : 'asc'} ).exec( (err, features) => {
     if (err) {
       res.send(err);
     }
