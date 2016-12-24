@@ -7,6 +7,7 @@ var Proficiency = require('../models/proficiency');
 router.use('/barbarian', require('./proficiency-routes/barbarian'));
 router.use('/bard', require('./proficiency-routes/bard'));
 router.use('/cleric', require('./proficiency-routes/cleric'));
+router.use('/druid', require('./proficiency-routes/druid'));
 
 // -------------------------------------
 router

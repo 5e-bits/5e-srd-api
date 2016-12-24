@@ -6,7 +6,7 @@ var ClassTable = require('../../models/classtable');
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassTable.findOne({ class: "Bard" } , (err,tables) => {
+  ClassTable.findOne({ class: "Druid" } , (err,tables) => {
     if (err) {
       res.send(err);
     }

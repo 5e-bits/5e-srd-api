@@ -7,6 +7,7 @@ var ClassTable = require('../models/classtable');
 router.use('/barbarian', require('./class-table-routes/barbarian'));
 router.use('/bard', require('./class-table-routes/bard'));
 router.use('/cleric', require('./class-table-routes/cleric'));
+router.use('/druid', require('./class-table-routes/druid'));
 
 
 // -------------------------------------

@@ -7,6 +7,7 @@ var ClassFeature = require('../models/classfeature');
 router.use('/barbarian', require('./class-feature-routes/barbarian'));
 router.use('/bard', require('./class-feature-routes/bard'));
 router.use('/cleric', require('./class-feature-routes/cleric'));
+router.use('/druid', require('./class-feature-routes/druid'));
 
 
 // -------------------------------------

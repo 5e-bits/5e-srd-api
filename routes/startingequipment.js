@@ -7,6 +7,7 @@ var StartingEquipment = require('../models/startingequipment');
 router.use('/barbarian', require('./startingequipment-routes/barbarian'));
 router.use('/bard', require('./startingequipment-routes/bard'));
 router.use('/cleric', require('./startingequipment-routes/cleric'));
+router.use('/druid', require('./startingequipment-routes/druid'));
 
 // -------------------------------------
 router

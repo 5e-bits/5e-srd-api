@@ -10,7 +10,7 @@ router.route('/')
   let query_subclass = req.query.subclass;
 
   if (query_subclass !== undefined) {
-    ClassFeature.find({ class: "Cleric", subclass: query_subclass } , (err,features) => {
+    ClassFeature.find({ class: "Druid", subclass: query_subclass } , (err,features) => {
       if (err) {
         res.send(err);
       }

@@ -1,16 +1,16 @@
 var express = require('express'),
     router = express.Router();
 
-var ClassTable = require('../../models/classtable');
+var Spellcasting = require('../../models/spellcasting');
 
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassTable.findOne({ class: "Bard" } , (err,tables) => {
+  Spellcasting.findOne({ class: "Cleric" } , (err,classs) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(tables);
+    res.status(200).json(classs)
   })
 })
 
