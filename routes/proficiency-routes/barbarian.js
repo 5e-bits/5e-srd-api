@@ -3,10 +3,12 @@ var express = require('express'),
 
 var Proficiency = require('../../models/proficiency');
 
+var class_url = "http://dnd5eapi.co/api/classes/1"
+
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  Proficiency.find({ classes: "http://dnd5eapi.co/api/classes/1" } , (err,proficiencies) => {
+  Proficiency.find({ classes: class_url } , (err,proficiencies) => {
     if (err) {
       res.send(err);
     }

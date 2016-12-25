@@ -3,10 +3,12 @@ var express = require('express'),
 
 var StartingEquipment = require('../../models/startingequipment');
 
+let class_name = "Druid"
+
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  StartingEquipment.find({ class: "Druid" } , (err,startingequipment) => {
+  StartingEquipment.find({ class: class_name } , (err,startingequipment) => {
     if (err) {
       res.send(err);
     }

@@ -3,10 +3,12 @@ var express = require('express'),
 
 var Subclass = require('../../models/subclass');
 
+let class_name = "Barbarian"
+
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  Subclass.find({ class: "Barbarian" } , (err,subclasses) => {
+  Subclass.find({ class: class_name } , (err,subclasses) => {
     if (err) {
       res.send(err);
     }

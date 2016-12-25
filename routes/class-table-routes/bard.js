@@ -2,11 +2,12 @@ var express = require('express'),
     router = express.Router();
 
 var ClassTable = require('../../models/classtable');
+let class_name = "Bard";
 
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassTable.findOne({ class: "Bard" } , (err,tables) => {
+  ClassTable.findOne({ class: class_name } , (err,tables) => {
     if (err) {
       res.send(err);
     }
