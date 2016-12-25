@@ -14,6 +14,8 @@ app.use(morgan('short'));
 
 // Register routes
 app.use("/api/classes", require('./routes/classes'));
+app.use("/api/subclasses", require('./routes/subclasses'));
+app.use("/api/spellcasting", require('./routes/spellcasting'));
 app.use("/api/spells", require('./routes/spells'));
 app.use("/api/monsters", require('./routes/monsters'));
 app.use("/api/features", require('./routes/features'));

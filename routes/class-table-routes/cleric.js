@@ -2,21 +2,17 @@ var express = require('express'),
     router = express.Router();
 
 var ClassTable = require('../../models/classtable');
+let class_name = "Cleric";
 
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassTable.find({ class: "Cleric" } , (err,tables) => {
-    if (err) {
-      res.send(err);
-    }
-  }).sort( {level : 'asc'} ).exec( (err, tables) => {
+  ClassTable.findOne({ class: class_name } , (err,tables) => {
     if (err) {
       res.send(err);
     }
     res.status(200).json(tables);
   })
-
 })
 
 module.exports = router;

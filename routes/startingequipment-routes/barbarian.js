@@ -3,14 +3,12 @@ var express = require('express'),
 
 var StartingEquipment = require('../../models/startingequipment');
 
+let class_name = "Barbarian"
+
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  StartingEquipment.find({ class: "Barbarian" } , (err,startingequipment) => {
-    if (err) {
-      res.send(err);
-    }
-  }).sort( {index : 'asc'} ).exec( (err, startingequipment) => {
+  StartingEquipment.findOne({ class: class_name } , (err,startingequipment) => {
     if (err) {
       res.send(err);
     }
