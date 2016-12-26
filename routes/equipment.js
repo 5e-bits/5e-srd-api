@@ -6,6 +6,9 @@ var Equipment = require('../models/equipment');
 
 router.use('/weapons', require('./equipment-routes/weapons'));
 router.use('/armor', require('./equipment-routes/armor'));
+router.use('/gear', require('./equipment-routes/gear'));
+router.use('/mounts', require('./equipment-routes/mounts'));
+router.use('/tools', require('./equipment-routes/tools'));
 
 // -------------------------------------
 // add '/equipment' route
