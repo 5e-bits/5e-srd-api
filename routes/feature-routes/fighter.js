@@ -1,18 +1,18 @@
 var express = require('express'),
     router = express.Router();
 
-var ClassFeature = require('../../models/classfeature');
+var Feature = require('../../models/feature');
 
 var class_name = "Fighter"
 
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  ClassFeature.find({class: class_name}, (err, features) => {
+  Feature.find({class: class_name}, (err, features) => {
     if (err) {
       res.send(err);
     }
-  }).sort({index: 'asc'}).exec((err, features) => {
+  }).sort({level: 'asc'}).exec((err, features) => {
     if (err) {
       res.send(err);
     }
@@ -23,7 +23,7 @@ router.route('/')
 
 router.route('/level/:level')
 .get((req,res) => {
-  ClassFeature.find({class: class_name, level: parseInt(req.params.level) }, (err, features) => {
+  Feature.find({class: class_name, level: parseInt(req.params.level) }, (err, features) => {
     if (err) {
       res.send(err);
     }

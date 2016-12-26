@@ -1,7 +1,7 @@
 let express = require('express'),
     router = express.Router();
 
-var ClassFeature = require('../models/classfeature');
+var Feature = require('../models/feature');
 
 let subfolder_name = "feature-routes"
 
@@ -23,7 +23,7 @@ router.use('/wizard', require('./' + subfolder_name + '/wizard'));
 // -------------------------------------
 router
 .get('/', (req,res) => {
-    ClassFeature.find((err,features) => {
+    Feature.find((err,features) => {
       if (err) {
         res.send(err);
       }
@@ -38,7 +38,7 @@ router
 // -------------------------------------
 router
 .get('/:index', (req,res) => {
-  ClassFeature.findOne( { index: parseInt(req.params.index) }, (err,feature) => {
+  Feature.findOne( { index: parseInt(req.params.index) }, (err,feature) => {
     if (err) {
       res.send(err);
     }

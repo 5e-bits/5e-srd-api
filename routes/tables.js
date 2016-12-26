@@ -1,7 +1,7 @@
 let express = require('express'),
     router = express.Router();
 
-var ClassTable = require('../models/classtable');
+var Table = require('../models/table');
 
 let subfolder_name = "table-routes"
 
@@ -23,7 +23,7 @@ router.use('/wizard', require('./' + subfolder_name + '/wizard'));
 // -------------------------------------
 router
 .get('/', (req,res) => {
-    ClassTable.find((err,tables) => {
+    Table.find((err,tables) => {
       if (err) {
         res.send(err);
       }
@@ -38,7 +38,7 @@ router
 // -------------------------------------
 router
 .get('/:index', (req,res) => {
-  ClassTable.findOne( { index: parseInt(req.params.index) }, (err,table) => {
+  Table.findOne( { index: parseInt(req.params.index) }, (err,table) => {
     if (err) {
       res.send(err);
     }
