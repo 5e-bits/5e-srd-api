@@ -20,6 +20,13 @@ router.use('/sorcerer', require('./' + subfolder_name + '/sorcerer'));
 router.use('/warlock', require('./' + subfolder_name + '/warlock'));
 router.use('/wizard', require('./' + subfolder_name + '/wizard'));
 
+router.use('/weapons', require('./' + subfolder_name + '/weapons'));
+router.use('/armor', require('./' + subfolder_name + '/armor'));
+router.use('/saving-throws', require('./' + subfolder_name + '/saving-throws'));
+router.use('/artisans-tools', require('./' + subfolder_name + '/artisans-tools'));
+router.use('/musical-instruments', require('./' + subfolder_name + '/musical-instruments'));
+router.use('/skills', require('./' + subfolder_name + '/skills'));
+
 // -------------------------------------
 router
 .get('/', (req,res) => {
