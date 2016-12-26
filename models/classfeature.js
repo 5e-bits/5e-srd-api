@@ -6,7 +6,7 @@ var ClassFeatureSchema   = new Schema({
     class: String,
     subclass: String,
     level: Number,
-    desc: String,
+    desc: [String],
 });
 
 module.exports = mongoose.model('ClassFeature', ClassFeatureSchema, 'classfeatures');
