@@ -17,39 +17,40 @@
     <p>We'll use <a href="http://httpie.org">httpie</a> for our examples as it displays responses nicely and gives us a whole lot more useful information. If you don't want to download httpie, just use the <em>curl</em> command instead.</p>
     <p>Here is the response we get:</p>
 
-    <pre><code>
-    {
-        "_id": "585f36fdc9e7ce9f72142693",
-        "index": 1,
-        "name": "Acid Arrow",
-        "desc": "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn.",
-        "higher_level": [
-            "When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
-        ],
-        "page": "phb 259",
-        "range": "90 feet",
-        "components": [
-            "V",
-            "S",
-            "M"
-        ],
-        "material": "Powdered rhubarb leaf and an adder’s stomach.",
-        "ritual": "no",
-        "duration": "Instantaneous",
-        "concentration": "no",
-        "casting_time": "1 action",
-        "level": 2,
-        "school": "Evocation",
-        "classes": [
-            "http://dnd5eapi.co/api/classes/4",
-            "http://dnd5eapi.co/api/classes/12"
-        ],
-        "url": "http://dnd5eapi.co/api/spells/1"
-    }</code></pre>
+    <pre><code>{
+  "_id": "585f36fdc9e7ce9f72142693",
+  "index": 1,
+  "name": "Acid Arrow",
+  "desc": [
+    "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
+  ],
+  "higher_level": [
+    "When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
+  ],
+  "page": "phb 259",
+  "range": "90 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material": "Powdered rhubarb leaf and an adder’s stomach.",
+  "ritual": "no",
+  "duration": "Instantaneous",
+  "concentration": "no",
+  "casting_time": "1 action",
+  "level": 2,
+  "school": "Evocation",
+  "classes": [
+    "http://dnd5eapi.co/api/classes/4",
+    "http://dnd5eapi.co/api/classes/12"
+  ],
+  "url": "http://dnd5eapi.co/api/spells/1"
+}</code></pre>
 
     <p>If your response looks slightly different don't panic. This is probably because more data has been added to dnd5eapi since we made this documentation.</p>
+    
     <p><a name="base"></a></p>
-
     <h3>Base URL</h3>
     <p>The <strong>Base URL</strong> is the root URL for all of the API, if you ever make a request to dnd5eapi and you get back a <strong>404 NOT FOUND</strong> response then check the Base URL first.</p>
     <p>The Base URL for dnd5eapi is:</p>
@@ -57,49 +58,12 @@
     <pre><code>http://dnd5eapi.co/api/</code></pre>
 
     <p>The documentation below assumes you are prepending the Base URL to the endpoints in order to make requests.</p>
-    <p><a name="rate"></a></p>
+    
 
-    <!--
-    <h3>Rate limiting</h3>
-    <p>dnd5eapi has rate limiting to prevent malicious abuse (as if anyone would abuse D&D 5th Edition data!) and to make sure our service can handle a potentially large amount of traffic. Rate limiting is done via IP address and is currently limited to 10,000 API request per day. This is enough to request all the data on the website at least ten times over. There should be no reason for hitting the rate limit.</p>
     <p><a name="auth"></a></p>
-    -->
-
     <h3>Authentication</h3>
     <p>dnd5eapi is a <strong>completely open API</strong>. No authentication is required to query and get data. This also means that we've limited what you can do to just <strong>GET</strong>-ing the data. If you find a mistake in the data, feel free to <a href="mailto:admin@dnd5eapi.co">email me</a>.</p>
-    <p><a name="schema"></a></p>
 
-    <!--
-    <h3>JSON Schema</h3>
-    <p>All resources support <a href="https://jsonschema.net">JSON Schema</a>. Making a request to <code>/api/&lt;resource&gt;/schema</code> will give you the details of that resource. This will allow you to programmatically inspect the attributes of that resource and their types.</p>
-    <p><a name="search"></a></p>
-    -->
-
-    <!--
-    <h3>Searching</h3>
-    <p>All resources support a <code>search</code>parameter that filters the set of resources returned. This allows you to make queries like:</p>
-    <p><code>https://dnd5eapi.co/api/classes/?search=r2</code></p>
-    <p>All searches will use case-insensitive partial matches on the set of search fields. To see the set of search fields for each resource, check out the individual resource documentation. For more information on advanced search terms see <a href="http://www.django-rest-framework.org/api-guide/filtering/#searchfilter">here</a>.</p>
-    -->
-
-    <!--
-    <h1>Encodings</h1>
-    <hr>
-
-    <p>dnd5eapi provides two encodings for you to render the data with:</p>
-    <p><a name="json"></a></p>
-
-    <h3>JSON</h3>
-    <p>JSON is the standard data format provided by dnd5eapi by default.</p>
-    <p><a name="wookiee"></a></p>
-
-    <h3>Wookiee</h3>
-    <p>Wookiee is for our tall hairy allies who speak Wookiee, this encoding is identical to JSON except with wookiee translations.</p>
-    <p>Using the wookiee renderer is easy, just append 
-
-    <code>?format=wookiee</code> to your urls:</p>
-    <p><code>https://dnd5eapi.co/api/planets/1/?format=wookiee</code></p>
-    -->
 
     <h1>Resources</h1>
     <hr>
@@ -117,8 +81,6 @@
 Connection: keep-alive
 Content-Length: 463
 Content-Type: application/json; charset=utf-8
-Date: Mon, 26 Dec 2016 02:09:38 GMT
-ETag: W/"1cf-cmW/zEAZsncx4AbjJTu59A"
 X-Powered-By: Express
 
 {
@@ -157,7 +119,10 @@ X-Powered-By: Express
     <ul>
         <li><code>/classes/</code>-- get all the classes resources</li>
         <li><code>/classes/:id/</code>-- get a specific class resource</li>
-        <li><code>/classes/schema/</code>-- view the JSON schema for this resource</li>
+
+        <% classes.forEach((item) => { %>
+            <li><code>/<%= item.link %>/</code>-- get the resource for the <%= item.name %> class</li>
+        <% }); %>
     </ul>
     <p><strong>Example request:</strong></p>
 
@@ -166,13 +131,6 @@ X-Powered-By: Express
     <p><strong>Example response:</strong></p>
 
     <pre><code>HTTP/1.1 200 OK
-Connection: keep-alive
-Content-Length: 503
-Content-Type: application/json; charset=utf-8
-Date: Mon, 26 Dec 2016 02:16:28 GMT
-ETag: W/"1f7-deIpSaXHkCTyZbqXNRPvMg"
-X-Powered-By: Express
-
 {
     "_id": "585efbecc9e7ce9f721421ac",
     "class_table": "http://dnd5eapi.co/api/tables/barbarian",
@@ -199,489 +157,10 @@ X-Powered-By: Express
 
     <p><strong>Attributes:</strong></p>
     <ul>
-        <li><code>name</code><em>string</em>-- The name of this person.</li>
-        <li><code>birth_year</code><em>string</em>-- The birth year of the person, using the in-universe standard of <strong>BBY</strong> or <strong>ABY</strong> - Before the Battle of Yavin or After the Battle of Yavin. The Battle of Yavin is a battle that occurs at the end of D&D 5th Edition episode IV: A New Hope.</li>
-        <li><code>eye_color</code><em>string</em>-- The eye color of this person. Will be "unknown" if not known or "n/a" if the person does not have an eye.</li>
-        <li><code>gender</code><em>string</em>-- The gender of this person. Either "Male", "Female" or "unknown", "n/a" if the person does not have a gender.</li>
-        <li><code>hair_color</code><em>string</em>-- The hair color of this person. Will be "unknown" if not known or "n/a" if the person does not have hair.</li>
-        <li><code>height</code><em>string</em>-- The height of the person in centimeters.</li>
-        <li><code>mass</code><em>string</em>-- The mass of the person in kilograms.</li>
-        <li><code>skin_color</code><em>string</em>-- The skin color of this person.</li>
-        <li><code>homeworld</code><em>string</em>-- The URL of a planet resource, a planet that this person was born on or inhabits.</li>
-        <li><code>films</code><em>array</em>-- An array of film resource URLs that this person has been in.</li>
-        <li><code>species</code><em>array</em>-- An array of species resource URLs that this person belongs to.</li>
-        <li><code>starships</code><em>array</em>-- An array of starship resource URLs that this person has piloted.</li>
-        <li><code>vehicles</code><em>array</em>-- An array of vehicle resource URLs that this person has piloted.</li>
-        <li><code>url</code><em>string</em>-- the hypermedia URL of this resource.</li>
-        <li><code>created</code><em>string</em>-- the ISO 8601 date format of the time that this resource was created.</li>
-        <li><code>edited</code><em>string</em>-- the ISO 8601 date format of the time that this resource was edited.</li>
+        <% attributes_classes.forEach((item) => { %>
+            <li><code><%= item.name %></code><em> <%= item.type %> </em>-- <%= item.desc %></li>
+        <% }); %>
     </ul>
-    <p><strong>Search Fields:</strong></p>
-        <ul>
-            <li><code>name</code></li>
-        </ul>
+    
     <hr>
-
-    <p><a name="films"></a></p>
-
-    <h3>Films</h3>
-    <p>A Film resource is a single film.</p>
-    <p><strong>Endpoints</strong></p>
-    <ul>
-        <li><code>/films/</code>-- get all the film resources</li>
-        <li><code>/films/:id/</code>-- get a specific film resource</li>
-        <li><code>/films/schema/</code>-- view the JSON schema for this resource</li>
-    </ul>
-    <p><strong>Example request:</strong></p>
-
-    <pre>
-        <code>
-            http http://dnd5eapi.co/api/films/1/
-        </code>
-    </pre>
-
-    <p><strong>Example response:</strong></p>
-
-    <pre>
-        <code>
-            HTTP/1.0 200 OK
-            Content-Type: application/json
-            {
-                "characters": [
-                    "http://dnd5eapi.co/api/classes/1/",
-                    ...
-                ],
-                "created": "2014-12-10T14:23:31.880000Z",
-                "director": "George Lucas",
-                "edited": "2014-12-12T11:24:39.858000Z",
-                "episode_id": 4,
-                "opening_crawl": "It is a period of civil war.\n\nRebel spaceships, striking\n\nfrom a hidden base, have won\n\ntheir first victory against\n\nthe evil Galactic Empire.\n\n\n\nDuring the battle, Rebel\n\nspies managed to steal secret\r\nplans to the Empire's\n\nultimate weapon, the DEATH\n\nSTAR, an armored space\n\nstation with enough power\n\nto destroy an entire planet.\n\n\n\nPursued by the Empire's\n\nsinister agents, Princess\n\nLeia races home aboard her\n\nstarship, custodian of the\n\nstolen plans that can save her\n\nclasses and restore\n\nfreedom to the galaxy....",
-                "planets": [
-                    "http://dnd5eapi.co/api/planets/1/",
-                    ...
-                ],
-                "producer": "Gary Kurtz, Rick McCallum",
-                "release_date": "1977-05-25",
-                "species": [
-                    "http://dnd5eapi.co/api/species/1/",
-                    ...
-                ],
-                "starships": [
-                    "http://dnd5eapi.co/api/starships/2/",
-                    ...
-                ],
-                "title": "A New Hope",
-                "url": "http://dnd5eapi.co/api/films/1/",
-                "vehicles": [
-                    "http://dnd5eapi.co/api/vehicles/4/",
-                    ...
-                ]
-            }
-        </code>
-    </pre>
-
-    <p><strong>Attributes:</strong></p>
-    <ul>
-        <li><code>title</code><em>string</em>-- The title of this film</li>
-        <li><code>episode_id</code><em>integer</em>-- The episode number of this film.</li>
-        <li><code>opening_crawl</code><em>string</em>-- The opening paragraphs at the beginning of this film.</li>
-        <li><code>director</code><em>string</em>-- The name of the director of this film.</li>
-        <li><code>producer</code><em>string</em>-- The name(s) of the producer(s) of this film. Comma separated.</li>
-        <li><code>release_date</code><em>date</em>-- The ISO 8601 date format of film release at original creator country.</li>
-        <li><code>species</code><em>array</em>-- An array of species resource URLs that are in this film.</li>
-        <li><code>starships</code><em>array</em>-- An array of starship resource URLs that are in this film.</li>
-        <li><code>vehicles</code><em>array</em>-- An array of vehicle resource URLs that are in this film.</li>
-        <li><code>characters</code><em>array</em>-- An array of classes resource URLs that are in this film.</li>
-        <li><code>planets</code><em>array</em>-- An array of planet resource URLs that are in this film.</li>
-        <li><code>url</code><em>string</em>-- the hypermedia URL of this resource.</li>
-        <li><code>created</code><em>string</em>-- the ISO 8601 date format of the time that this resource was created.</li>
-        <li><code>edited</code><em>string</em>-- the ISO 8601 date format of the time that this resource was edited.</li>
-    </ul>
-    <p><strong>Search Fields:</strong></p>
-    <ul>
-        <li><code>title</code></li>
-    </ul>
-    <hr>
-
-    <p><a name="starships"></a></p>
-
-    <h3>Starships</h3>
-    <p>A Starship resource is a single transport craft that has hyperdrive capability.</p>
-    <p><strong>Endpoints</strong></p>
-    <ul>
-        <li><code>/starships/</code>-- get all the starship resources</li>
-        <li><code>/starships/:id/</code>-- get a specific starship resource</li>
-        <li><code>/starships/schema/</code>-- view the JSON schema for this resource</li>
-    </ul>
-    <p><strong>Example request:</strong></p>
-
-    <pre>
-        <code>
-    http http://dnd5eapi.co/api/starships/9/
-        </code>
-    </pre>
-
-    <p><strong>Example response:</strong></p>
-
-    <pre>
-        <code>
-            HTTP/1.0 200 OK
-            Content-Type: application/json
-            {
-                "MGLT": "10 MGLT",
-                "cargo_capacity": "1000000000000",
-                "consumables": "3 years",
-                "cost_in_credits": "1000000000000",
-                "created": "2014-12-10T16:36:50.509000Z",
-                "crew": "342953",
-                "edited": "2014-12-10T16:36:50.509000Z",
-                "hyperdrive_rating": "4.0",
-                "length": "120000",
-                "manufacturer": "Imperial Department of Military Research, Sienar Fleet Systems",
-                "max_atmosphering_speed": "n/a",
-                "model": "DS-1 Orbital Battle Station",
-                "name": "Death Star",
-                "passengers": "843342",
-                "films": [
-                    "http://dnd5eapi.co/api/films/1/"
-                ],
-                "pilots": [],
-                "starship_class": "Deep Space Mobile Battlestation",
-                "url": "http://dnd5eapi.co/api/starships/9/"
-            }
-        </code>
-    </pre>
-
-    <p><strong>Attributes:</strong></p>
-    <ul>
-        <li><code>name</code><em>string</em>-- The name of this starship. The common name, such as "Death Star".</li>
-        <li><code>model</code><em>string</em>-- The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".</li>
-        <li><code>starship_class</code><em>string</em>-- The class of this starship, such as "Starfighter" or "Deep Space Mobile Battlestation"</li>
-        <li><code>manufacturer</code><em>string</em>-- The manufacturer of this starship. Comma separated if more than one.</li>
-        <li><code>cost_in_credits</code><em>string</em>-- The cost of this starship new, in galactic credits.</li>
-        <li><code>length</code><em>string</em>-- The length of this starship in meters.</li>
-        <li><code>crew</code><em>string</em>-- The number of personnel needed to run or pilot this starship.</li>
-        <li><code>passengers</code><em>string</em>-- The number of non-essential classes this starship can transport.</li>
-        <li><code>max_atmosphering_speed</code><em>string</em>-- The maximum speed of this starship in the atmosphere. "N/A" if this starship is incapable of atmospheric flight.</li>
-        <li><code>hyperdrive_rating</code><em>string</em>-- The class of this starships hyperdrive.</li>
-        <li><code>MGLT</code><em>string</em>-- The Maximum number of Megalights this starship can travel in a standard hour. A "Megalight" is a standard unit of distance and has never been defined before within the D&D 5th Edition universe. This figure is only really useful for measuring the difference in speed of starships. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.</li>
-        <li><code>cargo_capacity</code><em>string</em>-- The maximum number of kilograms that this starship can transport.</li>
-        <li><code>consumables</code>*string</li>
-        <li>The maximum length of time that this starship can provide consumables for its entire crew without having to resupply.</li>
-        <li><code>films</code><em>array</em>-- An array of Film URL Resources that this starship has appeared in.</li>
-        <li><code>pilots</code><em>array</em>-- An array of People URL Resources that this starship has been piloted by.</li>
-        <li><code>url</code><em>string</em>-- the hypermedia URL of this resource.</li>
-        <li><code>created</code><em>string</em>-- the ISO 8601 date format of the time that this resource was created.</li>
-        <li><code>edited</code><em>string</em>-- the ISO 8601 date format of the time that this resource was edited.</li>
-    </ul>
-    <p><strong>Search Fields:</strong></p>
-    <ul>
-        <li><code>name</code></li>
-        <li><code>model</code></li>
-    </ul>
-    <hr>
-
-    <p><a name="vehicles"></a></p>
-
-    <h3>Vehicles</h3>
-    <p>A Vehicle resource is a single transport craft that <strong>does not have</strong> hyperdrive capability.</p>
-    <p><strong>Endpoints</strong></p>
-    <ul>
-        <li><code>/vehicles/</code>-- get all the vehicle resources</li>
-        <li><code>/vehicles/:id/</code>-- get a specific vehicle resource</li>
-        <li><code>/vehicles/schema/</code>-- view the JSON schema for this resource</li>
-    </ul>
-    <p><strong>Example request:</strong></p>
-
-    <pre>
-        <code>
-            http http://dnd5eapi.co/api/vehicles/4/
-        </code>
-    </pre>
-
-    <p><strong>Example response:</strong></p>
-
-    <pre>
-        <code>
-            HTTP/1.0 200 OK
-            Content-Type: application/json
-
-            {
-                "cargo_capacity": "50000",
-                "consumables": "2 months",
-                "cost_in_credits": "150000",
-                "created": "2014-12-10T15:36:25.724000Z",
-                "crew": "46",
-                "edited": "2014-12-10T15:36:25.724000Z",
-                "length": "36.8",
-                "manufacturer": "Corellia Mining Corporation",
-                "max_atmosphering_speed": "30",
-                "model": "Digger Crawler",
-                "name": "Sand Crawler",
-                "passengers": "30",
-                "pilots": [],
-                "films": [
-                    "http://dnd5eapi.co/api/films/1/"
-                ],
-                "url": "http://dnd5eapi.co/api/vehicles/4/",
-                "vehicle_class": "wheeled"
-            }
-        </code>
-    </pre>
-
-    <p><strong>Attributes:</strong></p>
-    <ul>
-        <li><code>name</code><em>string</em>-- The name of this vehicle. The common name, such as "Sand Crawler" or "Speeder bike".</li>
-        <li><code>model</code><em>string</em>-- The model or official name of this vehicle. Such as "All-Terrain Attack Transport".</li>
-        <li><code>vehicle_class</code><em>string</em>-- The class of this vehicle, such as "Wheeled" or "Repulsorcraft".</li>
-        <li><code>manufacturer</code><em>string</em>-- The manufacturer of this vehicle. Comma separated if more than one.</li>
-        <li><code>length</code><em>string</em>-- The length of this vehicle in meters.</li>
-        <li><code>cost_in_credits</code><em>string</em>-- The cost of this vehicle new, in Galactic Credits.</li>
-        <li><code>crew</code><em>string</em>-- The number of personnel needed to run or pilot this vehicle.</li>
-        <li><code>passengers</code><em>string</em>-- The number of non-essential classes this vehicle can transport.</li>
-        <li><code>max_atmosphering_speed</code><em>string</em>-- The maximum speed of this vehicle in the atmosphere.</li>
-        <li><code>cargo_capacity</code><em>string</em>-- The maximum number of kilograms that this vehicle can transport.</li>
-        <li><code>consumables</code>
-
-        *string</li>
-    <li>The maximum length of time that this vehicle can provide consumables for its entire crew without having to resupply.</li>
-        <li><code>films</code><em>array</em>-- An array of Film URL Resources that this vehicle has appeared in.</li>
-        <li><code>pilots</code><em>array</em>-- An array of People URL Resources that this vehicle has been piloted by.</li>
-        <li><code>url</code><em>string</em>-- the hypermedia URL of this resource.</li>
-        <li><code>created</code><em>string</em>-- the ISO 8601 date format of the time that this resource was created.</li>
-        <li><code>edited</code><em>string</em>-- the ISO 8601 date format of the time that this resource was edited.</li>
-    </ul>
-    <p><strong>Search Fields:</strong></p>
-    <ul>
-        <li><code>name</code></li>
-        <li><code>model</code></li>
-    </ul>
-    <hr>
-
-    <p><a name="species"></a></p>
-
-    <h3>Species</h3>
-    <p>A Species resource is a type of person or character within the D&D 5th Edition Universe.</p>
-    <p><strong>Endpoints</strong></p>
-    <ul>
-        <li><code>/species/</code>-- get all the species resources</li>
-        <li><code>/species/:id/</code>-- get a specific species resource</li>
-        <li><code>/species/schema/</code>-- view the JSON schema for this resource</li>
-    </ul>
-    <p><strong>Example request:</strong></p>
-
-    <pre>
-        <code>
-            http http://dnd5eapi.co/api/species/3/
-        </code>
-    </pre>
-
-    <p><strong>Example response:</strong></p>
-
-    <pre>
-        <code>
-            HTTP/1.0 200 OK
-            Content-Type: application/json
-
-            {
-                "average_height": "2.1",
-                "average_lifespan": "400",
-                "classification": "Mammal",
-                "created": "2014-12-10T16:44:31.486000Z",
-                "designation": "Sentient",
-                "edited": "2014-12-10T16:44:31.486000Z",
-                "eye_colors": "blue, green, yellow, brown, golden, red",
-                "hair_colors": "black, brown",
-                "homeworld": "http://dnd5eapi.co/api/planets/14/",
-                "language": "Shyriiwook",
-                "name": "Wookie",
-                "classes": [
-                    "http://dnd5eapi.co/api/classes/13/"
-                ],
-                "films": [
-                    "http://dnd5eapi.co/api/films/1/",
-                    "http://dnd5eapi.co/api/films/2/"
-                ],
-                "skin_colors": "gray",
-                "url": "http://dnd5eapi.co/api/species/3/"
-            }
-        </code>
-    </pre>
-
-    <p><strong>Attributes:</strong></p>
-    <ul>
-        <li><code>name</code><em>string</em>-- The name of this species.</li>
-        <li><code>classification</code><em>string</em>-- The classification of this species, such as "mammal" or "reptile".</li>
-        <li><code>designation</code><em>string</em>-- The designation of this species, such as "sentient".</li>
-        <li><code>average_height</code><em>string</em>-- The average height of this species in centimeters.</li>
-        <li><code>average_lifespan</code><em>string</em>-- The average lifespan of this species in years.</li>
-        <li><code>eye_colors</code><em>string</em>-- A comma-separated string of common eye colors for this species, "none" if this species does not typically have eyes.</li>
-        <li><code>hair_colors</code><em>string</em>-- A comma-separated string of common hair colors for this species, "none" if this species does not typically have hair.</li>
-        <li><code>skin_colors</code><em>string</em>-- A comma-separated string of common skin colors for this species, "none" if this species does not typically have skin.</li>
-        <li><code>language</code><em>string</em>-- The language commonly spoken by this species.</li>
-        <li><code>homeworld</code><em>string</em>-- The URL of a planet resource, a planet that this species originates from.</li>
-        <li><code>classes</code><em>array</em>-- An array of People URL Resources that are a part of this species.</li>
-        <li><code>films</code><em>array</em>-- An array of Film URL Resources that this species has appeared in.</li>
-        <li><code>url</code><em>string</em>-- the hypermedia URL of this resource.</li>
-        <li><code>created</code><em>string</em>-- the ISO 8601 date format of the time that this resource was created.</li>
-        <li><code>edited</code><em>string</em>-- the ISO 8601 date format of the time that this resource was edited.</li>
-    </ul>
-    <p><strong>Search Fields:</strong></p>
-    <ul>
-        <li><code>name</code></li>
-    </ul>
-    <hr>
-
-    <p><a name="planets"></a></p>
-
-    <h3>Planets</h3>
-    <p>A Planet resource is a large mass, planet or planetoid in the D&D 5th Edition Universe, at the time of 0 ABY.</p>
-    <p><strong>Endpoints</strong></p>
-    <ul>
-        <li><code>/planets/</code>-- get all the planets resources</li>
-        <li><code>/planets/:id/</code>-- get a specific planets resource</li>
-        <li><code>/planets/schema/</code>-- view the JSON schema for this resource</li>
-    </ul>
-    <p><strong>Example request:</strong></p>
-
-    <pre>
-        <code>
-            http http://dnd5eapi.co/api/planets/1/
-        </code>
-    </pre>
-
-    <p><strong>Example response:</strong></p>
-
-    <pre>
-        <code>
-            HTTP/1.0 200 OK
-            Content-Type: application/json
-
-            {
-                "climate": "Arid",
-                "created": "2014-12-09T13:50:49.641000Z",
-                "diameter": "10465",
-                "edited": "2014-12-15T13:48:16.167217Z",
-                "films": [
-                    "http://dnd5eapi.co/api/films/1/",
-                    ...
-                ],
-                "gravity": "1",
-                "name": "Tatooine",
-                "orbital_period": "304",
-                "population": "120000",
-                "residents": [
-                    "http://dnd5eapi.co/api/classes/1/",
-                    ...
-                ],
-                "rotation_period": "23",
-                "surface_water": "1",
-                "terrain": "Dessert",
-                "url": "http://dnd5eapi.co/api/planets/1/"
-            }
-        </code>
-    </pre>
-
-    <p><strong>Attributes:</strong></p>
-    <ul>
-        <li><code>name</code><em>string</em>-- The name of this planet.</li>
-        <li><code>diameter</code><em>string</em>-- The diameter of this planet in kilometers.</li>
-        <li><code>rotation_period</code><em>string</em>-- The number of standard hours it takes for this planet to complete a single rotation on its axis.</li>
-        <li><code>orbital_period</code><em>string</em>-- The number of standard days it takes for this planet to complete a single orbit of its local star.</li>
-        <li><code>gravity</code><em>string</em>-- A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs.</li>
-        <li><code>population</code><em>string</em>-- The average population of sentient beings inhabiting this planet.</li>
-        <li><code>climate</code><em>string</em>-- The climate of this planet. Comma separated if diverse.</li>
-        <li><code>terrain</code><em>string</em>-- The terrain of this planet. Comma separated if diverse.</li>
-        <li><code>surface_water</code><em>string</em>-- The percentage of the planet surface that is naturally occurring water or bodies of water.</li>
-        <li><code>residents</code><em>array</em>-- An array of People URL Resources that live on this planet.</li>
-        <li><code>films</code><em>array</em>-- An array of Film URL Resources that this planet has appeared in.</li>
-        <li><code>url</code><em>string</em>-- the hypermedia URL of this resource.</li>
-        <li><code>created</code><em>string</em>-- the ISO 8601 date format of the time that this resource was created.</li>
-        <li><code>edited</code><em>string</em>-- the ISO 8601 date format of the time that this resource was edited.</li>
-    </ul>
-    <p><strong>Search Fields:</strong></p>
-    <ul>
-        <li><code>name</code></li>
-    </ul>
-
-    <h1>Helper libraries</h1>
-    <hr>
-
-    <p>There are a bunch of helper libraries available for consuming the D&D 5th Edition API in a native programming language.</p>
-    <p><img src="http://i.imgur.com/l02u363.gif" alt="helper_library_gif"></p>
-    <p><a name="python"></a></p>
-    <h2>Python</h2>
-    <ul>
-        <li><a href="https://github.com/phalt/dnd5eapi-python">dnd5eapi-python</a> is built by the author of dnd5eapi, Paul Hallett.</li>
-    </ul>
-    <p><a name="javascript"></a></p>
-    <h2>Javascript</h2>
-    <ul>
-        <li><a href="https://github.com/cfjedimaster/dnd5eapi-Wrapper">dnd5eapi-Wrapper</a> By <a href="https://github.com/cfjedimaster">Raymond Camden</a>.</li>
-        <li><a href="https://www.npmjs.com/package/dnd5eapi-node">dnd5eapi-node</a> by <a href="https://github.com/lholmquist">Lucas Holmquist</a>.</li>
-    </ul>
-    <p><a name="android"></a></p>
-    <h2>Android</h2>
-    <ul>
-        <li><a href="https://github.com/Oleur/dnd5eapi-Android-SDK">dnd5eapi-Android-SDK</a> by <a href="https://github.com/Oleur">Julien Salvi</a>.</li>
-    </ul>
-    <p><a name="java"></a></p>
-    <h2>Java</h2>
-    <ul>
-        <li><a href="https://github.com/TheNightPhoenix/dnd5eapi-JAVA">dnd5eapi-java</a> by <a href="https://github.com/TheNightPhoenix">Abdallah Hodieb</a>.</li>
-    </ul>
-    <p><a name="golang"></a></p>
-    <h2>Go</h2>
-    <ul>
-        <li><a href="https://github.com/peterhellberg/dnd5eapi">dnd5eapi-go</a> by <a href="https://github.com/peterhellberg">Peter Hellberg</a>.</li>
-        <li><a href="https://github.com/leejarvis/dnd5eapi">dnd5eapi</a> by <a href="https://github.com/leejarvis">Lee Jarvis</a>.</li>
-    </ul>
-    <p><a name="php"></a></p>
-    <h2>PHP</h2>
-    <ul>
-        <li><a href="https://github.com/DraperStudio/Coruscant">Coruscant</a> by <a href="https://github.com/DraperStudio">DraperStudio</a>.</li>
-        <li><a href="https://github.com/rmasters/dnd5eapi-php">dnd5eapi-php</a> by <a href="https://github.com/rmasters">Ross Masters</a>.</li>
-    </ul>
-    <p><a name="ruby"></a></p>
-    <h2>Ruby</h2>
-    <ul>
-        <li><a href="https://github.com/emaraschio/dnd5eapi-ruby">dnd5eapi-ruby</a> by <a href="https://github.com/emaraschio">Ezequiel Maraschio</a>.</li>
-        <li><a href="https://github.com/philnash/tatooine">Tatooine</a> by <a href="https://github.com/philnash">Phil Nash</a>.</li>
-        <li><a href="https://github.com/igordcsouza/swgem">swgem</a> by <a href="https://github.com/igordcsouza">Igor Souza</a>.</li>
-    </ul>
-    <p><a name="csharp"></a></p>
-    <h2>C Sharp</h2>
-    <ul>
-        <li><a href="https://github.com/olcay/SharpTrooper">SharpTrooper</a> by <a href="https://github.com/olcay">Olcay Bayram</a>.</li>
-    </ul>
-    <p><a name="objc"></a></p>
-    <h2>Objective C</h2>
-    <ul>
-        <li><a href="https://github.com/njdehoog/Falcon">Falcon</a> by <a href="https://github.com/njdehoog">Niels de Hoog</a>.</li>
-    </ul>
-    <p><a name="angular"></a></p>
-    <h2>Angular</h2>
-    <ul>
-        <li><a href="https://github.com/unshift-devs/xyz-angular-dnd5eapi">xyz-angular-dnd5eapi</a> by <a href="https://github.com/cef62">Matteo Ronchi</a>.</li>
-        <li><a href="https://github.com/nickescallon/ne-dnd5eapi">ne-dnd5eapi</a> by <a href="https://github.com/nickescallon">Nick Escallon</a>.</li>
-    </ul>
-    <p><a name="angular2"></a></p>
-    <h2>Angular 2</h2>
-    <ul>
-        <li><a href="https://github.com/giammaleoni/ng2-dnd5eapi">ng2-dnd5eapi</a> by <a href="https://github.com/giammaleoni">Gianmaria Leoni</a>.</li>
-    </ul>
-    <p><a name="r"></a></p>
-    <h2>R</h2>
-    <ul>
-        <li><a href="https://github.com/Ironholds/rwars">rwars</a> by <a href="https://github.com/ironholds">Oliver Keyes</a>.</li>
-    </ul>
-    <p><a name="fsharp"></a></p>
-    <h2>F#</h2>
-    <ul>
-        <li><a href="https://github.com/evelinag/fsharp-dnd5eapi">fsharp-dnd5eapi</a> by <a href="http://evelinag.com/">Evelina Gabasova</a>.</li>
-    </ul>
-    <h2>Elixir</h2>
-    <ul>
-        <li><a href="https://github.com/twhitacre/dnd5eapi.ex">dnd5eapi.ex</a> by <a href="http://timw.co/">Tim Whitacre</a>.</li>
-    </ul>
 </div>

@@ -1,7 +1,3 @@
-// $( () => {
-//     alert("Jquery Test");
-// });
-
 function update(call){
     jQuery('#interactive').val(call);
     interactive_call();
@@ -23,6 +19,7 @@ function interactive_call(){
         complete: (data) => {
             if (data['status'] == 200){
                 var d = $.parseJSON(data['responseText']);
+                jQuery('#interactive_name').html(d['name']);
                 $('#interactive_output').text(JSON.stringify(d, null, '\t'));
             }
             else if (data['status'] == 404) {

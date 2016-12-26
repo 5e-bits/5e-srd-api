@@ -1,20 +1,294 @@
-.center {
-    text-align:center;
+html
+{
+	padding-top: 50px;
 }
-
-.yellow {
-    color:#FFE300;
+body,h1,h2,h3,h4,h5,h6,p
+{
+	color: #263238;
+	font-family: 'Helvetica',sans-serif;
 }
-
-.pad_top {
-    padding-top:34px;
+h1,h2,h3,h4,h5,h6
+{
+	margin-top: 0;
 }
-
-.pad_bot {
-    padding-bottom:34px;
+h1,h2
+{
+	font-weight: 900;
 }
-
-.subscribe_btn {
-    margin-left:-100px!;
+h2
+{
+	margin-bottom: 10px;
 }
-
+a
+{
+	color: #1b95e0;
+}
+p,pre,table,ul
+{
+	margin-bottom: 30px;
+}
+pre
+{
+	position: relative;
+}
+hr
+{
+	border-color: #CCC;
+	border-width: 1px;
+	margin: 3px 0;
+}
+.center-block
+{
+	float: none;
+	margin: 0 auto;
+}
+.header
+{
+	background-color: #21201E;
+	color: #FFF;
+	height: 200px;
+	text-align: center;
+	width: 100%;
+}
+.header h1,.header h2,.header h3,.header h4,.header h5
+{
+	color: #FFF;
+	margin: 0 10%;
+	text-align: center;
+}
+.footer
+{
+	padding: 30px;
+}
+.navbar
+{
+	background: #d81921;
+	border-width: 0px;
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.2);
+	webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.2);
+}
+.navbar-collapse
+{
+	padding: 0;
+}
+.navbar-inverse .navbar-nav li a
+{
+	color: #FFF;
+}
+.navbar-inverse .navbar-nav .active a,.navbar-inverse .navbar-nav .active a:hover,.navbar-inverse .navbar-nav .active a:focus
+{
+	background-color: #C62828!important;
+}
+.navbar-brand
+{
+	width: 100px;
+}
+.center
+{
+	text-align: center;
+}
+.input-group-addon
+{
+	background-color: #F5F5F5;
+}
+.input-group-addon,.btn,.well,pre
+{
+	border-radius: 0px;
+}
+.well p:last-child
+{
+	margin-bottom: 0px;
+}
+.pad_top
+{
+	padding-top: 15px;
+}
+.pad_bot
+{
+	padding-bottom: 15px;
+}
+.do_image
+{
+	width: 300px;
+}
+.twitter-tweet
+{
+	margin: 0 auto!important;
+	padding-bottom: 12px!important;
+	padding-top: 12px!important;
+}
+.twitter-share-button
+{
+	float: left!important;
+	width: 85px!important;
+}
+.fb-like
+{
+	float: left!important;
+}
+.cta
+{
+	background-color: #F5F5F5;
+	font-size: 21px;
+	font-weight: 300;
+	margin-bottom: 30px;
+	padding: 30px 0 30px;
+	text-align: center;
+}
+.cta p:last-child
+{
+	margin-bottom: 0;
+}
+#home .header
+{
+	padding-top: 45px;
+}
+#home .header h1
+{
+	display: inline-block;
+	position: relative;
+}
+#home .header h2
+{
+	font-weight: 300;
+	margin-bottom: 20px;
+    margin-top:15px;
+}
+#home .header h4
+{
+	font-weight: 300;
+}
+#home .header h4 .count
+{
+	font-weight: 900;
+}
+#home .btn-primary
+{
+	background-color: #1b95e0;
+	color: #FFF;
+}
+#home pre
+{
+	margin-bottom: 30px;
+}
+#about .header
+{
+	padding-top: 65px;
+}
+@media (min-width: 628px)
+{
+	#about .header
+	{
+		padding-top: 80px;
+	}
+}
+#docs .hide
+{
+	display: none;
+}
+#docs .header
+{
+	padding-top: 65px;
+}
+#docs .container
+{
+    margin-top:20px;
+}
+@media (min-width: 516px)
+{
+	#docs .header
+	{
+		padding-top: 80px;
+	}
+}
+#docs table
+{
+	width: 100%;
+}
+#docs table th:first-child,#docs table tr:first-child
+{
+	width: 140px;
+}
+#docs table th:last-child,#docs table tr:last-child
+{
+	width: 180px;
+}
+#docs table th,#docs table td
+{
+	border: 1px solid #CCC;
+	padding: 8px;
+}
+#docs h1,#docs h2,#docs h4,#docs #resourcename
+{
+	margin-top: -65px;
+	padding-top: 65px;
+}
+#docs .docs-body h1
+{
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 30px;
+}
+#docs h3
+{
+	font-weight: 300;
+}
+#docs h5
+{
+    margin-top:10px;
+	font-weight: 600;
+}
+#docs h6
+{
+	display: none;
+}
+#docs .side-nav ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#docs .side-nav ul li ul
+{
+	margin-left: 10px;
+}
+#docs .side-nav .doc-select li a
+{
+	box-sizing: border-box;
+	moz-box-sizing: border-box;
+	padding-left: 10px;
+	webkit-box-sizing: border-box;
+}
+#docs .side-nav .doc-select li.active>a
+{
+	border-left: 2px solid #1b95e0;
+	padding-left: 8px;
+}
+#docs .side-nav .doc-select li ul
+{
+	display: none;
+}
+#docs .side-nav .doc-select li.active ul
+{
+	display: block;
+}
+#docs .side-nav hr
+{
+	width: 50%;
+}
+#docs .nav-group
+{
+	position: relative;
+	z-index: 20;
+}
+#docs .nav-group.stick
+{
+	position: fixed;
+	top: 65px;
+	z-index: 20;
+}
+#docs pre
+{
+	max-height: 280px;
+	/*min-height: 40px;*/
+	overflow: scroll;
+}

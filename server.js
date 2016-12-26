@@ -44,8 +44,42 @@ app.get('/', (req, res) => {
   res.render('pages/index');
 })
 
-app.get('/documentation', (req, res) => {
-  res.render('pages/documentation');
+app.get('/docs', (req, res) => {
+
+
+    var classes = [
+     {"name" : "Barbarian", "link": "classes/barbarian"}, 
+     {"name" : "Bard", "link": "classes/bard"}, 
+     {"name" : "Cleric", "link": "classes/cleric"}, 
+     {"name" : "Druid", "link": "classes/druid"}, 
+     {"name" : "Fighter", "link": "classes/fighter"}, 
+     {"name" : "Monk", "link": "classes/monk"}, 
+     {"name" : "Paladin", "link": "classes/paladin"}, 
+     {"name" : "Ranger", "link": "classes/ranger"}, 
+     {"name" : "Rogue", "link": "classes/rogue"}, 
+     {"name" : "Sorcerer", "link": "classes/sorcerer"}, 
+     {"name" : "Warlock", "link": "classes/warlock"}, 
+     {"name" : "Wizard", "link": "classes/wizard"}
+      ];
+
+      var attributes_classes = [
+        {"name": "index", "type":"string", "desc": "The class index for shorthand searching."},
+        {"name": "name", "type":"string", "desc": "The name of the class."},
+        {"name": "hit_die", "type":"number", "desc": "The hit die of the class. (ex: 12 == 1d12)"},
+        {"name": "starting_proficiencies", "type":"array", "desc": "An array representing starting proficiencies where the player gets to choose from a certain type of proficiency."},
+        {"name": "proficiencies", "type":"array", "desc": "All the available proficiencies to the class"},
+        {"name": "starting_equipment", "type":"array", "desc": "An array of all the item sets that a player character starts with. Nested arrays represent the choices within each set."},
+        {"name": "class_table", "type":"array", "desc": "The table showing the class' stats as the player gains class levels"},
+        {"name": "features", "type":"array", "desc": "An array of all the features that this class can learn."},
+        {"name": "subclasses", "type":"array", "desc": "An array of available subclasses for this class."},
+        {"name": "spellcasting", "type":"object", "desc": "The reference object for the class's spellcasting. Contains information such as spells known, spellcasting ability, and cantrips known."},
+        {"name": "url", "type":"string", "desc": "the hypermedia URL of this resource"}
+      ];
+
+    res.render('pages/docs', {
+        classes: classes,
+        attributes_classes: attributes_classes
+    });
 })
 
 app.get('/api', (req, res) => {
