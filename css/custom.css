@@ -1,0 +1,20 @@
+.center {
+    text-align:center;
+}
+
+.yellow {
+    color:#FFE300;
+}
+
+.pad_top {
+    padding-top:34px;
+}
+
+.pad_bot {
+    padding-bottom:34px;
+}
+
+.subscribe_btn {
+    margin-left:-100px!;
+}
+

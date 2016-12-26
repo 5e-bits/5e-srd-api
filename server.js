@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 // Middleware stuff
 app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
+app.use("/css", express.static(__dirname + '/css'));
 app.use("/public", express.static(__dirname + '/public'));
 app.use(morgan('short'));
 
@@ -41,5 +42,26 @@ mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
 // index route at localhost:3000 or wherever it's served
 app.get('/', (req, res) => {
   res.render('pages/index');
+})
+
+app.get('/documentation', (req, res) => {
+  res.render('pages/documentation');
+})
+
+app.get('/api', (req, res) => {
+  console.log("o hai");
+  var index = {
+    "classes": "http://swapi.co/api/classes/",
+    "subclasses": "http://swapi.co/api/subclasses/",
+    "spellcasting": "http://swapi.co/api/spellcasting/",
+    "spells": "http://swapi.co/api/spells/",
+    "monsters": "http://swapi.co/api/monsters/",
+    "features": "http://swapi.co/api/features/",
+    "tables": "http://swapi.co/api/tables/",
+    "equipment": "http://swapi.co/api/equipment/",
+    "proficiencies": "http://swapi.co/api/proficiencies/",
+    "startingequipment": "http://swapi.co/api/startingequipment/"
+  }
+  res.status(200).json(index);
 })
 
