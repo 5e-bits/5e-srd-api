@@ -3,7 +3,7 @@ let express = require('express'),
 
 var ClassFeature = require('../models/classfeature');
 
-let subfolder_name = "class-feature-routes"
+let subfolder_name = "feature-routes"
 
 // Register class routes
 router.use('/barbarian', require('./' + subfolder_name + '/barbarian'));
