@@ -83,7 +83,6 @@ app.get('/docs', (req, res) => {
 })
 
 app.get('/api', (req, res) => {
-  console.log("o hai");
   var index = {
     "races": "http://dnd5eapi.co/api/races/",
     "subraces": "http://dnd5eapi.co/api/subraces/",
