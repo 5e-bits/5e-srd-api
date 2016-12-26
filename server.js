@@ -3,12 +3,15 @@ var app = express()
 var router = express.Router();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser')
 
 
 // Middleware stuff
 app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
 app.use("/public", express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(morgan('short'));
 
 
