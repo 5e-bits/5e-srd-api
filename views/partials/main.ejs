@@ -1,45 +1,112 @@
-<div class="container-fluid" style="margin-top: 60px;">
-    <div class="row center">
-        <div class="jumbotron">
-            <h1>D&D 5e API</h1>
-            <p>The 5th Edition D&D API</p>
-        </div>
+<!-- <div class="row" style="background-color: #8e2f25; color: #fff; font-weight: 200;"> -->
+<!--
+<div class="row" style="font-weight: 500;">
+    <div class="col-lg-3">
     </div>
-
-    <div class="row">
-        <div class="col-lg-3">
-        </div>
-        <div class="col-lg-6 center">
-            <p>Just a simple api for things within the Official 5th Edition SRD</p>
-            <p><b>All 12 Classes + Features online!, try /classes and /features</b></p>
-            <p>Currently working on race database + adventuring gear</p>
-        </div>
-        <div class="col-lg-3">
-        </div>
+    <div class="col-lg-6 center pad_top pad_bot">
+        <p>Just a simple api for things within the Official 5th Edition SRD</p>
+        <p>All 12 Classes + Features online! Try /classes and /features</p>
+        <p>Currently working on race database + more documentation</p>
     </div>
+    <div class="col-lg-3">
+    </div>
+</div>
+-->
 
+<!--
+<div class="row center">
+    <div class="jumbotron">
+        <h1>D&D 5e API</h1>
+        <p>The 5th Edition D&D API</p>
+    </div>
+</div>
+-->
+
+<div class="header">
+    <h1>D&D 5e API</h1>
+    <h2>The 5th Edition Dungeons and Dragons API</h2>
+</div>
+
+<div class="cta">
+    <p>Just a simple api for things within the Official 5th Edition SRD<br> and easily accessible through a modern RESTful API.</p>
+    <p>Currently working on race database + documentation</p>
+</div>
+
+<div class="container">
     <div class="row">
-        <hr>
-        <div class="col-sm-2 col-lg-2 col-md-2">
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <h1 class="center">
+        <div class="col-md-10 center-block">
+            <div class="center">
+                <h1>
                 Try it now!
-            </h1>
-            <div class="input-group">
-                <span class="input-group-addon">http://dnd5eapi.co/api/</span>
-                <input id ="interactive" type="text" class="form-control" placeholder="spells/1/">
-                <span class="input-group-btn">
-                    <button onclick="interactive_call(); return false;" class="btn btn-primary">
-                        request
-                    </button>
+                </h1>
+                <div class="input-group pad_top">
+                    <span class="input-group-addon url">http://dnd5eapi.co/api/</span>
+                    <input id="interactive" type="text" class="form-control" placeholder="spells/1/">
+                    <span class="input-group-btn"><button onclick="interactive_call();return false;" class="btn btn-primary">submit</button></span>
+                </div>
             </div>
-            <small>
-                Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/3/');return false;"><i>monsters/3/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a>
-            </small>
-            <p class="lead pad_top">Result:</p>
-            <div class="well">
-                <pre id="interactive_output" class="pre-scrollable">
+            <small>Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/3/');return false;"><i>monsters/3/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a></small>
+            <p class="lead pad_top">Resource for <span id="interactive_name">Acid Arrow</span></p>
+            <pre id="interactive_output" class="pre-scrollable">{
+  "index": 1,
+  "name": "Acid Arrow",
+  "desc": [
+    "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
+  ],
+  "higher_level": [
+    "When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
+  ],
+  "page": "phb 259",
+  "range": "90 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material": "Powdered rhubarb leaf and an adder’s stomach.",
+  "ritual": "no",
+  "duration": "Instantaneous",
+  "concentration": "no",
+  "casting_time": "1 action",
+  "level": 2,
+  "school": "Evocation",
+  "classes": [
+    "http://dnd5eapi.co/api/classes/4",
+    "http://dnd5eapi.co/api/classes/12"
+  ],
+  "url": "http://dnd5eapi.co/api/spells/1"
+}</pre>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--
+<div class="row">
+    <hr>
+    <div class="col-sm-2 col-lg-2 col-md-2">
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+        <h1 class="center">
+            Try it now!
+        </h1>
+        <div class="input-group">
+            <span class="input-group-addon">http://dnd5eapi.co/api/</span>
+            <input id ="interactive" type="text" class="form-control" placeholder="spells/1/">
+            <span class="input-group-btn">
+                <button onclick="interactive_call(); return false;" class="btn btn-primary">
+                    request
+                </button>
+        </div>
+        <small>
+            Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/3/');return false;"><i>monsters/3/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a>
+        </small>
+        <p class="lead pad_top">Result:</p>
+        <div class="well">
+            <pre id="interactive_output" class="pre-scrollable">
 {
 	"_id": "585e77cec9e7ce9f72141c0f",
 	"index": 31,
@@ -65,15 +132,17 @@
 	],
 	"url": "http://dnd5eapi.co/api/spells/31"
 }
-                </pre>
-            </div>
-        </div>
-        <div class="col-sm-2 col-lg-2 col-md-2">
+            </pre>
         </div>
     </div>
-
-    <div class="row pad-bot">
-        <div class="col-sm-1 col-lg-1 col-md-1">
-        </div>
+    <div class="col-sm-2 col-lg-2 col-md-2">
     </div>
 </div>
+
+<div class="row pad-bot">
+    <div class="col-sm-1 col-lg-1 col-md-1">
+    </div>
+</div>
+
+-->
+

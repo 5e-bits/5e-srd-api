@@ -3,7 +3,7 @@ var express = require('express'),
 
 var Equipment = require('../../models/equipment');
 
-var equipment_type = "Armor"
+var equipment_type = "Mounts and Vehicles"
 
 // -------------------------------------
 router.route('/')
