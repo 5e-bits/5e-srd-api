@@ -24,6 +24,8 @@ app.use("/api/tables", require('./routes/tables'));
 app.use("/api/equipment", require('./routes/equipment'));
 app.use("/api/proficiencies", require('./routes/proficiencies'));
 app.use("/api/startingequipment", require('./routes/startingequipment'));
+app.use("/api/races", require('./routes/races'));
+app.use("/api/subraces", require('./routes/subraces'));
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
