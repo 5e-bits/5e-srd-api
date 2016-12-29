@@ -1,84 +1,84 @@
-var sticky = $('.nav-group');
-var docSelect = $('.doc-select');
-var offset = sticky.offset();
-var sideNav = $('.side-nav');
-var navParents = $('.doc-select').children('ul').children('li');
-var doc = $(document);
-var win = $(window);
+// var sticky = $('.nav-group');
+// var docSelect = $('.doc-select');
+// var offset = sticky.offset();
+// var sideNav = $('.side-nav');
+// var navParents = $('.doc-select').children('ul').children('li');
+// var doc = $(document);
+// var win = $(window);
 
-function navOps () {
+// function navOps () {
 
-    //check sticky
-    if (doc.scrollTop() >= (offset.top - 65)) {
+//     //check sticky
+//     if (doc.scrollTop() >= (offset.top - 65)) {
 
-        console.log(window.innerHeight - offset.top);
+//         console.log(window.innerHeight - offset.top);
 
-        sticky.addClass('stick');
-        sticky.css({
-            width: sideNav.width() + 'px',
-        });
+//         sticky.addClass('stick');
+//         sticky.css({
+//             width: sideNav.width() + 'px',
+//         });
 
-    } else {
+//     } else {
 
-        sticky.removeClass('stick');
-        sticky.css({ width: '' });
-    }
+//         sticky.removeClass('stick');
+//         sticky.css({ width: '' });
+//     }
 
-    navParents.removeClass('active');
-    var parent;
-    var target;
-    var activeParent = $(navParents[0]);
-    var scrollTop = win.scrollTop();
+//     navParents.removeClass('active');
+//     var parent;
+//     var target;
+//     var activeParent = $(navParents[0]);
+//     var scrollTop = win.scrollTop();
 
-    for (var i = 0; i < navParents.length; i++) {
+//     for (var i = 0; i < navParents.length; i++) {
 
-        parent = $(navParents[i]);
+//         parent = $(navParents[i]);
 
-        target = $(parent.find('a').attr('href'));
+//         target = $(parent.find('a').attr('href'));
 
-        if (scrollTop >= target.offset().top) {
-            activeParent = parent;
-        } else {
-            break;
-        }
-    }
+//         if (scrollTop >= target.offset().top) {
+//             activeParent = parent;
+//         } else {
+//             break;
+//         }
+//     }
 
-    activeParent.addClass('active');
+//     activeParent.addClass('active');
 
-    var children = activeParent.find('li');
-    var child;
-    var activeChild;
+//     var children = activeParent.find('li');
+//     var child;
+//     var activeChild;
 
-    children.removeClass('active');
+//     children.removeClass('active');
 
-    for (i = 0; i < children.length; i++) {
+//     for (i = 0; i < children.length; i++) {
 
-        child = $(children[i]);
-        target = $(child.find('a').attr('href'));
+//         child = $(children[i]);
+//         target = $(child.find('a').attr('href'));
 
-        if (scrollTop >= target.offset().top) {
-            activeChild = child;
-        } else {
-            break;
-        }
-    }
+//         if (scrollTop >= target.offset().top) {
+//             activeChild = child;
+//         } else {
+//             break;
+//         }
+//     }
 
-    if (activeChild) {
+//     if (activeChild) {
 
-        activeChild.addClass('active');
-    }
-}
+//         activeChild.addClass('active');
+//     }
+// }
 
-doc.scroll(function () {
+// doc.scroll(function () {
 
-    navOps();
-});
+//     navOps();
+// });
 
-win.resize(function () {
+// win.resize(function () {
 
-    navOps();
-});
+//     navOps();
+// });
 
-navOps();
+// navOps();
 
 
