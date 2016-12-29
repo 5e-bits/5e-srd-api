@@ -23,7 +23,15 @@ router.use('/wizard', require('./' + subfolder_name + '/wizard'));
 // -------------------------------------
 router
 .get('/', (req,res) => {
-    Feature.find((err,features) => {
+
+    let query_subclass = req.query.subclass;
+    let search_params = {};
+
+    if (query_subclass !== undefined) {
+      search_params.subclass = query_subclass;
+    }
+
+    Feature.find(search_params, (err,features) => {
       if (err) {
         res.send(err);
       }
