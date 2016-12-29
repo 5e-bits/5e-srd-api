@@ -6,23 +6,7 @@ var Model = require('../models/feature');
 router
 .get('/', (req,res) => {
 
-  let query_name = req.query.name;
-  let query_level = req.query.level;
-  let query_class = req.query.class;
-
-  let search_params = {};
-
-  if (query_name !== undefined) {
-    search_params.name = query_name;
-  }
-  if (query_level !== undefined) {
-    search_params.level = parseInt(query_level);
-  }
-  if (query_class !== undefined) {
-    search_params.classes = utility.classToURL(query_class);
-  }
-
-  Model.find(search_params, (err,data) => {
+  Model.find((err,data) => {
     if (err) {
       res.send(err);
     }

@@ -5,6 +5,7 @@ var FeatureSchema   = new Schema({
     name: String,
     class: String,
     subclass: String,
+    desc: [String],
     choice: {
         choose: Number,
         from: [String]

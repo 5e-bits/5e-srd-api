@@ -78,6 +78,19 @@ function NamedAPIResource(data) {
       }
 }
 
+function NamedAPIResourceWithDesc(data) {
+    return{
+        count: data.length,
+        results: data.map((item) => {
+            return {
+                name: item.name,
+                url: item.url,
+                desc: item.desc[0]
+            }
+        })
+      }
+}
+
 function upperFirst(string) {
     return _.upperFirst(string);
 }
@@ -87,6 +100,7 @@ var utility = {
     classToIndex,
     isClassName,
     NamedAPIResource,
+    NamedAPIResourceWithDesc,
     upperFirst
 }
 
