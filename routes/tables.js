@@ -1,19 +1,29 @@
 let express = require('express'),
     router = express.Router();
 
-var ClassTable = require('../models/classtable');
+var Table = require('../models/table');
+
+let subfolder_name = "table-routes"
 
 // Register class routes
-router.use('/barbarian', require('./class-table-routes/barbarian'));
-router.use('/bard', require('./class-table-routes/bard'));
-router.use('/cleric', require('./class-table-routes/cleric'));
-router.use('/druid', require('./class-table-routes/druid'));
+router.use('/barbarian', require('./' + subfolder_name + '/barbarian'));
+router.use('/bard', require('./' + subfolder_name + '/bard'));
+router.use('/cleric', require('./' + subfolder_name + '/cleric'));
+router.use('/druid', require('./' + subfolder_name + '/druid'));
+router.use('/fighter', require('./' + subfolder_name + '/fighter'));
+router.use('/monk', require('./' + subfolder_name + '/monk'));
+router.use('/paladin', require('./' + subfolder_name + '/paladin'));
+router.use('/rogue', require('./' + subfolder_name + '/rogue'));
+router.use('/ranger', require('./' + subfolder_name + '/ranger'));
+router.use('/sorcerer', require('./' + subfolder_name + '/sorcerer'));
+router.use('/warlock', require('./' + subfolder_name + '/warlock'));
+router.use('/wizard', require('./' + subfolder_name + '/wizard'));
 
 
 // -------------------------------------
 router
 .get('/', (req,res) => {
-    ClassTable.find((err,tables) => {
+    Table.find((err,tables) => {
       if (err) {
         res.send(err);
       }
@@ -28,7 +38,7 @@ router
 // -------------------------------------
 router
 .get('/:index', (req,res) => {
-  ClassTable.findOne( { index: parseInt(req.params.index) }, (err,table) => {
+  Table.findOne( { index: parseInt(req.params.index) }, (err,table) => {
     if (err) {
       res.send(err);
     }

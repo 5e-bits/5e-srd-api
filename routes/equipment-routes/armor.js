@@ -3,10 +3,12 @@ var express = require('express'),
 
 var Equipment = require('../../models/equipment');
 
+var equipment_type = "Armor"
+
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  Equipment.find({ type: "Armor" } , (err,equipment) => {
+  Equipment.find({ type: equipment_type } , (err,equipment) => {
     if (err) {
       res.send(err);
     }

@@ -1,0 +1,56 @@
+<h1 id="utility-section">Utility</h1>
+
+<h2 id="common-models">Common Models</h2>
+<h4 id="apiresource">APIResource</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The resource's index for shorthand referencing.</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource.</td>
+            <td align="left">string</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h4 id="choices">Choices</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">choose</td>
+            <td align="left">The number of choices you get to have.</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">type</td>
+            <td align="left">The type of the resources to choose from.</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">from</td>
+            <td align="left">A list of possible choices that play can decide from.</td>
+            <td align="left">list <a href="#apiresource">APIResource</a></td>
+        </tr>
+    </tbody>
+</table>
