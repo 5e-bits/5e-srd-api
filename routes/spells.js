@@ -1,92 +1,99 @@
-var express = require('express'),
-    router = express.Router(),
-    app = express();
+var express = require('express');
+var router = express.Router();
+var utility = require('./utility');
+var Model = require('../models/spell');
 
-var Spell = require('../models/spell');
-
-let subfolder_name = "spell-routes"
-
-// Register class routes
-router.use('/bard', require('./' + subfolder_name + '/bard'));
-router.use('/cleric', require('./' + subfolder_name + '/cleric'));
-router.use('/druid', require('./' + subfolder_name + '/druid'));
-router.use('/paladin', require('./' + subfolder_name + '/paladin'));
-router.use('/ranger', require('./' + subfolder_name + '/ranger'));
-router.use('/sorcerer', require('./' + subfolder_name + '/sorcerer'));
-router.use('/warlock', require('./' + subfolder_name + '/warlock'));
-router.use('/wizard', require('./' + subfolder_name + '/wizard'));
-
-// -------------------------------------
-// add '/spells' route
 router
 .get('/', (req,res) => {
 
   let query_name = req.query.name;
-  let query_class = req.query.class;
+  let query_school = req.query.school;
   let query_level = req.query.level;
+  let query_class = req.query.class;
+
+  let search_params = {};
 
   if (query_name !== undefined) {
-
-    Spell.findOne({ name: query_name }, (err,spell) => {
-      if (err) {
-        res.send(err);
-      }
-
-      res.status(200).json(spell);
-    })
-
-  } else if (query_class !== undefined) {
-    
-    Spell.find({ class: {name: query_class}}, (err,spells) => {
-      if (err) {
-        res.send(err);
-      }
-    }).sort( {level: 'asc'} ).exec( (err, spells) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(spells);
-    })
-
-  } else if (query_level !== undefined) {
-    
-    Spell.find({ level: parseInt(query_level) }, (err,spells) => {
-      if (err) {
-        res.send(err);
-      }
-    }).sort( {level: 'asc'} ).exec( (err, spells) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(spells);
-    })
-
-  } else {
-    Spell.find((err,spells) => {
-      if (err) {
-        res.send(err);
-      }
-    }).sort( {index: 'asc'} ).exec( (err, spells) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(spells);
-    })
+    search_params.name = query_name;
+  }
+  if (query_school !== undefined) {
+    search_params.school = query_school;
+  }
+  if (query_level !== undefined) {
+    search_params.level = parseInt(query_level);
+  }
+  if (query_class !== undefined) {
+    search_params.classes = utility.classToURL(query_class);
   }
 
-})
+  Model.find(search_params, (err,data) => {
+    if (err) {
+      res.send(err);
+    }
+  }).sort( { index: 'asc'} ).exec( (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    
+    let response = {
+      count: data.length,
+      results: data.map((item) => {
+        return {
+          name: item.name,
+          url: item.url
+        }
+      })
+    }
 
+    res.status(200).json(response);
+  });
+});
 
 // -------------------------------------
 // find spell by index in array
 router
 .get('/:index', (req,res) => {
-  Spell.findOne( { index: parseInt(req.params.index) }, (err,spell) => {
-    if (err) {
-      res.send(err);
-    }
-    res.status(200).json(spell);
-  })
+
+  if (utility.isClassName(req.params.index)) {
+    Model.find( {classes: utility.classToURL(req.params.index)}, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {name: 'asc', level: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+
+      let response = {
+        count: data.length,
+        results: data.map((item) => {
+          return {
+            name: item.name,
+            url: item.url
+          }
+        })
+      }
+
+      res.status(200).json(response);
+    })
+  } else {
+    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      let response = {
+        count: data.length,
+        results: data.map((item) => {
+          return {
+            name: item.name,
+            url: item.url
+          }
+        })
+      }
+      res.status(200).json(data);
+    })
+  }
+
 })
 
 module.exports = router;
