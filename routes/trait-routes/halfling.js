@@ -7,11 +7,15 @@ let race_name = "Halfling"
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  Trait.findOne({ race: race_name } , (err,trait) => {
+  Trait.find({ race: race_name } , (err,traits) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(trait)
+  }).sort({index: 'asc'}).exec((err,traits)=> {
+    if (err) {
+      res.send(err);
+    }
+    res.status(200).json(traits)
   })
 })
 
