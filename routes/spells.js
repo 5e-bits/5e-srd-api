@@ -35,17 +35,8 @@ router
       res.send(err);
     }
     
-    let response = {
-      count: data.length,
-      results: data.map((item) => {
-        return {
-          name: item.name,
-          url: item.url
-        }
-      })
-    }
 
-    res.status(200).json(response);
+    res.status(200).json(utility.NamedAPIResource(data));
   });
 });
 
@@ -63,18 +54,7 @@ router
       if (err) {
         res.send(err);
       }
-
-      let response = {
-        count: data.length,
-        results: data.map((item) => {
-          return {
-            name: item.name,
-            url: item.url
-          }
-        })
-      }
-
-      res.status(200).json(response);
+      res.status(200).json(utility.NamedAPIResource(data));
     })
   } else {
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {

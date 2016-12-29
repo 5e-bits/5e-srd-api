@@ -1,4 +1,4 @@
-
+var _ = require('lodash');
 
 function classToIndex(class_name) {
     switch(class_name) {
@@ -66,10 +66,28 @@ function isClassName(class_name) {
         "monk" || "paladin" || "ranger" || "rogue" || "sorcerer" || "warlock" || "wizard";
 }
 
+function NamedAPIResource(data) {
+    return{
+        count: data.length,
+        results: data.map((item) => {
+          return {
+            name: item.name,
+            url: item.url
+          }
+        })
+      }
+}
+
+function upperFirst(string) {
+    return _.upperFirst(string);
+}
+
 var utility = {
     classToURL,
     classToIndex,
-    isClassName
+    isClassName,
+    NamedAPIResource,
+    upperFirst
 }
 
 module.exports = utility;
