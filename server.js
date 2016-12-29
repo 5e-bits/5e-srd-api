@@ -24,6 +24,9 @@ app.use("/api/tables", require('./routes/tables'));
 app.use("/api/equipment", require('./routes/equipment'));
 app.use("/api/proficiencies", require('./routes/proficiencies'));
 app.use("/api/startingequipment", require('./routes/startingequipment'));
+app.use("/api/races", require('./routes/races'));
+app.use("/api/subraces", require('./routes/subraces'));
+app.use("/api/traits", require('./routes/traits'));
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
@@ -83,18 +86,20 @@ app.get('/docs', (req, res) => {
 })
 
 app.get('/api', (req, res) => {
-  console.log("o hai");
   var index = {
-    "classes": "http://swapi.co/api/classes/",
-    "subclasses": "http://swapi.co/api/subclasses/",
-    "spellcasting": "http://swapi.co/api/spellcasting/",
-    "spells": "http://swapi.co/api/spells/",
-    "monsters": "http://swapi.co/api/monsters/",
-    "features": "http://swapi.co/api/features/",
-    "tables": "http://swapi.co/api/tables/",
-    "equipment": "http://swapi.co/api/equipment/",
-    "proficiencies": "http://swapi.co/api/proficiencies/",
-    "startingequipment": "http://swapi.co/api/startingequipment/"
+    "races": "http://dnd5eapi.co/api/races/",
+    "subraces": "http://dnd5eapi.co/api/subraces/",
+    "classes": "http://dnd5eapi.co/api/classes/",
+    "subclasses": "http://dnd5eapi.co/api/subclasses/",
+    "languages": "http://dnd5eapi.co/api/languages/",
+    "spellcasting": "http://dnd5eapi.co/api/spellcasting/",
+    "spells": "http://dnd5eapi.co/api/spells/",
+    "monsters": "http://dnd5eapi.co/api/monsters/",
+    "features": "http://dnd5eapi.co/api/features/",
+    "tables": "http://dnd5eapi.co/api/tables/",
+    "equipment": "http://dnd5eapi.co/api/equipment/",
+    "proficiencies": "http://dnd5eapi.co/api/proficiencies/",
+    "startingequipment": "http://dnd5eapi.co/api/startingequipment/"
   }
   res.status(200).json(index);
 })
