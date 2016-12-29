@@ -3,7 +3,7 @@ var express = require('express'),
 
 var Spell = require('../../models/spell');
 
-let class_url = "http://dnd5eapi.co/api/classes/9"
+let class_url = "http://dnd5eapi.co/api/classes/10"
 
 // -------------------------------------
 router.route('/')

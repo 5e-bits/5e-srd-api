@@ -1,17 +1,17 @@
 var express = require('express'),
     router = express.Router();
 
-var Race = require('../../models/race');
+var Trait = require('../../models/trait');
 let race_name = "Elf"
 
 // -------------------------------------
 router.route('/')
 .get((req,res) => {
-  Race.findOne({ name: race_name } , (err,race) => {
+  Trait.findOne({ race: race_name } , (err,trait) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(race)
+    res.status(200).json(trait)
   })
 })
 
