@@ -69,6 +69,19 @@ subrace_map[subrace_names[0]] = "Hill Dwarf"
 subrace_map[subrace_names[1]] = "High Elf"
 subrace_map[subrace_names[2]] = "Lightfoot Halfling"
 
+var proficiency_categories = ["armor", "weapons", "artisans-tools", "gaming-sets", "musical-instruments", "vehicles", "other", "skills", "saving-throws"]
+proficiency_map = {}
+proficiency_map[proficiency_categories[0]] = "Armor"
+proficiency_map[proficiency_categories[1]] = "Weapons"
+proficiency_map[proficiency_categories[2]] = "Artisan's Tools"
+proficiency_map[proficiency_categories[3]] = "Gaming Sets"
+proficiency_map[proficiency_categories[4]] = "Musical Instruments"
+proficiency_map[proficiency_categories[5]] = "Vehicles"
+proficiency_map[proficiency_categories[6]] = "Other"
+proficiency_map[proficiency_categories[7]] = "Skills"
+proficiency_map[proficiency_categories[8]] = "Saving Throws"
+
+
 function isClassName(class_name) {
 
     let bool = false;
@@ -100,6 +113,19 @@ function isSubraceName(race_name) {
     let bool = false;
 
     subrace_names.forEach(function(element) {
+        if (race_name === element) {
+            bool = true;
+        }
+    });
+
+    return bool;
+}
+
+function isProficiencyCategory(race_name) {
+
+    let bool = false;
+
+    proficiency_categories.forEach(function(element) {
         if (race_name === element) {
             bool = true;
         }
@@ -190,12 +216,14 @@ var utility = {
     isClassName,
     isRaceName,
     isSubraceName,
+    isProficiencyCategory,
     APIResource,
     NamedAPIResource,
     NamedAPIResourceWithDesc,
     TableAPIResource,
     upperFirst,
-    subrace_map
+    subrace_map,
+    proficiency_map
 }
 
 module.exports = utility;

@@ -25,7 +25,7 @@ router
   // search by class 
 
   if (utility.isClassName(req.params.index) === true) {
-    Model.find( { 'classes.name': utility.upperFirst(req.params.index) }, (err,data) => {
+    Model.findOne( { 'class.name': utility.upperFirst(req.params.index) }, (err,data) => {
       if (err) {
         res.send(err);
       }
@@ -33,7 +33,7 @@ router
       if (err) {
         res.send(err);
       }
-      res.status(200).json(utility.NamedAPIResource(data));
+      res.status(200).json((data));
     })
   } 
   

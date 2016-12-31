@@ -17,8 +17,6 @@ router
   });
 });
 
-
-
 router
 .get('/:index', (req,res) => {
   if (utility.isRaceName(req.params.index) === true) {
@@ -34,9 +32,35 @@ router
     })
   } 
   
+  else if (utility.isSubraceName(req.params.index) === true) {
+    Model.find( { 'races.name': utility.subrace_map[req.params.index] }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {url: 'asc'}).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } 
 
   else if (utility.isClassName(req.params.index) === true) {
     Model.find( { 'classes.name': utility.upperFirst(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {index: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } 
+
+  else if (utility.isProficiencyCategory(req.params.index) === true) {
+    console.log(req.params.index)
+    Model.find( { 'type': utility.proficiency_map[req.params.index] }, (err,data) => {
       if (err) {
         res.send(err);
       }

@@ -38,7 +38,7 @@ router
   } 
 
   else if (utility.isSubraceName(req.params.index) === true) {
-    Model.find( { 'subrace.name': utility.subrace_map[req.params.index] }, (err,data) => {
+    Model.find( { 'race.name': utility.subrace_map[req.params.index] }, (err,data) => {
       if (err) {
         res.send(err);
       }
