@@ -9,7 +9,7 @@ router
 
   var search_queries = {}
   if (req.query.name !== undefined) {
-    search_queries[name] = req.query.name
+    search_queries.name = req.query.name
   }
 
 
