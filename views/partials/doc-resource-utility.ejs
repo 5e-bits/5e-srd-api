@@ -1,8 +1,10 @@
 <h1 id="utility-section">Utility</h1>
 
 <h2 id="common-models">Common Models</h2>
-<h4 id="apiresource">APIResource</h4>
 
+
+
+<h4 id="namedapiresource">NamedAPIResource</h4>
 <table>
     <thead>
         <tr>
@@ -13,21 +15,48 @@
     </thead>
     <tbody>
         <tr>
-            <td align="left">index</td>
-            <td align="left">The resource's index for shorthand referencing.</td>
-            <td align="left">integer</td>
+            <td align="left">name</td>
+            <td align="left">The name of the referenced resource</td>
+            <td align="left">string</td>
         </tr>
         <tr>
             <td align="left">url</td>
-            <td align="left">The URL of the referenced resource.</td>
+            <td align="left">The URL of the referenced resource</td>
             <td align="left">string</td>
         </tr>
     </tbody>
 </table>
 
 
-<h4 id="choices">Choices</h4>
 
+
+<h4 id="classapiresource">ClassAPIResource</h4>
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">class</td>
+            <td align="left">The class of whom the resource belongs to</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource</td>
+            <td align="left">string</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<h4 id="choice">Choice</h4>
 <table>
     <thead>
         <tr>
@@ -39,17 +68,17 @@
     <tbody>
         <tr>
             <td align="left">choose</td>
-            <td align="left">The number of choices you get to have.</td>
+            <td align="left">The number of items to pick from the list</td>
             <td align="left">integer</td>
         </tr>
         <tr>
             <td align="left">type</td>
-            <td align="left">The type of the resources to choose from.</td>
+            <td align="left">The type of the resources to choose from</td>
             <td align="left">string</td>
         </tr>
         <tr>
             <td align="left">from</td>
-            <td align="left">A list of possible choices that play can decide from.</td>
+            <td align="left">A list of resources to choose from</td>
             <td align="left">list <a href="#apiresource">APIResource</a></td>
         </tr>
     </tbody>
@@ -68,12 +97,12 @@
     <tbody>
         <tr>
             <td align="left">quantity</td>
-            <td align="left">The coin number of coins the item costs.</td>
+            <td align="left">The numerical amount of coins</td>
             <td align="left">integer</td>
         </tr>
         <tr>
             <td align="left">unit</td>
-            <td align="left">The type of coin to use</td>
+            <td align="left">The unit of coinage</td>
             <td align="left">string</td>
         </tr>
     </tbody>
