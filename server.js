@@ -31,6 +31,11 @@ app.use("/api/races", require('./routes/races'));
 app.use("/api/subraces", require('./routes/subraces'));
 app.use("/api/traits", require('./routes/traits'));
 app.use("/api/languages", require('./routes/languages'));
+app.use("/api/damage-types", require('./routes/damage-types'));
+app.use("/api/magic-schools", require('./routes/magic-schools'));
+app.use("/api/conditions", require('./routes/conditions'));
+app.use("/api/ability-scores", require('./routes/ability-scores'));
+app.use("/api/skills", require('./routes/skills'));
 
 
 // Connect to database and start the server
