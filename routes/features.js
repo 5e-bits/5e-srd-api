@@ -22,10 +22,10 @@ router
 
 router
 .get('/:index', (req,res) => {
+  // search by class 
 
-  // search by class name
-  if (utility.isClassName(req.params.index)) {
-    Model.find( {class: utility.upperFirst(req.params.index)}, (err,data) => {
+  if (utility.isClassName(req.params.index) === true) {
+    Model.find( { 'class.name': utility.upperFirst(req.params.index) }, (err,data) => {
       if (err) {
         res.send(err);
       }
@@ -35,7 +35,9 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  } else { // return spcific document
+  } 
+  
+  else { // return specific document
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {
         res.send(err);
@@ -45,14 +47,17 @@ router
   }
 })
 
+
 var levelRouter = express.Router({mergeParams: true});
 router.use('/:index/level', levelRouter);
-
 levelRouter
 .get('/:level', (req, res) => {
-  console.log(req.params)
-  if (utility.isClassName(req.params.index)) {
-    Model.find( {class: utility.upperFirst(req.params.index), level: parseInt(req.params.level)}, (err,data) => {
+
+  console.log(typeof(parseInt(req.params.level)));
+
+  if (typeof(parseInt(req.params.level) == Number)) {
+    console.log(typeof(parseInt(req.params.level)));
+    Model.find({'class.name': utility.upperFirst(req.params.index), level: parseInt(req.params.level)}, (err,data) => {
       if (err) {
         res.send(err);
       }
@@ -62,6 +67,8 @@ levelRouter
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
+  } else {
+      res.status(404)
   }
 })
 

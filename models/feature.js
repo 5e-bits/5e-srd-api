@@ -3,13 +3,13 @@ var Schema       = mongoose.Schema;
 
 var FeatureSchema   = new Schema({
     name: String,
-    class: String,
+    class: {
+        name: String,
+        url: String
+    },
+    level: Number,
     subclass: String,
     desc: [String],
-    choice: {
-        choose: Number,
-        from: [String]
-    },
     url: String
 });
 

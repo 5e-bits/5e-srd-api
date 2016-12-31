@@ -59,14 +59,103 @@ function classToURL(class_name) {
     return "http://dnd5eapi.co/api/classes/" + classToIndex(class_name);
 }
 
+var class_names = ["Barbarian","Bard","Cleric","Druid","Fighter",
+        "Monk","Paladin","Ranger","Rogue","Sorcerer","Warlock","Wizard"]
+
+var race_names = ["Dwarf", "Elf", "Halfling", "Human"]
+var subrace_names = ["dwarf-hill", "elf-high", "halfling-lightfoot"]
+var subrace_map = {}
+subrace_map[subrace_names[0]] = "Hill Dwarf"
+subrace_map[subrace_names[1]] = "High Elf"
+subrace_map[subrace_names[2]] = "Lightfoot Halfling"
+
 function isClassName(class_name) {
-    return class_name === "Barbarian" || "Bard" || "Cleric" || "Druid" || "Fighter" || 
-        "Monk" || "Paladin" || "Ranger" || "Rogue" || "Sorcerer" || "Warlock" || "Wizard" ||
-        "barbarian" || "bard" || "cleric" || "druid" || "fighter" || 
-        "monk" || "paladin" || "ranger" || "rogue" || "sorcerer" || "warlock" || "wizard";
+
+    let bool = false;
+
+    class_names.forEach(function(element) {
+        if (upperFirst(class_name) === element) {
+            bool = true;
+        }
+    });
+
+    return bool;
 }
 
+function isRaceName(race_name) {
+
+    let bool = false;
+
+    race_names.forEach(function(element) {
+        if (upperFirst(race_name) === element) {
+            bool = true;
+        }
+    });
+
+    return bool;
+}
+
+function isSubraceName(race_name) {
+
+    let bool = false;
+
+    subrace_names.forEach(function(element) {
+        if (race_name === element) {
+            bool = true;
+        }
+    });
+
+    return bool;
+}
+
+function APIResource(data) {
+    return{
+        count: data.length,
+        results: data.map((item) => {
+          return {
+            url: item.url
+          }
+        })
+      }
+}
+
+function TableAPIResource(data) {
+    return{
+        count: data.length,
+        results: data.map((item) => {
+          return {
+            class: item.class.name,
+            url: item.url
+          }
+        })
+      }
+}
+
+
 function NamedAPIResource(data) {
+
+    let mapped = data.map((item) => {
+          return {
+            name: item.name,
+            url: item.url
+          }
+        });
+    
+    let sort = mapped.sort((a,b) => {
+
+        var urlA = a.url
+        var urlB = b.url
+        if (urlA < urlB) {
+            return -1;
+        }
+        if (urlA > urlB) {
+            return 1;
+        }
+
+        // names must be equal
+        return 0;
+    })
+
     return{
         count: data.length,
         results: data.map((item) => {
@@ -99,9 +188,14 @@ var utility = {
     classToURL,
     classToIndex,
     isClassName,
+    isRaceName,
+    isSubraceName,
+    APIResource,
     NamedAPIResource,
     NamedAPIResourceWithDesc,
-    upperFirst
+    TableAPIResource,
+    upperFirst,
+    subrace_map
 }
 
 module.exports = utility;
