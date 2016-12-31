@@ -14,7 +14,7 @@ router
     if (err) {
       res.send(err);
     }
-    res.status(200).json(utility.TableAPIResource(data));
+    res.status(200).json(utility.ClassAPIResource(data));
   });
 });
 

@@ -18,8 +18,6 @@ router
   });
 });
 
-
-
 router
 .get('/:index', (req,res) => {
     

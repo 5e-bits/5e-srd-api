@@ -63,6 +63,8 @@ var class_names = ["Barbarian","Bard","Cleric","Druid","Fighter",
         "Monk","Paladin","Ranger","Rogue","Sorcerer","Warlock","Wizard"]
 
 var race_names = ["Dwarf", "Elf", "Halfling", "Human"]
+
+
 var subrace_names = ["dwarf-hill", "elf-high", "halfling-lightfoot"]
 var subrace_map = {}
 subrace_map[subrace_names[0]] = "Hill Dwarf"
@@ -80,6 +82,14 @@ proficiency_map[proficiency_categories[5]] = "Vehicles"
 proficiency_map[proficiency_categories[6]] = "Other"
 proficiency_map[proficiency_categories[7]] = "Skills"
 proficiency_map[proficiency_categories[8]] = "Saving Throws"
+
+var equipment_categories = ["armor", "weapons", "gear", "tools", "mounts"]
+var equipment_map = {}
+equipment_map[equipment_categories[0]] = "Armor"
+equipment_map[equipment_categories[1]] = "Weapon"
+equipment_map[equipment_categories[2]] = "Adventuring Gear"
+equipment_map[equipment_categories[3]] = "Tools"
+equipment_map[equipment_categories[4]] = "Mounts and Vehicles"
 
 
 function isClassName(class_name) {
@@ -134,6 +144,19 @@ function isProficiencyCategory(race_name) {
     return bool;
 }
 
+function isEquipmentCategory(race_name) {
+
+    let bool = false;
+
+    equipment_categories.forEach(function(element) {
+        if (race_name === element) {
+            bool = true;
+        }
+    });
+
+    return bool;
+}
+
 function APIResource(data) {
     return{
         count: data.length,
@@ -145,7 +168,7 @@ function APIResource(data) {
       }
 }
 
-function TableAPIResource(data) {
+function ClassAPIResource(data) {
     return{
         count: data.length,
         results: data.map((item) => {
@@ -217,13 +240,15 @@ var utility = {
     isRaceName,
     isSubraceName,
     isProficiencyCategory,
+    isEquipmentCategory,
     APIResource,
     NamedAPIResource,
     NamedAPIResourceWithDesc,
-    TableAPIResource,
+    ClassAPIResource,
     upperFirst,
     subrace_map,
-    proficiency_map
+    proficiency_map,
+    equipment_map
 }
 
 module.exports = utility;
