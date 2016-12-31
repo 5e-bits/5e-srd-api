@@ -36,6 +36,7 @@ app.use("/api/magic-schools", require('./routes/magic-schools'));
 app.use("/api/conditions", require('./routes/conditions'));
 app.use("/api/ability-scores", require('./routes/ability-scores'));
 app.use("/api/skills", require('./routes/skills'));
+app.use("/api/weapon-properties", require('./routes/weapon-properties'));
 
 
 // Connect to database and start the server

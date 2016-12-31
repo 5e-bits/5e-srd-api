@@ -1,0 +1,54 @@
+<h2 id="damage types">Damage Types</h2>
+<p>Different attacks, damaging spells, and other harmful effects deal different types of damage. Damage types have no rules of their own, but other rules, such as damage resistance, rely on the types.</p>
+
+<h3>GET api/damage-types/{index}</h3>
+
+<pre><code>{
+  "_id": "5867a51fc9e7ce9f72145941",
+  "index": 1,
+  "name": "Acid",
+  "desc": [
+    "The corrosive spray of a black dragon’s breath and the dissolving enzymes secreted by a black pudding deal acid damage."
+  ],
+  "url": "http://dnd5eapi.co/api/damage-types/1"
+}
+</code></pre>
+
+<h4>Damage Type</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this damage type resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The damage type index for shorthand searching</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name for this damage type resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">desc</td>
+            <td align="left">A brief description of the damage type</td>
+            <td align="left">list string</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource</td>
+            <td align="left">string</td>
+        </tr> 
+    </tbody>
+</table>

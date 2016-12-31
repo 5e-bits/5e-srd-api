@@ -1,50 +1,152 @@
-<h1 id="classes-section">Classes</h1>
-
 <h2 id="classes">Classes</h2>
 <p>A character class is a fundamental part of the identity and nature of characters in the Dungeons & Dragons role-playing game. A character's capabilities, strengths, and weaknesses are largely defined by its class. A character's class affects a character's available skills and abilities. </p>
 
 <h3>GET api/classes/{index or name}</h3>
 
 <pre><code>{
-  "_id": "5864ab52c9e7ce9f721440e0",
-  "index": 1,
-  "name": "Barbarian",
-  "hit_die": 12,
+  "_id": "58679c3cc9e7ce9f72145931",
+  "index": 12,
+  "name": "Wizard",
+  "hit_die": 6,
   "proficiency_choices": [
     {
       "from": [
-        "http://dnd5eapi.co/api/proficiencies/66",
-        "http://dnd5eapi.co/api/proficiencies/67",
-        "http://dnd5eapi.co/api/proficiencies/68",
-        "http://dnd5eapi.co/api/proficiencies/69",
-        "http://dnd5eapi.co/api/proficiencies/70",
-        "http://dnd5eapi.co/api/proficiencies/71",
-        "http://dnd5eapi.co/api/proficiencies/72",
-        "http://dnd5eapi.co/api/proficiencies/73",
-        "http://dnd5eapi.co/api/proficiencies/74",
-        "http://dnd5eapi.co/api/proficiencies/75",
-        "http://dnd5eapi.co/api/proficiencies/76",
-        "http://dnd5eapi.co/api/proficiencies/77",
-        "http://dnd5eapi.co/api/proficiencies/78",
-        "http://dnd5eapi.co/api/proficiencies/79",
-        "http://dnd5eapi.co/api/proficiencies/80",
-        "http://dnd5eapi.co/api/proficiencies/81",
-        "http://dnd5eapi.co/api/proficiencies/82",
-        "http://dnd5eapi.co/api/proficiencies/83"
+        {
+          "name": "Arcana",
+          "url": "http://dnd5eapi.co/api/proficiencies/107"
+        },
+        {
+          "name": "History",
+          "url": "http://dnd5eapi.co/api/proficiencies/110"
+        },
+        {
+          "name": "Insight",
+          "url": "http://dnd5eapi.co/api/proficiencies/111"
+        },
+        {
+          "name": "Investigation",
+          "url": "http://dnd5eapi.co/api/proficiencies/113"
+        },
+        {
+          "name": "Medicine",
+          "url": "http://dnd5eapi.co/api/proficiencies/114"
+        },
+        {
+          "name": "Religion",
+          "url": "http://dnd5eapi.co/api/proficiencies/119"
+        }
       ],
       "type": "proficiencies",
       "choose": 2
     }
   ],
-  "proficiencies": "http://dnd5eapi.co/api/proficiencies/barbarian",
-  "starting_equipment": "http://dnd5eapi.co/api/startingequipment/barbarian",
-  "class_table": "http://dnd5eapi.co/api/tables/barbarian",
-  "features": "http://dnd5epi.co/api/features/barbarian",
-  "subclasses": [
-    "http://dnd5epi.co/api/subclasses/barbarian"
+  "proficiencies": [
+    {
+      "url": "http://dnd5eapi.co/api/proficiencies/22",
+      "name": "Daggers"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/proficiencies/28",
+      "name": "Quarterstaffs"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/proficiencies/32",
+      "name": "Darts"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/proficiencies/34",
+      "name": "Slings"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/proficiencies/102",
+      "name": "INT Saving Throw"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/proficiencies/103",
+      "name": "WIS Saving Throw"
+    }
   ],
-  "spellcasting": "",
-  "url": "http://dnd5eapi.co/api/classes/1"
+  "starting_equipment": {
+    "url": "http://dnd5eapi.co/api/startingequipment/12",
+    "class": "Wizard"
+  },
+  "class_table": {
+    "url": "http://dnd5eapi.co/api/tables/12",
+    "class": "Wizard"
+  },
+  "features": [
+    {
+      "url": "http://dnd5eapi.co/api/features/393",
+      "name": "Spellcasting"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/394",
+      "name": "Arcane Recovery"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/395",
+      "name": "Arcane Tradition"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/396",
+      "name": "Evocation Savant"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/397",
+      "name": "Sculpt Spells"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/398",
+      "name": "Ability Score Improvement 1"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/399",
+      "name": "Potent Cantrip"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/400",
+      "name": "Ability Score Improvement 2"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/401",
+      "name": "Empowered Evocation"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/402",
+      "name": "Ability Score Improvement 3"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/403",
+      "name": "Overchannel"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/404",
+      "name": "Ability Score Improvement 4"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/405",
+      "name": "Spell Mastery"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/406",
+      "name": "Ability Score Improvement 5"
+    },
+    {
+      "url": "http://dnd5eapi.co/api/features/407",
+      "name": "Signature Spell"
+    }
+  ],
+  "subclasses": [
+    {
+      "name": "Evocation",
+      "url": "http://dnd5eapi.co/api/subclasses/12"
+    }
+  ],
+  "spellcasting": {
+    "url": "http://dnd5eapi.co/api/spellcasting/8",
+    "class": "Wizard"
+  },
+  "url": "http://dnd5eapi.co/api/classes/12"
 }
 </code></pre>
 
@@ -71,7 +173,7 @@
         </tr>
         <tr>
             <td align="left">name</td>
-            <td align="left">The name of the class.</td>
+            <td align="left">The name for this class resource</td>
             <td align="left">string</td>
         </tr>
         <tr>
@@ -82,7 +184,7 @@
         <tr>
             <td align="left">proficiency_choices</td>
             <td align="left">Starting proficiencies where the player must choose a certain number from the given list of proficiencies.</td>
-            <td align="left">list <a href="#choices">Chocies</a></td>
+            <td align="left">list <a href="#choices">Choice</a> (<a href="#proficiencies">Proficiencies</a>)</td>
         </tr>
         <tr>
             <td align="left">proficiencies</td>
@@ -92,12 +194,12 @@
         <tr>
             <td align="left">starting_equipment</td>
             <td align="left">An object with the possible choices of equipment for new characters of this class.</td>
-            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#startingequipment">StartingEquipment</a>)</td>
+            <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#startingequipment">StartingEquipment</a>)</td>
         </tr>
         <tr>
             <td align="left">class_table</td>
             <td align="left">The table showing the class's stats as the player gains class levels.</td>
-            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#tables">Tables</a>)</td>
+            <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#tables">Tables</a>)</td>
         </tr>
         <tr>
             <td align="left">features</td>
@@ -112,7 +214,7 @@
         <tr>
             <td align="left">spellcasting</td>
             <td align="left">The reference object for the class's spellcasting. Contains information such as spells known, spellcasting ability, and cantrips known.</td>
-            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)</td>
+            <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)</td>
         </tr>
         <tr>
             <td align="left">url</td>

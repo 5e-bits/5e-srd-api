@@ -17,7 +17,7 @@
     <p>Here is the response we get:</p>
 
     <pre><code>{
-  "_id": "585f36fdc9e7ce9f72142693",
+  "_id": "58671690c9e7ce9f72144f5f",
   "index": 1,
   "name": "Acid Arrow",
   "desc": [
@@ -39,13 +39,19 @@
   "concentration": "no",
   "casting_time": "1 action",
   "level": 2,
-  "school": "Evocation",
+  "school": {
+    "url": "http://dnd5eapi.co/api/magic-schools/5",
+    "name": "Evocation"
+  },
   "classes": [
-    "http://dnd5eapi.co/api/classes/4",
-    "http://dnd5eapi.co/api/classes/12"
+    {
+      "name": "Wizard",
+      "url": "http://dnd5eapi.co/api/classes/12"
+    }
   ],
   "url": "http://dnd5eapi.co/api/spells/1"
-}</code></pre>
+}
+ </code></pre>
 
     <p>If your response looks slightly different don't panic. This is probably because more data has been added to dnd5eapi since we made this documentation.</p>
     
@@ -64,9 +70,13 @@
     <p>dnd5eapi is a <strong>completely open API</strong>. No authentication is required to query and get data. This also means that we've limited what you can do to just <strong>GET</strong>-ing the data. If you find a mistake in the data, feel free to <a href="mailto:admin@dnd5eapi.co">email me</a>.</p>
 
 
-
-
-    <% include ../partials/doc-resource %>
+    <h1 id="resources-section">Resources</h1>
+    <% include ../partials/doc-resource-lists %>
+    <% include ../partials/doc-resource-ability-scores %>
     <% include ../partials/doc-resource-classes %>
+    <% include ../partials/doc-resource-conditions %>
+    <% include ../partials/doc-resource-damage-types %>
+    <% include ../partials/doc-resource-equipment %>
+    <h1 id="utility-section">Utility</h1>
     <% include ../partials/doc-resource-utility %>
 </div>
