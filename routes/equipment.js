@@ -1,51 +1,47 @@
-var express = require('express'),
-    router = express.Router(),
-    app = express();
+var express = require('express');
+var router = express.Router();
+var utility = require('./utility');
+var Model = require('../models/equipment');
 
-var Equipment = require('../models/equipment');
-
-router.use('/weapons', require('./equipment-routes/weapons'));
-router.use('/armor', require('./equipment-routes/armor'));
-router.use('/gear', require('./equipment-routes/gear'));
-router.use('/mounts', require('./equipment-routes/mounts'));
-router.use('/tools', require('./equipment-routes/tools'));
-
-// -------------------------------------
-// add '/equipment' route
 router
 .get('/', (req,res) => {
-
-  let query_name = req.query.name;
-
-  if (query_name !== undefined) {
-    Equipment.findOne({ name: query_name }, (err,equipment) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(equipment);
-    })
-  } else {
-    Equipment.find((err,equipment) => {
-      if (err) {
-        res.send(err);
-      }
-    }).sort( {index: 'asc'} ).exec( (err, equipment) => {
-      res.status(200).json(equipment);
-    })
-  }
-
-})
-// -------------------------------------
-// find equipment by index in array
-router
-.get('/equipment/:index', (req,res) => {
-  Equipment.findOne( { index: parseInt(req.params.index) }, (err,equipment) => {
+  Model.find((err,data) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(equipment);
-  })
+  }).sort( { index: 'asc'} ).exec( (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    res.status(200).json(utility.NamedAPIResource(data));
+  });
+});
+
+router
+.get('/:index', (req,res) => {
+
+  if (utility.isEquipmentCategory(req.params.index) === true) {
+    console.log(req.params.index)
+    Model.find( { 'type': utility.equipment_map[req.params.index] }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {index: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } 
+
+  else { // return specific document
+    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(data);
+    })
+  }
 })
-// -------------------------------------
 
 module.exports = router;
