@@ -3,6 +3,7 @@ var app = express()
 var router = express.Router();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser')
 
 
 // Middleware stuff
@@ -10,6 +11,8 @@ app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
 app.use("/css", express.static(__dirname + '/css'));
 app.use("/public", express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(morgan('short'));
 
 
@@ -27,6 +30,8 @@ app.use("/api/startingequipment", require('./routes/startingequipment'));
 app.use("/api/races", require('./routes/races'));
 app.use("/api/subraces", require('./routes/subraces'));
 app.use("/api/traits", require('./routes/traits'));
+app.use("/api/languages", require('./routes/languages'));
+
 
 // Connect to database and start the server
 mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {

@@ -1,40 +1,62 @@
-var express = require('express'),
-    router = express.Router()
-
-var Trait = require('../models/trait');
-
-let subfolder_name = "trait-routes"
-
-// Register race routes
-router.use('/dwarf', require('./' + subfolder_name + '/dwarf'));
-router.use('/elf', require('./' + subfolder_name + '/elf'));
-router.use('/halfling', require('./' + subfolder_name + '/halfling'));
-router.use('/human', require('./' + subfolder_name + '/human'));
+var express = require('express');
+var router = express.Router();
+var utility = require('./utility');
+var Model = require('../models/trait');
 
 router
 .get('/', (req,res) => {
-    Trait.find((err,traits) => {
-        if (err) {
-            res.send(err);
-        }
-    }).sort({index:'asc'}).exec((err,traits) => {
-        if (err) {
-            res.send(err);
-        }
-        res.status(200).json(traits);
-    })
-})
 
-// -------------------------------------
-// find rae by index in array
-router
-.get('/:index', (req,res) => {
-  Trait.findOne( { index: parseInt(req.params.index) }, (err,item) => {
+  Model.find((err,data) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(item);
-  })
-})
+  }).sort( { index: 'asc'} ).exec( (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    res.status(200).json(utility.NamedAPIResource(data));
+  });
+});
 
+
+
+router
+.get('/:index', (req,res) => {
+  // search by class 
+
+  if (utility.isRaceName(req.params.index) === true) {
+    Model.find( { 'race.name': utility.upperFirst(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {url: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } 
+
+  else if (utility.isSubraceName(req.params.index) === true) {
+    Model.find( { 'race.name': utility.subrace_map[req.params.index] }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {url: 'asc'}).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } 
+  
+  else { // return specific document
+    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(data);
+    })
+  }
+})
 module.exports = router;

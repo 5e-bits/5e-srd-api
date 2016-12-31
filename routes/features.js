@@ -1,57 +1,75 @@
-let express = require('express'),
-    router = express.Router();
+var express = require('express');
+var router = express.Router();
+var utility = require('./utility');
+var Model = require('../models/feature');
 
-var Feature = require('../models/feature');
-
-let subfolder_name = "feature-routes"
-
-// Register class routes
-router.use('/barbarian', require('./' + subfolder_name + '/barbarian'));
-router.use('/bard', require('./' + subfolder_name + '/bard'));
-router.use('/cleric', require('./' + subfolder_name + '/cleric'));
-router.use('/druid', require('./' + subfolder_name + '/druid'));
-router.use('/fighter', require('./' + subfolder_name + '/fighter'));
-router.use('/monk', require('./' + subfolder_name + '/monk'));
-router.use('/paladin', require('./' + subfolder_name + '/paladin'));
-router.use('/rogue', require('./' + subfolder_name + '/rogue'));
-router.use('/ranger', require('./' + subfolder_name + '/ranger'));
-router.use('/sorcerer', require('./' + subfolder_name + '/sorcerer'));
-router.use('/warlock', require('./' + subfolder_name + '/warlock'));
-router.use('/wizard', require('./' + subfolder_name + '/wizard'));
-
-
-// -------------------------------------
 router
 .get('/', (req,res) => {
 
-    let query_subclass = req.query.subclass;
-    let search_params = {};
-
-    if (query_subclass !== undefined) {
-      search_params.subclass = query_subclass;
-    }
-
-    Feature.find(search_params, (err,features) => {
-      if (err) {
-        res.send(err);
-      }
-    }).sort( { index: 'asc'} ).exec( (err, features) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(features);
-    })
-})
-
-// -------------------------------------
-router
-.get('/:index', (req,res) => {
-  Feature.findOne( { index: parseInt(req.params.index) }, (err,feature) => {
+  Model.find((err,data) => {
     if (err) {
       res.send(err);
     }
-    res.status(200).json(feature);
-  })
+  }).sort( { index: 'asc'} ).exec( (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    res.status(200).json(utility.NamedAPIResource(data));
+  });
+});
+
+
+
+router
+.get('/:index', (req,res) => {
+  // search by class 
+
+  if (utility.isClassName(req.params.index) === true) {
+    Model.find( { 'class.name': utility.upperFirst(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {url: 'asc', level: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } 
+  
+  else { // return specific document
+    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(data);
+    })
+  }
+})
+
+
+var levelRouter = express.Router({mergeParams: true});
+router.use('/:index/level', levelRouter);
+levelRouter
+.get('/:level', (req, res) => {
+
+  console.log(typeof(parseInt(req.params.level)));
+
+  if (typeof(parseInt(req.params.level) == Number)) {
+    console.log(typeof(parseInt(req.params.level)));
+    Model.find({'class.name': utility.upperFirst(req.params.index), level: parseInt(req.params.level)}, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {url: 'asc', level: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+  } else {
+      res.status(404)
+  }
 })
 
 module.exports = router;
