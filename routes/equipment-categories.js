@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var utility = require('./utility');
-var Model = require('../models/equipment');
+var Model = require('../models/equipment-category');
 
 router
 .get('/', (req,res) => {
@@ -19,7 +19,6 @@ router
 
 router
 .get('/:index', (req,res) => {
-
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {
         res.send(err);

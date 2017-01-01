@@ -37,6 +37,7 @@ app.use("/api/conditions", require('./routes/conditions'));
 app.use("/api/ability-scores", require('./routes/ability-scores'));
 app.use("/api/skills", require('./routes/skills'));
 app.use("/api/weapon-properties", require('./routes/weapon-properties'));
+app.use("/api/equipment-categories", require('./routes/equipment-categories'));
 
 
 // Connect to database and start the server
