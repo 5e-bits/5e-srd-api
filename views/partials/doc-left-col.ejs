@@ -1,65 +1,165 @@
 <div class="col-sm-3 side-nav">
+    <div class="nav-group" style="width: 158px;">    
+        <div class="doc-select hidden-xs">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#start">Getting started</a></li>
+                <li><a href="#base">Base URL</a></li>
+                <li><a href="#auth">Authentication</a></li>
 
-    <h5>Getting started</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#intro">Introduction</a></li>
-        <li class="list-group-item"><a href="#start">Getting started</a></li>
-        <li class="list-group-item"><a href="#base">Base URL</a></li>
-        <li class="list-group-item"><a href="#auth">Authentication</a></li>
-    </ul>
+                <hr>
+                <li><a href="#resource-lists">Resource Lists</a></li>
+                <hr>
 
-    <h5>Resources</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#resource-lists">Resource Lists</a></li>
-        <li class="list-group-item"><a href="#ability-scores">Ability Scores</a></li>
-        <li class="list-group-item"><a href="#conditions">Conditions</a></li>
-        <li class="list-group-item"><a href="#damage-types">Damage Types</a></li>
-        <li class="list-group-item"><a href="#languages">Languages</a></li>
-    </ul>
+                <li class="parent"><a href="#character-data-section">Character Data</a>
+                    <ul>
+                        <li><a href="#ability-scores">Ability Scores</a>
+                        <li><a href="#skills">Skills</a>
+                        <li><a href="#conditions">Conditions</a></li>
+                        <li><a href="#damage-types">Damage Types</a></li>
+                        <li><a href="#languages">Languages</a></li>
+                    </ul>
+                </li>
+                <li class="parent"><a href="#classes-section">Classes</a>
+                    <ul>
+                        <li><a href="#classes">Classes</a></li>
+                        <li><a href="#subclasses">Subclasses</a></li>
+                        <li><a href="#class-features">Features</a></li>
+                        <li><a href="#class-tables">Tables</a></li>
+                        <li><a href="#class-spellcasting">Spellcasting</a></li>
+                        <li><a href="#class-starting-equipment">Starting Equipment</a></li>
+                    </ul>
+                </li>
+                <li class="parent"><a href="#races-section">Races</a>
+                    <ul>
+                        <li><a href="#races">Races</a></li>
+                        <li><a href="#subraces">Subraces</a></li>
+                        <li><a href="#race-traits">Traits</a></li>
+                    </ul>
+                </li>
+                <li class="parent"><a href="#equipment-section">Equipment</a>
+                    <ul>
+                        <li><a href="#equipment-categories">Equipment Categories</a></li>
+                        <li><a href="#equipment-weapons">Weapons</a></li>
+                        <li><a href="#equipment-armor">Armor</a></li>
+                        <li><a href="#equipment-gear">Adventuring Gear</a></li>
+                    </ul>
+                </li>
 
-    <h5>Classes</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#classes">Classes</a></li>
-        <li class="list-group-item"><a href="#subclasses">Subclasses</a></li>
-        <li class="list-group-item"><a href="#class-features">Features</a></li>
-        <li class="list-group-item"><a href="#class-tables">Tables</a></li>
-        <li class="list-group-item"><a href="#class-spellcasting">Spellcasting</a></li>
-        <li class="list-group-item"><a href="#class-starting-equipment">Starting Equipment</a></li>
-    </ul>
+                
+                <li class="parent"><a href="#proficiencies">Proficiencies</a></li>
+                <li class="parent"><a href="#spells">Spells</a></li>
 
-    <h5>Races</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#races">Races</a></li>
-        <li class="list-group-item"><a href="#subraces">Subraces</a></li>
-        <li class="list-group-item"><a href="#race-traits">Traits</a></li>
-    </ul>
+                <li class="parent"><a href="#game-mechanics-section">Game Mechanics</a>
+                    <ul>
+                        <li class="parent"><a href="#conditions">Conditions</a></li>
+                        <li class="parent"><a href="#damage-types">Damage Types</a></li>
+                        <li class="parent"><a href="#languages">Languages</a></li>
+                        <li class="parent"><a href="#magic-schools">Magic Schools</a></li>
+                    </ul>
+                </li>
 
-    <h5>Equipment</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#equipment">Equipment</a></li>
-    </ul>
+                <hr>
+                <li class="parent"><a href="#common-models-section">Common Models</a>
+                    <ul>
+                        <li class="parent"><a href="#namedapiresource">NamedAPIResource</a></li>
+                        <li class="parent"><a href="#classapiresource">ClassAPIResource</a></li>
+                        <li class="parent"><a href="#choice">Choices</a></li>
+                        <li class="parent"><a href="#cost">Cost</a></li>
+                    </ul>
+                </li>
 
-    <h5>Proficiencies</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#proficiencies">Proficiencies</a></li>
-    </ul>
+            </ul>
+        </div>
+        <script type="text/javascript">
 
-    <h5>Spellcasting</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#spells">Spells</a></li>
-        <li class="list-group-item"><a href="#magic-schools">Magic Schools</a></li>
-    </ul>
+        var sticky = $('.nav-group');
+        var docSelect = $('.doc-select');
+        var offset = sticky.offset();
+        var sideNav = $('.side-nav');
+        var navParents = $('.doc-select').children('ul').children('li');
+        var doc = $(document);
+        var win = $(window);
 
-    <h5>Monsters</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#monsters">Monsters</a></li>
-    </ul>
+        $(document).ready(() => {
+            alert('hi');
+        })
 
-    <h5>Utility</h5>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#namedapiresource">NamedAPIResource</a></li>
-        <li class="list-group-item"><a href="#classapiresource">ClassAPIResource</a></li>
-        <li class="list-group-item"><a href="#choice">Choices</a></li>
-        <li class="list-group-item"><a href="#cost">Cost</a></li>
-    </ul>
+        function navOps () {
+
+            //check sticky
+            if (doc.scrollTop() >= (offset.top - 65)) {
+
+                console.log(window.innerHeight - offset.top);
+
+                sticky.addClass('stick');
+                sticky.css({
+                    width: sideNav.width() + 'px',
+                });
+
+            } else {
+
+                sticky.removeClass('stick');
+                sticky.css({ width: '' });
+            }
+
+            navParents.removeClass('active');
+            var parent;
+            var target;
+            var activeParent = $(navParents[0]);
+            var scrollTop = win.scrollTop();
+
+            for (var i = 0; i < navParents.length; i++) {
+
+                parent = $(navParents[i]);
+
+                target = $(parent.find('a').attr('href'));
+
+                if (scrollTop >= target.offset().top) {
+                    activeParent = parent;
+                } else {
+                    break;
+                }
+            }
+
+            activeParent.addClass('active');
+
+            var children = activeParent.find('li');
+            var child;
+            var activeChild;
+
+            children.removeClass('active');
+
+            for (i = 0; i < children.length; i++) {
+
+                child = $(children[i]);
+                target = $(child.find('a').attr('href'));
+
+                if (scrollTop >= target.offset().top) {
+                    activeChild = child;
+                } else {
+                    break;
+                }
+            }
+
+            if (activeChild) {
+
+                activeChild.addClass('active');
+            }
+        }
+
+        doc.scroll(function () {
+
+            navOps();
+        });
+
+        win.resize(function () {
+
+            navOps();
+        });
+
+        navOps();
+
+    </script>
+    </div>
 </div>

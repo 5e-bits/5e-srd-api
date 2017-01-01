@@ -7,8 +7,11 @@ var FeatureSchema   = new Schema({
         name: String,
         url: String
     },
+    subclass: {
+        name: String,
+        url: String
+    },
     level: Number,
-    subclass: String,
     desc: [String],
     url: String
 });

@@ -1,13 +1,10 @@
 <div class="col-md-9 col-sm-9 docs-body">
     <h1>Documentation</h1>
 
-    <p><a name="intro"></a></p>
-
-    <h3>Introduction</h3>
+    <h2 id="intro">Introduction</h2>
     <p>Welcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API! This documentation should help you familiarise yourself with the resources available and how to consume them with HTTP requests. Read through the getting started section before you dive in. Most of your problems should be solved just by reading through it.</p>
-    <p><a name="start"></a></p>
 
-    <h3>Getting started</h3>
+    <h2 id="start">Getting started</h2>
     <p>Let's make our first API request to the D&D 5th Edition API!</p>
     <p>Open up a terminal and use <a href="http://curl.haxx.se">curl</a> or <a href="http://httpie.org">httpie</a> to make an API request for a resource. In the example below, we're trying to get the first spell, Acid Arrow:</p>
 
@@ -55,8 +52,7 @@
 
     <p>If your response looks slightly different don't panic. This is probably because more data has been added to dnd5eapi since we made this documentation.</p>
     
-    <p><a name="base"></a></p>
-    <h3>Base URL</h3>
+    <h2 id="base">Base URL</h2>
     <p>The <strong>Base URL</strong> is the root URL for all of the API, if you ever make a request to dnd5eapi and you get back a <strong>404 NOT FOUND</strong> response then check the Base URL first.</p>
     <p>The Base URL for dnd5eapi is:</p>
 
@@ -65,18 +61,26 @@
     <p>The documentation below assumes you are prepending the Base URL to the endpoints in order to make requests.</p>
     
 
-    <p><a name="auth"></a></p>
-    <h3>Authentication</h3>
+    <h2 id="auth">Authentication</h2>
     <p>dnd5eapi is a <strong>completely open API</strong>. No authentication is required to query and get data. This also means that we've limited what you can do to just <strong>GET</strong>-ing the data. If you find a mistake in the data, feel free to <a href="mailto:admin@dnd5eapi.co">email me</a>.</p>
 
-
-    <h1 id="resources-section">Resources</h1>
     <% include ../partials/doc-resource-lists %>
+
+    <h1 id="character-data-section">Character Data</h1>
     <% include ../partials/doc-resource-ability-scores %>
+
+    <h1 id="classes-section">Classes</h1>
     <% include ../partials/doc-resource-classes %>
+
+    <h1 id="races-section">Races</h1>
+
+    <h1 id="equipment-section">Equipment</h1>
+    <% include ../partials/doc-resource-equipment %>
+
+    <h1 id="game-mechanics-section">Game Mechanics</h1>
     <% include ../partials/doc-resource-conditions %>
     <% include ../partials/doc-resource-damage-types %>
-    <% include ../partials/doc-resource-equipment %>
-    <h1 id="utility-section">Utility</h1>
-    <% include ../partials/doc-resource-utility %>
+
+    <h1 id="common-models-section">Common Models</h1>
+    <% include ../partials/doc-resource-common-models %>
 </div>

@@ -83,15 +83,6 @@ proficiency_map[proficiency_categories[6]] = "Other"
 proficiency_map[proficiency_categories[7]] = "Skills"
 proficiency_map[proficiency_categories[8]] = "Saving Throws"
 
-var equipment_categories = ["armor", "weapons", "gear", "tools", "mounts"]
-var equipment_map = {}
-equipment_map[equipment_categories[0]] = "Armor"
-equipment_map[equipment_categories[1]] = "Weapon"
-equipment_map[equipment_categories[2]] = "Adventuring Gear"
-equipment_map[equipment_categories[3]] = "Tools"
-equipment_map[equipment_categories[4]] = "Mounts and Vehicles"
-
-
 function isClassName(class_name) {
 
     let bool = false;
@@ -240,7 +231,6 @@ var utility = {
     isRaceName,
     isSubraceName,
     isProficiencyCategory,
-    isEquipmentCategory,
     APIResource,
     NamedAPIResource,
     NamedAPIResourceWithDesc,
@@ -248,7 +238,6 @@ var utility = {
     upperFirst,
     subrace_map,
     proficiency_map,
-    equipment_map
 }
 
 module.exports = utility;
