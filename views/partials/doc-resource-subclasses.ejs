@@ -1,0 +1,75 @@
+<h2 id="subclasses">Subclasses</h2>
+<p>Subclasses reflect the different paths a class may take as levels are gained.</p>
+
+<h3>GET api/subclasses/{index or name}</h3>
+
+<pre><code>{
+	"_id": "58674419c9e7ce9f72145635",
+	"index": 5,
+	"class": {
+		"url": "http://dnd5eapi.co/api/classes/5",
+		"name": "Fighter"
+	},
+	"name": "Champion",
+	"subclass_flavor": "Martial Archetype",
+	"desc": [
+		"The archetypal Champion focuses on the development of raw physical power honed to deadly perfection. Those who model themselves on this archetype combine rigorous training with physical excellence to deal devastating blows."
+	],
+	"features": "http://dnd5eapi.co/api/features/fighter/?subclass=Champion",
+	"url": "http://dnd5eapi.co/api/subclasses/5"
+}
+</code></pre>
+
+<h4>Sublass</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this subclass resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The subclass index for shorthand searching.</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name for this subclass resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">class</td>
+            <td align="left">The parent class for this subclass.</td>
+            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Class</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">subclass_flavor</td>
+            <td align="left">The lore-friendly flavor text for a classes respective subclasses.</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">desc</td>
+            <td align="left">Desription of the subclass resource.</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">features</td>
+            <td align="left">All possible features that this subclassclass can obtain.</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL reference of this resource.</td>
+            <td align="left">string</td>
+        </tr>
+    </tbody>
+</table>

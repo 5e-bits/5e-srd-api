@@ -1,0 +1,51 @@
+<h2 id="magic-schools">Magic Schools</h2>
+<p>Academies of magic group spells into eight categories called schools of magic. Scholars, particularly wizards, apply these categories to all spells, believing that all magic functions in essentially the same way, whether it derives from rigorous study or is bestowed by a deity.</p>
+
+<h3>GET api/magic-schools/{index}</h3>
+
+<pre><code>{
+	"_id": "58b73e07c9e7ce9f7214c3bb",
+	"index": 1,
+	"name": "Abjuration",
+	"url": "http://dnd5eapi.co/api/magic-schools/1"
+}
+</code></pre>
+
+<h4>Magic School</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this magic school resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The magic school index for shorthand searching</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name for this magic school resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">desc</td>
+            <td align="left">A brief description of the magic school</td>
+            <td align="left">list string</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource</td>
+            <td align="left">string</td>
+        </tr> 
+    </tbody>
+</table>
