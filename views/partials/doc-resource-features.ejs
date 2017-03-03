@@ -1,0 +1,74 @@
+<h2 id="class-features">Features</h2>
+<p>When you gain a new level in a class, you get its features for that level. You don’t, however, receive the class’s starting Equipment, and a few features have additional rules when you’re multiclassing: Channel Divinity, Extra Attack, Unarmored Defense, and Spellcasting.</p>
+
+<h3>GET api/features/{index}</h3>
+
+<pre><code>{
+	"_id": "586865bec9e7ce9f72145f88",
+	"index": 300,
+	"name": "Elusive",
+	"level": 18,
+	"url": "http://dnd5eapi.co/api/features/300",
+	"desc": [
+		"Beginning at 18th level, you are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren’t incapacitated."
+	],
+	"class": {
+		"url": "http://dnd5eapi.co/api/classes/9",
+		"name": "Rogue"
+	}
+}
+</code></pre>
+
+<h4>Condition</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this feature resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The feature index for shorthand searching</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name for this feature resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">level</td>
+            <td align="left">The level this feature is gained.</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">class</td>
+            <td align="left">The class that gains this feature.</td>
+            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Class</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">subclass</td>
+            <td align="left">The subclass that gains feature resource</td>
+            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclasses">Subclass</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">desc</td>
+            <td align="left">A brief description of the feature</td>
+            <td align="left">list string</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource</td>
+            <td align="left">string</td>
+        </tr> 
+    </tbody>
+</table>
