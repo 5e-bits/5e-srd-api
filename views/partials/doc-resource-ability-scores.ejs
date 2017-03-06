@@ -22,7 +22,7 @@
 }
 </code></pre>
 
-<h4>NamedAPIResourceList</h4>
+<h4>Ability Score</h4>
 
 <table>
     <thead>
@@ -35,12 +35,12 @@
     <tbody>
         <tr>
             <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this class resource</td>
+            <td align="left">The string _id used by the database for this ability score resource</td>
             <td align="left">string</td>
         </tr>
         <tr>
             <td align="left">index</td>
-            <td align="left">The class index for shorthand searching</td>
+            <td align="left">The ability score index for shorthand searching</td>
             <td align="left">integer</td>
         </tr>
         <tr>
@@ -72,55 +72,3 @@
 </table>
 
 
-
-
-
-<pre><code>{
-  "count": 12,
-  "results": [
-    {
-      "class": "Barbarian",
-      "url": "http://dnd5eapi.co/api/tables/1"
-    },
-    {
-      "class": "Bard",
-      "url": "http://dnd5eapi.co/api/tables/2"
-    },
-    {
-      "class": "Cleric",
-      "url": "http://dnd5eapi.co/api/tables/3"
-    },
-    {
-      "class": "Druid",
-      "url": "http://dnd5eapi.co/api/tables/4"
-    },
-    
-    ...
-
-  ]
-}
-</code></pre>
-
-<h4>ClassAPIResourceList</h4>
-
-<table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">count</td>
-            <td align="left">Total number of resource available from this API</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">results</td>
-            <td align="left">A list of class API resource lists</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a></td>
-        </tr>
-    </tbody>
-</table>

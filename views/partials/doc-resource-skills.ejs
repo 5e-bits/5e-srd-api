@@ -1,0 +1,63 @@
+<h2 id="skills">Skills</h2>
+<p>Each ability covers a broad range of capabilities, including skills that a character or a monster can be proficient in. A skill represents a specific aspect of an ability score, and an individual’s proficiency in a skill demonstrates a focus on that aspect.</p>
+
+<h3>GET api/skills/{index}</h3>
+
+<pre><code>{
+	"_id": "58674b98c9e7ce9f7214566a",
+	"index": 3,
+	"name": "Arcana",
+	"desc": [
+		"Your Intelligence (Arcana) check measures your ability to recall lore about spells, magic items, eldritch symbols, magical traditions, the planes of existence, and the inhabitants of those planes."
+	],
+	"ability_score": {
+		"url": "http://dnd5eapi.co/api/ability-scores/4",
+		"name": "INT"
+	},
+	"url": "http://dnd5eapi.co/api/skills/3"
+}
+</code></pre>
+
+<h4>Skill</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this skill resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The skill index for shorthand searching</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The abbreviated name for this skill</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">desc</td>
+            <td align="left">A brief description on this skill and its uses/td>
+            <td align="left">list string</td>
+        </tr>
+        <tr>
+            <td align="left">ability_score</td>
+            <td align="left">The ability score associated with this skill.</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#ability-scores">Ability Score</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource</td>
+            <td align="left">string</td>
+        </tr> 
+    </tbody>
+</table>
