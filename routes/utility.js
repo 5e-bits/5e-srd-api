@@ -55,6 +55,50 @@ function classToIndex(class_name) {
     }
 }
 
+function indexToClass(class_name) {
+  switch(class_name) {
+
+    case 1:
+    return "Barbarian";
+
+    case 2:
+    return "Bard";
+
+    case 3:
+    return "Cleric";
+
+    case 4:
+    return "Druid";
+
+    case 5:
+    return "Fighter";
+
+    case 6:
+    return "Monk";
+
+    case 7:
+    return "Paladin";
+
+    case 8:
+    return "Ranger";
+
+    case 9:
+    return "Rogue";
+
+    case 10:
+    return "Sorcerer";
+
+    case 11:
+    return "Warlock";
+
+    case 12:
+    return "Wizard";
+
+    default:
+    return "None";
+  }
+}
+
 function classToURL(class_name) {
     return "http://dnd5eapi.co/api/classes/" + classToIndex(class_name);
 }
@@ -180,7 +224,7 @@ function NamedAPIResource(data) {
             url: item.url
           }
         });
-    
+
     let sort = mapped.sort((a,b) => {
 
         var urlA = a.url
@@ -227,6 +271,7 @@ function upperFirst(string) {
 var utility = {
     classToURL,
     classToIndex,
+    indexToClass,
     isClassName,
     isRaceName,
     isSubraceName,
