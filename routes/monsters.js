@@ -6,7 +6,12 @@ var Model = require('../models/monster');
 router
 .get('/', (req,res) => {
 
-  Model.find((err,data) => {
+  var search_queries = {}
+  if (req.query.name !== undefined) {
+    search_queries.name = req.query.name
+  }
+
+  Model.find(search_queries, (err,data) => {
     if (err) {
       res.send(err);
     }

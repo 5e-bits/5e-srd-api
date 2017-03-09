@@ -52,6 +52,19 @@
   ],
   "url": "http://dnd5eapi.co/api/spells/1"
 }</pre>
+        <p style="margin: 1em">Recent Changes</p>
+        <ul> 
+            <li>Class routes can be accesesed by both index and name. (Ex. <a href="#" onClick="update('classes/1');return false;"><i>api/classes/1</i></a> === <a href="#" onClick="update('classes/barbarian');return false;"><i>api/classes/barbarian</i></a>)</li>
+            <li>Levels for each class can be accessed by /api/classes/{CLASSNAME}/level/{1 - 20} (Ex. <a href="#" onClick="update('classes/druid/level/12');return false;"><i>api/classes/druid/level/12</i></a>)</li>
+            <li>Can now search monsters by name, exactly how you would with spells. (Ex. <a href="#" onClick="update('monsters/?name=Aboleth');return false;"><i>api/monsters/?name=Aboleth</i></a>)</li>
+        </ul>
+
+
+        <p style="margin: 1em">To-Do</p>
+        <ul> 
+            <li>Update the dang documentation!</li>
+        </ul>
+       
         </div>
     </div>
 </div>
