@@ -1,12 +1,31 @@
 var _ = require('lodash');
 
-function toLower(str) {
-    return _.lowerCase(str);
-}
-
 function classToIndex(class_name) {
-    _.lowerCase(class_name)
     switch(class_name) {
+        case "Barbarian":
+        return 1;
+        case "Bard":
+        return 2;
+        case "Cleric":
+        return 3;
+        case "Druid":
+        return 4;
+        case "Fighter":
+        return 5;
+        case "Monk":
+        return 6;
+        case "Paladin":
+        return 7;
+        case "Ranger":
+        return 8;
+        case "Rogue":
+        return 9;
+        case "Sorcerer":
+        return 10;
+        case "Warlock":
+        return 11;
+        case "Wizard":
+        return 12;
         case "barbarian":
         return 1;
         case "bard":
@@ -40,43 +59,43 @@ function indexToClass(class_name) {
   switch(class_name) {
 
     case 1:
-    return "barbarian";
+    return "Barbarian";
 
     case 2:
-    return "bard";
+    return "Bard";
 
     case 3:
-    return "cleric";
+    return "Cleric";
 
     case 4:
-    return "druid";
+    return "Druid";
 
     case 5:
-    return "fighter";
+    return "Fighter";
 
     case 6:
-    return "monk";
+    return "Monk";
 
     case 7:
-    return "paladin";
+    return "Paladin";
 
     case 8:
-    return "ranger";
+    return "Ranger";
 
     case 9:
-    return "rogue";
+    return "Rogue";
 
     case 10:
-    return "sorcerer";
+    return "Sorcerer";
 
     case 11:
-    return "warlock";
+    return "Warlock";
 
     case 12:
-    return "wizard";
+    return "Wizard";
 
     default:
-    return "none";
+    return "None";
   }
 }
 
@@ -84,55 +103,17 @@ function classToURL(class_name) {
     return "http://dnd5eapi.co/api/classes/" + classToIndex(class_name);
 }
 
-var class_names = ["barbarian","bard","cleric","druid","fighter",
-        "monk","paladin","ranger","rogue","sorcerer","warlock","wizard"]
+var class_names = ["Barbarian","Bard","Cleric","Druid","Fighter",
+        "Monk","Paladin","Ranger","Rogue","Sorcerer","Warlock","Wizard"]
 
-var class_map = {}
-class_map[class_names[0]] = "Barbarian"
-class_map[class_names[1]] = "Bard"
-class_map[class_names[2]] = "Cleric"
-class_map[class_names[3]] = "Druid"
-class_map[class_names[4]] = "Fighter"
-class_map[class_names[5]] = "Monk"
-class_map[class_names[6]] = "Paladin"
-class_map[class_names[7]] = "Ranger"
-class_map[class_names[8]] = "Rogue"
-class_map[class_names[9]] = "Sorcerer"
-class_map[class_names[10]] = "Warlock"
-class_map[class_names[11]] = "Wizard"
+var race_names = ["Dwarf", "Elf", "Halfling", "Human"]
 
 
-var subclass_names = ["berserker", "lore", "life", "land", "champion", "openhand", "devotion", "hunter",
-"thief", "draconic", "fiend", "evocation"]
-
-var subclass_map = {}
-subclass_map[subclass_names[0]] = "Berserker"
-subclass_map[subclass_names[1]] = "Lore"
-subclass_map[subclass_names[2]] = "Life"
-subclass_map[subclass_names[3]] = "Land"
-subclass_map[subclass_names[4]] = "Champion"
-subclass_map[subclass_names[5]] = "Open Hand"
-subclass_map[subclass_names[6]] = "Devotion"
-subclass_map[subclass_names[7]] = "Hunter"
-subclass_map[subclass_names[8]] = "Thief"
-subclass_map[subclass_names[9]] = "Draconic"
-subclass_map[subclass_names[10]] = "Fiend"
-subclass_map[subclass_names[11]] = "Evocation"
-
-
-
-
-
-var race_names = ["dwarf", "elf", "halfling", "human"]
-
-var subrace_names = ["hilldwarf", "highelf", "lightfoothalfling"]
+var subrace_names = ["dwarf-hill", "elf-high", "halfling-lightfoot"]
 var subrace_map = {}
 subrace_map[subrace_names[0]] = "Hill Dwarf"
 subrace_map[subrace_names[1]] = "High Elf"
 subrace_map[subrace_names[2]] = "Lightfoot Halfling"
-
-
-
 
 var proficiency_categories = ["armor", "weapons", "artisans-tools", "gaming-sets", "musical-instruments", "vehicles", "other", "skills", "saving-throws"]
 proficiency_map = {}
@@ -151,20 +132,7 @@ function isClassName(class_name) {
     let bool = false;
 
     class_names.forEach(function(element) {
-        if (class_name === element) {
-            bool = true;
-        }
-    });
-
-    return bool;
-}
-
-function isSubclassName(subclass_name) {
-
-    let bool = false;
-
-    subclass_names.forEach(function(element) {
-        if (subclass_name === element) {
+        if (upperFirst(class_name) === element) {
             bool = true;
         }
     });
@@ -301,12 +269,10 @@ function upperFirst(string) {
 }
 
 var utility = {
-    toLower,
     classToURL,
     classToIndex,
     indexToClass,
     isClassName,
-    isSubclassName,
     isRaceName,
     isSubraceName,
     isProficiencyCategory,
@@ -317,8 +283,6 @@ var utility = {
     upperFirst,
     subrace_map,
     proficiency_map,
-    class_map,
-    subclass_map
 }
 
 module.exports = utility;
