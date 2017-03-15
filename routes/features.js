@@ -25,7 +25,7 @@ router
   // search by class 
 
   if (utility.isClassName(req.params.index) === true) {
-    Model.find( { 'class.name': utility.upperFirst(req.params.index) }, (err,data) => {
+    Model.find( { 'class.name': utility.upperFirst(req.params.index), 'subclass': {} }, (err,data) => {
       if (err) {
         res.send(err);
       }
