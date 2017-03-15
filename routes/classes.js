@@ -71,4 +71,23 @@ levelRouter
   }
 })
 
+levelRouter2 = express.Router({mergeParams: true});
+router.use('/:index/levels', levelRouter2);
+var LevelModel = require('../models/level');
+
+levelRouter2
+.get('/', (req, res) => {
+    console.log(utility.class_map[req.params.index]);
+    LevelModel.find({'class.name': utility.class_map[req.params.index], 'subclass' : {}}, (err,data) => {
+      if (err) {
+        res.send(err);
+      }
+    }).sort( {level: 'asc'} ).exec((err,data) => {
+      if (err) {
+        res.send(err);
+      }
+      res.status(200).json(data);
+    })
+  
+})
 module.exports = router;
