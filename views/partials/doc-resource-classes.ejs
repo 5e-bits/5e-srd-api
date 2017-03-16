@@ -1,38 +1,42 @@
 <h2 id="classes">Classes</h2>
 <p>A character class is a fundamental part of the identity and nature of characters in the Dungeons & Dragons role-playing game. A character's capabilities, strengths, and weaknesses are largely defined by its class. A character's class affects a character's available skills and abilities. </p>
 
-<h3>GET api/classes/{index or name}</h3>
+<h3>GET api/classes/{index or class}</h3>
 
 <pre><code>{
-  "_id": "58679c3cc9e7ce9f72145931",
-  "index": 12,
-  "name": "Wizard",
-  "hit_die": 6,
+  "_id": "58c9eb6bc9e7ce9f7214efa7",
+  "index": 11,
+  "name": "Warlock",
+  "hit_die": 8,
   "proficiency_choices": [
     {
       "from": [
         {
-          "name": "Arcana",
+          "name": "Skill: Arcana",
           "url": "http://dnd5eapi.co/api/proficiencies/107"
         },
         {
-          "name": "History",
+          "name": "Skill: Deception",
+          "url": "http://dnd5eapi.co/api/proficiencies/109"
+        },
+        {
+          "name": "Skill: History",
           "url": "http://dnd5eapi.co/api/proficiencies/110"
         },
         {
-          "name": "Insight",
-          "url": "http://dnd5eapi.co/api/proficiencies/111"
+          "name": "Skill: Intimidation",
+          "url": "http://dnd5eapi.co/api/proficiencies/112"
         },
         {
-          "name": "Investigation",
+          "name": "Skill: Investigation",
           "url": "http://dnd5eapi.co/api/proficiencies/113"
         },
         {
-          "name": "Medicine",
-          "url": "http://dnd5eapi.co/api/proficiencies/114"
+          "name": "Skill: Nature",
+          "url": "http://dnd5eapi.co/api/proficiencies/115"
         },
         {
-          "name": "Religion",
+          "name": "Skill: Religion",
           "url": "http://dnd5eapi.co/api/proficiencies/119"
         }
       ],
@@ -42,111 +46,43 @@
   ],
   "proficiencies": [
     {
-      "url": "http://dnd5eapi.co/api/proficiencies/22",
-      "name": "Daggers"
+      "url": "http://dnd5eapi.co/api/proficiencies/1",
+      "name": "Light armor"
     },
     {
-      "url": "http://dnd5eapi.co/api/proficiencies/28",
-      "name": "Quarterstaffs"
+      "url": "http://dnd5eapi.co/api/proficiencies/19",
+      "name": "Simple weapons"
+    }
+  ],
+  "saving_throws": [
+    {
+      "url": "http://dnd5eapi.co/api/ability-scores/5",
+      "name": "WIS"
     },
     {
-      "url": "http://dnd5eapi.co/api/proficiencies/32",
-      "name": "Darts"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/proficiencies/34",
-      "name": "Slings"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/proficiencies/102",
-      "name": "INT Saving Throw"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/proficiencies/103",
-      "name": "WIS Saving Throw"
+      "url": "http://dnd5eapi.co/api/ability-scores/6",
+      "name": "CHA"
     }
   ],
   "starting_equipment": {
-    "url": "http://dnd5eapi.co/api/startingequipment/12",
-    "class": "Wizard"
+    "url": "http://dnd5eapi.co/api/startingequipment/11",
+    "class": "Warlock"
   },
-  "class_table": {
-    "url": "http://dnd5eapi.co/api/tables/12",
-    "class": "Wizard"
+  "class_levels": {
+    "url": "http://dnd5eapi.co/api/Warlock/levels",
+    "class": "Warlock"
   },
-  "features": [
-    {
-      "url": "http://dnd5eapi.co/api/features/393",
-      "name": "Spellcasting"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/394",
-      "name": "Arcane Recovery"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/395",
-      "name": "Arcane Tradition"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/396",
-      "name": "Evocation Savant"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/397",
-      "name": "Sculpt Spells"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/398",
-      "name": "Ability Score Improvement 1"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/399",
-      "name": "Potent Cantrip"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/400",
-      "name": "Ability Score Improvement 2"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/401",
-      "name": "Empowered Evocation"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/402",
-      "name": "Ability Score Improvement 3"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/403",
-      "name": "Overchannel"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/404",
-      "name": "Ability Score Improvement 4"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/405",
-      "name": "Spell Mastery"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/406",
-      "name": "Ability Score Improvement 5"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/features/407",
-      "name": "Signature Spell"
-    }
-  ],
   "subclasses": [
     {
-      "name": "Evocation",
-      "url": "http://dnd5eapi.co/api/subclasses/12"
+      "name": "Fiend",
+      "url": "http://dnd5eapi.co/api/subclasses/11"
     }
   ],
   "spellcasting": {
-    "url": "http://dnd5eapi.co/api/spellcasting/8",
-    "class": "Wizard"
+    "url": "http://dnd5eapi.co/api/spellcasting/7",
+    "class": "Warlock"
   },
-  "url": "http://dnd5eapi.co/api/classes/12"
+  "url": "http://dnd5eapi.co/api/classes/11"
 }
 </code></pre>
 
@@ -197,14 +133,9 @@
             <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#startingequipment">StartingEquipment</a>)</td>
         </tr>
         <tr>
-            <td align="left">class_table</td>
-            <td align="left">The table showing the class's stats as the player gains class levels.</td>
-            <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#tables">Tables</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">features</td>
-            <td align="left">All possible features that this class can obtain (excluding subclass-specific features)</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)</td>
+            <td align="left">class_levels</td>
+            <td align="left">All possible levels that this class can obtain (excluding subclass-specific features)</td>
+            <td align="left">list <a href="#levels">Levels</a></td>
         </tr>
         <tr>
             <td align="left">subclasses</td>

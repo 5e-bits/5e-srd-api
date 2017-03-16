@@ -1,0 +1,81 @@
+<h2 id="proficiencies">Proficiencies</h2>
+<p>By virtue of your race, your character can speak, read, and write certain Proficiencies.</p>
+
+<h3>GET api/proficiencies/{index or class}</h3>
+
+<pre><code>{
+  "_id": "58c655aac9e7ce9f7214da02",
+  "index": 2,
+  "type": "Armor",
+  "name": "Medium armor",
+  "classes": [
+    {
+      "name": "Barbarian",
+      "url": "http://dnd5eapi.co/api/classes/1"
+    },
+    {
+      "name": "Cleric",
+      "url": "http://dnd5eapi.co/api/classes/3"
+    },
+    {
+      "name": "Druid",
+      "url": "http://dnd5eapi.co/api/classes/4"
+    },
+    {
+      "name": "Ranger",
+      "url": "http://dnd5eapi.co/api/classes/8"
+    }
+  ],
+  "races": [],
+  "url": "http://dnd5eapi.co/api/proficiencies/2"
+}
+</code></pre>
+
+<h4>Proficiency</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this proficiency resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The proficiency index for shorthand searching</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">type</td>
+            <td align="left">The general category of the proficiency</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name of this proficiency resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">classes</td>
+            <td align="left">Classes that start with this proficiency.</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Class</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">races</td>
+            <td align="left">Races that start with this proficiency.</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL of the referenced resource</td>
+            <td align="left">string</td>
+        </tr> 
+    </tbody>
+</table>
