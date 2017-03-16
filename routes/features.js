@@ -27,7 +27,11 @@ router
 
   if (utility.isClassName(req.params.index) === true) {
     console.log(utility.upperFirst(req.params.index))
-    Model.find( { 'class.name': utility.upperFirst(req.params.index), 'subclass.name': undefined }, (err,data) => {
+    Model.find( { 
+        'class.name': utility.upperFirst(req.params.index), 
+        'subclass.name': undefined,
+        'group': undefined 
+      }, (err,data) => {
       if (err) {
         res.send(err);
       }
@@ -41,7 +45,9 @@ router
 
   else if (utility.isSubclassName(req.params.index) === true) {
     console.log(utility.subclass_map[req.params.index])
-    Model.find( { 'subclass.name': utility.subclass_map[req.params.index] }, (err,data) => {
+    Model.find( { 
+        'subclass.name': utility.subclass_map[req.params.index],
+        'group': undefined }, (err,data) => {
       if (err) {
         res.send(err);
       }
@@ -76,7 +82,8 @@ levelRouter
       Model.find({
         'class.name': utility.upperFirst(req.params.index), 
         level: parseInt(req.params.level), 
-        'subclass.name': undefined
+        'subclass.name': undefined,
+        'group': undefined
       }, (err,data) => {
         if (err) {
           res.send(err);
@@ -91,7 +98,8 @@ levelRouter
     else if (utility.isSubclassName(req.params.index) === true) {
       Model.find({
         level: parseInt(req.params.level), 
-        'subclass.name': utility.upperFirst(req.params.index)
+        'subclass.name': utility.upperFirst(req.params.index),
+        'group': undefined
       }, (err,data) => {
         if (err) {
           res.send(err);
