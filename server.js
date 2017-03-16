@@ -28,7 +28,6 @@ app.use("/api/spellcasting", require('./routes/spellcasting'));
 app.use("/api/spells", require('./routes/spells'));
 app.use("/api/monsters", require('./routes/monsters'));
 app.use("/api/features", require('./routes/features'));
-app.use("/api/tables", require('./routes/tables'));
 app.use("/api/equipment", require('./routes/equipment'));
 app.use("/api/proficiencies", require('./routes/proficiencies'));
 app.use("/api/startingequipment", require('./routes/startingequipment'));
