@@ -4,6 +4,7 @@ var router = express.Router();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
+var cors = require('cors')
 
 
 // Middleware stuff
@@ -14,11 +15,12 @@ app.use("/public", express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(morgan('short'));
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+app.use(cors());
 
 
 // Register routes
@@ -68,6 +70,6 @@ app.get('/docs', (req, res) => {
 })
 
 app.get('/api', (req, res) => {
-  res.status(200).json(index);
+  res.status(200);
 })
 

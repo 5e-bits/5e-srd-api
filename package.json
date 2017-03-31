@@ -15,5 +15,8 @@
     "mongoose": "^4.7.2",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.3"
   }
 }
