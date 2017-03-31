@@ -20,7 +20,7 @@ app.use(morgan('short'));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
-app.use(cors({credentials: true, origin: true}));
+app.use(cors());
 
 
 // Register routes
