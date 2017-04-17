@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var cors = require('cors')
 
-
 // Middleware stuff
 app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
@@ -56,7 +55,7 @@ mongoose.connect(process.env.MONGOLAB_URI, (err, database) => {
 
   var server = app.listen(process.env.PORT || 3000, () => {
     var port = server.address().port;
-    console.log('Example app listening on port 3000!')
+    console.log('Listening on port 3000!')
   })
 });
 
@@ -72,4 +71,3 @@ app.get('/docs', (req, res) => {
 app.get('/api', (req, res) => {
   res.status(200).json(index);
 })
-
