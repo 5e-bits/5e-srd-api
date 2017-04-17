@@ -24,57 +24,62 @@
             <small>Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/3/');return false;"><i>monsters/3/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a></small>
             <p class="lead pad_top">Resource for <span id="interactive_name">Acid Arrow</span></p>
             <pre id="interactive_output" class="pre-scrollable">{
-  "index": 1,
-  "name": "Acid Arrow",
-  "desc": [
-    "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
-  ],
-  "higher_level": [
-    "When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
-  ],
-  "page": "phb 259",
-  "range": "90 feet",
-  "components": [
-    "V",
-    "S",
-    "M"
-  ],
-  "material": "Powdered rhubarb leaf and an adder’s stomach.",
-  "ritual": "no",
-  "duration": "Instantaneous",
-  "concentration": "no",
-  "casting_time": "1 action",
-  "level": 2,
-  "school": "Evocation",
-  "classes": [
-    "http://dnd5eapi.co/api/classes/4",
-    "http://dnd5eapi.co/api/classes/12"
-  ],
-  "url": "http://dnd5eapi.co/api/spells/1"
+	"_id": "58c9eb75c9e7ce9f7214efaa",
+	"index": 1,
+	"name": "Acid Arrow",
+	"desc": [
+		"A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
+	],
+	"higher_level": [
+		"When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
+	],
+	"page": "phb 259",
+	"range": "90 feet",
+	"components": [
+		"V",
+		"S",
+		"M"
+	],
+	"material": "Powdered rhubarb leaf and an adder’s stomach.",
+	"ritual": "no",
+	"duration": "Instantaneous",
+	"concentration": "no",
+	"casting_time": "1 action",
+	"level": 2,
+	"school": {
+		"url": "http://dnd5eapi.co/api/magic-schools/5",
+		"name": "Evocation"
+	},
+	"classes": [
+		{
+			"name": "Wizard",
+			"url": "http://dnd5eapi.co/api/classes/12"
+		}
+	],
+	"subclasses": [
+		{
+			"url": "http://dnd5eapi.co/api/subclasses/2",
+			"name": "Lore"
+		},
+		{
+			"url": "http://dnd5eapi.co/api/subclasses/4",
+			"name": "Land"
+		}
+	],
+	"url": "http://dnd5eapi.co/api/spells/1"
 }</pre>
 
-
-        <p style="margin: 1em">Recent Changes - 03/14/17</p>
-        <ul> 
-            <li>See all class levels by using the new api/classes/{CLASSNAME}/levels endpoint. (Ex. <a href="#" onClick="update('classes/rogue/levels');return false;"><i>api/classes/rogue/levels</i></a>)</li>
-            <li>Features for each subclass can be accessed by /api/features/{SUBCLASS_NAME}/level/{1 - 20} (Ex. <a href="#" onClick="update('features/devotion');return false;"><i>api/features/devotion</i></a>)</li>
+        <p style="margin: 1em">Recent Changes - 04/17/17</p>
+        <ul>
+            <li>Created Slack chat group, which you can access <a href="http://dnd-5e-api-slack.herokuapp.com/">here</a>. A place to ask questions and make suggestions etc.</li>
+            <li>Updated "url" members of every object to have 'www.' to avoid CORS errors</li>
         </ul>
-
-
-        <p style="margin: 1em">Recent Changes - 03/09/17</p>
-        <ul> 
-            <li>Class routes can be accesesed by both index and name. (Ex. <a href="#" onClick="update('classes/1');return false;"><i>api/classes/1</i></a> === <a href="#" onClick="update('classes/barbarian');return false;"><i>api/classes/barbarian</i></a>)</li>
-            <li>Levels for each class can be accessed by /api/classes/{CLASSNAME}/level/{1 - 20} (Ex. <a href="#" onClick="update('classes/druid/level/12');return false;"><i>api/classes/druid/level/12</i></a>)</li>
-            <li>Can now search monsters by name, exactly how you would with spells. (Ex. <a href="#" onClick="update('monsters/?name=Aboleth');return false;"><i>api/monsters/?name=Aboleth</i></a>)</li>
-        </ul>
-
 
         <p style="margin: 1em">To-Do</p>
-        <ul> 
+        <ul>
             <li>Update the dang documentation!</li>
-            <li>Move recent changes log to separate page</li>
         </ul>
-       
+
         </div>
     </div>
 </div>
