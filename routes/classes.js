@@ -57,7 +57,7 @@ levelRouter
   if (typeof(parseInt(req.params.level) == Number)) {
     
 
-    let urlString = "http://dnd5eapi.co/api/classes/" + req.params.index + "/level/" + req.params.level;
+    let urlString = "http://www.dnd5eapi.co/api/classes/" + req.params.index + "/level/" + req.params.level;
     console.log(urlString);
     
     LevelModel.findOne({'url': urlString}, (err,data) => {
