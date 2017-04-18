@@ -1,0 +1,181 @@
+<h2 id="races">Races</h2>
+<p>Each race grants your character ability and skill bonuses as well as racial traits.</p>
+
+<h3>GET api/races/{index}</h3>
+
+<pre><code>{
+  "_id": "58f40b94c9e7ce9f7215325f",
+  "index": 1,
+  "name": "Dwarf",
+  "speed": 30,
+  "ability_bonuses": [
+    0,
+    0,
+    2,
+    0,
+    0,
+    0
+  ],
+  "alignment": "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order.",
+  "age": "Dwarves mature at the same rate as humans, but they’re considered young until they reach the age of 50. On average, they live about 350 years.",
+  "size": "Medium",
+  "size_description": "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.",
+  "starting_proficiencies": [
+    {
+      "name": "Battleaxes",
+      "url": "http://www.dnd5eapi.co/api/proficiencies/20"
+    },
+    {
+      "name": "Handaxes",
+      "url": "http://www.dnd5eapi.co/api/proficiencies/24"
+    },
+    {
+      "name": "Light hammers",
+      "url": "http://www.dnd5eapi.co/api/proficiencies/26"
+    },
+    {
+      "name": "Warhammers",
+      "url": "http://www.dnd5eapi.co/api/proficiencies/51"
+    },
+    {
+      "from": [
+        {
+          "name": "Smith's tools",
+          "url": "http://www.dnd5eapi.co/api/proficiencies/71"
+        },
+        {
+          "name": "Brewer's supplies",
+          "url": "http://www.dnd5eapi.co/api/proficiencies/59"
+        },
+        {
+          "name": "Mason's tools",
+          "url": "http://www.dnd5eapi.co/api/proficiencies/68"
+        }
+      ],
+      "type": "proficiencies",
+      "choose": 1
+    }
+  ],
+  "languages": [
+    {
+      "name": "Common",
+      "url": "http://www.dnd5eapi.co/api/languages/1"
+    },
+    {
+      "name": "Dwarvish",
+      "url": "http://www.dnd5eapi.co/api/languages/2"
+    }
+  ],
+  "language_desc": "You can speak, read, and write Common and Dwarvish. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might speak.",
+  "traits": [
+    {
+      "url": "http://www.dnd5eapi.co/api/traits/1",
+      "name": "Darkvision (Dwarf)"
+    },
+    {
+      "url": "http://www.dnd5eapi.co/api/traits/2",
+      "name": "Dwarven Resilience"
+    },
+    {
+      "url": "http://www.dnd5eapi.co/api/traits/3",
+      "name": "Stonecunning"
+    }
+  ],
+  "subraces": [
+    {
+      "name": "Hill Dwarf",
+      "url": "http://www.dnd5eapi.co/api/subraces/1"
+    }
+  ],
+  "url": "http://www.dnd5eapi.co/api/races/1"
+}
+</code></pre>
+
+<h4>Class</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this race resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The race index for shorthand searching.</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name for this race resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">speed</td>
+            <td align="left">Base move speed for this race (in feet per round)</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">ability_bonuses</td>
+            <td align="left">Racial bonuses to each of the six ability scores</td>
+            <td align="left">array (integer)</td>
+        </tr>
+        <tr>
+            <td align="left">alignment</td>
+            <td align="left">Flavor description of likely alignments this race takes.</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">age</td>
+            <td align="left">Flavor description of possible ages for this race </td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">size</td>
+            <td align="left">Size class of this race</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">size_description</td>
+            <td align="left">Flavor description of height and weight for this race</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">starting_proficiencies</td>
+            <td align="left">Starting proficiencies for all new characters of this race</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">languages</td>
+            <td align="left">Starting languages for all new characters of this race</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#languages">Proficiencies</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">language_desc</td>
+            <td align="left">Flavor description of the languages this race knows</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">traits</td>
+            <td align="left">Racial traits that provide benefits to its members</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Trait</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">subraces</td>
+            <td align="left">The reference object for the class's spellcasting. Contains information such as spells known, spellcasting ability, and cantrips known.</td>
+            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#subraces">Subrace</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL reference of this resource.</td>
+            <td align="left">string</td>
+        </tr>
+    </tbody>
+</table>

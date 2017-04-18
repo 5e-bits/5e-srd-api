@@ -1,0 +1,97 @@
+<h2 id="subraces">Subraces</h2>
+<p>Subraces reflect the different varieties of a certain parent race</p>
+
+<h3>GET api/subraces/{index or race}</h3>
+
+<pre><code>{
+  "_id": "58f40b5dc9e7ce9f721530f9",
+  "index": 1,
+  "name": "Hill Dwarf",
+  "race": {
+    "url": "http://www.dnd5eapi.co/api/races/1",
+    "name": "Dwarf"
+  },
+  "desc": "As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.",
+  "ability_bonuses": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+  ],
+  "starting_proficiencies:": [],
+  "languages": [],
+  "racial_traits": [
+    {
+      "name": "Dwarven Toughness",
+      "url": "http://www.dnd5eapi.co/api/traits/4"
+    }
+  ],
+  "url": "http://www.dnd5eapi.co/api/subraces/1"
+}
+</code></pre>
+
+<h4>subrace</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th align="left">Name</th>
+            <th align="left">Description</th>
+            <th align="left">Data Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">_id</td>
+            <td align="left">The string _id used by the database for this subrace resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">index</td>
+            <td align="left">The subrace index for shorthand searching.</td>
+            <td align="left">integer</td>
+        </tr>
+        <tr>
+            <td align="left">name</td>
+            <td align="left">The name for this subrace resource</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">race</td>
+            <td align="left">The parent race for this subrace.</td>
+            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">desc</td>
+            <td align="left">Flavor description of this subrace</td>
+            <td align="left">string</td>
+        </tr>
+        <tr>
+            <td align="left">ability_bonuses</td>
+            <td align="left">Additional ability bonuses granted by this sub race</td>
+            <td align="left">array (integer)</td>
+        </tr>
+        <tr>
+            <td align="left">starting_proficiencies</td>
+            <td align="left">Starting proficiencies for all new characters of this subrace</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">languages</td>
+            <td align="left">Starting languages for all new characters of this subrace</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#languages">Proficiencies</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">traits</td>
+            <td align="left">Racial traits that provide benefits to its members</td>
+            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Trait</a>)</td>
+        </tr>
+        <tr>
+            <td align="left">url</td>
+            <td align="left">The URL reference of this resource.</td>
+            <td align="left">string</td>
+        </tr>
+    </tbody>
+</table>
