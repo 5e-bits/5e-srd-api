@@ -6,6 +6,9 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var cors = require('cors')
 
+// enable cors in preflight
+app.options('*', cors());
+
 // Middleware stuff
 app.set('view engine', 'ejs');
 app.use("/js", express.static(__dirname + '/js'));
@@ -20,7 +23,6 @@ app.use(morgan('short'));
 //     next();
 // });
 app.use(cors());
-
 
 // Register routes
 app.use("/api/classes", require('./routes/classes'));
