@@ -3,14 +3,11 @@ REST API to access D&amp;D 5th Edition SRD database at http://www.dnd5eapi.co/
 
 Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
-First, install dependencies by running
-```
-npm install
-```
+Make sure your database is setup by going [here.](https://github.com/bagelbits/5e-database)
 
-Run app locally (for testing purposes) using
+Then run it with docker:
 ```
-heroku local
+docker build . -t 5e-srd-api && docker run -it -p 3000:3000 -e MONGODB_URI=mongodb://docker.for.mac.localhost/5e-database 5e-srd-api
 ```
 
 Make HTTP requests by using the root address:
@@ -19,19 +16,26 @@ Make HTTP requests by using the root address:
 You should get a response with the available endpoints for the root:
 ```
 {
-    "races": "http://dnd5eapi.co/api/races/",
-    "subraces": "http://dnd5eapi.co/api/subraces/",
-    "classes": "http://dnd5eapi.co/api/classes/",
-    "subclasses": "http://dnd5eapi.co/api/subclasses/",
-    "languages": "http://dnd5eapi.co/api/languages/",
-    "spellcasting": "http://dnd5eapi.co/api/spellcasting/",
-    "spells": "http://dnd5eapi.co/api/spells/",
-    "monsters": "http://dnd5eapi.co/api/monsters/",
-    "features": "http://dnd5eapi.co/api/features/",
-    "tables": "http://dnd5eapi.co/api/tables/",
-    "equipment": "http://dnd5eapi.co/api/equipment/",
-    "proficiencies": "http://dnd5eapi.co/api/proficiencies/",
-    "startingequipment": "http://dnd5eapi.co/api/startingequipment/"
+  "ability-scores": "/api/ability-scores",
+  "classes": "/api/classes",
+  "conditions": "/api/conditions",
+  "damage-types": "/api/damage-types",
+  "equipment-categories": "/api/equipment-categories",
+  "equipment": "/api/equipment",
+  "features": "/api/features",
+  "languages": "/api/languages",
+  "magic-schools": "/api/magic-schools",
+  "monsters": "/api/monsters",
+  "proficiencies": "/api/proficiencies",
+  "races": "/api/races",
+  "skills": "/api/skills",
+  "spellcasting": "/api/spellcasting",
+  "spells": "/api/spells",
+  "startingequipment": "/api/startingequipment",
+  "subclasses": "/api/subclasses",
+  "subraces": "/api/subraces",
+  "traits": "/api/traits",
+  "weapon-properties": "/api/weapon-properties"
 }
 ```
 
