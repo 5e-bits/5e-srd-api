@@ -6,7 +6,7 @@ var Model = require('../models/trait');
 router
 .get('/', (req,res) => {
 
-  Model.find((err,data) => {
+  Model.find((err,  _data) => {
     if (err) {
       res.send(err);
     }
@@ -22,10 +22,10 @@ router
 
 router
 .get('/:index', (req,res) => {
-  // search by class 
+  // search by class
 
   if (utility.isRaceName(req.params.index) === true) {
-    Model.find( { 'race.name': utility.upperFirst(req.params.index) }, (err,data) => {
+    Model.find( { 'race.name': utility.upperFirst(req.params.index) }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -35,10 +35,10 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  } 
+  }
 
   else if (utility.isSubraceName(req.params.index) === true) {
-    Model.find( { 'race.name': utility.subrace_map[req.params.index] }, (err,data) => {
+    Model.find( { 'race.name': utility.subrace_map[req.params.index] }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -48,10 +48,10 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  } 
-  
+  }
+
   else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+    Model.findOne( { index: parseInt(req.params.index) }, (err, data) => {
       if (err) {
         res.send(err);
       }

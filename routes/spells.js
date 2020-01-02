@@ -11,7 +11,7 @@ router
     search_queries.name = req.query.name
   }
 
-  Model.find(search_queries, (err,data) => {
+  Model.find(search_queries, (err, _data) => {
     if (err) {
       res.send(err);
     }
@@ -27,10 +27,10 @@ router
 
 router
 .get('/:index', (req,res) => {
-  // search by class 
+  // search by class
 
   if (utility.isClassName(req.params.index) === true) {
-    Model.find( { 'classes.name': utility.upperFirst(req.params.index) }, (err,data) => {
+    Model.find( { 'classes.name': utility.upperFirst(req.params.index) }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -40,10 +40,10 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  } 
-  
+  }
+
   else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+    Model.findOne( { index: parseInt(req.params.index) }, (err, data) => {
       if (err) {
         res.send(err);
       }
@@ -60,9 +60,9 @@ levelRouter
 
   console.log(typeof(parseInt(req.params.level)));
 
-  if (typeof(parseInt(req.params.level) == Number)) {
+  if (typeof(parseInt(req.params.level)) == 'number') {
     console.log(typeof(parseInt(req.params.level)));
-    Model.find({'classes.name': utility.upperFirst(req.params.index), level: parseInt(req.params.level)}, (err,data) => {
+    Model.find({'classes.name': utility.upperFirst(req.params.index), level: parseInt(req.params.level)}, (err, _data) => {
       if (err) {
         res.send(err);
       }

@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var utility = require('./utility');
-var Model = require('../models/class');
+const express = require('express');
+const router = express.Router();
+const utility = require('./utility');
+const Model = require('../models/class');
 
 router
 .get('/', (req,res) => {
-  Model.find((err,data) => {
+  Model.find((err,_data) => {
     if (err) {
       res.send(err);
     }
@@ -21,9 +21,9 @@ router
 
 router
 .get('/:index', (req,res) => {
-  // search by race 
+  // search by race
   if (utility.isClassName(req.params.index) === true) {
-    Model.findOne( { 'name': utility.upperFirst(req.params.index) }, (err,data) => {
+    Model.findOne( { 'name': utility.upperFirst(req.params.index) }, (err,_data) => {
       if (err) {
         res.send(err);
       }
@@ -33,8 +33,8 @@ router
       }
       res.status(200).json(data);
     })
-  } 
-  
+  }
+
   else { // return specific document
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {
@@ -45,21 +45,21 @@ router
   }
 })
 
-levelRouter = express.Router({mergeParams: true});
+const levelRouter = express.Router({mergeParams: true});
 router.use('/:index/level', levelRouter);
-var LevelModel = require('../models/level');
+const LevelModel = require('../models/level');
 
 levelRouter
 .get('/:level', (req, res) => {
-  
+
   console.log(req.params.index);
 
-  if (typeof(parseInt(req.params.level) == Number)) {
-    
+  if (typeof(parseInt(req.params.level)) == 'number') {
+
 
     let urlString = "http://www.dnd5eapi.co/api/classes/" + req.params.index + "/level/" + req.params.level;
     console.log(urlString);
-    
+
     LevelModel.findOne({'url': urlString}, (err,data) => {
       if (err) {
         res.send(err);
@@ -71,14 +71,14 @@ levelRouter
   }
 })
 
-levelRouter2 = express.Router({mergeParams: true});
+// TODO: Is a second necessary?
+const levelRouter2 = express.Router({mergeParams: true});
 router.use('/:index/levels', levelRouter2);
-var LevelModel = require('../models/level');
 
 levelRouter2
 .get('/', (req, res) => {
     console.log(utility.class_map[req.params.index]);
-    LevelModel.find({'class.name': utility.class_map[req.params.index], 'subclass' : {}}, (err,data) => {
+    LevelModel.find({'class.name': utility.class_map[req.params.index], 'subclass' : {}}, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -88,6 +88,6 @@ levelRouter2
       }
       res.status(200).json(data);
     })
-  
+
 })
 module.exports = router;

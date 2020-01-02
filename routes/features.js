@@ -6,7 +6,7 @@ var Model = require('../models/feature');
 router
 .get('/', (req,res) => {
 
-  Model.find((err,data) => {
+  Model.find((err, _data) => {
     if (err) {
       res.send(err);
     }
@@ -22,16 +22,16 @@ router
 
 router
 .get('/:index', (req,res) => {
-  // search by class 
+  // search by class
 
 
   if (utility.isClassName(req.params.index) === true) {
     console.log(utility.upperFirst(req.params.index))
-    Model.find( { 
-        'class.name': utility.upperFirst(req.params.index), 
+    Model.find( {
+        'class.name': utility.upperFirst(req.params.index),
         'subclass.name': undefined,
-        'group': undefined 
-      }, (err,data) => {
+        'group': undefined
+      }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -41,13 +41,13 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  } 
+  }
 
   else if (utility.isSubclassName(req.params.index) === true) {
     console.log(utility.subclass_map[req.params.index])
-    Model.find( { 
+    Model.find( {
         'subclass.name': utility.subclass_map[req.params.index],
-        'group': undefined }, (err,data) => {
+        'group': undefined }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -57,8 +57,8 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  } 
-  
+  }
+
   else { // return specific document
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {
@@ -76,15 +76,15 @@ levelRouter
 .get('/:level', (req, res) => {
 
 
-  if (typeof(parseInt(req.params.level) == Number)) {
+  if (typeof(parseInt(req.params.level)) == 'number') {
 
     if (utility.isClassName(req.params.index) === true) {
       Model.find({
-        'class.name': utility.upperFirst(req.params.index), 
-        level: parseInt(req.params.level), 
+        'class.name': utility.upperFirst(req.params.index),
+        level: parseInt(req.params.level),
         'subclass.name': undefined,
         'group': undefined
-      }, (err,data) => {
+      }, (err,_data) => {
         if (err) {
           res.send(err);
         }
@@ -97,10 +97,10 @@ levelRouter
     }
     else if (utility.isSubclassName(req.params.index) === true) {
       Model.find({
-        level: parseInt(req.params.level), 
+        level: parseInt(req.params.level),
         'subclass.name': utility.upperFirst(req.params.index),
         'group': undefined
-      }, (err,data) => {
+      }, (err,_data) => {
         if (err) {
           res.send(err);
         }
