@@ -31,9 +31,7 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  }
-
-  else if (utility.isSubclassName(req.params.index) === true) {
+  } else if (utility.isSubclassName(req.params.index) === true) {
     Model.findOne( { 'name': utility.subclass_map[req.params.index] }, (err, _data) => {
       if (err) {
         res.send(err);
@@ -44,15 +42,8 @@ router
       }
       res.status(200).json(data);
     })
-  }
-
-  else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err, data) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(data);
-    })
+  } else {
+    res.status(404)
   }
 })
 
@@ -66,7 +57,7 @@ levelRouter
 
   if (typeof(parseInt(req.params.level)) == 'number') {
 
-    let urlString = "http://dnd5eapi.co/api/subclasses/" + req.params.index + "/level/" + req.params.level;
+    let urlString = "/api/subclasses/" + req.params.index + "/level/" + req.params.level;
     console.log(urlString);
 
     LevelModel.findOne({'url': urlString}, (err,data) => {
@@ -86,7 +77,6 @@ router.use('/:index/levels', levelRouter2);
 
 levelRouter2
 .get('/', (req, res) => {
-    console.log(req.params.index);
     LevelModel.find({'subclass.name': utility.subclass_map[req.params.index]}, (err, _data) => {
       if (err) {
         res.send(err);

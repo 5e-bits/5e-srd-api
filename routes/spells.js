@@ -43,7 +43,7 @@ router
   }
 
   else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err, data) => {
+    Model.findOne( { index: req.params.index }, (err, data) => {
       if (err) {
         res.send(err);
       }
@@ -58,10 +58,7 @@ router.use('/:index/level', levelRouter);
 levelRouter
 .get('/:level', (req, res) => {
 
-  console.log(typeof(parseInt(req.params.level)));
-
   if (typeof(parseInt(req.params.level)) == 'number') {
-    console.log(typeof(parseInt(req.params.level)));
     Model.find({'classes.name': utility.upperFirst(req.params.index), level: parseInt(req.params.level)}, (err, _data) => {
       if (err) {
         res.send(err);

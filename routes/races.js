@@ -35,13 +35,8 @@ router
     })
   }
 
-  else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err, data) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(data);
-    })
+  else {
+    res.status(404)
   }
 })
 

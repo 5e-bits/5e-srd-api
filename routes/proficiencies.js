@@ -33,7 +33,7 @@ router
   }
 
   else if (utility.isSubraceName(req.params.index) === true) {
-    Model.find( { 'races.name': utility.subrace_map[req.params.index] }, (err, _data) => {
+    Model.find( { 'races.name': utility.upperFirst(req.params.index) }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -73,7 +73,7 @@ router
   }
 
   else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err, data) => {
+    Model.findOne( { index: req.params.index }, (err, data) => {
       if (err) {
         res.send(err);
       }
