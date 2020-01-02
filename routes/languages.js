@@ -6,7 +6,7 @@ var Model = require('../models/language');
 router
 .get('/', (req,res) => {
 
-  Model.find((err,data) => {
+  Model.find((err, _data) => {
     if (err) {
       res.send(err);
     }
@@ -20,7 +20,7 @@ router
 
 router
 .get('/:index', (req,res) => {
-    
+
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {
         res.send(err);

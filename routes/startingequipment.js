@@ -6,7 +6,7 @@ var Model = require('../models/startingequipment');
 router
 .get('/', (req,res) => {
 
-  Model.find((err,data) => {
+  Model.find((err, _data) => {
     if (err) {
       res.send(err);
     }
@@ -22,10 +22,10 @@ router
 
 router
 .get('/:index', (req,res) => {
-  // search by class 
+  // search by class
 
   if (utility.isClassName(req.params.index) === true) {
-    Model.findOne( { 'class.name': utility.upperFirst(req.params.index) }, (err,data) => {
+    Model.findOne( { 'class.name': utility.upperFirst(req.params.index) }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -35,8 +35,8 @@ router
       }
       res.status(200).json((data));
     })
-  } 
-  
+  }
+
   else { // return specific document
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {

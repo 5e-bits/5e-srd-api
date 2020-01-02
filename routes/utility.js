@@ -1,4 +1,4 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
 function toLower(str) {
     return _.lowerCase(str);
@@ -84,10 +84,10 @@ function classToURL(class_name) {
     return "http://dnd5eapi.co/api/classes/" + classToIndex(class_name);
 }
 
-var class_names = ["barbarian","bard","cleric","druid","fighter",
+const class_names = ["barbarian","bard","cleric","druid","fighter",
         "monk","paladin","ranger","rogue","sorcerer","warlock","wizard"]
 
-var class_map = {}
+const class_map = {}
 class_map[class_names[0]] = "Barbarian"
 class_map[class_names[1]] = "Bard"
 class_map[class_names[2]] = "Cleric"
@@ -102,10 +102,10 @@ class_map[class_names[10]] = "Warlock"
 class_map[class_names[11]] = "Wizard"
 
 
-var subclass_names = ["berserker", "lore", "life", "land", "champion", "openhand", "devotion", "hunter",
+const subclass_names = ["berserker", "lore", "life", "land", "champion", "openhand", "devotion", "hunter",
 "thief", "draconic", "fiend", "evocation"]
 
-var subclass_map = {}
+const subclass_map = {}
 subclass_map[subclass_names[0]] = "Berserker"
 subclass_map[subclass_names[1]] = "Lore"
 subclass_map[subclass_names[2]] = "Life"
@@ -123,10 +123,10 @@ subclass_map[subclass_names[11]] = "Evocation"
 
 
 
-var race_names = ["dwarf", "elf", "halfling", "human"]
+const race_names = ["dwarf", "elf", "halfling", "human"]
 
-var subrace_names = ["hilldwarf", "highelf", "lightfoothalfling"]
-var subrace_map = {}
+const subrace_names = ["hilldwarf", "highelf", "lightfoothalfling"]
+const subrace_map = {}
 subrace_map[subrace_names[0]] = "Hill Dwarf"
 subrace_map[subrace_names[1]] = "High Elf"
 subrace_map[subrace_names[2]] = "Lightfoot Halfling"
@@ -134,8 +134,8 @@ subrace_map[subrace_names[2]] = "Lightfoot Halfling"
 
 
 
-var proficiency_categories = ["armor", "weapons", "artisans-tools", "gaming-sets", "musical-instruments", "vehicles", "other", "skills", "saving-throws"]
-proficiency_map = {}
+const proficiency_categories = ["armor", "weapons", "artisans-tools", "gaming-sets", "musical-instruments", "vehicles", "other", "skills", "saving-throws"]
+const proficiency_map = {}
 proficiency_map[proficiency_categories[0]] = "Armor"
 proficiency_map[proficiency_categories[1]] = "Weapons"
 proficiency_map[proficiency_categories[2]] = "Artisan's Tools"
