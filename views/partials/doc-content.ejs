@@ -8,7 +8,7 @@
     <p>Let's make our first API request to the D&D 5th Edition API!</p>
     <p>Open up a terminal and use <a href="http://curl.haxx.se">curl</a> or <a href="http://httpie.org">httpie</a> to make an API request for a resource. In the example below, we're trying to get the first spell, Acid Arrow:</p>
 
-    <pre><code>http dnd5eapi.co/api/spells/1/</code></pre>
+    <pre><code>http www.dnd5eapi.co/api/spells/1/</code></pre>
 
     <p>We'll use <a href="http://httpie.org">httpie</a> for our examples as it displays responses nicely and gives us a whole lot more useful information. If you don't want to download httpie, just use the <em>curl</em> command instead.</p>
     <p>Here is the response we get:</p>
@@ -51,15 +51,15 @@
  </code></pre>
 
     <p>If your response looks slightly different don't panic. This is probably because more data has been added to dnd5eapi since we made this documentation.</p>
-    
+
     <h2 id="base">Base URL</h2>
     <p>The <strong>Base URL</strong> is the root URL for all of the API, if you ever make a request to dnd5eapi and you get back a <strong>404 NOT FOUND</strong> response then check the Base URL first.</p>
     <p>The Base URL for dnd5eapi is:</p>
 
-    <pre><code>http://dnd5eapi.co/api/</code></pre>
+    <pre><code>http://www.dnd5eapi.co/api/</code></pre>
 
     <p>The documentation below assumes you are prepending the Base URL to the endpoints in order to make requests.</p>
-    
+
 
     <h2 id="auth">Authentication</h2>
     <p>dnd5eapi is a <strong>completely open API</strong>. No authentication is required to query and get data. This also means that we've limited what you can do to just <strong>GET</strong>-ing the data. If you find a mistake in the data, feel free to <a href="mailto:admin@dnd5eapi.co">email me</a>.</p>
