@@ -1,5 +1,7 @@
 # 5e-srd-api
-REST API to access D&amp;D 5th Edition SRD database
+REST API to access D&amp;D 5th Edition SRD database at http://www.dnd5eapi.co/
+
+Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
 First, install dependencies by running
 ```
