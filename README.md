@@ -32,3 +32,9 @@ You should get a response with the available endpoints for the root:
     "startingequipment": "http://dnd5eapi.co/api/startingequipment/"
 }
 ```
+
+
+# Contributing
+ * Fork this repository
+ * Create a new branch for your work
+ * Push up any changes to your branch, and open a pull request. Don't feel it needs to be perfect — incomplete work is totally fine. We'd love to help get it ready for merging.
