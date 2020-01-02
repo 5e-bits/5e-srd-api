@@ -37,47 +37,47 @@ function classToIndex(class_name) {
 }
 
 function indexToClass(class_name) {
-  switch(class_name) {
+    switch(class_name) {
 
-    case 1:
-    return "barbarian";
+        case 1:
+        return "barbarian";
 
-    case 2:
-    return "bard";
+        case 2:
+        return "bard";
 
-    case 3:
-    return "cleric";
+        case 3:
+        return "cleric";
 
-    case 4:
-    return "druid";
+        case 4:
+        return "druid";
 
-    case 5:
-    return "fighter";
+        case 5:
+        return "fighter";
 
-    case 6:
-    return "monk";
+        case 6:
+        return "monk";
 
-    case 7:
-    return "paladin";
+        case 7:
+        return "paladin";
 
-    case 8:
-    return "ranger";
+        case 8:
+        return "ranger";
 
-    case 9:
-    return "rogue";
+        case 9:
+        return "rogue";
 
-    case 10:
-    return "sorcerer";
+        case 10:
+        return "sorcerer";
 
-    case 11:
-    return "warlock";
+        case 11:
+        return "warlock";
 
-    case 12:
-    return "wizard";
+        case 12:
+        return "wizard";
 
-    default:
-    return "none";
-  }
+        default:
+        return "none";
+    }
 }
 
 function classToURL(class_name) {
@@ -85,7 +85,7 @@ function classToURL(class_name) {
 }
 
 const class_names = ["barbarian","bard","cleric","druid","fighter",
-        "monk","paladin","ranger","rogue","sorcerer","warlock","wizard"]
+"monk","paladin","ranger","rogue","sorcerer","warlock","wizard"]
 
 const class_map = {}
 class_map[class_names[0]] = "Barbarian"
@@ -215,59 +215,39 @@ function APIResource(data) {
     return{
         count: data.length,
         results: data.map((item) => {
-          return {
-            url: item.url
-          }
+            return {
+                url: item.url
+            }
         })
-      }
+    }
 }
 
 function ClassAPIResource(data) {
     return{
         count: data.length,
         results: data.map((item) => {
-          return {
-            class: item.class.name,
-            url: item.url
-          }
+            return {
+                class: item.class.name,
+                url: item.url
+            }
         })
-      }
+    }
 }
 
 
 function NamedAPIResource(data) {
 
     let mapped = data.map((item) => {
-          return {
+        return {
             name: item.name,
             url: item.url
-          }
-        });
-
-    let sort = mapped.sort((a,b) => {
-
-        var urlA = a.url
-        var urlB = b.url
-        if (urlA < urlB) {
-            return -1;
         }
-        if (urlA > urlB) {
-            return 1;
-        }
-
-        // names must be equal
-        return 0;
-    })
+    });
 
     return{
         count: data.length,
-        results: data.map((item) => {
-          return {
-            name: item.name,
-            url: item.url
-          }
-        })
-      }
+        results: mapped
+    }
 }
 
 function NamedAPIResourceWithDesc(data) {
@@ -280,12 +260,14 @@ function NamedAPIResourceWithDesc(data) {
                 desc: item.desc[0]
             }
         })
-      }
+    }
 }
 
 function upperFirst(string) {
     return _.upperFirst(string);
 }
+
+//TODO: Clear out what isn't being used.
 
 var utility = {
     toLower,
