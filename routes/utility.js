@@ -1,4 +1,4 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
 function toLower(str) {
     return _.lowerCase(str);
@@ -37,57 +37,57 @@ function classToIndex(class_name) {
 }
 
 function indexToClass(class_name) {
-  switch(class_name) {
+    switch(class_name) {
 
-    case 1:
-    return "barbarian";
+        case 1:
+        return "barbarian";
 
-    case 2:
-    return "bard";
+        case 2:
+        return "bard";
 
-    case 3:
-    return "cleric";
+        case 3:
+        return "cleric";
 
-    case 4:
-    return "druid";
+        case 4:
+        return "druid";
 
-    case 5:
-    return "fighter";
+        case 5:
+        return "fighter";
 
-    case 6:
-    return "monk";
+        case 6:
+        return "monk";
 
-    case 7:
-    return "paladin";
+        case 7:
+        return "paladin";
 
-    case 8:
-    return "ranger";
+        case 8:
+        return "ranger";
 
-    case 9:
-    return "rogue";
+        case 9:
+        return "rogue";
 
-    case 10:
-    return "sorcerer";
+        case 10:
+        return "sorcerer";
 
-    case 11:
-    return "warlock";
+        case 11:
+        return "warlock";
 
-    case 12:
-    return "wizard";
+        case 12:
+        return "wizard";
 
-    default:
-    return "none";
-  }
+        default:
+        return "none";
+    }
 }
 
 function classToURL(class_name) {
     return "http://dnd5eapi.co/api/classes/" + classToIndex(class_name);
 }
 
-var class_names = ["barbarian","bard","cleric","druid","fighter",
-        "monk","paladin","ranger","rogue","sorcerer","warlock","wizard"]
+const class_names = ["barbarian","bard","cleric","druid","fighter",
+"monk","paladin","ranger","rogue","sorcerer","warlock","wizard"]
 
-var class_map = {}
+const class_map = {}
 class_map[class_names[0]] = "Barbarian"
 class_map[class_names[1]] = "Bard"
 class_map[class_names[2]] = "Cleric"
@@ -102,10 +102,10 @@ class_map[class_names[10]] = "Warlock"
 class_map[class_names[11]] = "Wizard"
 
 
-var subclass_names = ["berserker", "lore", "life", "land", "champion", "openhand", "devotion", "hunter",
+const subclass_names = ["berserker", "lore", "life", "land", "champion", "openhand", "devotion", "hunter",
 "thief", "draconic", "fiend", "evocation"]
 
-var subclass_map = {}
+const subclass_map = {}
 subclass_map[subclass_names[0]] = "Berserker"
 subclass_map[subclass_names[1]] = "Lore"
 subclass_map[subclass_names[2]] = "Life"
@@ -123,10 +123,10 @@ subclass_map[subclass_names[11]] = "Evocation"
 
 
 
-var race_names = ["dwarf", "elf", "halfling", "human"]
+const race_names = ["dwarf", "elf", "halfling", "human"]
 
-var subrace_names = ["hilldwarf", "highelf", "lightfoothalfling"]
-var subrace_map = {}
+const subrace_names = ["hilldwarf", "highelf", "lightfoothalfling"]
+const subrace_map = {}
 subrace_map[subrace_names[0]] = "Hill Dwarf"
 subrace_map[subrace_names[1]] = "High Elf"
 subrace_map[subrace_names[2]] = "Lightfoot Halfling"
@@ -134,8 +134,8 @@ subrace_map[subrace_names[2]] = "Lightfoot Halfling"
 
 
 
-var proficiency_categories = ["armor", "weapons", "artisans-tools", "gaming-sets", "musical-instruments", "vehicles", "other", "skills", "saving-throws"]
-proficiency_map = {}
+const proficiency_categories = ["armor", "weapons", "artisans-tools", "gaming-sets", "musical-instruments", "vehicles", "other", "skills", "saving-throws"]
+const proficiency_map = {}
 proficiency_map[proficiency_categories[0]] = "Armor"
 proficiency_map[proficiency_categories[1]] = "Weapons"
 proficiency_map[proficiency_categories[2]] = "Artisan's Tools"
@@ -211,76 +211,43 @@ function isProficiencyCategory(race_name) {
     return bool;
 }
 
-function isEquipmentCategory(race_name) {
-
-    let bool = false;
-
-    equipment_categories.forEach(function(element) {
-        if (race_name === element) {
-            bool = true;
-        }
-    });
-
-    return bool;
-}
-
 function APIResource(data) {
     return{
         count: data.length,
         results: data.map((item) => {
-          return {
-            url: item.url
-          }
+            return {
+                url: item.url
+            }
         })
-      }
+    }
 }
 
 function ClassAPIResource(data) {
     return{
         count: data.length,
         results: data.map((item) => {
-          return {
-            class: item.class.name,
-            url: item.url
-          }
+            return {
+                class: item.class.name,
+                url: item.url
+            }
         })
-      }
+    }
 }
 
 
 function NamedAPIResource(data) {
 
     let mapped = data.map((item) => {
-          return {
+        return {
             name: item.name,
             url: item.url
-          }
-        });
-
-    let sort = mapped.sort((a,b) => {
-
-        var urlA = a.url
-        var urlB = b.url
-        if (urlA < urlB) {
-            return -1;
         }
-        if (urlA > urlB) {
-            return 1;
-        }
-
-        // names must be equal
-        return 0;
-    })
+    });
 
     return{
         count: data.length,
-        results: data.map((item) => {
-          return {
-            name: item.name,
-            url: item.url
-          }
-        })
-      }
+        results: mapped
+    }
 }
 
 function NamedAPIResourceWithDesc(data) {
@@ -293,12 +260,14 @@ function NamedAPIResourceWithDesc(data) {
                 desc: item.desc[0]
             }
         })
-      }
+    }
 }
 
 function upperFirst(string) {
     return _.upperFirst(string);
 }
+
+//TODO: Clear out what isn't being used.
 
 var utility = {
     toLower,

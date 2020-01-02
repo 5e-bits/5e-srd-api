@@ -1,10 +1,9 @@
-var express = require('express')
-var app = express()
-var router = express.Router();
-var morgan = require('morgan');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser')
-var cors = require('cors')
+const express = require('express')
+const app = express()
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
 // Middleware stuff
 app.set('view engine', 'ejs');
@@ -46,16 +45,16 @@ app.use("/api/equipment-categories", require('./routes/equipment-categories'));
 
 
 // Connect to database and start the server
-mongoose.connect(process.env.MONGODB_URI, (err, database) => {
+mongoose.connect(process.env.MONGODB_URI, (err, _database) => {
   if (err) {
     console.log(err);
     process.exit(1);
   }
   console.log("Database connection ready");
 
-  var server = app.listen(process.env.PORT || 3000, () => {
-    var port = server.address().port;
-    console.log('Listening on port 3000!')
+  const server = app.listen(process.env.PORT || 3000, () => {
+    const port = server.address().port;
+    console.log(`Listening on port ${port}!`)
   })
 });
 
@@ -69,5 +68,28 @@ app.get('/docs', (req, res) => {
 })
 
 app.get('/api', (req, res) => {
+  // TODO: Find a way to generate this list.
+  var index = {
+    "ability-scores": "/api/ability-scores",
+    "classes": "/api/classes",
+    "conditions": "/api/conditions",
+    "damage-types": "/api/damage-types",
+    "equipment-categories": "/api/equipment-categories",
+    "equipment": "/api/equipment",
+    "features": "/api/features",
+    "languages": "/api/languages",
+    "magic-schools": "/api/magic-schools",
+    "monsters": "/api/monsters",
+    "proficiencies": "/api/proficiencies",
+    "races": "/api/races",
+    "skills": "/api/skills",
+    "spellcasting": "/api/spellcasting",
+    "spells": "/api/spells",
+    "startingequipment": "/api/startingequipment",
+    "subclasses": "/api/subclasses",
+    "subraces": "/api/subraces",
+    "traits": "/api/traits",
+    "weapon-properties": "/api/weapon-properties",
+  }
   res.status(200).json(index);
 })

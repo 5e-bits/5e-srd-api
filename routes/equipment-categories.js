@@ -5,7 +5,7 @@ var Model = require('../models/equipment-category');
 
 router
 .get('/', (req,res) => {
-  Model.find((err,data) => {
+  Model.find((err, _data) => {
     if (err) {
       res.send(err);
     }

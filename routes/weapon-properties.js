@@ -11,7 +11,7 @@ router
     search_queries.name = req.query.name
   }
 
-  Model.find(search_queries, (err,data) => {
+  Model.find(search_queries, (err, _data) => {
     if (err) {
       res.send(err);
     }
@@ -25,7 +25,7 @@ router
 
 router
 .get('/:index', (req,res) => {
-  
+
     Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
       if (err) {
         res.send(err);
