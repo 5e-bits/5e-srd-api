@@ -3,6 +3,7 @@ REST API to access D&amp;D 5th Edition SRD database at http://www.dnd5eapi.co/
 
 Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
+## How to Run
 Make sure your database is setup by going [here.](https://github.com/bagelbits/5e-database)
 
 Then run it with docker:
@@ -39,10 +40,10 @@ You should get a response with the available endpoints for the root:
 }
 ```
 
-# Data Issues
+## Data Issues
 If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/bagelbits/5e-database)
 
-# Contributing
+## Contributing
  * Fork this repository
  * Create a new branch for your work
  * Push up any changes to your branch, and open a pull request. Don't feel it needs to be perfect — incomplete work is totally fine. We'd love to help get it ready for merging.
