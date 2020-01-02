@@ -33,6 +33,8 @@ You should get a response with the available endpoints for the root:
 }
 ```
 
+# Data Issues
+If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/bagelbits/5e-database)
 
 # Contributing
  * Fork this repository
