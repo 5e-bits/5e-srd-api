@@ -1,7 +1,5 @@
 const express = require('express')
 const app = express()
-// TODO: Is this necessary?
-const router = express.Router();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
@@ -70,5 +68,20 @@ app.get('/docs', (req, res) => {
 })
 
 app.get('/api', (req, res) => {
+  var index = {
+    "races": "/api/races/",
+    "subraces": "/api/subraces/",
+    "classes": "/api/classes/",
+    "subclasses": "/api/subclasses/",
+    "languages": "/api/languages/",
+    "spellcasting": "/api/spellcasting/",
+    "spells": "/api/spells/",
+    "monsters": "/api/monsters/",
+    "features": "/api/features/",
+    "tables": "/api/tables/",
+    "equipment": "/api/equipment/",
+    "proficiencies": "/api/proficiencies/",
+    "startingequipment": "/api/startingequipment/"
+  }
   res.status(200).json(index);
 })
