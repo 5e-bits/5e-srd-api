@@ -211,19 +211,6 @@ function isProficiencyCategory(race_name) {
     return bool;
 }
 
-function isEquipmentCategory(race_name) {
-
-    let bool = false;
-
-    equipment_categories.forEach(function(element) {
-        if (race_name === element) {
-            bool = true;
-        }
-    });
-
-    return bool;
-}
-
 function APIResource(data) {
     return{
         count: data.length,
