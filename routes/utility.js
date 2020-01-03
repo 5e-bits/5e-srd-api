@@ -216,6 +216,7 @@ function APIResource(data) {
         count: data.length,
         results: data.map((item) => {
             return {
+                index: item.index,
                 url: item.url
             }
         })
@@ -227,6 +228,7 @@ function ClassAPIResource(data) {
         count: data.length,
         results: data.map((item) => {
             return {
+                index: item.index,
                 class: item.class.name,
                 url: item.url
             }
@@ -236,9 +238,9 @@ function ClassAPIResource(data) {
 
 
 function NamedAPIResource(data) {
-
     let mapped = data.map((item) => {
         return {
+            index: item.index,
             name: item.name,
             url: item.url
         }
@@ -255,6 +257,7 @@ function NamedAPIResourceWithDesc(data) {
         count: data.length,
         results: data.map((item) => {
             return {
+                index: item.index,
                 name: item.name,
                 url: item.url,
                 desc: item.desc[0]
@@ -265,10 +268,6 @@ function NamedAPIResourceWithDesc(data) {
 
 function upperFirst(string) {
     return _.upperFirst(string);
-}
-
-function lowerFirst(string) {
-    return _.lowerFirst(string);
 }
 
 //TODO: Clear out what isn't being used.
