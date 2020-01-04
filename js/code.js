@@ -8,7 +8,7 @@ function interactive_call(){
     var content = $('#interactive').val();
 
     if (content == ''){
-        content = 'spells/1/';
+        content = 'spells/acid-arrow/';
     }
 
     var call_url = 'api/' + content;
