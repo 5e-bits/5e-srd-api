@@ -1,101 +1,107 @@
 <div class="header">
-    <h1>D&D 5e API</h1>
-    <h2>The 5th Edition Dungeons and Dragons API</h2>
+	<h1>D&D 5e API</h1>
+	<h2>The 5th Edition Dungeons and Dragons API</h2>
 </div>
 
 <div class="cta">
-    <p>Just a simple api for things within the Official 5th Edition SRD<br> and easily accessible through a modern RESTful API.</p>
-    <p>Enjoy the D&D 5th Edition API!</p>
+	<p>Just a simple api for things within the Official 5th Edition SRD<br> and easily accessible through a modern RESTful API.</p>
+	<p>Enjoy the D&D 5th Edition API!</p>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-10 center-block">
-            <div class="center">
-                <h1>
-                Try it now!
-                </h1>
-                <div class="input-group pad_top">
-                    <span class="input-group-addon url">http://dnd5eapi.co/api/</span>
-                    <input id="interactive" type="text" class="form-control" placeholder="spells/1/">
-                    <span class="input-group-btn"><button onclick="interactive_call();return false;" class="btn btn-primary">submit</button></span>
-                </div>
-            </div>
-            <small>Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/3/');return false;"><i>monsters/3/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a></small>
-            <p class="lead pad_top">Resource for <span id="interactive_name">Acid Arrow</span></p>
-            <pre id="interactive_output" class="pre-scrollable">{
-	"_id": "58c9eb75c9e7ce9f7214efaa",
-	"index": 1,
-	"name": "Acid Arrow",
-	"desc": [
-		"A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
-	],
-	"higher_level": [
-		"When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
-	],
-	"page": "phb 259",
-	"range": "90 feet",
-	"components": [
-		"V",
-		"S",
-		"M"
-	],
-	"material": "Powdered rhubarb leaf and an adder’s stomach.",
-	"ritual": "no",
-	"duration": "Instantaneous",
-	"concentration": "no",
-	"casting_time": "1 action",
-	"level": 2,
-	"school": {
-		"url": "http://dnd5eapi.co/api/magic-schools/5",
-		"name": "Evocation"
-	},
-	"classes": [
-		{
-			"name": "Wizard",
-			"url": "http://dnd5eapi.co/api/classes/12"
-		}
-	],
-	"subclasses": [
-		{
-			"url": "http://dnd5eapi.co/api/subclasses/2",
-			"name": "Lore"
-		},
-		{
-			"url": "http://dnd5eapi.co/api/subclasses/4",
-			"name": "Land"
-		}
-	],
-	"url": "http://dnd5eapi.co/api/spells/1"
-}</pre>
-				<p style="margin: 1em">Recent Changes - 01/02/20</p>
-				<ul>
-					<li>All of the database changes made in the last few months have finally landed</li>
-					<li>Added some HTTPS support</li>
-				</ul>
+	<div class="row">
+		<div class="col-md-10 center-block">
+			<div class="center">
+				<h1>
+					Try it now!
+				</h1>
+				<div class="input-group pad_top">
+					<span class="input-group-addon url">http://dnd5eapi.co/api/</span>
+					<input id="interactive" type="text" class="form-control" placeholder="spells/acid-arrow/">
+					<span class="input-group-btn"><button onclick="interactive_call();return false;" class="btn btn-primary">submit</button></span>
+				</div>
+			</div>
+			<small>Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/adult-black-dragon/');return false;"><i>monsters/3/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a></small>
+			<p class="lead pad_top">Resource for <span id="interactive_name">Acid Arrow</span></p>
+			<pre id="interactive_output" class="pre-scrollable">{
+				"_id": "5e10e47a0b1bb138c5b3b6b1",
+				"index": "acid-arrow",
+				"name": "Acid Arrow",
+				"desc": [
+				"A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
+				],
+				"higher_level": [
+				"When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd."
+				],
+				"page": "phb 259",
+				"range": "90 feet",
+				"components": [
+				"V",
+				"S",
+				"M"
+				],
+				"material": "Powdered rhubarb leaf and an adder's stomach.",
+				"ritual": false,
+				"duration": "Instantaneous",
+				"concentration": false,
+				"casting_time": "1 action",
+				"level": 2,
+				"school": {
+					"name": "Evocation",
+					"url": "/api/magic-schools/evocation"
+				},
+				"classes": [
+				{
+					"name": "Wizard",
+					"url": "/api/classes/wizard"
+				}
+				],
+				"subclasses": [
+				{
+					"name": "Lore",
+					"url": "/api/subclasses/lore"
+				},
+				{
+					"name": "Land",
+					"url": "/api/subclasses/land"
+				}
+				],
+				"url": "/api/spells/acid-arrow"
+			}</pre>
+			<p style="margin: 1em">Recent Changes - 01/04/20</p>
+			<ul>
+				<li>Converted number indices to string indices based off of name</li>
+			</ul>
 
-        <p style="margin: 1em">01/07/18</p>
-        <ul>
-						<li>The Database and API are now OPEN SOURCE! Find it on my <a href="http://github.com/bagelbits">github</a></li>
-            <li>Updated changes from DevinOchman's <a href="https://github.com/adrpadua/5e-database/pull/3">pull request</a>: New Races, Subraces, Traits</li>
-        </ul>
+			<p style="margin: 1em">01/02/20</p>
+			<ul>
+				<li>All of the database changes made in the last few months have finally landed</li>
+				<li>Replaced Slack chat with <a href="https://discord.gg/TQuYTv7">Discord</a></li>
+				<li>Added some HTTPS support</li>
+			</ul>
 
-        <p style="margin: 1em">04/17/17</p>
-        <ul>
-            <li>Created Slack chat group, which you can access <a href="http://dnd-5e-api-slack.herokuapp.com/">here</a>. A place to ask questions and make suggestions etc.</li>
-            <li>Updated "url" members of every object to have 'www.' to avoid CORS errors</li>
-        </ul>
+			<p style="margin: 1em">01/07/18</p>
+			<ul>
+				<li>The Database and API are now OPEN SOURCE! Find it on my <a href="http://github.com/bagelbits">github</a></li>
+				<li>Updated changes from DevinOchman's <a href="https://github.com/adrpadua/5e-database/pull/3">pull request</a>: New Races, Subraces, Traits</li>
+			</ul>
 
-        <p style="margin: 1em">To-Do</p>
-        <ul>
-						<li>Update documentation!</li>
-						<li>Add eslint</li>
-						<li>Add Travis CI</li>
-						<li>Add testing framework</li>
-						<li>Add HTTPS redirect</li>
-						<li>Change indices from numbers to strings</li>
-        </ul>
+			<p style="margin: 1em">04/17/17</p>
+			<ul>
+				<li>Created Slack chat group, which you can access <a href="http://dnd-5e-api-slack.herokuapp.com/">here</a>. A place to ask questions and make suggestions etc.</li>
+				<li>Updated "url" members of every object to have 'www.' to avoid CORS errors</li>
+			</ul>
 
-        </div>
-    </div>
+			<p style="margin: 1em">To-Do</p>
+			<ul>
+				<li>Update documentation!</li>
+				<li>Add eslint</li>
+				<li>Add Travis CI</li>
+				<li>Add testing framework</li>
+				<li>Add HTTPS redirect</li>
+				<li>Change indices from numbers to strings</li>
+			</ul>
+
+		</div>
+	</div>
 </div>
