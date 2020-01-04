@@ -20,7 +20,7 @@ router
 router
 .get('/:index', (req,res) => {
 
-    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
+    Model.findOne( { index: req.params.index }, (err,data) => {
       if (err) {
         res.send(err);
       }

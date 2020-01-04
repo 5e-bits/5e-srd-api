@@ -33,15 +33,8 @@ router
       }
       res.status(200).json(data);
     })
-  }
-
-  else { // return specific document
-    Model.findOne( { index: parseInt(req.params.index) }, (err,data) => {
-      if (err) {
-        res.send(err);
-      }
-      res.status(200).json(data);
-    })
+  } else {
+    res.status(404)
   }
 })
 
@@ -51,14 +44,10 @@ const LevelModel = require('../models/level');
 
 levelRouter
 .get('/:level', (req, res) => {
-
-  console.log(req.params.index);
-
   if (typeof(parseInt(req.params.level)) == 'number') {
 
 
-    let urlString = "http://www.dnd5eapi.co/api/classes/" + req.params.index + "/level/" + req.params.level;
-    console.log(urlString);
+    let urlString = "/api/classes/" + req.params.index + "/level/" + req.params.level;
 
     LevelModel.findOne({'url': urlString}, (err,data) => {
       if (err) {
@@ -77,7 +66,6 @@ router.use('/:index/levels', levelRouter2);
 
 levelRouter2
 .get('/', (req, res) => {
-    console.log(utility.class_map[req.params.index]);
     LevelModel.find({'class.name': utility.class_map[req.params.index], 'subclass' : {}}, (err, _data) => {
       if (err) {
         res.send(err);

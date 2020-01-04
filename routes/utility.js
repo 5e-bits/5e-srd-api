@@ -81,7 +81,7 @@ function indexToClass(class_name) {
 }
 
 function classToURL(class_name) {
-    return "http://dnd5eapi.co/api/classes/" + classToIndex(class_name);
+    return "/api/classes/" + classToIndex(class_name);
 }
 
 const class_names = ["barbarian","bard","cleric","druid","fighter",
@@ -125,7 +125,7 @@ subclass_map[subclass_names[11]] = "Evocation"
 
 const race_names = ["dwarf", "elf", "halfling", "human"]
 
-const subrace_names = ["hilldwarf", "highelf", "lightfoothalfling"]
+const subrace_names = ["hill-dwarf", "high-elf", "lightfoot-halfling"]
 const subrace_map = {}
 subrace_map[subrace_names[0]] = "Hill Dwarf"
 subrace_map[subrace_names[1]] = "High Elf"
@@ -177,7 +177,7 @@ function isRaceName(race_name) {
     let bool = false;
 
     race_names.forEach(function(element) {
-        if (upperFirst(race_name) === element) {
+        if (race_name === element) {
             bool = true;
         }
     });
@@ -216,6 +216,7 @@ function APIResource(data) {
         count: data.length,
         results: data.map((item) => {
             return {
+                index: item.index,
                 url: item.url
             }
         })
@@ -227,6 +228,7 @@ function ClassAPIResource(data) {
         count: data.length,
         results: data.map((item) => {
             return {
+                index: item.index,
                 class: item.class.name,
                 url: item.url
             }
@@ -236,9 +238,9 @@ function ClassAPIResource(data) {
 
 
 function NamedAPIResource(data) {
-
     let mapped = data.map((item) => {
         return {
+            index: item.index,
             name: item.name,
             url: item.url
         }
@@ -255,6 +257,7 @@ function NamedAPIResourceWithDesc(data) {
         count: data.length,
         results: data.map((item) => {
             return {
+                index: item.index,
                 name: item.name,
                 url: item.url,
                 desc: item.desc[0]
