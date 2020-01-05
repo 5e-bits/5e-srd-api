@@ -2,100 +2,110 @@
 
 <h4 id="namedapiresource">NamedAPIResource</h4>
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">name</td>
-            <td align="left">The name of the referenced resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL of the referenced resource</td>
-            <td align="left">string</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The resource index for shorthand searching.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
 
 
 
 <h4 id="classapiresource">ClassAPIResource</h4>
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">class</td>
-            <td align="left">The class of whom the resource belongs to</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL of the referenced resource</td>
-            <td align="left">string</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The resource index for shorthand searching.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">class</td>
+      <td align="left">The class of whom the resource belongs to</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
 
 <h4 id="choice">Choice</h4>
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">choose</td>
-            <td align="left">The number of items to pick from the list</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">type</td>
-            <td align="left">The type of the resources to choose from</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">from</td>
-            <td align="left">A list of resources to choose from</td>
-            <td align="left">list <a href="#apiresource">APIResource</a></td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">choose</td>
+      <td align="left">The number of items to pick from the list</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">type</td>
+      <td align="left">The type of the resources to choose from</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">from</td>
+      <td align="left">A list of resources to choose from</td>
+      <td align="left">list <a href="#apiresource">APIResource</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <h4 id="cost">Cost</h4>
 
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">quantity</td>
-            <td align="left">The numerical amount of coins</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">unit</td>
-            <td align="left">The unit of coinage</td>
-            <td align="left">string</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">quantity</td>
+      <td align="left">The numerical amount of coins</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">unit</td>
+      <td align="left">The unit of coinage</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>

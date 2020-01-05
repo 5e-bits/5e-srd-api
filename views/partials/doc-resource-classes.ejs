@@ -1,155 +1,159 @@
 <h2 id="classes">Classes</h2>
 <p>A character class is a fundamental part of the identity and nature of characters in the Dungeons & Dragons role-playing game. A character's capabilities, strengths, and weaknesses are largely defined by its class. A character's class affects a character's available skills and abilities. </p>
 
-<h3>GET api/classes/{index or class}</h3>
+<h3>GET api/classes/{index}</h3>
 
 <pre><code>{
-  "_id": "58c9eb6bc9e7ce9f7214efa7",
-  "index": 11,
+  "_id": "5e10e4760b1bb138c5b3af8d",
+  "index": "warlock",
   "name": "Warlock",
   "hit_die": 8,
   "proficiency_choices": [
+  {
+    "choose": 2,
+    "type": "proficiencies",
+    "from": [
     {
-      "from": [
-        {
-          "name": "Skill: Arcana",
-          "url": "http://dnd5eapi.co/api/proficiencies/107"
-        },
-        {
-          "name": "Skill: Deception",
-          "url": "http://dnd5eapi.co/api/proficiencies/109"
-        },
-        {
-          "name": "Skill: History",
-          "url": "http://dnd5eapi.co/api/proficiencies/110"
-        },
-        {
-          "name": "Skill: Intimidation",
-          "url": "http://dnd5eapi.co/api/proficiencies/112"
-        },
-        {
-          "name": "Skill: Investigation",
-          "url": "http://dnd5eapi.co/api/proficiencies/113"
-        },
-        {
-          "name": "Skill: Nature",
-          "url": "http://dnd5eapi.co/api/proficiencies/115"
-        },
-        {
-          "name": "Skill: Religion",
-          "url": "http://dnd5eapi.co/api/proficiencies/119"
-        }
-      ],
-      "type": "proficiencies",
-      "choose": 2
+      "url": "/api/proficiencies/skill-arcana",
+      "name": "Skill: Arcana"
+    },
+    {
+      "url": "/api/proficiencies/skill-deception",
+      "name": "Skill: Deception"
+    },
+    {
+      "url": "/api/proficiencies/skill-history",
+      "name": "Skill: History"
+    },
+    {
+      "url": "/api/proficiencies/skill-intimidation",
+      "name": "Skill: Intimidation"
+    },
+    {
+      "url": "/api/proficiencies/skill-investigation",
+      "name": "Skill: Investigation"
+    },
+    {
+      "url": "/api/proficiencies/skill-nature",
+      "name": "Skill: Nature"
+    },
+    {
+      "url": "/api/proficiencies/skill-religion",
+      "name": "Skill: Religion"
     }
+    ]
+  }
   ],
   "proficiencies": [
-    {
-      "url": "http://dnd5eapi.co/api/proficiencies/1",
-      "name": "Light armor"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/proficiencies/19",
-      "name": "Simple weapons"
-    }
+  {
+    "name": "Light armor",
+    "url": "/api/proficiencies/light-armor"
+  },
+  {
+    "name": "Simple weapons",
+    "url": "/api/proficiencies/simple-weapons"
+  }
   ],
   "saving_throws": [
-    {
-      "url": "http://dnd5eapi.co/api/ability-scores/5",
-      "name": "WIS"
-    },
-    {
-      "url": "http://dnd5eapi.co/api/ability-scores/6",
-      "name": "CHA"
-    }
+  {
+    "name": "WIS",
+    "url": "/api/ability-scores/wis"
+  },
+  {
+    "name": "CHA",
+    "url": "/api/ability-scores/cha"
+  }
   ],
   "starting_equipment": {
-    "url": "http://dnd5eapi.co/api/startingequipment/11",
+    "url": "/api/startingequipment/11",
     "class": "Warlock"
   },
   "class_levels": {
-    "url": "http://dnd5eapi.co/api/Warlock/levels",
+    "url": "/api/classes/warlock/levels",
     "class": "Warlock"
   },
   "subclasses": [
-    {
-      "name": "Fiend",
-      "url": "http://dnd5eapi.co/api/subclasses/11"
-    }
+  {
+    "url": "/api/subclasses/fiend",
+    "name": "Fiend"
+  }
   ],
   "spellcasting": {
-    "url": "http://dnd5eapi.co/api/spellcasting/7",
+    "url": "/api/spellcasting/7",
     "class": "Warlock"
   },
-  "url": "http://dnd5eapi.co/api/classes/11"
-}
-</code></pre>
+  "url": "/api/classes/warlock"
+}</code></pre>
 
 <h4>Class</h4>
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this class resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">index</td>
-            <td align="left">The class index for shorthand searching.</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">name</td>
-            <td align="left">The name for this class resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">hit_die</td>
-            <td align="left">The hit die of the class. (ex: 12 == 1d12)</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">proficiency_choices</td>
-            <td align="left">Starting proficiencies where the player must choose a certain number from the given list of proficiencies.</td>
-            <td align="left">list <a href="#choices">Choice</a> (<a href="#proficiencies">Proficiencies</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">proficiencies</td>
-            <td align="left">Starting proficiencies all new characters of this class start with.</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">starting_equipment</td>
-            <td align="left">An object with the possible choices of equipment for new characters of this class.</td>
-            <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#startingequipment">StartingEquipment</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">class_levels</td>
-            <td align="left">All possible levels that this class can obtain (excluding subclass-specific features)</td>
-            <td align="left">list <a href="#levels">Levels</a></td>
-        </tr>
-        <tr>
-            <td align="left">subclasses</td>
-            <td align="left">All possible subclasses that this class can specialize in.</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclass">Subclass</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">spellcasting</td>
-            <td align="left">The reference object for the class's spellcasting. Contains information such as spells known, spellcasting ability, and cantrips known.</td>
-            <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL reference of this resource.</td>
-            <td align="left">string</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this class resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The class index for shorthand searching.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this class resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">hit_die</td>
+      <td align="left">The hit die of the class. (ex: 12 == 1d12)</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">proficiency_choices</td>
+      <td align="left">Starting proficiencies where the player must choose a certain number from the given list of proficiencies.</td>
+      <td align="left">list <a href="#choices">Choice</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">proficiencies</td>
+      <td align="left">Starting proficiencies all new characters of this class start with.</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">saving_throws</td>
+      <td align="left">Saving throws that the class is proficient in</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#ability-scores">Ability Scores</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">starting_equipment</td>
+      <td align="left">An object with the possible choices of equipment for new characters of this class.</td>
+      <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#startingequipment">StartingEquipment</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">class_levels</td>
+      <td align="left">All possible levels that this class can obtain (excluding subclass-specific features)</td>
+      <td align="left">list <a href="#levels">Levels</a></td>
+    </tr>
+    <tr>
+      <td align="left">subclasses</td>
+      <td align="left">All possible subclasses that this class can specialize in.</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclass">Subclass</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">spellcasting</td>
+      <td align="left">The reference object for the class's spellcasting. Contains information such as spells known, spellcasting ability, and cantrips known.</td>
+      <td align="left"><a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>

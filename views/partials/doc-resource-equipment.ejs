@@ -3,209 +3,207 @@
 
 <h3>GET api/equipment/{index}</h3>
 <pre><code>{
-  "_id": "58676431c9e7ce9f721456d4",
-  "index": 1,
+  "_id": "5e10e4770b1bb138c5b3b07d",
+  "index": "club",
   "name": "Club",
-  "type": "Weapon",
-  "subtype:": "Simple",
+  "equipment_category": "Weapon",
+  "weapon_category": "Simple",
   "weapon_range": "Melee",
-  "weapon_category": "Simple Melee",
+  "category_range": "Simple Melee",
   "cost": {
     "quantity": 1,
     "unit": "sp"
   },
   "damage": {
-    "dice_count": 1,
-    "dice_value": 4,
+    "damage_dice": "1d4",
+    "damage_bonus": 0,
     "damage_type": {
-      "url": "http://dnd5eapi.co/api/damage-types/2",
+      "url": "/api/damage-types/bludgeoning",
       "name": "Bludgeoning"
     }
   },
+  "range": {
+    "normal": 5,
+    "long": null
+  },
   "weight": 2,
   "properties": [
-    "light",
-    "monk"
+    {
+      "url": "/api/weapon-properties/light",
+      "name": "Light"
+    },
+    {
+      "url": "/api/weapon-properties/monk",
+      "name": "Monk"
+    }
   ],
-  "url": "http://dnd5eapi.co/api/equipment/1"
-}
-</code></pre>
+  "url": "/api/equipment/club"
+}</code></pre>
 
 <h4 id="equipment-weapon">Weapon</h4>
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this damage type resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">index</td>
-            <td align="left">The damage type index for shorthand searching</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">name</td>
-            <td align="left">The name for this damage type resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">type</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">subtype</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">weapon_range</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">weapon_category</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">cost</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">damage</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">weight</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">properties</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL of the referenced resource</td>
-            <td align="left">string</td>
-        </tr> 
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this damage type resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The damage type index for shorthand searching</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this equipment resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">equipment_category</td>
+      <td align="left">The category of equipment this falls into</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">weapon_category</td>
+      <td align="left">The category of weapon this falls into</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">weapon_range</td>
+      <td align="left">Whether this is a Melee or Ranged weapon</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">category_range</td>
+      <td align="left">A combination of weapon_category and weapon_range</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">cost</td>
+      <td align="left">The cost of the equipment</td>
+      <td align="left"><a href="#cost">Cost</a></td>
+    </tr>
+    <tr>
+      <td align="left">damage</td>
+      <td align="left">Includes data on dice, bonus, and damage type</td>
+      <td align="left">map</td>
+    </tr>
+    <tr>
+      <td align="left">range</td>
+      <td align="left">Includes the normal and long range for a weapon, only pertains to Ranged weapons</td>
+      <td align="left">map</td>
+    </tr>
+    <tr>
+      <td align="left">weight</td>
+      <td align="left">How much the equipment weighs</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">properties</td>
+      <td align="left">A list of the properties this weapon has</td>
+      <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#weapon-properties">Weapon Properties</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
-
-
-
-
-
-
-
-
-
-
 
 <h3>GET api/equipment/{index}</h3>
 <pre><code>{
-  "_id": "5867adbbc9e7ce9f7214598b",
-  "index": 38,
+  "_id": "5e10e4770b1bb138c5b3b0a0",
+  "index": "padded",
   "name": "Padded",
-  "type": "Armor",
-  "subtype:": "Light",
+  "equipment_category": "Armor",
+  "armor_category": "Light",
   "armor_class": {
     "base": 11,
     "dex_bonus": true,
-    "max_bonus": 1000
+    "max_bonus": null
   },
-  "strength": 0,
-  "stealth": "Disadvantage",
+  "str_minimum": 0,
+  "stealth_disadvantage": true,
   "weight": 8,
   "cost": {
     "quantity": 5,
     "unit": "gp"
   },
-  "url": "http://dnd5eapi.co/api/equipment/38"
-}
-</code></pre>
+  "url": "/api/equipment/padded"
+}</code></pre>
 
 <h4 id="equipment-armor">Armor</h4>
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this damage type resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">index</td>
-            <td align="left">The damage type index for shorthand searching</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">name</td>
-            <td align="left">The name for this damage type resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">type</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">subtype</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">weapon_range</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">weapon_category</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">cost</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">damage</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">weight</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">properties</td>
-            <td align="left">A brief description of the damage type</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL of the referenced resource</td>
-            <td align="left">string</td>
-        </tr> 
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this damage type resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The damage type index for shorthand searching</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this equipment resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">equipment_category</td>
+      <td align="left">The category of equipment this falls into</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">armor_category</td>
+      <td align="left">The category of armor this falls into</td>
+      <td align="left">list string</td>
+    </tr>
+    <tr>
+      <td align="left">armor_class</td>
+      <td align="left">Details on how to calculate armor class</td>
+      <td align="left">map</td>
+    </tr>
+    <tr>
+      <td align="left">str_minimum</td>
+      <td align="left">Minimum STR required to use this armor</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">stealth_disadvantage</td>
+      <td align="left">Whether the armor gives disadvantage for Stealth</td>
+      <td align="left">boolean</td>
+    </tr>
+    <tr>
+      <td align="left">weight</td>
+      <td align="left">How much the equipment weighs</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">cost</td>
+      <td align="left">The cost of the equipment</td>
+      <td align="left"><a href="#cost">Cost</a></td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>

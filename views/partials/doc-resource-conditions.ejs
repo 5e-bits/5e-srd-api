@@ -4,52 +4,51 @@
 <h3>GET api/conditions/{index}</h3>
 
 <pre><code>{
-  "_id": "586762a5c9e7ce9f721456c4",
-  "index": 1,
+  "_id": "5e10e4760b1bb138c5b3afa2",
+  "index": "blinded",
   "name": "Blinded",
   "desc": [
-    "• A blinded creature can’t see and automatically fails any ability check that requires sight.",
-    "• Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage."
+    "- A blinded creature can't see and automatically fails any ability check that requires sight.",
+    "- Attack rolls against the creature have advantage, and the creature's attack rolls have disadvantage."
   ],
-  "url": "http://dnd5eapi.co/api/conditions/1"
-}
-</code></pre>
+  "url": "/api/conditions/blinded"
+}</code></pre>
 
 <h4>Condition</h4>
 
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this condition resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">index</td>
-            <td align="left">The condition index for shorthand searching</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">name</td>
-            <td align="left">The name for this condition resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">desc</td>
-            <td align="left">A brief description of the condition</td>
-            <td align="left">list string</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL of the referenced resource</td>
-            <td align="left">string</td>
-        </tr> 
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this condition resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The condition index for shorthand searching</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this condition resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">desc</td>
+      <td align="left">A brief description of the condition</td>
+      <td align="left">list string</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>

@@ -1,21 +1,21 @@
 <div class="col-md-9 col-sm-9 docs-body">
-    <h1>Documentation</h1>
+  <h1>Documentation</h1>
 
-    <h2 id="intro">Introduction</h2>
-    <p>Welcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API! This documentation should help you familiarise yourself with the resources available and how to consume them with HTTP requests. Read through the getting started section before you dive in. Most of your problems should be solved just by reading through it.</p>
+  <h2 id="intro">Introduction</h2>
+  <p>Welcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API! This documentation should help you familiarise yourself with the resources available and how to consume them with HTTP requests. Read through the getting started section before you dive in. Most of your problems should be solved just by reading through it.</p>
 
-    <h2 id="start">Getting started</h2>
-    <p>Let's make our first API request to the D&D 5th Edition API!</p>
-    <p>Open up a terminal and use <a href="http://curl.haxx.se">curl</a> or <a href="http://httpie.org">httpie</a> to make an API request for a resource. In the example below, we're trying to get the first spell, Acid Arrow:</p>
+  <h2 id="start">Getting started</h2>
+  <p>Let's make our first API request to the D&D 5th Edition API!</p>
+  <p>Open up a terminal and use <a href="http://curl.haxx.se">curl</a> or <a href="http://httpie.org">httpie</a> to make an API request for a resource. In the example below, we're trying to get the first spell, Acid Arrow:</p>
 
-    <pre><code>http www.dnd5eapi.co/api/spells/1/</code></pre>
+  <pre><code>http www.dnd5eapi.co/api/spells/acid-arrow/</code></pre>
 
-    <p>We'll use <a href="http://httpie.org">httpie</a> for our examples as it displays responses nicely and gives us a whole lot more useful information. If you don't want to download httpie, just use the <em>curl</em> command instead.</p>
-    <p>Here is the response we get:</p>
+  <p>We'll use <a href="http://httpie.org">httpie</a> for our examples as it displays responses nicely and gives us a whole lot more useful information. If you don't want to download httpie, just use the <em>curl</em> command instead.</p>
+  <p>Here is the response we get:</p>
 
-    <pre><code>{
-  "_id": "58671690c9e7ce9f72144f5f",
-  "index": 1,
+  <pre><code>{
+  "_id": "5e10e47a0b1bb138c5b3b6b1",
+  "index": "acid-arrow",
   "name": "Acid Arrow",
   "desc": [
     "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn."
@@ -30,66 +30,75 @@
     "S",
     "M"
   ],
-  "material": "Powdered rhubarb leaf and an adder’s stomach.",
-  "ritual": "no",
+  "material": "Powdered rhubarb leaf and an adder's stomach.",
+  "ritual": false,
   "duration": "Instantaneous",
-  "concentration": "no",
+  "concentration": false,
   "casting_time": "1 action",
   "level": 2,
   "school": {
-    "url": "http://dnd5eapi.co/api/magic-schools/5",
-    "name": "Evocation"
+    "name": "Evocation",
+    "url": "/api/magic-schools/evocation"
   },
   "classes": [
     {
       "name": "Wizard",
-      "url": "http://dnd5eapi.co/api/classes/12"
+      "url": "/api/classes/wizard"
     }
   ],
-  "url": "http://dnd5eapi.co/api/spells/1"
-}
- </code></pre>
+  "subclasses": [
+    {
+      "name": "Lore",
+      "url": "/api/subclasses/lore"
+    },
+    {
+      "name": "Land",
+      "url": "/api/subclasses/land"
+    }
+  ],
+  "url": "/api/spells/acid-arrow"
+}</code></pre>
 
-    <p>If your response looks slightly different don't panic. This is probably because more data has been added to dnd5eapi since we made this documentation.</p>
+  <p>If your response looks slightly different don't panic. This is probably because more data has been added to dnd5eapi since we made this documentation.</p>
 
-    <h2 id="base">Base URL</h2>
-    <p>The <strong>Base URL</strong> is the root URL for all of the API, if you ever make a request to dnd5eapi and you get back a <strong>404 NOT FOUND</strong> response then check the Base URL first.</p>
-    <p>The Base URL for dnd5eapi is:</p>
+  <h2 id="base">Base URL</h2>
+  <p>The <strong>Base URL</strong> is the root URL for all of the API, if you ever make a request to dnd5eapi and you get back a <strong>404 NOT FOUND</strong> response then check the Base URL first.</p>
+  <p>The Base URL for dnd5eapi is:</p>
 
-    <pre><code>http://www.dnd5eapi.co/api/</code></pre>
+  <pre><code>http://www.dnd5eapi.co/api/</code></pre>
 
-    <p>The documentation below assumes you are prepending the Base URL to the endpoints in order to make requests.</p>
+  <p>The documentation below assumes you are prepending the Base URL to the endpoints in order to make requests.</p>
 
 
-    <h2 id="auth">Authentication</h2>
-    <p>dnd5eapi is a <strong>completely open API</strong>. No authentication is required to query and get data. This also means that we've limited what you can do to just <strong>GET</strong>-ing the data. If you find a mistake in the data, feel free to <a href="mailto:admin@dnd5eapi.co">email me</a>.</p>
+  <h2 id="auth">Authentication</h2>
+  <p>dnd5eapi is a <strong>completely open API</strong>. No authentication is required to query and get data. This also means that we've limited what you can do to just <strong>GET</strong>-ing the data. If you find a mistake in the data, feel free to <a href="https://discord.gg/TQuYTv7">message me</a>.</p>
 
-    <% include ../partials/doc-resource-lists %>
+  <% include ../partials/doc-resource-lists %>
 
-    <h1 id="character-data-section">Character Data</h1>
-    <% include ../partials/doc-resource-ability-scores %>
-    <% include ../partials/doc-resource-skills %>
-    <% include ../partials/doc-resource-proficiencies %>
-    <% include ../partials/doc-resource-languages %>
+  <h1 id="character-data-section">Character Data</h1>
+  <% include ../partials/doc-resource-ability-scores %>
+  <% include ../partials/doc-resource-skills %>
+  <% include ../partials/doc-resource-proficiencies %>
+  <% include ../partials/doc-resource-languages %>
 
-    <h1 id="classes-section">Classes</h1>
-    <% include ../partials/doc-resource-classes %>
-    <% include ../partials/doc-resource-subclasses %>
-    <% include ../partials/doc-resource-features %>
-    <% include ../partials/doc-resource-levels %>
+  <h1 id="classes-section">Classes</h1>
+  <% include ../partials/doc-resource-classes %>
+  <% include ../partials/doc-resource-subclasses %>
+  <% include ../partials/doc-resource-features %>
+  <% include ../partials/doc-resource-levels %>
 
-    <h1 id="races-section">Races</h1>
-    <% include ../partials/doc-resource-races %>
-    <% include ../partials/doc-resource-subraces %>
+  <h1 id="races-section">Races</h1>
+  <% include ../partials/doc-resource-races %>
+  <% include ../partials/doc-resource-subraces %>
 
-    <h1 id="equipment-section">Equipment</h1>
-    <% include ../partials/doc-resource-equipment %>
+  <h1 id="equipment-section">Equipment</h1>
+  <% include ../partials/doc-resource-equipment %>
 
-    <h1 id="game-mechanics-section">Game Mechanics</h1>
-    <% include ../partials/doc-resource-conditions %>
-    <% include ../partials/doc-resource-damage-types %>
-    <% include ../partials/doc-resource-magic-schools %>
+  <h1 id="game-mechanics-section">Game Mechanics</h1>
+  <% include ../partials/doc-resource-conditions %>
+  <% include ../partials/doc-resource-damage-types %>
+  <% include ../partials/doc-resource-magic-schools %>
 
-    <h1 id="common-models-section">Common Models</h1>
-    <% include ../partials/doc-resource-common-models %>
+  <h1 id="common-models-section">Common Models</h1>
+  <% include ../partials/doc-resource-common-models %>
 </div>

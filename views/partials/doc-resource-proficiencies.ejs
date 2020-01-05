@@ -4,78 +4,77 @@
 <h3>GET api/proficiencies/{index or class}</h3>
 
 <pre><code>{
-  "_id": "58c655aac9e7ce9f7214da02",
-  "index": 2,
+  "_id": "5e10e4790b1bb138c5b3b5da",
+  "index": "medium-armor",
   "type": "Armor",
   "name": "Medium armor",
   "classes": [
     {
-      "name": "Barbarian",
-      "url": "http://dnd5eapi.co/api/classes/1"
+      "url": "/api/classes/barbarian",
+      "name": "Barbarian"
     },
     {
-      "name": "Cleric",
-      "url": "http://dnd5eapi.co/api/classes/3"
+      "url": "/api/classes/cleric",
+      "name": "Cleric"
     },
     {
-      "name": "Druid",
-      "url": "http://dnd5eapi.co/api/classes/4"
+      "url": "/api/classes/druid",
+      "name": "Druid"
     },
     {
-      "name": "Ranger",
-      "url": "http://dnd5eapi.co/api/classes/8"
+      "url": "/api/classes/ranger",
+      "name": "Ranger"
     }
   ],
   "races": [],
-  "url": "http://dnd5eapi.co/api/proficiencies/2"
-}
-</code></pre>
+  "url": "/api/proficiencies/medium-armor"
+}</code></pre>
 
 <h4>Proficiency</h4>
 
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this proficiency resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">index</td>
-            <td align="left">The proficiency index for shorthand searching</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">type</td>
-            <td align="left">The general category of the proficiency</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">name</td>
-            <td align="left">The name of this proficiency resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">classes</td>
-            <td align="left">Classes that start with this proficiency.</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Class</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">races</td>
-            <td align="left">Races that start with this proficiency.</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL of the referenced resource</td>
-            <td align="left">string</td>
-        </tr> 
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this proficiency resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The proficiency index for shorthand searching</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">type</td>
+      <td align="left">The general category of the proficiency</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name of this proficiency resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">classes</td>
+      <td align="left">Classes that start with this proficiency.</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Class</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">races</td>
+      <td align="left">Races that start with this proficiency.</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
