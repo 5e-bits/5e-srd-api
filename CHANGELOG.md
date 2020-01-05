@@ -5,6 +5,7 @@
 * Converted number indices to string indices based off of name
 * Added a Contribute link for the API
 * Move changes to Changelog
+* Fixed the navbar for the Docs to use the same partial
 
 ## 01/02/20
 
