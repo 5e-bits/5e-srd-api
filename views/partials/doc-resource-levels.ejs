@@ -4,23 +4,24 @@
 <h3>GET api/classes/{class name}/level/{integer 1-20}</h3>
 
 <pre><code>{
-  "_id": "58f40badc9e7ce9f7215344f",
+  "_id": "5e10e4780b1bb138c5b3b388",
+  "index": 41,
   "level": 1,
   "ability_score_bonuses": 0,
   "prof_bonus": 2,
   "feature_choices": [],
   "features": [
     {
-      "url": "http://www.dnd5eapi.co/api/features/71",
-      "name": "Spellcasting"
+      "name": "Spellcasting",
+      "url": "/api/features/spellcasting-cleric"
     },
     {
-      "url": "http://www.dnd5eapi.co/api/features/72",
-      "name": "Divine Domain"
+      "name": "Divine Domain",
+      "url": "/api/features/divine-domain"
     },
     {
-      "url": "http://www.dnd5eapi.co/api/features/73",
-      "name": "Domain Spells 1"
+      "name": "Domain Spells 1",
+      "url": "/api/features/domain-spells-1"
     }
   ],
   "spellcasting": {
@@ -40,80 +41,78 @@
     "channel_divinity_charges": 0,
     "destroy_undead_cr": 0
   },
-  "index": 41,
   "class": {
     "name": "Cleric",
-    "url": "http://www.dnd5eapi.co/api/classes/cleric"
+    "url": "/api/classes/cleric"
   },
-  "url": "http://www.dnd5eapi.co/api/classes/cleric/level/1"
-}
-</code></pre>
+  "url": "/api/classes/cleric/level/1"
+}</code></pre>
 
 <h4>Level</h4>
 
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">_id</td>
-            <td align="left">The string _id used by the database for this class resource</td>
-            <td align="left">string</td>
-        </tr>
-        <tr>
-            <td align="left">index</td>
-            <td align="left">The level index for shorthand searching<.</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">level</td>
-            <td align="left">The number value for the current level object.</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">ability_score_bonuses</td>
-            <td align="left">Total number of ability score bonuses gained, added from previous levels.</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">prof_bonus</td>
-            <td align="left">Proficiency bonus for this class at the specified level.</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">feature_choices</td>
-            <td align="left">Special features which require a player to choose a new feature to be added.</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">features</td>
-            <td align="left">Features automatically gained by players at this level.</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">spellcasting</td>
-            <td align="left">Information regarding spellcasting, such as spell slots and number of cantrips.</td>
-            <td align="left">object</td>
-        </tr>
-        <tr>
-            <td align="left">class_specific</td>
-            <td align="left">Class specific information such as dice values for bard songs and number of warlock invocations.</td>
-            <td align="left">object</td>
-        </tr>
-        <tr>
-            <td align="left">class</td>
-            <td align="left">The class which this level refers to.</td>
-            <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>)</td>
-        </tr>
-        <tr>
-            <td align="left">url</td>
-            <td align="left">The URL reference of this resource.</td>
-            <td align="left">string</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this class resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The level index for shorthand searching<.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">level</td>
+      <td align="left">The number value for the current level object.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">ability_score_bonuses</td>
+      <td align="left">Total number of ability score bonuses gained, added from previous levels.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">prof_bonus</td>
+      <td align="left">Proficiency bonus for this class at the specified level.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">feature_choices</td>
+      <td align="left">Special features which require a player to choose a new feature to be added.</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">features</td>
+      <td align="left">Features automatically gained by players at this level.</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">spellcasting</td>
+      <td align="left">Information regarding spellcasting, such as spell slots and number of cantrips.</td>
+      <td align="left">object</td>
+    </tr>
+    <tr>
+      <td align="left">class_specific</td>
+      <td align="left">Class specific information such as dice values for bard songs and number of warlock invocations.</td>
+      <td align="left">object</td>
+    </tr>
+    <tr>
+      <td align="left">class</td>
+      <td align="left">The class which this level refers to.</td>
+      <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>

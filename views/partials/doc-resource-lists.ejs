@@ -4,35 +4,47 @@
 <h3>GET api/{endpoint}</h3>
 
 <pre><code>{
-  "count": 12,
+  "count": 319,
   "results": [
     {
+      "index": "acid-arrow",
       "name": "Acid Arrow",
-      "url": "http://dnd5eapi.co/api/spells/1"
+      "url": "/api/spells/acid-arrow"
     },
     {
+      "index": "acid-splash",
       "name": "Acid Splash",
-      "url": "http://dnd5eapi.co/api/spells/2"
+      "url": "/api/spells/acid-splash"
     },
     {
+      "index": "aid",
       "name": "Aid",
-      "url": "http://dnd5eapi.co/api/spells/3"
+      "url": "/api/spells/aid"
     },
     {
+      "index": "alarm",
       "name": "Alarm",
-      "url": "http://dnd5eapi.co/api/spells/4"
+      "url": "/api/spells/alarm"
     },
     {
+      "index": "alter-self",
       "name": "Alter Self",
-      "url": "http://dnd5eapi.co/api/spells/5"
+      "url": "/api/spells/alter-self"
     },
     {
+      "index": "animal-friendship",
+      "name": "Animal Friendship",
+      "url": "/api/spells/animal-friendship"
+    },
+    {
+      "index": "animal-messenger",
       "name": "Animal Messenger",
-      "url": "http://dnd5eapi.co/api/spells/6"
+      "url": "/api/spells/animal-messenger"
     },
     {
+      "index": "animal-shapes",
       "name": "Animal Shapes",
-      "url": "http://dnd5eapi.co/api/spells/7"
+      "url": "/api/spells/animal-shapes"
     },
 
     ...
@@ -44,25 +56,25 @@
 <h4>NamedAPIResourceList</h4>
 
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">count</td>
-            <td align="left">Total number of resource available from this API</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">results</td>
-            <td align="left">A list of named API resource lists</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a></td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">Total number of resource available from this API</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A list of named API resource lists</td>
+      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a></td>
+    </tr>
+  </tbody>
 </table>
 
 
@@ -70,25 +82,29 @@
 
 
 <pre><code>{
-  "count": 12,
+  "count": 8,
   "results": [
     {
-      "class": "Barbarian",
-      "url": "http://dnd5eapi.co/api/tables/1"
-    },
-    {
+      "index": 1,
       "class": "Bard",
-      "url": "http://dnd5eapi.co/api/tables/2"
+      "url": "/api/spellcasting/1"
     },
     {
+      "index": 2,
       "class": "Cleric",
-      "url": "http://dnd5eapi.co/api/tables/3"
+      "url": "/api/spellcasting/2"
     },
     {
+      "index": 3,
       "class": "Druid",
-      "url": "http://dnd5eapi.co/api/tables/4"
+      "url": "/api/spellcasting/3"
     },
-    
+    {
+      "index": 4,
+      "class": "Paladin",
+      "url": "/api/spellcasting/4"
+    },
+
     ...
 
   ]
@@ -98,23 +114,23 @@
 <h4>ClassAPIResourceList</h4>
 
 <table>
-    <thead>
-        <tr>
-            <th align="left">Name</th>
-            <th align="left">Description</th>
-            <th align="left">Data Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left">count</td>
-            <td align="left">Total number of resource available from this API</td>
-            <td align="left">integer</td>
-        </tr>
-        <tr>
-            <td align="left">results</td>
-            <td align="left">A list of class API resource lists</td>
-            <td align="left">list <a href="#namedapiresource">NamedAPIResource</a></td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">Total number of resource available from this API</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A list of class API resource lists</td>
+      <td align="left">list <a href="#classapiresource">ClassAPIResource</a></td>
+    </tr>
+  </tbody>
 </table>
