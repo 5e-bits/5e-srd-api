@@ -33,9 +33,7 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  }
-
-  else { // return specific document
+  } else { // return specific document
     Model.findOne( { index: req.params.index }, (err, data) => {
       if (err) {
         res.send(err);
