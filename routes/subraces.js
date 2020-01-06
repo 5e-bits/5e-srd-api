@@ -23,7 +23,7 @@ router
 .get('/:index', (req,res) => {
   // search by class
   if (utility.isRaceName(req.params.index) === true) {
-    Model.find( { 'race.name': utility.upperFirst(req.params.index) }, (err,  _data) => {
+    Model.find( { 'race.name': utility.race_map[req.params.index] }, (err,  _data) => {
       if (err) {
         res.send(err);
       }
@@ -33,9 +33,7 @@ router
       }
       res.status(200).json(utility.NamedAPIResource(data));
     })
-  }
-
-  else { // return specific document
+  } else { // return specific document
     Model.findOne( { index: req.params.index }, (err, data) => {
       if (err) {
         res.send(err);
