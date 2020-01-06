@@ -23,7 +23,7 @@ router
 .get('/:index', (req,res) => {
   // search by race
   if (utility.isRaceName(req.params.index) === true) {
-    Model.findOne( { 'name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Model.findOne( { 'index': req.params.index }, (err, _data) => {
       if (err) {
         res.send(err);
       }
@@ -33,9 +33,7 @@ router
       }
       res.status(200).json(data);
     })
-  }
-
-  else {
+  } else {
     res.status(404)
   }
 })

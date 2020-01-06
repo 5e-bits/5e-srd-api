@@ -123,13 +123,24 @@ subclass_map[subclass_names[11]] = "Evocation"
 
 
 
-const race_names = ["dwarf", "elf", "halfling", "human"]
+const race_names = ["dwarf", "elf", "halfling", "human", "dragonborn", "gnome", "half-elf", "half-orc", "tiefling"]
+const race_map = {}
+race_map[race_names[0]] = "Dwarf"
+race_map[race_names[1]] = "Elf"
+race_map[race_names[2]] = "Halfling"
+race_map[race_names[3]] = "Human"
+race_map[race_names[4]] = "Dragonborn"
+race_map[race_names[5]] = "Gnome"
+race_map[race_names[6]] = "Half-Elf"
+race_map[race_names[7]] = "Half-Orc"
+race_map[race_names[8]] = "Tiefling"
 
-const subrace_names = ["hill-dwarf", "high-elf", "lightfoot-halfling"]
+const subrace_names = ["hill-dwarf", "high-elf", "lightfoot-halfling", "rock-gnome"]
 const subrace_map = {}
 subrace_map[subrace_names[0]] = "Hill Dwarf"
 subrace_map[subrace_names[1]] = "High Elf"
 subrace_map[subrace_names[2]] = "Lightfoot Halfling"
+subrace_map[subrace_names[2]] = "Rock Gnome"
 
 
 
@@ -290,6 +301,7 @@ var utility = {
     subrace_map,
     proficiency_map,
     class_map,
+    race_map,
     subclass_map
 }
 
