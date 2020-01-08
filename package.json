@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint . --ext .js"
+    "lint": "eslint . --ext .js",
+    "fix-format": "prettier --write **/*.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -19,6 +20,9 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
   }
 }
