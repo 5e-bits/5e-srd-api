@@ -18,7 +18,7 @@ exports.index = (req, res, next) => {
 
 exports.show = (req, res, next) => {
   if (utility.isRaceName(req.params.index) === true) {
-    Proficiency.find({ 'races.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Proficiency.find({ 'races.name': utility.race_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }
@@ -44,7 +44,7 @@ exports.show = (req, res, next) => {
         res.status(200).json(utility.NamedAPIResource(data));
       });
   } else if (utility.isClassName(req.params.index) === true) {
-    Proficiency.find({ 'classes.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Proficiency.find({ 'classes.name': utility.class_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }

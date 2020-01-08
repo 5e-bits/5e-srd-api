@@ -20,7 +20,7 @@ exports.show = (req, res, next) => {
   // search by class
 
   if (utility.isRaceName(req.params.index) === true) {
-    Trait.find({ 'races.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Trait.find({ 'races.name': utility.race_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }

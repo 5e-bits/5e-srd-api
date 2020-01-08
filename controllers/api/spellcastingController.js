@@ -19,7 +19,7 @@ exports.index = (req, res, next) => {
 exports.show = (req, res, next) => {
   // search by class
   if (utility.isClassName(req.params.index) === true) {
-    Spellcasting.findOne({ 'class.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Spellcasting.findOne({ 'class.name': utility.class_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }

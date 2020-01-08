@@ -21,7 +21,7 @@ exports.show = (req, res, next) => {
 
   if (utility.isClassName(req.params.index) === true) {
     StartingEquipment.findOne(
-      { 'class.name': utility.upperFirst(req.params.index) },
+      { 'class.name': utility.class_map[req.params.index] },
       (err, _data) => {
         if (err) {
           next(err);

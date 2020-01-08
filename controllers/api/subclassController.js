@@ -20,7 +20,7 @@ exports.index = (req, res, next) => {
 exports.show = (req, res, next) => {
   // search by class
   if (utility.isClassName(req.params.index) === true) {
-    Subclass.find({ 'class.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Subclass.find({ 'class.name': utility.class_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }

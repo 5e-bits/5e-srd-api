@@ -24,7 +24,7 @@ exports.index = (req, res, next) => {
 exports.show = (req, res, next) => {
   // search by class
   if (utility.isClassName(req.params.index) === true) {
-    Spell.find({ 'classes.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Spell.find({ 'classes.name': utility.class_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }
@@ -56,7 +56,7 @@ exports.showSpellsForClassLevel = (req, res, next) => {
   if (typeof parseInt(req.params.level) == 'number') {
     Spell.find(
       {
-        'classes.name': utility.upperFirst(req.params.index),
+        'classes.name': utility.class_map[req.params.index],
         level: parseInt(req.params.level)
       },
       (err, _data) => {

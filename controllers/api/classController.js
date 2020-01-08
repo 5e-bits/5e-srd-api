@@ -18,9 +18,8 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  // search by race
   if (utility.isClassName(req.params.index) === true) {
-    Class.findOne({ name: utility.upperFirst(req.params.index) }, (err, _data) => {
+    Class.findOne({ index: req.params.index }, (err, _data) => {
       if (err) {
         next(err);
       }

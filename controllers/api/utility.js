@@ -1,88 +1,3 @@
-const _ = require('lodash');
-
-function toLower(str) {
-  return _.lowerCase(str);
-}
-
-function classToIndex(class_name) {
-  _.lowerCase(class_name);
-  switch (class_name) {
-    case 'barbarian':
-      return 1;
-    case 'bard':
-      return 2;
-    case 'cleric':
-      return 3;
-    case 'druid':
-      return 4;
-    case 'fighter':
-      return 5;
-    case 'monk':
-      return 6;
-    case 'paladin':
-      return 7;
-    case 'ranger':
-      return 8;
-    case 'rogue':
-      return 9;
-    case 'sorcerer':
-      return 10;
-    case 'warlock':
-      return 11;
-    case 'wizard':
-      return 12;
-    default:
-      return 0;
-  }
-}
-
-function indexToClass(class_name) {
-  switch (class_name) {
-    case 1:
-      return 'barbarian';
-
-    case 2:
-      return 'bard';
-
-    case 3:
-      return 'cleric';
-
-    case 4:
-      return 'druid';
-
-    case 5:
-      return 'fighter';
-
-    case 6:
-      return 'monk';
-
-    case 7:
-      return 'paladin';
-
-    case 8:
-      return 'ranger';
-
-    case 9:
-      return 'rogue';
-
-    case 10:
-      return 'sorcerer';
-
-    case 11:
-      return 'warlock';
-
-    case 12:
-      return 'wizard';
-
-    default:
-      return 'none';
-  }
-}
-
-function classToURL(class_name) {
-  return '/api/classes/' + classToIndex(class_name);
-}
-
 const class_names = [
   'barbarian',
   'bard',
@@ -306,17 +221,9 @@ function NamedAPIResourceWithDesc(data) {
   };
 }
 
-function upperFirst(string) {
-  return _.upperFirst(string);
-}
-
 //TODO: Clear out what isn't being used.
 
 var utility = {
-  toLower,
-  classToURL,
-  classToIndex,
-  indexToClass,
   isClassName,
   isSubclassName,
   isRaceName,
@@ -326,7 +233,6 @@ var utility = {
   NamedAPIResource,
   NamedAPIResourceWithDesc,
   ClassAPIResource,
-  upperFirst,
   subrace_map,
   proficiency_map,
   class_map,

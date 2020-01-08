@@ -19,10 +19,9 @@ exports.index = (req, res, next) => {
 exports.show = (req, res, next) => {
   // search by class
   if (utility.isClassName(req.params.index) === true) {
-    console.log(utility.upperFirst(req.params.index));
     Feature.find(
       {
-        'class.name': utility.upperFirst(req.params.index),
+        'class.name': utility.class_map[req.params.index],
         'subclass.name': undefined,
         group: undefined
       },
@@ -80,7 +79,7 @@ exports.showForLevel = (req, res, next) => {
     if (utility.isClassName(req.params.index) === true) {
       Feature.find(
         {
-          'class.name': utility.upperFirst(req.params.index),
+          'class.name': utility.class_map[req.params.index],
           level: parseInt(req.params.level),
           'subclass.name': undefined,
           group: undefined
@@ -102,7 +101,7 @@ exports.showForLevel = (req, res, next) => {
       Feature.find(
         {
           level: parseInt(req.params.level),
-          'subclass.name': utility.upperFirst(req.params.index),
+          'subclass.name': utility.subclass_map[req.params.index],
           group: undefined
         },
         (err, _data) => {
