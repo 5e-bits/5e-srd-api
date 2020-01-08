@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint . --ext .js",
-    "fix-format": "prettier --write **/*.js"
+    "lint": "eslint . --ext .js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
