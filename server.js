@@ -4,12 +4,15 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { bugsnagMiddleware } = require('./bugsnag');
+const { mongodbUri } = require('./util');
 
 // enable cors in preflight
 app.options('*', cors());
 
 // Middleware stuff
 app.set('view engine', 'ejs');
+app.use(bugsnagMiddleware.requestHandler);
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/public', express.static(__dirname + '/public'));
@@ -46,7 +49,6 @@ app.use('/api/weapon-properties', require('./routes/weapon-properties'));
 app.use('/api/equipment-categories', require('./routes/equipment-categories'));
 
 // Connect to database and start the server
-const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/5e-database';
 mongoose.connect(mongodbUri, (err, _database) => {
   if (err) {
     console.log(err);
@@ -115,3 +117,5 @@ app.use(function(req, res, _next) {
   // default to plain-text. send()
   res.type('txt').send('Not found');
 });
+
+app.use(bugsnagMiddleware.errorHandler);
