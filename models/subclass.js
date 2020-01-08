@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var SubclassSchema   = new Schema({
+var SubclassSchema = new Schema({
   index: String,
   name: String,
   url: String

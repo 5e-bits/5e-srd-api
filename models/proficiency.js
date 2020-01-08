@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var ProficiencySchema   = new Schema({
+var ProficiencySchema = new Schema({
   index: String,
   name: String,
   url: String

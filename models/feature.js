@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var FeatureSchema   = new Schema({
+var FeatureSchema = new Schema({
   index: String,
   name: String,
   class: {
@@ -17,11 +17,11 @@ var FeatureSchema   = new Schema({
   url: String
 });
 
-FeatureSchema.pre('save', function (next) {
+FeatureSchema.pre('save', function(next) {
   if (0 === this.choice.from.length) {
     this.choice = undefined;
   }
   next();
-})
+});
 
 module.exports = mongoose.model('Feature', FeatureSchema, 'features');
