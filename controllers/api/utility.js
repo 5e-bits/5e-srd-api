@@ -107,6 +107,7 @@ proficiency_map[proficiency_categories[6]] = 'Other';
 proficiency_map[proficiency_categories[7]] = 'Skills';
 proficiency_map[proficiency_categories[8]] = 'Saving Throws';
 
+// TODO: I'm pretty sure all of these `is___Name` methods would translate better as routes on the type it's checking
 function isClassName(class_name) {
   let bool = false;
 
