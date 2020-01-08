@@ -1,13 +1,13 @@
-const AbilityScore = require('../models/abilityScore');
+const MagicSchool = require('../models/magicSchool');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  const search_queries = {};
+  var search_queries = {};
   if (req.query.name !== undefined) {
     search_queries.name = req.query.name;
   }
 
-  AbilityScore.find(search_queries, (err, _data) => {
+  MagicSchool.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -22,7 +22,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  AbilityScore.findOne({ index: req.params.index }, (err, data) => {
+  MagicSchool.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

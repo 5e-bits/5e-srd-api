@@ -1,10 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var utility = require('./utility');
-var Model = require('../models/equipment-category');
+const EquipmentCategory = require('../models/equipmentCategory');
+const utility = require('./utility');
 
-router.get('/', (req, res, next) => {
-  Model.find((err, _data) => {
+exports.index = (req, res, next) => {
+  EquipmentCategory.find((err, _data) => {
     if (err) {
       next(err);
     }
@@ -16,10 +14,9 @@ router.get('/', (req, res, next) => {
       }
       res.status(200).json(utility.NamedAPIResource(data));
     });
-});
-
-router.get('/:index', (req, res, next) => {
-  Model.findOne({ index: req.params.index }, (err, data) => {
+};
+exports.show = (req, res, next) => {
+  EquipmentCategory.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }
@@ -30,6 +27,4 @@ router.get('/:index', (req, res, next) => {
       res.status(404).json({ error: 'Not found' });
     }
   });
-});
-
-module.exports = router;
+};

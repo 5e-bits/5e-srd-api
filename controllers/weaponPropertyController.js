@@ -1,15 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var utility = require('./utility');
-var Model = require('../models/magic-school');
+const WeaponProperty = require('../models/weaponProperty');
+const utility = require('./utility');
 
-router.get('/', (req, res, next) => {
+exports.index = (req, res, next) => {
   var search_queries = {};
   if (req.query.name !== undefined) {
     search_queries.name = req.query.name;
   }
 
-  Model.find(search_queries, (err, _data) => {
+  WeaponProperty.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -21,10 +19,10 @@ router.get('/', (req, res, next) => {
       }
       res.status(200).json(utility.NamedAPIResource(data));
     });
-});
+};
 
-router.get('/:index', (req, res, next) => {
-  Model.findOne({ index: req.params.index }, (err, data) => {
+exports.show = (req, res, next) => {
+  WeaponProperty.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }
@@ -35,6 +33,4 @@ router.get('/:index', (req, res, next) => {
       res.status(404).json({ error: 'Not found' });
     }
   });
-});
-
-module.exports = router;
+};

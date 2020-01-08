@@ -27,26 +27,26 @@ app.use(morgan('short'));
 app.use(cors());
 
 // Register routes
+app.use('/api/ability-scores', require('./routes/abilityScores'));
 app.use('/api/classes', require('./routes/classes'));
-app.use('/api/subclasses', require('./routes/subclasses'));
+app.use('/api/conditions', require('./routes/conditions'));
+app.use('/api/damage-types', require('./routes/damageTypes'));
+app.use('/api/equipment-categories', require('./routes/equipmentCategories'));
+app.use('/api/equipment', require('./routes/equipment'));
+app.use('/api/features', require('./routes/features'));
+app.use('/api/languages', require('./routes/languages'));
+app.use('/api/magic-schools', require('./routes/magicSchools'));
+app.use('/api/monsters', require('./routes/monsters'));
+app.use('/api/proficiencies', require('./routes/proficiencies'));
+app.use('/api/races', require('./routes/races'));
+app.use('/api/skills', require('./routes/skills'));
 app.use('/api/spellcasting', require('./routes/spellcasting'));
 app.use('/api/spells', require('./routes/spells'));
-app.use('/api/monsters', require('./routes/monsters'));
-app.use('/api/features', require('./routes/features'));
-app.use('/api/equipment', require('./routes/equipment'));
-app.use('/api/proficiencies', require('./routes/proficiencies'));
-app.use('/api/startingequipment', require('./routes/startingequipment'));
-app.use('/api/races', require('./routes/races'));
+app.use('/api/startingequipment', require('./routes/startingEquipment'));
+app.use('/api/subclasses', require('./routes/subclasses'));
 app.use('/api/subraces', require('./routes/subraces'));
 app.use('/api/traits', require('./routes/traits'));
-app.use('/api/languages', require('./routes/languages'));
-app.use('/api/damage-types', require('./routes/damage-types'));
-app.use('/api/magic-schools', require('./routes/magic-schools'));
-app.use('/api/conditions', require('./routes/conditions'));
-app.use('/api/ability-scores', require('./routes/ability-scores'));
-app.use('/api/skills', require('./routes/skills'));
-app.use('/api/weapon-properties', require('./routes/weapon-properties'));
-app.use('/api/equipment-categories', require('./routes/equipment-categories'));
+app.use('/api/weapon-properties', require('./routes/weaponProperties'));
 
 // Connect to database and start the server
 mongoose.connect(mongodbUri, (err, _database) => {

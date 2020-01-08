@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const AbilityScoreController = require('../controllers/abilityScoreController');
 
-router.get('/', AbilityScoreController.indexAbilityScores);
-router.get('/:index', AbilityScoreController.showAbilityScore);
+router.get('/', AbilityScoreController.index);
+router.get('/:index', AbilityScoreController.show);
 
 module.exports = router;
