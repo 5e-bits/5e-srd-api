@@ -4,8 +4,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { bugsnagMiddleware } = require('./bugsnag');
 const { mongodbUri } = require('./util');
+const { bugsnagMiddleware } = require('./bugsnag');
 
 // enable cors in preflight
 app.options('*', cors());

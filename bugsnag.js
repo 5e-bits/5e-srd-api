@@ -2,9 +2,13 @@ const bugsnag = require('@bugsnag/js');
 const bugsnagExpress = require('@bugsnag/plugin-express');
 const { bugsnagApiKey } = require('./util');
 
-const bugsnagMiddleware = () => {
+const createBugsnagMiddleware = () => {
   const bugsnagClient = bugsnag(bugsnagApiKey);
-  return bugsnagClient.use(bugsnagExpress);
+  bugsnagClient.use(bugsnagExpress);
+
+  return bugsnagClient.getPlugin('express');
 };
+
+const bugsnagMiddleware = createBugsnagMiddleware();
 
 module.exports.bugsnagMiddleware = bugsnagMiddleware;

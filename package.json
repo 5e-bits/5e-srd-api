@@ -14,6 +14,8 @@
     ]
   },
   "dependencies": {
+    "@bugsnag/js": "^6.5.0",
+    "@bugsnag/plugin-express": "^6.5.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.3",
