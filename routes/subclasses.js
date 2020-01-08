@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const SubclassController = require('../controllers/subclassController');
+const SubclassController = require('../controllers/api/subclassController');
 
 router.get('/', SubclassController.index);
 router.get('/:index', SubclassController.show);

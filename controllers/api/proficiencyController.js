@@ -1,4 +1,4 @@
-const Proficiency = require('../models/proficiency');
+const Proficiency = require('../../models/proficiency');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {

@@ -1,8 +1,13 @@
-const EquipmentCategory = require('../models/equipmentCategory');
+const DamageType = require('../../models/damageType');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  EquipmentCategory.find((err, _data) => {
+  var search_queries = {};
+  if (req.query.name !== undefined) {
+    search_queries.name = req.query.name;
+  }
+
+  DamageType.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -15,8 +20,9 @@ exports.index = (req, res, next) => {
       res.status(200).json(utility.NamedAPIResource(data));
     });
 };
+
 exports.show = (req, res, next) => {
-  EquipmentCategory.findOne({ index: req.params.index }, (err, data) => {
+  DamageType.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

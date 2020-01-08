@@ -1,4 +1,4 @@
-const MagicSchool = require('../models/magicSchool');
+const Skill = require('../../models/skill');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
@@ -7,7 +7,7 @@ exports.index = (req, res, next) => {
     search_queries.name = req.query.name;
   }
 
-  MagicSchool.find(search_queries, (err, _data) => {
+  Skill.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -22,7 +22,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  MagicSchool.findOne({ index: req.params.index }, (err, data) => {
+  Skill.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

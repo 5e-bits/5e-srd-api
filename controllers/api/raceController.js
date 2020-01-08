@@ -1,4 +1,4 @@
-const Race = require('../models/race');
+const Race = require('../../models/race');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {

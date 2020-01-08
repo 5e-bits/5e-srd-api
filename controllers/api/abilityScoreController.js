@@ -1,4 +1,4 @@
-const AbilityScore = require('../models/abilityScore');
+const AbilityScore = require('../../models/abilityScore');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {

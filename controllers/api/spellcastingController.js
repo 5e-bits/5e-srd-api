@@ -1,8 +1,8 @@
-const StartingEquipment = require('../models/startingEquipment');
+const Spellcasting = require('../../models/spellcasting');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  StartingEquipment.find((err, _data) => {
+  Spellcasting.find((err, _data) => {
     if (err) {
       next(err);
     }
@@ -18,16 +18,12 @@ exports.index = (req, res, next) => {
 
 exports.show = (req, res, next) => {
   // search by class
-
   if (utility.isClassName(req.params.index) === true) {
-    StartingEquipment.findOne(
-      { 'class.name': utility.upperFirst(req.params.index) },
-      (err, _data) => {
-        if (err) {
-          next(err);
-        }
+    Spellcasting.findOne({ 'class.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+      if (err) {
+        next(err);
       }
-    )
+    })
       .sort({ url: 'asc', level: 'asc' })
       .exec((err, data) => {
         if (err) {
@@ -37,7 +33,7 @@ exports.show = (req, res, next) => {
       });
   } else {
     // return specific document
-    StartingEquipment.findOne({ index: parseInt(req.params.index) }, (err, data) => {
+    Spellcasting.findOne({ index: parseInt(req.params.index) }, (err, data) => {
       if (err) {
         next(err);
       }

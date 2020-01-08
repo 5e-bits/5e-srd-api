@@ -1,5 +1,5 @@
-const Class = require('../models/class');
-const Level = require('../models/level');
+const Class = require('../../models/class');
+const Level = require('../../models/level');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {

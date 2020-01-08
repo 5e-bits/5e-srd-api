@@ -1,13 +1,8 @@
-const Condition = require('../models/condition');
+const Equipment = require('../../models/equipment');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  var search_queries = {};
-  if (req.query.name !== undefined) {
-    search_queries.name = req.query.name;
-  }
-
-  Condition.find(search_queries, (err, _data) => {
+  Equipment.find((err, _data) => {
     if (err) {
       next(err);
     }
@@ -22,7 +17,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  Condition.findOne({ index: req.params.index }, (err, data) => {
+  Equipment.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

@@ -1,8 +1,8 @@
-const Trait = require('../models/trait');
+const Subrace = require('../../models/subrace');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  Trait.find((err, _data) => {
+  Subrace.find((err, _data) => {
     if (err) {
       next(err);
     }
@@ -18,27 +18,13 @@ exports.index = (req, res, next) => {
 
 exports.show = (req, res, next) => {
   // search by class
-
   if (utility.isRaceName(req.params.index) === true) {
-    Trait.find({ 'races.name': utility.upperFirst(req.params.index) }, (err, _data) => {
+    Subrace.find({ 'race.name': utility.race_map[req.params.index] }, (err, _data) => {
       if (err) {
         next(err);
       }
     })
-      .sort({ url: 'asc' })
-      .exec((err, data) => {
-        if (err) {
-          next(err);
-        }
-        res.status(200).json(utility.NamedAPIResource(data));
-      });
-  } else if (utility.isSubraceName(req.params.index) === true) {
-    Trait.find({ 'races.name': utility.subrace_map[req.params.index] }, (err, _data) => {
-      if (err) {
-        next(err);
-      }
-    })
-      .sort({ url: 'asc' })
+      .sort({ url: 'asc', level: 'asc' })
       .exec((err, data) => {
         if (err) {
           next(err);
@@ -47,7 +33,7 @@ exports.show = (req, res, next) => {
       });
   } else {
     // return specific document
-    Trait.findOne({ index: req.params.index }, (err, data) => {
+    Subrace.findOne({ index: req.params.index }, (err, data) => {
       if (err) {
         next(err);
       }

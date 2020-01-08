@@ -1,8 +1,13 @@
-const Language = require('../models/language');
+const Monster = require('../../models/monster');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  Language.find((err, _data) => {
+  var search_queries = {};
+  if (req.query.name !== undefined) {
+    search_queries.name = req.query.name;
+  }
+
+  Monster.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -15,9 +20,8 @@ exports.index = (req, res, next) => {
       res.status(200).json(utility.NamedAPIResource(data));
     });
 };
-
 exports.show = (req, res, next) => {
-  Language.findOne({ index: req.params.index }, (err, data) => {
+  Monster.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

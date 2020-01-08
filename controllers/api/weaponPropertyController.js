@@ -1,4 +1,4 @@
-const Skill = require('../models/skill');
+const WeaponProperty = require('../../models/weaponProperty');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
@@ -7,7 +7,7 @@ exports.index = (req, res, next) => {
     search_queries.name = req.query.name;
   }
 
-  Skill.find(search_queries, (err, _data) => {
+  WeaponProperty.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -22,7 +22,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  Skill.findOne({ index: req.params.index }, (err, data) => {
+  WeaponProperty.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

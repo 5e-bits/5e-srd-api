@@ -1,4 +1,4 @@
-const Monster = require('../models/monster');
+const MagicSchool = require('../../models/magicSchool');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
@@ -7,7 +7,7 @@ exports.index = (req, res, next) => {
     search_queries.name = req.query.name;
   }
 
-  Monster.find(search_queries, (err, _data) => {
+  MagicSchool.find(search_queries, (err, _data) => {
     if (err) {
       next(err);
     }
@@ -20,8 +20,9 @@ exports.index = (req, res, next) => {
       res.status(200).json(utility.NamedAPIResource(data));
     });
 };
+
 exports.show = (req, res, next) => {
-  Monster.findOne({ index: req.params.index }, (err, data) => {
+  MagicSchool.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
       next(err);
     }

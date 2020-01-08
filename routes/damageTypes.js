@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const DamageTypeController = require('../controllers/damageTypeController');
+const DamageTypeController = require('../controllers/api/damageTypeController');
 
 router.get('/', DamageTypeController.index);
 router.get('/:index', DamageTypeController.show);

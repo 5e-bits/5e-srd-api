@@ -1,5 +1,5 @@
-const Subclass = require('../models/subclass');
-const Level = require('../models/level');
+const Subclass = require('../../models/subclass');
+const Level = require('../../models/level');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {

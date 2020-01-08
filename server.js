@@ -27,26 +27,7 @@ app.use(morgan('short'));
 app.use(cors());
 
 // Register routes
-app.use('/api/ability-scores', require('./routes/abilityScores'));
-app.use('/api/classes', require('./routes/classes'));
-app.use('/api/conditions', require('./routes/conditions'));
-app.use('/api/damage-types', require('./routes/damageTypes'));
-app.use('/api/equipment-categories', require('./routes/equipmentCategories'));
-app.use('/api/equipment', require('./routes/equipment'));
-app.use('/api/features', require('./routes/features'));
-app.use('/api/languages', require('./routes/languages'));
-app.use('/api/magic-schools', require('./routes/magicSchools'));
-app.use('/api/monsters', require('./routes/monsters'));
-app.use('/api/proficiencies', require('./routes/proficiencies'));
-app.use('/api/races', require('./routes/races'));
-app.use('/api/skills', require('./routes/skills'));
-app.use('/api/spellcasting', require('./routes/spellcasting'));
-app.use('/api/spells', require('./routes/spells'));
-app.use('/api/startingequipment', require('./routes/startingEquipment'));
-app.use('/api/subclasses', require('./routes/subclasses'));
-app.use('/api/subraces', require('./routes/subraces'));
-app.use('/api/traits', require('./routes/traits'));
-app.use('/api/weapon-properties', require('./routes/weaponProperties'));
+app.use('/api', require('./routes/api'));
 
 // Connect to database and start the server
 mongoose.connect(mongodbUri, (err, _database) => {
@@ -69,33 +50,6 @@ app.get('/', (req, res, _next) => {
 
 app.get('/docs', (req, res, _next) => {
   res.render('pages/docs');
-});
-
-app.get('/api', (req, res, _next) => {
-  // TODO: Find a way to generate this list.
-  var index = {
-    'ability-scores': '/api/ability-scores',
-    classes: '/api/classes',
-    conditions: '/api/conditions',
-    'damage-types': '/api/damage-types',
-    'equipment-categories': '/api/equipment-categories',
-    equipment: '/api/equipment',
-    features: '/api/features',
-    languages: '/api/languages',
-    'magic-schools': '/api/magic-schools',
-    monsters: '/api/monsters',
-    proficiencies: '/api/proficiencies',
-    races: '/api/races',
-    skills: '/api/skills',
-    spellcasting: '/api/spellcasting',
-    spells: '/api/spells',
-    startingequipment: '/api/startingequipment',
-    subclasses: '/api/subclasses',
-    subraces: '/api/subraces',
-    traits: '/api/traits',
-    'weapon-properties': '/api/weapon-properties'
-  };
-  res.status(200).json(index);
 });
 
 app.use(function(req, res, _next) {

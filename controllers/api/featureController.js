@@ -1,4 +1,4 @@
-const Feature = require('../models/feature');
+const Feature = require('../../models/feature');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {

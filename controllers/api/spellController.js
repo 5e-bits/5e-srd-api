@@ -1,4 +1,4 @@
-const Spell = require('../models/spell');
+const Spell = require('../../models/spell');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
