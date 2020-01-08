@@ -46,7 +46,8 @@ app.use('/api/weapon-properties', require('./routes/weapon-properties'));
 app.use('/api/equipment-categories', require('./routes/equipment-categories'));
 
 // Connect to database and start the server
-mongoose.connect(process.env.MONGODB_URI, (err, _database) => {
+const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/5e-database';
+mongoose.connect(mongodbUri, (err, _database) => {
   if (err) {
     console.log(err);
     process.exit(1);
@@ -60,15 +61,15 @@ mongoose.connect(process.env.MONGODB_URI, (err, _database) => {
 });
 
 // index route at localhost:3000 or wherever it's served
-app.get('/', (req, res) => {
+app.get('/', (req, res, _next) => {
   res.render('pages/index');
 });
 
-app.get('/docs', (req, res) => {
+app.get('/docs', (req, res, _next) => {
   res.render('pages/docs');
 });
 
-app.get('/api', (req, res) => {
+app.get('/api', (req, res, _next) => {
   // TODO: Find a way to generate this list.
   var index = {
     'ability-scores': '/api/ability-scores',
@@ -93,4 +94,24 @@ app.get('/api', (req, res) => {
     'weapon-properties': '/api/weapon-properties'
   };
   res.status(200).json(index);
+});
+
+app.use(function(req, res, _next) {
+  res.status(404);
+
+  // TODO: Add a fun 404 page
+  // // respond with html page
+  // if (req.accepts('html')) {
+  //   res.render('404', { url: req.url });
+  //   return;
+  // }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
 });
