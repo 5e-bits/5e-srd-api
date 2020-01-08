@@ -5,11 +5,12 @@
     "es6": true,
     "jquery": true
   },
-  "extends": ["eslint:recommended", "prettier"],
-  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended"],
+  "plugins": ["prettier", "jest"],
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "jest/globals": true
   },
   "parserOptions": {
     "ecmaVersion": 2018
