@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const ProficiencyController = require('../controllers/api/proficiencyController');
+const ProficiencyController = require('../../controllers/api/proficiencyController');
 
 router.get('/', ProficiencyController.index);
 router.get('/:index', ProficiencyController.show);
