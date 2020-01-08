@@ -4,12 +4,11 @@ node_js:
 
 branches:
   only:
-  - master
+    - master
 
 jobs:
   include:
     - stage: Test
-      - name: ESLint
-        script: npm run lint
-      - name: Jest
-        script: npm test
+      script: npm run lint
+    - # stage name not required, will continue to use `Test`
+      script: npm test
