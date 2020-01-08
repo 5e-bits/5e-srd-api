@@ -9,6 +9,8 @@ branches:
 jobs:
   include:
     - stage: Test
+      name: 'ESLint'
       script: npm run lint
     - # stage name not required, will continue to use `Test`
+      name: 'Jest Testing'
       script: npm test
