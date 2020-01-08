@@ -27,6 +27,8 @@ app.use(morgan('short'));
 app.use(cors());
 
 // Register routes
+app.get('/', require('./controllers/indexController'));
+app.get('/docs', require('./controllers/docsController'));
 app.use('/api', require('./routes/api'));
 
 // Connect to database and start the server
@@ -73,3 +75,17 @@ app.use(function(req, res, _next) {
 });
 
 app.use(bugsnagMiddleware.errorHandler);
+
+// Connect to database and start the server
+mongoose.connect(mongodbUri, (err, _database) => {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+  console.log('Database connection ready');
+
+  const server = app.listen(process.env.PORT || 3000, () => {
+    const port = server.address().port;
+    console.log(`Listening on port ${port}!`);
+  });
+});
