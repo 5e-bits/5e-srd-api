@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node server.js",
     "lint": "eslint . --ext .js",
     "test": "jest"
   },
