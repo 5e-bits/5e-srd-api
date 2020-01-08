@@ -3,7 +3,7 @@ var router = express.Router();
 var utility = require('./utility');
 var Model = require('../models/magic-school');
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   var search_queries = {};
   if (req.query.name !== undefined) {
     search_queries.name = req.query.name;
@@ -11,24 +11,29 @@ router.get('/', (req, res) => {
 
   Model.find(search_queries, (err, _data) => {
     if (err) {
-      res.send(err);
+      next(err);
     }
   })
     .sort({ index: 'asc' })
     .exec((err, data) => {
       if (err) {
-        res.send(err);
+        next(err);
       }
       res.status(200).json(utility.NamedAPIResource(data));
     });
 });
 
-router.get('/:index', (req, res) => {
+router.get('/:index', (req, res, next) => {
   Model.findOne({ index: req.params.index }, (err, data) => {
     if (err) {
-      res.send(err);
+      next(err);
     }
-    res.status(200).json(data);
+
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({ error: 'Not found' });
+    }
   });
 });
 
