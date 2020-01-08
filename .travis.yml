@@ -9,4 +9,7 @@ branches:
 jobs:
   include:
     - stage: Test
-      script: npm run lint
+      - name: ESLint
+        script: npm run lint
+      - name: Jest
+        script: npm test

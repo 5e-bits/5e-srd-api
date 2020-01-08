@@ -3,8 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "lint": "eslint . --ext .js"
+    "start": "node src/server.js",
+    "lint": "eslint . --ext .js",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -12,6 +19,7 @@
     "cors": "^2.8.3",
     "debug": "^4.1.1",
     "ejs": "^2.5.5",
+    "eslint-plugin-jest": "^23.3.0",
     "express": "^4.17.1",
     "lodash": "^4.17.3",
     "mongoose": "^5.8.3",
@@ -22,6 +30,8 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^1.19.1"
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }
