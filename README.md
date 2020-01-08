@@ -1,5 +1,6 @@
 # 5e-srd-api
 [![Build Status](https://travis-ci.com/bagelbits/5e-srd-api.svg?branch=master)](https://travis-ci.com/bagelbits/5e-srd-api)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)
 
 REST API to access D&amp;D 5th Edition SRD database at http://www.dnd5eapi.co/
 
