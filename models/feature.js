@@ -17,11 +17,4 @@ var FeatureSchema = new Schema({
   url: String
 });
 
-FeatureSchema.pre('save', function(next) {
-  if (0 === this.choice.from.length) {
-    this.choice = undefined;
-  }
-  next();
-});
-
 module.exports = mongoose.model('Feature', FeatureSchema, 'features');
