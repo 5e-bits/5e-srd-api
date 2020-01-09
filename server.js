@@ -31,29 +31,6 @@ app.get('/', require('./controllers/indexController'));
 app.get('/docs', require('./controllers/docsController'));
 app.use('/api', require('./routes/api'));
 
-// Connect to database and start the server
-mongoose.connect(mongodbUri, (err, _database) => {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-  console.log('Database connection ready');
-
-  const server = app.listen(process.env.PORT || 3000, () => {
-    const port = server.address().port;
-    console.log(`Listening on port ${port}!`);
-  });
-});
-
-// index route at localhost:3000 or wherever it's served
-app.get('/', (req, res, _next) => {
-  res.render('pages/index');
-});
-
-app.get('/docs', (req, res, _next) => {
-  res.render('pages/docs');
-});
-
 app.use(function(req, res, _next) {
   res.status(404);
 
@@ -76,7 +53,7 @@ app.use(function(req, res, _next) {
 
 app.use(bugsnagMiddleware.errorHandler);
 
-// Connect to database and start the server
+// Connect to database and start the serverfuser
 mongoose.connect(mongodbUri, (err, _database) => {
   if (err) {
     console.log(err);
