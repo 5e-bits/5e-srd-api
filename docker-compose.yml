@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  db:
+    image: fuzzylombax/5e-srd-database
+    expose:
+      - '27017'
+
+  api:
+    environment:
+      MONGODB_URI: mongodb://db/5e-database
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
