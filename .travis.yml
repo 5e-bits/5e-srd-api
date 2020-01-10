@@ -15,6 +15,6 @@ jobs:
       name: 'ESLint'
       script: npm run lint
     - name: 'Jesting Unit'
-      script: npm test:unit
+      script: npm run test:unit
     - name: 'Jesting Integration'
-      script: docker-compose run api npm test:integration
+      script: docker-compose run api npm run test:integration
