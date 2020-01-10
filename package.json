@@ -5,13 +5,9 @@
   "scripts": {
     "start": "node start.js",
     "lint": "eslint . --ext .js",
-    "test": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
+    "test": "jest -c jest.config.js",
+    "test:unit": "jest -c jest.config.unit.js",
+    "test:integration": "jest -c jest.config.integration.js"
   },
   "dependencies": {
     "@bugsnag/js": "^6.5.0",
