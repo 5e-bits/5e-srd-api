@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - 12
 
+services:
+  - docker
+
 branches:
   only:
     - master
@@ -13,4 +16,4 @@ jobs:
       script: npm run lint
     - # stage name not required, will continue to use `Test`
       name: 'Jest Testing'
-      script: npm test
+      script: docker-compose run api npm test

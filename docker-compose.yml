@@ -10,7 +10,8 @@ services:
     environment:
       MONGODB_URI: mongodb://db/5e-database
     build: .
+    command: exec npm start
     ports:
       - '3000:3000'
-    depends_on:
+    links:
       - db
