@@ -15,5 +15,5 @@ jobs:
       name: 'ESLint'
       script: npm run lint
     - # stage name not required, will continue to use `Test`
-      name: 'Jest Testing'
+      name: 'Jesting'
       script: docker-compose run api npm test
