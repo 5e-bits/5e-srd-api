@@ -1,10 +1,8 @@
 const ApiController = require('../apiController');
 
 // TODO: Find a better way to reuse this everywhere
-const mockRequest = paramData => {
-  return {
-    params: paramData
-  };
+const mockRequest = (reqData = {}) => {
+  return reqData;
 };
 
 const mockResponse = () => {
@@ -17,8 +15,8 @@ const mockResponse = () => {
 const mockNext = jest.fn();
 
 describe('index', () => {
-  it('it returns the routes', () => {
-    const req = mockRequest(ApiController.API_INDEX);
+  it('returns the routes', () => {
+    const req = mockRequest();
     const res = mockResponse();
     ApiController.index(req, res, mockNext);
     expect(res.status).toHaveBeenCalledWith(200);

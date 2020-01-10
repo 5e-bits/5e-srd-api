@@ -7,30 +7,26 @@ exports.index = (req, res, next) => {
     search_queries.name = req.query.name;
   }
 
-  AbilityScore.find(search_queries, (err, _data) => {
-    if (err) {
-      next(err);
-    }
-  })
+  AbilityScore.find(search_queries)
     .sort({ index: 'asc' })
-    .exec((err, data) => {
-      if (err) {
-        next(err);
-      }
+    .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
+    })
+    .catch(err => {
+      next(err);
     });
 };
 
-exports.show = (req, res, next) => {
-  AbilityScore.findOne({ index: req.params.index }, (err, data) => {
-    if (err) {
+exports.show = async (req, res, next) => {
+  await AbilityScore.findOne({ index: req.params.index })
+    .then(data => {
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json({ error: 'Not found' });
+      }
+    })
+    .catch(err => {
       next(err);
-    }
-
-    if (data) {
-      res.status(200).json(data);
-    } else {
-      res.status(404).json({ error: 'Not found' });
-    }
-  });
+    });
 };
