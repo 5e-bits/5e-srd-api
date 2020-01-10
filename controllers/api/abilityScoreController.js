@@ -1,13 +1,13 @@
 const AbilityScore = require('../../models/abilityScore');
 const utility = require('./utility');
 
-exports.index = (req, res, next) => {
+exports.index = async (req, res, next) => {
   const search_queries = {};
   if (req.query.name !== undefined) {
     search_queries.name = req.query.name;
   }
 
-  AbilityScore.find(search_queries)
+  await AbilityScore.find(search_queries)
     .sort({ index: 'asc' })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
