@@ -4,7 +4,7 @@ const app = require('./server');
 
 // Connect to database and start the serverfuser
 mongoose
-  .connect(mongodbUri)
+  .connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(_database => {
     console.log('Database connection ready');
 
