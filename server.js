@@ -1,3 +1,4 @@
+// TODO: Move everything into a src folder
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
