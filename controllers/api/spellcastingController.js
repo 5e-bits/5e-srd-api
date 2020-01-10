@@ -1,23 +1,19 @@
 const Spellcasting = require('../../models/spellcasting');
 const utility = require('./utility');
 
-exports.index = (req, res, next) => {
-  Spellcasting.find((err, _data) => {
-    if (err) {
-      next(err);
-    }
-  })
+exports.index = async (req, res, next) => {
+  await Spellcasting.find()
     .sort({ index: 'asc' })
-    .exec((err, data) => {
-      if (err) {
-        next(err);
-      }
+    .then(data => {
       res.status(200).json(utility.ClassAPIResource(data));
+    })
+    .catch(err => {
+      next(err);
     });
 };
 
 exports.show = (req, res, next) => {
-  // search by class
+  // TODO: Move this out of here
   if (utility.isClassName(req.params.index) === true) {
     Spellcasting.findOne({ 'class.name': utility.class_map[req.params.index] }, (err, _data) => {
       if (err) {

@@ -3,7 +3,12 @@ const Level = require('../../models/level');
 const utility = require('./utility');
 
 exports.index = async (req, res, next) => {
-  await Class.find()
+  const search_queries = {};
+  if (req.query.name !== undefined) {
+    search_queries.name = req.query.name;
+  }
+
+  await Class.find(search_queries)
     .sort({ index: 'asc' })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
@@ -15,7 +20,6 @@ exports.index = async (req, res, next) => {
 
 exports.show = async (req, res, next) => {
   await Class.findOne({ index: req.params.index })
-    .sort({ url: 'asc', level: 'asc' })
     .then(data => {
       if (data) {
         res.status(200).json(data);

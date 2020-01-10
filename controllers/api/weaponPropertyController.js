@@ -2,7 +2,7 @@ const WeaponProperty = require('../../models/weaponProperty');
 const utility = require('./utility');
 
 exports.index = (req, res, next) => {
-  var search_queries = {};
+  const search_queries = {};
   if (req.query.name !== undefined) {
     search_queries.name = req.query.name;
   }

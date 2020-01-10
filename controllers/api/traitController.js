@@ -1,24 +1,24 @@
 const Trait = require('../../models/trait');
 const utility = require('./utility');
 
-exports.index = (req, res, next) => {
-  Trait.find((err, _data) => {
-    if (err) {
-      next(err);
-    }
-  })
+exports.index = async (req, res, next) => {
+  const search_queries = {};
+  if (req.query.name !== undefined) {
+    search_queries.name = req.query.name;
+  }
+
+  await Trait.find(search_queries)
     .sort({ index: 'asc' })
-    .exec((err, data) => {
-      if (err) {
-        next(err);
-      }
+    .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
+    })
+    .catch(err => {
+      next(err);
     });
 };
 
 exports.show = (req, res, next) => {
-  // search by class
-
+  // TODO: Move this out of here
   if (utility.isRaceName(req.params.index) === true) {
     Trait.find({ 'races.name': utility.race_map[req.params.index] }, (err, _data) => {
       if (err) {
@@ -47,16 +47,16 @@ exports.show = (req, res, next) => {
       });
   } else {
     // return specific document
-    Trait.findOne({ index: req.params.index }, (err, data) => {
-      if (err) {
+    Trait.findOne({ index: req.params.index })
+      .then(data => {
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          res.status(404).json({ error: 'Not found' });
+        }
+      })
+      .catch(err => {
         next(err);
-      }
-
-      if (data) {
-        res.status(200).json(data);
-      } else {
-        res.status(404).json({ error: 'Not found' });
-      }
-    });
+      });
   }
 };

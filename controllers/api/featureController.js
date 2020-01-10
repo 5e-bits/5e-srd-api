@@ -17,7 +17,7 @@ exports.index = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  // search by class
+  // TODO: Move this out of here
   if (utility.isClassName(req.params.index) === true) {
     Feature.find(
       {
