@@ -2,7 +2,7 @@ const mockingoose = require('mockingoose').default;
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
 
 const Race = require('../../../models/race');
-const Subrace = require('../../models/subrace');
+const Subrace = require('../../../models/subrace');
 const RaceController = require('../../../controllers/api/raceController');
 
 let response;
@@ -107,7 +107,8 @@ describe('showSubracesForRace', () => {
       url: '/api/subraces/high-elf'
     }
   ];
-  const request = mockRequest({ query: {} });
+  const showParams = { index: 'dragonborn' };
+  const request = mockRequest({ params: showParams });
 
   it('returns a list of objects', async () => {
     mockingoose(Subrace).toReturn(findDoc, 'find');
