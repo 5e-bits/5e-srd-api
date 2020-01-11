@@ -11,8 +11,21 @@ afterAll(() => {
   mongoose.disconnect();
 });
 
-describe('Test /api', () => {
-  it('should create a new post', async () => {
+describe('/', () => {
+  it('should load the page', async () => {
+    const res = await request(app).get('/');
+    expect(res.statusCode).toEqual(200);
+  });
+});
+describe('/docs', () => {
+  it('should load the page', async () => {
+    const res = await request(app).get('/docs');
+    expect(res.statusCode).toEqual(200);
+  });
+});
+
+describe('/api', () => {
+  it('should list the endpoints', async () => {
     const res = await request(app).get('/api');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('ability-scores');
