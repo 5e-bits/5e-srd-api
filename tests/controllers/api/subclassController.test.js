@@ -3,6 +3,7 @@ const { mockRequest, mockResponse, mockNext } = require('../../support/requestHe
 
 const Subclass = require('../../../models/subclass');
 const Level = require('../../../models/level');
+const Feature = require('../../../models/feature');
 
 const SubclassController = require('../../../controllers/api/subclassController');
 
@@ -207,6 +208,101 @@ describe('showLevelForSubclass', () => {
 
       expect(response.status).toHaveBeenCalledWith(404);
       expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
+    });
+  });
+});
+
+describe('showFeaturesForSubclass', () => {
+  const findDoc = [
+    {
+      index: 'acid-splash',
+      name: 'Acid Splash',
+      url: '/api/spells/acid-splash'
+    },
+    {
+      index: 'chill-touch',
+      name: 'Chill Touch',
+      url: '/api/spells/chill-touch'
+    },
+    {
+      index: 'dancing-lights',
+      name: 'Dancing Lights',
+      url: '/api/spells/dancing-lights'
+    }
+  ];
+  const request = mockRequest({ params: { index: 'wizard' } });
+
+  it('returns a list of objects', async () => {
+    mockingoose(Feature).toReturn(findDoc, 'find');
+
+    await SubclassController.showFeaturesForSubclass(request, response, mockNext);
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Feature).toReturn(error, 'find');
+
+      await SubclassController.showFeaturesForSubclass(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe('showFeaturesForSubclassAndLevel', () => {
+  const findDoc = [
+    {
+      index: 'acid-splash',
+      name: 'Acid Splash',
+      url: '/api/spells/acid-splash'
+    },
+    {
+      index: 'chill-touch',
+      name: 'Chill Touch',
+      url: '/api/spells/chill-touch'
+    },
+    {
+      index: 'dancing-lights',
+      name: 'Dancing Lights',
+      url: '/api/spells/dancing-lights'
+    }
+  ];
+  const request = mockRequest({ params: { index: 'wizard', level: 1 } });
+
+  it('returns a list of objects', async () => {
+    mockingoose(Feature).toReturn(findDoc, 'find');
+
+    await SubclassController.showFeaturesForSubclassAndLevel(request, response, mockNext);
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when an invalid level is given', () => {
+    it('404s', async () => {
+      mockingoose(Feature).toReturn(null, 'findOne');
+
+      const invalidShowParams = { index: 'wizard', level: 'abcd' };
+      const invalidRequest = mockRequest({ params: invalidShowParams });
+      await SubclassController.showFeaturesForSubclassAndLevel(invalidRequest, response, mockNext);
+
+      expect(response.status).toHaveBeenCalledWith(404);
+      expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
+    });
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Feature).toReturn(error, 'find');
+
+      await SubclassController.showFeaturesForSubclassAndLevel(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
 });

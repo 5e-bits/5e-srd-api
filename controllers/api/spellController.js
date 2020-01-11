@@ -17,59 +17,16 @@ exports.index = async (req, res, next) => {
     });
 };
 
-exports.show = (req, res, next) => {
-  // TODO: Move this out of here
-  if (utility.isClassName(req.params.index) === true) {
-    Spell.find({ 'classes.name': utility.class_map[req.params.index] }, (err, _data) => {
-      if (err) {
-        next(err);
-      }
-    })
-      .sort({ url: 'asc', level: 'asc' })
-      .exec((err, data) => {
-        if (err) {
-          next(err);
-        }
-        res.status(200).json(utility.NamedAPIResource(data));
-      });
-  } else {
-    // return specific document
-    Spell.findOne({ index: req.params.index }, (err, data) => {
-      if (err) {
-        next(err);
-      }
-
+exports.show = async (req, res, next) => {
+  await Spell.findOne({ index: req.params.index })
+    .then(data => {
       if (data) {
         res.status(200).json(data);
       } else {
         res.status(404).json({ error: 'Not found' });
       }
-    });
-  }
-};
-
-// TODO: Move this out of here
-exports.showSpellsForClassLevel = (req, res, next) => {
-  if (!Number.isInteger(parseInt(req.params.level))) {
-    return res.status(404).json({ error: 'Not found' });
-  }
-
-  Spell.find(
-    {
-      'classes.name': utility.class_map[req.params.index],
-      level: parseInt(req.params.level)
-    },
-    (err, _data) => {
-      if (err) {
-        next(err);
-      }
-    }
-  )
-    .sort({ url: 'asc', level: 'asc' })
-    .exec((err, data) => {
-      if (err) {
-        next(err);
-      }
-      res.status(200).json(utility.NamedAPIResource(data));
+    })
+    .catch(err => {
+      next(err);
     });
 };
