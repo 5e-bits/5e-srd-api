@@ -1,6 +1,7 @@
 const Class = require('../../models/class');
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
+const StartingEquipment = require('../../models/startingEquipment');
 const utility = require('./utility');
 
 exports.index = async (req, res, next) => {
@@ -69,9 +70,9 @@ exports.showLevelForClass = async (req, res, next) => {
     });
 };
 
-exports.showSubclassesForClass = (req, res, next) => {
+exports.showSubclassesForClass = async (req, res, next) => {
   let urlString = '/api/classes/' + req.params.index;
-  Subclass.find({ 'class.url': urlString })
+  await Subclass.find({ 'class.url': urlString })
     .sort({ url: 'asc', level: 'asc' })
     .then(data => {
       if (data && data.length) {
@@ -79,6 +80,18 @@ exports.showSubclassesForClass = (req, res, next) => {
       } else {
         res.status(404).json({ error: 'Not found' });
       }
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.showStartingEquipmentForClass = async (req, res, next) => {
+  let urlString = '/api/classes/' + req.params.index;
+
+  await StartingEquipment.findOne({ 'class.url': urlString })
+    .then(data => {
+      res.status(200).json(data);
     })
     .catch(err => {
       next(err);

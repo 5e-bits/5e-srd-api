@@ -4,6 +4,7 @@ const { mockRequest, mockResponse, mockNext } = require('../../support/requestHe
 const Class = require('../../../models/class');
 const Level = require('../../../models/level');
 const Subclass = require('../../../models/subclass');
+const StartingEquipment = require('../../../models/startingEquipment');
 
 const ClassController = require('../../../controllers/api/classController');
 
@@ -252,6 +253,35 @@ describe('showSubclassesForClass', () => {
       mockingoose(Subclass).toReturn(error, 'find');
 
       await ClassController.showSubclassesForClass(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe('showStartingEquipmentForClass', () => {
+  const findOneDoc = {
+    index: 1,
+    starting_equipment: [],
+    url: '/api/startingequipment/1'
+  };
+  const request = mockRequest({ params: { index: 'barbarian' } });
+
+  it('returns a list of objects', async () => {
+    mockingoose(StartingEquipment).toReturn(findOneDoc, 'findOne');
+
+    await ClassController.showStartingEquipmentForClass(request, response, mockNext);
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(StartingEquipment).toReturn(error, 'findOne');
+
+      await ClassController.showStartingEquipmentForClass(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

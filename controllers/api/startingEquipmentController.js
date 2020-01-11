@@ -13,35 +13,15 @@ exports.index = async (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  // TODO: Move this out of here
-  if (utility.isClassName(req.params.index) === true) {
-    StartingEquipment.findOne(
-      { 'class.name': utility.class_map[req.params.index] },
-      (err, _data) => {
-        if (err) {
-          next(err);
-        }
-      }
-    )
-      .sort({ url: 'asc', level: 'asc' })
-      .exec((err, data) => {
-        if (err) {
-          next(err);
-        }
-        res.status(200).json(data);
-      });
-  } else {
-    // return specific document
-    StartingEquipment.findOne({ index: parseInt(req.params.index) }, (err, data) => {
-      if (err) {
-        next(err);
-      }
-
+  StartingEquipment.findOne({ index: parseInt(req.params.index) })
+    .then(data => {
       if (data) {
         res.status(200).json(data);
       } else {
         res.status(404).json({ error: 'Not found' });
       }
+    })
+    .catch(err => {
+      next(err);
     });
-  }
 };
