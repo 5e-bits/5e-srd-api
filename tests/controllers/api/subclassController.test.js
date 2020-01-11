@@ -126,14 +126,14 @@ describe('showLevelsForSubclass', () => {
 
   describe('when an invalid index is given', () => {
     it('404s', async () => {
-      mockingoose(Level).toReturn(null, 'findOne');
+      mockingoose(Level).toReturn([], 'find');
 
       const invalidShowParams = { index: 'test' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
       await SubclassController.showLevelsForSubclass(invalidRequest, response, mockNext);
 
-      expect(response.status).toHaveBeenCalledWith(404);
-      expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
+      expect(response.status).toHaveBeenCalledWith(200);
+      expect(response.json).toHaveBeenCalledWith([]);
     });
   });
 

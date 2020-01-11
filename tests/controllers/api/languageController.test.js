@@ -10,26 +10,23 @@ beforeEach(() => {
 });
 
 describe('index', () => {
-  const findDoc = {
-    count: 3,
-    results: [
-      {
-        index: 'abyssal',
-        name: 'Abyssal',
-        url: '/api/languages/abyssal'
-      },
-      {
-        index: 'celestial',
-        name: 'Celestial',
-        url: '/api/languages/celestial'
-      },
-      {
-        index: 'common',
-        name: 'Common',
-        url: '/api/languages/common'
-      }
-    ]
-  };
+  const findDoc = [
+    {
+      index: 'abyssal',
+      name: 'Abyssal',
+      url: '/api/languages/abyssal'
+    },
+    {
+      index: 'celestial',
+      name: 'Celestial',
+      url: '/api/languages/celestial'
+    },
+    {
+      index: 'common',
+      name: 'Common',
+      url: '/api/languages/common'
+    }
+  ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
@@ -49,7 +46,7 @@ describe('index', () => {
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(new TypeError('data.map is not a function'));
+      expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
 });

@@ -10,26 +10,23 @@ beforeEach(() => {
 });
 
 describe('index', () => {
-  const findDoc = {
-    count: 3,
-    results: [
-      {
-        index: 'acid',
-        name: 'Acid',
-        url: '/api/damage-types/acid'
-      },
-      {
-        index: 'bludgeoning',
-        name: 'Bludgeoning',
-        url: '/api/damage-types/bludgeoning'
-      },
-      {
-        index: 'cold',
-        name: 'Cold',
-        url: '/api/damage-types/cold'
-      }
-    ]
-  };
+  const findDoc = [
+    {
+      index: 'acid',
+      name: 'Acid',
+      url: '/api/damage-types/acid'
+    },
+    {
+      index: 'bludgeoning',
+      name: 'Bludgeoning',
+      url: '/api/damage-types/bludgeoning'
+    },
+    {
+      index: 'cold',
+      name: 'Cold',
+      url: '/api/damage-types/cold'
+    }
+  ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
@@ -49,7 +46,7 @@ describe('index', () => {
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(new TypeError('data.map is not a function'));
+      expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
 });

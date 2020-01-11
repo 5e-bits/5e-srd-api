@@ -38,11 +38,7 @@ exports.showLevelsForSubclass = async (req, res, next) => {
   await Level.find({ 'subclass.url': urlString })
     .sort({ level: 'asc' })
     .then(data => {
-      if (data && data.length) {
-        res.status(200).json(data);
-      } else {
-        res.status(404).json({ error: 'Not found' });
-      }
+      res.status(200).json(data);
     })
     .catch(err => {
       next(err);
