@@ -2,6 +2,7 @@ const Class = require('../../models/class');
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
 const StartingEquipment = require('../../models/startingEquipment');
+const Spellcasting = require('../../models/spellcasting');
 const utility = require('./utility');
 
 exports.index = async (req, res, next) => {
@@ -90,6 +91,18 @@ exports.showStartingEquipmentForClass = async (req, res, next) => {
   let urlString = '/api/classes/' + req.params.index;
 
   await StartingEquipment.findOne({ 'class.url': urlString })
+    .then(data => {
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.showSpellcastingForClass = async (req, res, next) => {
+  let urlString = '/api/classes/' + req.params.index;
+
+  await Spellcasting.findOne({ 'class.url': urlString })
     .then(data => {
       res.status(200).json(data);
     })
