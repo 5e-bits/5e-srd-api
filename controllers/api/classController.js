@@ -33,7 +33,7 @@ exports.show = async (req, res, next) => {
 };
 
 exports.showLevelsForClass = async (req, res, next) => {
-  await Level.find({ 'class.name': utility.class_map[req.params.index], subclass: {} })
+  await Level.find({ 'class.name': utility.class_map[req.params.index] })
     .sort({ level: 'asc' })
     .then(data => {
       res.status(200).json(data);
@@ -44,9 +44,10 @@ exports.showLevelsForClass = async (req, res, next) => {
 };
 
 exports.showLevelForClass = async (req, res, next) => {
-  if (typeof parseInt(req.params.level) != 'number') {
+  if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
+
   let urlString = '/api/classes/' + req.params.index + '/level/' + req.params.level;
 
   await Level.findOne({ url: urlString })
