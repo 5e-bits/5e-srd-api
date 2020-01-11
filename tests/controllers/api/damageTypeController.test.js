@@ -1,7 +1,7 @@
 const mockingoose = require('mockingoose').default;
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const AbilityScore = require('../../../models/abilityScore');
-const AbilityScoreController = require('../../../controllers/api/abilityScoreController');
+const DamageType = require('../../../models/damageType');
+const DamageTypeController = require('../../../controllers/api/damageTypeController');
 
 let response;
 beforeEach(() => {
@@ -14,28 +14,28 @@ describe('index', () => {
     count: 3,
     results: [
       {
-        index: 'str',
-        name: 'STR',
-        url: '/api/ability-scores/str'
+        index: 'acid',
+        name: 'Acid',
+        url: '/api/damage-types/acid'
       },
       {
-        index: 'dex',
-        name: 'DEX',
-        url: '/api/ability-scores/dex'
+        index: 'bludgeoning',
+        name: 'Bludgeoning',
+        url: '/api/damage-types/bludgeoning'
       },
       {
-        index: 'con',
-        name: 'CON',
-        url: '/api/ability-scores/con'
+        index: 'cold',
+        name: 'Cold',
+        url: '/api/damage-types/cold'
       }
     ]
   };
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(AbilityScore).toReturn(findDoc, 'find');
+    mockingoose(DamageType).toReturn(findDoc, 'find');
 
-    await AbilityScoreController.index(request, response, mockNext);
+    await DamageTypeController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -43,9 +43,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(AbilityScore).toReturn(error, 'find');
+      mockingoose(DamageType).toReturn(error, 'find');
 
-      await AbilityScoreController.index(request, response, mockNext);
+      await DamageTypeController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -56,18 +56,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'str',
-    name: 'STR',
-    url: '/api/ability-scores/str'
+    index: 'acid',
+    name: 'Acid',
+    url: '/api/damage-types/acid'
   };
 
-  const showParams = { index: 'str' };
+  const showParams = { index: 'acid' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
+    mockingoose(DamageType).toReturn(findOneDoc, 'findOne');
 
-    await AbilityScoreController.show(request, response, mockNext);
+    await DamageTypeController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -75,11 +75,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(AbilityScore).toReturn(null, 'findOne');
+      mockingoose(DamageType).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await AbilityScoreController.show(invalidRequest, response, mockNext);
+      await DamageTypeController.show(invalidRequest, response, mockNext);
 
       expect(response.status).toHaveBeenCalledWith(404);
       expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
@@ -89,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(AbilityScore).toReturn(error, 'findOne');
+      mockingoose(DamageType).toReturn(error, 'findOne');
 
-      await AbilityScoreController.show(request, response, mockNext);
+      await DamageTypeController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

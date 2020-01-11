@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('index', () => {
   const findDoc = {
-    count: 5,
+    count: 3,
     results: [
       {
         index: 'barbarian',
