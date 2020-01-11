@@ -3,6 +3,7 @@ const { mockRequest, mockResponse, mockNext } = require('../../support/requestHe
 
 const Race = require('../../../models/race');
 const Subrace = require('../../../models/subrace');
+const Trait = require('../../../models/trait');
 const RaceController = require('../../../controllers/api/raceController');
 
 let response;
@@ -124,6 +125,49 @@ describe('showSubracesForRace', () => {
       mockingoose(Subrace).toReturn(error, 'find');
 
       await RaceController.showSubracesForRace(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe('showTraitsForRace', () => {
+  const findDoc = [
+    {
+      index: 'darkvision',
+      name: 'Darkvision',
+      url: '/api/traits/darkvision'
+    },
+    {
+      index: 'elf-weapon-training',
+      name: 'Elf Weapon Training',
+      url: '/api/traits/elf-weapon-training'
+    },
+    {
+      index: 'fey-ancestry',
+      name: 'Fey Ancestry',
+      url: '/api/traits/fey-ancestry'
+    }
+  ];
+  const showParams = { index: 'elf' };
+  const request = mockRequest({ params: showParams });
+
+  it('returns a list of objects', async () => {
+    mockingoose(Trait).toReturn(findDoc, 'find');
+
+    await RaceController.showTraitsForRace(request, response, mockNext);
+
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Trait).toReturn(error, 'find');
+
+      await RaceController.showTraitsForRace(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

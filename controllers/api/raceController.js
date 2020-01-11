@@ -1,5 +1,7 @@
 const Race = require('../../models/race');
 const Subrace = require('../../models/subrace');
+const Trait = require('../../models/trait');
+
 const utility = require('./utility');
 
 exports.index = async (req, res, next) => {
@@ -33,7 +35,19 @@ exports.show = async (req, res, next) => {
 };
 
 exports.showSubracesForRace = async (req, res, next) => {
-  Subrace.find({ 'race.name': utility.race_map[req.params.index] })
+  let urlString = '/api/races/' + req.params.index;
+  Subrace.find({ 'race.url': urlString })
+    .then(data => {
+      res.status(200).json(utility.NamedAPIResource(data));
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.showTraitsForRace = (req, res, next) => {
+  let urlString = '/api/races/' + req.params.index;
+  Trait.find({ 'races.url': urlString })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
     })

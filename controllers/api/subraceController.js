@@ -1,4 +1,5 @@
 const Subrace = require('../../models/subrace');
+const Trait = require('../../models/trait');
 const utility = require('./utility');
 
 exports.index = async (req, res, next) => {
@@ -17,14 +18,25 @@ exports.index = async (req, res, next) => {
     });
 };
 
-exports.show = (req, res, next) => {
-  Subrace.findOne({ index: req.params.index })
+exports.show = async (req, res, next) => {
+  await Subrace.findOne({ index: req.params.index })
     .then(data => {
       if (data) {
         res.status(200).json(data);
       } else {
         res.status(404).json({ error: 'Not found' });
       }
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.showTraitsForSubrace = async (req, res, next) => {
+  let urlString = '/api/subraces/' + req.params.index;
+  await Trait.find({ 'races.url': urlString })
+    .then(data => {
+      res.status(200).json(utility.NamedAPIResource(data));
     })
     .catch(err => {
       next(err);

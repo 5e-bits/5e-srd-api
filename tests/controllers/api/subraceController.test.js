@@ -1,6 +1,7 @@
 const mockingoose = require('mockingoose').default;
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
 const Subrace = require('../../../models/subrace');
+const Trait = require('../../../models/trait');
 const SubraceController = require('../../../controllers/api/subraceController');
 
 let response;
@@ -94,6 +95,49 @@ describe('show', () => {
       mockingoose(Subrace).toReturn(error, 'findOne');
 
       await SubraceController.show(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe('showTraitsForSubrace', () => {
+  const findDoc = [
+    {
+      index: 'darkvision',
+      name: 'Darkvision',
+      url: '/api/traits/darkvision'
+    },
+    {
+      index: 'elf-weapon-training',
+      name: 'Elf Weapon Training',
+      url: '/api/traits/elf-weapon-training'
+    },
+    {
+      index: 'extra-language',
+      name: 'Extra Language',
+      url: '/api/traits/extra-language'
+    }
+  ];
+  const showParams = { index: 'elf' };
+  const request = mockRequest({ params: showParams });
+
+  it('returns a list of objects', async () => {
+    mockingoose(Trait).toReturn(findDoc, 'find');
+
+    await SubraceController.showTraitsForSubrace(request, response, mockNext);
+
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Trait).toReturn(error, 'find');
+
+      await SubraceController.showTraitsForSubrace(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
