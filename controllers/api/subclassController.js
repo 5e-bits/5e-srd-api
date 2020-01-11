@@ -34,6 +34,7 @@ exports.show = async (req, res, next) => {
 
 exports.showLevelsForSubclass = async (req, res, next) => {
   const urlString = '/api/subclasses/' + req.params.index;
+
   await Level.find({ 'subclass.url': urlString })
     .sort({ level: 'asc' })
     .then(data => {

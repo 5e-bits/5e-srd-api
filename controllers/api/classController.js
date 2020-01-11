@@ -70,10 +70,15 @@ exports.showLevelForClass = async (req, res, next) => {
 };
 
 exports.showSubclassesForClass = (req, res, next) => {
-  Subclass.find({ 'class.name': utility.class_map[req.params.index] })
+  let urlString = '/api/classes/' + req.params.index;
+  Subclass.find({ 'class.url': urlString })
     .sort({ url: 'asc', level: 'asc' })
     .then(data => {
-      res.status(200).json(utility.NamedAPIResource(data));
+      if (data && data.length) {
+        res.status(200).json(utility.NamedAPIResource(data));
+      } else {
+        res.status(404).json({ error: 'Not found' });
+      }
     })
     .catch(err => {
       next(err);

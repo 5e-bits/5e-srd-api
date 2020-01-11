@@ -13,26 +13,23 @@ beforeEach(() => {
 });
 
 describe('index', () => {
-  const findDoc = {
-    count: 3,
-    results: [
-      {
-        index: 'barbarian',
-        name: 'Barbarian',
-        url: '/api/classes/barbarian'
-      },
-      {
-        index: 'bard',
-        name: 'Bard',
-        url: '/api/classes/bard'
-      },
-      {
-        index: 'cleric',
-        name: 'Cleric',
-        url: '/api/classes/cleric'
-      }
-    ]
-  };
+  const findDoc = [
+    {
+      index: 'barbarian',
+      name: 'Barbarian',
+      url: '/api/classes/barbarian'
+    },
+    {
+      index: 'bard',
+      name: 'Bard',
+      url: '/api/classes/bard'
+    },
+    {
+      index: 'cleric',
+      name: 'Cleric',
+      url: '/api/classes/cleric'
+    }
+  ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
@@ -50,7 +47,7 @@ describe('index', () => {
       await SubclassController.index(request, response, mockNext);
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(new TypeError('data.map is not a function'));
+      expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
 });
@@ -101,26 +98,23 @@ describe('show', () => {
 });
 
 describe('showLevelsForSubclass', () => {
-  const findDoc = {
-    count: 3,
-    results: [
-      {
-        index: 1,
-        level: 1,
-        url: '/api/classes/barbarian/level/1'
-      },
-      {
-        index: 2,
-        level: 2,
-        url: '/api/classes/barbarian/level/2'
-      },
-      {
-        index: 3,
-        level: 3,
-        url: '/api/classes/barbarian/level/3'
-      }
-    ]
-  };
+  const findDoc = [
+    {
+      index: 1,
+      level: 1,
+      url: '/api/classes/barbarian/level/1'
+    },
+    {
+      index: 2,
+      level: 2,
+      url: '/api/classes/barbarian/level/2'
+    },
+    {
+      index: 3,
+      level: 3,
+      url: '/api/classes/barbarian/level/3'
+    }
+  ];
   const request = mockRequest({ params: { index: 'barbarian' } });
 
   it('returns a list of objects', async () => {
@@ -128,6 +122,19 @@ describe('showLevelsForSubclass', () => {
 
     await SubclassController.showLevelsForSubclass(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when an invalid index is given', () => {
+    it('404s', async () => {
+      mockingoose(Level).toReturn(null, 'findOne');
+
+      const invalidShowParams = { index: 'test' };
+      const invalidRequest = mockRequest({ params: invalidShowParams });
+      await SubclassController.showLevelsForSubclass(invalidRequest, response, mockNext);
+
+      expect(response.status).toHaveBeenCalledWith(404);
+      expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
+    });
   });
 
   describe('when something goes wrong', () => {
@@ -139,7 +146,7 @@ describe('showLevelsForSubclass', () => {
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(new TypeError('data.map is not a function'));
+      expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
 });
