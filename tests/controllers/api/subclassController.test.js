@@ -1,11 +1,10 @@
 const mockingoose = require('mockingoose').default;
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
 
-const Class = require('../../../models/class');
-const Level = require('../../../models/level');
 const Subclass = require('../../../models/subclass');
+const Level = require('../../../models/level');
 
-const ClassController = require('../../../controllers/api/classController');
+const SubclassController = require('../../../controllers/api/subclassController');
 
 let response;
 beforeEach(() => {
@@ -37,18 +36,18 @@ describe('index', () => {
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Class).toReturn(findDoc, 'find');
+    mockingoose(Subclass).toReturn(findDoc, 'find');
 
-    await ClassController.index(request, response, mockNext);
+    await SubclassController.index(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
   });
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Class).toReturn(error, 'find');
+      mockingoose(Subclass).toReturn(error, 'find');
 
-      await ClassController.index(request, response, mockNext);
+      await SubclassController.index(request, response, mockNext);
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
       expect(mockNext).toHaveBeenCalledWith(new TypeError('data.map is not a function'));
@@ -67,9 +66,9 @@ describe('show', () => {
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Class).toReturn(findOneDoc, 'findOne');
+    mockingoose(Subclass).toReturn(findOneDoc, 'findOne');
 
-    await ClassController.show(request, response, mockNext);
+    await SubclassController.show(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
   });
@@ -77,9 +76,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Class).toReturn(error, 'findOne');
+      mockingoose(Subclass).toReturn(error, 'findOne');
 
-      await ClassController.show(request, response, mockNext);
+      await SubclassController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -89,11 +88,11 @@ describe('show', () => {
 
   describe('with an invalid index', () => {
     it('404s', async () => {
-      mockingoose(Class).toReturn(null, 'findOne');
+      mockingoose(Subclass).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await ClassController.show(invalidRequest, response, mockNext);
+      await SubclassController.show(invalidRequest, response, mockNext);
 
       expect(response.status).toHaveBeenCalledWith(404);
       expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
@@ -101,7 +100,7 @@ describe('show', () => {
   });
 });
 
-describe('showLevelsForClass', () => {
+describe('showLevelsForSubclass', () => {
   const findDoc = {
     count: 3,
     results: [
@@ -127,7 +126,7 @@ describe('showLevelsForClass', () => {
   it('returns a list of objects', async () => {
     mockingoose(Level).toReturn(findDoc, 'find');
 
-    await ClassController.showLevelsForClass(request, response, mockNext);
+    await SubclassController.showLevelsForSubclass(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
   });
 
@@ -136,7 +135,7 @@ describe('showLevelsForClass', () => {
       const error = new Error('Something went wrong');
       mockingoose(Level).toReturn(error, 'find');
 
-      await ClassController.showLevelsForClass(request, response, mockNext);
+      await SubclassController.showLevelsForSubclass(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -145,7 +144,7 @@ describe('showLevelsForClass', () => {
   });
 });
 
-describe('showLevelForClass', () => {
+describe('showLevelForSubclass', () => {
   const findOneDoc = {
     index: 1,
     level: 1,
@@ -158,7 +157,7 @@ describe('showLevelForClass', () => {
   it('returns an object', async () => {
     mockingoose(Level).toReturn(findOneDoc, 'findOne');
 
-    await ClassController.showLevelForClass(request, response, mockNext);
+    await SubclassController.showLevelForSubclass(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(
       expect.objectContaining({ level: findOneDoc.level, url: findOneDoc.url })
@@ -170,7 +169,7 @@ describe('showLevelForClass', () => {
       const error = new Error('Something went wrong');
       mockingoose(Level).toReturn(error, 'findOne');
 
-      await ClassController.showLevelForClass(request, response, mockNext);
+      await SubclassController.showLevelForSubclass(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -182,9 +181,9 @@ describe('showLevelForClass', () => {
     it('404s', async () => {
       mockingoose(Level).toReturn(findOneDoc, 'findOne');
 
-      const invalidShowParams = { index: 'barbarian', Level: 'a' };
+      const invalidShowParams = { index: 'barbarian', level: 'a' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await ClassController.showLevelForClass(invalidRequest, response, mockNext);
+      await SubclassController.showLevelForSubclass(invalidRequest, response, mockNext);
 
       expect(response.status).toHaveBeenCalledWith(404);
       expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
@@ -195,46 +194,12 @@ describe('showLevelForClass', () => {
     it('404s', async () => {
       mockingoose(Level).toReturn(null, 'findOne');
 
-      const invalidShowParams = { index: 'barbarian', Level: '30' };
+      const invalidShowParams = { index: 'barbarian', level: '30' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await ClassController.showLevelForClass(invalidRequest, response, mockNext);
+      await SubclassController.showLevelForSubclass(invalidRequest, response, mockNext);
 
       expect(response.status).toHaveBeenCalledWith(404);
       expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
-    });
-  });
-});
-
-describe('showSubclassesForClass', () => {
-  const findDoc = {
-    count: 1,
-    results: [
-      {
-        index: 'berserker',
-        name: 'Berserker',
-        url: '/api/subclasses/berserker'
-      }
-    ]
-  };
-  const request = mockRequest({ params: { index: 'barbarian' } });
-
-  it('returns a list of objects', async () => {
-    mockingoose(Subclass).toReturn(findDoc, 'find');
-
-    await ClassController.showSubclassesForClass(request, response, mockNext);
-    expect(response.status).toHaveBeenCalledWith(200);
-  });
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const error = new Error('Something went wrong');
-      mockingoose(Subclass).toReturn(error, 'find');
-
-      await ClassController.showSubclassesForClass(request, response, mockNext);
-
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(new TypeError('data.map is not a function'));
     });
   });
 });

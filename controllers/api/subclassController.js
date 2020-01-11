@@ -18,66 +18,52 @@ exports.index = async (req, res, next) => {
     });
 };
 
-exports.show = (req, res, next) => {
-  // TODO: Move this out of here
-  if (utility.isClassName(req.params.index) === true) {
-    Subclass.find({ 'class.name': utility.class_map[req.params.index] }, (err, _data) => {
-      if (err) {
-        next(err);
-      }
-    })
-      .sort({ url: 'asc', level: 'asc' })
-      .exec((err, data) => {
-        if (err) {
-          next(err);
-        }
-        res.status(200).json(utility.NamedAPIResource(data));
-      });
-  } else if (utility.isSubclassName(req.params.index) === true) {
-    Subclass.findOne({ name: utility.subclass_map[req.params.index] }, (err, _data) => {
-      if (err) {
-        next(err);
-      }
-    })
-      .sort({ url: 'asc', level: 'asc' })
-      .exec((err, data) => {
-        if (err) {
-          next(err);
-        }
+exports.show = async (req, res, next) => {
+  await Subclass.findOne({ index: req.params.index })
+    .then(data => {
+      if (data) {
         res.status(200).json(data);
-      });
-  } else {
-    res.status(404).json({ error: 'Not found' });
-  }
-};
-
-exports.showLevelForClass = (req, res, next) => {
-  if (typeof parseInt(req.params.level) == 'number') {
-    let urlString = '/api/subclasses/' + req.params.index + '/level/' + req.params.level;
-    console.log(urlString);
-
-    Level.findOne({ url: urlString }, (err, data) => {
-      if (err) {
-        next(err);
+      } else {
+        res.status(404).json({ error: 'Not found' });
       }
-      res.status(200).json(data);
-    });
-  } else {
-    res.status(404).json({ error: 'Not found' });
-  }
-};
-
-exports.showLevelsForClass = (req, res, next) => {
-  Level.find({ 'subclass.name': utility.subclass_map[req.params.index] }, (err, _data) => {
-    if (err) {
+    })
+    .catch(err => {
       next(err);
-    }
-  })
+    });
+};
+
+exports.showLevelsForSubclass = async (req, res, next) => {
+  const urlString = '/api/subclasses/' + req.params.index;
+  await Level.find({ 'subclass.url': urlString })
     .sort({ level: 'asc' })
-    .exec((err, data) => {
-      if (err) {
-        next(err);
+    .then(data => {
+      if (data && data.length) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json({ error: 'Not found' });
       }
-      res.status(200).json(data);
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.showLevelForSubclass = async (req, res, next) => {
+  if (!Number.isInteger(parseInt(req.params.level))) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+
+  let urlString = '/api/subclasses/' + req.params.index + '/levels/' + req.params.level;
+
+  await Level.findOne({ url: urlString })
+    .then(data => {
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json({ error: 'Not found' });
+      }
+    })
+    .catch(err => {
+      next(err);
     });
 };

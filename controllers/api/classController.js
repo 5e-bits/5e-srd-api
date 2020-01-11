@@ -1,4 +1,5 @@
 const Class = require('../../models/class');
+const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
 const utility = require('./utility');
 
@@ -33,10 +34,15 @@ exports.show = async (req, res, next) => {
 };
 
 exports.showLevelsForClass = async (req, res, next) => {
-  await Level.find({ 'class.name': utility.class_map[req.params.index] })
+  let urlString = '/api/classes/' + req.params.index;
+  await Level.find({ 'class.url': urlString })
     .sort({ level: 'asc' })
     .then(data => {
-      res.status(200).json(data);
+      if (data && data.length) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json({ error: 'Not found' });
+      }
     })
     .catch(err => {
       next(err);
@@ -57,6 +63,17 @@ exports.showLevelForClass = async (req, res, next) => {
       } else {
         res.status(404).json({ error: 'Not found' });
       }
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.showSubclassesForClass = (req, res, next) => {
+  Subclass.find({ 'class.name': utility.class_map[req.params.index] })
+    .sort({ url: 'asc', level: 'asc' })
+    .then(data => {
+      res.status(200).json(utility.NamedAPIResource(data));
     })
     .catch(err => {
       next(err);

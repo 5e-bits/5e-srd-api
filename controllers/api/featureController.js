@@ -21,9 +21,7 @@ exports.show = (req, res, next) => {
   if (utility.isClassName(req.params.index) === true) {
     Feature.find(
       {
-        'class.name': utility.class_map[req.params.index],
-        'subclass.name': undefined,
-        group: undefined
+        'class.name': utility.class_map[req.params.index]
       },
       (err, _data) => {
         if (err) {
@@ -42,8 +40,7 @@ exports.show = (req, res, next) => {
     console.log(utility.subclass_map[req.params.index]);
     Feature.find(
       {
-        'subclass.name': utility.subclass_map[req.params.index],
-        group: undefined
+        'subclass.name': utility.subclass_map[req.params.index]
       },
       (err, _data) => {
         if (err) {
@@ -75,50 +72,47 @@ exports.show = (req, res, next) => {
 };
 
 exports.showForLevel = (req, res, next) => {
-  if (typeof parseInt(req.params.level) == 'number') {
-    if (utility.isClassName(req.params.index) === true) {
-      Feature.find(
-        {
-          'class.name': utility.class_map[req.params.index],
-          level: parseInt(req.params.level),
-          'subclass.name': undefined,
-          group: undefined
-        },
-        (err, _data) => {
-          if (err) {
-            next(err);
-          }
+  if (!Number.isInteger(parseInt(req.params.level))) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+
+  if (utility.isClassName(req.params.index) === true) {
+    Feature.find(
+      {
+        'class.name': utility.class_map[req.params.index],
+        level: parseInt(req.params.level)
+      },
+      (err, _data) => {
+        if (err) {
+          next(err);
         }
-      )
-        .sort({ url: 'asc', level: 'asc' })
-        .exec((err, data) => {
-          if (err) {
-            next(err);
-          }
-          res.status(200).json(utility.NamedAPIResource(data));
-        });
-    } else if (utility.isSubclassName(req.params.index) === true) {
-      Feature.find(
-        {
-          level: parseInt(req.params.level),
-          'subclass.name': utility.subclass_map[req.params.index],
-          group: undefined
-        },
-        (err, _data) => {
-          if (err) {
-            next(err);
-          }
+      }
+    )
+      .sort({ url: 'asc', level: 'asc' })
+      .exec((err, data) => {
+        if (err) {
+          next(err);
         }
-      )
-        .sort({ url: 'asc', level: 'asc' })
-        .exec((err, data) => {
-          if (err) {
-            next(err);
-          }
-          res.status(200).json(utility.NamedAPIResource(data));
-        });
-    }
-  } else {
-    res.status(404).json({ error: 'Not found' });
+        res.status(200).json(utility.NamedAPIResource(data));
+      });
+  } else if (utility.isSubclassName(req.params.index) === true) {
+    Feature.find(
+      {
+        level: parseInt(req.params.level),
+        'subclass.name': utility.subclass_map[req.params.index]
+      },
+      (err, _data) => {
+        if (err) {
+          next(err);
+        }
+      }
+    )
+      .sort({ url: 'asc', level: 'asc' })
+      .exec((err, data) => {
+        if (err) {
+          next(err);
+        }
+        res.status(200).json(utility.NamedAPIResource(data));
+      });
   }
 };

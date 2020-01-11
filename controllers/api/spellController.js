@@ -50,26 +50,26 @@ exports.show = (req, res, next) => {
 
 // TODO: Move this out of here
 exports.showSpellsForClassLevel = (req, res, next) => {
-  if (typeof parseInt(req.params.level) == 'number') {
-    Spell.find(
-      {
-        'classes.name': utility.class_map[req.params.index],
-        level: parseInt(req.params.level)
-      },
-      (err, _data) => {
-        if (err) {
-          next(err);
-        }
-      }
-    )
-      .sort({ url: 'asc', level: 'asc' })
-      .exec((err, data) => {
-        if (err) {
-          next(err);
-        }
-        res.status(200).json(utility.NamedAPIResource(data));
-      });
-  } else {
-    res.status(404).json({ error: 'Not found' });
+  if (!Number.isInteger(parseInt(req.params.level))) {
+    return res.status(404).json({ error: 'Not found' });
   }
+
+  Spell.find(
+    {
+      'classes.name': utility.class_map[req.params.index],
+      level: parseInt(req.params.level)
+    },
+    (err, _data) => {
+      if (err) {
+        next(err);
+      }
+    }
+  )
+    .sort({ url: 'asc', level: 'asc' })
+    .exec((err, data) => {
+      if (err) {
+        next(err);
+      }
+      res.status(200).json(utility.NamedAPIResource(data));
+    });
 };
