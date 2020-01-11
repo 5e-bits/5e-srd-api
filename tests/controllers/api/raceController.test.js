@@ -1,6 +1,8 @@
 const mockingoose = require('mockingoose').default;
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+
 const Race = require('../../../models/race');
+const Subrace = require('../../models/subrace');
 const RaceController = require('../../../controllers/api/raceController');
 
 let response;
@@ -89,6 +91,38 @@ describe('show', () => {
       mockingoose(Race).toReturn(error, 'findOne');
 
       await RaceController.show(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe('showSubracesForRace', () => {
+  const findDoc = [
+    {
+      index: 'high-elf',
+      name: 'High Elf',
+      url: '/api/subraces/high-elf'
+    }
+  ];
+  const request = mockRequest({ query: {} });
+
+  it('returns a list of objects', async () => {
+    mockingoose(Subrace).toReturn(findDoc, 'find');
+
+    await RaceController.showSubracesForRace(request, response, mockNext);
+
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Subrace).toReturn(error, 'find');
+
+      await RaceController.showSubracesForRace(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
