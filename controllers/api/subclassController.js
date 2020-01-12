@@ -55,7 +55,6 @@ exports.showLevelForSubclass = async (req, res, next) => {
 
   await Level.findOne({ url: urlString })
     .then(data => {
-      console.log(data);
       if (data) {
         res.status(200).json(data);
       } else {

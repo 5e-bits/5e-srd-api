@@ -35,13 +35,8 @@ app.use(function(req, res, _next) {
   //   return;
   // }
 
-  // respond with json
-  if (req.accepts('json')) {
-    return res.send({ error: 'Not found' });
-  }
-
-  // default to plain-text. send()
-  return res.type('txt').send('Not found');
+  // default respond with json
+  return res.send({ error: 'Not found' });
 });
 
 app.use(bugsnagMiddleware.errorHandler);
