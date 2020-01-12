@@ -59,7 +59,7 @@ exports.showLevelForClass = async (req, res, next) => {
     return res.status(404).json({ error: 'Not found' });
   }
 
-  let urlString = '/api/classes/' + req.params.index + '/level/' + req.params.level;
+  let urlString = '/api/classes/' + req.params.index + '/levels/' + req.params.level;
 
   await Level.findOne({ url: urlString })
     .then(data => {

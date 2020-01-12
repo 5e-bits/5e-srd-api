@@ -35,8 +35,10 @@ exports.show = async (req, res, next) => {
 
 exports.showTraitsForSubrace = async (req, res, next) => {
   let urlString = '/api/subraces/' + req.params.index;
-  await Trait.find({ 'races.url': urlString })
+  console.log(urlString);
+  await Trait.find({ 'subraces.url': urlString })
     .then(data => {
+      console.log(data);
       res.status(200).json(utility.NamedAPIResource(data));
     })
     .catch(err => {

@@ -1,30 +1,34 @@
 const APIResource = data => {
+  const mapped = data.map(item => {
+    return {
+      index: item.index,
+      url: item.url
+    };
+  });
+
   return {
     count: data.length,
-    results: data.map(item => {
-      return {
-        index: item.index,
-        url: item.url
-      };
-    })
+    results: mapped
   };
 };
 
 const ClassAPIResource = data => {
+  const mapped = data.map(item => {
+    return {
+      index: item.index,
+      class: item.class.name,
+      url: item.url
+    };
+  });
+
   return {
     count: data.length,
-    results: data.map(item => {
-      return {
-        index: item.index,
-        class: item.class.name,
-        url: item.url
-      };
-    })
+    results: mapped
   };
 };
 
 const NamedAPIResource = data => {
-  let mapped = data.map(item => {
+  const mapped = data.map(item => {
     return {
       index: item.index,
       name: item.name,
@@ -39,16 +43,18 @@ const NamedAPIResource = data => {
 };
 
 const NamedAPIResourceWithDesc = data => {
+  const mapped = data.map(item => {
+    return {
+      index: item.index,
+      name: item.name,
+      url: item.url,
+      desc: item.desc[0]
+    };
+  });
+
   return {
     count: data.length,
-    results: data.map(item => {
-      return {
-        index: item.index,
-        name: item.name,
-        url: item.url,
-        desc: item.desc[0]
-      };
-    })
+    results: mapped
   };
 };
 

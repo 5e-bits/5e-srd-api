@@ -37,12 +37,11 @@ app.use(function(req, res, _next) {
 
   // respond with json
   if (req.accepts('json')) {
-    res.send({ error: 'Not found' });
-    return;
+    return res.send({ error: 'Not found' });
   }
 
   // default to plain-text. send()
-  res.type('txt').send('Not found');
+  return res.type('txt').send('Not found');
 });
 
 app.use(bugsnagMiddleware.errorHandler);
