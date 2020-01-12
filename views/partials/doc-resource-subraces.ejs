@@ -1,7 +1,7 @@
 <h2 id="subraces">Subraces</h2>
 <p>Subraces reflect the different varieties of a certain parent race</p>
 
-<h3>GET api/subraces/{index or race}</h3>
+<h3>GET api/subraces/{index}</h3>
 
 <pre><code>{
   "_id": "5e10e47c0b1bb138c5b3b836",
@@ -59,7 +59,9 @@
     <tr>
       <td align="left">race</td>
       <td align="left">The parent race for this subrace.</td>
-      <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)</td>
+      <td align="left">
+        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)
+      </td>
     </tr>
     <tr>
       <td align="left">desc</td>
@@ -74,17 +76,26 @@
     <tr>
       <td align="left">starting_proficiencies</td>
       <td align="left">Starting proficiencies for all new characters of this subrace</td>
-      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies"
+          >Proficiencies</a
+        >)
+      </td>
     </tr>
     <tr>
       <td align="left">languages</td>
       <td align="left">Starting languages for all new characters of this subrace</td>
-      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#languages">Proficiencies</a>)</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#languages">Proficiencies</a
+        >)
+      </td>
     </tr>
     <tr>
       <td align="left">traits</td>
       <td align="left">Racial traits that provide benefits to its members</td>
-      <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Trait</a>)</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Trait</a>)
+      </td>
     </tr>
     <tr>
       <td align="left">url</td>
