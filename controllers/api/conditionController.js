@@ -4,7 +4,7 @@ const utility = require('./utility');
 exports.index = async (req, res, next) => {
   const search_queries = {};
   if (req.query.name !== undefined) {
-    search_queries.name = req.query.name;
+    search_queries.name = { $regex: new RegExp(req.query.name, 'i') };
   }
 
   await Condition.find(search_queries)
