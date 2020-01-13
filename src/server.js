@@ -1,4 +1,3 @@
-// TODO: Move everything into a src folder
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
@@ -11,6 +10,7 @@ app.options('*', cors());
 
 // Middleware stuff
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 app.use(bugsnagMiddleware.requestHandler);
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/css', express.static(__dirname + '/css'));

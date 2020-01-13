@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node start.js",
+    "start": "node src/start.js",
     "lint": "eslint . --ext .js",
     "test": "jest -c jest.config.js",
     "test:unit": "jest -c jest.config.unit.js",
