@@ -54,6 +54,15 @@ describe('/api/ability-scores', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/ability-scores');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/ability-scores?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/ability-scores/:index', () => {
     it('should return one object', async () => {
@@ -84,6 +93,15 @@ describe('/api/classes', () => {
       const indexRes = await request(app).get('/api/classes');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/classes?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/classes');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/classes?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -209,6 +227,15 @@ describe('/api/conditions', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/conditions');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/conditions?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/conditions/:index', () => {
     it('should return one object', async () => {
@@ -239,6 +266,15 @@ describe('/api/damage-types', () => {
       const indexRes = await request(app).get('/api/damage-types');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/damage-types?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/damage-types');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/damage-types?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -275,6 +311,15 @@ describe('/api/equipment-categories', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/equipment-categories');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/equipment-categories?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/equipment-categories/:index', () => {
     it('should return one object', async () => {
@@ -305,6 +350,15 @@ describe('/api/equipment', () => {
       const indexRes = await request(app).get('/api/equipment');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/equipment?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/equipment');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/equipment?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -365,6 +419,15 @@ describe('/api/languages', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/languages');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/languages?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/languages/:index', () => {
     it('should return one object', async () => {
@@ -395,6 +458,15 @@ describe('/api/magic-schools', () => {
       const indexRes = await request(app).get('/api/magic-schools');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/magic-schools?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/magic-schools');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/magic-schools?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -431,6 +503,15 @@ describe('/api/monsters', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/monsters');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/monsters?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/monsters/:index', () => {
     it('should return one object', async () => {
@@ -464,6 +545,15 @@ describe('/api/proficiencies', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/proficiencies');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/proficiencies?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/proficiencies/:index', () => {
     it('should return one object', async () => {
@@ -494,6 +584,15 @@ describe('/api/races', () => {
       const indexRes = await request(app).get('/api/races');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/races?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/races');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/races?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -558,6 +657,15 @@ describe('/api/skills', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/skills');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/skills?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/skills/:index', () => {
     it('should return one object', async () => {
@@ -615,6 +723,15 @@ describe('/api/spells', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/spells');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/spells?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/spells/:index', () => {
     it('should return one object', async () => {
@@ -669,6 +786,15 @@ describe('/api/subclasses', () => {
       const indexRes = await request(app).get('/api/subclasses');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/subclasses?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/subclasses');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/subclasses?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -732,6 +858,15 @@ describe('/api/subraces', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/subraces');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/subraces?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/subraces/:index', () => {
     it('should return one object', async () => {
@@ -782,6 +917,15 @@ describe('/api/traits', () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/traits');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/traits?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
   });
   describe('/api/traits/:index', () => {
     it('should return one object', async () => {
@@ -812,6 +956,15 @@ describe('/api/weapon-properties', () => {
       const indexRes = await request(app).get('/api/weapon-properties');
       const name = indexRes.body.results[1].name;
       const res = await request(app).get(`/api/weapon-properties?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/weapon-properties');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/weapon-properties?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });

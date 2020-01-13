@@ -6,7 +6,7 @@ const utility = require('./utility');
 exports.index = async (req, res, next) => {
   const search_queries = {};
   if (req.query.name !== undefined) {
-    search_queries.name = { $regex: new RegExp(req.query.name, 'i') };
+    search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
   }
 
   await Subclass.find(search_queries)
