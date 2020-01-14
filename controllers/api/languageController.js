@@ -4,7 +4,7 @@ const utility = require('./utility');
 exports.index = async (req, res, next) => {
   const search_queries = {};
   if (req.query.name !== undefined) {
-    search_queries.name = req.query.name;
+    search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
   }
 
   await Language.find(search_queries)

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2020-01-12
+
+- Make GET queries case insensitive for `name` where supported.
+- Fix Home link to work when you're on the Docs page
+
+## 2020-01-11
+
+- 100% Test coverage between unit and integration tests
+- Overloaded routes will be removed and moved onto routes that make sense.
+- General cleanup of the code base and breakup to make testing easier.
+
 ## 2020-01-09
 
 - Add in Docker Compose
