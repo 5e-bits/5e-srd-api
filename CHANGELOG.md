@@ -3,6 +3,7 @@
 ## 2020-01-12
 
 - Make GET queries case insensitive for `name` where supported.
+- Fix Home link to work when you're on the Docs page
 
 ## 2020-01-11
 
