@@ -18,7 +18,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('short'));
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 // Register routes
 app.get('/', require('./controllers/indexController'));
