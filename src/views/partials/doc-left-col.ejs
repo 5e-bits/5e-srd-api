@@ -28,7 +28,6 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#spellcasting">Spellcasting</a></li>
             <li><a href="#starting-equipment">Starting Equipment</a></li>
-            <li><a href="#levels">Levels</a></li>
           </ul>
         </li>
         <li class="parent">
@@ -40,45 +39,6 @@
           </ul>
         </li>
 
-        <!--
-                <li class="parent"><a href="#class-levels-section">Levels - Classes</a>
-                    <ul>
-                        <li><a href="#class-tables">Levels</a></li>
-                        <li><a href="#class-table-Barbarian">Barbarian</a></li>
-                        <li><a href="#class-table-Bard">Bard</a></li>
-                        <li><a href="#class-table-Cleric">Cleric</a></li>
-                        <li><a href="#class-table-Druid">Druid</a></li>
-                        <li><a href="#class-table-Fighter">Fighter</a></li>
-                        <li><a href="#class-table-Monk">Monk</a></li>
-                        <li><a href="#class-table-Paladin">Paladin</a></li>
-                        <li><a href="#class-table-Ranger">Ranger</a></li>
-                        <li><a href="#class-table-Rogue">Rogue</a></li>
-                        <li><a href="#class-table-Sorcerer">Sorcerer</a></li>
-                        <li><a href="#class-table-Warlock">Warlock</a></li>
-                        <li><a href="#class-table-Wizard">Wizard</a></li>
-                    </ul>
-                </li>
-                -->
-        <!--
-                <li class="parent"><a href="#subclass-tables-section">Levels - Subclasses</a>
-                    <ul>
-                        <li><a href="#class-tables">Levels</a></li>
-                        <li><a href="#class-table-Barbarian">Barbarian</a></li>
-                        <li><a href="#class-table-Bard">Bard</a></li>
-                        <li><a href="#class-table-Cleric">Cleric</a></li>
-                        <li><a href="#class-table-Druid">Druid</a></li>
-                        <li><a href="#class-table-Fighter">Fighter</a></li>
-                        <li><a href="#class-table-Monk">Monk</a></li>
-                        <li><a href="#class-table-Paladin">Paladin</a></li>
-                        <li><a href="#class-table-Ranger">Ranger</a></li>
-                        <li><a href="#class-table-Rogue">Rogue</a></li>
-                        <li><a href="#class-table-Sorcerer">Sorcerer</a></li>
-                        <li><a href="#class-table-Warlock">Warlock</a></li>
-                        <li><a href="#class-table-Wizard">Wizard</a></li>
-                    </ul>
-                </li>
-                -->
-
         <li class="parent">
           <a href="#equipment-section">Equipment</a>
           <ul>
@@ -86,15 +46,23 @@
             <li><a href="#equipment-weapons">Weapons</a></li>
             <li><a href="#equipment-armor">Armor</a></li>
             <li><a href="#equipment-gear">Adventuring Gear</a></li>
+            <li><a href="#weapon-properties">Weapon Properties</a></li>
           </ul>
         </li>
 
-        <!--
-                <li class="parent"><a href="#spells">Spells</a>
-                    <ul>
-                    </ul>
-                </li>
-                -->
+        <li class="parent">
+          <a href="#spell-section">Spells</a>
+          <ul>
+            <li><a href="#spells">Spells</a></li>
+          </ul>
+        </li>
+
+        <li class="parent">
+          <a href="#monster-section">Monsters</a>
+          <ul>
+            <li><a href="#monsters">Monsters</a></li>
+          </ul>
+        </li>
 
         <li class="parent">
           <a href="#game-mechanics-section">Game Mechanics</a>
@@ -155,8 +123,12 @@
         for (var i = 0; i < navParents.length; i++) {
           parent = $(navParents[i]);
 
+          console.log('LOOK AT ME!');
+          console.log(parent);
           target = $(parent.find('a').attr('href'));
 
+          console.log(target);
+          console.log(target.offset());
           if (scrollTop >= target.offset().top) {
             activeParent = parent;
           } else {

@@ -189,3 +189,657 @@
     </tr>
   </tbody>
 </table>
+
+<h3>GET api/classes/{index}/subclasses/</h3>
+
+<pre><code>{
+  "count": 1,
+  "results": [
+    {
+      "index": "lore",
+      "name": "Lore",
+      "url": "/api/subclasses/lore"
+    }
+  ]
+}</code></pre>
+
+<h4>Subclasses for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/starting-equipment/</h3>
+
+<pre><code>{
+  "class": {
+    "url": "/api/classes/bard",
+    "name": "Bard"
+  },
+  "_id": "5e4ca33a0b1bb138c5896aad",
+  "index": 2,
+  "starting_equipment": [
+    {
+      "item": {
+        "url": "/api/equipment/leather",
+        "name": "Leather"
+      },
+      "quantity": 1
+    },
+    {
+      "item": {
+        "url": "/api/equipment/dagger",
+        "name": "Dagger"
+      },
+      "quantity": 1
+    }
+  ],
+  "choices_to_make": 3,
+  "choice_1": [
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/rapier",
+            "name": "Rapier"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/longsword",
+            "name": "Longsword"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/club",
+            "name": "Club"
+          },
+          "quantity": 1
+        },
+        ...
+        {
+          "item": {
+            "url": "/api/equipment/sling",
+            "name": "Sling"
+          },
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "choice_2": [
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/diplomats-pack",
+            "name": "Diplomat's Pack"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/entertainers-pack",
+            "name": "Entertainer's Pack"
+          },
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "choice_3": [
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/lute",
+            "name": "Lute"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "item": {
+            "url": "/api/equipment/bagpipes",
+            "name": "Bagpipes"
+          },
+          "quantity": 1
+        },
+        ...
+        {
+          "item": {
+            "url": "/api/equipment/viol",
+            "name": "Viol"
+          },
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "url": "/api/starting-equipment/2"
+}</code></pre>
+
+<h4>Starting Equipment for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/spellcasting/</h3>
+
+<pre><code>{
+  "class": {
+    "url": "/api/classes/bard",
+    "name": "Bard"
+  },
+  "_id": "5e4ca3390b1bb138c589694e",
+  "index": 1,
+  "level": 1,
+  "spellcasting_ability": {
+    "url": "/api/ability-scores/cha",
+    "name": "CHA"
+  },
+  "info": [
+    {
+      "name": "Cantrips",
+      "desc": [
+        "You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table."
+      ]
+    },
+    {
+      "name": "Spell Slots",
+      "desc": [
+        "The Bard table shows how many spell slots you have to cast your spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.",
+        "For example, if you know the 1st-level spell cure wounds and have a 1st-level and a 2nd-level spell slot available, you can cast cure wounds using either slot."
+      ]
+    },
+    {
+      "name": "Spells Known of 1st Level and Higher",
+      "desc": [
+        "You know four 1st-level spells of your choice from the bard spell list.",
+        "The Spells Known column of the Bard table shows when you learn more bard spells of your choice.",
+        "Each of these spells must be of a level for which you have spell slots, as shown on the table. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level.",
+        "Additionally, when you gain a level in this class, you can choose one of the bard spells you know and replace it with another spell from the bard spell list, which also must be of a level for which you have spell slots."
+      ]
+    },
+    {
+      "name": "Spellcasting Ability",
+      "desc": [
+        "Charisma is your spellcasting ability for your bard spells. Your magic comes from the heart and soul you pour into the performance of your music or oration. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a bard spell you cast and when making an attack roll with one.",
+        "Spell save DC = 8 + your proficiency bonus + your Charisma modifier.",
+        "Spell attack modifier = your proficiency bonus + your Charisma modifier."
+      ]
+    },
+    {
+      "name": "Ritual Casting",
+      "desc": [
+        "You can cast any bard spell you know as a ritual if that spell has the ritual tag."
+      ]
+    },
+    {
+      "name": "Spellcasting Focus",
+      "desc": [
+        "You can use a musical instrument (see Equipment) as a spellcasting focus for your bard spells."
+      ]
+    }
+  ],
+  "url": "/api/spellcasting/1"
+}</code></pre>
+
+<h4>Spellcasting for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/spells/</h3>
+
+<pre><code>
+  "count": 111,
+  "results": [
+    {
+      "index": "dancing-lights",
+      "name": "Dancing Lights",
+      "url": "/api/spells/dancing-lights"
+    },
+    ...
+    {
+      "index": "true-polymorph",
+      "name": "True Polymorph",
+      "url": "/api/spells/true-polymorph"
+    }
+  ]
+}</code></pre>
+
+<h4>Spells for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/features/</h3>
+
+<pre><code>{
+  "count": 46,
+  "results": [
+    {
+      "index": "expertise-acrobatics",
+      "name": "Expertise: Acrobatics",
+      "url": "/api/features/expertise-acrobatics"
+    },
+    ...
+    {
+      "index": "superior-inspiration",
+      "name": "Superior Inspiration",
+      "url": "/api/features/superior-inspiration"
+    }
+  ]
+}</code></pre>
+
+<h4>Features for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/proficiencies/</h3>
+
+<pre><code>{
+  "count": 8,
+  "results": [
+    {
+      "index": "crossbows-hand",
+      "name": "Crossbows, hand",
+      "url": "/api/proficiencies/crossbows-hand"
+    },
+    ...
+    {
+      "index": "simple-weapons",
+      "name": "Simple weapons",
+      "url": "/api/proficiencies/simple-weapons"
+    }
+  ]
+}</code></pre>
+
+<h4>Proficiencies for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/levels/</h3>
+
+<pre><code>[
+  {
+    "_id": "5e4ca3370b1bb138c5896641",
+    "level": 1,
+    "ability_score_bonuses": 0,
+    "prof_bonus": 2,
+    "feature_choices": [
+
+    ],
+    "features": [
+      {
+        "name": "Spellcasting",
+        "url": "/api/features/spellcasting-bard"
+      },
+      {
+        "name": "Bardic Inspiration (d6)",
+        "url": "/api/features/bardic-inspiration-d6"
+      }
+    ],
+    "spellcasting": {
+      "cantrips_known": 2,
+      "spells_known": 4,
+      "spell_slots_level_1": 2,
+      "spell_slots_level_2": 0,
+      "spell_slots_level_3": 0,
+      "spell_slots_level_4": 0,
+      "spell_slots_level_5": 0,
+      "spell_slots_level_6": 0,
+      "spell_slots_level_7": 0,
+      "spell_slots_level_8": 0,
+      "spell_slots_level_9": 0
+    },
+    "class_specific": {
+      "bardic_inspiration_die": 6,
+      "song_of_rest_die": 0,
+      "magical_secrets_max_5": 0,
+      "magical_secrets_max_7": 0,
+      "magical_secrets_max_9": 0
+    },
+    "index": 21,
+    "class": {
+      "name": "Bard",
+      "url": "/api/classes/bard"
+    },
+    "url": "/api/classes/bard/levels/1"
+  },
+  ...
+  {
+    "_id": "5e4ca3370b1bb138c5896654",
+    "level": 20,
+    "ability_score_bonuses": 5,
+    "prof_bonus": 6,
+    "feature_choices": [
+
+    ],
+    "features": [
+      {
+        "name": "Superior Inspiration",
+        "url": "/api/features/superior-inspiration"
+      }
+    ],
+    "spellcasting": {
+      "cantrips_known": 4,
+      "spells_known": 22,
+      "spell_slots_level_1": 4,
+      "spell_slots_level_2": 3,
+      "spell_slots_level_3": 3,
+      "spell_slots_level_4": 3,
+      "spell_slots_level_5": 3,
+      "spell_slots_level_6": 2,
+      "spell_slots_level_7": 2,
+      "spell_slots_level_8": 1,
+      "spell_slots_level_9": 1
+    },
+    "class_specific": {
+      "bardic_inspiration_die": 12,
+      "song_of_rest_die": 12,
+      "magical_secrets_max_5": 2,
+      "magical_secrets_max_7": 2,
+      "magical_secrets_max_9": 2
+    },
+    "index": 40,
+    "class": {
+      "name": "Bard",
+      "url": "/api/classes/bard"
+    },
+    "url": "/api/classes/bard/levels/20"
+  }
+]</code></pre>
+
+<h4>Levels for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/levels/{integer 1-20}</h3>
+
+<pre><code>{
+  "_id": "5e10e4780b1bb138c5b3b388",
+  "index": 41,
+  "level": 1,
+  "ability_score_bonuses": 0,
+  "prof_bonus": 2,
+  "feature_choices": [],
+  "features": [
+    {
+      "name": "Spellcasting",
+      "url": "/api/features/spellcasting-cleric"
+    },
+    {
+      "name": "Divine Domain",
+      "url": "/api/features/divine-domain"
+    },
+    {
+      "name": "Domain Spells 1",
+      "url": "/api/features/domain-spells-1"
+    }
+  ],
+  "spellcasting": {
+    "cantrips_known": 3,
+    "spells_known": 4,
+    "spell_slots_level_1": 2,
+    "spell_slots_level_2": 0,
+    "spell_slots_level_3": 0,
+    "spell_slots_level_4": 0,
+    "spell_slots_level_5": 0,
+    "spell_slots_level_6": 0,
+    "spell_slots_level_7": 0,
+    "spell_slots_level_8": 0,
+    "spell_slots_level_9": 0
+  },
+  "class_specific": {
+    "channel_divinity_charges": 0,
+    "destroy_undead_cr": 0
+  },
+  "class": {
+    "name": "Cleric",
+    "url": "/api/classes/cleric"
+  },
+  "url": "/api/classes/cleric/level/1"
+}</code></pre>
+
+<h4>Level for Class</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">_id</td>
+      <td align="left">The string _id used by the database for this class resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The level index for shorthand searching<.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">level</td>
+      <td align="left">The number value for the current level object.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">ability_score_bonuses</td>
+      <td align="left">
+        Total number of ability score bonuses gained, added from previous levels.
+      </td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">prof_bonus</td>
+      <td align="left">Proficiency bonus for this class at the specified level.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">feature_choices</td>
+      <td align="left">
+        Special features which require a player to choose a new feature to be added.
+      </td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">features</td>
+      <td align="left">Features automatically gained by players at this level.</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">spellcasting</td>
+      <td align="left">
+        spells known, spellcasting ability, and cantrips known.
+      </td>
+      <td align="left">
+        <a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)
+      </td>
+      <td align="left">object</td>
+    </tr>
+    <tr>
+      <td align="left">class_specific</td>
+      <td align="left">
+        Class specific information such as dice values for bard songs and number of warlock
+        invocations.
+      </td>
+      <td align="left">object</td>
+    </tr>
+    <tr>
+      <td align="left">class</td>
+      <td align="left">The class which this level refers to.</td>
+      <td align="left">
+        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>) Updated
+        ability scores, classes, and conditions
+      </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>GET api/classes/{index}/levels/{integer 1-20}/features</h3>
+
+<pre><code>{
+  "count": 2,
+  "results": [
+    {
+      "index": "bardic-inspiration-d6",
+      "name": "Bardic Inspiration (d6)",
+      "url": "/api/features/bardic-inspiration-d6"
+    },
+    {
+      "index": "spellcasting-bard",
+      "name": "Spellcasting: Bard",
+      "url": "/api/features/spellcasting-bard"
+    }
+  ]
+}</code></pre>
+
+<h4>Features for Class and Level</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/classes/{index}/levels/{integer 1-20}/spells</h3>
+
+<pre><code>{
+  "count": 19,
+  "results": [
+    {
+      "index": "animal-friendship",
+      "name": "Animal Friendship",
+      "url": "/api/spells/animal-friendship"
+    },
+    ...
+    {
+      "index": "unseen-servant",
+      "name": "Unseen Servant",
+      "url": "/api/spells/unseen-servant"
+    }
+  ]
+}</code></pre>
+
+<h4>Spells for Class and Level</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
