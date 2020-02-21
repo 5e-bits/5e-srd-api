@@ -5,6 +5,70 @@
   impairments, but a few, such as invisible, can be advantageous.
 </p>
 
+<h3>GET api/conditions/</h3>
+
+<pre><code>{
+  "count": 15,
+  "results": [
+    {
+      "index": "blinded",
+      "name": "Blinded",
+      "url": "/api/conditions/blinded"
+    },
+    ...
+    {
+      "index": "unconscious",
+      "name": "Unconscious",
+      "url": "/api/conditions/unconscious"
+    }
+  ]
+}</code></pre>
+
+<h4>GET params</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">A case insensitive query parameter for the name</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Conditions</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">Number of results</td>
+      <td align="left">Integer</td>
+    </tr>
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A full list of ability scores</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#conditions"
+          >Ability Scores</a
+        >)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <h3>GET api/conditions/{index}</h3>
 
 <pre><code>{
