@@ -1,29 +1,53 @@
 <div class="header">
-	<h1>D&D 5e API</h1>
-	<h2>The 5th Edition Dungeons and Dragons API</h2>
+  <h1>D&D 5e API</h1>
+  <h2>The 5th Edition Dungeons and Dragons API</h2>
 </div>
 
 <div class="cta">
-	<p>Just a simple api for things within the Official 5th Edition SRD<br> and easily accessible through a modern RESTful API.</p>
-	<p>Enjoy the D&D 5th Edition API!</p>
+  <p>
+    Just a simple api for things within the Official 5th Edition SRD<br />
+    and easily accessible through a modern RESTful API.
+  </p>
+  <p>Enjoy the D&D 5th Edition API!</p>
 </div>
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-10 center-block">
-			<div class="center">
-				<h1>
-					Try it now!
-				</h1>
-				<div class="input-group pad_top">
-					<span class="input-group-addon url">http://dnd5eapi.co/api/</span>
-					<input id="interactive" type="text" class="form-control" placeholder="spells/acid-arrow/">
-					<span class="input-group-btn"><button onclick="interactive_call();return false;" class="btn btn-primary">submit</button></span>
-				</div>
-			</div>
-			<small>Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a>, <a href="#" onClick="update('features/');return false;"><i>features/</i></a>, <a href="#" onClick="update('monsters/adult-black-dragon/');return false;"><i>monsters/adult-black-dragon/</i></a> or <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"><i>spells/?name=Acid+Arrow</i></a></small>
-			<p class="lead pad_top">Resource for <span id="interactive_name">Acid Arrow</span></p>
-			<pre id="interactive_output" class="pre-scrollable">{
+  <div class="row">
+    <div class="col-md-10 center-block">
+      <div class="center">
+        <h1>
+          Try it now!
+        </h1>
+        <div class="input-group pad_top">
+          <span class="input-group-addon url">http://dnd5eapi.co/api/</span>
+          <input
+            id="interactive"
+            type="text"
+            class="form-control"
+            placeholder="spells/acid-arrow/"
+          />
+          <span class="input-group-btn"
+            ><button onclick="interactive_call();return false;" class="btn btn-primary">
+              submit
+            </button></span
+          >
+        </div>
+      </div>
+      <small
+        >Need a hint? try <a href="#" onClick="update('classes/');return false;"><i>classes/</i></a
+        >, <a href="#" onClick="update('features/');return false;"><i>features/</i></a
+        >,
+        <a href="#" onClick="update('monsters/adult-black-dragon/');return false;"
+          ><i>monsters/adult-black-dragon/</i></a
+        >
+        or
+        <a href="#" onClick="update('spells/?name=Acid+Arrow');return false;"
+          ><i>spells/?name=Acid+Arrow</i></a
+        ></small
+      >
+      <p class="lead pad_top">Resource for <span id="interactive_name">Acid Arrow</span></p>
+      <pre id="interactive_output" class="pre-scrollable">
+{
 				"_id": "5e10e47a0b1bb138c5b3b6b1",
 				"index": "acid-arrow",
 				"name": "Acid Arrow",
@@ -67,7 +91,8 @@
 				}
 				],
 				"url": "/api/spells/acid-arrow"
-			}</pre>
-		</div>
-	</div>
+			}</pre
+      >
+    </div>
+  </div>
 </div>

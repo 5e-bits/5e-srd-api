@@ -2,27 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <% include ../partials/head %>
-</head>
-<body>
-
+  </head>
+  <body>
     <% include ../partials/navbar %>
 
     <section id="docs">
-        <div class="header">
-            <h1>D&D 5th Edition API Documentation</h1>
+      <div class="header">
+        <h1>D&D 5th Edition API Documentation</h1>
+      </div>
+      <div class="container">
+        <div class="row pad_top">
+          <% include ../partials/doc-left-col %> <% include ../partials/doc-content %>
         </div>
-        <div class="container">
-            <div class="row pad_top">
-                <% include ../partials/doc-left-col %>
-                <% include ../partials/doc-content %>
-            </div>
-        </div>
+      </div>
     </section>
 
     <footer>
-        <% include ../partials/footer %>
+      <% include ../partials/footer %>
     </footer>
-</body>
+  </body>
 </html>

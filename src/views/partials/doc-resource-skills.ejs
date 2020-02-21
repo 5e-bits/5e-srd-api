@@ -1,5 +1,9 @@
 <h2 id="skills">Skills</h2>
-<p>Each ability covers a broad range of capabilities, including skills that a character or a monster can be proficient in. A skill represents a specific aspect of an ability score, and an individual’s proficiency in a skill demonstrates a focus on that aspect.</p>
+<p>
+  Each ability covers a broad range of capabilities, including skills that a character or a monster
+  can be proficient in. A skill represents a specific aspect of an ability score, and an
+  individual’s proficiency in a skill demonstrates a focus on that aspect.
+</p>
 
 <h3>GET api/skills/{index}</h3>
 
@@ -45,18 +49,22 @@
     </tr>
     <tr>
       <td align="left">desc</td>
-      <td align="left">A brief description on this skill and its uses/td>
-        <td align="left">list string</td>
-      </tr>
-      <tr>
-        <td align="left">ability_score</td>
-        <td align="left">The ability score associated with this skill.</td>
-        <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#ability-scores">Ability Score</a>)</td>
-      </tr>
-      <tr>
-        <td align="left">url</td>
-        <td align="left">The URL of the referenced resource</td>
-        <td align="left">string</td>
-      </tr>
-    </tbody>
-  </table>
+      <td align="left">A brief description on this skill and its uses/td></td>
+      <td align="left">list string</td>
+    </tr>
+    <tr>
+      <td align="left">ability_score</td>
+      <td align="left">The ability score associated with this skill.</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#ability-scores"
+          >Ability Score</a
+        >)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
+</table>
