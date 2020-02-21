@@ -108,3 +108,141 @@
   </thead>
   <tbody></tbody>
 </table>
+
+<h3>GET api/subclasses/{index}/levels/</h3>
+
+<pre><code>[
+  {
+    "_id": "5e4ca3380b1bb138c5896720",
+    "level": 3,
+    "feature_choices": [
+
+    ],
+    "features": [
+      {
+        "name": "Primal Path",
+        "url": "/api/features/primal-path"
+      },
+      {
+        "name": "Frenzy",
+        "url": "/api/features/frenzy"
+      }
+    ],
+    "class": {
+      "name": "Barbarian",
+      "url": "/api/classes/barbarian"
+    },
+    "subclass": {
+      "name": "Berserker",
+      "url": "/api/subclasses/berserker"
+    },
+    "url": "/api/subclasses/berserker/levels/3",
+    "index": 241
+  },
+  ...
+  {
+    "_id": "5e4ca3380b1bb138c5896723",
+    "level": 14,
+    "feature_choices": [
+
+    ],
+    "features": [
+      {
+        "name": "Retaliation",
+        "url": "/api/features/retaliation"
+      }
+    ],
+    "class": {
+      "name": "Barbarian",
+      "url": "/api/classes/barbarian"
+    },
+    "subclass": {
+      "name": "Berserker",
+      "url": "/api/subclasses/berserker"
+    },
+    "url": "/api/subclasses/berserker/levels/14",
+    "index": 244
+  }
+]</code></pre>
+
+<h4>Levels for Subclass</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/subclasses/{index}/levels/{integer 1-20}</h3>
+
+<pre><code>{
+  "_id": "5e4ca3380b1bb138c5896720",
+  "level": 3,
+  "feature_choices": [
+
+  ],
+  "features": [
+    {
+      "name": "Primal Path",
+      "url": "/api/features/primal-path"
+    },
+    {
+      "name": "Frenzy",
+      "url": "/api/features/frenzy"
+    }
+  ],
+  "class": {
+    "name": "Barbarian",
+    "url": "/api/classes/barbarian"
+  },
+  "subclass": {
+    "name": "Berserker",
+    "url": "/api/subclasses/berserker"
+  },
+  "url": "/api/subclasses/berserker/levels/3",
+  "index": 241
+}</code></pre>
+
+<h4>Level for Subclass</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>GET api/subclasses/{index}/levels/{integer 1-20}/features</h3>
+
+<pre><code>{
+  "count": 1,
+  "results": [
+    {
+      "index": "frenzy",
+      "name": "Frenzy",
+      "url": "/api/features/frenzy"
+    }
+  ]
+}</code></pre>
+
+<h4>Features for Subclass and Level</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
