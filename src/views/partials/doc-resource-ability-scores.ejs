@@ -1,5 +1,9 @@
 <h2 id="ability-scores">Ability Scores</h2>
-<p>Each of a creature’s abilities has a score, a number that defines the magnitude of that ability. An ability score is not just a measure of innate capabilities, but also encompasses a creature’s training and competence in activities related to that ability.</p>
+<p>
+  Each of a creature’s abilities has a score, a number that defines the magnitude of that ability.
+  An ability score is not just a measure of innate capabilities, but also encompasses a creature’s
+  training and competence in activities related to that ability.
+</p>
 
 <h3>GET api/ability-scores/{index}</h3>
 
@@ -54,18 +58,20 @@
     </tr>
     <tr>
       <td align="left">desc</td>
-      <td align="left">A brief description on this ability score and its uses/td>
-        <td align="left">list string</td>
-      </tr>
-      <tr>
-        <td align="left">skills</td>
-        <td align="left">A list of skills that uses this ability score</td>
-        <td align="left">list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#skills">Skills</a>)</td>
-      </tr>
-      <tr>
-        <td align="left">url</td>
-        <td align="left">The URL of the referenced resource</td>
-        <td align="left">string</td>
-      </tr>
-    </tbody>
-  </table>
+      <td align="left">A brief description on this ability score and its uses/td></td>
+      <td align="left">list string</td>
+    </tr>
+    <tr>
+      <td align="left">skills</td>
+      <td align="left">A list of skills that uses this ability score</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#skills">Skills</a>)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
+</table>
