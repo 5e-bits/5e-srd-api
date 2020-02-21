@@ -5,69 +5,6 @@
   defined by its class. A character's class affects a character's available skills and abilities.
 </p>
 
-<h3>GET api/classes/</h3>
-
-<pre><code>{
-  "count": 12,
-  "results": [
-    {
-      "index": "barbarian",
-      "name": "Barbarian",
-      "url": "/api/classes/barbarian"
-    },
-    ...
-    {
-      "index": "wizard",
-      "name": "Wizard",
-      "url": "/api/classes/wizard"
-    }
-  ]
-}</code></pre>
-
-<h4>GET params</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left">count</td>
-      <td align="left">Number of results</td>
-      <td align="left">Integer</td>
-    </tr>
-    <tr>
-      <td align="left">name</td>
-      <td align="left">A case insensitive query parameter for the name</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4>Ability Scores</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-      <th align="left">Data Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left">results</td>
-      <td align="left">A full list of ability scores</td>
-      <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Ability Scores</a
-        >)
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 <h3>GET api/classes/{index}</h3>
 
 <pre><code>{
