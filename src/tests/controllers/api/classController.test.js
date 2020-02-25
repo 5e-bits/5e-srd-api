@@ -267,7 +267,7 @@ describe('showStartingEquipmentForClass', () => {
   const findOneDoc = {
     index: 1,
     starting_equipment: [],
-    url: '/api/startingequipment/1'
+    url: '/api/starting-equipment/1'
   };
   const request = mockRequest({ params: { index: 'barbarian' } });
 

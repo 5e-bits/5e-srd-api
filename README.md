@@ -43,7 +43,7 @@ You should get a response with the available endpoints for the root:
   "skills": "/api/skills",
   "spellcasting": "/api/spellcasting",
   "spells": "/api/spells",
-  "startingequipment": "/api/startingequipment",
+  "starting-equipment": "/api/starting-equipment",
   "subclasses": "/api/subclasses",
   "subraces": "/api/subraces",
   "traits": "/api/traits",
