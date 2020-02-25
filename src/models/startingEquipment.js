@@ -10,4 +10,4 @@ var StartingEquipmentSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('StartingEquipment', StartingEquipmentSchema, 'starting-equipment');
+module.exports = mongoose.model('StartingEquipment', StartingEquipmentSchema, 'startingequipment');
