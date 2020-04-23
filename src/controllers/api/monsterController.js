@@ -6,6 +6,9 @@ exports.index = async (req, res, next) => {
   if (req.query.name !== undefined) {
     search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
   }
+  if (req.query.challenge_rating !== undefined) {
+    search_queries.challenge_rating = { $in: req.query.challenge_rating.split(',') };
+  }
 
   await Monster.find(search_queries)
     .sort({ index: 'asc' })
