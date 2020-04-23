@@ -513,6 +513,29 @@ describe('/api/monsters', () => {
       expect(res.body.results[0].name).toEqual(name);
     });
   });
+  describe('with challenge rating query', () => {
+    it('returns objects with only one provided challenge rating', async () => {
+      const res = await request(app).get('/api/monsters?challenge_rating=0.25');
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].challenge_rating).toEqual(0.25);
+    });
+
+    it('returns objects with many provided challenge ratings', async () => {
+      const res = await request(app).get('/api/monsters?challenge_rating=1,20');
+      expect(res.statusCode).toEqual(200);
+
+      const [cr1, cr20] = res.body.results.reduce(
+        (result, element) => {
+          result[element.challenge_rating == 1 ? 0 : 1].push(element);
+          return result;
+        },
+        [[], []]
+      );
+      expect(cr1[0].challenge_rating).toEqual(1);
+      expect(cr20[0].challenge_rating).toEqual(20);
+    });
+  });
+
   describe('/api/monsters/:index', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/monsters');
