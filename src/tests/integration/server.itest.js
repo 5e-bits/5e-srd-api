@@ -513,6 +513,44 @@ describe('/api/monsters', () => {
       expect(res.body.results[0].name).toEqual(name);
     });
   });
+
+  describe('with only one provided challenge rating query', () => {
+    it('returns expected objects', async () => {
+      const res = await request(app).get('/api/monsters?challenge_rating=0.25');
+      expect(res.statusCode).toEqual(200);
+
+      const randomIndex = Math.floor(Math.random() * res.body.results.length);
+      const randomResult = res.body.results[randomIndex];
+
+      const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+      expect(indexRes.statusCode).toEqual(200);
+      expect(indexRes.body.challenge_rating).toEqual(0.25);
+    });
+  });
+
+  describe('with many provided challenge ratings query', () => {
+    it('returns expected objects', async () => {
+      const cr1Res = await request(app).get('/api/monsters?challenge_rating=1');
+      expect(cr1Res.statusCode).toEqual(200);
+
+      const cr20Res = await request(app).get('/api/monsters?challenge_rating=20');
+      expect(cr20Res.statusCode).toEqual(200);
+
+      const bothRes = await request(app).get('/api/monsters?challenge_rating=1,20');
+      expect(bothRes.statusCode).toEqual(200);
+      expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
+
+      const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
+      const randomResult = bothRes.body.results[randomIndex];
+
+      const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+      expect(indexRes.statusCode).toEqual(200);
+      expect(
+        indexRes.body.challenge_rating == 1 || indexRes.body.challenge_rating == 20
+      ).toBeTruthy();
+    });
+  });
+
   describe('/api/monsters/:index', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/monsters');
