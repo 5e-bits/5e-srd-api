@@ -513,17 +513,23 @@ describe('/api/monsters', () => {
       expect(res.body.results[0].name).toEqual(name);
     });
   });
-  describe('with challenge rating query', () => {
-    it('returns objects with only one provided challenge rating', async () => {
+
+  describe('with only one provided challenge rating query', () => {
+    it('returns expected objects', async () => {
       const res = await request(app).get('/api/monsters?challenge_rating=0.25');
       expect(res.statusCode).toEqual(200);
 
-      const indexRes = await request(app).get(`/api/monsters/${res.body.results[0].index}`);
+      const randomIndex = Math.floor(Math.random() * res.body.results.length);
+      const randomResult = res.body.results[randomIndex];
+
+      const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
       expect(indexRes.statusCode).toEqual(200);
       expect(indexRes.body.challenge_rating).toEqual(0.25);
     });
+  });
 
-    it('returns objects with many provided challenge ratings', async () => {
+  describe('with many provided challenge ratings query', () => {
+    it('returns expected objects', async () => {
       const cr1Res = await request(app).get('/api/monsters?challenge_rating=1');
       expect(cr1Res.statusCode).toEqual(200);
 
@@ -534,20 +540,13 @@ describe('/api/monsters', () => {
       expect(bothRes.statusCode).toEqual(200);
       expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
-      const firstIndexRes = await request(app).get(
-        `/api/monsters/${bothRes.body.results[0].index}`
-      );
-      expect(firstIndexRes.statusCode).toEqual(200);
-      expect(
-        firstIndexRes.body.challenge_rating == 1 || firstIndexRes.body.challenge_rating == 20
-      ).toBeTruthy();
+      const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
+      const randomResult = bothRes.body.results[randomIndex];
 
-      const secondIndexRes = await request(app).get(
-        `/api/monsters/${bothRes.body.results[4].index}`
-      );
-      expect(secondIndexRes.statusCode).toEqual(200);
+      const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+      expect(indexRes.statusCode).toEqual(200);
       expect(
-        secondIndexRes.body.challenge_rating == 1 || secondIndexRes.body.challenge_rating == 20
+        indexRes.body.challenge_rating == 1 || indexRes.body.challenge_rating == 20
       ).toBeTruthy();
     });
   });
