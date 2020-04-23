@@ -517,20 +517,38 @@ describe('/api/monsters', () => {
     it('returns objects with only one provided challenge rating', async () => {
       const res = await request(app).get('/api/monsters?challenge_rating=0.25');
       expect(res.statusCode).toEqual(200);
+
+      const indexRes = await request(app).get(`/api/monsters/${res.body.results[0].index}`);
+      expect(indexRes.statusCode).toEqual(200);
+      expect(indexRes.body.challenge_rating).toEqual(0.25);
     });
 
     it('returns objects with many provided challenge ratings', async () => {
-      const resCr1 = await request(app).get('/api/monsters?challenge_rating=1');
-      const resCr20 = await request(app).get('/api/monsters?challenge_rating=20');
+      const cr1Res = await request(app).get('/api/monsters?challenge_rating=1');
+      expect(cr1Res.statusCode).toEqual(200);
 
-      expect(resCr1.statusCode).toEqual(200);
-      expect(resCr20.statusCode).toEqual(200);
+      const cr20Res = await request(app).get('/api/monsters?challenge_rating=20');
+      expect(cr20Res.statusCode).toEqual(200);
 
-      const resBoth = await request(app).get('/api/monsters?challenge_rating=1,20');
-      expect(resBoth.statusCode).toEqual(200);
-      expect(resBoth.body.results.length).toEqual(
-        resCr1.body.results.length + resCr20.body.results.length
+      const bothRes = await request(app).get('/api/monsters?challenge_rating=1,20');
+      expect(bothRes.statusCode).toEqual(200);
+      expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
+
+      const firstIndexRes = await request(app).get(
+        `/api/monsters/${bothRes.body.results[0].index}`
       );
+      expect(firstIndexRes.statusCode).toEqual(200);
+      expect(
+        firstIndexRes.body.challenge_rating == 1 || firstIndexRes.body.challenge_rating == 20
+      ).toBeTruthy();
+
+      const secondIndexRes = await request(app).get(
+        `/api/monsters/${bothRes.body.results[4].index}`
+      );
+      expect(secondIndexRes.statusCode).toEqual(200);
+      expect(
+        secondIndexRes.body.challenge_rating == 1 || secondIndexRes.body.challenge_rating == 20
+      ).toBeTruthy();
     });
   });
 
