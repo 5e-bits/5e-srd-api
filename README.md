@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/bagelbits/5e-srd-api.svg?branch=master)](https://travis-ci.com/bagelbits/5e-srd-api)
 [![Heroku](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)
 
-REST API to access [D&amp;D 5th Edition SRD API](http://www.dnd5eapi.co/)
+REST API to access [D&amp;D 5th Edition SRD API](https://www.dnd5eapi.co/)
 
 Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
