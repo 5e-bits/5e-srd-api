@@ -13,7 +13,7 @@ exports.index = async (req, res, next) => {
 };
 
 exports.show = async (req, res, next) => {
-  await Spellcasting.findOne({ index: parseInt(req.params.index) })
+  await Spellcasting.findOne({ url: `/api/spellcasting/${req.params.index}` })
     .then(data => {
       if (data) {
         res.status(200).json(data);
