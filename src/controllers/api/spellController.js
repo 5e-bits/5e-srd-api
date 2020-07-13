@@ -7,6 +7,21 @@ exports.index = async (req, res, next) => {
     search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
   }
 
+  if (req.query.level !== undefined) {
+    search_queries.level = +req.query.level;
+  }
+  
+  if (req.query.classes !== undefined) {
+    var classes = req.query.classes.split(",").map(
+      (c) => new RegExp(c, "i")
+    );
+    search_queries["classes.name"] = { "$in": classes }; 
+  }
+
+  if (req.query.school !== undefined) {
+    search_queries["school.name"] = { $regex: new RegExp(utility.escapeRegExp(req.query.school), 'i') };
+  }
+
   await Spell.find(search_queries)
     .sort({ index: 'asc' })
     .then(data => {
