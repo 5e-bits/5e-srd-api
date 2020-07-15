@@ -12,19 +12,19 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 1,
+      index: 'bard',
       class: 'Bard',
-      url: '/api/spellcasting/1'
+      url: '/api/spellcasting/bard'
     },
     {
-      index: 2,
+      index: 'cleric',
       class: 'Cleric',
-      url: '/api/spellcasting/2'
+      url: '/api/spellcasting/cleric'
     },
     {
-      index: 3,
+      index: 'druid',
       class: 'Druid',
-      url: '/api/spellcasting/3'
+      url: '/api/spellcasting/druid'
     }
   ];
   const request = mockRequest({ query: {} });
@@ -53,12 +53,12 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 1,
+    index: 'bard',
     class: 'Bard',
-    url: '/api/spellcasting/1'
+    url: '/api/spellcasting/bard'
   };
 
-  const showParams = { index: 1 };
+  const showParams = { index: 'bard' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {

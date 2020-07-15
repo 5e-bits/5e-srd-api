@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var SpellcastingSchema = new Schema({
-  index: Number,
+  index: String,
   class: {
     name: String,
     url: String
