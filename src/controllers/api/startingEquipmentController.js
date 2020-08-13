@@ -13,7 +13,7 @@ exports.index = async (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
-  StartingEquipment.findOne({ index: parseInt(req.params.index) })
+  StartingEquipment.findOne({ index: req.params.index })
     .then(data => {
       if (data) {
         res.status(200).json(data);
