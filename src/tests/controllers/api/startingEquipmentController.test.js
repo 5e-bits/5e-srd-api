@@ -12,19 +12,19 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 1,
+      index: 'barbarian',
       class: 'Barbarian',
-      url: '/api/starting-equipment/1'
+      url: '/api/starting-equipment/barbarian'
     },
     {
-      index: 2,
+      index: 'bard',
       class: 'Bard',
-      url: '/api/starting-equipment/2'
+      url: '/api/starting-equipment/bard'
     },
     {
-      index: 3,
+      index: 'cleric',
       class: 'Cleric',
-      url: '/api/starting-equipment/3'
+      url: '/api/starting-equipment/cleric'
     }
   ];
   const request = mockRequest({ query: {} });
@@ -53,9 +53,9 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 1,
+    index: 'barbarian',
     class: 'Barbarian',
-    url: '/api/starting-equipment/1'
+    url: '/api/starting-equipment/barbarian'
   };
 
   const showParams = { index: 1 };

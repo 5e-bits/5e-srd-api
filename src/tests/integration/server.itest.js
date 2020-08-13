@@ -805,7 +805,7 @@ describe('/api/starting-equipment', () => {
     });
     describe('with an invalid index', () => {
       it('should return one object', async () => {
-        const invalidIndex = 30;
+        const invalidIndex = 'bad-class';
         const showRes = await request(app).get(`/api/starting-equipment/${invalidIndex}`);
         expect(showRes.statusCode).toEqual(404);
       });
