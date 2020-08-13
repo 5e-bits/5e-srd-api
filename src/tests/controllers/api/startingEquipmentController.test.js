@@ -58,7 +58,7 @@ describe('show', () => {
     url: '/api/starting-equipment/barbarian'
   };
 
-  const showParams = { index: 1 };
+  const showParams = { index: 'barbarian' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
