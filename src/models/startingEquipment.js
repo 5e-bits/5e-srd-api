@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var StartingEquipmentSchema = new Schema({
-  index: Number,
+  index: String,
   class: {
     name: String,
     url: String
