@@ -101,17 +101,17 @@ describe('show', () => {
 describe('showLevelsForSubclass', () => {
   const findDoc = [
     {
-      index: "barbarian-1",
+      index: 'barbarian-1',
       level: 1,
       url: '/api/subclasses/barbarian/level/1'
     },
     {
-      index: "barbarian-2",
+      index: 'barbarian-2',
       level: 2,
       url: '/api/subclasses/barbarian/level/2'
     },
     {
-      index: "barbarian-3",
+      index: 'barbarian-3',
       level: 3,
       url: '/api/subclasses/barbarian/level/3'
     }
@@ -154,7 +154,7 @@ describe('showLevelsForSubclass', () => {
 
 describe('showLevelForSubclass', () => {
   const findOneDoc = {
-    index: "barbarian-1",
+    index: 'barbarian-1',
     level: 1,
     url: '/api/classes/barbarian/level/1'
   };
