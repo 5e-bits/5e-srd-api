@@ -1,5 +1,7 @@
+const { promisify } = require('util');
 const Monster = require('../../models/monster');
 const utility = require('./utility');
+const getAsync = promisify(utility.redisClient.get).bind(utility.redisClient);
 
 exports.index = async (req, res, next) => {
   const search_queries = {};
@@ -10,14 +12,23 @@ exports.index = async (req, res, next) => {
     search_queries.challenge_rating = { $in: req.query.challenge_rating.split(',') };
   }
 
-  await Monster.find(search_queries)
-    .sort({ index: 'asc' })
-    .then(data => {
-      res.status(200).json(utility.NamedAPIResource(data));
-    })
-    .catch(err => {
-      next(err);
-    });
+  const redisKey = req.originalUrl;
+  const data = await getAsync(redisKey);
+
+  if (data) {
+    res.status(200).json(JSON.parse(data));
+  } else {
+    await Monster.find(search_queries)
+      .sort({ index: 'asc' })
+      .then(async data => {
+        const json_data = utility.NamedAPIResource(data);
+        utility.redisClient.set(redisKey, JSON.stringify(json_data));
+        res.status(200).json(json_data);
+      })
+      .catch(err => {
+        next(err);
+      });
+  }
 };
 
 exports.show = async (req, res, next) => {

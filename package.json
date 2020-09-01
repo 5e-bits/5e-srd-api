@@ -23,6 +23,7 @@
     "lodash": "^4.17.19",
     "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
+    "redis": "^3.0.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
