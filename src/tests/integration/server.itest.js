@@ -498,9 +498,13 @@ describe('/api/monsters', () => {
   });
 
   it('should hit the cache', async () => {
-    const res = await request(app).get('/api/monsters');
+    redisClient.flushall();
+    const clientSet = jest.spyOn(redisClient, 'set');
+    let res = await request(app).get('/api/monsters');
+    res = await request(app).get('/api/monsters');
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
+    expect(clientSet).toHaveBeenCalledTimes(1);
   });
 
   describe('with name query', () => {

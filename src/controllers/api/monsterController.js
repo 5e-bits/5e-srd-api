@@ -18,9 +18,7 @@ exports.index = async (req, res, next) => {
 
   if (data) {
     res.status(200).json(JSON.parse(data));
-    console.log('y tho');
   } else {
-    console.log('got here');
     await Monster.find(search_queries)
       .sort({ index: 'asc' })
       .then(async data => {
