@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../../server');
 const { mongodbUri } = require('../../util');
+const { closeRedisClient } = require('../../controllers/api/utility');
 
 beforeAll(async () => {
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -9,6 +10,7 @@ beforeAll(async () => {
 
 afterAll(() => {
   mongoose.disconnect();
+  closeRedisClient();
 });
 
 describe('/', () => {

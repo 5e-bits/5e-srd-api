@@ -36,10 +36,14 @@ const escapeRegExp = string => {
 };
 
 const redisClient = redis.createClient(redisUrl);
+const closeRedisClient = callback => {
+  redisClient.quit(callback);
+};
 
 module.exports = {
   NamedAPIResource,
   ClassAPIResource,
   escapeRegExp,
-  redisClient
+  redisClient,
+  closeRedisClient
 };
