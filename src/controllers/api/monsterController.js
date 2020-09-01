@@ -1,7 +1,8 @@
 const { promisify } = require('util');
 const Monster = require('../../models/monster');
 const utility = require('./utility');
-const getAsync = promisify(utility.redisClient.get).bind(utility.redisClient);
+const { redisClient } = require('../../util');
+const getAsync = promisify(redisClient.get).bind(redisClient);
 
 exports.index = async (req, res, next) => {
   const search_queries = {};
@@ -17,12 +18,14 @@ exports.index = async (req, res, next) => {
 
   if (data) {
     res.status(200).json(JSON.parse(data));
+    console.log('y tho');
   } else {
+    console.log('got here');
     await Monster.find(search_queries)
       .sort({ index: 'asc' })
       .then(async data => {
         const json_data = utility.NamedAPIResource(data);
-        utility.redisClient.set(redisKey, JSON.stringify(json_data));
+        redisClient.set(redisKey, JSON.stringify(json_data));
         res.status(200).json(json_data);
       })
       .catch(err => {

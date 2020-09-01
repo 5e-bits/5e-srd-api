@@ -6,7 +6,7 @@
     "start": "node src/start.js",
     "lint": "eslint . --ext .js",
     "test": "jest -c jest.config.js",
-    "test:unit": "jest -c jest.config.unit.js",
+    "test:unit": "jest --detectOpenHandles -c jest.config.unit.js",
     "test:integration": "jest -c jest.config.integration.js"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "jest": "^25.2.7",
     "mockingoose": "^2.13.2",
     "prettier": "^1.19.1",
+    "redis-mock": "^0.51.0",
     "supertest": "^4.0.2"
   }
 }
