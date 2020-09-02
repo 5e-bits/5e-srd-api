@@ -128,7 +128,20 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">The number of traits that apply to a subrace</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">results</td>
+      <td align="left">Subracial traits that provide benefits to its members</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Traits</a>)
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>GET api/subraces/{index}/proficiencies/</h3>
@@ -160,5 +173,16 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody><tr>
+    <td align="left">count</td>
+    <td align="left">The number of proficiences that apply to a subrace</td>
+    <td align="left">integer</td>
+  </tr>
+  <tr>
+    <td align="left">results</td>
+    <td align="left">Subracial proficiences that provide benefits to its members</td>
+    <td align="left">
+      list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiences">Proficiencies</a>)
+    </td>
+  </tr></tbody>
 </table>

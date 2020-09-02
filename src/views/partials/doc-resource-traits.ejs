@@ -1,7 +1,5 @@
 <h2 id="monsters">Traits</h2>
-<p>
-  Traits for races in D&D.
-</p>
+<p>Traits for races in D&D.</p>
 
 <h3>GET api/traits/{index}</h3>
 
@@ -36,5 +34,44 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The trait index for shorthand searching.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">races</td>
+      <td align="left">Races that have access to the trait</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiences"
+          >Proficiencies</a
+        >)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">subraces</td>
+      <td align="left">Subraces that have access to the trait</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiences"
+          >Proficiencies</a
+        >)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name of the trait</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">desc</td>
+      <td align="left">The description of the trait</td>
+      <td align="left">array</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
