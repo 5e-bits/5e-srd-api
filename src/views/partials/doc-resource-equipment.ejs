@@ -7,10 +7,15 @@
 
 <h3>GET api/equipment/{index}</h3>
 
+<h4>The following is a response example for a weapon</h4>
+
 <pre><code>{
   "index": "club",
   "name": "Club",
-  "equipment_category": "Weapon",
+  "equipment_category": {
+    "name": "Weapon",
+    "url": "/api/equipment-categories/weapon",
+  },
   "weapon_category": "Simple",
   "weapon_range": "Melee",
   "category_range": "Simple Melee",
@@ -20,7 +25,6 @@
   },
   "damage": {
     "damage_dice": "1d4",
-    "damage_bonus": 0,
     "damage_type": {
       "url": "/api/damage-types/bludgeoning",
       "name": "Bludgeoning"
@@ -55,11 +59,6 @@
   </thead>
   <tbody>
     <tr>
-      <td align="left">_id</td>
-      <td align="left">The string _id used by the database for this damage type resource</td>
-      <td align="left">string</td>
-    </tr>
-    <tr>
       <td align="left">index</td>
       <td align="left">The damage type index for shorthand searching</td>
       <td align="left">string</td>
@@ -72,7 +71,9 @@
     <tr>
       <td align="left">equipment_category</td>
       <td align="left">The category of equipment this falls into</td>
-      <td align="left">string</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+      </td>
     </tr>
     <tr>
       <td align="left">weapon_category</td>
@@ -129,11 +130,15 @@
 </table>
 
 <h3>GET api/equipment/{index}</h3>
+<h4>The following is a response example for a piece of armor</h4>
+
 <pre><code>{
-  "_id": "5e10e4770b1bb138c5b3b0a0",
   "index": "padded",
   "name": "Padded",
-  "equipment_category": "Armor",
+  "equipment_category": {
+    "name": "Armor",
+    "url": "/api/equipment-categories/armor",
+    },
   "armor_category": "Light",
   "armor_class": {
     "base": 11,
@@ -161,11 +166,6 @@
   </thead>
   <tbody>
     <tr>
-      <td align="left">_id</td>
-      <td align="left">The string _id used by the database for this damage type resource</td>
-      <td align="left">string</td>
-    </tr>
-    <tr>
       <td align="left">index</td>
       <td align="left">The damage type index for shorthand searching</td>
       <td align="left">string</td>
@@ -178,7 +178,9 @@
     <tr>
       <td align="left">equipment_category</td>
       <td align="left">The category of equipment this falls into</td>
-      <td align="left">string</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+      </td>
     </tr>
     <tr>
       <td align="left">armor_category</td>
