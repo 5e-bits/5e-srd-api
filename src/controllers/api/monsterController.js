@@ -14,7 +14,9 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  const data = await getAsync(redisKey);
+  const data = await getAsync(redisKey).catch(_err => {
+    return;
+  });
 
   if (data) {
     res.status(200).json(JSON.parse(data));

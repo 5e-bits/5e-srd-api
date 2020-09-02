@@ -2,8 +2,8 @@ const redis = require('redis');
 
 const redisUrl = process.env.REDIS_URL || '';
 const redisClient = redis.createClient(redisUrl);
-const closeRedisClient = callback => {
-  redisClient.quit(callback);
+const closeRedisClient = () => {
+  redisClient.quit();
 };
 
 module.exports = {
