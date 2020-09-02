@@ -3,6 +3,10 @@ const request = require('supertest');
 const app = require('../../server');
 const { mongodbUri, redisClient, closeRedisClient } = require('../../util');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 beforeAll(async () => {
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 });
