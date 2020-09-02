@@ -1,12 +1,9 @@
 <h2 id="monsters">Monsters</h2>
-<p>
-  These are the monsters of D&D.
-</p>
+<p>These are the monsters of D&D.</p>
 
 <h3>GET api/monsters/{index}</h3>
 
 <pre><code>{
-  "_id": "5e4ca3380b1bb138c5896748",
   "index": "aboleth",
   "name": "Aboleth",
   "size": "Large",
@@ -53,21 +50,13 @@
       "value": 10
     }
   ],
-  "damage_vulnerabilities": [
-
-  ],
-  "damage_resistances": [
-
-  ],
-  "damage_immunities": [
-
-  ],
-  "condition_immunities": [
-
-  ],
+  "damage_vulnerabilities": [],
+  "damage_resistances": [],
+  "damage_immunities": [],
+  "condition_immunities": [],
   "senses": {
     "darkvision": "120 ft.",
-    "passive_perception": 20
+    "passive_perception": 20,
   },
   "languages": "Deep Speech, telepathy 120 ft.",
   "challenge_rating": 10,
@@ -191,5 +180,165 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The monster index for shorthand searching</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name of the monster</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">size</td>
+      <td align="left">The size of the monster ranging from tiny to Gargantuan</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">type</td>
+      <td align="left">The type of monster</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">subtype</td>
+      <td align="left">The sub-category of a monster used for classification of monsters</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">alignment</td>
+      <td align="left">
+        The temperment of a monster. How likily will it go on a rampage versus a creature that is
+        able to negotiate for its own survival
+      </td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">armor_class</td>
+      <td align="left">The difficulty for a player to successfully deal damage to a monster</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">hit_points</td>
+      <td align="left">
+        The hit points of a monster determine how much damage it is able to take before it can be
+        defeated
+      </td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">hit_dice</td>
+      <td align="left">
+        The hit die of a monster can be used to make a version of the same monster whose hit points
+        are determined by the roll of the die. For example: A monster with 2d6 would have its hit
+        points determine by rolling a 6 sided die twice.
+      </td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">speed</td>
+      <td align="left">Speed for a monster determines how fast it can move per turn.</td>
+      <td align="left">object</td>
+    </tr>
+    <tr>
+      <td align="left">strength</td>
+      <td align="left">The strength of a monster. How hard a monster can hit a player</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">dexterity</td>
+      <td align="left">The dexterity of a monster. The monster's ability for swift movement or stealth</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">constitution</td>
+      <td align="left">The constitution of a monster. How sturdy a monster is</td>
+
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">intelligence</td>
+      <td align="left">The intelligence of a monster. The monster's ability to outsmart a player</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">wisdom</td>
+      <td align="left">The wisdom of a monster. A monster's ability to ascertain the player's plan</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">charisma</td>
+      <td align="left">The charisma of a monster. A monster's ability to charm or intimidate a player</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">proficiencies</td>
+      <td align="left">A list of proficiencies of a monster</td>
+      <td align="left">list</td>
+
+    </tr>
+    <tr>
+      <td align="left">damage_vulnerabilities</td>
+      <td align="left">A list of damage types that a monster will take double damage from</td>
+      <td align="left">list</td>
+      
+    </tr>
+    <tr>
+      <td align="left">damage_resistances</td>
+      <td align="left">A list of damage types that a monster will take half damage from</td>
+      <td align="left">list</td>
+      
+    </tr>
+    <tr>
+      <td align="left">condition_immunities</td>
+      <td align="left">A list of conditions that a monster is immune to</td>
+      <td align="left">list</td>
+      
+    </tr>
+    <tr>
+      <td align="left">senses</td>
+      <td align="left">Monsters typically have a passive perception but they might also have other senses to detect players</td>
+      <td align="left">object</td>
+
+    </tr>
+    <tr>
+      <td align="left">languages</td>
+      <td align="left">The languages a monster is able to speak</td>
+      <td align="left">string</td>
+
+    </tr>
+    <tr>
+      <td align="left">challenge_rating</td>
+      <td align="left">
+        A monster's challenge rating is a guideline number that says when a monster becomes an appropriate challenge against the party's average level.
+        For example. A group of 4 players with an average level of 4 would have an appropriate combat challenge against a monster with a challenge rating of 4
+        but a monster with a challenge rating of 8 against the same group of players would pose a significant threat.
+      </td>
+      <td align="left">Number</td>
+
+    </tr>
+    <tr>
+      <td align="left">special_abilities</td>
+      <td align="left">A list of the monster's special abilities</td>
+      <td align="left">list</td>
+      
+    </tr>
+    <tr>
+      <td align="left">actions</td>
+      <td align="left">A list of actions that is available to the monster to take during combat</td>
+      <td align="left">list</td>
+
+    </tr>
+    <tr>
+      <td align="left">legendary_actions</td>
+      <td align="left">Certain monsters have a list of actions that can be used outside of the monster's initiative</td>
+      <td align="left">list</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
