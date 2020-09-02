@@ -765,6 +765,17 @@ describe('/api/spells', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
+
+  it('should hit the cache', async () => {
+    redisClient.flushall();
+    const clientSet = jest.spyOn(redisClient, 'set');
+    let res = await request(app).get('/api/spells');
+    res = await request(app).get('/api/spells');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.results.length).not.toEqual(0);
+    expect(clientSet).toHaveBeenCalledTimes(1);
+  });
+
   describe('with name query', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/spells');

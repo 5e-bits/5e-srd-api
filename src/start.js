@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const { promisify } = require('util');
 const { mongodbUri, redisClient } = require('./util');
 const app = require('./server');
+const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
 // Connect to database and start the serverfuser
 mongoose
@@ -10,7 +12,7 @@ mongoose
   })
   .then(() => {
     console.log('Flushing Redis');
-    return redisClient.flushall();
+    return flushAsync();
   })
   .then(() => {
     const server = app.listen(process.env.PORT || 3000, () => {
