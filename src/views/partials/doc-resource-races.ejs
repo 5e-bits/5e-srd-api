@@ -4,10 +4,9 @@
 <h3>GET api/races/{index}</h3>
 
 <pre><code>{
-  "_id": "5e10e4790b1bb138c5b3b661",
   "index": "dwarf",
   "name": "Dwarf",
-  "speed": 30,
+  "speed": 25,
   "ability_bonuses": [
     {
       "name": "CON",
@@ -77,6 +76,10 @@
     },
     {
       "name": "Stonecunning",
+      "url": "/api/traits/stonecunning"
+    }
+    {
+      "name": "Dwarven Combat Training",
       "url": "/api/traits/dwarven-combat-training"
     }
   ],
@@ -89,7 +92,7 @@
   "url": "/api/races/dwarf"
 }</code></pre>
 
-<h4>Class</h4>
+<h4>Races</h4>
 
 <table>
   <thead>
@@ -100,11 +103,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td align="left">_id</td>
-      <td align="left">The string _id used by the database for this race resource</td>
-      <td align="left">string</td>
-    </tr>
     <tr>
       <td align="left">index</td>
       <td align="left">The race index for shorthand searching.</td>
@@ -215,7 +213,21 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">the number of available subraces</td>
+      <td align="left">integer</td>
+    </tr>
+
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A list of the subrace and its reference url</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subraces">Subrace</a>)
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>GET api/races/{index}/proficiencies/</h3>
@@ -231,7 +243,7 @@
   ]
 }</code></pre>
 
-<h4>Subclasses for Class</h4>
+<h4>Proficiencies for Race</h4>
 
 <table>
   <thead>
@@ -241,7 +253,21 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">the number of proficiencies available to a race</td>
+      <td align="left">integer</td>
+    </tr>
+
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A list of the available proficiencies for a race</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>GET api/races/{index}/traits/</h3>
@@ -263,7 +289,7 @@
   ]
 }</code></pre>
 
-<h4>Subclasses for Class</h4>
+<h4>Traits for Race</h4>
 
 <table>
   <thead>
@@ -273,5 +299,19 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">the number of traits available to a race</td>
+      <td align="left">integer</td>
+    </tr>
+
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A list of the available traits for a race</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Traits</a>)
+      </td>
+    </tr>
+  </tbody>
 </table>

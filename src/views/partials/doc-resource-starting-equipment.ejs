@@ -1,301 +1,83 @@
 <h2 id="monsters">Starting Equipment</h2>
-<p>
-  Starting equipment for classes.
-</p>
+<p>Starting equipment for classes.</p>
 
 <h3>GET api/starting-equipment/{index}</h3>
 
 <pre><code>
+  "index": "barbarian",
   "class": {
     "url": "/api/classes/barbarian",
     "name": "Barbarian"
   },
-  "_id": "5e4ca33a0b1bb138c5896aac",
-  "index": 1,
   "starting_equipment": [
     {
-      "item": {
+      "equipment": {
         "url": "/api/equipment/explorers-pack",
-        "name": "Explorer's Pack"
+        "name": "Explorer's Pack",
       },
-      "quantity": 1
+      "quantity": 1,
     },
     {
-      "item": {
-        "url": "/api/equipment/javelin",
-        "name": "Javelin"
-      },
-      "quantity": 4
-    }
+      "equipment": {
+          "url": "/api/equipment/javelin",
+          "name": "Javelin",
+        },
+      "quantity": 4,
+    },
   ],
-  "choices_to_make": 2,
-  "choice_1": [
+  "starting_equipment_options": [
     {
       "choose": 1,
       "type": "equipment",
       "from": [
         {
-          "item": {
-            "url": "/api/equipment/greataxe",
-            "name": "Greataxe"
+          equipment: {
+            name: "Greataxe",
+            url: "/api/equipment/greataxe",
           },
-          "quantity": 1
-        }
-      ]
+          quantity: 1,
+        },
+        {
+          equipment_option: {
+            choose: 1,
+            type: "equipment",
+            from: {
+              equipment_category: {
+                name: "Martial Melee Weapons",
+                url: "/api/equipment-categories/martial-melee-weapons",
+              }
+            },
+          }
+        },
+      ],
     },
     {
-      "choose": 1,
-      "type": "equipment",
-      "from": [
+      choose: 1,
+      type: "equipment",
+      from: [
         {
-          "item": {
-            "url": "/api/equipment/battleaxe",
-            "name": "Battleaxe"
+          equipment: {
+            name: "Handaxe",
+            url: "/api/equipment/handaxe",
           },
-          "quantity": 1
+          quantity: 2,
         },
-        {
-          "item": {
-            "url": "/api/equipment/flail",
-            "name": "Flail"
-          },
-          "quantity": 1
+      {
+        equipment_option: {
+          choose: 1,
+          type: "equipment",
+          from: {
+            equipment_category: {
+                name: "Simple Weapons",
+                url: "/api/equipment-categories/simple-weapons",
+              }
+            },
+          }
         },
-        {
-          "item": {
-            "url": "/api/equipment/glaive",
-            "name": "Glaive"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/greataxe",
-            "name": "Greataxe"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/greatsword",
-            "name": "Greatsword"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/halberd",
-            "name": "Halberd"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/lance",
-            "name": "Lance"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/longsword",
-            "name": "Longsword"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/maul",
-            "name": "Maul"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/morningstar",
-            "name": "Morningstar"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/pike",
-            "name": "Pike"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/rapier",
-            "name": "Rapier"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/scimitar",
-            "name": "Scimitar"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/shortsword",
-            "name": "Shortsword"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/trident",
-            "name": "Trident"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/war-pick",
-            "name": "War pick"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/warhammer",
-            "name": "Warhammer"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/whip",
-            "name": "Whip"
-          },
-          "quantity": 1
-        }
-      ]
-    }
-  ],
-  "choice_2": [
-    {
-      "choose": 1,
-      "type": "equipment",
-      "from": [
-        {
-          "item": {
-            "url": "/api/equipment/handaxe",
-            "name": "Handaxe"
-          },
-          "quantity": 2
-        }
-      ]
+      ],
     },
-    {
-      "choose": 1,
-      "type": "equipment",
-      "from": [
-        {
-          "item": {
-            "url": "/api/equipment/club",
-            "name": "Club"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/dagger",
-            "name": "Dagger"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/greatclub",
-            "name": "Greatclub"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/handaxe",
-            "name": "Handaxe"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/javelin",
-            "name": "Javelin"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/light-hammer",
-            "name": "Light hammer"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/mace",
-            "name": "Mace"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/quarterstaff",
-            "name": "Quarterstaff"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/sickle",
-            "name": "Sickle"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/spear",
-            "name": "Spear"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/crossbow-light",
-            "name": "Crossbow, light"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/dart",
-            "name": "Dart"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/shortbow",
-            "name": "Shortbow"
-          },
-          "quantity": 1
-        },
-        {
-          "item": {
-            "url": "/api/equipment/sling",
-            "name": "Sling"
-          },
-          "quantity": 1
-        }
-      ]
-    }
   ],
-  "url": "/api/starting-equipment/1"
+  "url": "/api/starting-equipment/barbarian"
 }</code></pre>
 
 <h4>Starting Equipment</h4>
@@ -308,5 +90,33 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The class index for shorthand searching.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">class</td>
+      <td align="left">The class name and url reference object.</td>
+      <td align="left">object</td>
+    </tr>
+    <tr>
+      <td align="left">starting_equipment</td>
+      <td align="left">The starting equipment that the class automatically starts with.</td>
+      <td align="left">list</td>
+    </tr>
+    <tr>
+      <td align="left">starting_equipment_options</td>
+      <td align="left">A list of choices that the character makes in addition to the starting equipment.</td>
+      <td align="left">
+        list <a href="#choices">Choice</a> (<a href="#proficiencies">Proficiencies</a>)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>

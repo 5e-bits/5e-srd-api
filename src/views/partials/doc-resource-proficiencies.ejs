@@ -4,7 +4,6 @@
 <h3>GET api/proficiencies/{index}</h3>
 
 <pre><code>{
-  "_id": "5e10e4790b1bb138c5b3b5da",
   "index": "medium-armor",
   "type": "Armor",
   "name": "Medium armor",
@@ -27,7 +26,14 @@
     }
   ],
   "races": [],
-  "url": "/api/proficiencies/medium-armor"
+  "url": "/api/proficiencies/medium-armor",
+  references: [
+    {
+    url: "/api/equipment-categories/medium-armor",
+    type: "equipment-categories",
+    name: "Medium armor",
+    }
+  ],
 }</code></pre>
 
 <h4>Proficiency</h4>
@@ -41,11 +47,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td align="left">_id</td>
-      <td align="left">The string _id used by the database for this proficiency resource</td>
-      <td align="left">string</td>
-    </tr>
     <tr>
       <td align="left">index</td>
       <td align="left">The proficiency index for shorthand searching</td>
@@ -79,6 +80,13 @@
       <td align="left">url</td>
       <td align="left">The URL of the referenced resource</td>
       <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">references</td>
+      <td align="left">list of references</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+      </td>
     </tr>
   </tbody>
 </table>

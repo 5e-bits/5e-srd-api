@@ -4,18 +4,138 @@
 <h3>GET api/subclasses/{index}</h3>
 
 <pre><code>{
-  "_id": "5e10e47c0b1bb138c5b3b81c",
-  "index": "champion",
+  "index": "devotion",
   "class": {
-    "url": "/api/classes/fighter",
-    "name": "Fighter"
+    "url": "/api/classes/paladin",
+    "name": "Paladin"
   },
-  "name": "Champion",
-  "subclass_flavor": "Martial Archetype",
+  "name": "Devotion",
+  "subclass_flavor": "Sacred Oath",
   "desc": [
-    "The archetypal Champion focuses on the development of raw physical power honed to deadly perfection. Those who model themselves on this archetype combine rigorous training with physical excellence to deal devastating blows."
+    "The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels--the perfect servants of good--as their ideals, and incorporate images of angelic wings into their helmets or coats of arms."
   ],
-  "features": [],
+  "spells": [
+    {
+      prerequisites: [
+        {
+          name: "Paladin 3",
+          type: "level",
+          url: "/api/classes/paladin/levels/3",
+        }
+      ],
+      spell: {
+        url: "/api/spells/protection-from-evil-and-good",
+        name: "Protection from Evil and Good",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 3",
+          type: "level",
+          url: "/api/classes/paladin/levels/3",
+        }
+      ],
+      spell: {
+        url: "/api/spells/sanctuary",
+        name: "Sanctuary",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 5",
+          type: "level",
+          url: "/api/classes/paladin/levels/5",
+        }
+      ],
+      spell: {
+        url: "/api/spells/lesser-restoration",
+        name: "Lesser Restoration",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 5",
+          type: "level",
+          url: "/api/classes/paladin/levels/5",
+        }
+      ],
+      spell: {
+        url: "/api/spells/zone-of-truth",
+        name: "Zone of Truth",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 9",
+          type: "level",
+          url: "/api/classes/paladin/levels/9",
+        }
+      ],
+      spell: {
+        url: "/api/spells/beacon-of-hope",
+        name: "Beacon of Hope",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 9",
+          type: "level",
+          url: "/api/classes/paladin/levels/9",
+        }
+      ],
+      spell: {
+        url: "/api/spells/dispel-magic",
+        name: "Dispel Magic",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 13",
+          type: "level",
+          url: "/api/classes/paladin/levels/13",
+        }
+      ],
+      spell: {
+        url: "/api/spells/freedom-of-movement",
+        name: "Freedom of Movement",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 17",
+          type: "level",
+          url: "/api/classes/paladin/levels/17",
+        }
+      ],
+      spell: {
+        url: "/api/spells/commune",
+        name: "Commune",
+      },
+    },
+    {
+      prerequisites: [
+        {
+          name: "Paladin 17",
+          type: "level",
+          url: "/api/classes/paladin/levels/17",
+        }
+      ],
+      spell: {
+        url: "/api/spells/flame-strike",
+        name: "Flame Strike",
+      },
+    },
+  ],
+  "subclass_levels": {
+    url: "/api/subclasses/devotion/levels"
+  }
   "url": "/api/subclasses/champion"
 }</code></pre>
 
@@ -31,18 +151,8 @@
   </thead>
   <tbody>
     <tr>
-      <td align="left">_id</td>
-      <td align="left">The string _id used by the database for this subclass resource</td>
-      <td align="left">string</td>
-    </tr>
-    <tr>
       <td align="left">index</td>
       <td align="left">The subclass index for shorthand searching.</td>
-      <td align="left">string</td>
-    </tr>
-    <tr>
-      <td align="left">name</td>
-      <td align="left">The name for this subclass resource</td>
       <td align="left">string</td>
     </tr>
     <tr>
@@ -53,20 +163,30 @@
       </td>
     </tr>
     <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this subclass resource</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
       <td align="left">subclass_flavor</td>
-      <td align="left">The lore-friendly flavor text for a classes respective subclasses.</td>
+      <td align="left">The lore-friendly flavor text for a classes respective subclass.</td>
       <td align="left">string</td>
     </tr>
     <tr>
       <td align="left">desc</td>
-      <td align="left">Desription of the subclass resource.</td>
+      <td align="left">Description of the subclass resource.</td>
       <td align="left">string</td>
     </tr>
     <tr>
-      <td align="left">features</td>
-      <td align="left">All possible features that this subclassclass can obtain.</td>
+      <td align="left">spells</td>
+      <td align="left">A list of spells that class can obtain at certain level thresholds</td>
+      <td align="left">list</td>
+    </tr>
+    <tr>
+      <td align="left">subclass_levels</td>
+      <td align="left">A resource url that shows the subclass level progression </td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#levels">Levels</a>)
       </td>
     </tr>
     <tr>
@@ -106,18 +226,29 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">count</td>
+      <td align="left">the number of features available to a subclass</td>
+      <td align="left">integer</td>
+    </tr>
+
+    <tr>
+      <td align="left">results</td>
+      <td align="left">A list of the available features for a subclass</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>GET api/subclasses/{index}/levels/</h3>
 
 <pre><code>[
   {
-    "_id": "5e4ca3380b1bb138c5896720",
     "level": 3,
-    "feature_choices": [
-
-    ],
+    "feature_choices": [],
     "features": [
       {
         "name": "Primal Path",
@@ -137,11 +268,10 @@
       "url": "/api/subclasses/berserker"
     },
     "url": "/api/subclasses/berserker/levels/3",
-    "index": 241
+    "index": "berserker-3"
   },
   ...
   {
-    "_id": "5e4ca3380b1bb138c5896723",
     "level": 14,
     "feature_choices": [
 
@@ -161,7 +291,7 @@
       "url": "/api/subclasses/berserker"
     },
     "url": "/api/subclasses/berserker/levels/14",
-    "index": 244
+    "index": "berserker-14"
   }
 ]</code></pre>
 
@@ -175,13 +305,61 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">level</td>
+      <td align="left">The level that the subclass gets access to this feature</td>
+      <td align="left">integer</td>
+    </tr>
+
+    <tr>
+      <td align="left">feature_choices</td>
+      <td align="left">A list of the available feature choices for a subclass</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left">features</td>
+      <td align="left">The feature available for a subclass</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left">classes</td>
+      <td align="left">The class that has access to subclass feature</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Classes</a>)
+      </td>
+    </tr>
+
+    tr>
+      <td align="left">subclass</td>
+      <td align="left">The subclass name</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclasses">Subclasses</a>)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The index of the subclass feature for shorthand use.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>GET api/subclasses/{index}/levels/{integer 1-20}</h3>
 
 <pre><code>{
-  "_id": "5e4ca3380b1bb138c5896720",
   "level": 3,
   "feature_choices": [
 
@@ -205,7 +383,7 @@
     "url": "/api/subclasses/berserker"
   },
   "url": "/api/subclasses/berserker/levels/3",
-  "index": 241
+  "index": "berserker-14"
 }</code></pre>
 
 <h4>Level for Subclass</h4>
@@ -218,7 +396,56 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">level</td>
+      <td align="left">The level that the subclass gets access to this feature</td>
+      <td align="left">integer</td>
+    </tr>
+
+    <tr>
+      <td align="left">feature_choices</td>
+      <td align="left">A list of the available feature choices for a subclass</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left">features</td>
+      <td align="left">The feature available for a subclass</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left">classes</td>
+      <td align="left">The class that has access to subclass feature</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Classes</a>)
+      </td>
+    </tr>
+
+    tr>
+      <td align="left">subclass</td>
+      <td align="left">The subclass name</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclasses">Subclasses</a>)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The index of the subclass feature for shorthand use.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>GET api/subclasses/{index}/levels/{integer 1-20}/features</h3>
@@ -244,5 +471,18 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody><tr>
+    <td align="left">count</td>
+    <td align="left">The number of features available at the requested level</td>
+    <td align="left">integer</td>
+  </tr>
+
+  <tr>
+    <td align="left">results</td>
+    <td align="left">A list of the available feature choices for a subclass at the requested level</td>
+    <td align="left">
+      list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+    </td>
+  </tr>
+</tbody>
 </table>

@@ -6,16 +6,17 @@
 <h3>GET api/equipment-categories/{index}</h3>
 
 <pre><code>{
-  "_id": "5e4ca3360b1bb138c589634c",
   "index": "armor",
   "name": "Armor",
   "equipment": [
     {
+      "index": "padded",
       "name": "Padded",
       "url": "/api/equipment/padded"
     },
     ...
     {
+      "index": "shield",
       "name": "Shield",
       "url": "/api/equipment/shield"
     }
@@ -33,5 +34,28 @@
       <th align="left">Data Type</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The equipment category index for shorthand searching</td>
+      <td align="left">string</td>
+    </tr>
+
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name of the equipment category</td>
+      <td align="left">string</td>
+    </tr>
+
+    <tr>
+      <td align="left">equipment</td>
+      <td align="left">A list of the equipment that falls into this category</td>
+      <td align="left">list
+        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories"
+          >Equipment Categories</a
+        >)
+      </td>
+    </tr>
+
+  </tbody>
 </table>
