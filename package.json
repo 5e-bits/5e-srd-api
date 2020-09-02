@@ -22,6 +22,7 @@
     "lodash": "^4.17.19",
     "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
+    "redis": "^3.0.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "jest": "^25.2.7",
     "mockingoose": "^2.13.2",
     "prettier": "^1.19.1",
+    "redis-mock": "^0.51.0",
     "supertest": "^4.0.2"
   }
 }

@@ -6,11 +6,16 @@ services:
     expose:
       - '27017'
 
+  cache:
+    image: redis:5.0.9
+
   api:
     environment:
       MONGODB_URI: mongodb://db/5e-database
+      REDIS_URL: redis://cache
     build: .
     ports:
       - '3000:3000'
     links:
       - db
+      - cache

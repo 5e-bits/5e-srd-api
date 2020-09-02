@@ -1,12 +1,24 @@
 const mockingoose = require('mockingoose').default;
+jest.mock('redis', () => {
+  const redis = require('redis-mock');
+  return redis;
+});
+const redis = require('redis');
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+const { closeRedisClient } = require('../../../util');
 const Monster = require('../../../models/monster');
 const MonsterController = require('../../../controllers/api/monsterController');
 
 let response;
 beforeEach(() => {
+  const client = redis.createClient();
+  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
+});
+
+afterAll(() => {
+  closeRedisClient();
 });
 
 describe('index', () => {
@@ -27,7 +39,7 @@ describe('index', () => {
       url: '/api/monsters/adult-black-dragon'
     }
   ];
-  const request = mockRequest({ query: {} });
+  const request = mockRequest({ query: {}, originalUrl: '/api/monsters' });
 
   it('returns a list of objects', async () => {
     mockingoose(Monster).toReturn(findDoc, 'find');
