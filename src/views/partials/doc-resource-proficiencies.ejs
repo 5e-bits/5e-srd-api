@@ -26,7 +26,14 @@
     }
   ],
   "races": [],
-  "url": "/api/proficiencies/medium-armor"
+  "url": "/api/proficiencies/medium-armor",
+  references: [
+    {
+    url: "/api/equipment-categories/medium-armor",
+    type: "equipment-categories",
+    name: "Medium armor",
+    }
+  ],
 }</code></pre>
 
 <h4>Proficiency</h4>
@@ -73,6 +80,13 @@
       <td align="left">url</td>
       <td align="left">The URL of the referenced resource</td>
       <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">references</td>
+      <td align="left">list of references</td>
+      <td align="left">
+        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+      </td>
     </tr>
   </tbody>
 </table>
