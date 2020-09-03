@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../../server');
-const { mongodbUri, redisClient, closeRedisClient } = require('../../util');
+const { mongodbUri, redisClient } = require('../../util');
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -13,7 +13,7 @@ beforeAll(async () => {
 
 afterAll(() => {
   mongoose.disconnect();
-  closeRedisClient();
+  redisClient.close();
 });
 
 describe('/', () => {

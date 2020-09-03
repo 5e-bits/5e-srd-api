@@ -9,12 +9,13 @@ module.exports = exports = class RedisClient extends BaseRedisClient {
     super();
 
     this.close = this.quit;
-    this.getAsPromise = promisify(this.get).bind(this);
+    this.getAsync = promisify(this.get).bind(this);
+    this.flushallAsync = promisify(this.flushall).bind(this);
     this.getSafely = this.getSafely.bind(this);
   }
 
   async getSafely(redisKey) {
-    return await this.getAsPromise(redisKey).catch(noop);
+    return await this.getAsync(redisKey).catch(noop);
   }
 
   static createClient() {
