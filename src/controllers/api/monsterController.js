@@ -1,8 +1,6 @@
-const { promisify } = require('util');
 const Monster = require('../../models/monster');
 const utility = require('./utility');
 const { redisClient } = require('../../util');
-const getAsync = promisify(redisClient.get).bind(redisClient);
 
 exports.index = async (req, res, next) => {
   const search_queries = {};
@@ -14,9 +12,7 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  const data = await getAsync(redisKey).catch(_err => {
-    return;
-  });
+  const data = await redisClient.getDataFromCache(redisKey);
 
   if (data) {
     res.status(200).json(JSON.parse(data));

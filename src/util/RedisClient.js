@@ -9,12 +9,17 @@ module.exports = exports = class RedisClient {
     this._getAsync = promisify(this._client.get).bind(this._client);
 
     this.getDataFromCache = this.getDataFromCache.bind(this);
+    this.set = this.set.bind(this);
     this.flushall = this.flushall.bind(this);
     this.close = this.close.bind(this);
   }
 
   async getDataFromCache(redisKey) {
     return await this._getAsync(redisKey).catch(noop);
+  }
+
+  set(redisKey, dataAsString) {
+    this._client.set(redisKey, dataAsString);
   }
 
   flushall() {

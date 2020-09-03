@@ -1,24 +1,21 @@
 const mockingoose = require('mockingoose').default;
 jest.mock('redis', () => {
-  const redis = require('redis-mock');
-  return redis;
+  return require('redis-mock');
 });
-const redis = require('redis');
+const { redisClient } = require('../../../util');
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const { closeRedisClient } = require('../../../util');
 const Spell = require('../../../models/spell');
 const SpellController = require('../../../controllers/api/spellController');
 
 let response;
 beforeEach(() => {
-  const client = redis.createClient();
-  client.flushall();
+  redisClient.flushall();
   mockingoose.resetAll();
   response = mockResponse();
 });
 
 afterAll(() => {
-  closeRedisClient();
+  redisClient.close();
 });
 
 describe('index', () => {
