@@ -504,8 +504,8 @@ describe('/api/monsters', () => {
   it('should hit the cache', async () => {
     redisClient.flushall();
     const clientSet = jest.spyOn(redisClient, 'set');
-    let res = await request(app).get('/api/monsters');
-    res = await request(app).get('/api/monsters');
+    await request(app).get('/api/monsters');
+    const res = await request(app).get('/api/monsters');
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
     expect(clientSet).toHaveBeenCalledTimes(1);
@@ -773,8 +773,8 @@ describe('/api/spells', () => {
   it('should hit the cache', async () => {
     redisClient.flushall();
     const clientSet = jest.spyOn(redisClient, 'set');
-    let res = await request(app).get('/api/spells');
-    res = await request(app).get('/api/spells');
+    await request(app).get('/api/spells');
+    const res = await request(app).get('/api/spells');
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
     expect(clientSet).toHaveBeenCalledTimes(1);
