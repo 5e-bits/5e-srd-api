@@ -12,7 +12,7 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  const data = await redisClient.getDataFromCache(redisKey);
+  const data = await redisClient.getSafely(redisKey);
 
   if (data) {
     res.status(200).json(JSON.parse(data));

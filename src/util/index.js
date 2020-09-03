@@ -1,7 +1,7 @@
 const RedisClient = require('./RedisClient');
 const { bugsnagApiKey, mongodbUri } = require('./environmentVariables');
 
-const redisClient = new RedisClient();
+const redisClient = RedisClient.createClient();
 
 module.exports = {
   bugsnagApiKey,

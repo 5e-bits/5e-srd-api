@@ -1,32 +1,23 @@
-const redis = require('redis');
 const { noop } = require('lodash');
 const { redisUrl } = require('./environmentVariables');
 const { promisify } = require('util');
+const { RedisClient: BaseRedisClient } = require('redis');
+const unifyOptions = require('redis/lib/createClient');
 
-module.exports = exports = class RedisClient {
+module.exports = exports = class RedisClient extends BaseRedisClient {
   constructor() {
-    this._client = redis.createClient(redisUrl);
-    this._getAsync = promisify(this._client.get).bind(this._client);
+    super();
 
-    this.getDataFromCache = this.getDataFromCache.bind(this);
-    this.set = this.set.bind(this);
-    this.flushall = this.flushall.bind(this);
-    this.close = this.close.bind(this);
+    this.close = this.quit;
+    this.getAsPromise = promisify(this.get).bind(this);
+    this.getSafely = this.getSafely.bind(this);
   }
 
-  async getDataFromCache(redisKey) {
-    return await this._getAsync(redisKey).catch(noop);
+  async getSafely(redisKey) {
+    return await this.getAsPromise(redisKey).catch(noop);
   }
 
-  set(redisKey, dataAsString) {
-    this._client.set(redisKey, dataAsString);
-  }
-
-  flushall() {
-    this._client.flushall();
-  }
-
-  close() {
-    this._client.quit();
+  static createClient() {
+    return new RedisClient(unifyOptions.apply(null, [redisUrl]));
   }
 };
