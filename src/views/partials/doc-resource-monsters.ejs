@@ -170,6 +170,29 @@
   "url": "/api/monsters/aboleth"
 }</code></pre>
 
+<h4>GET params</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">challenge_rating</td>
+      <td align="left">Lets you filter monsters for specific challenge ratings. It returns a list with all the monsters which have this rating or an empty list if none can be found. Multiple ratings and fractions are also supported.</td>
+      <td align="left">
+          <code>/monster?challenge_rating=2</code>
+          <code>/monster?challenge_rating=0.25</code>
+          <code>/monster?challenge_rating=2,0.25,4</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <h4>Monster</h4>
 
 <table>
