@@ -10,8 +10,9 @@
   "ability_bonuses": [
     {
       "name": "CON",
-      "url": "/api/ability-scores/con",
-      "bonus": 2
+      "index": "con",
+      "bonus": 2,
+      "url": "/api/ability-scores/con"
     }
   ],
   "alignment": "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order.",
@@ -20,20 +21,24 @@
   "size_description": "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.",
   "starting_proficiencies": [
     {
-      "url": "/api/proficiencies/battleaxes",
-      "name": "Battleaxes"
+      "name": "Battleaxes",
+      "index": "battleaxes",
+      "url": "/api/proficiencies/battleaxes"
     },
     {
-      "url": "/api/proficiencies/handaxes",
-      "name": "Handaxes"
+      "name": "Handaxes",
+      "index": "handaxes",
+      "url": "/api/proficiencies/handaxes"
     },
     {
-      "url": "/api/proficiencies/light-hammers",
-      "name": "Light hammers"
+      "name": "Light hammers",
+      "index": "light-hammers",
+      "url": "/api/proficiencies/light-hammers"
     },
     {
-      "url": "/api/proficiencies/warhammers",
-      "name": "Warhammers"
+      "name": "Warhammers",
+      "index": "warhammers",
+      "url": "/api/proficiencies/warhammers"
     }
   ],
   "starting_proficiency_options": {
@@ -41,51 +46,61 @@
     "type": "proficiencies",
     "from": [
       {
-        "url": "/api/proficiencies/smiths-tools",
-        "name": "Smith's tools"
+        "name": "Smith's tools",
+        "index": "smiths-tools",
+        "url": "/api/proficiencies/smiths-tools"
       },
       {
+        "name": "Brewer's supplies",
+        "index": "brewers-supplies",
         "url": "/api/proficiencies/brewers-supplies",
-        "name": "Brewer's supplies"
       },
       {
-        "url": "/api/proficiencies/masons-tools",
-        "name": "Mason's tools"
+        "name": "Mason's tools",
+        "index": "masons-tools",
+        "url": "/api/proficiencies/masons-tools"
       }
     ]
   },
   "languages": [
     {
-      "url": "/api/languages/common",
-      "name": "Common"
+      "name": "Common",
+      "index": "common",
+      "url": "/api/languages/common"
     },
     {
-      "url": "/api/languages/dwarvish",
-      "name": "Dwarvish"
+      "name": "Dwarvish",
+      "index": "dwarvish",
+      "url": "/api/languages/dwarvish"
     }
   ],
   "language_desc": "You can speak, read, and write Common and Dwarvish. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might speak.",
   "traits": [
     {
       "name": "Darkvision",
+      "index": "darkvision",
       "url": "/api/traits/darkvision"
     },
     {
       "name": "Dwarven Resilience",
+      "index": "dwarven-resilience",
       "url": "/api/traits/dwarven-resilience"
     },
     {
       "name": "Stonecunning",
+      "index": "stonecunning",
       "url": "/api/traits/stonecunning"
     }
     {
       "name": "Dwarven Combat Training",
+      "index": "dwarven-combat-training",
       "url": "/api/traits/dwarven-combat-training"
     }
   ],
   "subraces": [
     {
       "url": "/api/subraces/hill-dwarf",
+      "index": "hill-dwarf",
       "name": "Hill Dwarf"
     }
   ],
@@ -147,7 +162,7 @@
       <td align="left">starting_proficiencies</td>
       <td align="left">Starting proficiencies for all new characters of this race</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies"
+        list <a href="#apireference">APIReference</a> (<a href="#proficiencies"
           >Proficiencies</a
         >)
       </td>
@@ -156,7 +171,7 @@
       <td align="left">languages</td>
       <td align="left">Starting languages for all new characters of this race</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#languages">Proficiencies</a
+        list <a href="#apireference">APIReference</a> (<a href="#languages">Proficiencies</a
         >)
       </td>
     </tr>
@@ -169,7 +184,7 @@
       <td align="left">traits</td>
       <td align="left">Racial traits that provide benefits to its members</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Trait</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#traits">Trait</a>)
       </td>
     </tr>
     <tr>
@@ -179,7 +194,7 @@
         known, spellcasting ability, and cantrips known.
       </td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subraces">Subrace</a>)
+        <a href="#apireference">APIReference</a> (<a href="#subraces">Subrace</a>)
       </td>
     </tr>
     <tr>
@@ -224,7 +239,7 @@
       <td align="left">results</td>
       <td align="left">A list of the subrace and its reference url</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subraces">Subrace</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#subraces">Subrace</a>)
       </td>
     </tr>
   </tbody>
@@ -264,7 +279,7 @@
       <td align="left">results</td>
       <td align="left">A list of the available proficiencies for a race</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#proficiencies">Proficiencies</a>)
       </td>
     </tr>
   </tbody>
@@ -310,7 +325,7 @@
       <td align="left">results</td>
       <td align="left">A list of the available traits for a race</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Traits</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#traits">Traits</a>)
       </td>
     </tr>
   </tbody>

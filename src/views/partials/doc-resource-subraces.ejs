@@ -7,23 +7,26 @@
   "index": "hill-dwarf",
   "name": "Hill Dwarf",
   "race": {
+    "name": "Dwarf",
+    "index": "dwarf",
     "url": "/api/races/dwarf",
-    "name": "Dwarf"
   },
   "desc": "As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.",
   "ability_bonuses": [
     {
       "name": "WIS",
-      "url": "/api/ability-scores/wis",
-      "bonus": 1
+      "index": "wis",
+      "bonus": 1,
+      "url": "/api/ability-scores/wis"
     }
   ],
   "starting_proficiencies": [],
   "languages": [],
   "racial_traits": [
     {
-      "url": "/api/traits/stonecunning",
-      "name": "Dwarven Toughness"
+      "name": "Dwarven Toughness",
+      "index": "dwarven-toughness",
+      "url": "/api/traits/stonecunning"
     }
   ],
   "url": "/api/subraces/hill-dwarf"
@@ -54,7 +57,7 @@
       <td align="left">race</td>
       <td align="left">The parent race for this subrace.</td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)
+        <a href="#apireference">APIReference</a> (<a href="#races">Race</a>)
       </td>
     </tr>
     <tr>
@@ -71,7 +74,7 @@
       <td align="left">starting_proficiencies</td>
       <td align="left">Starting proficiencies for all new characters of this subrace</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies"
+        list <a href="#apireference">APIReference</a> (<a href="#proficiencies"
           >Proficiencies</a
         >)
       </td>
@@ -80,7 +83,7 @@
       <td align="left">languages</td>
       <td align="left">Starting languages for all new characters of this subrace</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#languages">Proficiencies</a
+        list <a href="#apireference">APIReference</a> (<a href="#languages">Proficiencies</a
         >)
       </td>
     </tr>
@@ -88,7 +91,7 @@
       <td align="left">traits</td>
       <td align="left">Racial traits that provide benefits to its members</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Trait</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#traits">Trait</a>)
       </td>
     </tr>
     <tr>
@@ -138,7 +141,7 @@
       <td align="left">results</td>
       <td align="left">Subracial traits that provide benefits to its members</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#traits">Traits</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#traits">Traits</a>)
       </td>
     </tr>
   </tbody>
@@ -182,7 +185,7 @@
     <td align="left">results</td>
     <td align="left">Subracial proficiences that provide benefits to its members</td>
     <td align="left">
-      list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiences">Proficiencies</a>)
+      list <a href="#apireference">APIReference</a> (<a href="#proficiences">Proficiencies</a>)
     </td>
   </tr></tbody>
 </table>

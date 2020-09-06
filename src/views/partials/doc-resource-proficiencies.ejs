@@ -9,29 +9,34 @@
   "name": "Medium armor",
   "classes": [
     {
-      "url": "/api/classes/barbarian",
-      "name": "Barbarian"
+      "name": "Barbarian",
+      "index": "barbarian",
+      "url": "/api/classes/barbarian"
     },
     {
-      "url": "/api/classes/cleric",
-      "name": "Cleric"
+      "name": "Cleric",
+      "index": "cleric",
+      "url": "/api/classes/cleric"
     },
     {
-      "url": "/api/classes/druid",
-      "name": "Druid"
+      "name": "Druid",
+      "index": "druid",
+      "url": "/api/classes/druid"
     },
     {
+      "name": "Ranger",
+      "index": "ranger",
       "url": "/api/classes/ranger",
-      "name": "Ranger"
     }
   ],
   "races": [],
   "url": "/api/proficiencies/medium-armor",
-  references: [
+  "references": [
     {
-    url: "/api/equipment-categories/medium-armor",
-    type: "equipment-categories",
-    name: "Medium armor",
+      "name": "Medium armor",
+      "index": "medium-armor",
+      "type": "equipment-categories",
+      "url": "/api/equipment-categories/medium-armor"
     }
   ],
 }</code></pre>
@@ -66,14 +71,14 @@
       <td align="left">classes</td>
       <td align="left">Classes that start with this proficiency.</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Class</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#classes">Class</a>)
       </td>
     </tr>
     <tr>
       <td align="left">races</td>
       <td align="left">Races that start with this proficiency.</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#races">Race</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#races">Race</a>)
       </td>
     </tr>
     <tr>
@@ -85,7 +90,7 @@
       <td align="left">references</td>
       <td align="left">list of references</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#equipment-categories">Equipment Categories</a>)
       </td>
     </tr>
   </tbody>

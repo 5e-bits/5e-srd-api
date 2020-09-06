@@ -29,39 +29,44 @@
   "attack_type": "ranged",
 
   "damage": {
-    damage_type: {
-      name: "Acid",
-      url: "/api/damage-types/acid",
+    "damage_type": {
+      "name": "Acid",
+      "index": "acid",
+      "url": "/api/damage-types/acid"
     },
-    damage_at_slot_level: {
-      2: "4d4",
-      3: "5d4",
-      4: "6d4",
-      5: "7d4",
-      6: "8d4",
-      7: "9d4",
-      8: "10d4",
-      9: "11d4",
+    "damage_at_slot_level": {
+      "2": "4d4",
+      "3": "5d4",
+      "4": "6d4",
+      "5": "7d4",
+      "6": "8d4",
+      "7": "9d4",
+      "8": "10d4",
+      "9": "11d4",
     },
   },
 
   "school": {
     "name": "Evocation",
+    "index": "evocation",
     "url": "/api/magic-schools/evocation"
   },
   "classes": [
     {
       "name": "Wizard",
+      "index": "wizard",
       "url": "/api/classes/wizard"
     }
   ],
   "subclasses": [
     {
       "name": "Lore",
+      "index": "lore",
       "url": "/api/subclasses/lore"
     },
     {
       "name": "Land",
+      "index": "land",
       "url": "/api/subclasses/land"
     }
   ],
@@ -159,19 +164,19 @@
     <tr>
       <td align="left">school</td>
       <td align="left">The magic school this spell belongs to</td>
-      <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#magic-schools">Magic Schools</a>)</td>
+      <td align="left"><a href="#apireference">APIReference</a> (<a href="#magic-schools">Magic Schools</a>)</td>
     </tr>
 
     <tr>
       <td align="left">classes</td>
       <td align="left">The classes that are able to learn this spell</td>
-      <td align="left"><a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Classes</a>)</td>
+      <td align="left"><a href="#apireference">APIReference</a> (<a href="#classes">Classes</a>)</td>
     </tr>
 
     <tr>
       <td align="left">subclasses</td>
       <td align="left">A list of subclasses that have access to this spell</td>
-      <td align="left">list<a href="#namedapiresource">NamedAPIResource</a> (<a href="#classes">Classes</a>)</td>
+      <td align="left">list<a href="#apireference">APIReference</a> (<a href="#classes">Classes</a>)</td>
     </tr>
 
     <tr>
