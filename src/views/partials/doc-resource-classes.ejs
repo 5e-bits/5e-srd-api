@@ -12,79 +12,82 @@
   "name": "Warlock",
   "hit_die": 8,
   "proficiency_choices": [
-  {
-    "choose": 2,
-    "type": "proficiencies",
-    "from": [
     {
-      "url": "/api/proficiencies/skill-arcana",
-      "name": "Skill: Arcana"
-    },
-    {
-      "url": "/api/proficiencies/skill-deception",
-      "name": "Skill: Deception"
-    },
-    {
-      "url": "/api/proficiencies/skill-history",
-      "name": "Skill: History"
-    },
-    {
-      "url": "/api/proficiencies/skill-intimidation",
-      "name": "Skill: Intimidation"
-    },
-    {
-      "url": "/api/proficiencies/skill-investigation",
-      "name": "Skill: Investigation"
-    },
-    {
-      "url": "/api/proficiencies/skill-nature",
-      "name": "Skill: Nature"
-    },
-    {
-      "url": "/api/proficiencies/skill-religion",
-      "name": "Skill: Religion"
+      "choose": 2,
+      "type": "proficiencies",
+      "from": [
+        {
+          "index": "skill-arcana",
+          "name": "Skill: Arcana",
+          "url": "/api/proficiencies/skill-arcana"
+        },
+        {
+          "index": "skill-deception",
+          "name": "Skill: Deception",
+          "url": "/api/proficiencies/skill-deception"
+        },
+        {
+          "index": "skill-history",
+          "name": "Skill: History",
+          "url": "/api/proficiencies/skill-history"
+        },
+        {
+          "index": "skill-intimidation",
+          "name": "Skill: Intimidation",
+          "url": "/api/proficiencies/skill-intimidation"
+        },
+        {
+          "index": "skill-investigation",
+          "name": "Skill: Investigation",
+          "url": "/api/proficiencies/skill-investigation"
+        },
+        {
+          "index": "skill-nature",
+          "name": "Skill: Nature",
+          "url": "/api/proficiencies/skill-nature"
+        },
+        {
+          "index": "skill-religion",
+          "name": "Skill: Religion",
+          "url": "/api/proficiencies/skill-religion"
+        }
+      ]
     }
-    ]
-  }
   ],
   "proficiencies": [
-  {
-    "name": "Light armor",
-    "url": "/api/proficiencies/light-armor"
-  },
-  {
-    "name": "Simple weapons",
-    "url": "/api/proficiencies/simple-weapons"
-  }
+    {
+      "index": "light-armor",
+      "name": "Light armor",
+      "url": "/api/proficiencies/light-armor"
+    },
+    {
+      "index": "simple-weapons",
+      "name": "Simple weapons",
+      "url": "/api/proficiencies/simple-weapons"
+    }
   ],
   "saving_throws": [
-  {
-    "name": "WIS",
-    "url": "/api/ability-scores/wis"
-  },
-  {
-    "name": "CHA",
-    "url": "/api/ability-scores/cha"
-  }
+    {
+      "index": "wis",
+      "name": "WIS",
+      "url": "/api/ability-scores/wis"
+    },
+    {
+      "index": "cha",
+      "name": "CHA",
+      "url": "/api/ability-scores/cha"
+    }
   ],
-  "starting_equipment": {
-    "url": "/api/starting-equipment/warlock",
-    "class": "Warlock"
-  },
-  "class_levels": {
-    "url": "/api/classes/warlock/levels",
-    "class": "Warlock"
-  },
+  "starting_equipment": "/api/starting-equipment/warlock",
+  "class_levels": "/api/classes/warlock/levels",
   "subclasses": [
-  {
-    "url": "/api/subclasses/fiend",
-    "name": "Fiend"
-  }
+    {
+      "index": "fiend",
+      "name": "Fiend",
+      "url": "/api/subclasses/fiend"
+    }
   ],
-  "spellcasting": {
-    "url": "/api/spellcasting/warlock",
-    "class": "Warlock"
-  },
+  "spellcasting": "/api/spellcasting/warlock",
   "url": "/api/classes/warlock"
 }</code></pre>
 
@@ -127,7 +130,7 @@
       <td align="left">proficiencies</td>
       <td align="left">Starting proficiencies all new characters of this class start with.</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies"
+        list <a href="#apireference">APIReference</a> (<a href="#proficiencies"
           >Proficiencies</a
         >)
       </td>
@@ -136,7 +139,7 @@
       <td align="left">saving_throws</td>
       <td align="left">Saving throws that the class is proficient in</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#ability-scores"
+        list <a href="#apireference">APIReference</a> (<a href="#ability-scores"
           >Ability Scores</a
         >)
       </td>
@@ -147,9 +150,7 @@
         An object with the possible choices of equipment for new characters of this class.
       </td>
       <td align="left">
-        <a href="#classapiresource">ClassAPIResource</a> (<a href="#starting-equipment"
-          >StartingEquipment</a
-        >)
+        string (<a href="#starting-equipment">StartingEquipment</a>)
       </td>
     </tr>
     <tr>
@@ -157,13 +158,13 @@
       <td align="left">
         All possible levels that this class can obtain (excluding subclass-specific features)
       </td>
-      <td align="left">list <a href="#levels">Levels</a></td>
+      <td align="left">string (<a href="#levels">Levels</a>)</td>
     </tr>
     <tr>
       <td align="left">subclasses</td>
       <td align="left">All possible subclasses that this class can specialize in.</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclass">Subclass</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#subclass">Subclass</a>)
       </td>
     </tr>
     <tr>
@@ -173,7 +174,7 @@
         known, spellcasting ability, and cantrips known.
       </td>
       <td align="left">
-        <a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)
+        string (<a href="#spellcasting">Spellcasting</a>)
       </td>
     </tr>
     <tr>
@@ -190,12 +191,12 @@
   "count": 1,
   "results": [
     {
-    "index": "lore",
-    "name": "Lore",
-    "url": "/api/subclasses/lore",
+      "index": "lore",
+      "name": "Lore",
+      "url": "/api/subclasses/lore",
     }
   ],
-  }</code></pre>
+}</code></pre>
 
 <h4>Subclasses for Class</h4>
 
@@ -215,7 +216,7 @@
       <td align="left">results</td>
       <td align="left">A list of subclasses available to a class</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#subclass">Subclass</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#subclass">Subclass</a>)
       </td>
     </tr>
   </thead>
@@ -348,7 +349,7 @@
       <td align="left">class</td>
       <td align="left">The class which this level refers to.</td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>) Updated
+        <a href="#apireference">APIReference</a> (<a href="#class">Class</a>) Updated
         ability scores, classes, and conditions
       </td>
     </tr>
@@ -357,7 +358,7 @@
       <td align="left">starting_equipment</td>
       <td align="left">The starting equipment a character automatically gets</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment">Equipment</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#equipment">Equipment</a>)
       </td>
     </tr>
 
@@ -383,27 +384,29 @@
 <pre><code>{
   "index": "bard",
   "class": {
-    "url": "/api/classes/bard",
-    "name": "Bard"
+    "index": "bard",
+    "name": "Bard",
+    "url": "/api/classes/bard"
   },
   "level": 1,
   "spellcasting_ability": {
-    "url": "/api/ability-scores/cha",
+    "index": "cha",
     "name": "CHA",
+    "url": "/api/ability-scores/cha"
   },
   "info": [
     {
       "name": "Cantrips",
       "desc": [
         "You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table."
-      ],
+      ]
     },
     {
       "name": "Spell Slots",
       "desc": [
         "The Bard table shows how many spell slots you have to cast your spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.",
-        "For example, if you know the 1st-level spell cure wounds and have a 1st-level and a 2nd-level spell slot available, you can cast cure wounds using either slot.",
-      ],
+        "For example, if you know the 1st-level spell cure wounds and have a 1st-level and a 2nd-level spell slot available, you can cast cure wounds using either slot."
+      ]
     },
     {
       "name": "Spells Known of 1st Level and Higher",
@@ -411,31 +414,31 @@
         "You know four 1st-level spells of your choice from the bard spell list.",
         "The Spells Known column of the Bard table shows when you learn more bard spells of your choice.",
         "Each of these spells must be of a level for which you have spell slots, as shown on the table. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level.",
-        "Additionally, when you gain a level in this class, you can choose one of the bard spells you know and replace it with another spell from the bard spell list, which also must be of a level for which you have spell slots.",
-      ],
+        "Additionally, when you gain a level in this class, you can choose one of the bard spells you know and replace it with another spell from the bard spell list, which also must be of a level for which you have spell slots."
+      ]
     },
     {
       "name": "Spellcasting Ability",
       "desc": [
         "Charisma is your spellcasting ability for your bard spells. Your magic comes from the heart and soul you pour into the performance of your music or oration. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a bard spell you cast and when making an attack roll with one.",
         "Spell save DC = 8 + your proficiency bonus + your Charisma modifier.",
-        "Spell attack modifier = your proficiency bonus + your Charisma modifier.",
-      ],
+        "Spell attack modifier = your proficiency bonus + your Charisma modifier."
+      ]
     },
     {
       "name": "Ritual Casting",
       "desc": [
         "You can cast any bard spell you know as a ritual if that spell has the ritual tag."
-      ],
+      ]
     },
     {
       "name": "Spellcasting Focus",
       "desc": [
         "You can use a musical instrument (see Equipment) as a spellcasting focus for your bard spells."
-      ],
-    },
+      ]
+    }
   ],
-  "url": "/api/spellcasting/bard",
+  "url": "/api/spellcasting/bard"
 }</code></pre>
 
 <h4>Spellcasting for Class</h4>
@@ -459,7 +462,7 @@
       <td align="left">class</td>
       <td align="left">The class which this level refers to.</td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>) Updated
+        <a href="#apireference">APIReference</a> (<a href="#class">Class</a>) Updated
         ability scores, classes, and conditions
       </td>
     </tr>
@@ -474,7 +477,7 @@
       <td align="left">spellcasting_ability</td>
       <td align="left">The attribute used by the spellcasting class</td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#spells">Spells</a>)
+        <a href="#apireference">APIReference</a> (<a href="#spells">Spells</a>)
       </td>
     </tr>
 
@@ -494,7 +497,7 @@
 
 <h3>GET api/classes/{index}/spells/</h3>
 
-<pre><code>
+<pre><code>{
   "count": 111,
   "results": [
     {
@@ -531,7 +534,7 @@
       <td align="left">results</td>
       <td align="left">A list of the spells available to a class</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#spells">Spells</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#spells">Spells</a>)
       </td>
     </tr>
   </tbody>
@@ -577,7 +580,7 @@
         <td align="left">results</td>
         <td align="left">A list of features available to a class</td>
         <td align="left">
-          list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+          list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
         </td>
       </tr>
     </tbody>
@@ -624,7 +627,7 @@
         <td align="left">results</td>
         <td align="left">A list of proficiencies available to a class</td>
         <td align="left">
-          list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#proficiencies">Proficiencies</a>)
+          list <a href="#apireference">APIReference</a> (<a href="#proficiencies">Proficiencies</a>)
         </td>
       </tr>
     </tbody>
@@ -641,10 +644,12 @@
     "feature_choices": [],
     "features": [
       {
+        "index": "spellcasting-bard",
         "name": "Spellcasting",
         "url": "/api/features/spellcasting-bard"
       },
       {
+        "index": "bardic-inspiration-d6",
         "name": "Bardic Inspiration (d6)",
         "url": "/api/features/bardic-inspiration-d6"
       }
@@ -672,6 +677,7 @@
     "index": "bard-1",
     "class": {
       "name": "Bard",
+      "index": "bard",
       "url": "/api/classes/bard"
     },
     "url": "/api/classes/bard/levels/1"
@@ -684,6 +690,7 @@
     "feature_choices": [],
     "features": [
       {
+        "index": "superior-inspiration",
         "name": "Superior Inspiration",
         "url": "/api/features/superior-inspiration"
       }
@@ -711,6 +718,7 @@
     "index": "bard-20",
     "class": {
       "name": "Bard",
+      "index": "bard",
       "url": "/api/classes/bard"
     },
     "url": "/api/classes/bard/levels/20"
@@ -756,22 +764,20 @@
         Special features which require a player to choose a new feature to be added.
       </td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
       </td>
     </tr>
     <tr>
       <td align="left">features</td>
       <td align="left">Features automatically gained by players at this level.</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
       </td>
     </tr>
     <tr>
       <td align="left">spellcasting</td>
       <td align="left">spells known, spellcasting ability, and cantrips known.</td>
-      <td align="left">
-        <a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)
-      </td>
+      <td align="left"> object </td>
     </tr>
     <tr>
       <td align="left">class_specific</td>
@@ -785,7 +791,7 @@
       <td align="left">class</td>
       <td align="left">The class which this level refers to.</td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>) Updated
+        <a href="#apireference">APIReference</a> (<a href="#class">Class</a>) Updated
         ability scores, classes, and conditions
       </td>
     </tr>
@@ -881,21 +887,21 @@
         Special features which require a player to choose a new feature to be added.
       </td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
       </td>
     </tr>
     <tr>
       <td align="left">features</td>
       <td align="left">Features automatically gained by players at this level.</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
       </td>
     </tr>
     <tr>
       <td align="left">spellcasting</td>
       <td align="left">spells known, spellcasting ability, and cantrips known.</td>
       <td align="left">
-        <a href="#classapiresource">ClassAPIResource</a> (<a href="#spellcasting">Spellcasting</a>)
+        object
       </td>
     </tr>
     <tr>
@@ -910,7 +916,7 @@
       <td align="left">class</td>
       <td align="left">The class which this level refers to.</td>
       <td align="left">
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#class">Class</a>) Updated
+        <a href="#apireference">APIReference</a> (<a href="#class">Class</a>) Updated
         ability scores, classes, and conditions
       </td>
     </tr>
@@ -961,7 +967,7 @@
         <td align="left">results</td>
         <td align="left">A list of features available to a class at the requested level</td>
         <td align="left">
-          list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#features">Features</a>)
+          list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
         </td>
       </tr>
     </tbody>
@@ -1007,7 +1013,7 @@
         <td align="left">results</td>
         <td align="left">A list of spells availabe to a class at the specified level</td>
         <td align="left">
-          list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#spells">Spells</a>)
+          list <a href="#apireference">APIReference</a> (<a href="#spells">Spells</a>)
         </td>
       </tr>
     </tbody>

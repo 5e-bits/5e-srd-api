@@ -26,8 +26,9 @@
   "damage": {
     "damage_dice": "1d4",
     "damage_type": {
-      "url": "/api/damage-types/bludgeoning",
-      "name": "Bludgeoning"
+      "name": "Bludgeoning",
+      "index": "bludgeoning",
+      "url": "/api/damage-types/bludgeoning"
     }
   },
   "range": {
@@ -37,12 +38,14 @@
   "weight": 2,
   "properties": [
     {
-      "url": "/api/weapon-properties/light",
-      "name": "Light"
+      "name": "Light",
+      "index": "light",
+      "url": "/api/weapon-properties/light"
     },
     {
-      "url": "/api/weapon-properties/monk",
-      "name": "Monk"
+      "name": "Monk",
+      "index": "light",
+      "url": "/api/weapon-properties/monk"
     }
   ],
   "url": "/api/equipment/club"
@@ -72,7 +75,7 @@
       <td align="left">equipment_category</td>
       <td align="left">The category of equipment this falls into</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#equipment-categories">Equipment Categories</a>)
       </td>
     </tr>
     <tr>
@@ -116,7 +119,7 @@
       <td align="left">properties</td>
       <td align="left">A list of the properties this weapon has</td>
       <td align="left">list
-        <a href="#namedapiresource">NamedAPIResource</a> (<a href="#weapon-properties"
+        <a href="#apireference">APIReference</a> (<a href="#weapon-properties"
           >Weapon Properties</a
         >)
       </td>
@@ -137,7 +140,8 @@
   "name": "Padded",
   "equipment_category": {
     "name": "Armor",
-    "url": "/api/equipment-categories/armor",
+    "index": "armor",
+    "url": "/api/equipment-categories/armor"
     },
   "armor_category": "Light",
   "armor_class": {
@@ -179,7 +183,7 @@
       <td align="left">equipment_category</td>
       <td align="left">The category of equipment this falls into</td>
       <td align="left">
-        list <a href="#namedapiresource">NamedAPIResource</a> (<a href="#equipment-categories">Equipment Categories</a>)
+        list <a href="#apireference">APIReference</a> (<a href="#equipment-categories">Equipment Categories</a>)
       </td>
     </tr>
     <tr>
