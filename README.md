@@ -5,7 +5,7 @@
 
 REST API to access [D&amp;D 5th Edition SRD API](https://www.dnd5eapi.co/)
 
-Talk to us [on Discord!](https://discord.gg/TQuYTv7)
+Talk to us [on Discord!](https://discord.gg/TQuYTv7/login)
 
 ## How to Run
 
