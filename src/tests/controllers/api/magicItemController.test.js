@@ -25,7 +25,7 @@ describe('index', () => {
       index: 'amulet-of-health',
       name: 'Amulet of Health',
       url: '/api/magic-items/amulet-of-health'
-    },
+    }
   ];
   const request = mockRequest({ query: {} });
 
