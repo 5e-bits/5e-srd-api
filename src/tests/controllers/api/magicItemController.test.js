@@ -58,7 +58,7 @@ describe('show', () => {
     url: '/api/magic-items/adamantine-armor'
   };
 
-  const showParams = { index: 'abyssal' };
+  const showParams = { index: 'adamantine-armor' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
