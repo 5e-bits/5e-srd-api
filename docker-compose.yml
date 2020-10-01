@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   db:
-    image: fuzzylombax/5e-srd-database
+    image: fuzzylombax/5e-srd-database:latest
     expose:
       - '27017'
 
