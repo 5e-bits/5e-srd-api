@@ -73,6 +73,31 @@
   "url": "/api/spells/acid-arrow"
 }</code></pre>
 
+<h4>GET params</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">levels</td>
+      <td align="left">Lets you filter spells for specific levels. It returns a list with all the spells which have this
+        level or an empty list if none can be found. Multiple ratings are supported.
+      </td>
+      <td align="left">
+        <code>/spells?levels=2</code>
+        <code>/spells?levels=0.25</code>
+        <code>/spells?levels=2,0.25,4</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <h4>Spell</h4>
 
 <table>
@@ -109,7 +134,8 @@
 
     <tr>
       <td align="left">components</td>
-      <td align="left">The required components for a spell are shorthanded to V,S, and M which stand for verbal, somatic, and material</td>
+      <td align="left">The required components for a spell are shorthanded to V,S, and M which stand for verbal,
+        somatic, and material</td>
       <td align="left">list</td>
     </tr>
 
