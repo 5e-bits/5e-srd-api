@@ -928,10 +928,10 @@ describe('/api/spells', () => {
 
       const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
       expect(indexRes.statusCode).toEqual(200);
-      expect(indexRes.body.level).toEqual(expectedSchool);
+      expect(indexRes.body.school).toEqual(expectedSchool);
     });
 
-    describe('with many provided level', () => {
+    describe('with many provided schools', () => {
       it('returns expected objects', async () => {
         const expectedSchool1 = 'Illusion';
         const res1 = await request(app).get(`/api/spells?school=${expectedSchool1}`);
@@ -953,7 +953,7 @@ describe('/api/spells', () => {
         const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
         expect(indexRes.statusCode).toEqual(200);
         expect(
-          indexRes.body.level == expectedSchool1 || indexRes.body.level == expectedSchool2
+          indexRes.body.school == expectedSchool1 || indexRes.body.school == expectedSchool2
         ).toBeTruthy();
       });
     });
