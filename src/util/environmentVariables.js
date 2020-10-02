@@ -5,5 +5,5 @@ const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/5e-database';
 module.exports = {
   redisUrl,
   bugsnagApiKey,
-  mongodbUri,
+  mongodbUri
 };
