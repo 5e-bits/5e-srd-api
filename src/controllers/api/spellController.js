@@ -15,10 +15,8 @@ exports.index = async (req, res, next) => {
   }
 
   if (req.query.school !== undefined) {
-    const schoolRegex = req.query.school.split(",").map(
-      (c) => new RegExp(c, "i")
-    );
-    search_queries["school.name"] = { $in: schoolRegex };
+    const schoolRegex = req.query.school.split(',').map(c => new RegExp(c, 'i'));
+    search_queries['school.name'] = { $in: schoolRegex };
   }
 
   const redisKey = req.originalUrl;
