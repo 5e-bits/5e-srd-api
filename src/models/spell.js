@@ -8,6 +8,7 @@ var SpellSchema = new Schema({
   },
   index: String,
   name: String,
+  level: Number,
   url: String
 });
 

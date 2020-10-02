@@ -601,40 +601,45 @@ describe('/api/monsters', () => {
     });
   });
 
-  describe('with only one provided challenge rating query', () => {
-    it('returns expected objects', async () => {
-      const res = await request(app).get('/api/monsters?challenge_rating=0.25');
-      expect(res.statusCode).toEqual(200);
+  describe('with challenge_rating query', () => {
+    describe('with only one provided challenge rating', () => {
+      it('returns expected objects', async () => {
+        const expectedCR = 0.25;
+        const res = await request(app).get(`/api/monsters?challenge_rating=${expectedCR}`);
+        expect(res.statusCode).toEqual(200);
 
-      const randomIndex = Math.floor(Math.random() * res.body.results.length);
-      const randomResult = res.body.results[randomIndex];
+        const randomIndex = Math.floor(Math.random() * res.body.results.length);
+        const randomResult = res.body.results[randomIndex];
 
-      const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
-      expect(indexRes.statusCode).toEqual(200);
-      expect(indexRes.body.challenge_rating).toEqual(0.25);
+        const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+        expect(indexRes.statusCode).toEqual(200);
+        expect(indexRes.body.challenge_rating).toEqual(expectedCR);
+      });
     });
-  });
 
-  describe('with many provided challenge ratings query', () => {
-    it('returns expected objects', async () => {
-      const cr1Res = await request(app).get('/api/monsters?challenge_rating=1');
-      expect(cr1Res.statusCode).toEqual(200);
+    describe('with many provided challenge ratings', () => {
+      it('returns expected objects', async () => {
+        const cr1 = 1;
+        const cr1Res = await request(app).get(`/api/monsters?challenge_rating=${cr1}`);
+        expect(cr1Res.statusCode).toEqual(200);
 
-      const cr20Res = await request(app).get('/api/monsters?challenge_rating=20');
-      expect(cr20Res.statusCode).toEqual(200);
+        const cr20 = 20;
+        const cr20Res = await request(app).get(`/api/monsters?challenge_rating=${cr20}`);
+        expect(cr20Res.statusCode).toEqual(200);
 
-      const bothRes = await request(app).get('/api/monsters?challenge_rating=1,20');
-      expect(bothRes.statusCode).toEqual(200);
-      expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
+        const bothRes = await request(app).get(`/api/monsters?challenge_rating=${cr1},${cr20}`);
+        expect(bothRes.statusCode).toEqual(200);
+        expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
-      const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
-      const randomResult = bothRes.body.results[randomIndex];
+        const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
+        const randomResult = bothRes.body.results[randomIndex];
 
-      const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
-      expect(indexRes.statusCode).toEqual(200);
-      expect(
-        indexRes.body.challenge_rating == 1 || indexRes.body.challenge_rating == 20
-      ).toBeTruthy();
+        const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+        expect(indexRes.statusCode).toEqual(200);
+        expect(
+          indexRes.body.challenge_rating == cr1 || indexRes.body.challenge_rating == cr20
+        ).toBeTruthy();
+      });
     });
   });
 
@@ -869,6 +874,51 @@ describe('/api/spells', () => {
       expect(res.body.results[0].name).toEqual(name);
     });
   });
+
+  describe('with level query', () => {
+    describe('with only one provided level', () => {
+      it('returns expected objects', async () => {
+        const expectedLevel = 2;
+        const res = await request(app).get(`/api/spells?level=${expectedLevel}`);
+        expect(res.statusCode).toEqual(200);
+
+        const randomIndex = Math.floor(Math.random() * res.body.results.length);
+        const randomResult = res.body.results[randomIndex];
+
+        const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
+        expect(indexRes.statusCode).toEqual(200);
+        expect(indexRes.body.level).toEqual(expectedLevel);
+      });
+    });
+
+    describe('with many provided level', () => {
+      it('returns expected objects', async () => {
+        const expectedLevel1 = 1;
+        const level1Res = await request(app).get(`/api/spells?level=${expectedLevel1}`);
+        expect(level1Res.statusCode).toEqual(200);
+
+        const expectLevel2 = 8;
+        const level8Res = await request(app).get(`/api/spells?level=${expectLevel2}`);
+        expect(level8Res.statusCode).toEqual(200);
+
+        const bothRes = await request(app).get(
+          `/api/spells?level=${expectedLevel1},${expectLevel2}`
+        );
+        expect(bothRes.statusCode).toEqual(200);
+        expect(bothRes.body.count).toEqual(level1Res.body.count + level8Res.body.count);
+
+        const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
+        const randomResult = bothRes.body.results[randomIndex];
+
+        const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
+        expect(indexRes.statusCode).toEqual(200);
+        expect(
+          indexRes.body.level == expectedLevel1 || indexRes.body.level == expectLevel2
+        ).toBeTruthy();
+      });
+    });
+  });
+
   describe('/api/spells/:index', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/spells');
