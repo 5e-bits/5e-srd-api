@@ -2,7 +2,12 @@ const Feature = require('../../models/feature');
 const utility = require('./utility');
 
 exports.index = async (req, res, next) => {
-  await Feature.find()
+  const search_queries = {};
+  if (req.query.name !== undefined) {
+    search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
+  }
+
+  await Feature.find(search_queries)
     .sort({ index: 'asc' })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));

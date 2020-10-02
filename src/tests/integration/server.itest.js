@@ -392,6 +392,24 @@ describe('/api/features', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
+  describe('with name query', () => {
+    it('returns the named object', async () => {
+      const indexRes = await request(app).get('/api/features');
+      const name = indexRes.body.results[1].name;
+      const res = await request(app).get(`/api/features?name=${name}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/features');
+      const name = indexRes.body.results[1].name;
+      const queryName = name.toLowerCase();
+      const res = await request(app).get(`/api/features?name=${queryName}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].name).toEqual(name);
+    });
+  });
   describe('/api/features/:index', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/features');
