@@ -1,12 +1,23 @@
 const mockingoose = require('mockingoose').default;
+jest.mock('redis', () => {
+  const redis = require('redis-mock');
+  return redis;
+});
+const redis = require('redis');
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
 const MagicItem = require('../../../models/magicItem');
 const MagicItemController = require('../../../controllers/api/magicItemController');
 
 let response;
 beforeEach(() => {
+  const client = redis.createClient();
+  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
+});
+
+afterAll(() => {
+  closeRedisClient();
 });
 
 describe('index', () => {
