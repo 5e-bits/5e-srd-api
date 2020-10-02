@@ -9,6 +9,9 @@ var SpellSchema = new Schema({
   index: String,
   name: String,
   level: Number,
+  school: {
+    name: String
+  },
   url: String
 });
 

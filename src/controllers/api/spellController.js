@@ -14,6 +14,11 @@ exports.index = async (req, res, next) => {
     search_queries.level = { $in: req.query.level.split(',') };
   }
 
+  if (req.query.school !== undefined) {
+    const schoolRegex = req.query.school.split(',').map(c => new RegExp(c, 'i'));
+    search_queries['school.name'] = { $in: schoolRegex };
+  }
+
   const redisKey = req.originalUrl;
   const data = await getAsync(redisKey).catch(_err => {
     return;
