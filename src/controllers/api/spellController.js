@@ -10,8 +10,8 @@ exports.index = async (req, res, next) => {
     search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
   }
 
-  if (req.query.levels !== undefined) {
-    search_queries.level = { $in: req.query.levels.split(',') };
+  if (req.query.level !== undefined) {
+    search_queries.level = { $in: req.query.level.split(',') };
   }
 
   const redisKey = req.originalUrl;

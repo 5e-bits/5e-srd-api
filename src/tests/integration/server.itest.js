@@ -857,7 +857,7 @@ describe('/api/spells', () => {
     });
   });
 
-  describe('with levels query', () => {
+  describe('with level query', () => {
     describe('with only one provided level', () => {
       it('returns expected objects', async () => {
         const expectedLevel = 2;
@@ -873,18 +873,18 @@ describe('/api/spells', () => {
       });
     });
 
-    describe('with many provided levels', () => {
+    describe('with many provided level', () => {
       it('returns expected objects', async () => {
         const expectedLevel1 = 1;
-        const level1Res = await request(app).get(`/api/spells?levels=${expectedLevel1}`);
+        const level1Res = await request(app).get(`/api/spells?level=${expectedLevel1}`);
         expect(level1Res.statusCode).toEqual(200);
 
         const expectLevel2 = 8;
-        const level8Res = await request(app).get(`/api/spells?levels=${expectLevel2}`);
+        const level8Res = await request(app).get(`/api/spells?level=${expectLevel2}`);
         expect(level8Res.statusCode).toEqual(200);
 
         const bothRes = await request(app).get(
-          `/api/spells?levels=${expectedLevel1},${expectLevel2}`
+          `/api/spells?level=${expectedLevel1},${expectLevel2}`
         );
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(level1Res.body.count + level8Res.body.count);
