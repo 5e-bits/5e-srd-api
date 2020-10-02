@@ -11,6 +11,7 @@ router.use('/equipment-categories', require('./api/equipmentCategories'));
 router.use('/equipment', require('./api/equipment'));
 router.use('/features', require('./api/features'));
 router.use('/languages', require('./api/languages'));
+router.use('/magic-items', require('./api/magicItems'));
 router.use('/magic-schools', require('./api/magicSchools'));
 router.use('/monsters', require('./api/monsters'));
 router.use('/proficiencies', require('./api/proficiencies'));
