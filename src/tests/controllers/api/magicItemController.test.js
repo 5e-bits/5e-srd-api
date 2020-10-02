@@ -5,6 +5,7 @@ jest.mock('redis', () => {
 });
 const redis = require('redis');
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+const { closeRedisClient } = require('../../../util');
 const MagicItem = require('../../../models/magicItem');
 const MagicItemController = require('../../../controllers/api/magicItemController');
 
