@@ -87,11 +87,23 @@
     <tr>
       <td align="left">level</td>
       <td align="left">Lets you filter spells for specific levels. It returns a list with all the spells which have this
-        level or an empty list if none can be found. Multiple ratings are supported.
+        level or an empty list if none can be found. Multiple levels are supported.
       </td>
       <td align="left">
         <code>/spells?level=2</code>
         <code>/spells?level=2,4</code>
+      </td>
+    </tr>
+    <tr>
+      <td align="left">school</td>
+      <td align="left">Lets you filter spells for specific schools. It returns a list with all the spells which have
+        this
+        school or an empty list if none can be found. Multiple or partial schools are supported.
+      </td>
+      <td align="left">
+        <code>/spells?school=Evocation</code>
+        <code>/spells?school=Evo</code>
+        <code>/spells?school=evocation,illusion</code>
       </td>
     </tr>
   </tbody>

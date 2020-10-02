@@ -876,36 +876,34 @@ describe('/api/spells', () => {
   });
 
   describe('with level query', () => {
-    describe('with only one provided level', () => {
-      it('returns expected objects', async () => {
-        const expectedLevel = 2;
-        const res = await request(app).get(`/api/spells?level=${expectedLevel}`);
-        expect(res.statusCode).toEqual(200);
+    it('returns expected objects', async () => {
+      const expectedLevel = 2;
+      const res = await request(app).get(`/api/spells?level=${expectedLevel}`);
+      expect(res.statusCode).toEqual(200);
 
-        const randomIndex = Math.floor(Math.random() * res.body.results.length);
-        const randomResult = res.body.results[randomIndex];
+      const randomIndex = Math.floor(Math.random() * res.body.results.length);
+      const randomResult = res.body.results[randomIndex];
 
-        const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
-        expect(indexRes.statusCode).toEqual(200);
-        expect(indexRes.body.level).toEqual(expectedLevel);
-      });
+      const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
+      expect(indexRes.statusCode).toEqual(200);
+      expect(indexRes.body.level).toEqual(expectedLevel);
     });
 
     describe('with many provided level', () => {
       it('returns expected objects', async () => {
         const expectedLevel1 = 1;
-        const level1Res = await request(app).get(`/api/spells?level=${expectedLevel1}`);
-        expect(level1Res.statusCode).toEqual(200);
+        const res1 = await request(app).get(`/api/spells?level=${expectedLevel1}`);
+        expect(res1.statusCode).toEqual(200);
 
         const expectLevel2 = 8;
-        const level8Res = await request(app).get(`/api/spells?level=${expectLevel2}`);
-        expect(level8Res.statusCode).toEqual(200);
+        const res2 = await request(app).get(`/api/spells?level=${expectLevel2}`);
+        expect(res2.statusCode).toEqual(200);
 
         const bothRes = await request(app).get(
           `/api/spells?level=${expectedLevel1},${expectLevel2}`
         );
         expect(bothRes.statusCode).toEqual(200);
-        expect(bothRes.body.count).toEqual(level1Res.body.count + level8Res.body.count);
+        expect(bothRes.body.count).toEqual(res1.body.count + res2.body.count);
 
         const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
         const randomResult = bothRes.body.results[randomIndex];
@@ -916,6 +914,57 @@ describe('/api/spells', () => {
           indexRes.body.level == expectedLevel1 || indexRes.body.level == expectLevel2
         ).toBeTruthy();
       });
+    });
+  });
+
+  describe('with school query', () => {
+    it('returns expected objects', async () => {
+      const expectedSchool = 'Illusion';
+      const res = await request(app).get(`/api/spells?school=${expectedSchool}`);
+      expect(res.statusCode).toEqual(200);
+
+      const randomIndex = Math.floor(Math.random() * res.body.results.length);
+      const randomResult = res.body.results[randomIndex];
+
+      const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
+      expect(indexRes.statusCode).toEqual(200);
+      expect(indexRes.body.level).toEqual(expectedSchool);
+    });
+
+    describe('with many provided level', () => {
+      it('returns expected objects', async () => {
+        const expectedSchool1 = 'Illusion';
+        const res1 = await request(app).get(`/api/spells?school=${expectedSchool1}`);
+        expect(res1.statusCode).toEqual(200);
+
+        const expectedSchool2 = 'Evocation';
+        const res2 = await request(app).get(`/api/spells?school=${expectedSchool2}`);
+        expect(res2.statusCode).toEqual(200);
+
+        const bothRes = await request(app).get(
+          `/api/spells?school=${expectedSchool1},${expectedSchool2}`
+        );
+        expect(bothRes.statusCode).toEqual(200);
+        expect(bothRes.body.count).toEqual(res1.body.count + res2.body.count);
+
+        const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
+        const randomResult = bothRes.body.results[randomIndex];
+
+        const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
+        expect(indexRes.statusCode).toEqual(200);
+        expect(
+          indexRes.body.level == expectedSchool1 || indexRes.body.level == expectedSchool2
+        ).toBeTruthy();
+      });
+    });
+
+    it('is case insensitive', async () => {
+      const indexRes = await request(app).get('/api/spells');
+      const school = indexRes.body.results[1].school;
+      const querySchool = school.toLowerCase();
+      const res = await request(app).get(`/api/spells?school=${querySchool}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results[0].school).toEqual(school);
     });
   });
 
