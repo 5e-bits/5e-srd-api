@@ -928,7 +928,7 @@ describe('/api/spells', () => {
 
       const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
       expect(indexRes.statusCode).toEqual(200);
-      expect(indexRes.body.school).toEqual(expectedSchool);
+      expect(indexRes.body.school.name).toEqual(expectedSchool);
     });
 
     describe('with many provided schools', () => {
@@ -953,18 +953,18 @@ describe('/api/spells', () => {
         const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
         expect(indexRes.statusCode).toEqual(200);
         expect(
-          indexRes.body.school == expectedSchool1 || indexRes.body.school == expectedSchool2
+          indexRes.body.school.name == expectedSchool1 || indexRes.body.school.name == expectedSchool2
         ).toBeTruthy();
       });
     });
 
     it('is case insensitive', async () => {
       const indexRes = await request(app).get('/api/spells');
-      const school = indexRes.body.results[1].school;
+      const school = indexRes.body.results[1].school.name;
       const querySchool = school.toLowerCase();
       const res = await request(app).get(`/api/spells?school=${querySchool}`);
       expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].school).toEqual(school);
+      expect(res.body.results[0].school.name).toEqual(school);
     });
   });
 
