@@ -586,7 +586,7 @@ describe('/api/monsters', () => {
   describe('with challenge_rating query', () => {
     describe('with only one provided challenge rating', () => {
       it('returns expected objects', async () => {
-        const expectedCR = 0.25
+        const expectedCR = 0.25;
         const res = await request(app).get(`/api/monsters?challenge_rating=${expectedCR}`);
         expect(res.statusCode).toEqual(200);
 
@@ -623,7 +623,7 @@ describe('/api/monsters', () => {
         ).toBeTruthy();
       });
     });
-  })
+  });
 
   describe('/api/monsters/:index', () => {
     it('should return one object', async () => {
@@ -883,7 +883,9 @@ describe('/api/spells', () => {
         const level8Res = await request(app).get(`/api/spells?levels=${expectLevel2}`);
         expect(level8Res.statusCode).toEqual(200);
 
-        const bothRes = await request(app).get(`/api/spells?levels=${expectedLevel1},${expectLevel2}`);
+        const bothRes = await request(app).get(
+          `/api/spells?levels=${expectedLevel1},${expectLevel2}`
+        );
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(level1Res.body.count + level8Res.body.count);
 
@@ -897,7 +899,7 @@ describe('/api/spells', () => {
         ).toBeTruthy();
       });
     });
-  })
+  });
 
   describe('/api/spells/:index', () => {
     it('should return one object', async () => {

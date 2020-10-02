@@ -11,7 +11,7 @@ exports.index = async (req, res, next) => {
   }
 
   if (req.query.levels !== undefined) {
-    search_queries.level = { $in: req.query.level.split(",") };
+    search_queries.level = { $in: req.query.level.split(',') };
   }
 
   const redisKey = req.originalUrl;
