@@ -1,29 +1,33 @@
-<h2 id="monsters">Starting Equipment</h2>
+<h2 id="starting-equipment">Starting Equipment</h2>
 <p>Starting equipment for classes.</p>
 
 <h3>GET api/starting-equipment/{index}</h3>
+<h3>GET api/classes/{index}/starting-equipment/</h3>
 
-<pre><code>
-  "index": "barbarian",
+<pre><code>{
+  "index": "bard",
   "class": {
-    "url": "/api/classes/barbarian",
-    "name": "Barbarian"
+    "index": "bard",
+    "name": "Bard",
+    "url": "/api/classes/bard"
   },
   "starting_equipment": [
     {
       "equipment": {
-        "url": "/api/equipment/explorers-pack",
-        "name": "Explorer's Pack",
+        "index": "leather",
+        "name": "Leather",
+        "url": "/api/equipment/leather"
       },
-      "quantity": 1,
+      "quantity": 1
     },
     {
       "equipment": {
-          "url": "/api/equipment/javelin",
-          "name": "Javelin",
-        },
-      "quantity": 4,
-    },
+        "index": "dagger",
+        "name": "Dagger",
+        "url": "/api/equipment/dagger"
+      },
+      "quantity": 1
+    }
   ],
   "starting_equipment_options": [
     {
@@ -31,56 +35,89 @@
       "type": "equipment",
       "from": [
         {
-          equipment: {
-            name: "Greataxe",
-            url: "/api/equipment/greataxe",
+          "equipment": {
+            "index": "rapier",
+            "name": "Rapier",
+            "url": "/api/equipment/rapier"
           },
-          quantity: 1,
+          "quantity": 1
         },
         {
-          equipment_option: {
-            choose: 1,
-            type: "equipment",
-            from: {
-              equipment_category: {
-                name: "Martial Melee Weapons",
-                url: "/api/equipment-categories/martial-melee-weapons",
-              }
-            },
-          }
+          "equipment": {
+            "index": "longsword",
+            "name": "Longsword",
+            "url": "/api/equipment/longsword"
+          },
+          "quantity": 1
         },
-      ],
+        {
+          "equipment_option": {
+            "choose": 1,
+            "type": "equipment",
+            "from": {
+              "equipment_category": {
+                "index": "simple-weapons",
+                "name": "Simple Weapons",
+                "url": "/api/equipment-categories/simple-weapons"
+              }
+            }
+          }
+        }
+      ]
     },
     {
-      choose: 1,
-      type: "equipment",
-      from: [
+      "choose": 1,
+      "type": "equipment",
+      "from": [
         {
-          equipment: {
-            name: "Handaxe",
-            url: "/api/equipment/handaxe",
+          "equipment": {
+            "index": "diplomats-pack",
+            "name": "Diplomat's Pack",
+            "url": "/api/equipment/diplomats-pack"
           },
-          quantity: 2,
+          "quantity": 1
         },
-      {
-        equipment_option: {
-          choose: 1,
-          type: "equipment",
-          from: {
-            equipment_category: {
-                name: "Simple Weapons",
-                url: "/api/equipment-categories/simple-weapons",
-              }
-            },
+        {
+          "equipment": {
+            "index": "entertainers-pack",
+            "name": "Entertainer's Pack",
+            "url": "/api/equipment/entertainers-pack"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "equipment": {
+            "index": "lute",
+            "name": "Lute",
+            "url": "/api/equipment/lute"
           }
         },
-      ],
-    },
+        {
+          "equipment_option": {
+            "choose": 1,
+            "type": "equipment",
+            "from": {
+              "equipment_category": {
+                "index": "musical-instruments",
+                "name": "Musical Instruments",
+                "url": "/api/equipment-categories/musical-instruments"
+              }
+            }
+          }
+        }
+      ]
+    }
   ],
-  "url": "/api/starting-equipment/barbarian"
+  "url": "/api/starting-equipment/bard"
 }</code></pre>
 
-<h4>Starting Equipment</h4>
+<h4>Starting Equipment for Class</h4>
 
 <table>
   <thead>
@@ -96,23 +133,33 @@
       <td align="left">The class index for shorthand searching.</td>
       <td align="left">string</td>
     </tr>
+
     <tr>
       <td align="left">class</td>
-      <td align="left">The class name and url reference object.</td>
-      <td align="left">object</td>
-    </tr>
-    <tr>
-      <td align="left">starting_equipment</td>
-      <td align="left">The starting equipment that the class automatically starts with.</td>
-      <td align="left">list</td>
-    </tr>
-    <tr>
-      <td align="left">starting_equipment_options</td>
-      <td align="left">A list of choices that the character makes in addition to the starting equipment.</td>
+      <td align="left">The class which this level refers to.</td>
       <td align="left">
-        list <a href="#choices">Choice</a> (<a href="#proficiencies">Proficiencies</a>)
+        <a href="#apireference">APIReference</a> (<a href="#class">Class</a>) Updated
+        ability scores, classes, and conditions
       </td>
     </tr>
+
+    <tr>
+      <td align="left">starting_equipment</td>
+      <td align="left">The starting equipment a character automatically gets</td>
+      <td align="left">
+        list <a href="#apireference">APIReference</a> (<a href="#equipment">Equipment</a>)
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left">starting_equipment_options</td>
+      <td align="left">
+        Starting equipment where the player must choose a certain number from the given list of
+        equipment
+      </td>
+      <td align="left">list <a href="#choice">Choice</a> (<a href="#equipment">Equipment</a>)</td>
+    </tr>
+
     <tr>
       <td align="left">url</td>
       <td align="left">The URL reference of this resource.</td>
