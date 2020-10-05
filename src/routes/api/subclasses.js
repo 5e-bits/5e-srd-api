@@ -1,8 +1,14 @@
 const router = require('express').Router();
 const SubclassController = require('../../controllers/api/subclassController');
 
-router.get('/', SubclassController.index);
-router.get('/:index', SubclassController.show);
+router.get('/', function(req, res, next) {
+  SubclassController.index(req, res, next);
+});
+
+router.get('/:index', function(req, res, next) {
+  SubclassController.show(req, res, next);
+});
+
 router.get('/:index/features', SubclassController.showFeaturesForSubclass);
 
 router.get('/:index/levels/:level/features', SubclassController.showFeaturesForSubclassAndLevel);
