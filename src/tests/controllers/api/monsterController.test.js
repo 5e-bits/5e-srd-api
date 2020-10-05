@@ -5,7 +5,7 @@ jest.mock('redis', () => {
 });
 const redis = require('redis');
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const { closeRedisClient } = require('../../../util');
+const { redisClient } = require('../../../util');
 const Monster = require('../../../models/monster');
 const MonsterController = require('../../../controllers/api/monsterController');
 
@@ -18,7 +18,7 @@ beforeEach(() => {
 });
 
 afterAll(() => {
-  closeRedisClient();
+  redisClient.quit();
 });
 
 describe('index', () => {
