@@ -11,9 +11,6 @@ class SimpleController {
       search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
     }
 
-    console.log(this);
-    console.log(this.Schema);
-
     await this.Schema.find(search_queries)
       .sort({ index: 'asc' })
       .then(data => {
