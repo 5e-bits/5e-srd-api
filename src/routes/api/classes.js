@@ -1,8 +1,13 @@
 const router = require('express').Router();
 const ClassController = require('../../controllers/api/classController');
 
-router.get('/', ClassController.index);
-router.get('/:index', ClassController.show);
+router.get('/', function(req, res, next) {
+  ClassController.index(req, res, next);
+});
+
+router.get('/:index', function(req, res, next) {
+  ClassController.show(req, res, next);
+});
 
 router.get('/:index/subclasses', ClassController.showSubclassesForClass);
 router.get('/:index/starting-equipment', ClassController.showStartingEquipmentForClass);
