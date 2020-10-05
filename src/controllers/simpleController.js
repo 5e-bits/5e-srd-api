@@ -14,7 +14,7 @@ class SimpleController {
     console.log(this);
     console.log(this.Schema);
 
-    this.Schema.find(search_queries)
+    await this.Schema.find(search_queries)
       .sort({ index: 'asc' })
       .then(data => {
         res.status(200).json(utility.NamedAPIResource(data));
