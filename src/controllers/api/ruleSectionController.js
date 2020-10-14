@@ -6,6 +6,9 @@ exports.index = async (req, res, next) => {
   if (req.query.name !== undefined) {
     search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
   }
+  if (req.query.desc !== undefined) {
+    search_queries.desc = { $regex: new RegExp(utility.escapeRegExp(req.query.desc), 'i') };
+  }
 
   await RuleSection.find(search_queries)
     .sort({ index: 'asc' })

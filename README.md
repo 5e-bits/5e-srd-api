@@ -55,6 +55,15 @@ You should get a response with the available endpoints for the root:
 
 If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/bagelbits/5e-database)
 
+## Running Tests
+
+### Unit Tests
+You can run unit tests locally by using the command: `npm run test:unit`
+
+### Integration Tests
+Integration tests need to be ran in the API docker container for them to function properly. 
+In order to run integration tests locally you can use the command: `npm run test:integration:local`
+
 ## Contributing
 
 - Fork this repository
