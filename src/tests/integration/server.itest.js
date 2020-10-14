@@ -1016,6 +1016,132 @@ describe('/api/starting-equipment', () => {
       });
     });
   });
+
+  describe('/api/rules', () => {
+    it('should list weapon properties', async () => {
+      const res = await request(app).get('/api/rules');
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results.length).not.toEqual(0);
+    });
+    describe('with name query', () => {
+      it('returns the named object', async () => {
+        const indexRes = await request(app).get('/api/rules');
+        const name = indexRes.body.results[1].name;
+        const res = await request(app).get(`/api/rules?name=${name}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results[0].name).toEqual(name);
+      });
+
+      it('is case insensitive', async () => {
+        const indexRes = await request(app).get('/api/rules');
+        const name = indexRes.body.results[1].name;
+        const queryName = name.toLowerCase();
+        const res = await request(app).get(`/api/rules?name=${queryName}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results[0].name).toEqual(name);
+      });
+    });
+    describe('/api/weapon-properties/:index', () => {
+      it('should return one object', async () => {
+        const indexRes = await request(app).get('/api/rules');
+        const index = indexRes.body.results[0].index;
+        const showRes = await request(app).get(`/api/rules/${index}`);
+        expect(showRes.statusCode).toEqual(200);
+        expect(showRes.body.index).toEqual(index);
+      });
+      describe('with an invalid index', () => {
+        it('should return one object', async () => {
+          const invalidIndex = 'invalid-index';
+          const showRes = await request(app).get(`/api/rules/${invalidIndex}`);
+          expect(showRes.statusCode).toEqual(404);
+        });
+      });
+    });
+  });
+
+  describe('/api/rules', () => {
+    it('should list weapon properties', async () => {
+      const res = await request(app).get('/api/rules');
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results.length).not.toEqual(0);
+    });
+    describe('with name query', () => {
+      it('returns the named object', async () => {
+        const indexRes = await request(app).get('/api/rules');
+        const name = indexRes.body.results[1].name;
+        const res = await request(app).get(`/api/rules?name=${name}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results[0].name).toEqual(name);
+      });
+
+      it('is case insensitive', async () => {
+        const indexRes = await request(app).get('/api/rules');
+        const name = indexRes.body.results[1].name;
+        const queryName = name.toLowerCase();
+        const res = await request(app).get(`/api/rules?name=${queryName}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results[0].name).toEqual(name);
+      });
+    });
+    describe('/api/weapon-properties/:index', () => {
+      it('should return one object', async () => {
+        const indexRes = await request(app).get('/api/rules');
+        const index = indexRes.body.results[0].index;
+        const showRes = await request(app).get(`/api/rules/${index}`);
+        expect(showRes.statusCode).toEqual(200);
+        expect(showRes.body.index).toEqual(index);
+      });
+      describe('with an invalid index', () => {
+        it('should return one object', async () => {
+          const invalidIndex = 'invalid-index';
+          const showRes = await request(app).get(`/api/rules/${invalidIndex}`);
+          expect(showRes.statusCode).toEqual(404);
+        });
+      });
+    });
+  });
+
+  describe('/api/rules-sections', () => {
+    it('should list weapon properties', async () => {
+      const res = await request(app).get('/api/rules-sections');
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.results.length).not.toEqual(0);
+    });
+    describe('with name query', () => {
+      it('returns the named object', async () => {
+        const indexRes = await request(app).get('/api/rules-sections');
+        const name = indexRes.body.results[1].name;
+        const res = await request(app).get(`/api/rules-sections?name=${name}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results[0].name).toEqual(name);
+      });
+
+      it('is case insensitive', async () => {
+        const indexRes = await request(app).get('/api/rules-sections');
+        const name = indexRes.body.results[1].name;
+        const queryName = name.toLowerCase();
+        const res = await request(app).get(`/api/rules-sections?name=${queryName}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results[0].name).toEqual(name);
+      });
+    });
+    describe('/api/weapon-properties/:index', () => {
+      it('should return one object', async () => {
+        const indexRes = await request(app).get('/api/rules-sections');
+        const index = indexRes.body.results[0].index;
+        const showRes = await request(app).get(`/api/rules-sections/${index}`);
+        expect(showRes.statusCode).toEqual(200);
+        expect(showRes.body.index).toEqual(index);
+      });
+      describe('with an invalid index', () => {
+        it('should return one object', async () => {
+          const invalidIndex = 'invalid-index';
+          const showRes = await request(app).get(`/api/rules-sections/${invalidIndex}`);
+          expect(showRes.statusCode).toEqual(404);
+        });
+      });
+    });
+  });
 });
 
 describe('/api/subclasses', () => {
