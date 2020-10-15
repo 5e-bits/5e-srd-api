@@ -16,7 +16,6 @@ afterAll(() => {
   redisClient.quit();
 });
 
-
 describe('/api/starting-equipment', () => {
   it('should list starting equipment', async () => {
     const res = await request(app).get('/api/starting-equipment');
