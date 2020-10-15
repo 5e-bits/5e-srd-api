@@ -911,7 +911,8 @@ describe('/api/spells', () => {
         const indexRes = await request(app).get(`/api/spells/${randomResult.index}`);
         expect(indexRes.statusCode).toEqual(200);
         expect(
-          indexRes.body.school.name == expectedSchool1 || indexRes.body.school.name == expectedSchool2
+          indexRes.body.school.name == expectedSchool1 ||
+            indexRes.body.school.name == expectedSchool2
         ).toBeTruthy();
       });
     });
