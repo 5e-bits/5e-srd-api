@@ -7,7 +7,7 @@ const { mockRequest, mockResponse, mockNext } = require('../../support/requestHe
 const redis = require('redis');
 const { redisClient } = require('../../../util');
 const Rule = require('../../../models/rule');
-const RulesController = require('../../../controllers/api/rulesController');
+const RulesController = require('../../../controllers/api/ruleController');
 
 let response;
 beforeEach(() => {
