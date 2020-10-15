@@ -29,7 +29,7 @@ const NamedAPIResource = data => {
 };
 
 const escapeRegExp = string => {
-  return string.toString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  return string.toString().replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 };
 
 module.exports = {
