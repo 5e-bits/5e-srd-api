@@ -1100,7 +1100,7 @@ describe('/api/starting-equipment', () => {
       expect(res.body.results.length).not.toEqual(0);
     });
     
-        it('should hit the cache', async () => {
+    it('should hit the cache', async () => {
       redisClient.flushall();
       const clientSet = jest.spyOn(redisClient, 'set');
       let res = await request(app).get('/api/rules-sections');
