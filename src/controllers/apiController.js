@@ -20,7 +20,7 @@ const API_INDEX = {
   traits: '/api/traits',
   'weapon-properties': '/api/weapon-properties',
   rules: '/api/rules',
-  'rules-sections': '/api/rules-sections'
+  'rule-sections': '/api/rule-sections'
 };
 
 exports.API_INDEX = API_INDEX;

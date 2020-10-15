@@ -11,4 +11,4 @@ var RuleSectionSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('RuleSection', RuleSectionSchema, 'rules-sections');
+module.exports = mongoose.model('RuleSection', RuleSectionSchema, 'rule-sections');

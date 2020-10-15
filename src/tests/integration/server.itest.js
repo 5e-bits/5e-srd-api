@@ -1082,26 +1082,26 @@ describe('/api/starting-equipment', () => {
     });
   });
 
-  describe('/api/rules-sections', () => {
+  describe('/api/rule-sections', () => {
     it('should list weapon properties', async () => {
-      const res = await request(app).get('/api/rules-sections');
+      const res = await request(app).get('/api/rule-sections');
       expect(res.statusCode).toEqual(200);
       expect(res.body.results.length).not.toEqual(0);
     });
     describe('with name query', () => {
       it('returns the named object', async () => {
-        const indexRes = await request(app).get('/api/rules-sections');
+        const indexRes = await request(app).get('/api/rule-sections');
         const name = indexRes.body.results[1].name;
-        const res = await request(app).get(`/api/rules-sections?name=${name}`);
+        const res = await request(app).get(`/api/rule-sections?name=${name}`);
         expect(res.statusCode).toEqual(200);
         expect(res.body.results[0].name).toEqual(name);
       });
 
       it('is case insensitive', async () => {
-        const indexRes = await request(app).get('/api/rules-sections');
+        const indexRes = await request(app).get('/api/rule-sections');
         const name = indexRes.body.results[1].name;
         const queryName = name.toLowerCase();
-        const res = await request(app).get(`/api/rules-sections?name=${queryName}`);
+        const res = await request(app).get(`/api/rule-sections?name=${queryName}`);
         expect(res.statusCode).toEqual(200);
         expect(res.body.results[0].name).toEqual(name);
       });
@@ -1109,38 +1109,38 @@ describe('/api/starting-equipment', () => {
 
     describe('with desc query', () => {
       it('returns the object with matching desc', async () => {
-        const indexRes = await request(app).get('/api/rules-sections');
+        const indexRes = await request(app).get('/api/rule-sections');
         let index = indexRes.body.results[1].index;
-        const res = await request(app).get(`/api/rules-sections/${index}`);
+        const res = await request(app).get(`/api/rule-sections/${index}`);
         const name = res.body.name;
-        const descRes = await request(app).get(`/api/rules-sections?desc=${name}`);
+        const descRes = await request(app).get(`/api/rule-sections?desc=${name}`);
         expect(descRes.statusCode).toEqual(200);
         expect(descRes.body.results[0].index).toEqual(index);
       });
 
       it('is case insensitive', async () => {
-        const indexRes = await request(app).get('/api/rules-sections');
+        const indexRes = await request(app).get('/api/rule-sections');
         const index = indexRes.body.results[1].index;
         const name = indexRes.body.results[1].name;
         const queryDesc = name.toLowerCase();
-        const res = await request(app).get(`/api/rules-sections?desc=${queryDesc}`);
+        const res = await request(app).get(`/api/rule-sections?desc=${queryDesc}`);
         expect(res.statusCode).toEqual(200);
         expect(res.body.results[0].index).toEqual(index);
       });
     });
 
-    describe('/api/rules-sections/:index', () => {
+    describe('/api/rule-sections/:index', () => {
       it('should return one object', async () => {
-        const indexRes = await request(app).get('/api/rules-sections');
+        const indexRes = await request(app).get('/api/rule-sections');
         const index = indexRes.body.results[0].index;
-        const showRes = await request(app).get(`/api/rules-sections/${index}`);
+        const showRes = await request(app).get(`/api/rule-sections/${index}`);
         expect(showRes.statusCode).toEqual(200);
         expect(showRes.body.index).toEqual(index);
       });
       describe('with an invalid index', () => {
         it('should return one object', async () => {
           const invalidIndex = 'invalid-index';
-          const showRes = await request(app).get(`/api/rules-sections/${invalidIndex}`);
+          const showRes = await request(app).get(`/api/rule-sections/${invalidIndex}`);
           expect(showRes.statusCode).toEqual(404);
         });
       });
