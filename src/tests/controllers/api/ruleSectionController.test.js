@@ -1,12 +1,24 @@
 const mockingoose = require('mockingoose').default;
+jest.mock('redis', () => {
+  const redis = require('redis-mock');
+  return redis;
+});
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+const redis = require('redis');
+const { closeRedisClient } = require('../../../util');
 const RuleSection = require('../../../models/ruleSection');
 const RuleSectionController = require('../../../controllers/api/ruleSectionController');
 
 let response;
 beforeEach(() => {
+  const client = redis.createClient();
+  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
+});
+
+afterAll(() => {
+  closeRedisClient();
 });
 
 describe('index', () => {
