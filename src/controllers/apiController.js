@@ -18,7 +18,9 @@ const API_INDEX = {
   subclasses: '/api/subclasses',
   subraces: '/api/subraces',
   traits: '/api/traits',
-  'weapon-properties': '/api/weapon-properties'
+  'weapon-properties': '/api/weapon-properties',
+  rules: '/api/rules',
+  'rule-sections': '/api/rule-sections'
 };
 
 exports.API_INDEX = API_INDEX;

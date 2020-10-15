@@ -24,5 +24,7 @@ router.use('/subclasses', require('./api/subclasses'));
 router.use('/subraces', require('./api/subraces'));
 router.use('/traits', require('./api/traits'));
 router.use('/weapon-properties', require('./api/weaponProperties'));
+router.use('/rules', require('./api/rules'));
+router.use('/rule-sections', require('./api/rule-sections'));
 
 module.exports = router;
