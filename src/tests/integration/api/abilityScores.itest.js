@@ -57,4 +57,3 @@ describe('/api/ability-scores', () => {
     });
   });
 });
-a
