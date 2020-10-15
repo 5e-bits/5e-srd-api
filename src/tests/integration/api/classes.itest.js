@@ -22,6 +22,7 @@ describe('/api/classes', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
+
   describe('with name query', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/classes');
@@ -40,6 +41,7 @@ describe('/api/classes', () => {
       expect(res.body.results[0].name).toEqual(name);
     });
   });
+
   describe('/api/classes/:index', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/classes');
@@ -48,6 +50,7 @@ describe('/api/classes', () => {
       expect(showRes.statusCode).toEqual(200);
       expect(showRes.body.index).toEqual(index);
     });
+
     describe('with an invalid index', () => {
       it('should return one object', async () => {
         const invalidIndex = 'invalid-index';
@@ -55,6 +58,7 @@ describe('/api/classes', () => {
         expect(showRes.statusCode).toEqual(404);
       });
     });
+
     describe('/api/classes/:index/subclasses', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');
@@ -64,6 +68,7 @@ describe('/api/classes', () => {
         expect(res.body.results.length).not.toEqual(0);
       });
     });
+
     describe('/api/classes/:index/starting-equipment', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');
@@ -72,6 +77,7 @@ describe('/api/classes', () => {
         expect(res.statusCode).toEqual(200);
       });
     });
+
     describe('/api/classes/:index/spellcasting', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');
@@ -80,6 +86,7 @@ describe('/api/classes', () => {
         expect(res.statusCode).toEqual(200);
       });
     });
+
     describe('/api/classes/:index/spells', () => {
       it('returns objects', async () => {
         const res = await request(app).get(`/api/classes/wizard/spells`);
@@ -87,6 +94,7 @@ describe('/api/classes', () => {
         expect(res.body.results.length).not.toEqual(0);
       });
     });
+
     describe('/api/classes/:index/features', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');
@@ -96,6 +104,7 @@ describe('/api/classes', () => {
         expect(res.body.results.length).not.toEqual(0);
       });
     });
+
     describe('/api/classes/:index/proficiencies', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');
@@ -105,6 +114,7 @@ describe('/api/classes', () => {
         expect(res.body.results.length).not.toEqual(0);
       });
     });
+
     describe('/api/classes/:index/levels', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');
@@ -124,6 +134,7 @@ describe('/api/classes', () => {
           expect(res.body.level).toEqual(level);
         });
       });
+
       describe('/api/classes/:index/levels/:level/spells', () => {
         it('returns objects', async () => {
           const index = 'wizard';
@@ -133,6 +144,7 @@ describe('/api/classes', () => {
           expect(res.body.results.length).not.toEqual(0);
         });
       });
+
       describe('/api/classes/:index/levels/:level/features', () => {
         it('returns objects', async () => {
           const indexRes = await request(app).get('/api/classes');

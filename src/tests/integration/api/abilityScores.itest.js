@@ -22,6 +22,7 @@ describe('/api/ability-scores', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
+
   describe('with name query', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/ability-scores');
@@ -40,6 +41,7 @@ describe('/api/ability-scores', () => {
       expect(res.body.results[0].name).toEqual(name);
     });
   });
+
   describe('/api/ability-scores/:index', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/ability-scores');
@@ -48,6 +50,7 @@ describe('/api/ability-scores', () => {
       expect(showRes.statusCode).toEqual(200);
       expect(showRes.body.index).toEqual(index);
     });
+
     describe('with an invalid index', () => {
       it('should return one object', async () => {
         const invalidIndex = 'invalid-index';
