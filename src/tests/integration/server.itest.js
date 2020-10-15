@@ -478,7 +478,7 @@ describe('/api/magic-items', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    redisClient.del('/api/magic-items');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/magic-items');
     res = await request(app).get('/api/magic-items');
@@ -573,7 +573,7 @@ describe('/api/monsters', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    redisClient.del('/api/monsters');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/monsters');
     res = await request(app).get('/api/monsters');
@@ -847,7 +847,7 @@ describe('/api/spells', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    redisClient.del('/api/spells');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/spells');
     res = await request(app).get('/api/spells');
@@ -954,7 +954,7 @@ describe('/api/spells', () => {
         expect(indexRes.statusCode).toEqual(200);
         expect(
           indexRes.body.school.name == expectedSchool1 ||
-            indexRes.body.school.name == expectedSchool2
+          indexRes.body.school.name == expectedSchool2
         ).toBeTruthy();
       });
     });
