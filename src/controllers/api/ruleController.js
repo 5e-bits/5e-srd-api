@@ -24,7 +24,9 @@ exports.index = async (req, res, next) => {
     await Rule.find(search_queries)
       .sort({ index: 'asc' })
       .then(data => {
-        res.status(200).json(utility.NamedAPIResource(data));
+        const json_data = utility.NamedAPIResource(data);
+        redisClient.set(redisKey, JSON.stringify(json_data));
+        res.status(200).json(json_data);
       })
       .catch(err => {
         next(err);

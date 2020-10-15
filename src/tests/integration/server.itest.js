@@ -478,7 +478,7 @@ describe('/api/magic-items', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    redisClient.del('/api/magic-items');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/magic-items');
     res = await request(app).get('/api/magic-items');
@@ -573,7 +573,7 @@ describe('/api/monsters', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    redisClient.del('/api/monsters');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/monsters');
     res = await request(app).get('/api/monsters');
@@ -847,7 +847,7 @@ describe('/api/spells', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    redisClient.del('/api/spells');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/spells');
     res = await request(app).get('/api/spells');
@@ -1025,10 +1025,10 @@ describe('/api/starting-equipment', () => {
     });
 
     it('should hit the cache', async () => {
-      redisClient.flushall();
+      redisClient.del('/api/rules');
       const clientSet = jest.spyOn(redisClient, 'set');
       let res = await request(app).get('/api/rules');
-      res = await request(app).get('/api/monsters');
+      res = await request(app).get('/api/rules');
       expect(res.statusCode).toEqual(200);
       expect(res.body.results.length).not.toEqual(0);
       expect(clientSet).toHaveBeenCalledTimes(1);
@@ -1101,10 +1101,10 @@ describe('/api/starting-equipment', () => {
     });
 
     it('should hit the cache', async () => {
-      redisClient.flushall();
+      redisClient.del('/api/rule-sections');
       const clientSet = jest.spyOn(redisClient, 'set');
-      let res = await request(app).get('/api/rules-sections');
-      res = await request(app).get('/api/monsters');
+      let res = await request(app).get('/api/rule-sections');
+      res = await request(app).get('/api/rule-sections');
       expect(res.statusCode).toEqual(200);
       expect(res.body.results.length).not.toEqual(0);
       expect(clientSet).toHaveBeenCalledTimes(1);
