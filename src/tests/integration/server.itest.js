@@ -954,7 +954,7 @@ describe('/api/spells', () => {
         expect(indexRes.statusCode).toEqual(200);
         expect(
           indexRes.body.school.name == expectedSchool1 ||
-          indexRes.body.school.name == expectedSchool2
+            indexRes.body.school.name == expectedSchool2
         ).toBeTruthy();
       });
     });
