@@ -986,7 +986,7 @@ describe('/api/starting-equipment', () => {
       redisClient.del('/api/rules');
       const clientSet = jest.spyOn(redisClient, 'set');
       let res = await request(app).get('/api/rules');
-      res = await request(app).get('/api/monsters');
+      res = await request(app).get('/api/rules');
       expect(res.statusCode).toEqual(200);
       expect(res.body.results.length).not.toEqual(0);
       expect(clientSet).toHaveBeenCalledTimes(1);
@@ -1062,7 +1062,7 @@ describe('/api/starting-equipment', () => {
       redisClient.del('/api/rules-sections');
       const clientSet = jest.spyOn(redisClient, 'set');
       let res = await request(app).get('/api/rules-sections');
-      res = await request(app).get('/api/monsters');
+      res = await request(app).get('/api/rules-sections');
       expect(res.statusCode).toEqual(200);
       expect(res.body.results.length).not.toEqual(0);
       expect(clientSet).toHaveBeenCalledTimes(1);
