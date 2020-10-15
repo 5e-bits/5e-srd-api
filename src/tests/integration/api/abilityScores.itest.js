@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
-const app = require('../../server');
-const { mongodbUri, redisClient } = require('../../util');
+const app = require('../../../server');
+const { mongodbUri, redisClient } = require('../../../util');
 
 afterEach(() => {
   jest.clearAllMocks();
