@@ -14,10 +14,12 @@
   "desc": "As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.",
   "ability_bonuses": [
     {
-      "name": "WIS",
-      "index": "wis",
-      "bonus": 1,
-      "url": "/api/ability-scores/wis"
+      "ability_score": {
+        "index": "wis",
+        "name": "WIS",
+        "url": "/api/ability-scores/wis"
+      },
+      "bonus": 1
     }
   ],
   "starting_proficiencies": [],
@@ -68,7 +70,7 @@
     <tr>
       <td align="left">ability_bonuses</td>
       <td align="left">Additional ability bonuses granted by this sub race.</td>
-      <td align="left">array (map)</td>
+      <td align="left">list (<a href="#ability-bonus">AbilityBonus</a>)
     </tr>
     <tr>
       <td align="left">starting_proficiencies</td>
