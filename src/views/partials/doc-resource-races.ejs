@@ -9,10 +9,12 @@
   "speed": 25,
   "ability_bonuses": [
     {
-      "name": "CON",
-      "index": "con",
       "bonus": 2,
-      "url": "/api/ability-scores/con"
+      "ability_score": {
+        "name": "CON",
+        "index": "con",
+        "url": "/api/ability-scores/con"
+      }
     }
   ],
   "alignment": "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order.",
@@ -135,8 +137,9 @@
     </tr>
     <tr>
       <td align="left">ability_bonuses</td>
-      <td align="left">Racial bonuses to each of the six ability scores.</td>
-      <td align="left">array (integer)</td>
+      <td align="left">Racial bonuses to ability scores.</td>
+      <td align="left">list (<a href="#ability-bonus">AbilityBonus</a>)
+      </td>
     </tr>
     <tr>
       <td align="left">alignment</td>
