@@ -19,7 +19,6 @@ router.use('/races', require('./api/races'));
 router.use('/rules', require('./api/rules'));
 router.use('/rule-sections', require('./api/rule-sections'));
 router.use('/skills', require('./api/skills'));
-router.use('/spellcasting', require('./api/spellcasting'));
 router.use('/spells', require('./api/spells'));
 router.use('/starting-equipment', require('./api/startingEquipment'));
 router.use('/subclasses', require('./api/subclasses'));

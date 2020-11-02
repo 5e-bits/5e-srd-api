@@ -15,7 +15,6 @@ const API_INDEX = {
   rules: '/api/rules',
   'rule-sections': '/api/rule-sections',
   skills: '/api/skills',
-  spellcasting: '/api/spellcasting',
   spells: '/api/spells',
   'starting-equipment': '/api/starting-equipment',
   subclasses: '/api/subclasses',

@@ -2,7 +2,6 @@ const Class = require('../../models/class');
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
 const StartingEquipment = require('../../models/startingEquipment');
-const Spellcasting = require('../../models/spellcasting');
 const Spell = require('../../models/spell');
 const Feature = require('../../models/feature');
 const Proficiency = require('../../models/proficiency');
@@ -76,11 +75,9 @@ exports.showStartingEquipmentForClass = (req, res, next) => {
 };
 
 exports.showSpellcastingForClass = (req, res, next) => {
-  const urlString = '/api/classes/' + req.params.index;
-
-  return Spellcasting.findOne({ 'class.url': urlString })
+  return Class.findOne({ index: req.params.index })
     .then(data => {
-      res.status(200).json(data);
+      res.status(200).json(data.spellcasting);
     })
     .catch(err => {
       next(err);

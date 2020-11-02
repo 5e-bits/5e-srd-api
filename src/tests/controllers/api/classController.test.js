@@ -5,7 +5,6 @@ const Class = require('../../../models/class');
 const Level = require('../../../models/level');
 const Subclass = require('../../../models/subclass');
 const StartingEquipment = require('../../../models/startingEquipment');
-const Spellcasting = require('../../../models/spellcasting');
 const Spell = require('../../../models/spell');
 const Feature = require('../../../models/feature');
 const Proficiency = require('../../../models/proficiency');
@@ -286,35 +285,6 @@ describe('showStartingEquipmentForClass', () => {
       mockingoose(StartingEquipment).toReturn(error, 'findOne');
 
       await ClassController.showStartingEquipmentForClass(request, response, mockNext);
-
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(error);
-    });
-  });
-});
-
-describe('showSpellcastingForClass', () => {
-  const findOneDoc = {
-    index: 8,
-    class: 'Wizard',
-    url: '/api/spellcasting/8'
-  };
-  const request = mockRequest({ params: { index: 'barbarian' } });
-
-  it('returns a list of objects', async () => {
-    mockingoose(Spellcasting).toReturn(findOneDoc, 'findOne');
-
-    await ClassController.showSpellcastingForClass(request, response, mockNext);
-    expect(response.status).toHaveBeenCalledWith(200);
-  });
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const error = new Error('Something went wrong');
-      mockingoose(Spellcasting).toReturn(error, 'findOne');
-
-      await ClassController.showSpellcastingForClass(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
