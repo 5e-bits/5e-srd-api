@@ -1,6 +1,9 @@
 {
   "name": "dnd-5e-srd-api",
   "version": "0.0.0",
+  "engines": {
+    "node": "12.x"
+  },
   "private": true,
   "scripts": {
     "start": "node src/start.js",
