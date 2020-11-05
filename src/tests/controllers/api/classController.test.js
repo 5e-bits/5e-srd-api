@@ -293,6 +293,52 @@ describe('showStartingEquipmentForClass', () => {
   });
 });
 
+describe('showSpellcastingForClass', () => {
+  const findOneDoc = {
+    index: 8,
+    class: 'Warlock',
+    url: '/api/classes/warlock',
+    spellcasting: {
+      level: 1,
+      spellcasting_ability: {
+        index: 'cha',
+        name: 'CHA',
+        url: '/api/ability-scores/cha'
+      },
+      info: [
+        {
+          name: 'Cantrips',
+          desc: [
+            'You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.'
+          ]
+        }
+      ]
+    }
+  };
+  const request = mockRequest({ params: { index: 'warlock' } });
+
+  it('returns a spellcasting object', async () => {
+    mockingoose(Class).toReturn(findOneDoc, 'findOne');
+
+    await ClassController.showSpellcastingForClass(request, response, mockNext);
+    expect(response.status).toHaveBeenCalledWith(200);
+    expect(response.json).toHaveBeenCalledWith(findOneDoc.spellcasting);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Class).toReturn(error, 'findOne');
+
+      await ClassController.showSpellcastingForClass(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
 describe('showSpellsForClass', () => {
   const findDoc = [
     {
