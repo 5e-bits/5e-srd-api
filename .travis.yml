@@ -1,28 +1,28 @@
 language: node_js
 node_js:
-- 12
+  - 14
 services:
-- docker
+  - docker
 branches:
   only:
-  - master
+    - master
 jobs:
   include:
-  - stage: Test
-    name: ESLint
-    script: npm run lint
-  - name: Jesting Unit
-    script: npm run test:unit
-  - name: Jesting Integration
-    script: docker-compose run api npm run test:integration
-  - stage: Deploy
-    if: branch = master AND type != pull_request
-    script: skip
-    deploy:
-      provider: heroku
-      api_key:
-        secure: qagmGyF1/A/HbxQSpaY/kZD1QJQ1FCDwLm/LlKZf7dkOf57MqZbuhB3hAvIpus6KMxUhk2fmtjq02Adf6VwpzeJiwvKVMYfY1w96kLkRh+inqZGoqz32382GKenPSUVILBG937H66YHs073kGE459QyUBHaOaJK6HlgN4LvXFrzG24Wiq/Z5GdL35dtqlQkfYkRgK0N63fZSuVJoWuqUvTJyuI4NpWP+qseO/TfBA+qh7giNv3njhWAeZMhBDbwqklkMew52Y1UrN3LQWNHfhep5ysz/QVDG3tVEuvnX6dQgu09gXccQBWrlx0CyRjbZeQY1llii1mABl+d7yXVpUhyreGjfH4kxMXngpPltk/2G+q/0wFGps7pOX4hnhjiLxqqVuX7Uxm0PtG001YOPIJoCr039y48Y0t7HGdWcVsznydL82DMoaHDNUkqpRaUTauib/J/FxsRyAfgztQwq3ZaqNM+yrwpn5DQuWdO09DWJcPI/ws5Bfy8ga5G1HdcxSwiz+xbECc0ow1haTzkURurxfsp7OYxvGPbJhK3OBinBljhhpv4fE7yAA68r3Fz1VtHCIGdkwhT1qZiNCZV/6WN5vjoev5iqiL0S+9BbaA4ZMmkZW0wtgawxtBVPGJzdabejFGgfNMw5aK7sYW8a+XW/GgfHxAjifeG8EC3cl5Y=
-      app: dnd-5e-srd-api
-      on:
-        repo: bagelbits/5e-srd-api
-        branch: master
+    - stage: Test
+      name: ESLint
+      script: npm run lint
+    - name: Jesting Unit
+      script: npm run test:unit
+    - name: Jesting Integration
+      script: docker-compose run api npm run test:integration
+    - stage: Deploy
+      if: branch = master AND type != pull_request
+      script: skip
+      deploy:
+        provider: heroku
+        api_key:
+          secure: qagmGyF1/A/HbxQSpaY/kZD1QJQ1FCDwLm/LlKZf7dkOf57MqZbuhB3hAvIpus6KMxUhk2fmtjq02Adf6VwpzeJiwvKVMYfY1w96kLkRh+inqZGoqz32382GKenPSUVILBG937H66YHs073kGE459QyUBHaOaJK6HlgN4LvXFrzG24Wiq/Z5GdL35dtqlQkfYkRgK0N63fZSuVJoWuqUvTJyuI4NpWP+qseO/TfBA+qh7giNv3njhWAeZMhBDbwqklkMew52Y1UrN3LQWNHfhep5ysz/QVDG3tVEuvnX6dQgu09gXccQBWrlx0CyRjbZeQY1llii1mABl+d7yXVpUhyreGjfH4kxMXngpPltk/2G+q/0wFGps7pOX4hnhjiLxqqVuX7Uxm0PtG001YOPIJoCr039y48Y0t7HGdWcVsznydL82DMoaHDNUkqpRaUTauib/J/FxsRyAfgztQwq3ZaqNM+yrwpn5DQuWdO09DWJcPI/ws5Bfy8ga5G1HdcxSwiz+xbECc0ow1haTzkURurxfsp7OYxvGPbJhK3OBinBljhhpv4fE7yAA68r3Fz1VtHCIGdkwhT1qZiNCZV/6WN5vjoev5iqiL0S+9BbaA4ZMmkZW0wtgawxtBVPGJzdabejFGgfNMw5aK7sYW8a+XW/GgfHxAjifeG8EC3cl5Y=
+        app: dnd-5e-srd-api
+        on:
+          repo: bagelbits/5e-srd-api
+          branch: master
