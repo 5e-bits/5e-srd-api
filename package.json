@@ -28,6 +28,8 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.10.12",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.1",
     "realm-web": "^1.0.0",
     "redis": "^3.0.2",
     "serve-favicon": "^2.5.0"
