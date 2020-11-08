@@ -6,19 +6,6 @@ const app = require('./server');
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
 const start = async () => {
-  // const { gql } = require('@apollo/client');
-  // await apolloClient
-  //   .query({
-  //     query: gql`
-  //       query {
-  //         abilityScores {
-  //           name
-  //           url
-  //         }
-  //       }
-  //     `
-  //   })
-  //   .then(result => console.log(result));
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
   console.log('Database connection ready');
 
