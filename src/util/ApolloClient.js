@@ -24,13 +24,15 @@ async function getValidAccessToken() {
 const graphql_url = `https://realm.mongodb.com/api/client/v2.0/app/${realmAppId}/graphql`;
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: graphql_url, fetch }),
-  cache: new InMemoryCache(),
-  fetch: async (uri, options) => {
-    const accessToken = await getValidAccessToken();
-    options.headers.Authorization = `Bearer ${accessToken}`;
-    return fetch(uri, options);
-  }
+  link: new HttpLink({
+    uri: graphql_url,
+    fetch: async (uri, options) => {
+      const accessToken = await getValidAccessToken();
+      options.headers.Authorization = `Bearer ${accessToken}`;
+      return fetch(uri, options);
+    }
+  }),
+  cache: new InMemoryCache()
 });
 
 module.exports = client;
