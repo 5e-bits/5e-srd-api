@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
+    "@apollo/gateway": "^0.21.1",
     "@bugsnag/js": "^6.5.2",
     "@bugsnag/plugin-express": "^6.5.1",
+    "apollo-server-express": "^2.19.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.3",

@@ -3,7 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { bugsnagMiddleware } = require('./bugsnag');
+const { bugsnagMiddleware } = require('./middleware/bugsnag');
+const createApolloMiddleware = require('./apollo/server');
 
 // enable cors in preflight
 app.options('*', cors());
@@ -22,6 +23,7 @@ app.use(cors({ origin: '*' }));
 
 // Register routes
 app.get('/', require('./controllers/indexController'));
+// app.use('/graphql', graphQLMiddleware);
 app.get('/docs', require('./controllers/docsController'));
 app.use('/api', require('./routes/api'));
 
