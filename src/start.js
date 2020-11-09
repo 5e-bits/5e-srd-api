@@ -4,23 +4,21 @@ const { mongodbUri, redisClient } = require('./util');
 const app = require('./server');
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
-// Connect to database and start the serverfuser
-mongoose
-  .connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(_database => {
-    console.log('Database connection ready');
-  })
-  .then(() => {
-    console.log('Flushing Redis');
-    return flushAsync();
-  })
-  .then(() => {
-    const server = app.listen(process.env.PORT || 3000, () => {
-      const port = server.address().port;
-      console.log(`Listening on port ${port}!`);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-    process.exit(1);
+const start = async () => {
+  await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  console.log('Database connection ready');
+
+  console.log('Flushing Redis');
+  await flushAsync();
+
+  console.log('Starting server...');
+  const server = app.listen(process.env.PORT || 3000, () => {
+    const port = server.address().port;
+    console.log(`Listening on port ${port}! 🚀`);
   });
+};
+
+start().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
