@@ -4,6 +4,7 @@ const { introspectSchema, wrapSchema } = require('graphql-tools');
 const { print } = require('graphql');
 const { graphqlUrl, getValidAccessToken, realmAvailable } = require('../util/RealmClient');
 
+// This pattern copied from https://www.graphql-tools.com/docs/remote-schemas/
 const executor = async ({ document, variables, _context }) => {
   const accessToken = await getValidAccessToken();
   const query = print(document);
