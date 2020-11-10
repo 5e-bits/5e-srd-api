@@ -14,7 +14,7 @@ jobs:
     - name: Jesting Unit
       script: npm run test:unit
     - name: Jesting Integration
-      script: docker-compose run -e REALM_API_KEY=$REALM_API_KEY -e REALM_APP_ID=$REALM_APP_ID api npm run test:integration
+      script: docker-compose run api npm run test:integration
     - stage: Deploy
       if: branch = master AND type != pull_request
       script: skip

@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { bugsnagMiddleware } = require('./middleware/bugsnag');
-const createApolloMiddleware = require('./apollo/server');
+const { createApolloMiddleware, apolloAvailable } = require('./apollo/server');
 
 const createApp = async () => {
   const app = express();
@@ -22,9 +22,13 @@ const createApp = async () => {
   app.use(morgan('short'));
   app.use(cors({ origin: '*' }));
 
-  console.log('Setting up Apollo GraphQL server');
-  const apolloMiddleware = await createApolloMiddleware();
-  apolloMiddleware.applyMiddleware({ app });
+  if (apolloAvailable()) {
+    console.log('Setting up Apollo GraphQL server');
+    const apolloMiddleware = await createApolloMiddleware();
+    apolloMiddleware.applyMiddleware({ app });
+  } else {
+    console.log('Apollo GraphQL not available. Skipping...');
+  }
 
   // Register routes
   app.get('/', require('./controllers/indexController'));

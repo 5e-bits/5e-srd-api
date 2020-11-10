@@ -19,9 +19,14 @@ async function getValidAccessToken() {
   return app.currentUser.accessToken;
 }
 
+function realmAvailable() {
+  return realmAppId && realmApiKey;
+}
+
 const graphqlUrl = `https://realm.mongodb.com/api/client/v2.0/app/${realmAppId}/graphql`;
 
 module.exports = {
   getValidAccessToken,
+  realmAvailable,
   graphqlUrl
 };

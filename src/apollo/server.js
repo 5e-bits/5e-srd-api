@@ -2,7 +2,7 @@ const { ApolloServer } = require('apollo-server-express');
 const fetch = require('node-fetch');
 const { introspectSchema, wrapSchema } = require('graphql-tools');
 const { print } = require('graphql');
-const { graphqlUrl, getValidAccessToken } = require('../util/RealmClient');
+const { graphqlUrl, getValidAccessToken, realmAvailable } = require('../util/RealmClient');
 
 const executor = async ({ document, variables, _context }) => {
   const accessToken = await getValidAccessToken();
@@ -27,4 +27,8 @@ const createApolloMiddleware = async () => {
   return server;
 };
 
-module.exports = createApolloMiddleware;
+const apolloAvailable = () => {
+  return realmAvailable();
+};
+
+module.exports = { createApolloMiddleware, apolloAvailable };
