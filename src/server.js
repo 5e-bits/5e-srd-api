@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { bugsnagMiddleware } = require('./middleware/bugsnag');
-const { createApolloMiddleware, apolloAvailable } = require('./apollo/server');
+const { createApolloMiddleware, apolloAvailable } = require('./middleware/apolloServer');
 
 const createApp = async () => {
   const app = express();
