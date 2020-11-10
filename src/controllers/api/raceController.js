@@ -12,31 +12,33 @@ exports.index = async (req, res, next) => await simpleController.index(req, res,
 exports.show = async (req, res, next) => await simpleController.show(req, res, next);
 
 exports.showSubracesForRace = async (req, res, next) => {
-  let urlString = '/api/races/' + req.params.index;
-  const data = await Subrace.find({ 'race.url': urlString }).catch(err => {
-    next(err);
-  });
+  const urlString = '/api/races/' + req.params.index;
 
-  res.status(200).json(utility.NamedAPIResource(data));
+  try {
+    const data = await Subrace.find({ 'race.url': urlString });
+    res.status(200).json(utility.NamedAPIResource(data));
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.showTraitsForRace = async (req, res, next) => {
-  let urlString = '/api/races/' + req.params.index;
-  const data = await Trait.find({ 'races.url': urlString }).catch(err => {
+  const urlString = '/api/races/' + req.params.index;
+  try {
+    const data = await Trait.find({ 'races.url': urlString });
+    res.status(200).json(utility.NamedAPIResource(data));
+  } catch (err) {
     next(err);
-  });
-
-  res.status(200).json(utility.NamedAPIResource(data));
+  }
 };
 
 exports.showProficienciesForRace = async (req, res, next) => {
-  let urlString = '/api/races/' + req.params.index;
+  const urlString = '/api/races/' + req.params.index;
 
-  const data = await Proficiency.find({ 'races.url': urlString })
-    .sort({ index: 'asc' })
-    .catch(err => {
-      next(err);
-    });
-
-  res.status(200).json(utility.NamedAPIResource(data));
+  try {
+    const data = await Proficiency.find({ 'races.url': urlString }).sort({ index: 'asc' });
+    res.status(200).json(utility.NamedAPIResource(data));
+  } catch (err) {
+    next(err);
+  }
 };

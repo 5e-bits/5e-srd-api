@@ -21,23 +21,23 @@ exports.index = async (req, res, next) => {
   if (data) {
     res.status(200).json(JSON.parse(data));
   } else {
-    const data = await RuleSection.find(search_queries)
-      .sort({ index: 'asc' })
-      .catch(err => {
-        next(err);
-      });
-
-    const json_data = utility.NamedAPIResource(data);
-    redisClient.set(redisKey, JSON.stringify(json_data));
-    res.status(200).json(json_data);
+    try {
+      const data = await RuleSection.find(search_queries).sort({ index: 'asc' });
+      const json_data = utility.NamedAPIResource(data);
+      redisClient.set(redisKey, JSON.stringify(json_data));
+      res.status(200).json(json_data);
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
 exports.show = async (req, res, next) => {
-  const data = await RuleSection.findOne({ index: req.params.index }).catch(err => {
+  try {
+    const data = await RuleSection.findOne({ index: req.params.index });
+    if (!data) return next();
+    res.status(200).json(data);
+  } catch (err) {
     next(err);
-  });
-
-  if (!data) return next();
-  res.status(200).json(data);
+  }
 };
