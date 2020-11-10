@@ -24,11 +24,8 @@ class SimpleController {
   async show(req, res, next) {
     await this.Schema.findOne({ index: req.params.index })
       .then(data => {
-        if (data) {
-          res.status(200).json(data);
-        } else {
-          res.status(404).json({ error: 'Not found' });
-        }
+        if (!data) return next();
+        res.status(200).json(data);
       })
       .catch(err => {
         next(err);

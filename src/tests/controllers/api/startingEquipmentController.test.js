@@ -78,8 +78,9 @@ describe('show', () => {
       const invalidRequest = mockRequest({ params: invalidShowParams });
       await StartingEquipmentController.show(invalidRequest, response, mockNext);
 
-      expect(response.status).toHaveBeenCalledWith(404);
-      expect(response.json).toHaveBeenCalledWith({ error: 'Not found' });
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith();
     });
   });
 
