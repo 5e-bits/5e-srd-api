@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const { promisify } = require('util');
 const { mongodbUri, redisClient } = require('./util');
-// const app = require('./server');
 const createApp = require('./server');
-// const createApolloMiddleware = require('./apollo/server');
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
 const start = async () => {
