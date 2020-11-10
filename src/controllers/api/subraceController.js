@@ -11,24 +11,21 @@ exports.show = async (req, res, next) => await simpleController.show(req, res, n
 
 exports.showTraitsForSubrace = async (req, res, next) => {
   let urlString = '/api/subraces/' + req.params.index;
-  await Trait.find({ 'subraces.url': urlString })
-    .then(data => {
-      res.status(200).json(utility.NamedAPIResource(data));
-    })
-    .catch(err => {
-      next(err);
-    });
+  const data = await Trait.find({ 'subraces.url': urlString }).catch(err => {
+    next(err);
+  });
+
+  res.status(200).json(utility.NamedAPIResource(data));
 };
 
 exports.showProficienciesForSubrace = async (req, res, next) => {
   let urlString = '/api/subraces/' + req.params.index;
 
-  await Proficiency.find({ 'races.url': urlString })
+  const data = await Proficiency.find({ 'races.url': urlString })
     .sort({ index: 'asc' })
-    .then(data => {
-      res.status(200).json(utility.NamedAPIResource(data));
-    })
     .catch(err => {
       next(err);
     });
+
+  res.status(200).json(utility.NamedAPIResource(data));
 };

@@ -11,25 +11,20 @@ class SimpleController {
       search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
     }
 
-    await this.Schema.find(search_queries)
+    const data = await this.Schema.find(search_queries)
       .sort({ index: 'asc' })
-      .then(data => {
-        res.status(200).json(utility.NamedAPIResource(data));
-      })
       .catch(err => {
         next(err);
       });
+    res.status(200).json(utility.NamedAPIResource(data));
   }
 
   async show(req, res, next) {
-    await this.Schema.findOne({ index: req.params.index })
-      .then(data => {
-        if (!data) return next();
-        res.status(200).json(data);
-      })
-      .catch(err => {
-        next(err);
-      });
+    const data = await this.Schema.findOne({ index: req.params.index }).catch(err => {
+      next(err);
+    });
+    if (!data) return next();
+    res.status(200).json(data);
   }
 }
 

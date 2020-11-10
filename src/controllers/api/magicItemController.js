@@ -18,26 +18,23 @@ exports.index = async (req, res, next) => {
   if (data) {
     res.status(200).json(JSON.parse(data));
   } else {
-    await MagicItem.find(search_queries)
+    const data = await MagicItem.find(search_queries)
       .sort({ index: 'asc' })
-      .then(async data => {
-        const json_data = utility.NamedAPIResource(data);
-        redisClient.set(redisKey, JSON.stringify(json_data));
-        res.status(200).json(json_data);
-      })
       .catch(err => {
         next(err);
       });
+
+    const json_data = utility.NamedAPIResource(data);
+    redisClient.set(redisKey, JSON.stringify(json_data));
+    res.status(200).json(json_data);
   }
 };
 
 exports.show = async (req, res, next) => {
-  await MagicItem.findOne({ index: req.params.index })
-    .then(data => {
-      if (!data) return next();
-      res.status(200).json(data);
-    })
-    .catch(err => {
-      next(err);
-    });
+  const data = await MagicItem.findOne({ index: req.params.index }).catch(err => {
+    next(err);
+  });
+
+  if (!data) return next();
+  res.status(200).json(data);
 };
