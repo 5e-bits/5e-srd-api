@@ -21,6 +21,7 @@ exports.showLevelsForClass = async (req, res, next) => {
     .catch(err => {
       next(err);
     });
+
   if (data && data.length) {
     res.status(200).json(data);
   } else {
