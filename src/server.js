@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { bugsnagMiddleware } = require('./middleware/bugsnag');
-const createApolloMiddleware = require('./apollo/server');
 
 // enable cors in preflight
 app.options('*', cors());
