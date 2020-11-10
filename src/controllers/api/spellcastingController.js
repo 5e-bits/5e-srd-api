@@ -1,8 +1,8 @@
 const Spellcasting = require('../../models/spellcasting');
 const utility = require('./utility');
 
-exports.index = async (req, res, next) => {
-  await Spellcasting.find()
+exports.index = (req, res, next) => {
+  return Spellcasting.find()
     .sort({ index: 'asc' })
     .then(data => {
       res.status(200).json(utility.ClassAPIResource(data));
@@ -12,8 +12,8 @@ exports.index = async (req, res, next) => {
     });
 };
 
-exports.show = async (req, res, next) => {
-  await Spellcasting.findOne({ index: req.params.index })
+exports.show = (req, res, next) => {
+  return Spellcasting.findOne({ index: req.params.index })
     .then(data => {
       if (!data) return next();
       res.status(200).json(data);

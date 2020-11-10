@@ -21,9 +21,9 @@ exports.index = async (req, res, next) => {
   if (data) {
     res.status(200).json(JSON.parse(data));
   } else {
-    await Monster.find(search_queries)
+    return Monster.find(search_queries)
       .sort({ index: 'asc' })
-      .then(async data => {
+      .then(data => {
         const json_data = utility.NamedAPIResource(data);
         redisClient.set(redisKey, JSON.stringify(json_data));
         res.status(200).json(json_data);
@@ -34,8 +34,8 @@ exports.index = async (req, res, next) => {
   }
 };
 
-exports.show = async (req, res, next) => {
-  await Monster.findOne({ index: req.params.index })
+exports.show = (req, res, next) => {
+  return Monster.findOne({ index: req.params.index })
     .then(data => {
       if (!data) return next();
       res.status(200).json(data);

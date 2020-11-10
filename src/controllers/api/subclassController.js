@@ -6,13 +6,13 @@ const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Subclass);
 
-exports.index = async (req, res, next) => await simpleController.index(req, res, next);
-exports.show = async (req, res, next) => await simpleController.show(req, res, next);
+exports.index = (req, res, next) => simpleController.index(req, res, next);
+exports.show = (req, res, next) => simpleController.show(req, res, next);
 
-exports.showLevelsForSubclass = async (req, res, next) => {
+exports.showLevelsForSubclass = (req, res, next) => {
   const urlString = '/api/subclasses/' + req.params.index;
 
-  await Level.find({ 'subclass.url': urlString })
+  return Level.find({ 'subclass.url': urlString })
     .sort({ level: 'asc' })
     .then(data => {
       res.status(200).json(data);
@@ -22,14 +22,14 @@ exports.showLevelsForSubclass = async (req, res, next) => {
     });
 };
 
-exports.showLevelForSubclass = async (req, res, next) => {
+exports.showLevelForSubclass = (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
 
-  let urlString = '/api/subclasses/' + req.params.index + '/levels/' + req.params.level;
+  const urlString = '/api/subclasses/' + req.params.index + '/levels/' + req.params.level;
 
-  await Level.findOne({ url: urlString })
+  return Level.findOne({ url: urlString })
     .then(data => {
       if (!data) return next();
       res.status(200).json(data);
@@ -39,9 +39,9 @@ exports.showLevelForSubclass = async (req, res, next) => {
     });
 };
 
-exports.showFeaturesForSubclass = async (req, res, next) => {
+exports.showFeaturesForSubclass = (req, res, next) => {
   const urlString = '/api/subclasses/' + req.params.index;
-  Feature.find({
+  return Feature.find({
     'subclass.url': urlString
   })
     .sort({ level: 'asc', url: 'asc' })
@@ -53,14 +53,14 @@ exports.showFeaturesForSubclass = async (req, res, next) => {
     });
 };
 
-exports.showFeaturesForSubclassAndLevel = async (req, res, next) => {
+exports.showFeaturesForSubclassAndLevel = (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
 
   const urlString = '/api/subclasses/' + req.params.index;
 
-  Feature.find({
+  return Feature.find({
     level: parseInt(req.params.level),
     'subclass.url': urlString
   })

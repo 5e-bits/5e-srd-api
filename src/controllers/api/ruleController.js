@@ -21,7 +21,7 @@ exports.index = async (req, res, next) => {
   if (data) {
     res.status(200).json(JSON.parse(data));
   } else {
-    await Rule.find(search_queries)
+    return Rule.find(search_queries)
       .sort({ index: 'asc' })
       .then(data => {
         const json_data = utility.NamedAPIResource(data);
@@ -34,8 +34,8 @@ exports.index = async (req, res, next) => {
   }
 };
 
-exports.show = async (req, res, next) => {
-  await Rule.findOne({ index: req.params.index })
+exports.show = (req, res, next) => {
+  return Rule.findOne({ index: req.params.index })
     .then(data => {
       if (!data) return next();
       res.status(200).json(data);

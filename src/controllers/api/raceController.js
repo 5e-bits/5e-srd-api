@@ -8,12 +8,12 @@ const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Race);
 
-exports.index = async (req, res, next) => await simpleController.index(req, res, next);
-exports.show = async (req, res, next) => await simpleController.show(req, res, next);
+exports.index = (req, res, next) => simpleController.index(req, res, next);
+exports.show = (req, res, next) => simpleController.show(req, res, next);
 
-exports.showSubracesForRace = async (req, res, next) => {
-  let urlString = '/api/races/' + req.params.index;
-  await Subrace.find({ 'race.url': urlString })
+exports.showSubracesForRace = (req, res, next) => {
+  const urlString = '/api/races/' + req.params.index;
+  return Subrace.find({ 'race.url': urlString })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
     })
@@ -22,9 +22,9 @@ exports.showSubracesForRace = async (req, res, next) => {
     });
 };
 
-exports.showTraitsForRace = async (req, res, next) => {
-  let urlString = '/api/races/' + req.params.index;
-  await Trait.find({ 'races.url': urlString })
+exports.showTraitsForRace = (req, res, next) => {
+  const urlString = '/api/races/' + req.params.index;
+  return Trait.find({ 'races.url': urlString })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
     })
@@ -33,10 +33,10 @@ exports.showTraitsForRace = async (req, res, next) => {
     });
 };
 
-exports.showProficienciesForRace = async (req, res, next) => {
-  let urlString = '/api/races/' + req.params.index;
+exports.showProficienciesForRace = (req, res, next) => {
+  const urlString = '/api/races/' + req.params.index;
 
-  await Proficiency.find({ 'races.url': urlString })
+  return Proficiency.find({ 'races.url': urlString })
     .sort({ index: 'asc' })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
