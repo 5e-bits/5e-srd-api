@@ -27,6 +27,7 @@
     "escape-string-regexp": "^2.0.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
+    "graphql-tools": "^7.0.1",
     "lodash": "^4.17.20",
     "mongoose": "^5.10.12",
     "morgan": "^1.10.0",
