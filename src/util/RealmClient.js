@@ -1,6 +1,7 @@
 const Realm = require('realm-web');
 const { realmAppId, realmApiKey } = require('./environmentVariables');
 
+// Pattern copied from https://docs.mongodb.com/realm/web/graphql-apollo-react/
 // Connect to your MongoDB Realm app
 const app = new Realm.App(realmAppId);
 
