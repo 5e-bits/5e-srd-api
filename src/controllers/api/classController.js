@@ -11,12 +11,12 @@ const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Class);
 
-exports.index = async (req, res, next) => await simpleController.index(req, res, next);
-exports.show = async (req, res, next) => await simpleController.show(req, res, next);
+exports.index = (req, res, next) => simpleController.index(req, res, next);
+exports.show = (req, res, next) => simpleController.show(req, res, next);
 
-exports.showLevelsForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
-  await Level.find({ 'class.url': urlString })
+exports.showLevelsForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
+  return Level.find({ 'class.url': urlString })
     .sort({ level: 'asc' })
     .then(data => {
       if (data && data.length) {
@@ -30,14 +30,14 @@ exports.showLevelsForClass = async (req, res, next) => {
     });
 };
 
-exports.showLevelForClass = async (req, res, next) => {
+exports.showLevelForClass = (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
 
-  let urlString = '/api/classes/' + req.params.index + '/levels/' + req.params.level;
+  const urlString = '/api/classes/' + req.params.index + '/levels/' + req.params.level;
 
-  await Level.findOne({ url: urlString })
+  return Level.findOne({ url: urlString })
     .then(data => {
       if (!data) return next();
       res.status(200).json(data);
@@ -47,9 +47,9 @@ exports.showLevelForClass = async (req, res, next) => {
     });
 };
 
-exports.showSubclassesForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
-  await Subclass.find({ 'class.url': urlString })
+exports.showSubclassesForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
+  return Subclass.find({ 'class.url': urlString })
     .sort({ url: 'asc', level: 'asc' })
     .then(data => {
       if (data && data.length) {
@@ -63,10 +63,10 @@ exports.showSubclassesForClass = async (req, res, next) => {
     });
 };
 
-exports.showStartingEquipmentForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
+exports.showStartingEquipmentForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
 
-  await StartingEquipment.findOne({ 'class.url': urlString })
+  return StartingEquipment.findOne({ 'class.url': urlString })
     .then(data => {
       res.status(200).json(data);
     })
@@ -75,10 +75,10 @@ exports.showStartingEquipmentForClass = async (req, res, next) => {
     });
 };
 
-exports.showSpellcastingForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
+exports.showSpellcastingForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
 
-  await Spellcasting.findOne({ 'class.url': urlString })
+  return Spellcasting.findOne({ 'class.url': urlString })
     .then(data => {
       res.status(200).json(data);
     })
@@ -87,9 +87,9 @@ exports.showSpellcastingForClass = async (req, res, next) => {
     });
 };
 
-exports.showSpellsForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
-  await Spell.find({ 'classes.url': urlString })
+exports.showSpellsForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
+  return Spell.find({ 'classes.url': urlString })
     .sort({ level: 'asc', url: 'asc' })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
@@ -99,14 +99,14 @@ exports.showSpellsForClass = async (req, res, next) => {
     });
 };
 
-exports.showSpellsForClassAndLevel = async (req, res, next) => {
+exports.showSpellsForClassAndLevel = (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
 
-  let urlString = '/api/classes/' + req.params.index;
+  const urlString = '/api/classes/' + req.params.index;
 
-  await Spell.find({
+  return Spell.find({
     'classes.url': urlString,
     level: parseInt(req.params.level)
   })
@@ -119,10 +119,10 @@ exports.showSpellsForClassAndLevel = async (req, res, next) => {
     });
 };
 
-exports.showFeaturesForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
+exports.showFeaturesForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
 
-  Feature.find({
+  return Feature.find({
     'class.url': urlString
   })
     .sort({ level: 'asc', url: 'asc' })
@@ -134,14 +134,14 @@ exports.showFeaturesForClass = async (req, res, next) => {
     });
 };
 
-exports.showFeaturesForClassAndLevel = async (req, res, next) => {
+exports.showFeaturesForClassAndLevel = (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
 
-  let urlString = '/api/classes/' + req.params.index;
+  const urlString = '/api/classes/' + req.params.index;
 
-  Feature.find({
+  return Feature.find({
     'class.url': urlString,
     level: parseInt(req.params.level)
   })
@@ -154,9 +154,9 @@ exports.showFeaturesForClassAndLevel = async (req, res, next) => {
     });
 };
 
-exports.showProficienciesForClass = async (req, res, next) => {
-  let urlString = '/api/classes/' + req.params.index;
-  Proficiency.find({ 'classes.url': urlString })
+exports.showProficienciesForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
+  return Proficiency.find({ 'classes.url': urlString })
     .sort({ index: 'asc' })
     .then(data => {
       res.status(200).json(utility.NamedAPIResource(data));
