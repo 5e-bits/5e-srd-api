@@ -28,8 +28,6 @@ const createApolloMiddleware = async () => {
   return server;
 };
 
-const apolloAvailable = () => {
-  return realmAvailable();
-};
+const apolloAvailable = () => realmAvailable();
 
 module.exports = { createApolloMiddleware, apolloAvailable };
