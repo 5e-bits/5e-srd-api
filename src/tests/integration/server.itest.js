@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const request = require('supertest');
-const app = require('../../server');
+const createApp = require('../../server');
 const { mongodbUri, redisClient } = require('../../util');
+let app;
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -9,6 +10,7 @@ afterEach(() => {
 
 beforeAll(async () => {
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  app = await createApp();
 });
 
 afterAll(() => {

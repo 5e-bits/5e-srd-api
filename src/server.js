@@ -1,44 +1,57 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { bugsnagMiddleware } = require('./bugsnag');
+const { bugsnagMiddleware } = require('./middleware/bugsnag');
+const { createApolloMiddleware, apolloAvailable } = require('./middleware/apolloServer');
 
-// enable cors in preflight
-app.options('*', cors());
+const createApp = async () => {
+  const app = express();
+  // enable cors in preflight
+  app.options('*', cors());
 
-// Middleware stuff
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
-app.use(bugsnagMiddleware.requestHandler);
-app.use('/js', express.static(__dirname + '/js'));
-app.use('/css', express.static(__dirname + '/css'));
-app.use('/public', express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(morgan('short'));
-app.use(cors({ origin: '*' }));
+  // Middleware stuff
+  app.set('view engine', 'ejs');
+  app.set('views', __dirname + '/views');
+  app.use(bugsnagMiddleware.requestHandler);
+  app.use('/js', express.static(__dirname + '/js'));
+  app.use('/css', express.static(__dirname + '/css'));
+  app.use('/public', express.static(__dirname + '/public'));
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
+  app.use(morgan('short'));
+  app.use(cors({ origin: '*' }));
 
-// Register routes
-app.get('/', require('./controllers/indexController'));
-app.get('/docs', require('./controllers/docsController'));
-app.use('/api', require('./routes/api'));
+  if (apolloAvailable()) {
+    console.log('Setting up Apollo GraphQL server');
+    const apolloMiddleware = await createApolloMiddleware();
+    apolloMiddleware.applyMiddleware({ app });
+  } else {
+    console.log('Apollo GraphQL not available. Skipping...');
+  }
 
-app.use(function(req, res, _next) {
-  res.status(404);
+  // Register routes
+  app.get('/', require('./controllers/indexController'));
+  app.get('/docs', require('./controllers/docsController'));
+  app.use('/api', require('./routes/api'));
 
-  // TODO: Add a fun 404 page
-  // // respond with html page
-  // if (req.accepts('html')) {
-  //   res.render('404', { url: req.url });
-  //   return;
-  // }
+  app.use(function(req, res, _next) {
+    res.status(404);
 
-  // default respond with json
-  return res.send({ error: 'Not found' });
-});
+    // TODO: Add a fun 404 page
+    // // respond with html page
+    // if (req.accepts('html')) {
+    //   res.render('404', { url: req.url });
+    //   return;
+    // }
 
-app.use(bugsnagMiddleware.errorHandler);
+    // default respond with json
+    return res.send({ error: 'Not found' });
+  });
 
-module.exports = app;
+  app.use(bugsnagMiddleware.errorHandler);
+  return app;
+};
+
+// module.exports = app;
+module.exports = createApp;
