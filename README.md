@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/bagelbits/5e-srd-api.svg?branch=master)](https://travis-ci.com/bagelbits/5e-srd-api)
 [![Heroku](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)
+[![Discord](https://img.shields.io/discord/656547667601653787)](https://discord.gg/TQuYTv7)
 
 REST API to access [D&amp;D 5th Edition SRD API](https://www.dnd5eapi.co/)
 
