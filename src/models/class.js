@@ -8,6 +8,7 @@ const ClassSchema = new Schema({
   },
   index: String,
   name: String,
+  spellcasting: Object,
   url: String
 });
 

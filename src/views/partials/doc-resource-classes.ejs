@@ -87,7 +87,50 @@
       "url": "/api/subclasses/fiend"
     }
   ],
-  "spellcasting": "/api/spellcasting/warlock",
+  "spellcasting": {
+    "level": 1,
+    "spellcasting_ability": {
+      "index": "cha",
+      "name": "CHA",
+      "url": "/api/ability-scores/cha"
+    },
+    "info": [
+      {
+        "name": "Cantrips",
+        "desc": [
+          "You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table."
+        ]
+      },
+      {
+        "name": "Spell Slots",
+        "desc": [
+          "The Warlock table shows how many spell slots you have. The table also shows what the level of those slots is; all of your spell slots are the same level. To cast one of your warlock spells of 1st level or higher, you must expend a spell slot. You regain all expended spell slots when you finish a short or long rest.",
+          "For example, when you are 5th level, you have two 3rd-level spell slots. To cast the 1st-level spell thunderwave, you must spend one of those slots, and you cast it as a 3rd-level spell."
+        ]
+      },
+      {
+        "name": "Spells Known of 1st Level and Higher",
+        "desc": [
+          "At 1st level, you know two 1st-level spells of your choice from the warlock spell list.",
+          "The Spells Known column of the Warlock table shows when you learn more warlock spells of your choice of 1st level and higher. ",
+          "A spell you choose must be of a level no higher than what's shown in the table's Slot Level column for your level. When you reach 6th level, for example, you learn a new warlock spell, which can be 1st, 2nd, or 3rd level.",
+          "Additionally, when you gain a level in this class, you can choose one of the warlock spells you know and replace it with another spell from the warlock spell list, which also must be of a level for which you have spell slots."
+        ]
+      },
+      {
+        "name": "Spellcasting Ability",
+        "desc": [
+          "Charisma is your spellcasting ability for your warlock spells, so you use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a warlock spell you cast and when making an attack roll with one."
+        ]
+      },
+      {
+        "name": "Spellcasting Focus",
+        "desc": [
+          "You can use an arcane focus as a spellcasting focus for your warlock spells."
+        ]
+      }
+    ]
+  },
   "spells": "/api/classes/warlock/spells",
   "url": "/api/classes/warlock"
 }</code></pre>
@@ -175,7 +218,7 @@
         known, spellcasting ability, and cantrips known.
       </td>
       <td align="left">
-        string (<a href="#spellcasting">Spellcasting</a>)
+        object (<a href="#spellcasting">Spellcasting</a>)
       </td>
     </tr>
     <tr>
@@ -252,6 +295,87 @@
     }
   ]
 }</code></pre>
+
+<h3>GET api/classes/{index}/spellcasting</h3>
+
+<pre><code>{
+    "level": 1,
+    "spellcasting_ability": {
+      "index": "cha",
+      "name": "CHA",
+      "url": "/api/ability-scores/cha"
+    },
+    "info": [
+      {
+        "name": "Cantrips",
+        "desc": [
+          "You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table."
+        ]
+      },
+      {
+        "name": "Spell Slots",
+        "desc": [
+          "The Warlock table shows how many spell slots you have. The table also shows what the level of those slots is; all of your spell slots are the same level. To cast one of your warlock spells of 1st level or higher, you must expend a spell slot. You regain all expended spell slots when you finish a short or long rest.",
+          "For example, when you are 5th level, you have two 3rd-level spell slots. To cast the 1st-level spell thunderwave, you must spend one of those slots, and you cast it as a 3rd-level spell."
+        ]
+      },
+      {
+        "name": "Spells Known of 1st Level and Higher",
+        "desc": [
+          "At 1st level, you know two 1st-level spells of your choice from the warlock spell list.",
+          "The Spells Known column of the Warlock table shows when you learn more warlock spells of your choice of 1st level and higher. ",
+          "A spell you choose must be of a level no higher than what's shown in the table's Slot Level column for your level. When you reach 6th level, for example, you learn a new warlock spell, which can be 1st, 2nd, or 3rd level.",
+          "Additionally, when you gain a level in this class, you can choose one of the warlock spells you know and replace it with another spell from the warlock spell list, which also must be of a level for which you have spell slots."
+        ]
+      },
+      {
+        "name": "Spellcasting Ability",
+        "desc": [
+          "Charisma is your spellcasting ability for your warlock spells, so you use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a warlock spell you cast and when making an attack roll with one."
+        ]
+      },
+      {
+        "name": "Spellcasting Focus",
+        "desc": [
+          "You can use an arcane focus as a spellcasting focus for your warlock spells."
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+<h4 id="spellcasting">Spellcasting</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">level</td>
+      <td align="left">The level at which the class can start using its Spellcasting abilities.</td>
+      <td align="left">integer</td>
+    </tr>
+    <tr>
+      <td align="left">spellcasting_ability</td>
+      <td align="left">The attribute used for spellcasting by the class.</td>
+      <td align="left">
+        <a href="#apireference">APIReference</a> (<a href="#ability-scores"
+          >Ability Score</a
+        >)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">info</td>
+      <td align="left">Descriptions of the class' ability to cast spells.</td>
+      <td align="left">list</td>
+    </tr>
+  </tbody>
+</table>
 
 <h4>Spells for Class</h4>
 
