@@ -5,7 +5,7 @@ services:
   - docker
 branches:
   only:
-    - master
+    - main
 jobs:
   include:
     - stage: Test
@@ -16,7 +16,7 @@ jobs:
     - name: Jesting Integration
       script: docker-compose run api npm run test:integration
     - stage: Deploy
-      if: branch = master AND type != pull_request
+      if: branch = main AND type != pull_request
       script: skip
       deploy:
         provider: heroku
@@ -25,4 +25,4 @@ jobs:
         app: dnd-5e-srd-api
         on:
           repo: bagelbits/5e-srd-api
-          branch: master
+          branch: main
