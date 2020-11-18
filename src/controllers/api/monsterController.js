@@ -22,9 +22,10 @@ exports.index = async (req, res, next) => {
     res.status(200).json(JSON.parse(data));
   } else {
     return Monster.find(search_queries)
+      .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
       .then(data => {
-        const json_data = utility.NamedAPIResource(data);
+        const json_data = utility.ResourceList(data);
         redisClient.set(redisKey, JSON.stringify(json_data));
         res.status(200).json(json_data);
       })

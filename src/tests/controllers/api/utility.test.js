@@ -48,7 +48,7 @@ describe('ClassAPIResource', () => {
   });
 });
 
-describe('NamedAPIResource', () => {
+describe('ResourceList', () => {
   it('returns a constructed hash from list', () => {
     const data = [
       {
@@ -67,7 +67,7 @@ describe('NamedAPIResource', () => {
         url: '/made/up/url/test2'
       }
     ];
-    const resource = utility.NamedAPIResource(data);
+    const resource = utility.ResourceList(data);
     expect(resource.count).toEqual(data.length);
     expect(resource.results).toEqual(data);
   });
