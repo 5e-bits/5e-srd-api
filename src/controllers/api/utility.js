@@ -13,18 +13,10 @@ const ClassAPIResource = data => {
   };
 };
 
-const NamedAPIResource = data => {
-  const mapped = data.map(item => {
-    return {
-      index: item.index,
-      name: item.name,
-      url: item.url
-    };
-  });
-
+const ResourceList = data => {
   return {
     count: data.length,
-    results: mapped
+    results: data
   };
 };
 
@@ -33,7 +25,7 @@ const escapeRegExp = string => {
 };
 
 module.exports = {
-  NamedAPIResource,
   ClassAPIResource,
+  ResourceList,
   escapeRegExp
 };
