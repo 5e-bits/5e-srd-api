@@ -42,7 +42,6 @@ You should get a response with the available endpoints for the root:
   "proficiencies": "/api/proficiencies",
   "races": "/api/races",
   "skills": "/api/skills",
-  "spellcasting": "/api/spellcasting",
   "spells": "/api/spells",
   "starting-equipment": "/api/starting-equipment",
   "subclasses": "/api/subclasses",
@@ -62,7 +61,7 @@ If you see anything wrong with the data itself, please open an issue or PR over 
 You can run unit tests locally by using the command: `npm run test:unit`
 
 ### Integration Tests
-Integration tests need to be ran in the API docker container for them to function properly. 
+Integration tests need to be ran in the API docker container for them to function properly.
 In order to run integration tests locally you can use the command: `npm run test:integration:local`
 
 ## Contributing
