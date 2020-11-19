@@ -4,12 +4,20 @@ const { mongodbUri, redisClient } = require('./util');
 const createApp = require('./server');
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
+const MagicItem = require('./models/magicItem');
+const prewarmCache = async () => {
+
+}
+
 const start = async () => {
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
   console.log('Database connection ready');
 
   console.log('Flushing Redis');
   await flushAsync();
+
+  console.log('Prewarm Redis');
+  await prewarmCache();
 
   console.log('Setting up Express server');
   const app = await createApp();
