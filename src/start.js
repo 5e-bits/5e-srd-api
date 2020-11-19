@@ -11,7 +11,7 @@ const Monster = require('./models/monster');
 const Rule = require('./models/rule');
 const RuleSection = require('./models/ruleSection');
 const utility = require('./controllers/api/utility');
-const prewarmCache = async ({ Schema, endpoint }) => {
+const prewarmCache = async () => {
   const toPrewarm = [
     {
       Schema: MagicItem,
@@ -51,31 +51,7 @@ const start = async () => {
   await flushAsync();
 
   console.log('Prewarm Redis');
-  const toPrewarm = [
-    {
-      Schema: MagicItem,
-      endpoint: '/api/magic-items'
-    },
-    {
-      Schema: Spell,
-      endpoint: '/api/spells'
-    },
-    {
-      Schema: Monster,
-      endpoint: '/api/monsters'
-    },
-    {
-      Schema: Rule,
-      endpoint: '/api/rules'
-    },
-    {
-      Schema: RuleSection,
-      endpoint: '/api/rule-sections'
-    }
-  ];
-  for (const endpoint of toPrewarm) {
-    await prewarmCache(endpoint);
-  }
+  await prewarmCache();
 
   console.log('Setting up Express server');
   const app = await createApp();
