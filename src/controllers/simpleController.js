@@ -1,4 +1,5 @@
 const utility = require('./api/utility');
+const { escapeRegExp, ResourceList } = require('../../util');
 
 class SimpleController {
   constructor(Schema) {
@@ -8,14 +9,14 @@ class SimpleController {
   index(req, res, next) {
     const searchQueries = {};
     if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
     }
 
     return this.Schema.find(searchQueries)
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
       .then(data => {
-        res.status(200).json(utility.ResourceList(data));
+        res.status(200).json(ResourceList(data));
       })
       .catch(err => {
         next(err);

@@ -1,16 +1,15 @@
 const RuleSection = require('../../models/ruleSection');
-const utility = require('./utility');
 const { promisify } = require('util');
-const { redisClient } = require('../../util');
+const { redisClient, escapeRegExp, ResourceList } = require('../../util');
 const getAsync = promisify(redisClient.get).bind(redisClient);
 
 exports.index = async (req, res, next) => {
   const searchQueries = {};
   if (req.query.name !== undefined) {
-    searchQueries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
+    searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
   }
   if (req.query.desc !== undefined) {
-    searchQueries.desc = { $regex: new RegExp(utility.escapeRegExp(req.query.desc), 'i') };
+    searchQueries.desc = { $regex: new RegExp(escapeRegExp(req.query.desc), 'i') };
   }
 
   const redisKey = req.originalUrl;
@@ -25,7 +24,7 @@ exports.index = async (req, res, next) => {
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
       .then(data => {
-        const jsonData = utility.ResourceList(data);
+        const jsonData = ResourceList(data);
         redisClient.set(redisKey, JSON.stringify(jsonData));
         res.status(200).json(jsonData);
       })

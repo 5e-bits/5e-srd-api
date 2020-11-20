@@ -1,7 +1,7 @@
 const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const Proficiency = require('../../models/proficiency');
-const utility = require('./utility');
+const { ResourceList } = require('../../util');
 const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Subrace);
@@ -14,7 +14,7 @@ exports.showTraitsForSubrace = (req, res, next) => {
   return Trait.find({ 'subraces.url': urlString })
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
@@ -28,7 +28,7 @@ exports.showProficienciesForSubrace = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ index: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
