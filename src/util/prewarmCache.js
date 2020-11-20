@@ -1,3 +1,5 @@
+const { promisify } = require('util');
+
 const redisClient = require('./RedisClient');
 const setAsync = promisify(redisClient.set).bind(redisClient);
 

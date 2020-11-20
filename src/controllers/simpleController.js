@@ -1,4 +1,3 @@
-const utility = require('./api/utility');
 const { escapeRegExp, ResourceList } = require('../../util');
 
 class SimpleController {

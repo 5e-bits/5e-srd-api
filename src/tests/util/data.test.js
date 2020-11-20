@@ -1,4 +1,4 @@
-const { ClassAPIResource, ResourceList } = require('../../util/data')
+const { ClassAPIResource, ResourceList } = require('../../util/data');
 
 describe('ClassAPIResource', () => {
   it('returns a constructed hash from list', () => {
