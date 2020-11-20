@@ -5,7 +5,7 @@ const StartingEquipment = require('../../models/startingEquipment');
 const Spell = require('../../models/spell');
 const Feature = require('../../models/feature');
 const Proficiency = require('../../models/proficiency');
-const { ResourceList } = require('../../util');
+const { ResourceList } = require('../../util/data');
 const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Class);

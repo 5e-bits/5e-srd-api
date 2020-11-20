@@ -1,5 +1,5 @@
 const StartingEquipment = require('../../models/startingEquipment');
-const { ClassAPIResource } = require('../../util');
+const { ClassAPIResource } = require('../../util/data');
 
 exports.index = (req, res, next) => {
   return StartingEquipment.find()

@@ -2,7 +2,7 @@ const Race = require('../../models/race');
 const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const Proficiency = require('../../models/proficiency');
-const { ResourceList } = require('../../util');
+const { ResourceList } = require('../../util/data');
 const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Race);

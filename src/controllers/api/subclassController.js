@@ -1,7 +1,7 @@
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
 const Feature = require('../../models/feature');
-const { ResourceList } = require('../../util');
+const { ResourceList } = require('../../util/data');
 const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Subclass);
