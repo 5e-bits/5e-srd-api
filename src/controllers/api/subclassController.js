@@ -1,7 +1,7 @@
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
 const Feature = require('../../models/feature');
-const utility = require('./utility');
+const { ResourceList } = require('../../util/data');
 const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Subclass);
@@ -47,7 +47,7 @@ exports.showFeaturesForSubclass = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
@@ -68,7 +68,7 @@ exports.showFeaturesForSubclassAndLevel = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);

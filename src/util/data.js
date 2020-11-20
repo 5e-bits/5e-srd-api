@@ -20,12 +20,7 @@ const ResourceList = data => {
   };
 };
 
-const escapeRegExp = string => {
-  return string.toString().replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-};
-
 module.exports = {
   ClassAPIResource,
-  ResourceList,
-  escapeRegExp
+  ResourceList
 };

@@ -1,16 +1,15 @@
 const Rule = require('../../models/rule');
-const utility = require('./utility');
 const { promisify } = require('util');
-const { redisClient } = require('../../util');
+const { redisClient, escapeRegExp, ResourceList } = require('../../util');
 const getAsync = promisify(redisClient.get).bind(redisClient);
 
 exports.index = async (req, res, next) => {
-  const search_queries = {};
+  const searchQueries = {};
   if (req.query.name !== undefined) {
-    search_queries.name = { $regex: new RegExp(utility.escapeRegExp(req.query.name), 'i') };
+    searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
   }
   if (req.query.desc !== undefined) {
-    search_queries.desc = { $regex: new RegExp(utility.escapeRegExp(req.query.desc), 'i') };
+    searchQueries.desc = { $regex: new RegExp(escapeRegExp(req.query.desc), 'i') };
   }
 
   const redisKey = req.originalUrl;
@@ -21,13 +20,13 @@ exports.index = async (req, res, next) => {
   if (data) {
     res.status(200).json(JSON.parse(data));
   } else {
-    return Rule.find(search_queries)
+    return Rule.find(searchQueries)
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
       .then(data => {
-        const json_data = utility.ResourceList(data);
-        redisClient.set(redisKey, JSON.stringify(json_data));
-        res.status(200).json(json_data);
+        const jsonData = ResourceList(data);
+        redisClient.set(redisKey, JSON.stringify(jsonData));
+        res.status(200).json(jsonData);
       })
       .catch(err => {
         next(err);

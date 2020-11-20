@@ -1,4 +1,4 @@
-const utility = require('../../../controllers/api/utility');
+const { ClassAPIResource, ResourceList } = require('../../util/data');
 
 describe('ClassAPIResource', () => {
   it('returns a constructed hash from list', () => {
@@ -42,7 +42,7 @@ describe('ClassAPIResource', () => {
         url: '/made/up/url/test2'
       }
     ];
-    const resource = utility.ClassAPIResource(data);
+    const resource = ClassAPIResource(data);
     expect(resource.count).toEqual(data.length);
     expect(resource.results).toEqual(expectedData);
   });
@@ -67,7 +67,7 @@ describe('ResourceList', () => {
         url: '/made/up/url/test2'
       }
     ];
-    const resource = utility.ResourceList(data);
+    const resource = ResourceList(data);
     expect(resource.count).toEqual(data.length);
     expect(resource.results).toEqual(data);
   });

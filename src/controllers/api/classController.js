@@ -5,7 +5,7 @@ const StartingEquipment = require('../../models/startingEquipment');
 const Spell = require('../../models/spell');
 const Feature = require('../../models/feature');
 const Proficiency = require('../../models/proficiency');
-const utility = require('./utility');
+const { ResourceList } = require('../../util/data');
 const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Class);
@@ -53,7 +53,7 @@ exports.showSubclassesForClass = (req, res, next) => {
     .sort({ url: 'asc', level: 'asc' })
     .then(data => {
       if (data && data.length) {
-        res.status(200).json(utility.ResourceList(data));
+        res.status(200).json(ResourceList(data));
       } else {
         res.status(404).json({ error: 'Not found' });
       }
@@ -91,7 +91,7 @@ exports.showSpellsForClass = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
@@ -112,7 +112,7 @@ exports.showSpellsForClassAndLevel = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ index: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
@@ -128,7 +128,7 @@ exports.showFeaturesForClass = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
@@ -149,7 +149,7 @@ exports.showFeaturesForClassAndLevel = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
@@ -162,7 +162,7 @@ exports.showProficienciesForClass = (req, res, next) => {
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ index: 'asc' })
     .then(data => {
-      res.status(200).json(utility.ResourceList(data));
+      res.status(200).json(ResourceList(data));
     })
     .catch(err => {
       next(err);
