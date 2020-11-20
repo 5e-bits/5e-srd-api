@@ -1,4 +1,4 @@
-const { escapeRegExp, ResourceList } = require('../../util');
+const { escapeRegExp, ResourceList } = require('../util');
 
 class SimpleController {
   constructor(Schema) {
