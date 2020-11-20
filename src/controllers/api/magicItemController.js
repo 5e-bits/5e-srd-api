@@ -10,7 +10,6 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  console.log(redisKey);
   const data = await getAsync(redisKey).catch(_err => {
     return;
   });
