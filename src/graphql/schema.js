@@ -5752,7 +5752,63 @@ input WeaponPropertyUpdateInput {
   index: String
 }
 `;
-const resolvers = {};
+
+const AbilityScore = require('../models/abilityScore');
+
+const resolvers = {
+  Query: {
+    abilityScore: async (_, { query }) => {
+      await AbilityScore.findOne(query).exec();
+    },
+    abilityScores: async (_, { query, sortBy }) => {
+      await AbilityScore.find(query)
+        .sort(sortBy)
+        .exec();
+    }
+    // class: async (_, { query }) => {},
+    // classes: async (_, { query, sortBy }) => {},
+    // condition: async (_, { query }) => {},
+    // conditions: async (_, { query, sortBy }) => {},
+    // damageType: async (_, { query }) => {},
+    // damageTypes: async (_, { query, sortBy }) => {},
+    // equipment: async (_, { query }) => {},
+    // equipmentCategories: async (_, { query, sortBy }) => {},
+    // equipmentCategory: async (_, { query }) => {},
+    // equipments: async (_, { query, sortBy }) => {},
+    // feature: async (_, { query }) => {},
+    // features: async (_, { sortBy, query }) => {},
+    // language: async (_, { query }) => {},
+    // languages: async (_, { query, sortBy }) => {},
+    // level: async (_, { query }) => {},
+    // levels: async (_, { query, sortBy }) => {},
+    // magicItem: async (_, { query }) => {},
+    // magicItems: async (_, { query, sortBy }) => {},
+    // magicSchool: async (_, { query }) => {},
+    // magicSchools: async (_, { query, sortBy }) => {},
+    // monster: async (_, { query }) => {},
+    // monsters: async (_, { query, sortBy }) => {},
+    // proficiencies: async (_, { query, sortBy }) => {},
+    // proficiency: async (_, { query }) => {},
+    // rule: async (_, { query }) => {},
+    // ruleSection: async (_, { query }) => {},
+    // ruleSections: async (_, { query, sortBy }) => {},
+    // rules: async (_, { query, sortBy }) => {},
+    // skill: async (_, { query }) => {},
+    // skills: async (_, { sortBy, query }) => {},
+    // spell: async (_, { query }) => {},
+    // spells: async (_, { query, sortBy }) => {},
+    // startingequipment: async (_, { query }) => {},
+    // startingequipments: async (_, { sortBy, query }) => {},
+    // subclass: async (_, { query }) => {},
+    // subclasses: async (_, { sortBy, query }) => {},
+    // subrace: async (_, { query }) => {},
+    // subraces: async (_, { sortBy, query }) => {},
+    // trait: async (_, { query }) => {},
+    // traits: async (_, { query, sortBy }) => {},
+    // weaponProperties: async (_, { query, sortBy }) => {},
+    // weaponProperty: async (_, { query }) => {}
+  }
+};
 
 module.exports = {
   typeDefs,
