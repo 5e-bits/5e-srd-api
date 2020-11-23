@@ -1,5 +1,5 @@
 // TODO: Break this schema up.
-export const typeDefs = `
+const typeDefs = `
 type AbilityScore {
   _id: ObjectId
   desc: [String]
@@ -5752,3 +5752,9 @@ input WeaponPropertyUpdateInput {
   index: String
 }
 `;
+const resolvers = {}
+
+module.exports = {
+  typeDefs,
+  resolvers
+}
