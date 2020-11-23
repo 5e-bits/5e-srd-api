@@ -5752,9 +5752,9 @@ input WeaponPropertyUpdateInput {
   index: String
 }
 `;
-const resolvers = {}
+const resolvers = {};
 
 module.exports = {
   typeDefs,
   resolvers
-}
+};
