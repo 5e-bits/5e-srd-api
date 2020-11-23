@@ -5758,10 +5758,10 @@ const AbilityScore = require('../models/abilityScore');
 const resolvers = {
   Query: {
     abilityScore: async (_, { query }) => {
-      await AbilityScore.findOne(query).exec();
+      return await AbilityScore.findOne(query).exec();
     },
     abilityScores: async (_, { query, sortBy }) => {
-      await AbilityScore.find(query)
+      return await AbilityScore.find(query)
         .sort(sortBy)
         .exec();
     }
