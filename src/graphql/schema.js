@@ -5754,6 +5754,27 @@ input WeaponPropertyUpdateInput {
 `;
 
 const AbilityScore = require('../models/abilityScore');
+const Class = require('../models/class');
+const Condition = require('../models/condition');
+const DamageType = require('../models/damageType');
+const Equipment = require('../models/equipment');
+const EquipmentCategory = require('../models/equipmentCategory');
+const Feature = require('../models/feature');
+const Language = require('../models/language');
+const Level = require('../models/level');
+const MagicItem = require('../models/magicItem');
+const MagicSchool = require('../models/magicSchool');
+const Monster = require('../models/monster');
+const Proficiency = require('../models/proficiency');
+const Rule = require('../models/rule');
+const RuleSection = require('../models/ruleSection');
+const Skill = require('../models/skill');
+const Spell = require('../models/spell');
+const Startingequipment = require('../models/startingequipment');
+const Subclass = require('../models/subclass');
+const Subrace = require('../models/subrace');
+const Trait = require('../models/trait');
+const WeaponProperty = require('../models/weaponProperty');
 
 const resolvers = {
   Query: {
@@ -5764,49 +5785,175 @@ const resolvers = {
       return await AbilityScore.find(query)
         .sort(sortBy)
         .exec();
+    },
+    class: async (_, { query }) => {
+      return await Class.findOne(query).exec();
+    },
+    classes: async (_, { query, sortBy }) => {
+      return await Class.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    condition: async (_, { query }) => {
+      return await Condition.findOne(query).exec();
+    },
+    conditions: async (_, { query, sortBy }) => {
+      return await Condition.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    damageType: async (_, { query }) => {
+      return await DamageType.findOne(query).exec();
+    },
+    damageTypes: async (_, { query, sortBy }) => {
+      return await DamageType.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    equipment: async (_, { query }) => {
+      return await Equipment.findOne(query).exec();
+    },
+    equipmentCategories: async (_, { query, sortBy }) => {
+      return await EquipmentCategory.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    equipmentCategory: async (_, { query }) => {
+      return await EquipmentCategory.findOne(query).exec();
+    },
+    equipments: async (_, { query, sortBy }) => {
+      return await Equipment.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    feature: async (_, { query }) => {
+      return await Feature.findOne(query).exec();
+    },
+    features: async (_, { query, sortBy }) => {
+      return await Feature.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    language: async (_, { query }) => {
+      return await Language.findOne(query).exec();
+    },
+    languages: async (_, { query, sortBy }) => {
+      return await Language.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    level: async (_, { query }) => {
+      return await Level.findOne(query).exec();
+    },
+    levels: async (_, { query, sortBy }) => {
+      return await Level.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    magicItem: async (_, { query }) => {
+      return await MagicItem.findOne(query).exec();
+    },
+    magicItems: async (_, { query, sortBy }) => {
+      return await MagicItem.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    magicSchool: async (_, { query }) => {
+      return await MagicSchool.findOne(query).exec();
+    },
+    magicSchools: async (_, { query, sortBy }) => {
+      return await MagicSchool.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    monster: async (_, { query }) => {
+      return await Monster.findOne(query).exec();
+    },
+    monsters: async (_, { query, sortBy }) => {
+      return await Monster.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    proficiencies: async (_, { query, sortBy }) => {
+      return await Proficiency.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    proficiency: async (_, { query }) => {
+      return await Proficiency.findOne(query).exec();
+    },
+    rule: async (_, { query }) => {
+      return await Rule.findOne(query).exec();
+    },
+    ruleSection: async (_, { query }) => {
+      return await RuleSection.findOne(query).exec();
+    },
+    ruleSections: async (_, { query, sortBy }) => {
+      return await RuleSection.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    rules: async (_, { query, sortBy }) => {
+      return await Rule.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    skill: async (_, { query }) => {
+      return await Skill.findOne(query).exec();
+    },
+    skills: async (_, { query, sortBy }) => {
+      return await Skill.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    spell: async (_, { query }) => {
+      return await Spell.findOne(query).exec();
+    },
+    spells: async (_, { query, sortBy }) => {
+      return await Spell.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    startingequipment: async (_, { query }) => {
+      return await Startingequipment.findOne(query).exec();
+    },
+    startingequipments: async (_, { query, sortBy }) => {
+      return await Startingequipment.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    subclass: async (_, { query }) => {
+      return await Subclass.findOne(query).exec();
+    },
+    subclasses: async (_, { query, sortBy }) => {
+      return await Subclass.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    subrace: async (_, { query }) => {
+      return await Subrace.findOne(query).exec();
+    },
+    subraces: async (_, { query, sortBy }) => {
+      return await Subrace.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    trait: async (_, { query }) => {
+      return await Trait.findOne(query).exec();
+    },
+    traits: async (_, { query, sortBy }) => {
+      return await Trait.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    weaponProperties: async (_, { query, sortBy }) => {
+      return await WeaponProperty.find(query)
+        .sort(sortBy)
+        .exec();
+    },
+    weaponProperty: async (_, { query }) => {
+      return await WeaponProperty.findOne(query).exec();
     }
-    // class: async (_, { query }) => {},
-    // classes: async (_, { query, sortBy }) => {},
-    // condition: async (_, { query }) => {},
-    // conditions: async (_, { query, sortBy }) => {},
-    // damageType: async (_, { query }) => {},
-    // damageTypes: async (_, { query, sortBy }) => {},
-    // equipment: async (_, { query }) => {},
-    // equipmentCategories: async (_, { query, sortBy }) => {},
-    // equipmentCategory: async (_, { query }) => {},
-    // equipments: async (_, { query, sortBy }) => {},
-    // feature: async (_, { query }) => {},
-    // features: async (_, { sortBy, query }) => {},
-    // language: async (_, { query }) => {},
-    // languages: async (_, { query, sortBy }) => {},
-    // level: async (_, { query }) => {},
-    // levels: async (_, { query, sortBy }) => {},
-    // magicItem: async (_, { query }) => {},
-    // magicItems: async (_, { query, sortBy }) => {},
-    // magicSchool: async (_, { query }) => {},
-    // magicSchools: async (_, { query, sortBy }) => {},
-    // monster: async (_, { query }) => {},
-    // monsters: async (_, { query, sortBy }) => {},
-    // proficiencies: async (_, { query, sortBy }) => {},
-    // proficiency: async (_, { query }) => {},
-    // rule: async (_, { query }) => {},
-    // ruleSection: async (_, { query }) => {},
-    // ruleSections: async (_, { query, sortBy }) => {},
-    // rules: async (_, { query, sortBy }) => {},
-    // skill: async (_, { query }) => {},
-    // skills: async (_, { sortBy, query }) => {},
-    // spell: async (_, { query }) => {},
-    // spells: async (_, { query, sortBy }) => {},
-    // startingequipment: async (_, { query }) => {},
-    // startingequipments: async (_, { sortBy, query }) => {},
-    // subclass: async (_, { query }) => {},
-    // subclasses: async (_, { sortBy, query }) => {},
-    // subrace: async (_, { query }) => {},
-    // subraces: async (_, { sortBy, query }) => {},
-    // trait: async (_, { query }) => {},
-    // traits: async (_, { query, sortBy }) => {},
-    // weaponProperties: async (_, { query, sortBy }) => {},
-    // weaponProperty: async (_, { query }) => {}
   }
 };
 
