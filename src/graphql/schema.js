@@ -7,6 +7,7 @@ const Condition = require('./condition').typeDef;
 const DamageType = require('./damageType').typeDef;
 const Equipment = require('./equipment').typeDef;
 const EquipmentCategory = require('./equipmentCategory').typeDef;
+const Feature = require('./feature').typeDef;
 const Language = require('./language').typeDef;
 const Level = require('./level').typeDef;
 const MagicItem = require('./magicItem').typeDef;
@@ -30,6 +31,7 @@ const conditionResolvers = require('./condition').resolvers;
 const damageTypeResolvers = require('./damageType').resolvers;
 const equipmentResolvers = require('./equipment').resolvers;
 const equipmentCategoryResolvers = require('./equipmentCategory').resolvers;
+const featureResolvers = require('./feature').resolvers;
 const languageResolvers = require('./language').resolvers;
 const levelResolvers = require('./level').resolvers;
 const magicItemResolvers = require('./magicItem').resolvers;
@@ -104,6 +106,7 @@ module.exports = {
     DamageType,
     Equipment,
     EquipmentCategory,
+    Feature,
     Language,
     Level,
     MagicItem,
@@ -129,6 +132,7 @@ module.exports = {
     damageTypeResolvers,
     equipmentResolvers,
     equipmentCategoryResolvers,
+    featureResolvers,
     languageResolvers,
     levelResolvers,
     magicItemResolvers,
