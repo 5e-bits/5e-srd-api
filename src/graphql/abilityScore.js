@@ -2,7 +2,6 @@ const AbilityScore = require('../models/abilityScore');
 
 const typeDef = `
 type AbilityScore {
-  _id: ObjectId
   desc: [String]
   full_name: String
   index: String
@@ -12,9 +11,7 @@ type AbilityScore {
 }
 
 input AbilityScoreQueryInput {
-  _id_lte: ObjectId
   name_gt: String
-  _id_gte: ObjectId
   full_name_ne: String
   full_name_lte: String
   name: String
@@ -25,22 +22,18 @@ input AbilityScoreQueryInput {
   full_name_gt: String
   skills_exists: Boolean
   full_name_exists: Boolean
-  _id_ne: ObjectId
   index_gt: String
   url_exists: Boolean
   index_exists: Boolean
   skills_in: [AbilityScoreSkillQueryInput]
   index_nin: [String]
-  _id_gt: ObjectId
   url: String
   url_in: [String]
-  _id_nin: [ObjectId]
   url_lte: String
   url_nin: [String]
   index_in: [String]
   name_ne: String
   index_gte: String
-  _id_in: [ObjectId]
   index_lt: String
   full_name_gte: String
   skills: [AbilityScoreSkillQueryInput]
@@ -54,12 +47,10 @@ input AbilityScoreQueryInput {
   name_in: [String]
   full_name_nin: [String]
   name_nin: [String]
-  _id_lt: ObjectId
   _id_exists: Boolean
   index_lte: String
   url_lt: String
   index_ne: String
-  _id: ObjectId
   url_ne: String
   name_lte: String
   desc_exists: Boolean
