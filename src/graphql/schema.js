@@ -5833,7 +5833,8 @@ const resolvers = {
   }
 };
 
-import { typeDef as AbilityScore, resolvers as abilityScoreResolvers } from './abilityScore';
+const AbilityScore = require('./abilityScore').typeDef;
+const abilityScoreResolvers = require('./abilityScore').resolvers;
 
 module.exports = {
   typeDefs: [typeDefs, Query, AbilityScore],
