@@ -1,6 +1,6 @@
 const { merge } = require('lodash');
 
-// TODO: If we convert this to import style, we can combine abunch of these lines.
+// TODO: If we convert the project to import style, we can combine abunch of these lines.
 const AbilityScore = require('./abilityScore').typeDef;
 const Class = require('./class').typeDef;
 const Condition = require('./condition').typeDef;
