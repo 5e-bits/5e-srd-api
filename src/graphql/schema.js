@@ -1,124 +1,7 @@
+const { merge } = require('lodash');
+
 // TODO: Break this schema up.
 const typeDefs = `
-type AbilityScore {
-  _id: ObjectId
-  desc: [String]
-  full_name: String
-  index: String
-  name: String
-  skills: [AbilityScoreSkill]
-  url: String
-}
-
-input AbilityScoreQueryInput {
-  _id_lte: ObjectId
-  name_gt: String
-  _id_gte: ObjectId
-  full_name_ne: String
-  full_name_lte: String
-  name: String
-  name_lt: String
-  skills_nin: [AbilityScoreSkillQueryInput]
-  full_name: String
-  name_exists: Boolean
-  full_name_gt: String
-  skills_exists: Boolean
-  full_name_exists: Boolean
-  _id_ne: ObjectId
-  index_gt: String
-  url_exists: Boolean
-  index_exists: Boolean
-  skills_in: [AbilityScoreSkillQueryInput]
-  index_nin: [String]
-  _id_gt: ObjectId
-  url: String
-  url_in: [String]
-  _id_nin: [ObjectId]
-  url_lte: String
-  url_nin: [String]
-  index_in: [String]
-  name_ne: String
-  index_gte: String
-  _id_in: [ObjectId]
-  index_lt: String
-  full_name_gte: String
-  skills: [AbilityScoreSkillQueryInput]
-  OR: [AbilityScoreQueryInput!]
-  desc_nin: [String]
-  name_gte: String
-  desc_in: [String]
-  url_gte: String
-  full_name_lt: String
-  AND: [AbilityScoreQueryInput!]
-  name_in: [String]
-  full_name_nin: [String]
-  name_nin: [String]
-  _id_lt: ObjectId
-  _id_exists: Boolean
-  index_lte: String
-  url_lt: String
-  index_ne: String
-  _id: ObjectId
-  url_ne: String
-  name_lte: String
-  desc_exists: Boolean
-  index: String
-  full_name_in: [String]
-  desc: [String]
-  url_gt: String
-}
-
-type AbilityScoreSkill {
-  index: String
-  name: String
-  url: String
-}
-
-input AbilityScoreSkillQueryInput {
-  url_nin: [String]
-  url_in: [String]
-  index_lt: String
-  url_gte: String
-  index_in: [String]
-  url_ne: String
-  index: String
-  url_exists: Boolean
-  index_lte: String
-  index_ne: String
-  name: String
-  name_lte: String
-  name_exists: Boolean
-  name_in: [String]
-  index_gt: String
-  name_lt: String
-  AND: [AbilityScoreSkillQueryInput!]
-  name_ne: String
-  url_lte: String
-  index_exists: Boolean
-  OR: [AbilityScoreSkillQueryInput!]
-  index_gte: String
-  name_nin: [String]
-  index_nin: [String]
-  name_gt: String
-  url_lt: String
-  url: String
-  url_gt: String
-  name_gte: String
-}
-
-enum AbilityScoreSortByInput {
-  FULL_NAME_ASC
-  FULL_NAME_DESC
-  INDEX_ASC
-  INDEX_DESC
-  URL_ASC
-  _ID_ASC
-  NAME_ASC
-  NAME_DESC
-  URL_DESC
-  _ID_DESC
-}
-
 type Class {
   _id: ObjectId
   class_levels: String
@@ -3740,53 +3623,6 @@ enum ProficiencySortByInput {
   INDEX_DESC
 }
 
-type Query {
-  abilityScore(query: AbilityScoreQueryInput): AbilityScore
-  abilityScores(query: AbilityScoreQueryInput, sortBy: AbilityScoreSortByInput): [AbilityScore]!
-  class(query: ClassQueryInput): Class
-  classes(query: ClassQueryInput, sortBy: ClassSortByInput): [Class]!
-  condition(query: ConditionQueryInput): Condition
-  conditions(query: ConditionQueryInput, sortBy: ConditionSortByInput): [Condition]!
-  damageType(query: DamageTypeQueryInput): DamageType
-  damageTypes(query: DamageTypeQueryInput, sortBy: DamageTypeSortByInput): [DamageType]!
-  equipment(query: EquipmentQueryInput): Equipment
-  equipmentCategories(query: EquipmentCategoryQueryInput, sortBy: EquipmentCategorySortByInput): [EquipmentCategory]!
-  equipmentCategory(query: EquipmentCategoryQueryInput): EquipmentCategory
-  equipments(query: EquipmentQueryInput, sortBy: EquipmentSortByInput): [Equipment]!
-  feature(query: FeatureQueryInput): Feature
-  features(sortBy: FeatureSortByInput, query: FeatureQueryInput, limit: Int = 100): [Feature]!
-  language(query: LanguageQueryInput): Language
-  languages(query: LanguageQueryInput, sortBy: LanguageSortByInput): [Language]!
-  level(query: LevelQueryInput): Level
-  levels(query: LevelQueryInput, sortBy: LevelSortByInput): [Level]!
-  magicItem(query: MagicItemQueryInput): MagicItem
-  magicItems(query: MagicItemQueryInput, sortBy: MagicItemSortByInput): [MagicItem]!
-  magicSchool(query: MagicSchoolQueryInput): MagicSchool
-  magicSchools(query: MagicSchoolQueryInput, sortBy: MagicSchoolSortByInput): [MagicSchool]!
-  monster(query: MonsterQueryInput): Monster
-  monsters(query: MonsterQueryInput, sortBy: MonsterSortByInput): [Monster]!
-  proficiencies(query: ProficiencyQueryInput, sortBy: ProficiencySortByInput): [Proficiency]!
-  proficiency(query: ProficiencyQueryInput): Proficiency
-  rule(query: RuleQueryInput): Rule
-  ruleSection(query: RuleSectionQueryInput): RuleSection
-  ruleSections(query: RuleSectionQueryInput, sortBy: RuleSectionSortByInput): [RuleSection]!
-  rules(query: RuleQueryInput, sortBy: RuleSortByInput): [Rule]!
-  skill(query: SkillQueryInput): Skill
-  skills(sortBy: SkillSortByInput, query: SkillQueryInput): [Skill]!
-  spell(query: SpellQueryInput): Spell
-  spells(query: SpellQueryInput, sortBy: SpellSortByInput): [Spell]!
-  startingequipment(query: StartingequipmentQueryInput): Startingequipment
-  startingequipments(sortBy: StartingequipmentSortByInput, query: StartingequipmentQueryInput): [Startingequipment]!
-  subclass(query: SubclassQueryInput): Subclass
-  subclasses(sortBy: SubclassSortByInput, query: SubclassQueryInput): [Subclass]!
-  subrace(query: SubraceQueryInput): Subrace
-  subraces(sortBy: SubraceSortByInput, query: SubraceQueryInput): [Subrace]!
-  trait(query: TraitQueryInput): Trait
-  traits(query: TraitQueryInput, sortBy: TraitSortByInput): [Trait]!
-  weaponProperties(query: WeaponPropertyQueryInput, sortBy: WeaponPropertySortByInput): [WeaponProperty]!
-  weaponProperty(query: WeaponPropertyQueryInput): WeaponProperty
-}
-
 type Rule {
   _id: ObjectId
   desc: String
@@ -5753,7 +5589,55 @@ input WeaponPropertyUpdateInput {
 }
 `;
 
-const AbilityScore = require('../models/abilityScore');
+const Query = `
+type Query {
+  abilityScore(query: AbilityScoreQueryInput): AbilityScore
+  abilityScores(query: AbilityScoreQueryInput, sortBy: AbilityScoreSortByInput): [AbilityScore]!
+  class(query: ClassQueryInput): Class
+  classes(query: ClassQueryInput, sortBy: ClassSortByInput): [Class]!
+  condition(query: ConditionQueryInput): Condition
+  conditions(query: ConditionQueryInput, sortBy: ConditionSortByInput): [Condition]!
+  damageType(query: DamageTypeQueryInput): DamageType
+  damageTypes(query: DamageTypeQueryInput, sortBy: DamageTypeSortByInput): [DamageType]!
+  equipment(query: EquipmentQueryInput): Equipment
+  equipmentCategories(query: EquipmentCategoryQueryInput, sortBy: EquipmentCategorySortByInput): [EquipmentCategory]!
+  equipmentCategory(query: EquipmentCategoryQueryInput): EquipmentCategory
+  equipments(query: EquipmentQueryInput, sortBy: EquipmentSortByInput): [Equipment]!
+  feature(query: FeatureQueryInput): Feature
+  features(sortBy: FeatureSortByInput, query: FeatureQueryInput, limit: Int = 100): [Feature]!
+  language(query: LanguageQueryInput): Language
+  languages(query: LanguageQueryInput, sortBy: LanguageSortByInput): [Language]!
+  level(query: LevelQueryInput): Level
+  levels(query: LevelQueryInput, sortBy: LevelSortByInput): [Level]!
+  magicItem(query: MagicItemQueryInput): MagicItem
+  magicItems(query: MagicItemQueryInput, sortBy: MagicItemSortByInput): [MagicItem]!
+  magicSchool(query: MagicSchoolQueryInput): MagicSchool
+  magicSchools(query: MagicSchoolQueryInput, sortBy: MagicSchoolSortByInput): [MagicSchool]!
+  monster(query: MonsterQueryInput): Monster
+  monsters(query: MonsterQueryInput, sortBy: MonsterSortByInput): [Monster]!
+  proficiencies(query: ProficiencyQueryInput, sortBy: ProficiencySortByInput): [Proficiency]!
+  proficiency(query: ProficiencyQueryInput): Proficiency
+  rule(query: RuleQueryInput): Rule
+  ruleSection(query: RuleSectionQueryInput): RuleSection
+  ruleSections(query: RuleSectionQueryInput, sortBy: RuleSectionSortByInput): [RuleSection]!
+  rules(query: RuleQueryInput, sortBy: RuleSortByInput): [Rule]!
+  skill(query: SkillQueryInput): Skill
+  skills(sortBy: SkillSortByInput, query: SkillQueryInput): [Skill]!
+  spell(query: SpellQueryInput): Spell
+  spells(query: SpellQueryInput, sortBy: SpellSortByInput): [Spell]!
+  startingequipment(query: StartingequipmentQueryInput): Startingequipment
+  startingequipments(sortBy: StartingequipmentSortByInput, query: StartingequipmentQueryInput): [Startingequipment]!
+  subclass(query: SubclassQueryInput): Subclass
+  subclasses(sortBy: SubclassSortByInput, query: SubclassQueryInput): [Subclass]!
+  subrace(query: SubraceQueryInput): Subrace
+  subraces(sortBy: SubraceSortByInput, query: SubraceQueryInput): [Subrace]!
+  trait(query: TraitQueryInput): Trait
+  traits(query: TraitQueryInput, sortBy: TraitSortByInput): [Trait]!
+  weaponProperties(query: WeaponPropertyQueryInput, sortBy: WeaponPropertySortByInput): [WeaponProperty]!
+  weaponProperty(query: WeaponPropertyQueryInput): WeaponProperty
+}
+`;
+
 const Class = require('../models/class');
 const Condition = require('../models/condition');
 const DamageType = require('../models/damageType');
@@ -5778,14 +5662,6 @@ const WeaponProperty = require('../models/weaponProperty');
 
 const resolvers = {
   Query: {
-    abilityScore: async (_, { query }) => {
-      return await AbilityScore.findOne(query).exec();
-    },
-    abilityScores: async (_, { query, sortBy }) => {
-      return await AbilityScore.find(query)
-        .sort(sortBy)
-        .exec();
-    },
     class: async (_, { query }) => {
       return await Class.findOne(query).exec();
     },
@@ -5957,7 +5833,9 @@ const resolvers = {
   }
 };
 
+import { typeDef as AbilityScore, resolvers as abilityScoreResolvers } from './abilityScore';
+
 module.exports = {
-  typeDefs,
-  resolvers
+  typeDefs: [typeDefs, Query, AbilityScore],
+  resolvers: merge(resolvers, abilityScoreResolvers)
 };
