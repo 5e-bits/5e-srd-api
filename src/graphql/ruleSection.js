@@ -1,6 +1,11 @@
 const RuleSection = require('../models/ruleSection');
 
 const typeDef = `
+extend type Query {
+  ruleSection(query: RuleSectionQueryInput): RuleSection
+  ruleSections(query: RuleSectionQueryInput, sortBy: RuleSectionSortByInput): [RuleSection]!
+}
+
 type RuleSection {
   desc: String
   index: String

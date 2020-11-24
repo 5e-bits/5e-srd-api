@@ -1,6 +1,11 @@
 const Startingequipment = require('../models/startingEquipment');
 
 const typeDef = `
+extend type Query {
+  startingequipment(query: StartingequipmentQueryInput): Startingequipment
+  startingequipments(sortBy: StartingequipmentSortByInput, query: StartingequipmentQueryInput): [Startingequipment]!
+}
+
 type Startingequipment {
   class: StartingequipmentClass
   index: String

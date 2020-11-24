@@ -1,6 +1,11 @@
 const Subrace = require('../models/subrace');
 
 const typeDef = `
+extend type Query {
+  subrace(query: SubraceQueryInput): Subrace
+  subraces(sortBy: SubraceSortByInput, query: SubraceQueryInput): [Subrace]!
+}
+
 type Subrace {
   ability_bonuses: [SubraceAbility_bonuse]
   desc: String

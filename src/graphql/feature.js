@@ -1,6 +1,11 @@
 const Feature = require('../models/feature');
 
 const typeDef = `
+extend type Query {
+  feature(query: FeatureQueryInput): Feature
+  features(sortBy: FeatureSortByInput, query: FeatureQueryInput, limit: Int = 100): [Feature]!
+}
+
 type Feature {
   choice: FeatureChoice
   class: FeatureClass

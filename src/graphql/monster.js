@@ -1,6 +1,11 @@
 const Monster = require('../models/monster');
 
 const typeDef = `
+extend type Query {
+  monster(query: MonsterQueryInput): Monster
+  monsters(query: MonsterQueryInput, sortBy: MonsterSortByInput): [Monster]!
+}
+
 type Monster {
   actions: [MonsterAction]
   alignment: String

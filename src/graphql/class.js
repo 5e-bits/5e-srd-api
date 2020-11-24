@@ -1,6 +1,11 @@
 const Class = require('../models/class');
 
 const typeDef = `
+extend type Query {
+  class(query: ClassQueryInput): Class
+  classes(query: ClassQueryInput, sortBy: ClassSortByInput): [Class]!
+}
+
 type Class {
   class_levels: String
   hit_die: Int

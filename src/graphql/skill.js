@@ -1,6 +1,11 @@
 const Skill = require('../models/skill');
 
 const typeDef = `
+extend type Query {
+  skill(query: SkillQueryInput): Skill
+  skills(sortBy: SkillSortByInput, query: SkillQueryInput): [Skill]!
+}
+
 type Skill {
   ability_score: SkillAbility_score
   desc: [String]

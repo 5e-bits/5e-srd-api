@@ -1,6 +1,11 @@
 const Rule = require('../models/rule');
 
 const typeDef = `
+extend type Query {
+  rule(query: RuleQueryInput): Rule
+  rules(query: RuleQueryInput, sortBy: RuleSortByInput): [Rule]!
+}
+
 type Rule {
   desc: String
   index: String

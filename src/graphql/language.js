@@ -1,6 +1,12 @@
 const Language = require('../models/language');
 
-const typeDef = `type Language {
+const typeDef = `
+extend type Query {
+  language(query: LanguageQueryInput): Language
+  languages(query: LanguageQueryInput, sortBy: LanguageSortByInput): [Language]!
+}
+
+type Language {
   desc: String
   index: String
   name: String

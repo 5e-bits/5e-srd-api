@@ -1,6 +1,11 @@
 const Equipment = require('../models/equipment');
 
 const typeDef = `
+extend type Query {
+  equipment(query: EquipmentQueryInput): Equipment
+  equipments(query: EquipmentQueryInput, sortBy: EquipmentSortByInput): [Equipment]!
+}
+
 type Equipment {
   H_damage: EquipmentH_damage
   armor_category: String

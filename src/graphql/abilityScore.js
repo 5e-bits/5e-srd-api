@@ -1,6 +1,11 @@
 const AbilityScore = require('../models/abilityScore');
 
 const typeDef = `
+extend type Query {
+  abilityScore(query: AbilityScoreQueryInput): AbilityScore
+  abilityScores(query: AbilityScoreQueryInput, sortBy: AbilityScoreSortByInput): [AbilityScore]!
+}
+
 type AbilityScore {
   desc: [String]
   full_name: String

@@ -1,6 +1,11 @@
 const Proficiency = require('../models/proficiency');
 
 const typeDef = `
+extend type Query {
+  proficiencies(query: ProficiencyQueryInput, sortBy: ProficiencySortByInput): [Proficiency]!
+  proficiency(query: ProficiencyQueryInput): Proficiency
+}
+
 type Proficiency {
   classes: [ProficiencyClass]
   index: String

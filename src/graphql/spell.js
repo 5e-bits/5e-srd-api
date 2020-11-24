@@ -1,6 +1,11 @@
 const Spell = require('../models/spell');
 
 const typeDef = `
+extend type Query {
+  spell(query: SpellQueryInput): Spell
+  spells(query: SpellQueryInput, sortBy: SpellSortByInput): [Spell]!
+}
+
 type Spell {
   area_of_effect: SpellArea_of_effect
   attack_type: String

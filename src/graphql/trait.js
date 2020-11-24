@@ -1,6 +1,11 @@
 const Trait = require('../models/trait');
 
 const typeDef = `
+extend type Query {
+  trait(query: TraitQueryInput): Trait
+  traits(query: TraitQueryInput, sortBy: TraitSortByInput): [Trait]!
+}
+
 type Trait {
   desc: [String]
   index: String

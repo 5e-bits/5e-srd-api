@@ -1,6 +1,12 @@
 const MagicSchool = require('../models/magicSchool');
 
-const typeDef = `type MagicSchool {
+const typeDef = `
+extend type Query {
+  magicSchool(query: MagicSchoolQueryInput): MagicSchool
+  magicSchools(query: MagicSchoolQueryInput, sortBy: MagicSchoolSortByInput): [MagicSchool]!
+}
+
+type MagicSchool {
   desc: String
   index: String
   name: String

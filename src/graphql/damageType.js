@@ -1,6 +1,11 @@
 const DamageType = require('../models/damageType');
 
 const typeDef = `
+extend type Query {
+  damageType(query: DamageTypeQueryInput): DamageType
+  damageTypes(query: DamageTypeQueryInput, sortBy: DamageTypeSortByInput): [DamageType]!
+}
+
 type DamageType {
   desc: [String]
   index: String

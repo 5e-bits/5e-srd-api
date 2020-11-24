@@ -1,6 +1,11 @@
 const Condition = require('../models/condition');
 
 const typeDef = `
+extend type Query {
+  condition(query: ConditionQueryInput): Condition
+  conditions(query: ConditionQueryInput, sortBy: ConditionSortByInput): [Condition]!
+}
+
 type Condition {
   desc: [String]
   index: String

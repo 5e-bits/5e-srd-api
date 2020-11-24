@@ -1,6 +1,11 @@
 const WeaponProperty = require('../models/weaponProperty');
 
 const typeDef = `
+extend type Query {
+  weaponProperties(query: WeaponPropertyQueryInput, sortBy: WeaponPropertySortByInput): [WeaponProperty]!
+  weaponProperty(query: WeaponPropertyQueryInput): WeaponProperty
+}
+
 type WeaponProperty {
   desc: [String]
   index: String

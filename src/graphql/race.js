@@ -1,6 +1,11 @@
 const Race = require('../models/race');
 
 const typeDef = `
+extend type Query {
+  race(query: RaceQueryInput): Race
+  races(query: RaceQueryInput, sortBy: RaceSortByInput): [Race]!
+}
+
 type Race {
   ability_bonus_options: RaceAbility_bonus_option
   ability_bonuses: [RaceAbility_bonuse]

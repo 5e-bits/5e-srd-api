@@ -1,6 +1,11 @@
 const Subclass = require('../models/subclass');
 
 const typeDef = `
+extend type Query {
+  subclass(query: SubclassQueryInput): Subclass
+  subclasses(sortBy: SubclassSortByInput, query: SubclassQueryInput): [Subclass]!
+}
+
 type Subclass {
   class: SubclassClass
   desc: [String]

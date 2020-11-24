@@ -1,6 +1,11 @@
 const MagicItem = require('../models/magicItem');
 
 const typeDef = `
+extend type Query {
+  magicItem(query: MagicItemQueryInput): MagicItem
+  magicItems(query: MagicItemQueryInput, sortBy: MagicItemSortByInput): [MagicItem]!
+}
+
 type MagicItem {
   desc: [String]
   equipment_category: MagicItemEquipment_category

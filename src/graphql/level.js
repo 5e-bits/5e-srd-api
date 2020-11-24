@@ -1,6 +1,12 @@
 const Level = require('../models/level');
 
-const typeDef = `type Level {
+const typeDef = `
+extend type Query {
+  level(query: LevelQueryInput): Level
+  levels(query: LevelQueryInput, sortBy: LevelSortByInput): [Level]!
+}
+
+type Level {
   ability_score_bonuses: Int
   class: LevelClass
   class_specific: LevelClass_specific

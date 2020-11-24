@@ -1,6 +1,11 @@
 const EquipmentCategory = require('../models/equipmentCategory');
 
 const typeDef = `
+extend type Query {
+  equipmentCategories(query: EquipmentCategoryQueryInput, sortBy: EquipmentCategorySortByInput): [EquipmentCategory]!
+  equipmentCategory(query: EquipmentCategoryQueryInput): EquipmentCategory
+}
+
 type EquipmentCategory {
   equipment: [EquipmentCategoryEquipment]
   index: String
