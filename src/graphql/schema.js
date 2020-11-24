@@ -77,6 +77,8 @@ type Query {
   monsters(query: MonsterQueryInput, sortBy: MonsterSortByInput): [Monster]!
   proficiencies(query: ProficiencyQueryInput, sortBy: ProficiencySortByInput): [Proficiency]!
   proficiency(query: ProficiencyQueryInput): Proficiency
+  race(query: RaceQueryInput): Race
+  races(query: RaceQueryInput, sortBy: RaceSortByInput): [Race]!
   rule(query: RuleQueryInput): Rule
   ruleSection(query: RuleSectionQueryInput): RuleSection
   ruleSections(query: RuleSectionQueryInput, sortBy: RuleSectionSortByInput): [RuleSection]!
