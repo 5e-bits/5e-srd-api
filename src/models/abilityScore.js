@@ -1,14 +1,23 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var AbilityScoreSchema = new Schema({
-  _id: {
-    type: String,
-    select: false
-  },
+const AbilityScoreSkill = new Schema({
   index: String,
   name: String,
   url: String
 });
 
-module.exports = mongoose.model('AbilityScore', AbilityScoreSchema, 'ability-scores');
+const AbilityScore = new Schema({
+  _id: {
+    type: String,
+    select: false
+  },
+  desc: [String],
+  full_name: String,
+  index: String,
+  name: String,
+  skills: [AbilityScoreSkill],
+  url: String
+});
+
+module.exports = mongoose.model('AbilityScore', AbilityScore, 'ability-scores');
