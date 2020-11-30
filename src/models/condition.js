@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var ConditionSchema = new Schema({
+const ConditionSchema = new Schema({
   _id: {
     type: String,
     select: false
