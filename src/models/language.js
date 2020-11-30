@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var LanguageSchema = new Schema({
+const Language = new Schema({
   _id: {
     type: String,
     select: false
@@ -15,4 +15,4 @@ var LanguageSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('Language', LanguageSchema, 'languages');
+module.exports = mongoose.model('Language', Language, 'languages');

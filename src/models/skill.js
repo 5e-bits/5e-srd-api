@@ -1,14 +1,22 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var SkillSchema = new Schema({
-  _id: {
-    type: String,
-    select: false
-  },
+const SkillAbilityScore = new Schema({
   index: String,
   name: String,
   url: String
 });
 
-module.exports = mongoose.model('Skill', SkillSchema, 'skills');
+const Skill = new Schema({
+  _id: {
+    type: String,
+    select: false
+  },
+  ability_score: SkillAbilityScore,
+  desc: [String],
+  index: String,
+  name: String,
+  url: String
+});
+
+module.exports = mongoose.model('Skill', Skill, 'skills');
