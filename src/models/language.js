@@ -6,8 +6,12 @@ var LanguageSchema = new Schema({
     type: String,
     select: false
   },
+  desc: String,
   index: String,
   name: String,
+  script: String,
+  type: String,
+  typical_speakers: [String],
   url: String
 });
 
