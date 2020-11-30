@@ -6,6 +6,7 @@ var WeaponPropertySchema = new Schema({
     type: String,
     select: false
   },
+  desc: [String],
   index: String,
   name: String,
   url: String
