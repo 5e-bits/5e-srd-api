@@ -7,7 +7,7 @@ const SkillAbilityScore = new Schema({
   url: String
 });
 
-const SkillSchema = new Schema({
+const Skill = new Schema({
   _id: {
     type: String,
     select: false
@@ -19,4 +19,4 @@ const SkillSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('Skill', SkillSchema, 'skills');
+module.exports = mongoose.model('Skill', Skill, 'skills');

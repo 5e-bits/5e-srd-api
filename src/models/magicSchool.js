@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const MagicSchoolSchema = new Schema({
+const MagicSchool = new Schema({
   _id: {
     type: String,
     select: false
@@ -12,4 +12,4 @@ const MagicSchoolSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('MagicSchool', MagicSchoolSchema, 'magic-schools');
+module.exports = mongoose.model('MagicSchool', MagicSchool, 'magic-schools');

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const DamageTypeSchema = new Schema({
+const DamageType = new Schema({
   _id: {
     type: String,
     select: false
@@ -12,4 +12,4 @@ const DamageTypeSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('DamageType', DamageTypeSchema, 'damage-types');
+module.exports = mongoose.model('DamageType', DamageType, 'damage-types');

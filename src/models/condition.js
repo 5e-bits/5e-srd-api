@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ConditionSchema = new Schema({
+const Condition = new Schema({
   _id: {
     type: String,
     select: false
@@ -12,4 +12,4 @@ const ConditionSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('Condition', ConditionSchema, 'conditions');
+module.exports = mongoose.model('Condition', Condition, 'conditions');
