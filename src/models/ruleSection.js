@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const RuleSectionSchema = new Schema({
+const RuleSection = new Schema({
   _id: {
     type: String,
     select: false
@@ -12,4 +12,4 @@ const RuleSectionSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('RuleSection', RuleSectionSchema, 'rule-sections');
+module.exports = mongoose.model('RuleSection', RuleSection, 'rule-sections');

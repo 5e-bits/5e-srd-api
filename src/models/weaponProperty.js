@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const WeaponPropertySchema = new Schema({
+const WeaponProperty = new Schema({
   _id: {
     type: String,
     select: false
@@ -12,4 +12,4 @@ const WeaponPropertySchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('WeaponProperty', WeaponPropertySchema, 'weapon-properties');
+module.exports = mongoose.model('WeaponProperty', WeaponProperty, 'weapon-properties');

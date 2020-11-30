@@ -31,7 +31,7 @@ const TraitSubrace = new Schema({
   url: String
 });
 
-const TraitSchema = new Schema({
+const Trait = new Schema({
   _id: {
     type: String,
     select: false
@@ -46,4 +46,4 @@ const TraitSchema = new Schema({
   url: String
 });
 
-module.exports = mongoose.model('Trait', TraitSchema, 'traits');
+module.exports = mongoose.model('Trait', Trait, 'traits');
