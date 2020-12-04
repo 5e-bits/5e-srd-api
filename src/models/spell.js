@@ -4,15 +4,15 @@ var Schema = mongoose.Schema;
 var SpellSchema = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   index: String,
   name: String,
   level: Number,
   school: {
-    name: String
+    name: String,
   },
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('Spell', SpellSchema, 'spells');

@@ -794,11 +794,11 @@ const resolvers = {
       return await Level.find(query)
         .sort(sortBy)
         .exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };

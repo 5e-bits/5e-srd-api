@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Language = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   desc: String,
   index: String,
@@ -12,7 +12,7 @@ const Language = new Schema({
   script: String,
   type: String,
   typical_speakers: [String],
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('Language', Language, 'languages');

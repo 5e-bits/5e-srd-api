@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'ammunition',
       name: 'Ammunition',
-      url: '/api/weapon-properties/ammunition'
+      url: '/api/weapon-properties/ammunition',
     },
     {
       index: 'finesse',
       name: 'Finesse',
-      url: '/api/weapon-properties/finesse'
+      url: '/api/weapon-properties/finesse',
     },
     {
       index: 'heavy',
       name: 'Heavy',
-      url: '/api/weapon-properties/heavy'
-    }
+      url: '/api/weapon-properties/heavy',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'ammunition',
     name: 'Ammunition',
-    url: '/api/weapon-properties/ammunition'
+    url: '/api/weapon-properties/ammunition',
   };
 
   const showParams = { index: 'ammunition' };

@@ -4,56 +4,56 @@ const Schema = mongoose.Schema;
 const MonsterActionDamageType = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const MonsterActionDamage = new Schema({
   damage_dice: String,
-  damage_type: MonsterActionDamageType
+  damage_type: MonsterActionDamageType,
 });
 
 const MonsterAction = new Schema({
   attack_bonus: Number,
   damage: [MonsterActionDamage],
   desc: String,
-  name: String
+  name: String,
 });
 
 const MonsterConditionImmunity = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const MonsterLegendaryAction = new Schema({
   attack_bonus: Number,
   desc: String,
-  name: String
+  name: String,
 });
 
 const MonsterOtherSpeedSpeed = new Schema({
-  walk: String
+  walk: String,
 });
 
 const MonsterOtherSpeed = new Schema({
   form: String,
-  speed: MonsterOtherSpeedSpeed
+  speed: MonsterOtherSpeedSpeed,
 });
 
 const MonsterProficiencyProficiency = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const MonsterProficiency = new Schema({
   proficiency: MonsterProficiencyProficiency,
-  value: Number
+  value: Number,
 });
 
 const MonsterReaction = new Schema({
   desc: String,
-  name: String
+  name: String,
 });
 
 const MonsterSense = new Schema({
@@ -61,12 +61,12 @@ const MonsterSense = new Schema({
   darkvision: String,
   passive_perception: Number,
   tremorsense: String,
-  truesight: String
+  truesight: String,
 });
 
 const MonsterSpecialAbility = new Schema({
   desc: String,
-  name: String
+  name: String,
 });
 
 const MonsterSpeed = new Schema({
@@ -75,13 +75,13 @@ const MonsterSpeed = new Schema({
   fly: String,
   hover: Boolean,
   swim: String,
-  walk: String
+  walk: String,
 });
 
 const MonsterSchema = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   actions: [MonsterAction],
   alignment: String,
@@ -113,7 +113,7 @@ const MonsterSchema = new Schema({
   type: String,
   url: String,
   wisdom: Number,
-  xp: Number
+  xp: Number,
 });
 
 module.exports = mongoose.model('Monster', MonsterSchema, 'monsters');
