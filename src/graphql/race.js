@@ -692,11 +692,11 @@ const resolvers = {
       return await Race.find(query)
         .sort(sortBy)
         .exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };

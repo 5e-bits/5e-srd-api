@@ -9,5 +9,5 @@ module.exports = {
   bugsnagApiKey,
   mongodbUri,
   realmAppId,
-  realmApiKey
+  realmApiKey,
 };

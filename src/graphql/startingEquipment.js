@@ -256,11 +256,11 @@ const resolvers = {
       return await Startingequipment.find(query)
         .sort(sortBy)
         .exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };

@@ -4,20 +4,20 @@ const Schema = mongoose.Schema;
 const AbilityScoreSkill = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const AbilityScore = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   desc: [String],
   full_name: String,
   index: String,
   name: String,
   skills: [AbilityScoreSkill],
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('AbilityScore', AbilityScore, 'ability-scores');

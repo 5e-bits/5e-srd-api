@@ -4,17 +4,17 @@ const Schema = mongoose.Schema;
 const EquipmentCategoryEquipment = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 const EquipmentCategory = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   equipment: [EquipmentCategoryEquipment],
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');

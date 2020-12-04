@@ -26,18 +26,18 @@ describe('index', () => {
     {
       index: 'adamantine-armor',
       name: 'Adamantine Armor',
-      url: '/api/magic-items/adamantine-armor'
+      url: '/api/magic-items/adamantine-armor',
     },
     {
       index: 'ammunition',
       name: 'Ammunition, +1, +2, or +3',
-      url: '/api/magic-items/ammunition'
+      url: '/api/magic-items/ammunition',
     },
     {
       index: 'amulet-of-health',
       name: 'Amulet of Health',
-      url: '/api/magic-items/amulet-of-health'
-    }
+      url: '/api/magic-items/amulet-of-health',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -67,7 +67,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'adamantine-armor',
     name: 'Adamantine Armor',
-    url: '/api/magic-items/adamantine-armor'
+    url: '/api/magic-items/adamantine-armor',
   };
 
   const showParams = { index: 'adamantine-armor' };

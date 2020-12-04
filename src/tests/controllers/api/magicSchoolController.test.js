@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'abjuration',
       name: 'Abjuration',
-      url: '/api/magic-schools/abjuration'
+      url: '/api/magic-schools/abjuration',
     },
     {
       index: 'conjuration',
       name: 'Conjuration',
-      url: '/api/magic-schools/conjuration'
+      url: '/api/magic-schools/conjuration',
     },
     {
       index: 'divination',
       name: 'Divination',
-      url: '/api/magic-schools/divination'
-    }
+      url: '/api/magic-schools/divination',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'abjuration',
     name: 'Abjuration',
-    url: '/api/magic-schools/abjuration'
+    url: '/api/magic-schools/abjuration',
   };
 
   const showParams = { index: 'abjuration' };

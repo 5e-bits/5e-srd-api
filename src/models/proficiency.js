@@ -4,26 +4,26 @@ const Schema = mongoose.Schema;
 const ProficiencyClass = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const ProficiencyRace = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const ProficiencyReference = new Schema({
   index: String,
   name: String,
   type: String,
-  url: String
+  url: String,
 });
 
 const Proficiency = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   classes: [ProficiencyClass],
   index: String,
@@ -31,7 +31,7 @@ const Proficiency = new Schema({
   races: [ProficiencyRace],
   references: [ProficiencyReference],
   type: String,
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('Proficiency', Proficiency, 'proficiencies');
