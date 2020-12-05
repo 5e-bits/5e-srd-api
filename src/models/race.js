@@ -18,14 +18,14 @@ const RaceAbilityBonusOption = new Schema({
   type: String,
 });
 
-const RaceAbilityBonuseAbilityScore = new Schema({
+const RaceAbilityBonusAbilityScore = new Schema({
   index: String,
   name: String,
   url: String,
 });
 
 const RaceAbilityBonus = new Schema({
-  ability_score: RaceAbilityBonuseAbilityScore,
+  ability_score: RaceAbilityBonusAbilityScore,
   bonus: Number,
 });
 
