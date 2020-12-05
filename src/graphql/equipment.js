@@ -7,7 +7,6 @@ extend type Query {
 }
 
 type Equipment {
-  H_damage: EquipmentH_damage
   armor_category: String
   armor_class: EquipmentArmor_class
   capacity: String
@@ -290,65 +289,6 @@ input EquipmentGear_categoryQueryInput {
   AND: [EquipmentGear_categoryQueryInput!]
 }
 
-type EquipmentH_damage {
-  damage_dice: String
-  damage_type: EquipmentH_damageDamage_type
-}
-
-type EquipmentH_damageDamage_type {
-  index: String
-  name: String
-  url: String
-}
-
-input EquipmentH_damageDamage_typeQueryInput {
-  index: String
-  url_lt: String
-  OR: [EquipmentH_damageDamage_typeQueryInput!]
-  name_gte: String
-  name_lt: String
-  index_ne: String
-  url_in: [String]
-  name_in: [String]
-  index_nin: [String]
-  name_nin: [String]
-  url_gte: String
-  url_lte: String
-  index_gt: String
-  index_gte: String
-  name_lte: String
-  index_in: [String]
-  url_gt: String
-  AND: [EquipmentH_damageDamage_typeQueryInput!]
-  url_nin: [String]
-  index_exists: Boolean
-  index_lt: String
-  index_lte: String
-  url: String
-  name_ne: String
-  url_ne: String
-  name_exists: Boolean
-  url_exists: Boolean
-  name_gt: String
-  name: String
-}
-
-input EquipmentH_damageQueryInput {
-  damage_type: EquipmentH_damageDamage_typeQueryInput
-  damage_dice: String
-  damage_dice_exists: Boolean
-  damage_dice_ne: String
-  damage_dice_gt: String
-  damage_dice_lt: String
-  damage_type_exists: Boolean
-  damage_dice_in: [String]
-  damage_dice_gte: String
-  AND: [EquipmentH_damageQueryInput!]
-  damage_dice_lte: String
-  damage_dice_nin: [String]
-  OR: [EquipmentH_damageQueryInput!]
-}
-
 type EquipmentProperty {
   index: String
   name: String
@@ -394,7 +334,6 @@ input EquipmentQueryInput {
   contents_exists: Boolean
   url_nin: [String]
   vehicle_category_exists: Boolean
-  H_damage_exists: Boolean
   weapon_category_nin: [String]
   properties: [EquipmentPropertyQueryInput]
   name_gt: String
@@ -412,7 +351,6 @@ input EquipmentQueryInput {
   special_in: [String]
   category_range_lt: String
   armor_class_exists: Boolean
-  H_damage: EquipmentH_damageQueryInput
   range_exists: Boolean
   armor_category: String
   capacity_ne: String
