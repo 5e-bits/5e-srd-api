@@ -1,24 +1,51 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var FeatureSchema = new Schema({
+const FeatureChoiceFrom = new Schema({
+  index: String,
+  name: String,
+  url: String,
+});
+
+const FeatureChoice = new Schema({
+  choose: Number,
+  from: [FeatureChoiceFrom],
+  type: String,
+});
+
+const FeatureClass = new Schema({
+  index: String,
+  name: String,
+  url: String,
+});
+
+const FeaturePrerequisite = new Schema({
+  level: Number,
+  type: String,
+});
+
+const FeatureSubclass = new Schema({
+  index: String,
+  name: String,
+  url: String,
+});
+
+const Feature = new Schema({
   _id: {
     type: String,
     select: false,
   },
-  index: String,
-  name: String,
-  class: {
-    name: String,
-    url: String,
-  },
-  subclass: {
-    name: String,
-    url: String,
-  },
-  level: Number,
+  choice: FeatureChoice,
+  class: FeatureClass,
   desc: [String],
+  group: String,
+  index: String,
+  level: Number,
+  name: String,
+  prerequisites: [FeaturePrerequisite],
+  reference: String,
+  subclass: FeatureSubclass,
   url: String,
 });
 
-module.exports = mongoose.model('Feature', FeatureSchema, 'features');
+module.exports = mongoose.model('Feature', Feature, 'features');
