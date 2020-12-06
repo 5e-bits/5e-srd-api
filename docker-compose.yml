@@ -5,9 +5,17 @@ services:
     image: fuzzylombax/5e-srd-database:latest
     expose:
       - '27017'
+    networks:
+      integration:
+        aliases:
+          - db
 
   cache:
     image: redis:5.0.9
+    networks:
+      integration:
+        aliases:
+          - cache
 
   api:
     environment:
@@ -16,6 +24,11 @@ services:
     build: .
     ports:
       - '3000:3000'
-    links:
+    depends_on:
       - db
       - cache
+    networks:
+      - integration
+
+networks:
+  integration:
