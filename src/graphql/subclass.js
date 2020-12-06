@@ -243,11 +243,11 @@ const resolvers = {
       return await Subclass.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };

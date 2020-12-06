@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'blinded',
       name: 'Blinded',
-      url: '/api/conditions/blinded',
+      url: '/api/conditions/blinded'
     },
     {
       index: 'charmed',
       name: 'Charmed',
-      url: '/api/conditions/charmed',
+      url: '/api/conditions/charmed'
     },
     {
       index: 'deafened',
       name: 'Deafened',
-      url: '/api/conditions/deafened',
-    },
+      url: '/api/conditions/deafened'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'blinded',
     name: 'Blinded',
-    url: '/api/conditions/blinded',
+    url: '/api/conditions/blinded'
   };
 
   const showParams = { index: 'blinded' };

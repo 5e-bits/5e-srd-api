@@ -71,11 +71,11 @@ const resolvers = {
       return await Condition.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };

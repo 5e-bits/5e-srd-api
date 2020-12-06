@@ -3,5 +3,5 @@ const escapeRegExp = string => {
 };
 
 module.exports = {
-  escapeRegExp,
+  escapeRegExp
 };

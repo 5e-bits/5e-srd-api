@@ -767,11 +767,11 @@ const resolvers = {
       return await Monster.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };

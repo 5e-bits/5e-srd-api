@@ -3,24 +3,24 @@ const ClassAPIResource = data => {
     return {
       index: item.index,
       class: item.class.name,
-      url: item.url,
+      url: item.url
     };
   });
 
   return {
     count: data.length,
-    results: mapped,
+    results: mapped
   };
 };
 
 const ResourceList = data => {
   return {
     count: data.length,
-    results: data,
+    results: data
   };
 };
 
 module.exports = {
   ClassAPIResource,
-  ResourceList,
+  ResourceList
 };

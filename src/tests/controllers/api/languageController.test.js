@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'abyssal',
       name: 'Abyssal',
-      url: '/api/languages/abyssal',
+      url: '/api/languages/abyssal'
     },
     {
       index: 'celestial',
       name: 'Celestial',
-      url: '/api/languages/celestial',
+      url: '/api/languages/celestial'
     },
     {
       index: 'common',
       name: 'Common',
-      url: '/api/languages/common',
-    },
+      url: '/api/languages/common'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'abyssal',
     name: 'Abyssal',
-    url: '/api/languages/abyssal',
+    url: '/api/languages/abyssal'
   };
 
   const showParams = { index: 'abyssal' };

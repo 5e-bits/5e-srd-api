@@ -11,5 +11,5 @@ module.exports = {
   prewarmCache,
   escapeRegExp,
   ResourceList,
-  ClassAPIResource,
+  ClassAPIResource
 };

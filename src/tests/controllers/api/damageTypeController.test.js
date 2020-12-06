@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'acid',
       name: 'Acid',
-      url: '/api/damage-types/acid',
+      url: '/api/damage-types/acid'
     },
     {
       index: 'bludgeoning',
       name: 'Bludgeoning',
-      url: '/api/damage-types/bludgeoning',
+      url: '/api/damage-types/bludgeoning'
     },
     {
       index: 'cold',
       name: 'Cold',
-      url: '/api/damage-types/cold',
-    },
+      url: '/api/damage-types/cold'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'acid',
     name: 'Acid',
-    url: '/api/damage-types/acid',
+    url: '/api/damage-types/acid'
   };
 
   const showParams = { index: 'acid' };

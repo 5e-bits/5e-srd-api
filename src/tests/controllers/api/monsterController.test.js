@@ -26,18 +26,18 @@ describe('index', () => {
     {
       index: 'aboleth',
       name: 'Aboleth',
-      url: '/api/monsters/aboleth',
+      url: '/api/monsters/aboleth'
     },
     {
       index: 'acolyte',
       name: 'Acolyte',
-      url: '/api/monsters/acolyte',
+      url: '/api/monsters/acolyte'
     },
     {
       index: 'adult-black-dragon',
       name: 'Adult Black Dragon',
-      url: '/api/monsters/adult-black-dragon',
-    },
+      url: '/api/monsters/adult-black-dragon'
+    }
   ];
   const request = mockRequest({ query: {}, originalUrl: '/api/monsters' });
 
@@ -67,7 +67,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'aboleth',
     name: 'Aboleth',
-    url: '/api/monsters/aboleth',
+    url: '/api/monsters/aboleth'
   };
 
   const showParams = { index: 'aboleth' };

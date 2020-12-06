@@ -274,11 +274,11 @@ const resolvers = {
       return await Trait.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };

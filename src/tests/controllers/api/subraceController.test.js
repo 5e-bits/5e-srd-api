@@ -18,23 +18,23 @@ describe('index', () => {
     {
       index: 'high-elf',
       name: 'High Elf',
-      url: '/api/subraces/high-elf',
+      url: '/api/subraces/high-elf'
     },
     {
       index: 'hill-dwarf',
       name: 'Hill Dwarf',
-      url: '/api/subraces/hill-dwarf',
+      url: '/api/subraces/hill-dwarf'
     },
     {
       index: 'lightfoot-halfling',
       name: 'Lightfoot Halfling',
-      url: '/api/subraces/lightfoot-halfling',
+      url: '/api/subraces/lightfoot-halfling'
     },
     {
       index: 'rock-gnome',
       name: 'Rock Gnome',
-      url: '/api/subraces/rock-gnome',
-    },
+      url: '/api/subraces/rock-gnome'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -64,7 +64,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'high-elf',
     name: 'High Elf',
-    url: '/api/subraces/high-elf',
+    url: '/api/subraces/high-elf'
   };
 
   const showParams = { index: 'high-elf' };
@@ -112,18 +112,18 @@ describe('showTraitsForSubrace', () => {
     {
       index: 'darkvision',
       name: 'Darkvision',
-      url: '/api/traits/darkvision',
+      url: '/api/traits/darkvision'
     },
     {
       index: 'elf-weapon-training',
       name: 'Elf Weapon Training',
-      url: '/api/traits/elf-weapon-training',
+      url: '/api/traits/elf-weapon-training'
     },
     {
       index: 'extra-language',
       name: 'Extra Language',
-      url: '/api/traits/extra-language',
-    },
+      url: '/api/traits/extra-language'
+    }
   ];
   const showParams = { index: 'elf' };
   const request = mockRequest({ params: showParams });
@@ -155,18 +155,18 @@ describe('showProficienciesForSubrace', () => {
     {
       index: 'daggers',
       name: 'Daggers',
-      url: '/api/proficiencies/daggers',
+      url: '/api/proficiencies/daggers'
     },
     {
       index: 'darts',
       name: 'Darts',
-      url: '/api/proficiencies/darts',
+      url: '/api/proficiencies/darts'
     },
     {
       index: 'quarterstaffs',
       name: 'Quarterstaffs',
-      url: '/api/proficiencies/quarterstaffs',
-    },
+      url: '/api/proficiencies/quarterstaffs'
+    }
   ];
   const request = mockRequest({ params: { index: 'high-elf' } });
 

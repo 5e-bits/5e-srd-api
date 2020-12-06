@@ -4,21 +4,21 @@ var Schema = mongoose.Schema;
 var FeatureSchema = new Schema({
   _id: {
     type: String,
-    select: false,
+    select: false
   },
   index: String,
   name: String,
   class: {
     name: String,
-    url: String,
+    url: String
   },
   subclass: {
     name: String,
-    url: String,
+    url: String
   },
   level: Number,
   desc: [String],
-  url: String,
+  url: String
 });
 
 module.exports = mongoose.model('Feature', FeatureSchema, 'features');

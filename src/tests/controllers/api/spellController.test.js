@@ -26,18 +26,18 @@ describe('index', () => {
     {
       index: 'acid-arrow',
       name: 'Acid Arrow',
-      url: '/api/spells/acid-arrow',
+      url: '/api/spells/acid-arrow'
     },
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash',
+      url: '/api/spells/acid-splash'
     },
     {
       index: 'aid',
       name: 'Aid',
-      url: '/api/spells/aid',
-    },
+      url: '/api/spells/aid'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -67,7 +67,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'acid-arrow',
     name: 'Acid Arrow',
-    url: '/api/spells/acid-arrow',
+    url: '/api/spells/acid-arrow'
   };
 
   const showParams = { index: 'acid-arrow' };

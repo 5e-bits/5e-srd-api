@@ -126,11 +126,11 @@ const resolvers = {
       return await AbilityScore.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };
