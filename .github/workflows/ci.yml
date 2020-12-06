@@ -5,27 +5,31 @@ name: 5e SRD API CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   unit:
     name: Run tests
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: npm install
-    - run: npm run lint
-    - run: npm run test:unit
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test:unit
   integration:
     name: Run Integration tests
     runs-on: self-hosted
     needs: unit
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
       - run: npm run test:integration:local
