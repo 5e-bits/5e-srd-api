@@ -1,21 +1,11 @@
-version: '3.7'
+version: '3.8'
 
 services:
   db:
     image: fuzzylombax/5e-srd-database:latest
-    expose:
-      - '27017'
-    networks:
-      integration:
-        aliases:
-          - db
 
   cache:
     image: redis:5.0.9
-    networks:
-      integration:
-        aliases:
-          - cache
 
   api:
     environment:
@@ -27,8 +17,3 @@ services:
     depends_on:
       - db
       - cache
-    networks:
-      - integration
-
-networks:
-  integration:
