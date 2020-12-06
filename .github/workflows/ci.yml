@@ -28,8 +28,4 @@ jobs:
     needs: unit
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - run: npm run test:integration:local
+      - run: docker-compose pull && docker-compose build && docker-compose run api npm run test:integration
