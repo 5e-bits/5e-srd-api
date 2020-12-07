@@ -1,110 +1,99 @@
-const { merge } = require('lodash');
+const composeMongoose = require('graphql-compose-mongoose').composeMongoose;
+const schemaComposer = require('graphql-compose').schemaComposer;
 
-// TODO: If we convert the project to import style, we can combine abunch of these lines.
-const AbilityScore = require('./abilityScore').typeDef;
-const Class = require('./class').typeDef;
-const Condition = require('./condition').typeDef;
-const DamageType = require('./damageType').typeDef;
-const Equipment = require('./equipment').typeDef;
-const EquipmentCategory = require('./equipmentCategory').typeDef;
-const Feature = require('./feature').typeDef;
-const Language = require('./language').typeDef;
-const Level = require('./level').typeDef;
-const MagicItem = require('./magicItem').typeDef;
-const MagicSchool = require('./magicSchool').typeDef;
-const Monster = require('./monster').typeDef;
-const Proficiency = require('./proficiency').typeDef;
-const Race = require('./race').typeDef;
-const Rule = require('./rule').typeDef;
-const RuleSection = require('./ruleSection').typeDef;
-const Skill = require('./skill').typeDef;
-const Spell = require('./spell').typeDef;
-const StartingEquipment = require('./startingEquipment').typeDef;
-const Subclass = require('./subclass').typeDef;
-const Subrace = require('./subrace').typeDef;
-const Trait = require('./trait').typeDef;
-const WeaponProperty = require('./weaponProperty').typeDef;
+const AbilityScore = require('../models/abilityScore');
+const Class = require('../models/class');
+const Condition = require('../models/condition');
+const DamageType = require('../models/damageType');
+const Equipment = require('../models/equipment');
+const EquipmentCategory = require('../models/equipmentCategory');
+const Feature = require('../models/feature');
+const Language = require('../models/language');
+const Level = require('../models/level');
+const MagicItem = require('../models/magicItem');
+const MagicSchool = require('../models/magicSchool');
+const Monster = require('../models/monster');
+const Proficiency = require('../models/proficiency');
+const Race = require('../models/race');
+const Rule = require('../models/rule');
+const RuleSection = require('../models/ruleSection');
+const Spell = require('../models/spell');
+const StartingEquipment = require('../models/startingEquipment');
+const Subclass = require('../models/subclass');
+const Subrace = require('../models/subrace');
+const Trait = require('../models/trait');
+const WeaponProperty = require('../models/weaponProperty');
 
-const abilityScoreResolvers = require('./abilityScore').resolvers;
-const classResolvers = require('./class').resolvers;
-const conditionResolvers = require('./condition').resolvers;
-const damageTypeResolvers = require('./damageType').resolvers;
-const equipmentResolvers = require('./equipment').resolvers;
-const equipmentCategoryResolvers = require('./equipmentCategory').resolvers;
-const featureResolvers = require('./feature').resolvers;
-const languageResolvers = require('./language').resolvers;
-const levelResolvers = require('./level').resolvers;
-const magicItemResolvers = require('./magicItem').resolvers;
-const magicSchoolResolvers = require('./magicSchool').resolvers;
-const monsterResolvers = require('./monster').resolvers;
-const proficiencyResolvers = require('./proficiency').resolvers;
-const raceResolvers = require('./race').resolvers;
-const ruleResolvers = require('./rule').resolvers;
-const ruleSectionResolvers = require('./ruleSection').resolvers;
-const skillResolvers = require('./skill').resolvers;
-const spellResolvers = require('./spell').resolvers;
-const startingEquipmentResolvers = require('./startingEquipment').resolvers;
-const subclassResolvers = require('./subclass').resolvers;
-const subraceResolvers = require('./subrace').resolvers;
-const traitResolvers = require('./trait').resolvers;
-const weaponPropertyResolvers = require('./weaponProperty').resolvers;
+const customizationOptions = {}; // left it empty for simplicity, described below
+const AbilityScoreTC = composeMongoose(AbilityScore, customizationOptions);
+const ClassTC = composeMongoose(Class, customizationOptions);
+const ConditionTC = composeMongoose(Condition, customizationOptions);
+const DamageTypeTC = composeMongoose(DamageType, customizationOptions);
+const EquipmentTC = composeMongoose(Equipment, customizationOptions);
+const EquipmentCategoryTC = composeMongoose(EquipmentCategory, customizationOptions);
+const FeatureTC = composeMongoose(Feature, customizationOptions);
+const LanguageTC = composeMongoose(Language, customizationOptions);
+const LevelTC = composeMongoose(Level, customizationOptions);
+const MagicItemTC = composeMongoose(MagicItem, customizationOptions);
+const MagicSchoolTC = composeMongoose(MagicSchool, customizationOptions);
+const MonsterTC = composeMongoose(Monster, customizationOptions);
+const ProficiencyTC = composeMongoose(Proficiency, customizationOptions);
+const RaceTC = composeMongoose(Race, customizationOptions);
+const RuleTC = composeMongoose(Rule, customizationOptions);
+const RuleSectionTC = composeMongoose(RuleSection, customizationOptions);
+const SpellTC = composeMongoose(Spell, customizationOptions);
+const StartingEquipmentTC = composeMongoose(StartingEquipment, customizationOptions);
+const SubclassTC = composeMongoose(Subclass, customizationOptions);
+const SubraceTC = composeMongoose(Subrace, customizationOptions);
+const TraitTC = composeMongoose(Trait, customizationOptions);
+const WeaponPropertyTC = composeMongoose(WeaponProperty, customizationOptions);
 
-const Query = `
-type Query {
-  _empty: String
-}
-`;
+schemaComposer.Query.addFields({
+  abilityScore: AbilityScoreTC.mongooseResolvers.findOne(),
+  abilityScores: AbilityScoreTC.mongooseResolvers.findMany(),
+  condition: ConditionTC.mongooseResolvers.findOne(),
+  conditions: ConditionTC.mongooseResolvers.findMany(),
+  class: ClassTC.mongooseResolvers.findOne(),
+  classes: ClassTC.mongooseResolvers.findMany(),
+  damageType: DamageTypeTC.mongooseResolvers.findOne(),
+  damageTypes: DamageTypeTC.mongooseResolvers.findMany(),
+  equipment: EquipmentTC.mongooseResolvers.findOne(),
+  equipments: EquipmentTC.mongooseResolvers.findMany(),
+  equipmentCategory: EquipmentCategoryTC.mongooseResolvers.findOne(),
+  equipmentCategories: EquipmentCategoryTC.mongooseResolvers.findMany(),
+  feature: FeatureTC.mongooseResolvers.findOne(),
+  features: FeatureTC.mongooseResolvers.findMany(),
+  language: LanguageTC.mongooseResolvers.findOne(),
+  languages: LanguageTC.mongooseResolvers.findMany(),
+  level: LevelTC.mongooseResolvers.findOne(),
+  levels: LevelTC.mongooseResolvers.findMany(),
+  magicItem: MagicItemTC.mongooseResolvers.findOne(),
+  magicItems: MagicItemTC.mongooseResolvers.findMany(),
+  magicSchool: MagicSchoolTC.mongooseResolvers.findOne(),
+  magicSchools: MagicSchoolTC.mongooseResolvers.findMany(),
+  monster: MonsterTC.mongooseResolvers.findOne(),
+  monsters: MonsterTC.mongooseResolvers.findMany(),
+  proficiency: ProficiencyTC.mongooseResolvers.findOne(),
+  proficiencies: ProficiencyTC.mongooseResolvers.findMany(),
+  race: RaceTC.mongooseResolvers.findOne(),
+  races: RaceTC.mongooseResolvers.findMany(),
+  rule: RuleTC.mongooseResolvers.findOne(),
+  rules: RuleTC.mongooseResolvers.findMany(),
+  ruleSection: RuleSectionTC.mongooseResolvers.findOne(),
+  ruleSections: RuleSectionTC.mongooseResolvers.findMany(),
+  spell: SpellTC.mongooseResolvers.findOne(),
+  spells: SpellTC.mongooseResolvers.findMany(),
+  startingequipment: StartingEquipmentTC.mongooseResolvers.findOne(),
+  startingequipments: StartingEquipmentTC.mongooseResolvers.findMany(),
+  subclass: SubclassTC.mongooseResolvers.findOne(),
+  subclasses: SubclassTC.mongooseResolvers.findMany(),
+  subrace: SubraceTC.mongooseResolvers.findOne(),
+  subraces: SubraceTC.mongooseResolvers.findMany(),
+  trait: TraitTC.mongooseResolvers.findOne(),
+  traits: TraitTC.mongooseResolvers.findMany(),
+  weaponProperty: WeaponPropertyTC.mongooseResolvers.findOne(),
+  weaponProperties: WeaponPropertyTC.mongooseResolvers.findMany(),
+});
 
-module.exports = {
-  typeDefs: [
-    AbilityScore,
-    Class,
-    Condition,
-    DamageType,
-    Equipment,
-    EquipmentCategory,
-    Feature,
-    Language,
-    Level,
-    MagicItem,
-    MagicSchool,
-    Monster,
-    Proficiency,
-    Race,
-    Rule,
-    RuleSection,
-    Skill,
-    Spell,
-    StartingEquipment,
-    Subclass,
-    Subrace,
-    Trait,
-    WeaponProperty,
-    Query,
-  ],
-  resolvers: merge(
-    abilityScoreResolvers,
-    classResolvers,
-    conditionResolvers,
-    damageTypeResolvers,
-    equipmentResolvers,
-    equipmentCategoryResolvers,
-    featureResolvers,
-    languageResolvers,
-    levelResolvers,
-    magicItemResolvers,
-    magicSchoolResolvers,
-    monsterResolvers,
-    proficiencyResolvers,
-    raceResolvers,
-    ruleResolvers,
-    ruleSectionResolvers,
-    skillResolvers,
-    spellResolvers,
-    startingEquipmentResolvers,
-    subclassResolvers,
-    subraceResolvers,
-    traitResolvers,
-    weaponPropertyResolvers
-  ),
-};
+const graphqlSchema = schemaComposer.buildSchema();
+module.exports = graphqlSchema;

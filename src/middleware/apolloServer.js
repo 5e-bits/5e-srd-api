@@ -1,8 +1,8 @@
 const { ApolloServer } = require('apollo-server-express');
-const { typeDefs, resolvers } = require('../graphql/schema');
+const schema = require('../graphql/schema');
 
 const createApolloMiddleware = async () => {
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({ schema });
   return server;
 };
 
