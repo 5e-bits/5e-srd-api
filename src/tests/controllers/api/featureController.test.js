@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'action-surge-1-use',
       name: 'Action Surge (1 use)',
-      url: '/api/features/action-surge-1-use'
+      url: '/api/features/action-surge-1-use',
     },
     {
       index: 'action-surge-2-uses',
       name: 'Action Surge (2 uses)',
-      url: '/api/features/action-surge-2-uses'
+      url: '/api/features/action-surge-2-uses',
     },
     {
       index: 'additional-magical-secrets',
       name: 'Additional Magical Secrets',
-      url: '/api/features/additional-magical-secrets'
-    }
+      url: '/api/features/additional-magical-secrets',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'action-surge-1-use',
     name: 'Action Surge (1 use)',
-    url: '/api/features/action-surge-1-use'
+    url: '/api/features/action-surge-1-use',
   };
 
   const showParams = { index: 'action-surge-1-use' };

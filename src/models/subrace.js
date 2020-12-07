@@ -4,60 +4,60 @@ const Schema = mongoose.Schema;
 const SubraceAbilityBonusAbilityScore = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SubraceAbilityBonus = new Schema({
   ability_score: SubraceAbilityBonusAbilityScore,
-  bonus: Number
+  bonus: Number,
 });
 
 const SubraceLanguageOptionFrom = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SubraceLanguageOption = new Schema({
   choose: Number,
   from: [SubraceLanguageOptionFrom],
-  type: String
+  type: String,
 });
 
 const SubraceRace = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SubraceRacialTrait = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SubraceRacialTraitOptionFrom = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SubraceRacialTraitOption = new Schema({
   choose: Number,
   from: [SubraceRacialTraitOptionFrom],
-  type: String
+  type: String,
 });
 
 const SubraceStartingProficiency = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const Subrace = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   ability_bonuses: [SubraceAbilityBonus],
   desc: String,
@@ -68,7 +68,7 @@ const Subrace = new Schema({
   racial_trait_options: SubraceRacialTraitOption,
   racial_traits: [SubraceRacialTrait],
   starting_proficiencies: [SubraceStartingProficiency],
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('Subrace', Subrace, 'subraces');

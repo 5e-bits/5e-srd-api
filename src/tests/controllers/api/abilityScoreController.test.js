@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'str',
       name: 'STR',
-      url: '/api/ability-scores/str'
+      url: '/api/ability-scores/str',
     },
     {
       index: 'dex',
       name: 'DEX',
-      url: '/api/ability-scores/dex'
+      url: '/api/ability-scores/dex',
     },
     {
       index: 'con',
       name: 'CON',
-      url: '/api/ability-scores/con'
-    }
+      url: '/api/ability-scores/con',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'str',
     name: 'STR',
-    url: '/api/ability-scores/str'
+    url: '/api/ability-scores/str',
   };
 
   const showParams = { index: 'str' };

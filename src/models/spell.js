@@ -3,53 +3,53 @@ const Schema = mongoose.Schema;
 
 const SpellAreaOfEffect = new Schema({
   size: Number,
-  type: String
+  type: String,
 });
 
 const SpellClass = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SpellDamageDamageType = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SpellDamage = new Schema({
-  damage_type: SpellDamageDamageType
+  damage_type: SpellDamageDamageType,
 });
 
 const SpellDcDcType = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SpellDc = new Schema({
   dc_success: String,
   dc_type: SpellDcDcType,
-  desc: String
+  desc: String,
 });
 
 const SpellSchool = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const SpellSubclass = new Schema({
   index: String,
   name: String,
-  url: String
+  url: String,
 });
 
 const Spell = new Schema({
   _id: {
     type: String,
-    select: false
+    select: false,
   },
   area_of_effect: SpellAreaOfEffect,
   attack_type: String,
@@ -70,7 +70,7 @@ const Spell = new Schema({
   ritual: Boolean,
   school: SpellSchool,
   subclasses: [SpellSubclass],
-  url: String
+  url: String,
 });
 
 module.exports = mongoose.model('Spell', Spell, 'spells');

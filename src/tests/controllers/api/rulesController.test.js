@@ -30,14 +30,14 @@ describe('index', () => {
       subsections: [
         {
           name: 'The Order of Combat',
-          desc: 'description'
+          desc: 'description',
         },
         {
           name: 'Movement and Position',
-          desc: 'description'
-        }
+          desc: 'description',
+        },
       ],
-      url: '/api/rules/combat'
+      url: '/api/rules/combat',
     },
     {
       name: 'Using Ability Scores',
@@ -46,29 +46,29 @@ describe('index', () => {
       subsections: [
         {
           name: 'Ability Scores and Modifiers',
-          desc: 'description'
+          desc: 'description',
         },
         {
           name: 'Advantage and Disadvantage',
-          desc: 'description'
+          desc: 'description',
         },
         {
           name: 'Proficiency Bonus',
-          desc: 'description'
+          desc: 'description',
         },
         {
           name: 'Ability Checks',
-          desc: 'description'
-        }
+          desc: 'description',
+        },
       ],
-      url: '/api/rules/using-ability-scores'
+      url: '/api/rules/using-ability-scores',
     },
     {
       name: 'Adventuring',
       index: 'adventuring',
       desc: 'description',
       subsections: [],
-      url: '/api/rules/adventuring'
+      url: '/api/rules/adventuring',
     },
     {
       name: 'Spellcasting',
@@ -77,11 +77,11 @@ describe('index', () => {
       subsections: [
         {
           name: 'What Is a Spell?',
-          desc: 'description'
-        }
+          desc: 'description',
+        },
       ],
-      url: '/api/rules/spellcasting'
-    }
+      url: '/api/rules/spellcasting',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -115,10 +115,10 @@ describe('show', () => {
     subsections: [
       {
         name: 'What Is a Spell?',
-        desc: 'description'
-      }
+        desc: 'description',
+      },
     ],
-    url: '/api/rules/spellcasting'
+    url: '/api/rules/spellcasting',
   };
 
   const showParams = { index: 'spellcasting' };

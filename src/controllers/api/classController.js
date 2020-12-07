@@ -107,7 +107,7 @@ exports.showSpellsForClassAndLevel = (req, res, next) => {
 
   return Spell.find({
     'classes.url': urlString,
-    level: parseInt(req.params.level)
+    level: parseInt(req.params.level),
   })
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ index: 'asc' })
@@ -123,7 +123,7 @@ exports.showFeaturesForClass = (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
 
   return Feature.find({
-    'class.url': urlString
+    'class.url': urlString,
   })
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
@@ -144,7 +144,7 @@ exports.showFeaturesForClassAndLevel = (req, res, next) => {
 
   return Feature.find({
     'class.url': urlString,
-    level: parseInt(req.params.level)
+    level: parseInt(req.params.level),
   })
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
