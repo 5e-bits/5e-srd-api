@@ -9,6 +9,16 @@ const Feature = require('../models/feature');
 const Language = require('../models/language');
 const MagicItem = require('../models/magicItem');
 const MagicSchool = require('../models/magicSchool');
+const Monster = require('../models/monster');
+const Proficiency = require('../models/proficiency');
+const Race = require('../models/race');
+const Rule = require('../models/rule');
+const RuleSection = require('../models/ruleSection');
+const Spell = require('../models/spell');
+const Subclass = require('../models/subclass');
+const Subrace = require('../models/subrace');
+const Trait = require('../models/trait');
+const WeaponProperty = require('../models/weaponProperty');
 
 const customizationOptions = {}; // left it empty for simplicity, described below
 const AbilityScoreTC = composeMongoose(AbilityScore, customizationOptions);
@@ -19,6 +29,16 @@ const FeatureTC = composeMongoose(Feature, customizationOptions);
 const LanguageTC = composeMongoose(Language, customizationOptions);
 const MagicItemTC = composeMongoose(MagicItem, customizationOptions);
 const MagicSchoolTC = composeMongoose(MagicSchool, customizationOptions);
+const MonsterTC = composeMongoose(Monster, customizationOptions);
+const ProficiencyTC = composeMongoose(Proficiency, customizationOptions);
+const RaceTC = composeMongoose(Race, customizationOptions);
+const RuleTC = composeMongoose(Rule, customizationOptions);
+const RuleSectionTC = composeMongoose(RuleSection, customizationOptions);
+const SpellTC = composeMongoose(Spell, customizationOptions);
+const SubclassTC = composeMongoose(Subclass, customizationOptions);
+const SubraceTC = composeMongoose(Subrace, customizationOptions);
+const TraitTC = composeMongoose(Trait, customizationOptions);
+const WeaponPropertyTC = composeMongoose(WeaponProperty, customizationOptions);
 
 schemaComposer.Query.addFields({
   abilityScore: AbilityScoreTC.mongooseResolvers.findOne(),
@@ -37,6 +57,26 @@ schemaComposer.Query.addFields({
   magicItems: MagicItemTC.mongooseResolvers.findMany(),
   magicSchool: MagicSchoolTC.mongooseResolvers.findOne(),
   magicSchools: MagicSchoolTC.mongooseResolvers.findMany(),
+  monster: MonsterTC.mongooseResolvers.findOne(),
+  monsters: MonsterTC.mongooseResolvers.findMany(),
+  proficiency: ProficiencyTC.mongooseResolvers.findOne(),
+  proficiencies: ProficiencyTC.mongooseResolvers.findMany(),
+  race: RaceTC.mongooseResolvers.findOne(),
+  races: RaceTC.mongooseResolvers.findMany(),
+  rule: RuleTC.mongooseResolvers.findOne(),
+  rules: RuleTC.mongooseResolvers.findMany(),
+  ruleSection: RuleSectionTC.mongooseResolvers.findOne(),
+  ruleSections: RuleSectionTC.mongooseResolvers.findMany(),
+  spell: SpellTC.mongooseResolvers.findOne(),
+  spells: SpellTC.mongooseResolvers.findMany(),
+  subclass: SubclassTC.mongooseResolvers.findOne(),
+  subclasses: SubclassTC.mongooseResolvers.findMany(),
+  subrace: SubraceTC.mongooseResolvers.findOne(),
+  subraces: SubraceTC.mongooseResolvers.findMany(),
+  trait: TraitTC.mongooseResolvers.findOne(),
+  traits: TraitTC.mongooseResolvers.findMany(),
+  weaponProperty: WeaponPropertyTC.mongooseResolvers.findOne(),
+  weaponProperties: WeaponPropertyTC.mongooseResolvers.findMany(),
 });
 
 const graphqlSchema = schemaComposer.buildSchema();
