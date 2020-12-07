@@ -42,29 +42,29 @@ type EquipmentArmor_class {
 }
 
 input EquipmentArmor_classQueryInput {
-  base_ne: Int
-  max_bonus_gte: Int
-  dex_bonus_exists: Boolean
-  max_bonus: Int
-  base_exists: Boolean
-  max_bonus_nin: [Int]
-  max_bonus_ne: Int
-  dex_bonus: Boolean
-  max_bonus_gt: Int
-  base_lt: Int
-  OR: [EquipmentArmor_classQueryInput!]
-  base_gte: Int
   AND: [EquipmentArmor_classQueryInput!]
-  max_bonus_lt: Int
+  base_exists: Boolean
   base_gt: Int
-  base_lte: Int
-  base: Int
+  base_gte: Int
   base_in: [Int]
-  max_bonus_lte: Int
+  base_lt: Int
+  base_lte: Int
+  base_ne: Int
   base_nin: [Int]
-  max_bonus_in: [Int]
-  max_bonus_exists: Boolean
+  base: Int
+  dex_bonus_exists: Boolean
   dex_bonus_ne: Boolean
+  dex_bonus: Boolean
+  max_bonus_exists: Boolean
+  max_bonus_gt: Int
+  max_bonus_gte: Int
+  max_bonus_in: [Int]
+  max_bonus_lt: Int
+  max_bonus_lte: Int
+  max_bonus_ne: Int
+  max_bonus_nin: [Int]
+  max_bonus: Int
+  OR: [EquipmentArmor_classQueryInput!]
 }
 
 type EquipmentContent {
@@ -79,51 +79,51 @@ type EquipmentContentItem {
 }
 
 input EquipmentContentItemQueryInput {
-  url_lt: String
-  OR: [EquipmentContentItemQueryInput!]
-  name_lt: String
-  index_gte: String
-  name_gte: String
   AND: [EquipmentContentItemQueryInput!]
-  index_ne: String
-  index_nin: [String]
-  name_lte: String
-  index_in: [String]
-  url_nin: [String]
-  url_exists: Boolean
-  url_lte: String
-  url_gt: String
-  name_nin: [String]
-  url: String
-  url_ne: String
-  index_lt: String
-  name_ne: String
   index_exists: Boolean
   index_gt: String
-  name_in: [String]
-  index: String
-  name: String
-  url_in: [String]
+  index_gte: String
+  index_in: [String]
+  index_lt: String
   index_lte: String
-  name_gt: String
-  url_gte: String
+  index_ne: String
+  index_nin: [String]
+  index: String
   name_exists: Boolean
+  name_gt: String
+  name_gte: String
+  name_in: [String]
+  name_lt: String
+  name_lte: String
+  name_ne: String
+  name_nin: [String]
+  name: String
+  OR: [EquipmentContentItemQueryInput!]
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
+  url_ne: String
+  url_nin: [String]
+  url: String
 }
 
 input EquipmentContentQueryInput {
-  quantity: Int
-  quantity_gte: Int
-  item: EquipmentContentItemQueryInput
-  quantity_ne: Int
-  quantity_gt: Int
-  quantity_in: [Int]
-  quantity_exists: Boolean
-  OR: [EquipmentContentQueryInput!]
-  quantity_lt: Int
   AND: [EquipmentContentQueryInput!]
-  quantity_lte: Int
-  quantity_nin: [Int]
   item_exists: Boolean
+  item: EquipmentContentItemQueryInput
+  OR: [EquipmentContentQueryInput!]
+  quantity_exists: Boolean
+  quantity_gt: Int
+  quantity_gte: Int
+  quantity_in: [Int]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_ne: Int
+  quantity_nin: [Int]
+  quantity: Int
 }
 
 type EquipmentCost {
@@ -132,26 +132,26 @@ type EquipmentCost {
 }
 
 input EquipmentCostQueryInput {
-  quantity_nin: [Int]
-  unit_in: [String]
   AND: [EquipmentCostQueryInput!]
-  unit_lte: String
-  quantity_exists: Boolean
-  quantity_gte: Int
-  unit_exists: Boolean
-  quantity_lt: Int
-  unit_gte: String
-  quantity_gt: Int
-  unit_ne: String
-  quantity_lte: Int
-  unit: String
-  unit_lt: String
-  unit_nin: [String]
-  quantity_ne: Int
-  quantity_in: [Int]
-  unit_gt: String
-  quantity: Int
   OR: [EquipmentCostQueryInput!]
+  quantity_exists: Boolean
+  quantity_gt: Int
+  quantity_gte: Int
+  quantity_in: [Int]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_ne: Int
+  quantity_nin: [Int]
+  quantity: Int
+  unit_exists: Boolean
+  unit_gt: String
+  unit_gte: String
+  unit_in: [String]
+  unit_lt: String
+  unit_lte: String
+  unit_ne: String
+  unit_nin: [String]
+  unit: String
 }
 
 type EquipmentDamage {
@@ -166,51 +166,51 @@ type EquipmentDamageDamage_type {
 }
 
 input EquipmentDamageDamage_typeQueryInput {
-  index_nin: [String]
-  name_lt: String
-  index_lt: String
-  name_nin: [String]
-  url_gte: String
-  url_exists: Boolean
-  url_lt: String
-  OR: [EquipmentDamageDamage_typeQueryInput!]
-  name_lte: String
-  url_in: [String]
-  name_gte: String
-  url_gt: String
-  name_gt: String
-  index_ne: String
   AND: [EquipmentDamageDamage_typeQueryInput!]
-  name: String
-  index_gt: String
-  name_ne: String
-  index_gte: String
   index_exists: Boolean
-  index_lte: String
-  url_nin: [String]
-  name_exists: Boolean
-  url_ne: String
-  index: String
-  url_lte: String
-  name_in: [String]
+  index_gt: String
+  index_gte: String
   index_in: [String]
+  index_lt: String
+  index_lte: String
+  index_ne: String
+  index_nin: [String]
+  index: String
+  name_exists: Boolean
+  name_gt: String
+  name_gte: String
+  name_in: [String]
+  name_lt: String
+  name_lte: String
+  name_ne: String
+  name_nin: [String]
+  name: String
+  OR: [EquipmentDamageDamage_typeQueryInput!]
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
+  url_ne: String
+  url_nin: [String]
   url: String
 }
 
 input EquipmentDamageQueryInput {
-  damage_dice_lte: String
-  damage_type: EquipmentDamageDamage_typeQueryInput
-  damage_dice_ne: String
+  AND: [EquipmentDamageQueryInput!]
+  damage_dice_exists: Boolean
+  damage_dice_gt: String
+  damage_dice_gte: String
   damage_dice_in: [String]
-  OR: [EquipmentDamageQueryInput!]
+  damage_dice_lt: String
+  damage_dice_lte: String
+  damage_dice_ne: String
+  damage_dice_nin: [String]
   damage_dice: String
   damage_type_exists: Boolean
-  AND: [EquipmentDamageQueryInput!]
-  damage_dice_gte: String
-  damage_dice_gt: String
-  damage_dice_lt: String
-  damage_dice_nin: [String]
-  damage_dice_exists: Boolean
+  damage_type: EquipmentDamageDamage_typeQueryInput
+  OR: [EquipmentDamageQueryInput!]
 }
 
 type EquipmentEquipment_category {
@@ -220,35 +220,35 @@ type EquipmentEquipment_category {
 }
 
 input EquipmentEquipment_categoryQueryInput {
-  name_nin: [String]
+  AND: [EquipmentEquipment_categoryQueryInput!]
+  index_exists: Boolean
+  index_gt: String
+  index_gte: String
+  index_in: [String]
+  index_lt: String
   index_lte: String
   index_ne: String
-  name_lt: String
-  index_gte: String
-  url_in: [String]
-  index_lt: String
-  index_gt: String
-  url_nin: [String]
-  name_gt: String
-  url_lte: String
-  index_in: [String]
-  name_ne: String
-  url_gte: String
-  url_ne: String
-  index_exists: Boolean
   index_nin: [String]
-  url_exists: Boolean
   index: String
-  name: String
-  url_gt: String
-  name_in: [String]
-  AND: [EquipmentEquipment_categoryQueryInput!]
   name_exists: Boolean
+  name_gt: String
   name_gte: String
-  url_lt: String
+  name_in: [String]
+  name_lt: String
   name_lte: String
-  url: String
+  name_ne: String
+  name_nin: [String]
+  name: String
   OR: [EquipmentEquipment_categoryQueryInput!]
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
+  url_ne: String
+  url_nin: [String]
+  url: String
 }
 
 type EquipmentGear_category {
@@ -258,35 +258,35 @@ type EquipmentGear_category {
 }
 
 input EquipmentGear_categoryQueryInput {
-  url_in: [String]
-  url_lte: String
-  url_gt: String
-  index_lte: String
-  index_nin: [String]
-  name: String
-  url_gte: String
-  OR: [EquipmentGear_categoryQueryInput!]
-  name_gt: String
-  url_lt: String
-  index_ne: String
-  index_lt: String
-  name_ne: String
-  name_exists: Boolean
-  url_ne: String
-  index_gte: String
-  name_lte: String
-  url_nin: [String]
-  index_gt: String
-  url_exists: Boolean
-  index_in: [String]
+  AND: [EquipmentGear_categoryQueryInput!]
   index_exists: Boolean
+  index_gt: String
+  index_gte: String
+  index_in: [String]
+  index_lt: String
+  index_lte: String
+  index_ne: String
+  index_nin: [String]
   index: String
+  name_exists: Boolean
+  name_gt: String
   name_gte: String
-  url: String
-  name_nin: [String]
   name_in: [String]
   name_lt: String
-  AND: [EquipmentGear_categoryQueryInput!]
+  name_lte: String
+  name_ne: String
+  name_nin: [String]
+  name: String
+  OR: [EquipmentGear_categoryQueryInput!]
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
+  url_ne: String
+  url_nin: [String]
+  url: String
 }
 
 type EquipmentProperty {
@@ -296,193 +296,193 @@ type EquipmentProperty {
 }
 
 input EquipmentPropertyQueryInput {
+  AND: [EquipmentPropertyQueryInput!]
+  index_exists: Boolean
+  index_gt: String
+  index_gte: String
+  index_in: [String]
+  index_lt: String
+  index_lte: String
+  index_ne: String
+  index_nin: [String]
   index: String
+  name_exists: Boolean
+  name_gt: String
+  name_gte: String
+  name_in: [String]
+  name_lt: String
+  name_lte: String
+  name_ne: String
+  name_nin: [String]
+  name: String
+  OR: [EquipmentPropertyQueryInput!]
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
   url_ne: String
   url_nin: [String]
-  name_lt: String
-  url_lte: String
-  name_lte: String
-  name: String
-  index_lte: String
-  index_gt: String
-  name_ne: String
-  name_exists: Boolean
-  name_in: [String]
-  url_exists: Boolean
-  url_in: [String]
-  index_in: [String]
-  index_exists: Boolean
-  AND: [EquipmentPropertyQueryInput!]
-  name_gt: String
-  index_ne: String
   url: String
-  OR: [EquipmentPropertyQueryInput!]
-  index_lt: String
-  index_nin: [String]
-  url_gt: String
-  name_gte: String
-  url_gte: String
-  url_lt: String
-  index_gte: String
-  name_nin: [String]
 }
 
 input EquipmentQueryInput {
-  cost: EquipmentCostQueryInput
-  category_range: String
-  name_lte: String
-  contents_exists: Boolean
-  url_nin: [String]
-  vehicle_category_exists: Boolean
-  weapon_category_nin: [String]
-  properties: [EquipmentPropertyQueryInput]
-  name_gt: String
-  armor_class: EquipmentArmor_classQueryInput
-  str_minimum_gte: Int
-  str_minimum_lt: Int
-  throw_range_exists: Boolean
-  weapon_range_gt: String
-  name_gte: String
-  capacity_gt: String
-  capacity_nin: [String]
-  speed: EquipmentSpeedQueryInput
-  index_gte: String
-  vehicle_category_nin: [String]
-  special_in: [String]
-  category_range_lt: String
-  armor_class_exists: Boolean
-  range_exists: Boolean
-  armor_category: String
-  capacity_ne: String
-  armor_category_ne: String
-  tool_category_lte: String
-  weight_nin: [Int]
-  quantity_gte: Int
-  stealth_disadvantage_ne: Boolean
-  str_minimum_in: [Int]
-  str_minimum_gt: Int
-  properties_in: [EquipmentPropertyQueryInput]
-  contents_in: [EquipmentContentQueryInput]
-  tool_category_in: [String]
-  weapon_range_ne: String
-  stealth_disadvantage: Boolean
-  vehicle_category_lte: String
-  capacity_lte: String
-  tool_category_exists: Boolean
-  weapon_category_lt: String
-  weapon_range_lte: String
   _id_exists: Boolean
-  OR: [EquipmentQueryInput!]
-  damage: EquipmentDamageQueryInput
-  index_nin: [String]
-  category_range_in: [String]
-  name_ne: String
-  category_range_exists: Boolean
-  category_range_nin: [String]
-  properties_exists: Boolean
-  weight_lte: Int
-  quantity_exists: Boolean
-  weapon_category: String
-  category_range_lte: String
-  category_range_gte: String
-  name_lt: String
-  vehicle_category_lt: String
-  quantity_lte: Int
-  armor_category_lt: String
-  index_lt: String
-  speed_exists: Boolean
-  category_range_gt: String
-  url_in: [String]
-  quantity_ne: Int
-  damage_exists: Boolean
+  AND: [EquipmentQueryInput!]
   armor_category_exists: Boolean
-  tool_category_gt: String
-  weapon_category_ne: String
-  desc: [String]
-  weapon_category_in: [String]
-  weight_gte: Int
-  weapon_category_gte: String
-  str_minimum_nin: [Int]
-  index_exists: Boolean
-  special: [String]
-  armor_category_nin: [String]
-  special_exists: Boolean
-  throw_range: EquipmentThrow_rangeQueryInput
-  tool_category_ne: String
-  desc_exists: Boolean
-  vehicle_category_gte: String
-  properties_nin: [EquipmentPropertyQueryInput]
-  url_ne: String
-  weapon_range_gte: String
-  str_minimum_ne: Int
-  equipment_category_exists: Boolean
-  weight_exists: Boolean
-  desc_in: [String]
-  tool_category_lt: String
-  str_minimum_exists: Boolean
-  cost_exists: Boolean
-  str_minimum: Int
-  special_nin: [String]
-  weapon_category_lte: String
-  gear_category_exists: Boolean
-  url_lt: String
-  weight_in: [Int]
+  armor_category_gt: String
   armor_category_gte: String
   armor_category_in: [String]
-  index: String
-  weapon_category_gt: String
-  range: EquipmentRangeQueryInput
-  contents: [EquipmentContentQueryInput]
-  quantity_lt: Int
-  tool_category: String
-  stealth_disadvantage_exists: Boolean
-  url: String
-  name_exists: Boolean
-  name: String
-  armor_category_gt: String
-  quantity: Int
-  index_gt: String
-  vehicle_category_ne: String
-  weapon_range_nin: [String]
-  index_ne: String
-  capacity_in: [String]
-  weapon_range_in: [String]
-  equipment_category: EquipmentEquipment_categoryQueryInput
-  capacity_gte: String
-  url_gt: String
-  name_in: [String]
-  quantity_in: [Int]
-  capacity: String
-  quantity_gt: Int
-  str_minimum_lte: Int
-  weapon_range: String
-  weapon_range_lt: String
-  url_exists: Boolean
-  url_gte: String
-  capacity_exists: Boolean
+  armor_category_lt: String
   armor_category_lte: String
-  weight_ne: Int
-  weight: Int
-  weapon_range_exists: Boolean
-  weight_lt: Int
-  category_range_ne: String
-  name_nin: [String]
-  tool_category_gte: String
-  vehicle_category_in: [String]
-  AND: [EquipmentQueryInput!]
+  armor_category_ne: String
+  armor_category_nin: [String]
+  armor_category: String
+  armor_class_exists: Boolean
+  armor_class: EquipmentArmor_classQueryInput
+  capacity_exists: Boolean
+  capacity_gt: String
+  capacity_gte: String
+  capacity_in: [String]
   capacity_lt: String
-  url_lte: String
-  index_in: [String]
+  capacity_lte: String
+  capacity_ne: String
+  capacity_nin: [String]
+  capacity: String
+  category_range_exists: Boolean
+  category_range_gt: String
+  category_range_gte: String
+  category_range_in: [String]
+  category_range_lt: String
+  category_range_lte: String
+  category_range_ne: String
+  category_range_nin: [String]
+  category_range: String
+  contents_exists: Boolean
+  contents_in: [EquipmentContentQueryInput]
   contents_nin: [EquipmentContentQueryInput]
+  contents: [EquipmentContentQueryInput]
+  cost_exists: Boolean
+  cost: EquipmentCostQueryInput
+  damage_exists: Boolean
+  damage: EquipmentDamageQueryInput
+  desc_exists: Boolean
+  desc_in: [String]
   desc_nin: [String]
-  vehicle_category_gt: String
-  vehicle_category: String
-  weight_gt: Int
+  desc: [String]
+  equipment_category_exists: Boolean
+  equipment_category: EquipmentEquipment_categoryQueryInput
+  gear_category_exists: Boolean
   gear_category: EquipmentGear_categoryQueryInput
+  index_exists: Boolean
+  index_gt: String
+  index_gte: String
+  index_in: [String]
+  index_lt: String
   index_lte: String
-  weapon_category_exists: Boolean
+  index_ne: String
+  index_nin: [String]
+  index: String
+  name_exists: Boolean
+  name_gt: String
+  name_gte: String
+  name_in: [String]
+  name_lt: String
+  name_lte: String
+  name_ne: String
+  name_nin: [String]
+  name: String
+  OR: [EquipmentQueryInput!]
+  properties_exists: Boolean
+  properties_in: [EquipmentPropertyQueryInput]
+  properties_nin: [EquipmentPropertyQueryInput]
+  properties: [EquipmentPropertyQueryInput]
+  quantity_exists: Boolean
+  quantity_gt: Int
+  quantity_gte: Int
+  quantity_in: [Int]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_ne: Int
   quantity_nin: [Int]
+  quantity: Int
+  range_exists: Boolean
+  range: EquipmentRangeQueryInput
+  special_exists: Boolean
+  special_in: [String]
+  special_nin: [String]
+  special: [String]
+  speed_exists: Boolean
+  speed: EquipmentSpeedQueryInput
+  stealth_disadvantage_exists: Boolean
+  stealth_disadvantage_ne: Boolean
+  stealth_disadvantage: Boolean
+  str_minimum_exists: Boolean
+  str_minimum_gt: Int
+  str_minimum_gte: Int
+  str_minimum_in: [Int]
+  str_minimum_lt: Int
+  str_minimum_lte: Int
+  str_minimum_ne: Int
+  str_minimum_nin: [Int]
+  str_minimum: Int
+  throw_range_exists: Boolean
+  throw_range: EquipmentThrow_rangeQueryInput
+  tool_category_exists: Boolean
+  tool_category_gt: String
+  tool_category_gte: String
+  tool_category_in: [String]
+  tool_category_lt: String
+  tool_category_lte: String
+  tool_category_ne: String
   tool_category_nin: [String]
+  tool_category: String
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
+  url_ne: String
+  url_nin: [String]
+  url: String
+  vehicle_category_exists: Boolean
+  vehicle_category_gt: String
+  vehicle_category_gte: String
+  vehicle_category_in: [String]
+  vehicle_category_lt: String
+  vehicle_category_lte: String
+  vehicle_category_ne: String
+  vehicle_category_nin: [String]
+  vehicle_category: String
+  weapon_category_exists: Boolean
+  weapon_category_gt: String
+  weapon_category_gte: String
+  weapon_category_in: [String]
+  weapon_category_lt: String
+  weapon_category_lte: String
+  weapon_category_ne: String
+  weapon_category_nin: [String]
+  weapon_category: String
+  weapon_range_exists: Boolean
+  weapon_range_gt: String
+  weapon_range_gte: String
+  weapon_range_in: [String]
+  weapon_range_lt: String
+  weapon_range_lte: String
+  weapon_range_ne: String
+  weapon_range_nin: [String]
+  weapon_range: String
+  weight_exists: Boolean
+  weight_gt: Int
+  weight_gte: Int
+  weight_in: [Int]
+  weight_lt: Int
+  weight_lte: Int
+  weight_ne: Int
+  weight_nin: [Int]
+  weight: Int
 }
 
 type EquipmentRange {
@@ -491,57 +491,57 @@ type EquipmentRange {
 }
 
 input EquipmentRangeQueryInput {
-  normal_nin: [Int]
-  normal_ne: Int
-  normal_gte: Int
-  long_in: [Int]
-  normal_exists: Boolean
-  long_nin: [Int]
-  normal_gt: Int
-  normal_lt: Int
-  long_lte: Int
-  normal_lte: Int
-  long: Int
-  long_gt: Int
-  long_lt: Int
   AND: [EquipmentRangeQueryInput!]
-  normal_in: [Int]
-  long_gte: Int
   long_exists: Boolean
+  long_gt: Int
+  long_gte: Int
+  long_in: [Int]
+  long_lt: Int
+  long_lte: Int
   long_ne: Int
-  OR: [EquipmentRangeQueryInput!]
+  long_nin: [Int]
+  long: Int
+  normal_exists: Boolean
+  normal_gt: Int
+  normal_gte: Int
+  normal_in: [Int]
+  normal_lt: Int
+  normal_lte: Int
+  normal_ne: Int
+  normal_nin: [Int]
   normal: Int
+  OR: [EquipmentRangeQueryInput!]
 }
 
 enum EquipmentSortByInput {
-  NAME_DESC
-  WEAPON_CATEGORY_DESC
-  WEIGHT_DESC
   _ID_ASC
   _ID_DESC
-  STR_MINIMUM_ASC
-  CAPACITY_ASC
-  WEAPON_CATEGORY_ASC
-  VEHICLE_CATEGORY_ASC
-  TOOL_CATEGORY_DESC
-  VEHICLE_CATEGORY_DESC
-  CATEGORY_RANGE_ASC
-  INDEX_DESC
-  CAPACITY_DESC
-  QUANTITY_ASC
-  URL_DESC
-  ARMOR_CATEGORY_DESC
-  CATEGORY_RANGE_DESC
-  TOOL_CATEGORY_ASC
-  NAME_ASC
-  STR_MINIMUM_DESC
-  URL_ASC
-  INDEX_ASC
-  QUANTITY_DESC
-  WEIGHT_ASC
-  WEAPON_RANGE_DESC
   ARMOR_CATEGORY_ASC
+  ARMOR_CATEGORY_DESC
+  CAPACITY_ASC
+  CAPACITY_DESC
+  CATEGORY_RANGE_ASC
+  CATEGORY_RANGE_DESC
+  INDEX_ASC
+  INDEX_DESC
+  NAME_ASC
+  NAME_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  STR_MINIMUM_ASC
+  STR_MINIMUM_DESC
+  TOOL_CATEGORY_ASC
+  TOOL_CATEGORY_DESC
+  URL_ASC
+  URL_DESC
+  VEHICLE_CATEGORY_ASC
+  VEHICLE_CATEGORY_DESC
+  WEAPON_CATEGORY_ASC
+  WEAPON_CATEGORY_DESC
   WEAPON_RANGE_ASC
+  WEAPON_RANGE_DESC
+  WEIGHT_ASC
+  WEIGHT_DESC
 }
 
 type EquipmentSpeed {
@@ -550,26 +550,26 @@ type EquipmentSpeed {
 }
 
 input EquipmentSpeedQueryInput {
-  unit_lte: String
-  quantity_nin: [Int]
-  quantity_exists: Boolean
-  unit_nin: [String]
-  unit_ne: String
-  quantity_gte: Int
-  quantity_ne: Int
-  quantity_lt: Int
-  quantity_in: [Int]
-  unit_in: [String]
   AND: [EquipmentSpeedQueryInput!]
-  quantity: Int
-  quantity_gt: Int
-  unit_gt: String
-  unit_exists: Boolean
-  unit: String
-  unit_lt: String
-  unit_gte: String
   OR: [EquipmentSpeedQueryInput!]
+  quantity_exists: Boolean
+  quantity_gt: Int
+  quantity_gte: Int
+  quantity_in: [Int]
+  quantity_lt: Int
   quantity_lte: Int
+  quantity_ne: Int
+  quantity_nin: [Int]
+  quantity: Int
+  unit_exists: Boolean
+  unit_gt: String
+  unit_gte: String
+  unit_in: [String]
+  unit_lt: String
+  unit_lte: String
+  unit_ne: String
+  unit_nin: [String]
+  unit: String
 }
 
 type EquipmentThrow_range {
@@ -578,26 +578,26 @@ type EquipmentThrow_range {
 }
 
 input EquipmentThrow_rangeQueryInput {
-  normal_gt: Int
+  AND: [EquipmentThrow_rangeQueryInput!]
   long_exists: Boolean
-  long_in: [Int]
   long_gt: Int
-  long_ne: Int
+  long_gte: Int
+  long_in: [Int]
+  long_lt: Int
   long_lte: Int
-  normal: Int
+  long_ne: Int
+  long_nin: [Int]
+  long: Int
+  normal_exists: Boolean
+  normal_gt: Int
+  normal_gte: Int
   normal_in: [Int]
   normal_lt: Int
-  long_lt: Int
   normal_lte: Int
-  long_gte: Int
-  normal_exists: Boolean
-  AND: [EquipmentThrow_rangeQueryInput!]
-  OR: [EquipmentThrow_rangeQueryInput!]
-  long: Int
-  normal_gte: Int
-  long_nin: [Int]
   normal_ne: Int
   normal_nin: [Int]
+  normal: Int
+  OR: [EquipmentThrow_rangeQueryInput!]
 }
 `;
 
