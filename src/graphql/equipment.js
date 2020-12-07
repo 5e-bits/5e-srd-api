@@ -28,6 +28,7 @@ type Equipment {
   str_minimum: Int
   throw_range: EquipmentThrow_range
   tool_category: String
+  two_handed_damage: EquipmentTwo_handed_damage
   url: String
   vehicle_category: String
   weapon_category: String
@@ -328,7 +329,6 @@ input EquipmentPropertyQueryInput {
 }
 
 input EquipmentQueryInput {
-  _id_exists: Boolean
   AND: [EquipmentQueryInput!]
   armor_category_exists: Boolean
   armor_category_gt: String
@@ -438,6 +438,8 @@ input EquipmentQueryInput {
   tool_category_ne: String
   tool_category_nin: [String]
   tool_category: String
+  two_handed_damage_exists: Boolean
+  two_handed_damage: EquipmentTwo_handed_damageQueryInput
   url_exists: Boolean
   url_gt: String
   url_gte: String
@@ -514,8 +516,6 @@ input EquipmentRangeQueryInput {
 }
 
 enum EquipmentSortByInput {
-  _ID_ASC
-  _ID_DESC
   ARMOR_CATEGORY_ASC
   ARMOR_CATEGORY_DESC
   CAPACITY_ASC
@@ -598,6 +598,65 @@ input EquipmentThrow_rangeQueryInput {
   normal_nin: [Int]
   normal: Int
   OR: [EquipmentThrow_rangeQueryInput!]
+}
+
+type EquipmentTwo_handed_damage {
+  damage_dice: String
+  damage_type: EquipmentTwo_handed_damageDamage_type
+}
+
+type EquipmentTwo_handed_damageDamage_type {
+  index: String
+  name: String
+  url: String
+}
+
+input EquipmentTwo_handed_damageDamage_typeQueryInput {
+  AND: [EquipmentTwo_handed_damageDamage_typeQueryInput!]
+  index_exists: Boolean
+  index_gt: String
+  index_gte: String
+  index_in: [String]
+  index_lt: String
+  index_lte: String
+  index_ne: String
+  index_nin: [String]
+  index: String
+  name_exists: Boolean
+  name_gt: String
+  name_gte: String
+  name_in: [String]
+  name_lt: String
+  name_lte: String
+  name_ne: String
+  name_nin: [String]
+  name: String
+  OR: [EquipmentTwo_handed_damageDamage_typeQueryInput!]
+  url_exists: Boolean
+  url_gt: String
+  url_gte: String
+  url_in: [String]
+  url_lt: String
+  url_lte: String
+  url_ne: String
+  url_nin: [String]
+  url: String
+}
+
+input EquipmentTwo_handed_damageQueryInput {
+  AND: [EquipmentTwo_handed_damageQueryInput!]
+  damage_dice_exists: Boolean
+  damage_dice_gt: String
+  damage_dice_gte: String
+  damage_dice_in: [String]
+  damage_dice_lt: String
+  damage_dice_lte: String
+  damage_dice_ne: String
+  damage_dice_nin: [String]
+  damage_dice: String
+  damage_type_exists: Boolean
+  damage_type: EquipmentTwo_handed_damageDamage_typeQueryInput
+  OR: [EquipmentTwo_handed_damageQueryInput!]
 }
 `;
 
