@@ -22,18 +22,18 @@ describe('index', () => {
     {
       index: 'barbarian',
       name: 'Barbarian',
-      url: '/api/classes/barbarian'
+      url: '/api/classes/barbarian',
     },
     {
       index: 'bard',
       name: 'Bard',
-      url: '/api/classes/bard'
+      url: '/api/classes/bard',
     },
     {
       index: 'cleric',
       name: 'Cleric',
-      url: '/api/classes/cleric'
-    }
+      url: '/api/classes/cleric',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -61,7 +61,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'barbarian',
     name: 'Barbarian',
-    url: '/api/classes/barbarian'
+    url: '/api/classes/barbarian',
   };
 
   const showParams = { index: 'barbarian' };
@@ -108,18 +108,18 @@ describe('showLevelsForClass', () => {
     {
       index: 'barbarian-1',
       level: 1,
-      url: '/api/classes/barbarian/level/1'
+      url: '/api/classes/barbarian/level/1',
     },
     {
       index: 'barbarian-2',
       level: 2,
-      url: '/api/classes/barbarian/level/2'
+      url: '/api/classes/barbarian/level/2',
     },
     {
       index: 'barbarian-3',
       level: 3,
-      url: '/api/classes/barbarian/level/3'
-    }
+      url: '/api/classes/barbarian/level/3',
+    },
   ];
   const request = mockRequest({ params: { index: 'barbarian' } });
 
@@ -163,7 +163,7 @@ describe('showLevelForClass', () => {
   const findOneDoc = {
     index: 'barbarian-1',
     level: 1,
-    url: '/api/classes/barbarian/level/1'
+    url: '/api/classes/barbarian/level/1',
   };
 
   const showParams = { index: 'barbarian', level: '1' };
@@ -225,8 +225,8 @@ describe('showSubclassesForClass', () => {
     {
       index: 'berserker',
       name: 'Berserker',
-      url: '/api/subclasses/berserker'
-    }
+      url: '/api/subclasses/berserker',
+    },
   ];
   const request = mockRequest({ params: { index: 'barbarian' } });
 
@@ -268,7 +268,7 @@ describe('showStartingEquipmentForClass', () => {
   const findOneDoc = {
     index: 1,
     starting_equipment: [],
-    url: '/api/starting-equipment/1'
+    url: '/api/starting-equipment/1',
   };
   const request = mockRequest({ params: { index: 'barbarian' } });
 
@@ -303,17 +303,17 @@ describe('showSpellcastingForClass', () => {
       spellcasting_ability: {
         index: 'cha',
         name: 'CHA',
-        url: '/api/ability-scores/cha'
+        url: '/api/ability-scores/cha',
       },
       info: [
         {
           name: 'Cantrips',
           desc: [
-            'You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.'
-          ]
-        }
-      ]
-    }
+            'You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.',
+          ],
+        },
+      ],
+    },
   };
   const request = mockRequest({ params: { index: 'warlock' } });
 
@@ -344,18 +344,18 @@ describe('showSpellsForClass', () => {
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
+      url: '/api/spells/acid-splash',
     },
     {
       index: 'chill-touch',
       name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
+      url: '/api/spells/chill-touch',
     },
     {
       index: 'dancing-lights',
       name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
+      url: '/api/spells/dancing-lights',
+    },
   ];
   const request = mockRequest({ params: { index: 'wizard' } });
 
@@ -385,18 +385,18 @@ describe('showSpellsForClassAndLevel', () => {
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
+      url: '/api/spells/acid-splash',
     },
     {
       index: 'chill-touch',
       name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
+      url: '/api/spells/chill-touch',
     },
     {
       index: 'dancing-lights',
       name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
+      url: '/api/spells/dancing-lights',
+    },
   ];
   const request = mockRequest({ params: { index: 'wizard', level: 1 } });
 
@@ -439,18 +439,18 @@ describe('showFeaturesForClass', () => {
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
+      url: '/api/spells/acid-splash',
     },
     {
       index: 'chill-touch',
       name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
+      url: '/api/spells/chill-touch',
     },
     {
       index: 'dancing-lights',
       name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
+      url: '/api/spells/dancing-lights',
+    },
   ];
   const request = mockRequest({ params: { index: 'wizard' } });
 
@@ -480,18 +480,18 @@ describe('showFeaturesForClassAndLevel', () => {
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
+      url: '/api/spells/acid-splash',
     },
     {
       index: 'chill-touch',
       name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
+      url: '/api/spells/chill-touch',
     },
     {
       index: 'dancing-lights',
       name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
+      url: '/api/spells/dancing-lights',
+    },
   ];
   const request = mockRequest({ params: { index: 'wizard', level: 1 } });
 
@@ -534,18 +534,18 @@ describe('showProficienciesForClass', () => {
     {
       index: 'daggers',
       name: 'Daggers',
-      url: '/api/proficiencies/daggers'
+      url: '/api/proficiencies/daggers',
     },
     {
       index: 'darts',
       name: 'Darts',
-      url: '/api/proficiencies/darts'
+      url: '/api/proficiencies/darts',
     },
     {
       index: 'quarterstaffs',
       name: 'Quarterstaffs',
-      url: '/api/proficiencies/quarterstaffs'
-    }
+      url: '/api/proficiencies/quarterstaffs',
+    },
   ];
   const request = mockRequest({ params: { index: 'wizard' } });
 

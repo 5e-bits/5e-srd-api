@@ -109,11 +109,11 @@ const resolvers = {
     },
     equipmentCategory: async (_, { query }) => {
       return await EquipmentCategory.findOne(query).exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };

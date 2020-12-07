@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'artificers-lore',
       name: "Artificer's Lore",
-      url: '/api/traits/artificers-lore'
+      url: '/api/traits/artificers-lore',
     },
     {
       index: 'brave',
       name: 'Brave',
-      url: '/api/traits/brave'
+      url: '/api/traits/brave',
     },
     {
       index: 'breath-weapon',
       name: 'Breath Weapon',
-      url: '/api/traits/breath-weapon'
-    }
+      url: '/api/traits/breath-weapon',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'abyssal',
     name: 'Abyssal',
-    url: '/api/traits/abyssal'
+    url: '/api/traits/abyssal',
   };
 
   const showParams = { index: 'abyssal' };

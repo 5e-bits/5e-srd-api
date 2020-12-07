@@ -417,11 +417,11 @@ const resolvers = {
       return await Subrace.find(query)
         .sort(sortBy)
         .exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };

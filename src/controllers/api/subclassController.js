@@ -42,7 +42,7 @@ exports.showLevelForSubclass = (req, res, next) => {
 exports.showFeaturesForSubclass = (req, res, next) => {
   const urlString = '/api/subclasses/' + req.params.index;
   return Feature.find({
-    'subclass.url': urlString
+    'subclass.url': urlString,
   })
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })
@@ -63,7 +63,7 @@ exports.showFeaturesForSubclassAndLevel = (req, res, next) => {
 
   return Feature.find({
     level: parseInt(req.params.level),
-    'subclass.url': urlString
+    'subclass.url': urlString,
   })
     .select({ index: 1, name: 1, url: 1, _id: 0 })
     .sort({ level: 'asc', url: 'asc' })

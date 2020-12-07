@@ -443,11 +443,11 @@ const resolvers = {
       return await Spell.find(query)
         .sort(sortBy)
         .exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };

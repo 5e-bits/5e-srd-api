@@ -19,18 +19,18 @@ describe('index', () => {
     {
       index: 'dragonborn',
       name: 'Dragonborn',
-      url: '/api/races/dragonborn'
+      url: '/api/races/dragonborn',
     },
     {
       index: 'dwarf',
       name: 'Dwarf',
-      url: '/api/races/dwarf'
+      url: '/api/races/dwarf',
     },
     {
       index: 'elf',
       name: 'Elf',
-      url: '/api/races/elf'
-    }
+      url: '/api/races/elf',
+    },
   ];
   const request = mockRequest({ query: {} });
 
@@ -60,7 +60,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'dragonborn',
     name: 'Dragonborn',
-    url: '/api/races/dragonborn'
+    url: '/api/races/dragonborn',
   };
 
   const showParams = { index: 'dragonborn' };
@@ -108,8 +108,8 @@ describe('showSubracesForRace', () => {
     {
       index: 'high-elf',
       name: 'High Elf',
-      url: '/api/subraces/high-elf'
-    }
+      url: '/api/subraces/high-elf',
+    },
   ];
   const showParams = { index: 'dragonborn' };
   const request = mockRequest({ params: showParams });
@@ -141,18 +141,18 @@ describe('showTraitsForRace', () => {
     {
       index: 'darkvision',
       name: 'Darkvision',
-      url: '/api/traits/darkvision'
+      url: '/api/traits/darkvision',
     },
     {
       index: 'elf-weapon-training',
       name: 'Elf Weapon Training',
-      url: '/api/traits/elf-weapon-training'
+      url: '/api/traits/elf-weapon-training',
     },
     {
       index: 'fey-ancestry',
       name: 'Fey Ancestry',
-      url: '/api/traits/fey-ancestry'
-    }
+      url: '/api/traits/fey-ancestry',
+    },
   ];
   const showParams = { index: 'elf' };
   const request = mockRequest({ params: showParams });
@@ -184,18 +184,18 @@ describe('showProficienciesForRace', () => {
     {
       index: 'daggers',
       name: 'Daggers',
-      url: '/api/proficiencies/daggers'
+      url: '/api/proficiencies/daggers',
     },
     {
       index: 'darts',
       name: 'Darts',
-      url: '/api/proficiencies/darts'
+      url: '/api/proficiencies/darts',
     },
     {
       index: 'quarterstaffs',
       name: 'Quarterstaffs',
-      url: '/api/proficiencies/quarterstaffs'
-    }
+      url: '/api/proficiencies/quarterstaffs',
+    },
   ];
   const request = mockRequest({ params: { index: 'elf' } });
 

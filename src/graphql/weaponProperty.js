@@ -83,11 +83,11 @@ const resolvers = {
     },
     weaponProperty: async (_, { query }) => {
       return await WeaponProperty.findOne(query).exec();
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   typeDef,
-  resolvers
+  resolvers,
 };
