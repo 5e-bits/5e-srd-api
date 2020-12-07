@@ -28,6 +28,6 @@ function interactive_call() {
       } else if (data['status'] == 404) {
         $('#interactive_output').text(data['status'] + ' ' + data['statusText']);
       }
-    },
+    }
   });
 }

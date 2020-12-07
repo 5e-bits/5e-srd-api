@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'abacus',
       name: 'Abacus',
-      url: '/api/equipment/abacus',
+      url: '/api/equipment/abacus'
     },
     {
       index: 'acid-vial',
       name: 'Acid (vial)',
-      url: '/api/equipment/acid-vial',
+      url: '/api/equipment/acid-vial'
     },
     {
       index: 'alchemists-fire-flask',
       name: "Alchemist's fire (flask)",
-      url: '/api/equipment/alchemists-fire-flask',
-    },
+      url: '/api/equipment/alchemists-fire-flask'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'abacus',
     name: 'Abacus',
-    url: '/api/equipment/abacus',
+    url: '/api/equipment/abacus'
   };
 
   const showParams = { index: 'abacus' };

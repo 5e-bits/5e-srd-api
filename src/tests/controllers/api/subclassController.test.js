@@ -18,18 +18,18 @@ describe('index', () => {
     {
       index: 'barbarian',
       name: 'Barbarian',
-      url: '/api/classes/barbarian',
+      url: '/api/classes/barbarian'
     },
     {
       index: 'bard',
       name: 'Bard',
-      url: '/api/classes/bard',
+      url: '/api/classes/bard'
     },
     {
       index: 'cleric',
       name: 'Cleric',
-      url: '/api/classes/cleric',
-    },
+      url: '/api/classes/cleric'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -57,7 +57,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'barbarian',
     name: 'Barbarian',
-    url: '/api/classes/barbarian',
+    url: '/api/classes/barbarian'
   };
 
   const showParams = { index: 'barbarian' };
@@ -104,18 +104,18 @@ describe('showLevelsForSubclass', () => {
     {
       index: 'barbarian-1',
       level: 1,
-      url: '/api/subclasses/barbarian/level/1',
+      url: '/api/subclasses/barbarian/level/1'
     },
     {
       index: 'barbarian-2',
       level: 2,
-      url: '/api/subclasses/barbarian/level/2',
+      url: '/api/subclasses/barbarian/level/2'
     },
     {
       index: 'barbarian-3',
       level: 3,
-      url: '/api/subclasses/barbarian/level/3',
-    },
+      url: '/api/subclasses/barbarian/level/3'
+    }
   ];
   const request = mockRequest({ params: { index: 'barbarian' } });
 
@@ -157,7 +157,7 @@ describe('showLevelForSubclass', () => {
   const findOneDoc = {
     index: 'barbarian-1',
     level: 1,
-    url: '/api/classes/barbarian/level/1',
+    url: '/api/classes/barbarian/level/1'
   };
 
   const showParams = { index: 'barbarian', level: '1' };
@@ -219,18 +219,18 @@ describe('showFeaturesForSubclass', () => {
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash',
+      url: '/api/spells/acid-splash'
     },
     {
       index: 'chill-touch',
       name: 'Chill Touch',
-      url: '/api/spells/chill-touch',
+      url: '/api/spells/chill-touch'
     },
     {
       index: 'dancing-lights',
       name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights',
-    },
+      url: '/api/spells/dancing-lights'
+    }
   ];
   const request = mockRequest({ params: { index: 'wizard' } });
 
@@ -260,18 +260,18 @@ describe('showFeaturesForSubclassAndLevel', () => {
     {
       index: 'acid-splash',
       name: 'Acid Splash',
-      url: '/api/spells/acid-splash',
+      url: '/api/spells/acid-splash'
     },
     {
       index: 'chill-touch',
       name: 'Chill Touch',
-      url: '/api/spells/chill-touch',
+      url: '/api/spells/chill-touch'
     },
     {
       index: 'dancing-lights',
       name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights',
-    },
+      url: '/api/spells/dancing-lights'
+    }
   ];
   const request = mockRequest({ params: { index: 'wizard', level: 1 } });
 

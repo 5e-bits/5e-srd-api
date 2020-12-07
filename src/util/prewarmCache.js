@@ -14,24 +14,24 @@ const prewarmCache = async () => {
   const toPrewarm = [
     {
       Schema: MagicItem,
-      endpoint: '/api/magic-items',
+      endpoint: '/api/magic-items'
     },
     {
       Schema: Spell,
-      endpoint: '/api/spells',
+      endpoint: '/api/spells'
     },
     {
       Schema: Monster,
-      endpoint: '/api/monsters',
+      endpoint: '/api/monsters'
     },
     {
       Schema: Rule,
-      endpoint: '/api/rules',
+      endpoint: '/api/rules'
     },
     {
       Schema: RuleSection,
-      endpoint: '/api/rule-sections',
-    },
+      endpoint: '/api/rule-sections'
+    }
   ];
   for (const element of toPrewarm) {
     const data = await element.Schema.find()

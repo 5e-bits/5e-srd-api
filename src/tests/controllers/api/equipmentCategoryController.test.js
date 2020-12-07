@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'adventuring-gear',
       name: 'Adventuring Gear',
-      url: '/api/equipment-categories/adventuring-gear',
+      url: '/api/equipment-categories/adventuring-gear'
     },
     {
       index: 'armor',
       name: 'Armor',
-      url: '/api/equipment-categories/armor',
+      url: '/api/equipment-categories/armor'
     },
     {
       index: 'artisans-tools',
       name: "Artisan's Tools",
-      url: '/api/equipment-categories/artisans-tools',
-    },
+      url: '/api/equipment-categories/artisans-tools'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'adventuring-gear',
     name: 'Adventuring Gear',
-    url: '/api/equipment-categories/adventuring-gear',
+    url: '/api/equipment-categories/adventuring-gear'
   };
 
   const showParams = { index: 'adventuring-gear' };

@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'barbarian',
       class: 'Barbarian',
-      url: '/api/starting-equipment/barbarian',
+      url: '/api/starting-equipment/barbarian'
     },
     {
       index: 'bard',
       class: 'Bard',
-      url: '/api/starting-equipment/bard',
+      url: '/api/starting-equipment/bard'
     },
     {
       index: 'cleric',
       class: 'Cleric',
-      url: '/api/starting-equipment/cleric',
-    },
+      url: '/api/starting-equipment/cleric'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'barbarian',
     class: 'Barbarian',
-    url: '/api/starting-equipment/barbarian',
+    url: '/api/starting-equipment/barbarian'
   };
 
   const showParams = { index: 'barbarian' };

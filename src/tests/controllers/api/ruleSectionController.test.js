@@ -27,32 +27,32 @@ describe('index', () => {
       name: 'The Order of Combat',
       index: 'the-order-of-combat',
       desc: 'some description',
-      url: '/api/rule-sections/the-order-of-combat',
+      url: '/api/rule-sections/the-order-of-combat'
     },
     {
       name: 'Movement and Position',
       index: 'movement-and-position',
       desc: 'some description',
-      url: '/api/rule-sections/movement-and-position',
+      url: '/api/rule-sections/movement-and-position'
     },
     {
       name: 'Actions in Combat',
       index: 'actions-in-combat',
       desc: 'some description',
-      url: '/api/rule-sections/actions-in-combat',
+      url: '/api/rule-sections/actions-in-combat'
     },
     {
       name: 'Making an Attack',
       index: 'making-an-attack',
       desc: 'some description',
-      url: '/api/rule-sections/making-an-attack',
+      url: '/api/rule-sections/making-an-attack'
     },
     {
       name: 'Cover',
       index: 'cover',
       desc: 'some description',
-      url: '/api/rule-sections/cover',
-    },
+      url: '/api/rule-sections/cover'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -83,7 +83,7 @@ describe('show', () => {
     name: 'The Order of Combat',
     index: 'the-order-of-combat',
     desc: 'some description',
-    url: '/api/rule-sections/the-order-of-combat',
+    url: '/api/rule-sections/the-order-of-combat'
   };
 
   const showParams = { index: 'the-order-of-combat' };

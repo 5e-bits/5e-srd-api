@@ -78,11 +78,11 @@ const resolvers = {
       return await RuleSection.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };

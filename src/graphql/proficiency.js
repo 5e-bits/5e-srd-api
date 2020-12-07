@@ -217,11 +217,11 @@ const resolvers = {
     },
     proficiency: async (_, { query }) => {
       return await Proficiency.findOne(query).exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };

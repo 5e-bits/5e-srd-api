@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'acrobatics',
       name: 'Acrobatics',
-      url: '/api/skills/acrobatics',
+      url: '/api/skills/acrobatics'
     },
     {
       index: 'animal-handling',
       name: 'Animal Handling',
-      url: '/api/skills/animal-handling',
+      url: '/api/skills/animal-handling'
     },
     {
       index: 'arcana',
       name: 'Arcana',
-      url: '/api/skills/arcana',
-    },
+      url: '/api/skills/arcana'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'acrobatics',
     name: 'Acrobatics',
-    url: '/api/skills/acrobatics',
+    url: '/api/skills/acrobatics'
   };
 
   const showParams = { index: 'acrobatics' };

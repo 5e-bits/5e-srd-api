@@ -80,7 +80,7 @@ module.exports = {
     Subrace,
     Trait,
     WeaponProperty,
-    Query,
+    Query
   ],
   resolvers: merge(
     abilityScoreResolvers,
@@ -106,5 +106,5 @@ module.exports = {
     subraceResolvers,
     traitResolvers,
     weaponPropertyResolvers
-  ),
+  )
 };

@@ -14,18 +14,18 @@ describe('index', () => {
     {
       index: 'alchemists-supplies',
       name: "Alchemist's supplies",
-      url: '/api/proficiencies/alchemists-supplies',
+      url: '/api/proficiencies/alchemists-supplies'
     },
     {
       index: 'all-armor',
       name: 'All armor',
-      url: '/api/proficiencies/all-armor',
+      url: '/api/proficiencies/all-armor'
     },
     {
       index: 'bagpipes',
       name: 'Bagpipes',
-      url: '/api/proficiencies/bagpipes',
-    },
+      url: '/api/proficiencies/bagpipes'
+    }
   ];
   const request = mockRequest({ query: {} });
 
@@ -55,7 +55,7 @@ describe('show', () => {
   const findOneDoc = {
     index: 'alchemists-supplies',
     name: "Alchemist's supplies",
-    url: '/api/proficiencies/alchemists-supplies',
+    url: '/api/proficiencies/alchemists-supplies'
   };
 
   const showParams = { index: 'alchemists-supplies' };

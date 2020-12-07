@@ -6,41 +6,41 @@ describe('ClassAPIResource', () => {
       {
         index: 'test1',
         class: {
-          name: 'Test 1',
+          name: 'Test 1'
         },
-        url: '/made/up/url/test1',
+        url: '/made/up/url/test1'
       },
       {
         index: 'test2',
         class: {
-          name: 'Test 2',
+          name: 'Test 2'
         },
-        url: '/made/up/url/test2',
+        url: '/made/up/url/test2'
       },
       {
         index: 'test2',
         class: {
-          name: 'Test 2',
+          name: 'Test 2'
         },
-        url: '/made/up/url/test2',
-      },
+        url: '/made/up/url/test2'
+      }
     ];
     const expectedData = [
       {
         index: 'test1',
         class: 'Test 1',
-        url: '/made/up/url/test1',
+        url: '/made/up/url/test1'
       },
       {
         index: 'test2',
         class: 'Test 2',
-        url: '/made/up/url/test2',
+        url: '/made/up/url/test2'
       },
       {
         index: 'test2',
         class: 'Test 2',
-        url: '/made/up/url/test2',
-      },
+        url: '/made/up/url/test2'
+      }
     ];
     const resource = ClassAPIResource(data);
     expect(resource.count).toEqual(data.length);
@@ -54,18 +54,18 @@ describe('ResourceList', () => {
       {
         index: 'test1',
         name: 'Test 1',
-        url: '/made/up/url/test1',
+        url: '/made/up/url/test1'
       },
       {
         index: 'test2',
         name: 'Test 2',
-        url: '/made/up/url/test2',
+        url: '/made/up/url/test2'
       },
       {
         index: 'test2',
         name: 'Test 2',
-        url: '/made/up/url/test2',
-      },
+        url: '/made/up/url/test2'
+      }
     ];
     const resource = ResourceList(data);
     expect(resource.count).toEqual(data.length);

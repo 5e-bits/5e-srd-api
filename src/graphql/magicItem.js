@@ -112,11 +112,11 @@ const resolvers = {
       return await MagicItem.find(query)
         .sort(sortBy)
         .exec();
-    },
-  },
+    }
+  }
 };
 
 module.exports = {
   typeDef,
-  resolvers,
+  resolvers
 };
