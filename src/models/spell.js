@@ -73,7 +73,7 @@ const Spell = new Schema({
   dc: SpellDc,
   desc: [String],
   duration: String,
-  // As this has keys that are
+  // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields.
   heal_at_slot_level: Object,
   higher_level: [String],
   index: String,
