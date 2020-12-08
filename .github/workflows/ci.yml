@@ -27,7 +27,6 @@ jobs:
   integration:
     name: Run Integration tests
     runs-on: ubuntu-latest
-    needs: unit
     steps:
       - uses: actions/checkout@v2
       - run: docker-compose pull && docker-compose build && docker-compose run api npm run test:integration
