@@ -24,6 +24,10 @@ const SpellDamageDamageType = new Schema({
 const SpellDamage = new Schema({
   _id: false,
   damage_type: SpellDamageDamageType,
+  // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
+  damage_at_slot_level: Object,
+  // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
+  damage_at_character_level: Object,
 });
 
 const SpellDcDcType = new Schema({
@@ -69,6 +73,8 @@ const Spell = new Schema({
   dc: SpellDc,
   desc: [String],
   duration: String,
+  // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
+  heal_at_slot_level: Object,
   higher_level: [String],
   index: String,
   level: Number,
