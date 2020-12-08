@@ -24,6 +24,8 @@ const SpellDamageDamageType = new Schema({
 const SpellDamage = new Schema({
   _id: false,
   damage_type: SpellDamageDamageType,
+  damage_at_slot_level: Object,
+  damage_at_character_level: Object,
 });
 
 const SpellDcDcType = new Schema({
@@ -69,6 +71,8 @@ const Spell = new Schema({
   dc: SpellDc,
   desc: [String],
   duration: String,
+  // As this has keys that are
+  heal_at_slot_level: Object,
   higher_level: [String],
   index: String,
   level: Number,
