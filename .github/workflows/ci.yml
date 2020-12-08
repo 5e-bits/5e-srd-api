@@ -25,15 +25,15 @@ jobs:
       - run: npm run test:unit
   lint:
     name: Run linter
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Use Node.js 14.x
-          uses: actions/setup-node@v1
-          with:
-            node-version: 14.x
-        - run: npm install
-        - run: npm run lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: npm install
+      - run: npm run lint
   integration:
     name: Run Integration tests
     runs-on: ubuntu-latest
