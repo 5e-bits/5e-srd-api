@@ -322,7 +322,6 @@ describe('showSpellcastingForClass', () => {
 
     await ClassController.showSpellcastingForClass(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
-    expect(response.json).toHaveBeenCalledWith(findOneDoc.spellcasting);
   });
 
   describe('when something goes wrong', () => {
