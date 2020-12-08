@@ -26,6 +26,7 @@ const SpellDamage = new Schema({
   damage_type: SpellDamageDamageType,
    // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields.
   damage_at_slot_level: Object,
+   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields.
   damage_at_character_level: Object,
 });
 
