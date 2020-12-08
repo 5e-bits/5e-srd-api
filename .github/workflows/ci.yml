@@ -8,6 +8,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  repository_dispatch:
+    types: [build_application]
 
 jobs:
   unit:
@@ -29,3 +31,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker-compose pull && docker-compose build && docker-compose run api npm run test:integration
+  heroku:
+    name: Trigger Heroku Deploy
+    runs-on: ubuntu-latest
+    needs: [unit, integration]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - run:
+      - uses: akhileshns/heroku-deploy@v3.6.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "dnd-5e-srd-api"
+          heroku_email: "cdurianward@gmail.com"
