@@ -2,29 +2,34 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const FeatureChoiceFrom = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const FeatureChoice = new Schema({
+  _id: false,
   choose: Number,
   from: [FeatureChoiceFrom],
   type: String,
 });
 
 const FeatureClass = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const FeaturePrerequisite = new Schema({
+  _id: false,
   level: Number,
   type: String,
 });
 
 const FeatureSubclass = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,

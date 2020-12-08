@@ -2,45 +2,53 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SpellAreaOfEffect = new Schema({
+  _id: false,
   size: Number,
   type: String,
 });
 
 const SpellClass = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const SpellDamageDamageType = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const SpellDamage = new Schema({
+  _id: false,
   damage_type: SpellDamageDamageType,
 });
 
 const SpellDcDcType = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const SpellDc = new Schema({
+  _id: false,
   dc_success: String,
   dc_type: SpellDcDcType,
   desc: String,
 });
 
 const SpellSchool = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const SpellSubclass = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
