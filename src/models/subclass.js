@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SubclassClass = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const SubclassSpellPrerequisite = new Schema({
+  _id: false,
   index: String,
   name: String,
   type: String,
@@ -15,12 +17,14 @@ const SubclassSpellPrerequisite = new Schema({
 });
 
 const SubclassSpellSpell = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const SubclassSpell = new Schema({
+  _id: false,
   prerequisites: [SubclassSpellPrerequisite],
   spell: SubclassSpellSpell,
 });

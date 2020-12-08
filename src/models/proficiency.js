@@ -2,18 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ProficiencyClass = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const ProficiencyRace = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const ProficiencyReference = new Schema({
+  _id: false,
   index: String,
   name: String,
   type: String,

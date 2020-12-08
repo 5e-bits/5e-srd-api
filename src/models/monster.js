@@ -2,17 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MonsterActionDamageType = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const MonsterActionDamage = new Schema({
+  _id: false,
   damage_dice: String,
   damage_type: MonsterActionDamageType,
 });
 
 const MonsterAction = new Schema({
+  _id: false,
   attack_bonus: Number,
   damage: [MonsterActionDamage],
   desc: String,
@@ -20,43 +23,51 @@ const MonsterAction = new Schema({
 });
 
 const MonsterConditionImmunity = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const MonsterLegendaryAction = new Schema({
+  _id: false,
   attack_bonus: Number,
   desc: String,
   name: String,
 });
 
 const MonsterOtherSpeedSpeed = new Schema({
+  _id: false,
   walk: String,
 });
 
 const MonsterOtherSpeed = new Schema({
+  _id: false,
   form: String,
   speed: MonsterOtherSpeedSpeed,
 });
 
 const MonsterProficiencyProficiency = new Schema({
+  _id: false,
   index: String,
   name: String,
   url: String,
 });
 
 const MonsterProficiency = new Schema({
+  _id: false,
   proficiency: MonsterProficiencyProficiency,
   value: Number,
 });
 
 const MonsterReaction = new Schema({
+  _id: false,
   desc: String,
   name: String,
 });
 
 const MonsterSense = new Schema({
+  _id: false,
   blindsight: String,
   darkvision: String,
   passive_perception: Number,
@@ -65,11 +76,13 @@ const MonsterSense = new Schema({
 });
 
 const MonsterSpecialAbility = new Schema({
+  _id: false,
   desc: String,
   name: String,
 });
 
 const MonsterSpeed = new Schema({
+  _id: false,
   burrow: String,
   climb: String,
   fly: String,
