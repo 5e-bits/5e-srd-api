@@ -1,19 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const ProficiencyClass = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const ProficiencyRace = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const ProficiencyReference = new Schema({
   _id: false,
@@ -28,10 +15,10 @@ const Proficiency = new Schema({
     type: String,
     select: false,
   },
-  classes: [ProficiencyClass],
+  classes: [NamedAPIResource],
   index: String,
   name: String,
-  races: [ProficiencyRace],
+  races: [NamedAPIResource],
   references: [ProficiencyReference],
   type: String,
   url: String,

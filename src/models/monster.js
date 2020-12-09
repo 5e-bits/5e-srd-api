@@ -1,17 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const MonsterActionDamageType = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const MonsterActionDamage = new Schema({
   _id: false,
   damage_dice: String,
-  damage_type: MonsterActionDamageType,
+  damage_type: NamedAPIResource,
 });
 
 const MonsterAction = new Schema({
@@ -20,13 +14,6 @@ const MonsterAction = new Schema({
   damage: [MonsterActionDamage],
   desc: String,
   name: String,
-});
-
-const MonsterConditionImmunity = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const MonsterLegendaryAction = new Schema({
@@ -47,16 +34,9 @@ const MonsterOtherSpeed = new Schema({
   speed: MonsterOtherSpeedSpeed,
 });
 
-const MonsterProficiencyProficiency = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
 const MonsterProficiency = new Schema({
   _id: false,
-  proficiency: MonsterProficiencyProficiency,
+  proficiency: NamedAPIResource,
   value: Number,
 });
 
@@ -101,7 +81,7 @@ const MonsterSchema = new Schema({
   armor_class: Number,
   challenge_rating: Number,
   charisma: Number,
-  condition_immunities: [MonsterConditionImmunity],
+  condition_immunities: [NamedAPIResource],
   constitution: Number,
   damage_immunities: [String],
   damage_resistances: [String],

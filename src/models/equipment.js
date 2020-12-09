@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { NamedAPIResource } = require('./common');
 
 const EquipmentArmorClass = new Schema({
   _id: false,
@@ -8,16 +9,9 @@ const EquipmentArmorClass = new Schema({
   max_bonus: Number,
 });
 
-const EquipmentContentItem = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
 const EquipmentContent = new Schema({
   _id: false,
-  item: EquipmentContentItem,
+  item: NamedAPIResource,
   quantity: Number,
 });
 
@@ -27,38 +21,10 @@ const EquipmentCost = new Schema({
   unit: String,
 });
 
-const EquipmentDamageDamageType = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
 const EquipmentDamage = new Schema({
   _id: false,
   damage_dice: String,
-  damage_type: EquipmentDamageDamageType,
-});
-
-const EquipmentEquipmentCategory = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const EquipmentGearCategory = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const EquipmentProperty = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
+  damage_type: NamedAPIResource,
 });
 
 const EquipmentRange = new Schema({
@@ -79,17 +45,10 @@ const EquipmentThrowRange = new Schema({
   normal: Number,
 });
 
-const EquipmentTwoHandedDamageDamageType = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
 const EquipmentTwoHandedDamage = new Schema({
   _id: false,
   damage_dice: String,
-  damage_type: EquipmentTwoHandedDamageDamageType,
+  damage_type: NamedAPIResource,
 });
 
 const Equipment = new Schema({
@@ -105,11 +64,11 @@ const Equipment = new Schema({
   cost: EquipmentCost,
   damage: EquipmentDamage,
   desc: [String],
-  equipment_category: EquipmentEquipmentCategory,
-  gear_category: EquipmentGearCategory,
+  equipment_category: NamedAPIResource,
+  gear_category: NamedAPIResource,
   index: String,
   name: String,
-  properties: [EquipmentProperty],
+  properties: [NamedAPIResource],
   quantity: Number,
   range: EquipmentRange,
   special: [String],

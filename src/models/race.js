@@ -1,16 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const RaceAbilityBonusOptionFromAbilityScore = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const RaceAbilityBonusOptionFrom = new Schema({
   _id: false,
-  ability_score: RaceAbilityBonusOptionFromAbilityScore,
+  ability_score: NamedAPIResource,
   bonus: Number,
 });
 
@@ -21,87 +15,31 @@ const RaceAbilityBonusOption = new Schema({
   type: String,
 });
 
-const RaceAbilityBonusAbilityScore = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
 const RaceAbilityBonus = new Schema({
   _id: false,
-  ability_score: RaceAbilityBonusAbilityScore,
+  ability_score: NamedAPIResource,
   bonus: Number,
-});
-
-const RaceLanguageOptionFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const RaceLanguageOption = new Schema({
   _id: false,
   choose: Number,
-  from: [RaceLanguageOptionFrom],
+  from: [NamedAPIResource],
   type: String,
-});
-
-const RaceLanguage = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const RaceStartingProficiencyOptionFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const RaceStartingProficiencyOption = new Schema({
   _id: false,
   choose: Number,
-  from: [RaceStartingProficiencyOptionFrom],
+  from: [NamedAPIResource],
   type: String,
-});
-
-const RaceStartingProficiency = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const RaceSubrace = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const RaceTraitOptionFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const RaceTraitOption = new Schema({
   _id: false,
   choose: Number,
-  from: [RaceTraitOptionFrom],
+  from: [NamedAPIResource],
   type: String,
-});
-
-const RaceTrait = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const Race = new Schema({
@@ -116,16 +54,16 @@ const Race = new Schema({
   index: String,
   language_desc: String,
   language_options: RaceLanguageOption,
-  languages: [RaceLanguage],
+  languages: [NamedAPIResource],
   name: String,
   size: String,
   size_description: String,
   speed: Number,
-  starting_proficiencies: [RaceStartingProficiency],
+  starting_proficiencies: [NamedAPIResource],
   starting_proficiency_options: RaceStartingProficiencyOption,
-  subraces: [RaceSubrace],
+  subraces: [NamedAPIResource],
   trait_options: RaceTraitOption,
-  traits: [RaceTrait],
+  traits: [NamedAPIResource],
   url: String,
 });
 

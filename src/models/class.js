@@ -1,32 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const ClassProficiency = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const ClassProficiencyChoiceFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const ClassProficiencyChoice = new Schema({
   _id: false,
   choose: Number,
-  from: [ClassProficiencyChoiceFrom],
+  from: [NamedAPIResource],
   type: String,
-});
-
-const ClassSavingThrow = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const ClassSpellcastingInfo = new Schema({
@@ -35,25 +15,11 @@ const ClassSpellcastingInfo = new Schema({
   name: String,
 });
 
-const ClassSpellcastingSpellcastingAbility = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
 const ClassSpellcasting = new Schema({
   _id: false,
   info: [ClassSpellcastingInfo],
   level: Number,
-  spellcasting_ability: ClassSpellcastingSpellcastingAbility,
-});
-
-const ClassSubclass = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
+  spellcasting_ability: NamedAPIResource,
 });
 
 const Class = new Schema({
@@ -65,13 +31,13 @@ const Class = new Schema({
   hit_die: Number,
   index: String,
   name: String,
-  proficiencies: [ClassProficiency],
+  proficiencies: [NamedAPIResource],
   proficiency_choices: [ClassProficiencyChoice],
-  saving_throws: [ClassSavingThrow],
+  saving_throws: [NamedAPIResource],
   spellcasting: ClassSpellcasting,
   spells: String,
   starting_equipment: String,
-  subclasses: [ClassSubclass],
+  subclasses: [NamedAPIResource],
   url: String,
 });
 

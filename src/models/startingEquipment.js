@@ -1,36 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const StartingequipmentClass = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const StartingequipmentStartingEquipmentEquipment = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const StartingequipmentStartingEquipment = new Schema({
   _id: false,
-  equipment: StartingequipmentStartingEquipmentEquipment,
+  equipment: NamedAPIResource,
   quantity: Number,
-});
-
-const StartingequipmentStartingEquipmentOptionFromEquipment = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const StartingequipmentStartingEquipmentOptionFrom = new Schema({
   _id: false,
-  equipment: StartingequipmentStartingEquipmentOptionFromEquipment,
+  equipment: NamedAPIResource,
   quantity: Number,
 });
 
@@ -46,7 +26,7 @@ const StartingEquipment = new Schema({
     type: String,
     select: false,
   },
-  class: StartingequipmentClass,
+  class: NamedAPIResource,
   index: String,
   starting_equipment: [StartingequipmentStartingEquipment],
   starting_equipment_options: [StartingequipmentStartingEquipmentOption],
