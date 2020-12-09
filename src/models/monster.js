@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const ActionDamage = new Schema({
   _id: false,
   damage_dice: String,
-  damage_type: NamedAPIResource,
+  damage_type: APIReference,
 });
 
 const Action = new Schema({
@@ -36,7 +36,7 @@ const OtherSpeed = new Schema({
 
 const Proficiency = new Schema({
   _id: false,
-  proficiency: NamedAPIResource,
+  proficiency: APIReference,
   value: Number,
 });
 
@@ -81,7 +81,7 @@ const MonsterSchema = new Schema({
   armor_class: Number,
   challenge_rating: Number,
   charisma: Number,
-  condition_immunities: [NamedAPIResource],
+  condition_immunities: [APIReference],
   constitution: Number,
   damage_immunities: [String],
   damage_resistances: [String],

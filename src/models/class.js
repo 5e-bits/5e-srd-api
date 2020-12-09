@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const ProficiencyChoice = new Schema({
   _id: false,
   choose: Number,
-  from: [NamedAPIResource],
+  from: [APIReference],
   type: String,
 });
 
@@ -19,7 +19,7 @@ const Spellcasting = new Schema({
   _id: false,
   info: [SpellcastingInfo],
   level: Number,
-  spellcasting_ability: NamedAPIResource,
+  spellcasting_ability: APIReference,
 });
 
 const Class = new Schema({
@@ -31,13 +31,13 @@ const Class = new Schema({
   hit_die: Number,
   index: String,
   name: String,
-  proficiencies: [NamedAPIResource],
+  proficiencies: [APIReference],
   proficiency_choices: [ProficiencyChoice],
-  saving_throws: [NamedAPIResource],
+  saving_throws: [APIReference],
   spellcasting: Spellcasting,
   spells: String,
   starting_equipment: String,
-  subclasses: [NamedAPIResource],
+  subclasses: [APIReference],
   url: String,
 });
 

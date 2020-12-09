@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const Reference = new Schema({
   _id: false,
@@ -15,10 +15,10 @@ const Proficiency = new Schema({
     type: String,
     select: false,
   },
-  classes: [NamedAPIResource],
+  classes: [APIReference],
   index: String,
   name: String,
-  races: [NamedAPIResource],
+  races: [APIReference],
   references: [Reference],
   type: String,
   url: String,

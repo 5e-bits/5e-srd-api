@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const AreaOfEffect = new Schema({
   _id: false,
@@ -14,13 +14,13 @@ const Damage = new Schema({
   damage_at_slot_level: Object,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   damage_at_character_level: Object,
-  damage_type: NamedAPIResource,
+  damage_type: APIReference,
 });
 
 const DC = new Schema({
   _id: false,
   dc_success: String,
-  dc_type: NamedAPIResource,
+  dc_type: APIReference,
   desc: String,
 });
 
@@ -32,7 +32,7 @@ const Spell = new Schema({
   area_of_effect: AreaOfEffect,
   attack_type: String,
   casting_time: String,
-  classes: [NamedAPIResource],
+  classes: [APIReference],
   components: [String],
   concentration: Boolean,
   damage: Damage,
@@ -48,8 +48,8 @@ const Spell = new Schema({
   name: String,
   range: String,
   ritual: Boolean,
-  school: NamedAPIResource,
-  subclasses: [NamedAPIResource],
+  school: APIReference,
+  subclasses: [APIReference],
   url: String,
 });
 

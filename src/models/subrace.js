@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const AbilityBonus = new Schema({
   _id: false,
-  ability_score: NamedAPIResource,
+  ability_score: APIReference,
   bonus: Number,
 });
 
 const LanguageOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [NamedAPIResource],
+  from: [APIReference],
   type: String,
 });
 
 const RacialTraitOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [NamedAPIResource],
+  from: [APIReference],
   type: String,
 });
 
@@ -32,10 +32,10 @@ const Subrace = new Schema({
   index: String,
   language_options: LanguageOptions,
   name: String,
-  race: NamedAPIResource,
+  race: APIReference,
   racial_trait_options: RacialTraitOptions,
-  racial_traits: [NamedAPIResource],
-  starting_proficiencies: [NamedAPIResource],
+  racial_traits: [APIReference],
+  starting_proficiencies: [APIReference],
   url: String,
 });
 
