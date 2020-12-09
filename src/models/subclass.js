@@ -1,14 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { NamedAPIResource } = require('./common');
 
-const SubclassClass = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubclassSpellPrerequisite = new Schema({
+const SpellPrerequisite = new Schema({
   _id: false,
   index: String,
   name: String,
@@ -16,17 +10,10 @@ const SubclassSpellPrerequisite = new Schema({
   url: String,
 });
 
-const SubclassSpellSpell = new Schema({
+const Spell = new Schema({
   _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubclassSpell = new Schema({
-  _id: false,
-  prerequisites: [SubclassSpellPrerequisite],
-  spell: SubclassSpellSpell,
+  prerequisites: [SpellPrerequisite],
+  spell: NamedAPIResource,
 });
 
 const Subclass = new Schema({
@@ -34,11 +21,11 @@ const Subclass = new Schema({
     type: String,
     select: false,
   },
-  class: SubclassClass,
+  class: NamedAPIResource,
   desc: [String],
   index: String,
   name: String,
-  spells: [SubclassSpell],
+  spells: [Spell],
   subclass_flavor: String,
   subclass_levels: String,
   url: String,

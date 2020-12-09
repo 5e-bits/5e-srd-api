@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const RuleSubsection = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const Rule = new Schema({
   _id: {
@@ -16,7 +10,7 @@ const Rule = new Schema({
   desc: String,
   index: String,
   name: String,
-  subsections: [RuleSubsection],
+  subsections: [NamedAPIResource],
   url: String,
 });
 

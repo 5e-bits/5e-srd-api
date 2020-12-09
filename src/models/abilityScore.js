@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const AbilityScoreSkill = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const AbilityScore = new Schema({
   _id: {
@@ -17,7 +11,7 @@ const AbilityScore = new Schema({
   full_name: String,
   index: String,
   name: String,
-  skills: [AbilityScoreSkill],
+  skills: [NamedAPIResource],
   url: String,
 });
 

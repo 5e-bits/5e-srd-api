@@ -1,39 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { NamedAPIResource } = require('./common');
 
-const TraitProficiency = new Schema({
+const Proficiency = new Schema({
   _id: false,
   index: String,
   name: String,
   url: String,
 });
 
-const TraitProficiency_choiceFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const TraitProficiency_choice = new Schema({
+const ProficiencyChoices = new Schema({
   _id: false,
   choose: Number,
-  from: [TraitProficiency_choiceFrom],
+  from: [NamedAPIResource],
   type: String,
-});
-
-const TraitRace = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const TraitSubrace = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const Trait = new Schema({
@@ -44,10 +24,10 @@ const Trait = new Schema({
   desc: [String],
   index: String,
   name: String,
-  proficiencies: [TraitProficiency],
-  proficiency_choices: TraitProficiency_choice,
-  races: [TraitRace],
-  subraces: [TraitSubrace],
+  proficiencies: [Proficiency],
+  proficiency_choices: ProficiencyChoices,
+  races: [NamedAPIResource],
+  subraces: [NamedAPIResource],
   url: String,
 });
 

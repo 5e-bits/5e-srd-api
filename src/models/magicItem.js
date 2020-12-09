@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const MagicItemEquipmentCategory = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const MagicItem = new Schema({
   _id: {
@@ -14,7 +8,7 @@ const MagicItem = new Schema({
     select: false,
   },
   desc: [String],
-  equipment_category: MagicItemEquipmentCategory,
+  equipment_category: NamedAPIResource,
   index: String,
   name: String,
   url: String,

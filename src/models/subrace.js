@@ -1,66 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { NamedAPIResource } = require('./common');
 
-const SubraceAbilityBonusAbilityScore = new Schema({
+const AbilityBonus = new Schema({
   _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubraceAbilityBonus = new Schema({
-  _id: false,
-  ability_score: SubraceAbilityBonusAbilityScore,
+  ability_score: NamedAPIResource,
   bonus: Number,
 });
 
-const SubraceLanguageOptionFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubraceLanguageOption = new Schema({
+const LanguageOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [SubraceLanguageOptionFrom],
+  from: [NamedAPIResource],
   type: String,
 });
 
-const SubraceRace = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubraceRacialTrait = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubraceRacialTraitOptionFrom = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
-});
-
-const SubraceRacialTraitOption = new Schema({
+const RacialTraitOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [SubraceRacialTraitOptionFrom],
+  from: [NamedAPIResource],
   type: String,
-});
-
-const SubraceStartingProficiency = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  url: String,
 });
 
 const Subrace = new Schema({
@@ -68,15 +27,15 @@ const Subrace = new Schema({
     type: String,
     select: false,
   },
-  ability_bonuses: [SubraceAbilityBonus],
+  ability_bonuses: [AbilityBonus],
   desc: String,
   index: String,
-  language_options: SubraceLanguageOption,
+  language_options: LanguageOptions,
   name: String,
-  race: SubraceRace,
-  racial_trait_options: SubraceRacialTraitOption,
-  racial_traits: [SubraceRacialTrait],
-  starting_proficiencies: [SubraceStartingProficiency],
+  race: NamedAPIResource,
+  racial_trait_options: RacialTraitOptions,
+  racial_traits: [NamedAPIResource],
+  starting_proficiencies: [NamedAPIResource],
   url: String,
 });
 
