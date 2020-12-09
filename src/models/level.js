@@ -1,28 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const LevelClass = new Schema({
-  index: String,
-  name: String,
-  url: String,
-});
+const { NamedAPIResource } = require('./common');
 
 const LevelClassSpecificCreatingSpellSlot = new Schema({
+  _id: false,
   sorcery_point_cost: Number,
   spell_slot_level: Number,
 });
 
 const LevelClassSpecificMartialArt = new Schema({
+  _id: false,
   dice_count: Number,
   dice_value: Number,
 });
 
 const LevelClassSpecificSneakAttack = new Schema({
+  _id: false,
   dice_count: Number,
   dice_value: Number,
 });
 
 const LevelClassSpecific = new Schema({
+  _id: false,
   action_surges: Number,
   arcane_recovery_levels: Number,
   aura_range: Number,
@@ -57,19 +56,8 @@ const LevelClassSpecific = new Schema({
   wild_shape_swim: Boolean,
 });
 
-const LevelFeature = new Schema({
-  index: String,
-  name: String,
-  url: String,
-});
-
-const LevelFeatureChoice = new Schema({
-  index: String,
-  name: String,
-  url: String,
-});
-
 const LevelSpellcasting = new Schema({
+  _id: false,
   cantrips_known: Number,
   spell_slots_level_1: Number,
   spell_slots_level_2: Number,
@@ -83,13 +71,8 @@ const LevelSpellcasting = new Schema({
   spells_known: Number,
 });
 
-const LevelSubclass = new Schema({
-  index: String,
-  name: String,
-  url: String,
-});
-
 const LevelSubclassSpecific = new Schema({
+  _id: false,
   additional_magical_secrets_max_lvl: Number,
   aura_range: Number,
 });
@@ -100,15 +83,15 @@ const Level = new Schema({
     select: false,
   },
   ability_score_bonuses: Number,
-  class: LevelClass,
+  class: NamedAPIResource,
   class_specific: LevelClassSpecific,
-  feature_choices: [LevelFeatureChoice],
-  features: [LevelFeature],
+  feature_choices: [NamedAPIResource],
+  features: [NamedAPIResource],
   index: String,
   level: Number,
   prof_bonus: Number,
   spellcasting: LevelSpellcasting,
-  subclass: LevelSubclass,
+  subclass: NamedAPIResource,
   subclass_specific: LevelSubclassSpecific,
   url: String,
 });
