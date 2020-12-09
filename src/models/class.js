@@ -2,22 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { NamedAPIResource } = require('./common');
 
-const ClassProficiencyChoice = new Schema({
+const ProficiencyChoice = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
   type: String,
 });
 
-const ClassSpellcastingInfo = new Schema({
+const SpellcastingInfo = new Schema({
   _id: false,
   desc: [String],
   name: String,
 });
 
-const ClassSpellcasting = new Schema({
+const Spellcasting = new Schema({
   _id: false,
-  info: [ClassSpellcastingInfo],
+  info: [SpellcastingInfo],
   level: Number,
   spellcasting_ability: NamedAPIResource,
 });
@@ -32,9 +32,9 @@ const Class = new Schema({
   index: String,
   name: String,
   proficiencies: [NamedAPIResource],
-  proficiency_choices: [ClassProficiencyChoice],
+  proficiency_choices: [ProficiencyChoice],
   saving_throws: [NamedAPIResource],
-  spellcasting: ClassSpellcasting,
+  spellcasting: Spellcasting,
   spells: String,
   starting_equipment: String,
   subclasses: [NamedAPIResource],

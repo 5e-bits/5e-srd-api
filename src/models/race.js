@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { NamedAPIResource } = require('./common');
 
-const RaceAbilityBonusOptionFrom = new Schema({
+const AbilityBonusOption = new Schema({
   _id: false,
   ability_score: NamedAPIResource,
   bonus: Number,
 });
 
-const RaceAbilityBonusOption = new Schema({
+const RaceAbilityBonusOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [RaceAbilityBonusOptionFrom],
+  from: [AbilityBonusOption],
   type: String,
 });
 
@@ -21,21 +21,21 @@ const RaceAbilityBonus = new Schema({
   bonus: Number,
 });
 
-const RaceLanguageOption = new Schema({
+const LanguageOptions = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
   type: String,
 });
 
-const RaceStartingProficiencyOption = new Schema({
+const StartingProficiencyOptions = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
   type: String,
 });
 
-const RaceTraitOption = new Schema({
+const TraitOptions = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
@@ -47,22 +47,22 @@ const Race = new Schema({
     type: String,
     select: false,
   },
-  ability_bonus_options: RaceAbilityBonusOption,
+  ability_bonus_options: RaceAbilityBonusOptions,
   ability_bonuses: [RaceAbilityBonus],
   age: String,
   alignment: String,
   index: String,
   language_desc: String,
-  language_options: RaceLanguageOption,
+  language_options: LanguageOptions,
   languages: [NamedAPIResource],
   name: String,
   size: String,
   size_description: String,
   speed: Number,
   starting_proficiencies: [NamedAPIResource],
-  starting_proficiency_options: RaceStartingProficiencyOption,
+  starting_proficiency_options: StartingProficiencyOptions,
   subraces: [NamedAPIResource],
-  trait_options: RaceTraitOption,
+  trait_options: TraitOptions,
   traits: [NamedAPIResource],
   url: String,
 });

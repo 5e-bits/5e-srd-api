@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { NamedAPIResource } = require('./common');
 
-const FeatureChoice = new Schema({
+const Choice = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
   type: String,
 });
 
-const FeaturePrerequisite = new Schema({
+const Prerequisite = new Schema({
   _id: false,
   level: Number,
   type: String,
@@ -20,14 +20,14 @@ const Feature = new Schema({
     type: String,
     select: false,
   },
-  choice: FeatureChoice,
+  choice: Choice,
   class: NamedAPIResource,
   desc: [String],
   group: String,
   index: String,
   level: Number,
   name: String,
-  prerequisites: [FeaturePrerequisite],
+  prerequisites: [Prerequisite],
   reference: String,
   subclass: NamedAPIResource,
   url: String,

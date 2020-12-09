@@ -2,51 +2,51 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { NamedAPIResource } = require('./common');
 
-const MonsterActionDamage = new Schema({
+const ActionDamage = new Schema({
   _id: false,
   damage_dice: String,
   damage_type: NamedAPIResource,
 });
 
-const MonsterAction = new Schema({
+const Action = new Schema({
   _id: false,
   attack_bonus: Number,
-  damage: [MonsterActionDamage],
+  damage: [ActionDamage],
   desc: String,
   name: String,
 });
 
-const MonsterLegendaryAction = new Schema({
+const LegendaryAction = new Schema({
   _id: false,
   attack_bonus: Number,
   desc: String,
   name: String,
 });
 
-const MonsterOtherSpeedSpeed = new Schema({
+const OtherSpeedSpeed = new Schema({
   _id: false,
   walk: String,
 });
 
-const MonsterOtherSpeed = new Schema({
+const OtherSpeed = new Schema({
   _id: false,
   form: String,
-  speed: MonsterOtherSpeedSpeed,
+  speed: OtherSpeedSpeed,
 });
 
-const MonsterProficiency = new Schema({
+const Proficiency = new Schema({
   _id: false,
   proficiency: NamedAPIResource,
   value: Number,
 });
 
-const MonsterReaction = new Schema({
+const Reaction = new Schema({
   _id: false,
   desc: String,
   name: String,
 });
 
-const MonsterSense = new Schema({
+const Sense = new Schema({
   _id: false,
   blindsight: String,
   darkvision: String,
@@ -55,13 +55,13 @@ const MonsterSense = new Schema({
   truesight: String,
 });
 
-const MonsterSpecialAbility = new Schema({
+const SpecialAbility = new Schema({
   _id: false,
   desc: String,
   name: String,
 });
 
-const MonsterSpeed = new Schema({
+const Speed = new Schema({
   _id: false,
   burrow: String,
   climb: String,
@@ -76,7 +76,7 @@ const MonsterSchema = new Schema({
     type: String,
     select: false,
   },
-  actions: [MonsterAction],
+  actions: [Action],
   alignment: String,
   armor_class: Number,
   challenge_rating: Number,
@@ -92,15 +92,15 @@ const MonsterSchema = new Schema({
   index: String,
   intelligence: Number,
   languages: String,
-  legendary_actions: [MonsterLegendaryAction],
+  legendary_actions: [LegendaryAction],
   name: String,
-  other_speeds: [MonsterOtherSpeed],
-  proficiencies: [MonsterProficiency],
-  reactions: [MonsterReaction],
-  senses: MonsterSense,
+  other_speeds: [OtherSpeed],
+  proficiencies: [Proficiency],
+  reactions: [Reaction],
+  senses: Sense,
   size: String,
-  special_abilities: [MonsterSpecialAbility],
-  speed: MonsterSpeed,
+  special_abilities: [SpecialAbility],
+  speed: Speed,
   strength: Number,
   subtype: String,
   type: String,

@@ -2,20 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { NamedAPIResource } = require('./common');
 
-const SubraceAbilityBonus = new Schema({
+const AbilityBonus = new Schema({
   _id: false,
   ability_score: NamedAPIResource,
   bonus: Number,
 });
 
-const SubraceLanguageOption = new Schema({
+const LanguageOptions = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
   type: String,
 });
 
-const SubraceRacialTraitOption = new Schema({
+const RacialTraitOptions = new Schema({
   _id: false,
   choose: Number,
   from: [NamedAPIResource],
@@ -27,13 +27,13 @@ const Subrace = new Schema({
     type: String,
     select: false,
   },
-  ability_bonuses: [SubraceAbilityBonus],
+  ability_bonuses: [AbilityBonus],
   desc: String,
   index: String,
-  language_options: SubraceLanguageOption,
+  language_options: LanguageOptions,
   name: String,
   race: NamedAPIResource,
-  racial_trait_options: SubraceRacialTraitOption,
+  racial_trait_options: RacialTraitOptions,
   racial_traits: [NamedAPIResource],
   starting_proficiencies: [NamedAPIResource],
   url: String,
