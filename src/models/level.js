@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const ClassSpecificCreatingSpellSlot = new Schema({
   _id: false,
@@ -83,15 +83,15 @@ const Level = new Schema({
     select: false,
   },
   ability_score_bonuses: Number,
-  class: NamedAPIResource,
+  class: APIReference,
   class_specific: ClassSpecific,
-  feature_choices: [NamedAPIResource],
-  features: [NamedAPIResource],
+  feature_choices: [APIReference],
+  features: [APIReference],
   index: String,
   level: Number,
   prof_bonus: Number,
   spellcasting: Spellcasting,
-  subclass: NamedAPIResource,
+  subclass: APIReference,
   subclass_specific: SubclassSpecific,
   url: String,
 });

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const NamedAPIResource = new Schema({
+const APIReference = new Schema({
   _id: false,
   index: String,
   name: String,
@@ -9,5 +9,5 @@ const NamedAPIResource = new Schema({
 });
 
 module.exports = {
-  NamedAPIResource,
+  APIReference,
 };

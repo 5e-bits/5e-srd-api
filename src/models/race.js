@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const AbilityBonusOption = new Schema({
   _id: false,
-  ability_score: NamedAPIResource,
+  ability_score: APIReference,
   bonus: Number,
 });
 
@@ -17,28 +17,28 @@ const RaceAbilityBonusOptions = new Schema({
 
 const RaceAbilityBonus = new Schema({
   _id: false,
-  ability_score: NamedAPIResource,
+  ability_score: APIReference,
   bonus: Number,
 });
 
 const LanguageOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [NamedAPIResource],
+  from: [APIReference],
   type: String,
 });
 
 const StartingProficiencyOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [NamedAPIResource],
+  from: [APIReference],
   type: String,
 });
 
 const TraitOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [NamedAPIResource],
+  from: [APIReference],
   type: String,
 });
 
@@ -54,16 +54,16 @@ const Race = new Schema({
   index: String,
   language_desc: String,
   language_options: LanguageOptions,
-  languages: [NamedAPIResource],
+  languages: [APIReference],
   name: String,
   size: String,
   size_description: String,
   speed: Number,
-  starting_proficiencies: [NamedAPIResource],
+  starting_proficiencies: [APIReference],
   starting_proficiency_options: StartingProficiencyOptions,
-  subraces: [NamedAPIResource],
+  subraces: [APIReference],
   trait_options: TraitOptions,
-  traits: [NamedAPIResource],
+  traits: [APIReference],
   url: String,
 });
 

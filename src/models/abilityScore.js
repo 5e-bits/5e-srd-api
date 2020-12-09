@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const AbilityScore = new Schema({
   _id: {
@@ -11,7 +11,7 @@ const AbilityScore = new Schema({
   full_name: String,
   index: String,
   name: String,
-  skills: [NamedAPIResource],
+  skills: [APIReference],
   url: String,
 });
 

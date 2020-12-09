@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const ArmorClass = new Schema({
   _id: false,
@@ -11,7 +11,7 @@ const ArmorClass = new Schema({
 
 const Content = new Schema({
   _id: false,
-  item: NamedAPIResource,
+  item: APIReference,
   quantity: Number,
 });
 
@@ -24,7 +24,7 @@ const Cost = new Schema({
 const Damage = new Schema({
   _id: false,
   damage_dice: String,
-  damage_type: NamedAPIResource,
+  damage_type: APIReference,
 });
 
 const Range = new Schema({
@@ -48,7 +48,7 @@ const ThrowRange = new Schema({
 const TwoHandedDamage = new Schema({
   _id: false,
   damage_dice: String,
-  damage_type: NamedAPIResource,
+  damage_type: APIReference,
 });
 
 const Equipment = new Schema({
@@ -64,11 +64,11 @@ const Equipment = new Schema({
   cost: Cost,
   damage: Damage,
   desc: [String],
-  equipment_category: NamedAPIResource,
-  gear_category: NamedAPIResource,
+  equipment_category: APIReference,
+  gear_category: APIReference,
   index: String,
   name: String,
-  properties: [NamedAPIResource],
+  properties: [APIReference],
   quantity: Number,
   range: Range,
   special: [String],

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { NamedAPIResource } = require('./common');
+const { APIReference } = require('./common');
 
 const MagicItem = new Schema({
   _id: {
@@ -8,7 +8,7 @@ const MagicItem = new Schema({
     select: false,
   },
   desc: [String],
-  equipment_category: NamedAPIResource,
+  equipment_category: APIReference,
   index: String,
   name: String,
   url: String,
