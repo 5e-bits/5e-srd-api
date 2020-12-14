@@ -1,6 +1,6 @@
 # 5e-srd-api
 
-[![Build Status](https://travis-ci.com/bagelbits/5e-srd-api.svg?branch=master)](https://travis-ci.com/bagelbits/5e-srd-api)
+![Build Status](https://github.com/bagelbits/5e-srd-api/workflows/5e%20SRD%20API%20CI/badge.svg)
 [![Heroku](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)](https://heroku-badge.herokuapp.com/?app=dnd-5e-srd-api)
 [![Discord](https://img.shields.io/discord/656547667601653787)](https://discord.gg/TQuYTv7)
 
