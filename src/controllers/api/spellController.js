@@ -14,7 +14,7 @@ exports.index = async (req, res, next) => {
   }
 
   if (req.query.school !== undefined) {
-    const schoolRegex = req.query.school.split(',').map(c => new RegExp(c, 'i'));
+    const schoolRegex = req.query.school.split(',').map(c => new RegExp(escapeRegExp(c), 'i'));
     searchQueries['school.name'] = { $in: schoolRegex };
   }
 
