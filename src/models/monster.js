@@ -23,17 +23,6 @@ const LegendaryAction = new Schema({
   name: String,
 });
 
-const OtherSpeedSpeed = new Schema({
-  _id: false,
-  walk: String,
-});
-
-const OtherSpeed = new Schema({
-  _id: false,
-  form: String,
-  speed: OtherSpeedSpeed,
-});
-
 const Proficiency = new Schema({
   _id: false,
   proficiency: APIReference,
@@ -87,6 +76,7 @@ const MonsterSchema = new Schema({
   damage_resistances: [String],
   damage_vulnerabilities: [String],
   dexterity: Number,
+  forms: [APIReference],
   hit_dice: String,
   hit_points: Number,
   index: String,
@@ -94,7 +84,6 @@ const MonsterSchema = new Schema({
   languages: String,
   legendary_actions: [LegendaryAction],
   name: String,
-  other_speeds: [OtherSpeed],
   proficiencies: [Proficiency],
   reactions: [Reaction],
   senses: Sense,
