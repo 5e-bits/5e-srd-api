@@ -25,6 +25,7 @@ router.use('/spells', require('./api/spells'));
 router.use('/starting-equipment', require('./api/startingEquipment'));
 router.use('/subclasses', require('./api/subclasses'));
 router.use('/subraces', require('./api/subraces'));
+router.use("/suggested-characteristics", require("./api/suggestedCharacteristics"));
 router.use('/traits', require('./api/traits'));
 router.use('/weapon-properties', require('./api/weaponProperties'));
 

@@ -23,6 +23,7 @@ const Spell = require('../models/spell');
 const StartingEquipment = require('../models/startingEquipment');
 const Subclass = require('../models/subclass');
 const Subrace = require('../models/subrace');
+const SuggestedCharacteristics = require('../models/suggestedCharacteristics');
 const Trait = require('../models/trait');
 const WeaponProperty = require('../models/weaponProperty');
 
@@ -49,6 +50,7 @@ const SpellTC = composeMongoose(Spell, customizationOptions);
 const StartingEquipmentTC = composeMongoose(StartingEquipment, customizationOptions);
 const SubclassTC = composeMongoose(Subclass, customizationOptions);
 const SubraceTC = composeMongoose(Subrace, customizationOptions);
+const SuggestedCharacteristicsTC = composeMongoose(SuggestedCharacteristics, customizationOptions);
 const TraitTC = composeMongoose(Trait, customizationOptions);
 const WeaponPropertyTC = composeMongoose(WeaponProperty, customizationOptions);
 
@@ -96,6 +98,9 @@ schemaComposer.Query.addFields({
   subclass: SubclassTC.mongooseResolvers.findOne(),
   subclasses: SubclassTC.mongooseResolvers.findMany(),
   subrace: SubraceTC.mongooseResolvers.findOne(),
+  subraces: SubraceTC.mongooseResolvers.findMany(),
+  suggestedCharacteristic: SuggestedCharacteristicsTC.mongooseResolvers.findOne(),
+  suggestedCharacteristics: SuggestedCharacteristicsTC.mongooseResolvers.findMany(),
   subraces: SubraceTC.mongooseResolvers.findMany(),
   trait: TraitTC.mongooseResolvers.findOne(),
   traits: TraitTC.mongooseResolvers.findMany(),
