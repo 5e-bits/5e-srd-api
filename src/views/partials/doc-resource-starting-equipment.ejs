@@ -1,5 +1,5 @@
 <h2 id="starting-equipment">Starting Equipment</h2>
-<p>Starting equipment for classes.</p>
+<p>Starting equipment for classes and backgrounds.</p>
 
 <h3>GET api/starting-equipment/{index}</h3>
 <h3>GET api/classes/{index}/starting-equipment/</h3>
@@ -117,7 +117,7 @@
   "url": "/api/starting-equipment/bard"
 }</code></pre>
 
-<h4>Starting Equipment for Class</h4>
+<h4>Starting Equipment for Class or Background</h4>
 
 <table>
   <thead>
@@ -130,7 +130,7 @@
   <tbody>
     <tr>
       <td align="left">index</td>
-      <td align="left">The class index for shorthand searching.</td>
+      <td align="left">The class or background index for shorthand searching.</td>
       <td align="left">string</td>
     </tr>
 
@@ -140,6 +140,14 @@
       <td align="left">
         <a href="#apireference">APIReference</a> (<a href="#class">Class</a>) Updated
         ability scores, classes, and conditions
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left">background</td>
+      <td align="left">The background which this level refers to.</td>
+      <td align="left">
+        <a href="#apireference">APIReference</a> (<a href="#background">Background</a>)
       </td>
     </tr>
 

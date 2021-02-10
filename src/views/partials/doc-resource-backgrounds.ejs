@@ -1,0 +1,191 @@
+<h2 id="backgrounds">Backgrounds</h2>
+<p>
+    Every story has a beginning. Your character’s background reveals where you came from, how you became an adventurer,
+    and your place in the world. Your fighter might have been a courageous knight or a grizzled soldier. Your wizard
+    could have been a sage or an artisan. Your rogue might have gotten by as a guild thief or commanded audiences as a
+    jester.
+</p>
+
+<h3>GET api/backgrounds/{index}</h3>
+
+<pre><code>{
+    "index": "acolyte",
+    "name": "Acolyte",
+    "starting_proficiencies": [
+        {
+            "index": "skill-insight",
+            "name": "Skill: Insight",
+            "url": "/api/proficiencies/skill-insight"
+        },
+        {
+            "index": "skill-religion",
+            "name": "Skill: Religion",
+            "url": "/api/proficiencies/skill-religion"
+        }
+    ],
+    "language_options": {
+        "from": [
+            {
+                "index": "common",
+                "name": "Common",
+                "url": "/api/languages/common"
+            },
+            {
+                "index": "dwarvish",
+                "name": "Dwarvish",
+                "url": "/api/languages/dwarvish"
+            },
+            {
+                "index": "elvish",
+                "name": "Elvish",
+                "url": "/api/languages/elvish"
+            },
+            {
+                "index": "giant",
+                "name": "Giant",
+                "url": "/api/languages/giant"
+            },
+            {
+                "index": "gnomish",
+                "name": "Gnomish",
+                "url": "/api/languages/gnomish"
+            },
+            {
+                "index": "goblin",
+                "name": "Goblin",
+                "url": "/api/languages/goblin"
+            },
+            {
+                "index": "halfling",
+                "name": "Halfling",
+                "url": "/api/languages/halfling"
+            },
+            {
+                "index": "orc",
+                "name": "Orc",
+                "url": "/api/languages/orc"
+            },
+            {
+                "index": "abyssal",
+                "name": "Abyssal",
+                "url": "/api/languages/abyssal"
+            },
+            {
+                "index": "celestial",
+                "name": "Celestial",
+                "url": "/api/languages/celestial"
+            },
+            {
+                "index": "draconic",
+                "name": "Draconic",
+                "url": "/api/languages/draconic"
+            },
+            {
+                "index": "deep-speech",
+                "name": "Deep Speech",
+                "url": "/api/languages/deep-speech"
+            },
+            {
+                "index": "infernal",
+                "name": "Infernal",
+                "url": "/api/languages/infernal"
+            },
+            {
+                "index": "primordial",
+                "name": "Primordial",
+                "url": "/api/languages/primordial"
+            },
+            {
+                "index": "sylvan",
+                "name": "Sylvan",
+                "url": "/api/languages/sylvan"
+            },
+            {
+                "index": "undercommon",
+                "name": "Undercommon",
+                "url": "/api/languages/undercommon"
+            }
+        ],
+        "choose": 2,
+        "type": "languages"
+    },
+    "starting_equipment": "/api/starting-equipment/acolyte",
+    "feature": {
+        "index": "shelter-of-the-faithful",
+        "name": "Shelter of the Faithful",
+        "url": "/api/features/shelter-of-the-faithful"
+    },
+    "suggested_characteristics": "api/suggested-characteristics/acolyte",
+    "url": "api/backgrounds/acolyte"
+}</code></pre>
+
+<h4>Backgrounds</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The background index for shorthand searching.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this background resource.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">starting_proficiencies</td>
+      <td align="left">Starting proficiencies for all new characters of this background.</td>
+      <td align="left">
+        list <a href="#apireference">APIReference</a> (<a href="#proficiencies"
+          >Proficiencies</a
+        >)
+      </td>
+    </tr>
+    <tr>
+      <td align="left">languages</td>
+      <td align="left">Starting languages for all new characters of this background.</td>
+      <td align="left">
+        list <a href="#apireference">APIReference</a> (<a href="#languages">Proficiencies</a
+        >)
+      </td>
+    </tr>
+    <tr>
+        <td align="left">starting_equipment</td>
+        <td align="left">
+            An object with the possible choices of equipment for new characters of this background.
+        </td>
+        <td align="left">
+            string (<a href="#starting-equipment">StartingEquipment</a>)
+        </td>
+    </tr>    
+    <tr>
+        <td align="left">feature</td>
+        <td align="left">A special feature granted to new characters of this background.</td>
+        <td align="left">
+          <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
+        </td>
+    </tr>
+    <tr>
+        <td align="left">suggested_characteristics</td>
+        <td align="left">
+            An object with the possible choices of optional characteristics for new characters of this background.
+        </td>
+        <td align="left">
+            string (<a href="#suggested-characteristics">SuggestedCharacteristics</a>)
+        </td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL reference of this resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
+</table>
