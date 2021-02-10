@@ -4,6 +4,7 @@ const ApiController = require('../controllers/apiController');
 router.get('/', ApiController.index);
 
 router.use('/ability-scores', require('./api/abilityScores'));
+router.use('/alignments', require('./api/alignments'));
 router.use('/backgrounds', require('./api/backgrounds'))
 router.use('/classes', require('./api/classes'));
 router.use('/conditions', require('./api/conditions'));
