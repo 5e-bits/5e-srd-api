@@ -42,6 +42,6 @@ const SuggestedCharacteristics = new Schema({
 
 module.exports = mongoose.model(
   'SuggestedCharacteristics',
-   SuggestedCharacteristics,
+  SuggestedCharacteristics,
   'suggested-characteristics'
 );
