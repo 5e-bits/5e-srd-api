@@ -5,7 +5,7 @@ router.get('/', ApiController.index);
 
 router.use('/ability-scores', require('./api/abilityScores'));
 router.use('/alignments', require('./api/alignments'));
-router.use('/backgrounds', require('./api/backgrounds'))
+router.use('/backgrounds', require('./api/backgrounds'));
 router.use('/classes', require('./api/classes'));
 router.use('/conditions', require('./api/conditions'));
 router.use('/damage-types', require('./api/damageTypes'));
@@ -25,7 +25,7 @@ router.use('/spells', require('./api/spells'));
 router.use('/starting-equipment', require('./api/startingEquipment'));
 router.use('/subclasses', require('./api/subclasses'));
 router.use('/subraces', require('./api/subraces'));
-router.use("/suggested-characteristics", require("./api/suggestedCharacteristics"));
+router.use('/suggested-characteristics', require('./api/suggestedCharacteristics'));
 router.use('/traits', require('./api/traits'));
 router.use('/weapon-properties', require('./api/weaponProperties'));
 

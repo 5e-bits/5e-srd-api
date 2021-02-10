@@ -101,7 +101,6 @@ schemaComposer.Query.addFields({
   subraces: SubraceTC.mongooseResolvers.findMany(),
   suggestedCharacteristic: SuggestedCharacteristicsTC.mongooseResolvers.findOne(),
   suggestedCharacteristics: SuggestedCharacteristicsTC.mongooseResolvers.findMany(),
-  subraces: SubraceTC.mongooseResolvers.findMany(),
   trait: TraitTC.mongooseResolvers.findOne(),
   traits: TraitTC.mongooseResolvers.findMany(),
   weaponProperty: WeaponPropertyTC.mongooseResolvers.findOne(),
