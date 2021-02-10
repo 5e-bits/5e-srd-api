@@ -21,7 +21,7 @@ const Background = new Schema({
   url: String,
   starting_equipment: String,
   feature: APIReference,
-  suggested_characteristics: String
+  suggested_characteristics: String,
 });
 
 module.exports = mongoose.model('Background', Background, 'backgrounds');

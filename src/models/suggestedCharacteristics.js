@@ -5,28 +5,28 @@ const { APIReference } = require('./common');
 const Characteristic = new Schema({
   _id: false,
   die_value: Number,
-  desc: String
+  desc: String,
 });
 
 const Ideal = new Schema({
   _id: false,
   die_value: Number,
   desc: String,
-  alignments: [APIReference]
+  alignments: [APIReference],
 });
 
 const CharacteristicOptions = new Schema({
   _id: false,
   choose: Number,
   from: [Characteristic],
-  type: String
+  type: String,
 });
 
 const IdealOptions = new Schema({
   _id: false,
   choose: Number,
   from: [Ideal],
-  type: String
+  type: String,
 });
 
 const SuggestedCharacteristics = new Schema({
@@ -37,7 +37,11 @@ const SuggestedCharacteristics = new Schema({
   personality_traits: CharacteristicOptions,
   ideals: IdealOptions,
   bonds: CharacteristicOptions,
-  flaws: CharacteristicOptions
+  flaws: CharacteristicOptions,
 });
 
-module.exports = mongoose.model('SuggestedCharacteristics', SuggestedCharacteristics, 'suggested-characteristics');
+module.exports = mongoose.model(
+  'SuggestedCharacteristics',
+   SuggestedCharacteristics,
+  'suggested-characteristics'
+);
