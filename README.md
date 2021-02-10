@@ -51,6 +51,16 @@ You should get a response with the available endpoints for the root:
 }
 ```
 
+## Using a local image of 5e Database
+
+If you are working on a feature which requires changes to both this repo, *and* the 5e-database repo, it is useful to know how to connect the former to the latter for testing purposes. A simple process for doing so is as follows:
+
+1) For your branch of 5e-database, run in terminal the command `docker build [filePath] --tag 5e-database`. This will build a Docker image with the tag "5e-database". After this, run this image. The easiest way to achieve this is using the Docker Desktop app, under the "Images" tab.
+
+2) For your branch of 5e-srd-api, go to the file `docker-compose.yml`, and look for `image: fuzzylombax/5e-srd-database:latest`. Replace this with: `image: 5e-database`. Make sure not to commit this change, as it is intended for local testing only.
+
+3) Run your branch of 5e-srd-api using the method outlined in the above section of this readme file. So long as there are no transient errors, the API should build successfully, and your changes to both repos should be noticeable.
+
 ## Data Issues
 
 If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/bagelbits/5e-database)
