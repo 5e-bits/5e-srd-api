@@ -1,3 +1,6 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../uri.env') });
+
 const mongoose = require('mongoose');
 const { promisify } = require('util');
 const { mongodbUri, redisClient, prewarmCache } = require('./util');
@@ -26,5 +29,6 @@ const start = async () => {
 
 start().catch(err => {
   console.error(err);
+  console.trace();
   process.exit(1);
 });

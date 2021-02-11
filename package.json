@@ -21,6 +21,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.3",
     "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
     "ejs": "^2.5.5",
     "escape-string-regexp": "^2.0.0",
     "express": "^4.17.1",
