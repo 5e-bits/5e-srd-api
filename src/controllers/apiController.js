@@ -1,5 +1,6 @@
 const API_INDEX = {
   'ability-scores': '/api/ability-scores',
+  alignments: '/api/alignments',
   backgrounds: '/api/backgrounds',
   classes: '/api/classes',
   conditions: '/api/conditions',
@@ -20,6 +21,7 @@ const API_INDEX = {
   'starting-equipment': '/api/starting-equipment',
   subclasses: '/api/subclasses',
   subraces: '/api/subraces',
+  'suggested-characteristics': '/api/suggested-characteristics',
   traits: '/api/traits',
   'weapon-properties': '/api/weapon-properties',
 };

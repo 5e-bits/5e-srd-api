@@ -22,6 +22,7 @@ const Feature = new Schema({
   },
   choice: Choice,
   class: APIReference,
+  background: APIReference,
   desc: [String],
   group: String,
   index: String,

@@ -2,15 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { APIReference } = require('./common');
 
-const Characteristic = new Schema({
-  _id: false,
-  die_value: Number,
-  desc: String,
-});
-
 const Ideal = new Schema({
   _id: false,
-  die_value: Number,
   desc: String,
   alignments: [APIReference],
 });
@@ -18,7 +11,7 @@ const Ideal = new Schema({
 const CharacteristicOptions = new Schema({
   _id: false,
   choose: Number,
-  from: [Characteristic],
+  from: [String],
   type: String,
 });
 
