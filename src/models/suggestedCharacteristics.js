@@ -27,6 +27,7 @@ const SuggestedCharacteristics = new Schema({
     type: String,
     select: false,
   },
+  background: APIReference,
   personality_traits: CharacteristicOptions,
   ideals: IdealOptions,
   bonds: CharacteristicOptions,

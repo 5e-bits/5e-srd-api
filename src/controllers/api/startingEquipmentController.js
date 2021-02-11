@@ -1,11 +1,11 @@
 const StartingEquipment = require('../../models/startingEquipment');
-const { ClassAPIResource } = require('../../util/data');
+const { ClassOrBackgroundAPIResource } = require('../../util/data');
 
 exports.index = (req, res, next) => {
   return StartingEquipment.find()
     .sort({ index: 'asc' })
     .then(data => {
-      res.status(200).json(ClassAPIResource(data));
+      res.status(200).json(ClassOrBackgroundAPIResource(data));   
     })
     .catch(err => {
       next(err);
