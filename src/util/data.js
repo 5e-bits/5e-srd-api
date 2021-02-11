@@ -36,15 +36,13 @@ const ClassOrBackgroundAPIResource = data => {
         class: item.class.name,
         url: item.url,
       };
-    }
-    else if (item.background !== undefined) {
+    } else if (item.background !== undefined) {
       return {
         index: item.index,
         background: item.background.name,
         url: item.url,
       };
-    }
-    else {
+    } else {
       return {
         index: item.index,
         url: item.url,

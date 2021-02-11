@@ -5,7 +5,7 @@ exports.index = (req, res, next) => {
   return StartingEquipment.find()
     .sort({ index: 'asc' })
     .then(data => {
-      res.status(200).json(ClassOrBackgroundAPIResource(data));   
+      res.status(200).json(ClassOrBackgroundAPIResource(data));
     })
     .catch(err => {
       next(err);
