@@ -4,7 +4,6 @@ const { mockRequest, mockResponse, mockNext } = require('../../support/requestHe
 const Class = require('../../../models/class');
 const Level = require('../../../models/level');
 const Subclass = require('../../../models/subclass');
-const StartingEquipment = require('../../../models/startingEquipment');
 const Spell = require('../../../models/spell');
 const Feature = require('../../../models/feature');
 const Proficiency = require('../../../models/proficiency');
@@ -266,14 +265,63 @@ describe('showSubclassesForClass', () => {
 
 describe('showStartingEquipmentForClass', () => {
   const findOneDoc = {
-    index: 1,
-    starting_equipment: [],
-    url: '/api/starting-equipment/1',
+    index: 8,
+    class: 'Warlock',
+    url: '/api/classes/warlock',
+    starting_equipment: [
+      {
+        equipment: {
+          index: 'dagger',
+          name: 'Dagger',
+          url: '/api/equipment/dagger',
+        },
+        quantity: 2,
+      },
+    ],
+    starting_equipment_options: [
+      {
+        choose: 1,
+        type: 'equipment',
+        from: [
+          [
+            {
+              equipment: {
+                index: 'crossbow-light',
+                name: 'Crossbow, light',
+                url: '/api/equipment/crossbow-light',
+              },
+              quantity: 1,
+            },
+            {
+              equipment: {
+                index: 'crossbow-bolt',
+                name: 'Crossbow bolt',
+                url: '/api/equipment/crossbow-bolt',
+              },
+              quantity: 20,
+            },
+          ],
+          {
+            equipment_option: {
+              choose: 1,
+              type: 'equipment',
+              from: {
+                equipment_category: {
+                  index: 'simple-weapons',
+                  name: 'Simple Weapons',
+                  url: '/api/equipment-categories/simple-weapons',
+                },
+              },
+            },
+          },
+        ],
+      },
+    ],
   };
   const request = mockRequest({ params: { index: 'barbarian' } });
 
   it('returns a list of objects', async () => {
-    mockingoose(StartingEquipment).toReturn(findOneDoc, 'findOne');
+    mockingoose(Class).toReturn(findOneDoc, 'findOne');
 
     await ClassController.showStartingEquipmentForClass(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
@@ -282,7 +330,7 @@ describe('showStartingEquipmentForClass', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(StartingEquipment).toReturn(error, 'findOne');
+      mockingoose(Class).toReturn(error, 'findOne');
 
       await ClassController.showStartingEquipmentForClass(request, response, mockNext);
 

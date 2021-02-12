@@ -1,7 +1,6 @@
 const Class = require('../../models/class');
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
-const StartingEquipment = require('../../models/startingEquipment');
 const Spell = require('../../models/spell');
 const Feature = require('../../models/feature');
 const Proficiency = require('../../models/proficiency');
