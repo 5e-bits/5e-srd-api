@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: fuzzylombax/5e-srd-database:latest
+    image: bagelbits/5e-database:latest
 
   cache:
     image: redis:5.0.9
