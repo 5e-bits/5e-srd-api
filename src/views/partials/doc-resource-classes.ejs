@@ -78,7 +78,123 @@
       "url": "/api/ability-scores/cha"
     }
   ],
-  "starting_equipment": "/api/starting-equipment/warlock",
+  "starting_equipment": [
+    {
+      "equipment": {
+        "index": "dagger",
+        "name": "Dagger",
+        "url": "/api/equipment/dagger"
+      },
+      "quantity": 2
+    },
+    {
+      "equipment": {
+        "index": "leather",
+        "name": "Leather",
+        "url": "/api/equipment/leather"
+      },
+      "quantity": 1
+    }
+  ],
+  "starting_equipment_options": [
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        [
+          {
+            "equipment": {
+              "index": "crossbow-light",
+              "name": "Crossbow, light",
+              "url": "/api/equipment/crossbow-light"
+            },
+            "quantity": 1
+          },
+          {
+            "equipment": {
+              "index": "crossbow-bolt",
+              "name": "Crossbow bolt",
+              "url": "/api/equipment/crossbow-bolt"
+            },
+            "quantity": 20
+          }
+        ],
+        {
+          "equipment_option": {
+            "choose": 1,
+            "type": "equipment",
+            "from": {
+              "equipment_category": {
+                "index": "simple-weapons",
+                "name": "Simple Weapons",
+                "url": "/api/equipment-categories/simple-weapons"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "equipment": {
+            "index": "component-pouch",
+            "name": "Component pouch",
+            "url": "/api/equipment/component-pouch"
+          },
+          "quantity": 1
+        },
+        {
+          "equipment_option": {
+            "choose": 1,
+            "type": "equipment",
+            "from": {
+              "equipment_category": {
+                "index": "arcane-foci",
+                "name": "Arcane foci",
+                "url": "/api/equipment-categories/arcane-foci"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": [
+        {
+          "equipment": {
+            "index": "scholars-pack",
+            "name": "Scholar's Pack",
+            "url": "/api/equipment/scholars-pack"
+          },
+          "quantity": 1
+        },
+        {
+          "equipment": {
+            "index": "dungeoneers-pack",
+            "name": "Dungeoneer's Pack",
+            "url": "/api/equipment/dungeoneers-pack"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "choose": 1,
+      "type": "equipment",
+      "from": {
+        "equipment_category": {
+          "index": "simple-weapons",
+          "name": "Simple Weapons",
+          "url": "/api/equipment-categories/simple-weapons"
+        }
+      }
+    }
+  ],
   "class_levels": "/api/classes/warlock/levels",
   "subclasses": [
     {
@@ -194,7 +310,7 @@
         An object with the possible choices of equipment for new characters of this class.
       </td>
       <td align="left">
-        string (<a href="#starting-equipment">StartingEquipment</a>)
+        object (<a href="#starting-equipment">StartingEquipment</a>)
       </td>
     </tr>
     <tr>
