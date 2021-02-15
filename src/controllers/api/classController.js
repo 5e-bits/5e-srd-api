@@ -1,7 +1,6 @@
 const Class = require('../../models/class');
 const Subclass = require('../../models/subclass');
 const Level = require('../../models/level');
-const StartingEquipment = require('../../models/startingEquipment');
 const Spell = require('../../models/spell');
 const Feature = require('../../models/feature');
 const Proficiency = require('../../models/proficiency');
@@ -64,11 +63,12 @@ exports.showSubclassesForClass = (req, res, next) => {
 };
 
 exports.showStartingEquipmentForClass = (req, res, next) => {
-  const urlString = '/api/classes/' + req.params.index;
-
-  return StartingEquipment.findOne({ 'class.url': urlString })
+  return Class.findOne({ index: req.params.index })
     .then(data => {
-      res.status(200).json(data);
+      res.status(200).json({
+        starting_equipment: data.starting_equipment,
+        starting_equipment_options: data.starting_equipment_options,
+      });
     })
     .catch(err => {
       next(err);

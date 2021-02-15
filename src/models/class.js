@@ -2,6 +2,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { APIReference } = require('./common');
 
+const Equipment = new Schema({
+  _id: false,
+  equipment: APIReference,
+  quantity: Number,
+});
+
+const StartingEquipmentOption = new Schema({
+  _id: false,
+  equipment: APIReference,
+  quantity: Number,
+});
+
+const StartingEquipmentOptions = new Schema({
+  _id: false,
+  choose: Number,
+  from: [StartingEquipmentOption],
+  type: String,
+});
+
 const ProficiencyChoice = new Schema({
   _id: false,
   choose: Number,
@@ -36,7 +55,8 @@ const Class = new Schema({
   saving_throws: [APIReference],
   spellcasting: Spellcasting,
   spells: String,
-  starting_equipment: String,
+  starting_equipment: [Equipment],
+  starting_equipment_options: [StartingEquipmentOptions],
   subclasses: [APIReference],
   url: String,
 });
