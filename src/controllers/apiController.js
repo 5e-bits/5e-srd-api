@@ -21,7 +21,6 @@ const API_INDEX = {
   'starting-equipment': '/api/starting-equipment',
   subclasses: '/api/subclasses',
   subraces: '/api/subraces',
-  'suggested-characteristics': '/api/suggested-characteristics',
   traits: '/api/traits',
   'weapon-properties': '/api/weapon-properties',
 };
