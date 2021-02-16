@@ -1,8 +1,3 @@
-# How to set up
-First, make sure you've built the 5e-database before following these steps.
-
-Make sure you have a .env file with the MONGODB_URI environment file set. See 5e-database for more details. Make sure that file name is next to env-file in docker-compose.yml. 
-
 # 5e-srd-api
 
 ![Build Status](https://github.com/bagelbits/5e-srd-api/workflows/5e%20SRD%20API%20CI/badge.svg?branch=main)
@@ -30,7 +25,7 @@ docker-compose up --build
 ```
 
 Make API requests by using the root address:
-`http://localhost:3000/api/`
+`http://localhost:3000/api/ruleset`
 
 You should get a response with the available endpoints for the root:
 

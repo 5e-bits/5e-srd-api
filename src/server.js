@@ -29,7 +29,7 @@ const createApp = async () => {
   // Register routes
   app.get('/', require('./controllers/indexController'));
   app.get('/docs', require('./controllers/docsController'));
-  app.use('/api', require('./routes/api'));
+  app.use('/api/ruleset', require('./routes/api'));
 
   app.use(function(req, res, _next) {
     res.status(404);
