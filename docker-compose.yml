@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   db:
-    image: bagelbits/5e-database:latest
+    image: rollforinit/5e-database:latest
 
   cache:
     image: redis:5.0.9
 
   api:
     environment:
-      MONGODB_URI: mongodb://db/5e-database
+      MONGODB_URI: ${MONGODB_URI}
       REDIS_URL: redis://cache
     build: .
     ports:
