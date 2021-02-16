@@ -1,5 +1,7 @@
 const API_INDEX = {
   'ability-scores': '/api/ability-scores',
+  alignments: '/api/alignments',
+  backgrounds: '/api/backgrounds',
   classes: '/api/classes',
   conditions: '/api/conditions',
   'damage-types': '/api/damage-types',

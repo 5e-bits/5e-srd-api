@@ -2,6 +2,8 @@ const composeMongoose = require('graphql-compose-mongoose').composeMongoose;
 const schemaComposer = require('graphql-compose').schemaComposer;
 
 const AbilityScore = require('../models/abilityScore');
+const Alignment = require('../models/alignment');
+const Background = require('../models/background');
 const Class = require('../models/class');
 const Condition = require('../models/condition');
 const DamageType = require('../models/damageType');
@@ -26,6 +28,8 @@ const WeaponProperty = require('../models/weaponProperty');
 
 const customizationOptions = {}; // left it empty for simplicity, described below
 const AbilityScoreTC = composeMongoose(AbilityScore, customizationOptions);
+const AlignmentTC = composeMongoose(Alignment, customizationOptions);
+const BackgroundTC = composeMongoose(Background, customizationOptions);
 const ClassTC = composeMongoose(Class, customizationOptions);
 const ConditionTC = composeMongoose(Condition, customizationOptions);
 const DamageTypeTC = composeMongoose(DamageType, customizationOptions);
@@ -51,6 +55,10 @@ const WeaponPropertyTC = composeMongoose(WeaponProperty, customizationOptions);
 schemaComposer.Query.addFields({
   abilityScore: AbilityScoreTC.mongooseResolvers.findOne(),
   abilityScores: AbilityScoreTC.mongooseResolvers.findMany(),
+  alignment: AlignmentTC.mongooseResolvers.findOne(),
+  alignments: AlignmentTC.mongooseResolvers.findMany(),
+  background: BackgroundTC.mongooseResolvers.findOne(),
+  backgrounds: BackgroundTC.mongooseResolvers.findMany(),
   condition: ConditionTC.mongooseResolvers.findOne(),
   conditions: ConditionTC.mongooseResolvers.findMany(),
   class: ClassTC.mongooseResolvers.findOne(),
