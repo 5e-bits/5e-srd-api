@@ -48,7 +48,7 @@ const IdealOptions = new Schema({
   type: String,
 });
 
-const BackgroundFeature = new Schema({
+const Feature = new Schema({
   _id: false,
   name: String,
   desc: [String],
@@ -66,7 +66,7 @@ const Background = new Schema({
   url: String,
   starting_equipment: [Equipment],
   starting_equipment_options: [StartingEquipmentOptions],
-  feature: BackgroundFeature,
+  feature: Feature,
   personality_traits: CharacteristicOptions,
   ideals: IdealOptions,
   bonds: CharacteristicOptions,

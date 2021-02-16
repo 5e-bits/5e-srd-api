@@ -27,7 +27,6 @@ const StartingEquipment = new Schema({
     select: false,
   },
   class: APIReference,
-  background: APIReference,
   index: String,
   starting_equipment: [Equipment],
   starting_equipment_options: [StartingEquipmentOptions],
