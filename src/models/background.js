@@ -51,7 +51,7 @@ const IdealOptions = new Schema({
 const BackgroundFeature = new Schema({
   _id: false,
   name: String,
-  desc: [String]
+  desc: [String],
 });
 
 const Background = new Schema({
