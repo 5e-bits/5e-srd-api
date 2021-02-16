@@ -9,6 +9,4 @@ router.get('/:index', function(req, res, next) {
   BackgroundController.show(req, res, next);
 });
 
-router.get('/:index/feature', BackgroundController.showFeatureForBackground);
-
 module.exports = router;
