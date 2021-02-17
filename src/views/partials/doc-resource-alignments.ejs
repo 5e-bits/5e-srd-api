@@ -1,0 +1,56 @@
+<h2 id="alignments">Alignments</h2>
+<p>
+    A typical creature in the game world has an alignment, which broadly describes its moral and personal attitudes. 
+    Alignment is a combination of two factors: one identifies morality (good, evil, or neutral), and the other
+    describes attitudes toward society and order (lawful, chaotic, or neutral). Thus, nine distinct alignments define
+    the possible combinations.
+</p>
+
+<h3>GET api/alignment/{index}</h3>
+
+<pre><code>{
+    "index": "lawful-good",
+    "name": "Lawful Good",
+    "abbreviation": "LG",
+    "desc": "Lawful good (LG) creatures can be counted on to do the right thing as expected by society. Gold dragons, paladins, and most dwarves are lawful good.",
+    "url": "api/alignments/lawful-good"
+  }</code></pre>
+
+<h4>Alignment</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">index</td>
+      <td align="left">The alignment index for shorthand searching.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left">The name for this alignment resource.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">abbreviation</td>
+      <td align="left">The abbreviation/initials/acronym for this alignment resource.</td>
+      <td align="left">string</td>
+    </tr>
+    <tr>
+      <td align="left">desc</td>
+      <td align="left">A brief description of this alignment, including some examples of creatures which have it.</td>
+      <td align="left">list string</td>
+    </tr>
+    <tr>
+      <td align="left">url</td>
+      <td align="left">The URL of the referenced resource.</td>
+      <td align="left">string</td>
+    </tr>
+  </tbody>
+</table>

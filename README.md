@@ -53,6 +53,14 @@ You should get a response with the available endpoints for the root:
 }
 ```
 
+## Using a local image of 5e Database
+
+If you are working on a feature which requires changes to both this repo, *and* the 5e-database repo, it is useful to know how to connect the former to the latter for testing purposes. A simple process for doing so is as follows:
+
+1) In the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `build: [relativePathToDatabaseRepo]`. Make sure not to commit this change, as it is intended for local testing only.
+
+2) Run your branch of 5e-srd-api using the method outlined in the above section of this readme file. So long as there are no transient errors, the API should build successfully, and your changes to both repos should be noticeable.
+
 ## Data Issues
 
 If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/bagelbits/5e-database)
