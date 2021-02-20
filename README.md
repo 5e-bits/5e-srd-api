@@ -12,6 +12,8 @@ Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
 ## How to Run
 
+NOTE: Make sure docker is running when you do this!
+
 You can make sure you have the latest version of the database by running:
 
 ```shell

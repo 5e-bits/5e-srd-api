@@ -41,3 +41,6 @@ jspm_packages
 .idea
 
 .env
+
+dump.rdb
+package-lock.json

@@ -29,21 +29,21 @@ const createApp = async () => {
   // Register routes
   app.get('/', require('./controllers/indexController'));
   app.get('/docs', require('./controllers/docsController'));
-  app.use('/api/ruleset', require('./routes/api'));
+  app.use('/api', require('./routes/api'));
 
-  app.use(function(req, res, _next) {
-    res.status(404);
+  // app.use(function(req, res, _next) {
+  //   res.status(404);
 
-    // TODO: Add a fun 404 page
-    // // respond with html page
-    // if (req.accepts('html')) {
-    //   res.render('404', { url: req.url });
-    //   return;
-    // }
+  //   // TODO: Add a fun 404 page
+  //   // // respond with html page
+  //   // if (req.accepts('html')) {
+  //   //   res.render('404', { url: req.url });
+  //   //   return;
+  //   // }
 
-    // default respond with json
-    return res.send({ error: 'Not found' });
-  });
+  //   // default respond with json
+  //   return res.send({ error: 'Not found' });
+  // });
 
   app.use(bugsnagMiddleware.errorHandler);
   return app;
