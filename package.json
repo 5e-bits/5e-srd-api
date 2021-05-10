@@ -29,7 +29,7 @@
     "graphql-compose": "^7.23.0",
     "graphql-compose-mongoose": "^9.0.0",
     "graphql-tools": "^7.0.2",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mongoose": "^5.11.12",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",
