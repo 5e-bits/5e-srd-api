@@ -1,4 +1,4 @@
-const mockingoose = require('mockingoose').default;
+const mockingoose = require('mockingoose');
 const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
 const StartingEquipment = require('../../../models/startingEquipment');
 const StartingEquipmentController = require('../../../controllers/api/startingEquipmentController');

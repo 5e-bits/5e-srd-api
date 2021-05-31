@@ -1,4 +1,4 @@
-const mockingoose = require('mockingoose').default;
+const mockingoose = require('mockingoose');
 jest.mock('redis', () => {
   const redis = require('redis-mock');
   return redis;
