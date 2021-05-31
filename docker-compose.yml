@@ -5,7 +5,7 @@ services:
     image: bagelbits/5e-database:latest
 
   cache:
-    image: redis:5.0.9
+    image: redis:6.2.3
 
   api:
     environment:
