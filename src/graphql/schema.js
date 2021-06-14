@@ -26,7 +26,11 @@ const Subrace = require('../models/subrace');
 const Trait = require('../models/trait');
 const WeaponProperty = require('../models/weaponProperty');
 
-const customizationOptions = {}; // left it empty for simplicity, described below
+const customizationOptions = {
+  filter: {
+    operators: true
+  }
+};
 const AbilityScoreTC = composeMongoose(AbilityScore, customizationOptions);
 const AlignmentTC = composeMongoose(Alignment, customizationOptions);
 const BackgroundTC = composeMongoose(Background, customizationOptions);
