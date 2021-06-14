@@ -28,8 +28,8 @@ const WeaponProperty = require('../models/weaponProperty');
 
 const customizationOptions = {
   filter: {
-    operators: true
-  }
+    operators: true,
+  },
 };
 const AbilityScoreTC = composeMongoose(AbilityScore, customizationOptions);
 const AlignmentTC = composeMongoose(Alignment, customizationOptions);
