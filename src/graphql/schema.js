@@ -28,83 +28,84 @@ const WeaponProperty = require('../models/weaponProperty');
 
 const customizationOptions = {
   filter: {
+    onlyIndexed: false,
     operators: true,
   },
 };
-const AbilityScoreTC = composeMongoose(AbilityScore, customizationOptions);
-const AlignmentTC = composeMongoose(Alignment, customizationOptions);
-const BackgroundTC = composeMongoose(Background, customizationOptions);
-const ClassTC = composeMongoose(Class, customizationOptions);
-const ConditionTC = composeMongoose(Condition, customizationOptions);
-const DamageTypeTC = composeMongoose(DamageType, customizationOptions);
-const EquipmentTC = composeMongoose(Equipment, customizationOptions);
-const EquipmentCategoryTC = composeMongoose(EquipmentCategory, customizationOptions);
-const FeatureTC = composeMongoose(Feature, customizationOptions);
-const LanguageTC = composeMongoose(Language, customizationOptions);
-const LevelTC = composeMongoose(Level, customizationOptions);
-const MagicItemTC = composeMongoose(MagicItem, customizationOptions);
-const MagicSchoolTC = composeMongoose(MagicSchool, customizationOptions);
-const MonsterTC = composeMongoose(Monster, customizationOptions);
-const ProficiencyTC = composeMongoose(Proficiency, customizationOptions);
-const RaceTC = composeMongoose(Race, customizationOptions);
-const RuleTC = composeMongoose(Rule, customizationOptions);
-const RuleSectionTC = composeMongoose(RuleSection, customizationOptions);
-const SpellTC = composeMongoose(Spell, customizationOptions);
-const StartingEquipmentTC = composeMongoose(StartingEquipment, customizationOptions);
-const SubclassTC = composeMongoose(Subclass, customizationOptions);
-const SubraceTC = composeMongoose(Subrace, customizationOptions);
-const TraitTC = composeMongoose(Trait, customizationOptions);
-const WeaponPropertyTC = composeMongoose(WeaponProperty, customizationOptions);
+const AbilityScoreTC = composeMongoose(AbilityScore);
+const AlignmentTC = composeMongoose(Alignment);
+const BackgroundTC = composeMongoose(Background);
+const ClassTC = composeMongoose(Class);
+const ConditionTC = composeMongoose(Condition);
+const DamageTypeTC = composeMongoose(DamageType);
+const EquipmentTC = composeMongoose(Equipment);
+const EquipmentCategoryTC = composeMongoose(EquipmentCategory);
+const FeatureTC = composeMongoose(Feature);
+const LanguageTC = composeMongoose(Language);
+const LevelTC = composeMongoose(Level);
+const MagicItemTC = composeMongoose(MagicItem);
+const MagicSchoolTC = composeMongoose(MagicSchool);
+const MonsterTC = composeMongoose(Monster);
+const ProficiencyTC = composeMongoose(Proficiency);
+const RaceTC = composeMongoose(Race);
+const RuleTC = composeMongoose(Rule);
+const RuleSectionTC = composeMongoose(RuleSection);
+const SpellTC = composeMongoose(Spell);
+const StartingEquipmentTC = composeMongoose(StartingEquipment);
+const SubclassTC = composeMongoose(Subclass);
+const SubraceTC = composeMongoose(Subrace);
+const TraitTC = composeMongoose(Trait);
+const WeaponPropertyTC = composeMongoose(WeaponProperty);
 
 schemaComposer.Query.addFields({
-  abilityScore: AbilityScoreTC.mongooseResolvers.findOne(),
-  abilityScores: AbilityScoreTC.mongooseResolvers.findMany(),
-  alignment: AlignmentTC.mongooseResolvers.findOne(),
-  alignments: AlignmentTC.mongooseResolvers.findMany(),
-  background: BackgroundTC.mongooseResolvers.findOne(),
-  backgrounds: BackgroundTC.mongooseResolvers.findMany(),
-  condition: ConditionTC.mongooseResolvers.findOne(),
-  conditions: ConditionTC.mongooseResolvers.findMany(),
-  class: ClassTC.mongooseResolvers.findOne(),
-  classes: ClassTC.mongooseResolvers.findMany(),
-  damageType: DamageTypeTC.mongooseResolvers.findOne(),
-  damageTypes: DamageTypeTC.mongooseResolvers.findMany(),
-  equipment: EquipmentTC.mongooseResolvers.findOne(),
-  equipments: EquipmentTC.mongooseResolvers.findMany(),
-  equipmentCategory: EquipmentCategoryTC.mongooseResolvers.findOne(),
-  equipmentCategories: EquipmentCategoryTC.mongooseResolvers.findMany(),
-  feature: FeatureTC.mongooseResolvers.findOne(),
-  features: FeatureTC.mongooseResolvers.findMany(),
-  language: LanguageTC.mongooseResolvers.findOne(),
-  languages: LanguageTC.mongooseResolvers.findMany(),
-  level: LevelTC.mongooseResolvers.findOne(),
-  levels: LevelTC.mongooseResolvers.findMany(),
-  magicItem: MagicItemTC.mongooseResolvers.findOne(),
-  magicItems: MagicItemTC.mongooseResolvers.findMany(),
-  magicSchool: MagicSchoolTC.mongooseResolvers.findOne(),
-  magicSchools: MagicSchoolTC.mongooseResolvers.findMany(),
-  monster: MonsterTC.mongooseResolvers.findOne(),
-  monsters: MonsterTC.mongooseResolvers.findMany(),
-  proficiency: ProficiencyTC.mongooseResolvers.findOne(),
-  proficiencies: ProficiencyTC.mongooseResolvers.findMany(),
-  race: RaceTC.mongooseResolvers.findOne(),
-  races: RaceTC.mongooseResolvers.findMany(),
-  rule: RuleTC.mongooseResolvers.findOne(),
-  rules: RuleTC.mongooseResolvers.findMany(),
-  ruleSection: RuleSectionTC.mongooseResolvers.findOne(),
-  ruleSections: RuleSectionTC.mongooseResolvers.findMany(),
-  spell: SpellTC.mongooseResolvers.findOne(),
-  spells: SpellTC.mongooseResolvers.findMany(),
-  startingequipment: StartingEquipmentTC.mongooseResolvers.findOne(),
-  startingequipments: StartingEquipmentTC.mongooseResolvers.findMany(),
-  subclass: SubclassTC.mongooseResolvers.findOne(),
-  subclasses: SubclassTC.mongooseResolvers.findMany(),
-  subrace: SubraceTC.mongooseResolvers.findOne(),
-  subraces: SubraceTC.mongooseResolvers.findMany(),
-  trait: TraitTC.mongooseResolvers.findOne(),
-  traits: TraitTC.mongooseResolvers.findMany(),
-  weaponProperty: WeaponPropertyTC.mongooseResolvers.findOne(),
-  weaponProperties: WeaponPropertyTC.mongooseResolvers.findMany(),
+  abilityScore: AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
+  abilityScores: AbilityScoreTC.mongooseResolvers.findMany(customizationOptions),
+  alignment: AlignmentTC.mongooseResolvers.findOne(customizationOptions),
+  alignments: AlignmentTC.mongooseResolvers.findMany(customizationOptions),
+  background: BackgroundTC.mongooseResolvers.findOne(customizationOptions),
+  backgrounds: BackgroundTC.mongooseResolvers.findMany(customizationOptions),
+  condition: ConditionTC.mongooseResolvers.findOne(customizationOptions),
+  conditions: ConditionTC.mongooseResolvers.findMany(customizationOptions),
+  class: ClassTC.mongooseResolvers.findOne(customizationOptions),
+  classes: ClassTC.mongooseResolvers.findMany(customizationOptions),
+  damageType: DamageTypeTC.mongooseResolvers.findOne(customizationOptions),
+  damageTypes: DamageTypeTC.mongooseResolvers.findMany(customizationOptions),
+  equipment: EquipmentTC.mongooseResolvers.findOne(customizationOptions),
+  equipments: EquipmentTC.mongooseResolvers.findMany(customizationOptions),
+  equipmentCategory: EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
+  equipmentCategories: EquipmentCategoryTC.mongooseResolvers.findMany(customizationOptions),
+  feature: FeatureTC.mongooseResolvers.findOne(customizationOptions),
+  features: FeatureTC.mongooseResolvers.findMany(customizationOptions),
+  language: LanguageTC.mongooseResolvers.findOne(customizationOptions),
+  languages: LanguageTC.mongooseResolvers.findMany(customizationOptions),
+  level: LevelTC.mongooseResolvers.findOne(customizationOptions),
+  levels: LevelTC.mongooseResolvers.findMany(customizationOptions),
+  magicItem: MagicItemTC.mongooseResolvers.findOne(customizationOptions),
+  magicItems: MagicItemTC.mongooseResolvers.findMany(customizationOptions),
+  magicSchool: MagicSchoolTC.mongooseResolvers.findOne(customizationOptions),
+  magicSchools: MagicSchoolTC.mongooseResolvers.findMany(customizationOptions),
+  monster: MonsterTC.mongooseResolvers.findOne(customizationOptions),
+  monsters: MonsterTC.mongooseResolvers.findMany(customizationOptions),
+  proficiency: ProficiencyTC.mongooseResolvers.findOne(customizationOptions),
+  proficiencies: ProficiencyTC.mongooseResolvers.findMany(customizationOptions),
+  race: RaceTC.mongooseResolvers.findOne(customizationOptions),
+  races: RaceTC.mongooseResolvers.findMany(customizationOptions),
+  rule: RuleTC.mongooseResolvers.findOne(customizationOptions),
+  rules: RuleTC.mongooseResolvers.findMany(customizationOptions),
+  ruleSection: RuleSectionTC.mongooseResolvers.findOne(customizationOptions),
+  ruleSections: RuleSectionTC.mongooseResolvers.findMany(customizationOptions),
+  spell: SpellTC.mongooseResolvers.findOne(customizationOptions),
+  spells: SpellTC.mongooseResolvers.findMany(customizationOptions),
+  startingequipment: StartingEquipmentTC.mongooseResolvers.findOne(customizationOptions),
+  startingequipments: StartingEquipmentTC.mongooseResolvers.findMany(customizationOptions),
+  subclass: SubclassTC.mongooseResolvers.findOne(customizationOptions),
+  subclasses: SubclassTC.mongooseResolvers.findMany(customizationOptions),
+  subrace: SubraceTC.mongooseResolvers.findOne(customizationOptions),
+  subraces: SubraceTC.mongooseResolvers.findMany(customizationOptions),
+  trait: TraitTC.mongooseResolvers.findOne(customizationOptions),
+  traits: TraitTC.mongooseResolvers.findMany(customizationOptions),
+  weaponProperty: WeaponPropertyTC.mongooseResolvers.findOne(customizationOptions),
+  weaponProperties: WeaponPropertyTC.mongooseResolvers.findMany(customizationOptions),
 });
 
 const graphqlSchema = schemaComposer.buildSchema();
