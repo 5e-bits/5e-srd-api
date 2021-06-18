@@ -2,26 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { APIReference } = require('./common');
 
-const Reference = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  type: String,
-  url: String,
-});
+const Reference = {
+  index: { type: String, index: true },
+  name: { type: String, index: true },
+  type: { type: String, index: true },
+  url: { type: String, index: true },
+};
 
 const Proficiency = new Schema({
-  _id: {
-    type: String,
-    select: false,
-  },
+  _id: { type: String, select: false },
   classes: [APIReference],
-  index: String,
-  name: String,
+  index: { type: String, index: true },
+  name: { type: String, index: true },
   races: [APIReference],
   references: [Reference],
-  type: String,
-  url: String,
+  type: { type: String, index: true },
+  url: { type: String, index: true },
 });
 
 module.exports = mongoose.model('Proficiency', Proficiency, 'proficiencies');
