@@ -6,13 +6,29 @@ const AbilityScore = new Schema({
   _id: {
     type: String,
     select: false,
+    index: false,
   },
-  desc: [String],
-  full_name: String,
-  index: String,
-  name: String,
+  desc: {
+    type: [String],
+    index: true,
+  },
+  full_name: {
+    type: String,
+    index: true,
+  },
+  index: {
+    type: String,
+    index: true,
+  },
+  name: {
+    type: String,
+    index: true,
+  },
   skills: [APIReference],
-  url: String,
+  url: {
+    type: String,
+    index: true,
+  },
 });
 
 module.exports = mongoose.model('AbilityScore', AbilityScore, 'ability-scores');
