@@ -44,10 +44,7 @@ const TwoHandedDamage = {
 };
 
 const Equipment = new Schema({
-  _id: {
-    type: String,
-    select: false,
-  },
+  _id: { type: String, select: false },
   armor_category: { type: String, index: true },
   armor_class: ArmorClass,
   capacity: { type: String, index: true },
