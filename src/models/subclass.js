@@ -2,33 +2,28 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { APIReference } = require('./common');
 
-const SpellPrerequisite = new Schema({
-  _id: false,
-  index: String,
-  name: String,
-  type: String,
-  url: String,
-});
+const SpellPrerequisite = {
+  index: { type: String, index: true },
+  name: { type: String, index: true },
+  type: { type: String, index: true },
+  url: { type: String, index: true },
+};
 
-const Spell = new Schema({
-  _id: false,
+const Spell = {
   prerequisites: [SpellPrerequisite],
   spell: APIReference,
-});
+};
 
 const Subclass = new Schema({
-  _id: {
-    type: String,
-    select: false,
-  },
+  _id: { type: String, select: false },
   class: APIReference,
-  desc: [String],
-  index: String,
-  name: String,
+  desc: { type: [String], index: true },
+  index: { type: String, index: true },
+  name: { type: String, index: true },
   spells: [Spell],
-  subclass_flavor: String,
-  subclass_levels: String,
-  url: String,
+  subclass_flavor: { type: String, index: true },
+  subclass_levels: { type: String, index: true },
+  url: { type: String, index: true },
 });
 
 module.exports = mongoose.model('Subclass', Subclass, 'subclasses');
