@@ -8,10 +8,22 @@ const Skill = new Schema({
     select: false,
   },
   ability_score: APIReference,
-  desc: [String],
-  index: String,
-  name: String,
-  url: String,
+  desc: {
+    type: [String],
+    index: true,
+  },
+  index: {
+    type: String,
+    index: true,
+  },
+  name: {
+    type: String,
+    index: true,
+  },
+  url: {
+    type: String,
+    index: true,
+  },
 });
 
 module.exports = mongoose.model('Skill', Skill, 'skills');

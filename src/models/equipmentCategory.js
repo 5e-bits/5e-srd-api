@@ -8,9 +8,18 @@ const EquipmentCategory = new Schema({
     select: false,
   },
   equipment: [APIReference],
-  index: String,
-  name: String,
-  url: String,
+  index: {
+    type: String,
+    index: true,
+  },
+  name: {
+    type: String,
+    index: true,
+  },
+  url: {
+    type: String,
+    index: true,
+  },
 });
 
 module.exports = mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');

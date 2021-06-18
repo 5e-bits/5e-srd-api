@@ -6,10 +6,22 @@ const Condition = new Schema({
     type: String,
     select: false,
   },
-  desc: [String],
-  index: String,
-  name: String,
-  url: String,
+  desc: {
+    type: [String],
+    index: true,
+  },
+  index: {
+    type: String,
+    index: true,
+  },
+  name: {
+    type: String,
+    index: true,
+  },
+  url: {
+    type: String,
+    index: true,
+  },
 });
 
 module.exports = mongoose.model('Condition', Condition, 'conditions');

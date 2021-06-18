@@ -7,11 +7,23 @@ const MagicItem = new Schema({
     type: String,
     select: false,
   },
-  desc: [String],
+  desc: {
+    type: [String],
+    index: true,
+  },
   equipment_category: APIReference,
-  index: String,
-  name: String,
-  url: String,
+  index: {
+    type: String,
+    index: true,
+  },
+  name: {
+    type: String,
+    index: true,
+  },
+  url: {
+    type: String,
+    index: true,
+  },
 });
 
 module.exports = mongoose.model('MagicItem', MagicItem, 'magic-items');
