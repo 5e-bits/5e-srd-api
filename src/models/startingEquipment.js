@@ -2,35 +2,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { APIReference } = require('./common');
 
-const Equipment = new Schema({
-  _id: false,
+const Equipment = {
   equipment: APIReference,
-  quantity: Number,
-});
+  quantity: { type: Number, index: true },
+};
 
-const StartingEquipmentOption = new Schema({
-  _id: false,
+const StartingEquipmentOption = {
   equipment: APIReference,
-  quantity: Number,
-});
+  quantity: { type: Number, index: true },
+};
 
-const StartingEquipmentOptions = new Schema({
-  _id: false,
-  choose: Number,
+const StartingEquipmentOptions = {
+  choose: { type: Number, index: true },
   from: [StartingEquipmentOption],
-  type: String,
-});
+  type: { type: String, index: true },
+};
 
 const StartingEquipment = new Schema({
-  _id: {
-    type: String,
-    select: false,
-  },
+  _id: { type: String, select: false },
   class: APIReference,
-  index: String,
+  index: { type: String, index: true },
   starting_equipment: [Equipment],
   starting_equipment_options: [StartingEquipmentOptions],
-  url: String,
+  url: { type: String, index: true },
 });
 
 module.exports = mongoose.model('StartingEquipment', StartingEquipment, 'startingequipment');

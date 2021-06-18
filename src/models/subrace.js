@@ -2,41 +2,35 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { APIReference } = require('./common');
 
-const AbilityBonus = new Schema({
-  _id: false,
+const AbilityBonus = {
   ability_score: APIReference,
-  bonus: Number,
-});
+  bonus: { type: Number, index: true },
+};
 
-const LanguageOptions = new Schema({
-  _id: false,
-  choose: Number,
+const LanguageOptions = {
+  choose: { type: Number, index: true },
   from: [APIReference],
-  type: String,
-});
+  type: { type: String, index: true },
+};
 
-const RacialTraitOptions = new Schema({
-  _id: false,
-  choose: Number,
+const RacialTraitOptions = {
+  choose: { type: Number, index: true },
   from: [APIReference],
-  type: String,
-});
+  type: { type: String, index: true },
+};
 
 const Subrace = new Schema({
-  _id: {
-    type: String,
-    select: false,
-  },
+  _id: { type: String, select: false },
   ability_bonuses: [AbilityBonus],
-  desc: String,
-  index: String,
+  desc: { type: String, index: true },
+  index: { type: String, index: true },
   language_options: LanguageOptions,
-  name: String,
+  name: { type: String, index: true },
   race: APIReference,
   racial_trait_options: RacialTraitOptions,
   racial_traits: [APIReference],
   starting_proficiencies: [APIReference],
-  url: String,
+  url: { type: String, index: true },
 });
 
 module.exports = mongoose.model('Subrace', Subrace, 'subraces');
