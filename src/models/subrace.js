@@ -13,12 +13,6 @@ const LanguageOptions = {
   type: { type: String, index: true },
 };
 
-const RacialTraitOptions = {
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
-};
-
 const Subrace = new Schema({
   _id: { type: String, select: false },
   ability_bonuses: [AbilityBonus],
@@ -27,7 +21,6 @@ const Subrace = new Schema({
   language_options: LanguageOptions,
   name: { type: String, index: true },
   race: APIReference,
-  racial_trait_options: RacialTraitOptions,
   racial_traits: [APIReference],
   starting_proficiencies: [APIReference],
   url: { type: String, index: true },
