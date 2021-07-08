@@ -77,7 +77,7 @@
     <tr>
       <td align="left">trait_specific</td>
       <td align="left">Information specific to this trait</td>
-      <td align="left">object</td>
+      <td align="left"><a href="trait_specific">Trait Specific</a></td>
     </tr>
     <tr>
       <td align="left">url</td>
@@ -86,3 +86,44 @@
     </tr>
   </tbody>
 </table>
+
+<h4 id="trait_specific">Trait Specific</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+      <th align="left">Features Used By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">subtrait_options</td>
+      <td align="left">Sub-trait options for a parent trait</td>
+      <td align="left"><a href="#choice">Choice</a> (<a href="#traits">Traits</a>)</td>
+      <td align="left">[1]</td>
+    </tr>
+    <tr>
+      <td align="left">spell_options</td>
+      <td align="left">Spell options for traits that grant spells</td>
+      <td align="left"><a href="#choice">Choice</a> (<a href="#spells-section">Spells</a>)</td>
+      <td align="left">High Elf Cantrip</td>
+    </tr>
+    <tr>
+      <td align="left">damage_type</td>
+      <td align="left">A damage type associated with this trait.</td>
+      <td align="left"><a href="#apireference">APIReference</a> (<a href="#damage-types">Damage Type</a>)</td>
+      <td align="left">Draconic Ancestry (any color)</td>
+    </tr>
+    <tr>
+      <td align="left">breath_weapon</td>
+      <td align="left">The breath weapon action associated with a draconic ancestry</td>
+      <td align="left">object</td>
+      <td align="left">Draconic Ancestry (any color)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>[1] - subtrait_options is included in all Traits that offer a choice between more than one sub-trait.</p>
