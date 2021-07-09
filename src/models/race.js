@@ -30,12 +30,6 @@ const StartingProficiencyOptions = {
   type: { type: String, index: true },
 };
 
-const TraitOptions = {
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
-};
-
 const Race = new Schema({
   _id: { type: String, select: false },
   ability_bonus_options: RaceAbilityBonusOptions,
@@ -53,7 +47,6 @@ const Race = new Schema({
   starting_proficiencies: [APIReference],
   starting_proficiency_options: StartingProficiencyOptions,
   subraces: [APIReference],
-  trait_options: TraitOptions,
   traits: [APIReference],
   url: { type: String, index: true },
 });
