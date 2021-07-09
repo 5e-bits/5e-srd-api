@@ -23,17 +23,17 @@ const Choice = {
 const ActionDamage = {
   damage_type: APIReference,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
-  damage_at_character_level: Object
+  damage_at_character_level: Object,
 };
 
 const Usage = {
   type: { type: String, index: true },
-  times: { type: Number, index: true }
+  times: { type: Number, index: true },
 };
 
 const DC = {
   dc_type: APIReference,
-  success_type: { type: String, index: true }
+  success_type: { type: String, index: true },
 };
 
 const Action = {
@@ -48,7 +48,7 @@ const TraitSpecific = {
   subtrait_options: Choice,
   spell_options: Choice,
   damage_type: APIReference,
-  breath_weapon: Action
+  breath_weapon: Action,
 };
 
 const Trait = new Schema({
