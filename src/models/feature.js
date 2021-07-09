@@ -15,7 +15,7 @@ const Prerequisite = {
 
 const FeatureSpecific = {
   subfeature_options: Choice,
-  expertise_options: Choice
+  expertise_options: Choice,
 };
 
 const Feature = new Schema({
