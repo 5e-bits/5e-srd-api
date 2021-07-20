@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker-compose pull && docker-compose build && docker-compose run api npm run test:integration
+      - run: npm run test:integration:local
   heroku:
     name: Trigger Heroku Deploy
     runs-on: ubuntu-latest
