@@ -9,6 +9,9 @@ afterEach(() => {
 });
 
 beforeAll(async () => {
+  mongoose.set('useNewUrlParser', true);
+  mongoose.set('useFindAndModify', false);
+  mongoose.set('useCreateIndex', true);
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
   app = await createApp();
 });
