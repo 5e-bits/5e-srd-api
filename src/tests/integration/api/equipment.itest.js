@@ -9,13 +9,23 @@ afterEach(() => {
 });
 
 beforeAll(async () => {
+  mongoose.set('useNewUrlParser', true);
+  mongoose.set('useFindAndModify', false);
+  mongoose.set('useCreateIndex', true);
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
   app = await createApp();
 });
 
-afterAll(() => {
-  mongoose.disconnect();
-  redisClient.quit();
+afterAll(async () => {
+  await mongoose.disconnect();
+  await new Promise(resolve => {
+    redisClient.quit(() => {
+      resolve();
+    });
+  });
+  // redis.quit() creates a thread to close the connection.
+  // We wait until all threads have been run once to ensure the connection closes.
+  await new Promise(resolve => setImmediate(resolve));
 });
 
 describe('/api/equipment', () => {

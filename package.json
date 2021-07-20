@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js",
     "test": "jest -c jest.config.js",
     "test:unit": "jest -c jest.config.unit.js",
-    "test:integration": "jest -c jest.config.integration.js",
+    "test:integration": "jest -c jest.config.integration.js --runInBand --detectOpenHandles --forceExit",
     "test:integration:local": "docker-compose pull && docker-compose build && docker-compose run --use-aliases api npm run test:integration"
   },
   "dependencies": {
@@ -18,7 +18,6 @@
     "@bugsnag/plugin-express": "^6.5.1",
     "apollo-server-express": "^2.19.2",
     "apollo-server-plugin-response-cache": "^0.7.0",
-    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.3",
     "debug": "^4.3.1",
