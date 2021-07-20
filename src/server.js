@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cors = require('cors');
 const { bugsnagMiddleware } = require('./middleware/bugsnag');
 const { createApolloMiddleware } = require('./middleware/apolloServer');
@@ -17,8 +17,8 @@ const createApp = async () => {
   app.use('/js', express.static(__dirname + '/js'));
   app.use('/css', express.static(__dirname + '/css'));
   app.use('/public', express.static(__dirname + '/public'));
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  // app.use(bodyParser.urlencoded({ extended: false }));
+  // app.use(bodyParser.json());
   app.use(morgan('short'));
   app.use(cors({ origin: '*' }));
 
