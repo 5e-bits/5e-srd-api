@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js",
     "test": "jest -c jest.config.js",
     "test:unit": "jest -c jest.config.unit.js",
-    "test:integration": "jest -c jest.config.integration.js --runInBand --detectOpenHandles",
+    "test:integration": "jest -c jest.config.integration.js --detectOpenHandles",
     "test:integration:local": "docker-compose pull && docker-compose build && docker-compose run --use-aliases api npm run test:integration"
   },
   "dependencies": {
