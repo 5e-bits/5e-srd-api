@@ -5,6 +5,9 @@ const createApp = require('./server');
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
 const start = async () => {
+  mongoose.set('useNewUrlParser', true);
+  mongoose.set('useFindAndModify', false);
+  mongoose.set('useCreateIndex', true);
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
   console.log('Database connection ready');
 
