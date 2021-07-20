@@ -45,7 +45,6 @@ You should get a response with the available endpoints for the root:
   "races": "/api/races",
   "skills": "/api/skills",
   "spells": "/api/spells",
-  "starting-equipment": "/api/starting-equipment",
   "subclasses": "/api/subclasses",
   "subraces": "/api/subraces",
   "traits": "/api/traits",

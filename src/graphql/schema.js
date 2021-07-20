@@ -20,7 +20,6 @@ const Race = require('../models/race');
 const Rule = require('../models/rule');
 const RuleSection = require('../models/ruleSection');
 const Spell = require('../models/spell');
-const StartingEquipment = require('../models/startingEquipment');
 const Subclass = require('../models/subclass');
 const Subrace = require('../models/subrace');
 const Trait = require('../models/trait');
@@ -46,7 +45,6 @@ const RaceTC = composeMongoose(Race);
 const RuleTC = composeMongoose(Rule);
 const RuleSectionTC = composeMongoose(RuleSection);
 const SpellTC = composeMongoose(Spell);
-const StartingEquipmentTC = composeMongoose(StartingEquipment);
 const SubclassTC = composeMongoose(Subclass);
 const SubraceTC = composeMongoose(Subrace);
 const TraitTC = composeMongoose(Trait);
@@ -91,8 +89,6 @@ schemaComposer.Query.addFields({
   ruleSections: RuleSectionTC.mongooseResolvers.findMany(customizationOptions),
   spell: SpellTC.mongooseResolvers.findOne(customizationOptions),
   spells: SpellTC.mongooseResolvers.findMany(customizationOptions),
-  startingequipment: StartingEquipmentTC.mongooseResolvers.findOne(customizationOptions),
-  startingequipments: StartingEquipmentTC.mongooseResolvers.findMany(customizationOptions),
   subclass: SubclassTC.mongooseResolvers.findOne(customizationOptions),
   subclasses: SubclassTC.mongooseResolvers.findMany(customizationOptions),
   subrace: SubraceTC.mongooseResolvers.findOne(customizationOptions),
