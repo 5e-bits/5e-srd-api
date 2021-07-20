@@ -16,9 +16,9 @@ beforeAll(async () => {
   app = await createApp();
 });
 
-afterAll(() => {
-  mongoose.disconnect();
-  redisClient.quit();
+afterAll(async () => {
+  await mongoose.disconnect();
+  await redisClient.quit();
 });
 
 describe('/', () => {
