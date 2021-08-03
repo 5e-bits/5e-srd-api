@@ -123,6 +123,7 @@ describe('/api/classes', () => {
         const index = indexRes.body.results[1].index;
         const res = await request(app).get(`/api/classes/${index}/proficiencies`);
         expect(res.statusCode).toEqual(200);
+        expect(res.body.results.length).not.toEqual(0);
       });
     });
 
@@ -132,7 +133,6 @@ describe('/api/classes', () => {
         const index = indexRes.body.results[1].index;
         const res = await request(app).get(`/api/classes/${index}/multi-classing`);
         expect(res.statusCode).toEqual(200);
-        expect(res.body.results.length).not.toEqual(0);
       });
     });
 
