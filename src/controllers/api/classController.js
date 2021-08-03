@@ -47,7 +47,7 @@ exports.showLevelForClass = (req, res, next) => {
 
 exports.showMulticlassingForClass = (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
-  return Class.findOne({ 'classes.url': urlString })
+  return Class.findOne({ url: urlString })
     .then(data => {
       res.status(200).json(data.multi_classing);
     })
