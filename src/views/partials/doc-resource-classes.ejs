@@ -620,7 +620,6 @@
     "level": 1,
     "ability_score_bonuses": 0,
     "prof_bonus": 2,
-    "feature_choices": [],
     "features": [
       {
         "index": "spellcasting-bard",
@@ -666,7 +665,6 @@
     "level": 20,
     "ability_score_bonuses": 5,
     "prof_bonus": 6,
-    "feature_choices": [],
     "features": [
       {
         "index": "superior-inspiration",
@@ -738,15 +736,6 @@
       <td align="left">integer</td>
     </tr>
     <tr>
-      <td align="left">feature_choices</td>
-      <td align="left">
-        Special features which require a player to choose a new feature to be added.
-      </td>
-      <td align="left">
-        list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
-      </td>
-    </tr>
-    <tr>
       <td align="left">features</td>
       <td align="left">Features automatically gained by players at this level.</td>
       <td align="left">
@@ -781,13 +770,13 @@
     </tr>
   </tbody>
 </table>
+
 <h3>GET api/classes/{index}/levels/{integer 1-20}</h3>
 
 <pre><code>{
   "level": 1,
   "ability_score_bonuses": 0,
   "prof_bonus": 2,
-  "feature_choices": [],
   "features": [
     {
       "name": "Spellcasting",
@@ -859,15 +848,6 @@
       <td align="left">prof_bonus</td>
       <td align="left">Proficiency bonus for this class at the specified level.</td>
       <td align="left">integer</td>
-    </tr>
-    <tr>
-      <td align="left">feature_choices</td>
-      <td align="left">
-        Special features which require a player to choose a new feature to be added.
-      </td>
-      <td align="left">
-        list <a href="#apireference">APIReference</a> (<a href="#features">Features</a>)
-      </td>
     </tr>
     <tr>
       <td align="left">features</td>
