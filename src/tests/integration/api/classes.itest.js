@@ -127,6 +127,16 @@ describe('/api/classes', () => {
       });
     });
 
+    describe('/api/classes/:index/multi-classing', () => {
+      it('returns objects', async () => {
+        const indexRes = await request(app).get('/api/classes');
+        const index = indexRes.body.results[1].index;
+        const res = await request(app).get(`/api/classes/${index}/multi-classing`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.results.length).not.toEqual(0);
+      });
+    });
+
     describe('/api/classes/:index/levels', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/classes');

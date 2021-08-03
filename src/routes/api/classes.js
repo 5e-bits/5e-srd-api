@@ -15,6 +15,7 @@ router.get('/:index/spellcasting', ClassController.showSpellcastingForClass);
 router.get('/:index/spells', ClassController.showSpellsForClass);
 router.get('/:index/features', ClassController.showFeaturesForClass);
 router.get('/:index/proficiencies', ClassController.showProficienciesForClass);
+router.get('/:index/multi-classing', ClassController.showMulticlassingForClass);
 
 router.get('/:index/levels/:level/spells', ClassController.showSpellsForClassAndLevel);
 router.get('/:index/levels/:level/features', ClassController.showFeaturesForClassAndLevel);
