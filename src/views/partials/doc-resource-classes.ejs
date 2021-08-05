@@ -196,6 +196,30 @@
     }
   ],
   "class_levels": "/api/classes/warlock/levels",
+  "multi_classing": {
+    "prerequisites": [
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA",
+          "url": "/api/ability-scores/cha"
+        },
+        "minimum_score": 13
+      }
+    ],
+    "proficiencies": [
+      {
+        "index": "light-armor",
+        "name": "Light Armor",
+        "url": "/api/proficiencies/light-armor"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Simple Weapons",
+        "url": "/api/proficiencies/simple-weapons"
+      }
+    ]
+  },
   "subclasses": [
     {
       "index": "fiend",
@@ -321,6 +345,13 @@
       <td align="left">string (<a href="#levels">Levels</a>)</td>
     </tr>
     <tr>
+      <td align="left">multi_classing</td>
+      <td align="left">Information on how to multiclass into this class</td>
+      <td align="left">
+        object (<a href="#multi-classing">Multi Classing</a>)
+      </td>
+    </tr>
+    <tr>
       <td align="left">subclasses</td>
       <td align="left">All possible subclasses that this class can specialize in.</td>
       <td align="left">
@@ -412,7 +443,7 @@
   ]
 }</code></pre>
 
-<h3>GET api/classes/{index}/spellcasting</h3>
+<h3 id="#spellcasting">GET api/classes/{index}/spellcasting</h3>
 
 <pre><code>{
     "level": 1,
@@ -610,6 +641,107 @@
         </td>
       </tr>
     </tbody>
+  </tbody>
+</table>
+
+<h3 id="#multi-classing">GET api/classes/{index}/multi-classing/</h3>
+
+<pre><code>{
+  "prerequisites": [
+    {
+      "ability_score": {
+        "index": "cha",
+        "name": "CHA",
+        "url": "/api/ability-scores/cha"
+      },
+      "minimum_score": 13
+    }
+  ],
+  "prerequisite_options": {
+    "type": "ability-scores",
+    "choose": 1,
+    "from": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR",
+          "url": "/api/ability-scores/str"
+        },
+        "minimum_score": 13
+      },
+      {
+        "ability_score": {
+          "index": "dex",
+          "name": "DEX",
+          "url": "/api/ability-scores/dex"
+        },
+        "minimum_score": 13
+      }
+    ]
+  },
+  "proficiencies": [
+    {
+      "index": "light-armor",
+      "name": "Light Armor",
+      "url": "/api/proficiencies/light-armor"
+    },
+    {
+      "index": "simple-weapons",
+      "name": "Simple Weapons",
+      "url": "/api/proficiencies/simple-weapons"
+    }
+  ],
+  "proficiency_choices": [
+    {
+      "choose": 1,
+      "type": "proficiencies",
+      "from": [
+        {
+          "index": "skill-animal-handling",
+          "name": "Skill: Animal Handling",
+          "url": "/api/proficiencies/skill-animal-handling"
+        },
+        {
+          "index": "skill-athletics",
+          "name": "Skill: Athletics",
+          "url": "/api/proficiencies/skill-athletics"
+        },
+      ]
+    }
+  ]
+}</code></pre>
+
+<h4>Multi-Classing Prerequisites</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+      <th align="left">Data Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">prerequisites</td>
+      <td align="left">An object of APIReferences to ability scores and minimum scores</td>
+      <td align="left">list(Object)</td>
+    </tr>
+    <tr>
+      <td align="left">prerequisite_options</td>
+      <td align="left">Choice of prerequisites to meet for</td>
+      <td align="left">list <a href="#choices">Choice</a> (Prerequisites)</td>
+    </tr>
+    <tr>
+      <td align="left">proficiencies</td>
+      <td align="left">Proficiencies available when multiclassing</td>
+      <td align="left">list <a href="#apireference">APIReference</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+    </tr>
+    <tr>
+      <td align="left">proficiency_choices</td>
+      <td align="left">A choice of proficiencies that are given when multiclassing</td>
+      <td align="left">list <a href="#choices">Choice</a> (<a href="#proficiencies">Proficiencies</a>)</td>
+    </tr>
   </tbody>
 </table>
 

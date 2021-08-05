@@ -386,6 +386,38 @@ describe('showSpellcastingForClass', () => {
   });
 });
 
+describe('showMulticlassingForClass', () => {
+  const findOneDoc = {
+    index: 8,
+    class: 'Warlock',
+    url: '/api/classes/warlock',
+    multi_classing: {
+      some: 'data',
+    },
+  };
+  const request = mockRequest({ params: { index: 'warlock' } });
+
+  it('returns a multi-classing object', async () => {
+    mockingoose(Class).toReturn(findOneDoc, 'findOne');
+
+    await ClassController.showMulticlassingForClass(request, response, mockNext);
+    expect(response.status).toHaveBeenCalledWith(200);
+  });
+
+  describe('when something goes wrong', () => {
+    it('handles the error', async () => {
+      const error = new Error('Something went wrong');
+      mockingoose(Class).toReturn(error, 'findOne');
+
+      await ClassController.showMulticlassingForClass(request, response, mockNext);
+
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).not.toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
 describe('showSpellsForClass', () => {
   const findDoc = [
     {

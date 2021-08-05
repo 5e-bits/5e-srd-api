@@ -45,6 +45,17 @@ exports.showLevelForClass = (req, res, next) => {
     });
 };
 
+exports.showMulticlassingForClass = (req, res, next) => {
+  const urlString = '/api/classes/' + req.params.index;
+  return Class.findOne({ url: urlString })
+    .then(data => {
+      res.status(200).json(data.multi_classing);
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
 exports.showSubclassesForClass = (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
   return Subclass.find({ 'class.url': urlString })

@@ -35,9 +35,28 @@ const Spellcasting = {
   spellcasting_ability: APIReference,
 };
 
+const MultiClassingPrereq = {
+  ability_score: APIReference,
+  minimum_score: { type: Number, index: true },
+};
+
+const MultiClassingPrereqOptions = {
+  choose: { type: Number, index: true },
+  from: [MultiClassingPrereq],
+  type: { type: String, index: true },
+};
+
+const MultiClassing = {
+  prerequisites: [MultiClassingPrereq],
+  prerequisite_options: MultiClassingPrereqOptions,
+  proficiencies: [APIReference],
+  proficiency_choices: [ProficiencyChoice],
+};
+
 const Class = new Schema({
   _id: { type: String, select: false },
   class_levels: { type: String, index: true },
+  multi_classing: MultiClassing,
   hit_die: { type: Number, index: true },
   index: { type: String, index: true },
   name: { type: String, index: true },
