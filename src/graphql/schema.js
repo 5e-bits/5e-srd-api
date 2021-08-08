@@ -9,6 +9,7 @@ const Condition = require('../models/condition');
 const DamageType = require('../models/damageType');
 const Equipment = require('../models/equipment');
 const EquipmentCategory = require('../models/equipmentCategory');
+const Feat = require('../models/feat');
 const Feature = require('../models/feature');
 const Language = require('../models/language');
 const Level = require('../models/level');
@@ -34,6 +35,7 @@ const ConditionTC = composeMongoose(Condition);
 const DamageTypeTC = composeMongoose(DamageType);
 const EquipmentTC = composeMongoose(Equipment);
 const EquipmentCategoryTC = composeMongoose(EquipmentCategory);
+const FeatTC = composeMongoose(Feat);
 const FeatureTC = composeMongoose(Feature);
 const LanguageTC = composeMongoose(Language);
 const LevelTC = composeMongoose(Level);
@@ -67,6 +69,8 @@ schemaComposer.Query.addFields({
   equipments: EquipmentTC.mongooseResolvers.findMany(customizationOptions),
   equipmentCategory: EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
   equipmentCategories: EquipmentCategoryTC.mongooseResolvers.findMany(customizationOptions),
+  feat: FeatTC.mongooseResolvers.findOne(customizationOptions),
+  feats: FeatTC.mongooseResolvers.findMany(customizationOptions),
   feature: FeatureTC.mongooseResolvers.findOne(customizationOptions),
   features: FeatureTC.mongooseResolvers.findMany(customizationOptions),
   language: LanguageTC.mongooseResolvers.findOne(customizationOptions),

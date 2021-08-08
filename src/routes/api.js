@@ -11,6 +11,7 @@ router.use('/conditions', require('./api/conditions'));
 router.use('/damage-types', require('./api/damageTypes'));
 router.use('/equipment-categories', require('./api/equipmentCategories'));
 router.use('/equipment', require('./api/equipment'));
+router.use('/feats', require('./api/feats'));
 router.use('/features', require('./api/features'));
 router.use('/languages', require('./api/languages'));
 router.use('/magic-items', require('./api/magicItems'));

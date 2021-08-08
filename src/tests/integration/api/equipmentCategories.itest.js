@@ -64,7 +64,7 @@ describe('/api/equipment-categories', () => {
     });
 
     describe('with an invalid index', () => {
-      it('should return one object', async () => {
+      it('should return 404', async () => {
         const invalidIndex = 'invalid-index';
         const showRes = await request(app).get(`/api/equipment-categories/${invalidIndex}`);
         expect(showRes.statusCode).toEqual(404);

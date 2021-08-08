@@ -38,7 +38,7 @@ describe('/api/rule-sections/:index', () => {
   });
 
   describe('with an invalid index', () => {
-    it('should return one object', async () => {
+    it('should return 404', async () => {
       const invalidIndex = 'invalid-index';
       const showRes = await request(app).get(`/api/rule-sections/${invalidIndex}`);
       expect(showRes.statusCode).toEqual(404);
