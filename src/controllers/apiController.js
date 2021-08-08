@@ -7,6 +7,7 @@ const API_INDEX = {
   'damage-types': '/api/damage-types',
   'equipment-categories': '/api/equipment-categories',
   equipment: '/api/equipment',
+  feats: '/api/feats',
   features: '/api/features',
   languages: '/api/languages',
   'magic-items': '/api/magic-items',
