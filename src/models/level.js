@@ -76,7 +76,6 @@ const Level = new Schema({
   ability_score_bonuses: { type: Number, index: true },
   class: APIReference,
   class_specific: ClassSpecific,
-  feature_choices: [APIReference],
   features: [APIReference],
   index: { type: String, index: true },
   level: { type: Number, index: true },
