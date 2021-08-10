@@ -5,18 +5,23 @@ const AbilityScore = require('../models/abilityScore');
 const Alignment = require('../models/alignment');
 const Background = require('../models/background');
 const Condition = require('../models/condition');
+const Class = require('../models/class');
 const DamageType = require('../models/damageType');
 const Equipment = require('../models/equipment');
 const EquipmentCategory = require('../models/equipmentCategory');
 const Feat = require('../models/feat');
 const Feature = require('../models/feature');
 const Language = require('../models/language');
+const Level = require('../models/level');
 const MagicItem = require('../models/magicItem');
 const MagicSchool = require('../models/magicSchool');
 const Monster = require('../models/monster');
+const Proficiency = require('../models/proficiency');
 const Race = require('../models/race');
 const Rule = require('../models/rule');
 const RuleSection = require('../models/ruleSection');
+const Spell = require('../models/spell');
+const Subclass = require('../models/subclass');
 const Subrace = require('../models/subrace');
 const Trait = require('../models/trait');
 const WeaponProperty = require('../models/weaponProperty');
@@ -25,7 +30,7 @@ const customizationOptions = {};
 const AbilityScoreTC = composeMongoose(AbilityScore);
 const AlignmentTC = composeMongoose(Alignment);
 const BackgroundTC = composeMongoose(Background);
-const ClassTC = require('./TCs/classTC');
+const ClassTC = composeMongoose(Class);
 const ConditionTC = composeMongoose(Condition);
 const DamageTypeTC = composeMongoose(DamageType);
 const EquipmentTC = composeMongoose(Equipment);
@@ -33,19 +38,133 @@ const EquipmentCategoryTC = composeMongoose(EquipmentCategory);
 const FeatTC = composeMongoose(Feat);
 const FeatureTC = composeMongoose(Feature);
 const LanguageTC = composeMongoose(Language);
-const LevelTC = require('./TCs/levelTC');
+const LevelTC = composeMongoose(Level);
 const MagicItemTC = composeMongoose(MagicItem);
 const MagicSchoolTC = composeMongoose(MagicSchool);
 const MonsterTC = composeMongoose(Monster);
-const ProficiencyTC = require('./TCs/proficiencyTC');
+const ProficiencyTC = composeMongoose(Proficiency);
 const RaceTC = composeMongoose(Race);
 const RuleTC = composeMongoose(Rule);
 const RuleSectionTC = composeMongoose(RuleSection);
-const SpellTC = require('./TCs/spellTC');
-const SubclassTC = require('./TCs/subclassTC');
+const SpellTC = composeMongoose(Spell);
+const SubclassTC = composeMongoose(Subclass);
 const SubraceTC = composeMongoose(Subrace);
 const TraitTC = composeMongoose(Trait);
 const WeaponPropertyTC = composeMongoose(WeaponProperty);
+
+ClassTC.addRelation('class_levels', {
+  resolver: () => LevelTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      class: {
+        index: source.index
+      }
+    })
+  },
+  projection: { index: true }
+});
+
+ClassTC.addRelation('spells', {
+  resolver: () => SpellTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+      filter: source => ({
+          classes: [{ index: source.index }]
+      })
+  },
+  projection: {index: true}
+});
+
+ClassTC.addRelation('proficiencies', {
+  resolver: () => ProficiencyTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      classes: [{ index: source.index }]
+  })},
+  projection: { index: true }
+});
+
+FeatureTC.addRelation('level', {
+  resolver: () => LevelTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      features: [{ index: source.index }]
+    })
+  },
+  projection: { index: true }
+});
+
+FeatureTC.addRelation('class', {
+  resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      index: source.class.index
+    })
+  },
+  projection: { class: true }
+});
+
+FeatureTC.addRelation('subclass', {
+  resolver: () => SubclassTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      index: source.subclass.index
+    })
+  },
+  projection: { subclass: true }
+});
+
+LevelTC.addRelation('class', {
+  resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+      filter: source => ({
+          index: source.class.index
+      })
+  },
+  projection: { class: true }
+});
+
+LevelTC.addRelation('subclass', {
+  resolver: () => SubclassTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+      filter: source => ({
+          index: source.subclass.index
+      })
+  },
+  projection: { subclass: true }
+});
+
+LevelTC.addRelation('features', {
+  resolver: () => FeatureTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      level: source.level,
+      class: { index: source.class.index }
+    })
+  },
+  projection: { level: true, class: true }
+});
+
+SubclassTC.addRelation('class', {
+  resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+      filter: source => ({
+          index: source.class.index
+      })
+  },
+  projection: { class: true }
+});
+
+SubclassTC.addRelation('subclass_levels', {
+  resolver: () => LevelTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      subclass: {
+        index: source.index
+      }
+    }),
+    projection: { index: true }
+  }
+});
 
 schemaComposer.Query.addFields({
   abilityScore: AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
