@@ -166,6 +166,53 @@ SubclassTC.addRelation('subclass_levels', {
   }
 });
 
+TraitTC.addRelation('races', {
+  resolver: () => RaceTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.races.map(race => race.index)}
+      }
+    })
+  },
+  projection: { races: true }
+});
+
+TraitTC.addRelation('subraces', {
+  resolver: () => SubraceTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.subraces.map(race => race.index)}
+      }
+    })
+  },
+  projection: { subraces: true }
+});
+
+TraitTC.addRelation('proficiencies', {
+  resolver: () => ProficiencyTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.proficiencies.map(prof => prof.index)}
+      }
+    })
+  },
+  projection: { proficiencies: true }
+});
+
+// Note: Accessing parent field in docs causes call stack to exceed max size from circular reference
+TraitTC.addRelation('parent', {
+  resolver: () => TraitTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      index: source.parent.index
+    })
+  },
+  projection: { parent: true }
+})
+
 schemaComposer.Query.addFields({
   abilityScore: AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
   abilityScores: AbilityScoreTC.mongooseResolvers.findMany(customizationOptions),
