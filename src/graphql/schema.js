@@ -54,6 +54,10 @@ const SubraceTC = composeMongoose(Subrace);
 const TraitTC = composeMongoose(Trait);
 const WeaponPropertyTC = composeMongoose(WeaponProperty);
 
+// TODO: Figure out how to use commented out relations without breaking GraphQL Playground.
+// Commented out relations lead to circular dependencies. This causes graphql introspection to enter an infinite recursive loop,
+// breaking GraphQL Playground.
+
 AbilityScoreTC.addRelation('skills', {
   resolver: () => SkillTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
@@ -109,25 +113,25 @@ ClassTC.addRelation('proficiencies', {
   projection: { index: true }
 });
 
-EquipmentTC.addRelation('equipment_category', {
-  resolver: () => EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs : {
-    filter: source => ({
-      index: source.equipment_category.index
-    })
-  },
-  projection: { equipment_category: true }
-});
+// EquipmentTC.addRelation('equipment_category', {
+//   resolver: () => EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs : {
+//     filter: source => ({
+//       index: source.equipment_category.index
+//     })
+//   },
+//   projection: { equipment_category: true }
+// });
 
-EquipmentTC.addRelation('gear_category', {
-  resolver: () => EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs : {
-    filter: source => ({
-      index: source.gear_category.index
-    })
-  },
-  projection: { gear_category: true }
-});
+// EquipmentTC.addRelation('gear_category', {
+//   resolver: () => EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs : {
+//     filter: source => ({
+//       index: source.gear_category.index
+//     })
+//   },
+//   projection: { gear_category: true }
+// });
 
 EquipmentTC.addRelation('properties', {
   resolver: () => WeaponPropertyTC.mongooseResolvers.findMany(customizationOptions),
@@ -153,15 +157,15 @@ EquipmentCategoryTC.addRelation('equipment', {
   projection: { equipment: true }
 });
 
-FeatureTC.addRelation('level', {
-  resolver: () => LevelTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-    filter: source => ({
-      features: [{ index: source.index }]
-    })
-  },
-  projection: { index: true }
-});
+// FeatureTC.addRelation('level', {
+//   resolver: () => LevelTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       features: [{ index: source.index }]
+//     })
+//   },
+//   projection: { index: true }
+// });
 
 FeatureTC.addRelation('class', {
   resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
@@ -183,25 +187,25 @@ FeatureTC.addRelation('subclass', {
   projection: { subclass: true }
 });
 
-LevelTC.addRelation('class', {
-  resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-      filter: source => ({
-          index: source.class.index
-      })
-  },
-  projection: { class: true }
-});
+// LevelTC.addRelation('class', {
+//   resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs: {
+//       filter: source => ({
+//           index: source.class.index
+//       })
+//   },
+//   projection: { class: true }
+// });
 
-LevelTC.addRelation('subclass', {
-  resolver: () => SubclassTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-      filter: source => ({
-          index: source.subclass.index
-      })
-  },
-  projection: { subclass: true }
-});
+// LevelTC.addRelation('subclass', {
+//   resolver: () => SubclassTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs: {
+//       filter: source => ({
+//           index: source.subclass.index
+//       })
+//   },
+//   projection: { subclass: true }
+// });
 
 LevelTC.addRelation('features', {
   resolver: () => FeatureTC.mongooseResolvers.findMany(customizationOptions),
@@ -214,51 +218,75 @@ LevelTC.addRelation('features', {
   projection: { level: true, class: true }
 });
 
-MonsterTC.addRelation('forms', {
-  resolver: () => MonsterTC.mongooseResolvers.findMany(customizationOptions),
+RaceTC.addRelation('traits', {
+  resolver: () => TraitTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
     filter: source => ({
       _operators: {
-        url: {in: source.forms.map(f => f.url)} // using url because index not defined for monster forms
+        index: {in: source.traits.map(t => t.index)}
       }
     })
   },
-  projection: { forms: true }
+  projection: {traits: true}
 });
 
-SkillTC.addRelation('ability_score', {
-  resolver: () => AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-    filter: source => ({
-      index: source.ability_score.index
-    })
-  },
-  projection: { ability_score: true }
-});
-
-SpellTC.addRelation('classes', {
-  resolver: () => ClassTC.mongooseResolvers.findMany(customizationOptions),
+RuleTC.addRelation('subsections', {
+  resolver: RuleSectionTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.classes.map(c => c.index)}
+        index: {in: source.subsections.map(s => s.index)}
       }
     })
   },
-  projection: { classes: true }
+  projection: { subsections: true }
 });
 
-SpellTC.addRelation('subclasses', {
-  resolver: () => SubclassTC.mongooseResolvers.findMany(customizationOptions),
-  prepareArgs: {
-    filter: source => ({
-      _operators: {
-        index: {in: source.subclasses.map(c => c.index)}
-      }
-    })
-  },
-  projection: { subclasses: true }
-});
+// MonsterTC.addRelation('forms', {
+//   resolver: () => MonsterTC.mongooseResolvers.findMany(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       _operators: {
+//         url: {in: source.forms.map(f => f.url)}
+//       }
+//     })
+//   },
+//   projection: { forms: true }
+// });
+
+// SkillTC.addRelation('ability_score', {
+//   resolver: () => AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       index: source.ability_score.index
+//     })
+//   },
+//   projection: { ability_score: true }
+// });
+
+// SpellTC.addRelation('classes', {
+//   resolver: () => ClassTC.mongooseResolvers.findMany(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       _operators: {
+//         index: {in: source.classes.map(c => c.index)}
+//       }
+//     })
+//   },
+//   projection: { classes: true }
+// });
+
+// SpellTC.addRelation('subclasses', {
+//   resolver: () => SubclassTC.mongooseResolvers.findMany(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       _operators: {
+//         index: {in: source.subclasses.map(c => c.index)}
+//       }
+//     })
+//   },
+//   projection: { subclasses: true }
+// });
 
 SpellTC.addRelation('school', {
   resolver: () => MagicSchoolTC.mongooseResolvers.findOne(customizationOptions),
@@ -270,15 +298,15 @@ SpellTC.addRelation('school', {
   projection: { school: true }
 });
 
-SubclassTC.addRelation('class', {
-  resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-      filter: source => ({
-          index: source.class.index
-      })
-  },
-  projection: { class: true }
-});
+// SubclassTC.addRelation('class', {
+//   resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs: {
+//       filter: source => ({
+//           index: source.class.index
+//       })
+//   },
+//   projection: { class: true }
+// });
 
 SubclassTC.addRelation('subclass_levels', {
   resolver: () => LevelTC.mongooseResolvers.findMany(customizationOptions),
@@ -292,29 +320,41 @@ SubclassTC.addRelation('subclass_levels', {
   }
 });
 
-TraitTC.addRelation('races', {
-  resolver: () => RaceTC.mongooseResolvers.findMany(customizationOptions),
+SubraceTC.addRelation('racial_traits', {
+  resolver: () => TraitTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.races.map(race => race.index)}
+        index: {in: source.racial_traits.map(t => t.index)}
       }
     })
   },
-  projection: { races: true }
+  projection: {racial_traits: true}
 });
 
-TraitTC.addRelation('subraces', {
-  resolver: () => SubraceTC.mongooseResolvers.findMany(customizationOptions),
-  prepareArgs: {
-    filter: source => ({
-      _operators: {
-        index: {in: source.subraces.map(race => race.index)}
-      }
-    })
-  },
-  projection: { subraces: true }
-});
+// TraitTC.addRelation('races', {
+//   resolver: () => RaceTC.mongooseResolvers.findMany(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       _operators: {
+//         index: {in: source.races.map(race => race.index)}
+//       }
+//     })
+//   },
+//   projection: { races: true }
+// });
+
+// TraitTC.addRelation('subraces', {
+//   resolver: () => SubraceTC.mongooseResolvers.findMany(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       _operators: {
+//         index: {in: source.subraces.map(race => race.index)}
+//       }
+//     })
+//   },
+//   projection: { subraces: true }
+// });
 
 TraitTC.addRelation('proficiencies', {
   resolver: () => ProficiencyTC.mongooseResolvers.findMany(customizationOptions),
@@ -328,16 +368,15 @@ TraitTC.addRelation('proficiencies', {
   projection: { proficiencies: true }
 });
 
-// Note: Accessing parent field in docs causes call stack to exceed max size from circular reference
-TraitTC.addRelation('parent', {
-  resolver: () => TraitTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-    filter: source => ({
-      index: source.parent.index
-    })
-  },
-  projection: { parent: true }
-});
+// TraitTC.addRelation('parent', {
+//   resolver: () => TraitTC.mongooseResolvers.findOne(customizationOptions),
+//   prepareArgs: {
+//     filter: source => ({
+//       index: source.parent.index
+//     })
+//   },
+//   projection: { parent: true }
+// });
 
 schemaComposer.Query.addFields({
   abilityScore: AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
