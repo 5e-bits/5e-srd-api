@@ -63,11 +63,11 @@ AbilityScoreTC.addRelation('skills', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.skills.map(skill => skill.index)}
-      }
-    })
+        index: { in: source.skills.map(skill => skill.index) },
+      },
+    }),
   },
-  projection: { skills: true }
+  projection: { skills: true },
 });
 
 BackgroundTC.addRelation('starting_proficiencies', {
@@ -75,11 +75,11 @@ BackgroundTC.addRelation('starting_proficiencies', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.starting_proficiencies.map(prof => prof.index)}
-      }
-    })
+        index: { in: source.starting_proficiencies.map(prof => prof.index) },
+      },
+    }),
   },
-  projection: { starting_proficiencies: true }
+  projection: { starting_proficiencies: true },
 });
 
 ClassTC.addRelation('class_levels', {
@@ -87,30 +87,31 @@ ClassTC.addRelation('class_levels', {
   prepareArgs: {
     filter: source => ({
       class: {
-        index: source.index
-      }
-    })
+        index: source.index,
+      },
+    }),
   },
-  projection: { index: true }
+  projection: { index: true },
 });
 
 ClassTC.addRelation('spells', {
   resolver: () => SpellTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
-      filter: source => ({
-          classes: [{ index: source.index }]
-      })
+    filter: source => ({
+      classes: [{ index: source.index }],
+    }),
   },
-  projection: {index: true}
+  projection: { index: true },
 });
 
 ClassTC.addRelation('proficiencies', {
   resolver: () => ProficiencyTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
     filter: source => ({
-      classes: [{ index: source.index }]
-  })},
-  projection: { index: true }
+      classes: [{ index: source.index }],
+    }),
+  },
+  projection: { index: true },
 });
 
 // EquipmentTC.addRelation('equipment_category', {
@@ -138,11 +139,11 @@ EquipmentTC.addRelation('properties', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.properties.map(prop => prop.index)}
-      }
-    })
+        index: { in: source.properties.map(prop => prop.index) },
+      },
+    }),
   },
-  projection: { properties: true }
+  projection: { properties: true },
 });
 
 EquipmentCategoryTC.addRelation('equipment', {
@@ -150,11 +151,11 @@ EquipmentCategoryTC.addRelation('equipment', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.equipment.map(e => e.index)}
-      }
-    })
+        index: { in: source.equipment.map(e => e.index) },
+      },
+    }),
   },
-  projection: { equipment: true }
+  projection: { equipment: true },
 });
 
 // FeatureTC.addRelation('level', {
@@ -171,20 +172,20 @@ FeatureTC.addRelation('class', {
   resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
   prepareArgs: {
     filter: source => ({
-      index: source.class.index
-    })
+      index: source.class.index,
+    }),
   },
-  projection: { class: true }
+  projection: { class: true },
 });
 
 FeatureTC.addRelation('subclass', {
   resolver: () => SubclassTC.mongooseResolvers.findOne(customizationOptions),
   prepareArgs: {
     filter: source => ({
-      index: source.subclass.index
-    })
+      index: source.subclass.index,
+    }),
   },
-  projection: { subclass: true }
+  projection: { subclass: true },
 });
 
 // LevelTC.addRelation('class', {
@@ -212,10 +213,10 @@ LevelTC.addRelation('features', {
   prepareArgs: {
     filter: source => ({
       level: source.level,
-      class: { index: source.class.index }
-    })
+      class: { index: source.class.index },
+    }),
   },
-  projection: { level: true, class: true }
+  projection: { level: true, class: true },
 });
 
 RaceTC.addRelation('traits', {
@@ -223,11 +224,11 @@ RaceTC.addRelation('traits', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.traits.map(t => t.index)}
-      }
-    })
+        index: { in: source.traits.map(t => t.index) },
+      },
+    }),
   },
-  projection: {traits: true}
+  projection: { traits: true },
 });
 
 RuleTC.addRelation('subsections', {
@@ -235,11 +236,11 @@ RuleTC.addRelation('subsections', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.subsections.map(s => s.index)}
-      }
-    })
+        index: { in: source.subsections.map(s => s.index) },
+      },
+    }),
   },
-  projection: { subsections: true }
+  projection: { subsections: true },
 });
 
 // MonsterTC.addRelation('forms', {
@@ -292,10 +293,10 @@ SpellTC.addRelation('school', {
   resolver: () => MagicSchoolTC.mongooseResolvers.findOne(customizationOptions),
   prepareArgs: {
     filter: source => ({
-      index: source.school.index
-    })
+      index: source.school.index,
+    }),
   },
-  projection: { school: true }
+  projection: { school: true },
 });
 
 // SubclassTC.addRelation('class', {
@@ -313,11 +314,11 @@ SubclassTC.addRelation('subclass_levels', {
   prepareArgs: {
     filter: source => ({
       subclass: {
-        index: source.index
-      }
+        index: source.index,
+      },
     }),
-    projection: { index: true }
-  }
+    projection: { index: true },
+  },
 });
 
 SubraceTC.addRelation('racial_traits', {
@@ -325,11 +326,11 @@ SubraceTC.addRelation('racial_traits', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.racial_traits.map(t => t.index)}
-      }
-    })
+        index: { in: source.racial_traits.map(t => t.index) },
+      },
+    }),
   },
-  projection: {racial_traits: true}
+  projection: { racial_traits: true },
 });
 
 // TraitTC.addRelation('races', {
@@ -361,11 +362,11 @@ TraitTC.addRelation('proficiencies', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: {in: source.proficiencies.map(prof => prof.index)}
-      }
-    })
+        index: { in: source.proficiencies.map(prof => prof.index) },
+      },
+    }),
   },
-  projection: { proficiencies: true }
+  projection: { proficiencies: true },
 });
 
 // TraitTC.addRelation('parent', {
