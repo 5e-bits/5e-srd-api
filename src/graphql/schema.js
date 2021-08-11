@@ -20,6 +20,7 @@ const Proficiency = require('../models/proficiency');
 const Race = require('../models/race');
 const Rule = require('../models/rule');
 const RuleSection = require('../models/ruleSection');
+const Skill = require('../models/skill');
 const Spell = require('../models/spell');
 const Subclass = require('../models/subclass');
 const Subrace = require('../models/subrace');
@@ -46,11 +47,36 @@ const ProficiencyTC = composeMongoose(Proficiency);
 const RaceTC = composeMongoose(Race);
 const RuleTC = composeMongoose(Rule);
 const RuleSectionTC = composeMongoose(RuleSection);
+const SkillTC = composeMongoose(Skill);
 const SpellTC = composeMongoose(Spell);
 const SubclassTC = composeMongoose(Subclass);
 const SubraceTC = composeMongoose(Subrace);
 const TraitTC = composeMongoose(Trait);
 const WeaponPropertyTC = composeMongoose(WeaponProperty);
+
+AbilityScoreTC.addRelation('skills', {
+  resolver: () => SkillTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.skills.map(skill => skill.index)}
+      }
+    })
+  },
+  projection: { skills: true }
+});
+
+BackgroundTC.addRelation('starting_proficiencies', {
+  resolver: () => ProficiencyTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.starting_proficiencies.map(prof => prof.index)}
+      }
+    })
+  },
+  projection: { starting_proficiencies: true }
+});
 
 ClassTC.addRelation('class_levels', {
   resolver: () => LevelTC.mongooseResolvers.findMany(customizationOptions),
@@ -81,6 +107,38 @@ ClassTC.addRelation('proficiencies', {
       classes: [{ index: source.index }]
   })},
   projection: { index: true }
+});
+
+EquipmentTC.addRelation('equipment_category', {
+  resolver: () => EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs : {
+    filter: source => ({
+      index: source.equipment_category.index
+    })
+  },
+  projection: { equipment_category: true }
+});
+
+EquipmentTC.addRelation('gear_category', {
+  resolver: () => EquipmentCategoryTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs : {
+    filter: source => ({
+      index: source.gear_category.index
+    })
+  },
+  projection: { gear_category: true }
+});
+
+EquipmentCategoryTC.addRelation('equipment', {
+  resolver: () => EquipmentTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.equipment.map(e => e.index)}
+      }
+    })
+  },
+  projection: { equipment: true }
 });
 
 FeatureTC.addRelation('level', {
@@ -211,7 +269,17 @@ TraitTC.addRelation('parent', {
     })
   },
   projection: { parent: true }
-})
+});
+
+SkillTC.addRelation('ability_score', {
+  resolver: () => AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      index: source.ability_score.index
+    })
+  },
+  projection: { ability_score: true }
+});
 
 schemaComposer.Query.addFields({
   abilityScore: AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
@@ -252,6 +320,8 @@ schemaComposer.Query.addFields({
   rules: RuleTC.mongooseResolvers.findMany(customizationOptions),
   ruleSection: RuleSectionTC.mongooseResolvers.findOne(customizationOptions),
   ruleSections: RuleSectionTC.mongooseResolvers.findMany(customizationOptions),
+  skill: SkillTC.mongooseResolvers.findOne(customizationOptions),
+  skills: SkillTC.mongooseResolvers.findMany(customizationOptions),
   spell: SpellTC.mongooseResolvers.findOne(customizationOptions),
   spells: SpellTC.mongooseResolvers.findMany(customizationOptions),
   subclass: SubclassTC.mongooseResolvers.findOne(customizationOptions),
