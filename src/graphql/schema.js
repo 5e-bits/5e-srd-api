@@ -214,6 +214,18 @@ LevelTC.addRelation('features', {
   projection: { level: true, class: true }
 });
 
+MonsterTC.addRelation('forms', {
+  resolver: () => MonsterTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        url: {in: source.forms.map(f => f.url)} // using url because index not defined for monster forms
+      }
+    })
+  },
+  projection: { forms: true }
+});
+
 SkillTC.addRelation('ability_score', {
   resolver: () => AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
   prepareArgs: {
