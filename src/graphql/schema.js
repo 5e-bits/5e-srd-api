@@ -129,6 +129,18 @@ EquipmentTC.addRelation('gear_category', {
   projection: { gear_category: true }
 });
 
+EquipmentTC.addRelation('properties', {
+  resolver: () => WeaponPropertyTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.properties.map(prop => prop.index)}
+      }
+    })
+  },
+  projection: { properties: true }
+});
+
 EquipmentCategoryTC.addRelation('equipment', {
   resolver: () => EquipmentTC.mongooseResolvers.findMany(customizationOptions),
   prepareArgs: {
@@ -202,6 +214,50 @@ LevelTC.addRelation('features', {
   projection: { level: true, class: true }
 });
 
+SkillTC.addRelation('ability_score', {
+  resolver: () => AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      index: source.ability_score.index
+    })
+  },
+  projection: { ability_score: true }
+});
+
+SpellTC.addRelation('classes', {
+  resolver: () => ClassTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.classes.map(c => c.index)}
+      }
+    })
+  },
+  projection: { classes: true }
+});
+
+SpellTC.addRelation('subclasses', {
+  resolver: () => SubclassTC.mongooseResolvers.findMany(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      _operators: {
+        index: {in: source.subclasses.map(c => c.index)}
+      }
+    })
+  },
+  projection: { subclasses: true }
+});
+
+SpellTC.addRelation('school', {
+  resolver: () => MagicSchoolTC.mongooseResolvers.findOne(customizationOptions),
+  prepareArgs: {
+    filter: source => ({
+      index: source.school.index
+    })
+  },
+  projection: { school: true }
+});
+
 SubclassTC.addRelation('class', {
   resolver: () => ClassTC.mongooseResolvers.findOne(customizationOptions),
   prepareArgs: {
@@ -269,16 +325,6 @@ TraitTC.addRelation('parent', {
     })
   },
   projection: { parent: true }
-});
-
-SkillTC.addRelation('ability_score', {
-  resolver: () => AbilityScoreTC.mongooseResolvers.findOne(customizationOptions),
-  prepareArgs: {
-    filter: source => ({
-      index: source.ability_score.index
-    })
-  },
-  projection: { ability_score: true }
 });
 
 schemaComposer.Query.addFields({
