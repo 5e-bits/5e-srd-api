@@ -1,0 +1,21 @@
+type AbilityScore {
+  index: String!
+  name: String!
+  full_name: String!
+  desc: [String!]!
+  skills: [Skill!]!
+}
+
+type Skill {
+  index: String!
+  name: String!
+  desc: [String!]!
+  ability_score: AbilityScore!
+}
+
+type Query {
+  abilityScore(index: String!): AbilityScore
+  abilityScores: [AbilityScore]
+  skill(index: String!): Skill
+  skills: [Skill]
+}
