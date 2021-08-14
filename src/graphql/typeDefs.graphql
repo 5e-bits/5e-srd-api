@@ -13,9 +13,18 @@ type Skill {
   ability_score: AbilityScore!
 }
 
+type Alignment {
+  index: String!
+  name: String!
+  abbreviation: String!
+  desc: String!
+}
+
 type Query {
-  abilityScore(index: String!): AbilityScore
+  abilityScore: AbilityScore
   abilityScores: [AbilityScore]
-  skill(index: String!): Skill
+  alignment: Alignment
+  alignments: [Alignment]
+  skill: Skill
   skills: [Skill]
 }

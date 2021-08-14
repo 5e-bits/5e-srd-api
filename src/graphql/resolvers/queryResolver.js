@@ -1,15 +1,22 @@
 const AbilityScore = require('../../models/abilityScore');
 const Skill = require('../../models/skill');
+const Alignment = require('../../models/alignment');
 
 const Query = {
-  async abilityScore(parent, { index }) {
-    return await AbilityScore.findOne({ index });
+  async abilityScore() {
+    return await AbilityScore.findOne();
   },
   async abilityScores() {
     return await AbilityScore.find();
   },
-  async skill(parent, { index }) {
-    return await Skill.findOne({ index });
+  async alignment() {
+    return await Alignment.findOne();
+  },
+  async alignments() {
+    return await Alignment.find();
+  },
+  async skill() {
+    return await Skill.findOne();
   },
   async skills() {
     return await Skill.find();
