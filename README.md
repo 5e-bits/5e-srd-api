@@ -78,3 +78,7 @@ In order to run integration tests locally you can use the command: `npm run test
 - Fork this repository
 - Create a new branch for your work
 - Push up any changes to your branch, and open a pull request. Don't feel it needs to be perfect — incomplete work is totally fine. We'd love to help get it ready for merging.
+
+## Code of Conduct
+
+The Code of Conduct for this repo can be found [here.](https://github.com/5e-bits/5e-srd-api/wiki#code-of-conduct)
