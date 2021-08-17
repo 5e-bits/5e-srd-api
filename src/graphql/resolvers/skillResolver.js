@@ -1,7 +1,8 @@
 const AbilityScore = require('../../models/abilityScore');
 
 const SkillResolver = {
-  ability_score: async parent => await AbilityScore.findOne({ index: parent.ability_score.index }),
+  ability_score: async skill =>
+    await AbilityScore.findOne({ index: skill.ability_score.index }).lean(),
 };
 
 module.exports = SkillResolver;

@@ -1,25 +1,68 @@
 const AbilityScore = require('../../models/abilityScore');
-const Skill = require('../../models/skill');
 const Alignment = require('../../models/alignment');
+const DamageType = require('../../models/damageType');
+const Equipment = require('../../models/equipment');
+const EquipmentCategory = require('../../models/equipmentCategory');
+const MagicItem = require('../../models/magicItem');
+const Skill = require('../../models/skill');
+const WeaponProperty = require('../../models/weaponProperty');
 
 const Query = {
-  async abilityScore() {
-    return await AbilityScore.findOne();
+  async abilityScore(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await AbilityScore.findOne(filter).lean();
   },
   async abilityScores() {
-    return await AbilityScore.find();
+    return await AbilityScore.find().lean();
   },
-  async alignment() {
-    return await Alignment.findOne();
+  async alignment(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Alignment.findOne(filter).lean();
   },
   async alignments() {
-    return await Alignment.find();
+    return await Alignment.find().lean();
   },
-  async skill() {
-    return await Skill.findOne();
+  async damageType(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await DamageType.findOne(filter).lean();
+  },
+  async damageTypes() {
+    return await DamageType.find().lean();
+  },
+  async equipment(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Equipment.findOne(filter).lean();
+  },
+  async equipments() {
+    return await Equipment.find().lean();
+  },
+  async equipmentCategory(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await EquipmentCategory.findOne(filter).lean();
+  },
+  async equipmentCategories() {
+    return await EquipmentCategory.find().lean();
+  },
+  async magicItem(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await MagicItem.findOne(filter).lean();
+  },
+  async magicItems() {
+    return await MagicItem.find().lean();
+  },
+  async skill(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Skill.findOne(filter).lean();
   },
   async skills() {
-    return await Skill.find();
+    return await Skill.find().lean();
+  },
+  async weaponProperty() {
+    return await WeaponProperty.findOne().lean();
+  },
+  async weaponProperties(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await WeaponProperty.find(filter).lean();
   },
 };
 

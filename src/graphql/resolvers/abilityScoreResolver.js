@@ -1,9 +1,9 @@
 const Skill = require('../../models/skill');
 
 const AbilityScoreResolver = {
-  skills: async parent => {
-    const search = { index: { $in: parent.skills.map(s => s.index) } };
-    return await Skill.find(search);
+  skills: async abilityScore => {
+    const search = { index: { $in: abilityScore.skills.map(s => s.index) } };
+    return await Skill.find(search).lean();
   },
 };
 
