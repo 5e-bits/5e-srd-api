@@ -219,6 +219,19 @@ type Language {
   typical_speakers: [String!]!
 }
 
+type Rule {
+  index: String!
+  name: String!
+  desc: String!
+  subsections: [RuleSection!]!
+}
+
+type RuleSection {
+  index: String!
+  name: String!
+  desc: String!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -236,6 +249,10 @@ type Query {
   languages: [Language]
   magicItem: IEquipment
   magicItems: [IEquipment!]
+  rule(index: String): Rule
+  rules: [Rule]
+  ruleSection(index: String): RuleSection
+  ruleSections: [RuleSection!]
   skill(index: String): Skill
   skills: [Skill!]
   weaponProperty(index: String): WeaponProperty
