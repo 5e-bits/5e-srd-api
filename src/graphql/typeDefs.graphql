@@ -210,6 +210,15 @@ type Feat {
   prerequisites: [AbilityScorePrerequisite!]!
 }
 
+type Language {
+  index: String!
+  name: String!
+  desc: String
+  script: String
+  type: String!
+  typical_speakers: [String!]!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -223,6 +232,8 @@ type Query {
   equipmentCategories: [EquipmentCategory!]
   feat(index: String): Feat
   feats: [Feat!]
+  language(index: String): Language
+  languages: [Language]
   magicItem: IEquipment
   magicItems: [IEquipment!]
   skill(index: String): Skill

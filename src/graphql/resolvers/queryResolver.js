@@ -4,6 +4,7 @@ const DamageType = require('../../models/damageType');
 const Equipment = require('../../models/equipment');
 const EquipmentCategory = require('../../models/equipmentCategory');
 const Feat = require('../../models/feat');
+const Language = require('../../models/language');
 const MagicItem = require('../../models/magicItem');
 const Skill = require('../../models/skill');
 const WeaponProperty = require('../../models/weaponProperty');
@@ -50,6 +51,13 @@ const Query = {
   },
   async feats() {
     return await Feat.find().lean();
+  },
+  async language(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Language.findOne(filter).lean();
+  },
+  async languages() {
+    return await Language.find().lean();
   },
   async magicItem(query, args) {
     const filter = args.index ? { index: args.index } : {};
