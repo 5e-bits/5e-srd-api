@@ -3,6 +3,7 @@ const Alignment = require('../../models/alignment');
 const DamageType = require('../../models/damageType');
 const Equipment = require('../../models/equipment');
 const EquipmentCategory = require('../../models/equipmentCategory');
+const Feat = require('../../models/feat');
 const MagicItem = require('../../models/magicItem');
 const Skill = require('../../models/skill');
 const WeaponProperty = require('../../models/weaponProperty');
@@ -42,6 +43,13 @@ const Query = {
   },
   async equipmentCategories() {
     return await EquipmentCategory.find().lean();
+  },
+  async feat(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Feat.findOne(filter).lean();
+  },
+  async feats() {
+    return await Feat.find().lean();
   },
   async magicItem(query, args) {
     const filter = args.index ? { index: args.index } : {};

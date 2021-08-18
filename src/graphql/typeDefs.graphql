@@ -198,6 +198,18 @@ type Vehicle implements IEquipment & IEquipmentBase {
   capacity: String
 }
 
+type AbilityScorePrerequisite {
+  ability_score: AbilityScore!
+  minimum_score: Int!
+}
+
+type Feat {
+  index: String!
+  name: String!
+  desc: [String!]!
+  prerequisites: [AbilityScorePrerequisite!]!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -209,6 +221,8 @@ type Query {
   equipments: [IEquipment!]
   equipmentCategory(index: String): EquipmentCategory
   equipmentCategories: [EquipmentCategory!]
+  feat(index: String): Feat
+  feats: [Feat!]
   magicItem: IEquipment
   magicItems: [IEquipment!]
   skill(index: String): Skill
