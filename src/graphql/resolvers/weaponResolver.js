@@ -1,11 +1,10 @@
 const DamageType = require('../../models/damageType');
 const EquipmentCategory = require('../../models/equipmentCategory');
 const WeaponProperty = require('../../models/weaponProperty');
+const { equipmentFieldResolvers } = require('./common');
 
 const Weapon = {
-  equipment_category: async weapon =>
-    await EquipmentCategory.findOne({ index: weapon.equipment_category.index }).lean(),
-  cost: weapon => ({ ...weapon.cost, unit: weapon.cost.unit.toUpperCase() }),
+  ...equipmentFieldResolvers,
   category_range: async weapon => {
     const indexStart = weapon.category_range.replace(' ', '-').toLowerCase();
     return await EquipmentCategory.findOne({ index: `${indexStart}-weapons` }).lean();

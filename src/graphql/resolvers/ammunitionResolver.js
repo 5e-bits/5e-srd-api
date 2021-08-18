@@ -1,7 +1,7 @@
 const { gearFieldResolvers } = require('./common');
 
-const Gear = {
+const Ammunition = {
   ...gearFieldResolvers,
 };
 
-module.exports = Gear;
+module.exports = Ammunition;

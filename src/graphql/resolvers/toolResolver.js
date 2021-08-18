@@ -1,9 +1,8 @@
 const EquipmentCategory = require('../../models/equipmentCategory');
+const { equipmentFieldResolvers } = require('./common');
 
 const Tool = {
-  equipment_category: async tool =>
-    await EquipmentCategory.findOne({ index: tool.equipment_category.index }).lean(),
-  cost: tool => ({ quantity: tool.cost.quantity, unit: tool.cost.unit.toUpperCase() }),
+  ...equipmentFieldResolvers,
   tool_category: async tool => {
     let index = tool.tool_category
       .replace(' ', '-')

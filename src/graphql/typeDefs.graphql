@@ -46,35 +46,60 @@ type Cost {
 type EquipmentCategory {
   index: String!
   name: String!
-  equipment: [IEquipment!]!
+  equipment: [IEquipmentBase!]!
 }
 
-interface IEquipment {
+interface IEquipmentBase {
   index: String!
   name: String!
-  cost: Cost
+  desc: [String!]
+  equipment_category: EquipmentCategory!
+}
+
+type MagicItem implements IEquipmentBase {
+  index: String!
+  name: String!
+  desc: [String!]!
+  equipment_category: EquipmentCategory!
+}
+
+interface IEquipment implements IEquipmentBase {
+  index: String!
+  name: String!
+  cost: Cost!
   desc: [String!]
   equipment_category: EquipmentCategory!
   weight: Float
 }
 
-type Equipment implements IEquipment {
+type Tool implements IEquipment & IEquipmentBase {
   index: String!
   name: String!
-  cost: Cost
   desc: [String!]
-  equipment_category: EquipmentCategory!
-  weight: Float
-}
-
-type Tool implements IEquipment {
-  index: String!
-  name: String!
-  cost: Cost
-  desc: [String!]
+  cost: Cost!
   equipment_category: EquipmentCategory!
   weight: Float
   tool_category: EquipmentCategory!
+}
+
+interface IGear implements IEquipment & IEquipmentBase {
+  index: String!
+  name: String!
+  cost: Cost!
+  desc: [String!]
+  equipment_category: EquipmentCategory!
+  weight: Float
+  gear_category: EquipmentCategory!
+}
+
+type Gear implements IGear & IEquipment & IEquipmentBase {
+  index: String!
+  name: String!
+  cost: Cost!
+  desc: [String!]
+  equipment_category: EquipmentCategory!
+  weight: Float
+  gear_category: EquipmentCategory!
 }
 
 type Quantity {
@@ -82,16 +107,26 @@ type Quantity {
   item: IEquipment!
 }
 
-type Gear implements IEquipment {
+type Pack implements IGear & IEquipment & IEquipmentBase {
   index: String!
   name: String!
-  cost: Cost
+  cost: Cost!
   desc: [String!]
   equipment_category: EquipmentCategory!
   weight: Float
   gear_category: EquipmentCategory!
-  quantity: Int
-  contents: [Quantity!]
+  contents: [Quantity!]!
+}
+
+type Ammunition implements IGear & IEquipment & IEquipmentBase {
+  index: String!
+  name: String!
+  cost: Cost!
+  desc: [String!]
+  equipment_category: EquipmentCategory!
+  weight: Float
+  gear_category: EquipmentCategory!
+  quantity: Int!
 }
 
 type Damage {
@@ -109,10 +144,10 @@ enum WeaponRange {
   RANGED
 }
 
-type Weapon implements IEquipment {
+type Weapon implements IEquipment & IEquipmentBase {
   index: String!
   name: String!
-  cost: Cost
+  cost: Cost!
   desc: [String!]
   equipment_category: EquipmentCategory!
   weight: Float
@@ -133,10 +168,10 @@ type ArmorClass {
   max_bonus: Int
 }
 
-type Armor implements IEquipment {
+type Armor implements IEquipment & IEquipmentBase {
   index: String!
   name: String!
-  cost: Cost
+  cost: Cost!
   desc: [String!]
   equipment_category: EquipmentCategory!
   weight: Float
@@ -151,7 +186,7 @@ type Speed {
   unit: String!
 }
 
-type Vehicle implements IEquipment {
+type Vehicle implements IEquipment & IEquipmentBase {
   index: String!
   name: String!
   cost: Cost!
