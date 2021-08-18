@@ -6,7 +6,7 @@ const { equipmentFieldResolvers } = require('./common');
 const Weapon = {
   ...equipmentFieldResolvers,
   category_range: async weapon => {
-    const indexStart = weapon.category_range.replace(' ', '-').toLowerCase();
+    const indexStart = weapon.category_range.replace(/\s+/g, '-').toLowerCase();
     return await EquipmentCategory.findOne({ index: `${indexStart}-weapons` }).lean();
   },
   damage: async weapon =>
