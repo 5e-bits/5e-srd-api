@@ -5,8 +5,8 @@ const Tool = {
   ...equipmentFieldResolvers,
   tool_category: async tool => {
     let index = tool.tool_category
-      .replace(' ', '-')
-      .replace("'", '')
+      .replace(/\s+/g, '-')
+      .replace(/'/g, '')
       .toLowerCase();
     if (index.charAt(index.length - 1) !== 's') index += 's';
     return await EquipmentCategory.findOne({ index }).lean();

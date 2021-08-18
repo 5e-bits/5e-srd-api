@@ -6,7 +6,7 @@ const Vehicle = {
   vehicle_category: async vehicle => {
     const index = vehicle.vehicle_category
       .toLowerCase()
-      .replace(/\s/g, '-')
+      .replace(/\s+/g, '-')
       .replace(/,/g, '');
     return await EquipmentCategory.findOne({ index }).lean();
   },
