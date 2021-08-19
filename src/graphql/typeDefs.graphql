@@ -306,6 +306,16 @@ type Spell {
   school: MagicSchool!
 }
 
+union ProficiencyReference = EquipmentCategory | Skill | AbilityScore | Tool | Armor | Weapon | Vehicle | Gear | Pack | Ammunition
+
+# TODO: Add classes and races relations to proficiency
+type Proficiency {
+  index: String!
+  name: String!
+  type: String!
+  reference: ProficiencyReference!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -327,6 +337,8 @@ type Query {
   magicItems: [MagicItem!]
   magicSchool(index: String): MagicSchool
   magicSchools: [MagicSchool!]
+  proficiency(index: String): Proficiency
+  proficiencies: [Proficiency!]
   rule(index: String): Rule
   rules: [Rule]
   ruleSection(index: String): RuleSection

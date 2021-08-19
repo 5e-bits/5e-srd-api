@@ -8,6 +8,7 @@ const Feat = require('../../models/feat');
 const Language = require('../../models/language');
 const MagicItem = require('../../models/magicItem');
 const MagicSchool = require('../../models/magicSchool');
+const Proficiency = require('../../models/proficiency');
 const Rule = require('../../models/rule');
 const RuleSection = require('../../models/ruleSection');
 const Skill = require('../../models/skill');
@@ -84,6 +85,13 @@ const Query = {
   },
   async magicSchools() {
     return await MagicSchool.find().lean();
+  },
+  async proficiency(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Proficiency.findOne(filter).lean();
+  },
+  async proficiencies() {
+    return await Proficiency.find().lean();
   },
   async rule(query, args) {
     const filter = args.index ? { index: args.index } : {};
