@@ -232,6 +232,74 @@ type RuleSection {
   desc: String!
 }
 
+type AreaOfEffect {
+  type: String!
+  size: Int!
+}
+
+enum SpellComponent {
+  V
+  S
+  M
+}
+
+type DamageAtLevel {
+  level: Int!
+  damage: String!
+}
+
+type SpellDamage {
+  damage_at_slot_level: [DamageAtLevel!]
+  damage_at_character_level: [DamageAtLevel!]
+  damage_type: DamageType
+}
+
+type HealingAtLevel {
+  level: Int!
+  healing: String!
+}
+
+enum DcSuccess {
+  NONE
+  HALF
+  OTHER
+}
+
+type SpellDc {
+  success: DcSuccess!
+  type: AbilityScore!
+  desc: String
+}
+
+type MagicSchool {
+  index: String!
+  name: String!
+  desc: String!
+  spells: [Spell!]!
+}
+
+# TODO: Add classes and subclasses relations to spell
+type Spell {
+  index: String!
+  area_of_effect: AreaOfEffect
+  attack_type: String
+  casting_time: String!
+  components: [SpellComponent]
+  concentration: Boolean!
+  damage: SpellDamage
+  dc: SpellDc
+  desc: [String!]!
+  duration: String!
+  heal_at_slot_level: [HealingAtLevel!]
+  higher_level: [String!]
+  level: Int!
+  material: String
+  name: String!
+  range: String!
+  ritual: Boolean!
+  school: MagicSchool!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -247,14 +315,18 @@ type Query {
   feats: [Feat!]
   language(index: String): Language
   languages: [Language]
-  magicItem: IEquipment
-  magicItems: [IEquipment!]
+  magicItem(index: String): MagicItem
+  magicItems: [MagicItem!]
+  magicSchool(index: String): MagicSchool
+  magicSchools: [MagicSchool!]
   rule(index: String): Rule
   rules: [Rule]
   ruleSection(index: String): RuleSection
   ruleSections: [RuleSection!]
   skill(index: String): Skill
   skills: [Skill!]
+  spell(index: String): Spell
+  spells: [Spell!]
   weaponProperty(index: String): WeaponProperty
   weaponProperties: [WeaponProperty]
 }

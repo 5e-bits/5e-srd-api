@@ -8,9 +8,11 @@ const Feat = require('./featResolver');
 const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
 const MagicItem = require('./magicItemResolver');
+const MagicSchool = require('./magicShoolResolver');
 const Pack = require('./packResolver');
 const Rule = require('./ruleResolver');
 const Skill = require('./skillResolver');
+const Spell = require('./spellResolver');
 const Tool = require('./toolResolver');
 const Query = require('./queryResolver');
 const Vehicle = require('./vehicleResolver');
@@ -27,9 +29,11 @@ const resolvers = {
   IGear,
   Gear,
   MagicItem,
+  MagicSchool,
   Pack,
   Rule,
   Skill,
+  Spell,
   Tool,
   Query,
   Vehicle,

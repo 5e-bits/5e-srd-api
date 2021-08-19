@@ -6,9 +6,11 @@ const EquipmentCategory = require('../../models/equipmentCategory');
 const Feat = require('../../models/feat');
 const Language = require('../../models/language');
 const MagicItem = require('../../models/magicItem');
+const MagicSchool = require('../../models/magicSchool');
 const Rule = require('../../models/rule');
 const RuleSection = require('../../models/ruleSection');
 const Skill = require('../../models/skill');
+const Spell = require('../../models/spell');
 const WeaponProperty = require('../../models/weaponProperty');
 
 const Query = {
@@ -68,6 +70,13 @@ const Query = {
   async magicItems() {
     return await MagicItem.find().lean();
   },
+  async magicSchool(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await MagicSchool.findOne(filter).lean();
+  },
+  async magicSchools() {
+    return await MagicSchool.find().lean();
+  },
   async rule(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await Rule.findOne(filter).lean();
@@ -88,6 +97,13 @@ const Query = {
   },
   async skills() {
     return await Skill.find().lean();
+  },
+  async spell(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Spell.findOne(filter).lean();
+  },
+  async spells() {
+    return await Spell.find().lean();
   },
   async weaponProperty() {
     return await WeaponProperty.findOne().lean();
