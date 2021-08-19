@@ -20,6 +20,12 @@ type Alignment {
   desc: String!
 }
 
+type Condition {
+  index: String!
+  name: String!
+  desc: [String!]!
+}
+
 type DamageType {
   index: String!
   name: String!
@@ -305,6 +311,8 @@ type Query {
   abilityScores: [AbilityScore!]
   alignment(index: String): Alignment
   alignments: [Alignment!]
+  condition: Condition
+  conditions: [Condition!]
   damageType(index: String): DamageType
   damageTypes: [DamageType!]
   equipment(index: String): IEquipment
