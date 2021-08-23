@@ -9,6 +9,7 @@ const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
 const MagicItem = require('./magicItemResolver');
 const MagicSchool = require('./magicShoolResolver');
+const Monster = require('./monsterResolver');
 const Pack = require('./packResolver');
 const Proficiency = require('./proficiencyResolver');
 const ProficiencyReference = require('./proficiencyReferenceResolver');
@@ -32,6 +33,7 @@ const resolvers = {
   Gear,
   MagicItem,
   MagicSchool,
+  Monster,
   Pack,
   Proficiency,
   ProficiencyReference,

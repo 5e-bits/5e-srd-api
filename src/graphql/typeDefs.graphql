@@ -316,6 +316,129 @@ type Proficiency {
   reference: ProficiencyReference!
 }
 
+type ActionDc {
+  type: AbilityScore!
+  value: Int!
+  success: DcSuccess!
+}
+
+type LegendaryAction {
+  name: String!
+  desc: String!
+  dc: ActionDc
+  damage: [Damage!]
+}
+
+type MonsterProficiency {
+  proficiency: Proficiency!
+  value: Int!
+}
+
+type Reaction {
+  name: String!
+  desc: String!
+  dc: ActionDc
+}
+
+type Senses {
+  blindsight: String
+  darkvision: String
+  passive_perception: Int!
+  tremorsense: String
+  truesight: String
+}
+
+enum RestType {
+  SHORT
+  LONG
+}
+
+enum UsageType {
+  AT_WILL
+  PER_DAY
+  RECHARGE_ON_ROLL
+  RECHARGE_AFTER_REST
+}
+
+type Usage {
+  type: UsageType!
+  times: Int
+  rest_types: [RestType!]
+  dice: String
+  min_value: Int
+}
+
+type MonsterSpellSlot {
+  level: Int!
+  slots: Int!
+}
+
+type MonsterSpell {
+  spell: Spell!
+  usage: Usage
+}
+
+type MonsterSpellcasting {
+  level: Int
+  ability: AbilityScore!
+  dc: Int
+  modifier: Int
+  components_required: [SpellComponent!]
+  school: String
+  slots: [MonsterSpellSlot!]
+  spells: [MonsterSpell!]!
+}
+
+type SpecialAbility {
+  name: String!
+  desc: String!
+  usage: Usage
+  dc: ActionDc
+  spellcasting: MonsterSpellcasting
+  damage: [Damage!]
+}
+
+type MonsterSpeed {
+  burrow: String
+  climb: String
+  fly: String
+  hover: Boolean
+  swim: String
+  walk: String
+}
+
+# TODO: add actions
+type Monster {
+  index: String!
+  name: String!
+  armor_class: Int!
+  challenge_rating: Float!
+  charisma: Int!
+  condition_immunities: [Condition!]!
+  constitution: Int!
+  damage_immunities: [String!]!
+  damage_resistances: [String!]!
+  damage_vulnerabilities: [String!]!
+  dexterity: Int!
+  forms: [Monster!]
+  hit_dice: String!
+  hit_points: Int!
+  intelligence: Int!
+  languages: String!
+  legendary_actions: [LegendaryAction!]
+  proficiencies: [MonsterProficiency!]!
+  reactions: [Reaction!]
+  senses: Senses!
+  size: String!
+  special_abilities: [SpecialAbility!]
+  speed: MonsterSpeed!
+  strength: Int!
+  subtype: String
+  type: String!
+  wisdom: Int!
+  xp: Int!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -337,6 +460,8 @@ type Query {
   magicItems: [MagicItem!]
   magicSchool(index: String): MagicSchool
   magicSchools: [MagicSchool!]
+  monster(index: String): Monster
+  monsters: [Monster!]
   proficiency(index: String): Proficiency
   proficiencies: [Proficiency!]
   rule(index: String): Rule

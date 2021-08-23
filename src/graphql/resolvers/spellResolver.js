@@ -1,9 +1,7 @@
 const AbilityScore = require('../../models/abilityScore');
 const DamageType = require('../../models/damageType');
 const MagicSchool = require('../../models/magicSchool');
-
-const levelObjectToArray = (obj, fieldName) =>
-  Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
+const { levelObjectToArray } = require('./common');
 
 const Spell = {
   damage: async spell => {

@@ -32,10 +32,14 @@ const resolveEquipmentType = equipment => {
   return null;
 };
 
+const levelObjectToArray = (obj, fieldName) =>
+  Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
+
 module.exports = {
   equipmentBaseFieldResolvers,
   equipmentFieldResolvers,
   gearFieldResolvers,
   resolveGearType,
   resolveEquipmentType,
+  levelObjectToArray,
 };
