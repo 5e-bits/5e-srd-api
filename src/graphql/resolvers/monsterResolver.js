@@ -12,11 +12,16 @@ const resolveDc = async dc => ({
   success: dc.success_type.toUpperCase(),
 });
 
-const resolveDamage = async damage =>
-  damage.map(async d => ({
+const resolveDamage = async damage => {
+  const damageTypes = await DamageTypeModel.find({
+    index: { $in: damage.map(d => d.damage_type.index) },
+  }).lean();
+
+  return damage.map(async d => ({
     ...d,
-    damage_type: await DamageTypeModel.findOne({ index: d.damage_type.index }).lean(),
+    damage_type: damageTypes.find(dt => dt.index === d.damage_type.index),
   }));
+};
 
 const resolveUsage = usage => {
   const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
@@ -52,11 +57,16 @@ const Monster = {
 
     return resolvedLegendaryActions;
   },
-  proficiencies: async monster =>
-    monster.proficiencies.map(async p => ({
+  proficiencies: async monster => {
+    const profs = await ProficiencyModel.find({
+      index: { $in: monster.proficiencies.map(p => p.proficiency.index) },
+    }).lean();
+
+    return monster.proficiencies.map(async p => ({
       ...p,
-      proficiency: await ProficiencyModel.findOne({ index: p.proficiency.index }).lean(),
-    })),
+      proficiency: profs.find(prof => prof.index === p.proficiency.index),
+    }));
+  },
   reactions: async monster =>
     monster.reactions
       ? monster.reactions.map(async r => {
@@ -88,8 +98,11 @@ const Monster = {
         if (spellcasting.slots)
           resolvedSpellcasting.slots = levelObjectToArray(spellcasting.slots, 'slots');
 
+        const spells = await SpellModel.find({
+          url: { $in: spellcasting.spells.map(s => s.url) },
+        }).lean();
         resolvedSpellcasting.spells = spellcasting.spells.map(async s => {
-          const spell = { spell: await SpellModel.findOne({ url: s.url }) };
+          const spell = { spell: spells.find(sp => sp.url === s.url) };
           if (s.usage) spell.usage = resolveUsage(s.usage);
           return spell;
         });

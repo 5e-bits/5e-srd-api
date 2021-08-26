@@ -1,11 +1,17 @@
 const AbilityScore = require('../../models/abilityScore');
 
 const Feat = {
-  prerequisites: async feat =>
-    feat.prerequisites.map(async p => ({
+  prerequisites: async feat => {
+    const prerequisites = feat.prerequisites;
+    const abilityScores = await AbilityScore.find({
+      index: { $in: prerequisites.map(p => p.ability_score.index) },
+    }).lean();
+
+    return prerequisites.map(async p => ({
       ...p,
-      ability_score: await AbilityScore.findOne({ index: p.ability_score.index }).lean(),
-    })),
+      ability_score: abilityScores.find(as => as.index === p.ability_score.index),
+    }));
+  },
 };
 
 module.exports = Feat;
