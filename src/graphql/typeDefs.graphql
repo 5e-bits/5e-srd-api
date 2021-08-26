@@ -439,6 +439,15 @@ type Monster {
   xp: Int!
 }
 
+# TODO: Add races, subraces, trait_specific, and proficiency_choices relations
+type Trait {
+  index: String!
+  desc: [String!]!
+  name: String!
+  proficiencies: [Proficiency!]!
+  parent: Trait
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -472,6 +481,8 @@ type Query {
   skills: [Skill!]
   spell(index: String): Spell
   spells: [Spell!]
+  trait: Trait
+  traits: [Trait!]
   weaponProperty(index: String): WeaponProperty
   weaponProperties: [WeaponProperty]
 }

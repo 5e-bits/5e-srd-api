@@ -17,6 +17,7 @@ const Rule = require('./ruleResolver');
 const Skill = require('./skillResolver');
 const Spell = require('./spellResolver');
 const Tool = require('./toolResolver');
+const Trait = require('./traitResolver');
 const Query = require('./queryResolver');
 const Vehicle = require('./vehicleResolver');
 const Weapon = require('./weaponResolver');
@@ -41,6 +42,7 @@ const resolvers = {
   Skill,
   Spell,
   Tool,
+  Trait,
   Query,
   Vehicle,
   Weapon,

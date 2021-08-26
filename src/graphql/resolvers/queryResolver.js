@@ -14,6 +14,7 @@ const Rule = require('../../models/rule');
 const RuleSection = require('../../models/ruleSection');
 const Skill = require('../../models/skill');
 const Spell = require('../../models/spell');
+const Trait = require('../../models/trait');
 const WeaponProperty = require('../../models/weaponProperty');
 
 const Query = {
@@ -128,6 +129,13 @@ const Query = {
   },
   async spells() {
     return await Spell.find().lean();
+  },
+  async trait(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Trait.findOne(filter).lean();
+  },
+  async traits() {
+    return await Trait.find().lean();
   },
   async weaponProperty() {
     return await WeaponProperty.findOne().lean();
