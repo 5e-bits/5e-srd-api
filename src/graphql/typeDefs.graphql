@@ -477,7 +477,19 @@ type Race {
   size_description: String!
   speed: Int!
   starting_proficiencies: [Proficiency!]!
+  subraces: [Subrace!]!
   traits: [Trait!]!
+}
+
+# TODO: Add language_options relation
+type Subrace {
+  index: String!
+  name: String!
+  ability_bonuses: [AbilityBonus!]!
+  desc: String!
+  race: Race!
+  racial_traits: [Trait!]!
+  starting_proficiencies: [Proficiency!]!
 }
 
 type Query {
@@ -515,6 +527,8 @@ type Query {
   skills: [Skill!]
   spell(index: String): Spell
   spells: [Spell!]
+  subrace(index: String): Subrace
+  subraces: [Subrace!]!
   trait: Trait
   traits: [Trait!]
   weaponProperty(index: String): WeaponProperty
