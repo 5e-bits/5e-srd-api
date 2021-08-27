@@ -5,10 +5,12 @@ const Pack = {
   ...gearFieldResolvers,
   contents: async pack => {
     const contents = pack.contents;
-    const equipment = await Equipment.find({ index: contents.map(c => c.item.index) }).lean();
+    const equipment = await Equipment.find({
+      index: { $in: contents.map(c => c.item.index) },
+    }).lean();
 
-    return contents.map(async c => ({
-      quantity: c.quantity,
+    return contents.map(c => ({
+      ...c,
       item: equipment.find(e => e.index === c.item.index),
     }));
   },

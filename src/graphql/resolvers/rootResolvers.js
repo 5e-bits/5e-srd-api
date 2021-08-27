@@ -1,6 +1,7 @@
 const AbilityScore = require('./abilityScoreResolver');
 const Ammunition = require('./ammunitionResolver');
 const Armor = require('./armorResolver');
+const Background = require('./backgroundResolver');
 const IEquipment = require('./iEquipmentResolver');
 const IEquipmentBase = require('./iEquipmentBaseResolver');
 const EquipmentCategory = require('./equipmentCategoryResolver');
@@ -28,6 +29,7 @@ const resolvers = {
   AbilityScore,
   Ammunition,
   Armor,
+  Background,
   IEquipment,
   IEquipmentBase,
   EquipmentCategory,

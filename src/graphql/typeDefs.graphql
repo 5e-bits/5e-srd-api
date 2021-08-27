@@ -492,11 +492,27 @@ type Subrace {
   starting_proficiencies: [Proficiency!]!
 }
 
+type BackgroundFeature {
+  name: String!
+  desc: [String!]!
+}
+
+# TODO: Add language_options, starting_equipment_options, personality_traits, ideals, bonds, and flaws relations
+type Background {
+  index: String!
+  name: String!
+  starting_proficiencies: [Proficiency!]!
+  starting_equipment: [Quantity!]!
+  feature: BackgroundFeature!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
   alignment(index: String): Alignment
   alignments: [Alignment!]
+  background(index: String): Background
+  backgrounds: [Background!]!
   condition: Condition
   conditions: [Condition!]
   damageType(index: String): DamageType
