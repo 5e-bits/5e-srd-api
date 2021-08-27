@@ -10,6 +10,7 @@ const MagicItem = require('../../models/magicItem');
 const MagicSchool = require('../../models/magicSchool');
 const Monster = require('../../models/monster');
 const Proficiency = require('../../models/proficiency');
+const Race = require('../../models/race');
 const Rule = require('../../models/rule');
 const RuleSection = require('../../models/ruleSection');
 const Skill = require('../../models/skill');
@@ -101,6 +102,13 @@ const Query = {
   },
   async proficiencies() {
     return await Proficiency.find().lean();
+  },
+  async race(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Race.findOne(filter).lean();
+  },
+  async races() {
+    return await Race.find().lean();
   },
   async rule(query, args) {
     const filter = args.index ? { index: args.index } : {};

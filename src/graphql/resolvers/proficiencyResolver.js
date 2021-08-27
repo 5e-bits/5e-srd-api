@@ -1,9 +1,12 @@
 const AbilityScore = require('../../models/abilityScore');
 const Equipment = require('../../models/equipment');
 const EquipmentCategory = require('../../models/equipmentCategory');
+const Race = require('../../models/race');
 const Skill = require('../../models/skill');
 
 const Proficiency = {
+  races: async proficiency =>
+    await Race.find({ index: { $in: proficiency.races.map(r => r.index) } }).lean(),
   reference: async proficiency => {
     const { url } = proficiency.reference;
 

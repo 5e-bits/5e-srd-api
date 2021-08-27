@@ -13,6 +13,7 @@ const Monster = require('./monsterResolver');
 const Pack = require('./packResolver');
 const Proficiency = require('./proficiencyResolver');
 const ProficiencyReference = require('./proficiencyReferenceResolver');
+const Race = require('./raceResolver');
 const Rule = require('./ruleResolver');
 const Skill = require('./skillResolver');
 const Spell = require('./spellResolver');
@@ -38,6 +39,7 @@ const resolvers = {
   Pack,
   Proficiency,
   ProficiencyReference,
+  Race,
   Rule,
   Skill,
   Spell,

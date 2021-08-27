@@ -308,11 +308,12 @@ type Spell {
 
 union ProficiencyReference = EquipmentCategory | Skill | AbilityScore | Tool | Armor | Weapon | Vehicle | Gear | Pack | Ammunition
 
-# TODO: Add classes and races relations to proficiency
+# TODO: Add classes relation to proficiency
 type Proficiency {
   index: String!
   name: String!
   type: String!
+  races: [Race!]!
   reference: ProficiencyReference!
 }
 
@@ -407,6 +408,11 @@ type MonsterSpeed {
   walk: String
 }
 
+enum Size {
+  SMALL
+  MEDIUM
+}
+
 # TODO: add actions
 type Monster {
   index: String!
@@ -439,13 +445,35 @@ type Monster {
   xp: Int!
 }
 
-# TODO: Add races, subraces, trait_specific, and proficiency_choices relations
+# TODO: Add subraces, trait_specific, and proficiency_choices relations
 type Trait {
   index: String!
   desc: [String!]!
   name: String!
   proficiencies: [Proficiency!]!
   parent: Trait
+  races: [Race]!
+}
+
+type AbilityBonus {
+  ability_score: AbilityScore!
+  bonus: Int!
+}
+
+# TODO: Add ability_bonus_options, language_options, starting_proficiency_options, and subraces
+type Race {
+  index: String!
+  name: String!
+  ability_bonuses: [AbilityBonus]!
+  age: String!
+  alignment: String!
+  language_desc: String!
+  languages: [Language!]!
+  size: Size!
+  size_description: String!
+  speed: Int!
+  starting_proficiencies: [Proficiency!]!
+  traits: [Trait!]!
 }
 
 type Query {
@@ -473,6 +501,8 @@ type Query {
   monsters: [Monster!]
   proficiency(index: String): Proficiency
   proficiencies: [Proficiency!]
+  race(index: String): Race
+  races: [Race!]!
   rule(index: String): Rule
   rules: [Rule]
   ruleSection(index: String): RuleSection
