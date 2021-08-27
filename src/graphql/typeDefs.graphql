@@ -449,7 +449,7 @@ type Monster {
   xp: Int!
 }
 
-# TODO: Add subraces, trait_specific, and proficiency_choices relations
+# TODO: Add trait_specific, and proficiency_choices relations
 type Trait {
   index: String!
   desc: [String!]!
@@ -457,6 +457,7 @@ type Trait {
   proficiencies: [Proficiency!]!
   parent: Trait
   races: [Race]!
+  subraces: [Subrace!]!
 }
 
 type AbilityBonus {
@@ -464,7 +465,7 @@ type AbilityBonus {
   bonus: Int!
 }
 
-# TODO: Add ability_bonus_options, language_options, starting_proficiency_options, and subraces
+# TODO: Add ability_bonus_options, language_options, starting_proficiency_options
 type Race {
   index: String!
   name: String!
