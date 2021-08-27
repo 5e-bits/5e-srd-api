@@ -409,8 +409,12 @@ type MonsterSpeed {
 }
 
 enum Size {
+  TINY
   SMALL
   MEDIUM
+  LARGE
+  HUGE
+  GARGANTUAN
 }
 
 # TODO: add actions
@@ -435,7 +439,7 @@ type Monster {
   proficiencies: [MonsterProficiency!]!
   reactions: [Reaction!]
   senses: Senses!
-  size: String!
+  size: Size!
   special_abilities: [SpecialAbility!]
   speed: MonsterSpeed!
   strength: Int!

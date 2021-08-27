@@ -75,6 +75,7 @@ const Monster = {
           return resolvedReaction;
         })
       : null,
+  size: monster => monster.size.toUpperCase(),
   special_abilities: async monster => {
     const { special_abilities } = monster;
     if (!special_abilities) return null;
