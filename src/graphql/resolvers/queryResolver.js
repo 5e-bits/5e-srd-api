@@ -1,6 +1,7 @@
 const AbilityScore = require('../../models/abilityScore');
 const Alignment = require('../../models/alignment');
 const Background = require('../../models/background');
+const Class = require('../../models/class');
 const Condition = require('../../models/condition');
 const DamageType = require('../../models/damageType');
 const Equipment = require('../../models/equipment');
@@ -41,6 +42,13 @@ const Query = {
   },
   async backgrounds() {
     return await Background.find().lean();
+  },
+  async class(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Class.findOne(filter).lean();
+  },
+  async classes() {
+    return await Class.find().lean();
   },
   async condition(query, args) {
     const filter = args.index ? { index: args.index } : {};

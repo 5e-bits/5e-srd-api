@@ -1,9 +1,12 @@
 const AbilityScore = require('../../models/abilityScore');
+const Class = require('../../models/class');
 const DamageType = require('../../models/damageType');
 const MagicSchool = require('../../models/magicSchool');
 const { levelObjectToArray } = require('./common');
 
 const Spell = {
+  classes: async spell =>
+    await Class.find({ index: { $in: spell.classes.map(s => s.index) } }).lean(),
   damage: async spell => {
     if (!spell.damage) return null;
     const spellDamage = {};

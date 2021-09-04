@@ -284,12 +284,13 @@ type MagicSchool {
   spells: [Spell!]!
 }
 
-# TODO: Add classes and subclasses relations to spell
+# TODO: Add subclasses relations to spell
 type Spell {
   index: String!
   area_of_effect: AreaOfEffect
   attack_type: String
   casting_time: String!
+  classes: [Class!]!
   components: [SpellComponent]
   concentration: Boolean!
   damage: SpellDamage
@@ -308,10 +309,10 @@ type Spell {
 
 union ProficiencyReference = EquipmentCategory | Skill | AbilityScore | Tool | Armor | Weapon | Vehicle | Gear | Pack | Ammunition
 
-# TODO: Add classes relation to proficiency
 type Proficiency {
   index: String!
   name: String!
+  classes: [Class!]!
   type: String!
   races: [Race!]!
   reference: ProficiencyReference!
@@ -507,6 +508,29 @@ type Background {
   feature: BackgroundFeature!
 }
 
+type SpellcastingInfo {
+  name: String!
+  desc: [String!]!
+}
+
+type ClassSpellcasting {
+  info: [SpellcastingInfo!]!
+  level: Int!
+  spellcasting_ability: AbilityScore!
+}
+
+# TODO: Add class_levels, multi_classing, proficiency_choices, starting_equipment_options, and subclasses relations
+type Class {
+  index: String!
+  name: String!
+  hit_die: Int!
+  proficiencies: [Proficiency!]!
+  saving_throws: [AbilityScore!]!
+  spellcasting: ClassSpellcasting
+  spells: [Spell!]
+  starting_equipment: [Quantity!]!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -514,6 +538,8 @@ type Query {
   alignments: [Alignment!]
   background(index: String): Background
   backgrounds: [Background!]!
+  class(index: String): Class
+  classes: [Class!]!
   condition: Condition
   conditions: [Condition!]
   damageType(index: String): DamageType
