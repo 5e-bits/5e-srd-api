@@ -7,6 +7,7 @@ const DamageType = require('../../models/damageType');
 const Equipment = require('../../models/equipment');
 const EquipmentCategory = require('../../models/equipmentCategory');
 const Feat = require('../../models/feat');
+const Feature = require('../../models/feature');
 const Language = require('../../models/language');
 const MagicItem = require('../../models/magicItem');
 const MagicSchool = require('../../models/magicSchool');
@@ -84,6 +85,13 @@ const Query = {
   },
   async feats() {
     return await Feat.find().lean();
+  },
+  async feature(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Feature.findOne(filter).lean();
+  },
+  async features() {
+    return await Feature.find().lean();
   },
   async language(query, args) {
     const filter = args.index ? { index: args.index } : {};

@@ -531,6 +531,16 @@ type Class {
   starting_equipment: [Quantity!]!
 }
 
+# TODO: Add subclass, prerequisites, reference, and feature_specific relations 
+type Feature {
+  index: String!
+  name: String!
+  level: Int!
+  desc: [String!]!
+  parent: Feature
+  class: Class!
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -550,6 +560,8 @@ type Query {
   equipmentCategories: [EquipmentCategory!]
   feat(index: String): Feat
   feats: [Feat!]
+  feature(index: String): Feature
+  features: [Feature!]
   language(index: String): Language
   languages: [Language]
   magicItem(index: String): MagicItem

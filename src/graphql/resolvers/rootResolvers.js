@@ -7,6 +7,7 @@ const IEquipment = require('./iEquipmentResolver');
 const IEquipmentBase = require('./iEquipmentBaseResolver');
 const EquipmentCategory = require('./equipmentCategoryResolver');
 const Feat = require('./featResolver');
+const Feature = require('./featureResolver');
 const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
 const MagicItem = require('./magicItemResolver');
@@ -36,6 +37,7 @@ const resolvers = {
   IEquipmentBase,
   EquipmentCategory,
   Feat,
+  Feature,
   IGear,
   Gear,
   MagicItem,
