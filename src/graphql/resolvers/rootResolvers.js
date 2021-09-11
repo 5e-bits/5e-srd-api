@@ -3,6 +3,7 @@ const Ammunition = require('./ammunitionResolver');
 const Armor = require('./armorResolver');
 const Background = require('./backgroundResolver');
 const Class = require('./classResolver');
+const ClassSpecific = require('./classSpecificResolver');
 const IEquipment = require('./iEquipmentResolver');
 const IEquipmentBase = require('./iEquipmentBaseResolver');
 const EquipmentCategory = require('./equipmentCategoryResolver');
@@ -10,6 +11,7 @@ const Feat = require('./featResolver');
 const Feature = require('./featureResolver');
 const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
+const Level = require('./levelResolver');
 const MagicItem = require('./magicItemResolver');
 const MagicSchool = require('./magicShoolResolver');
 const Monster = require('./monsterResolver');
@@ -33,6 +35,7 @@ const resolvers = {
   Armor,
   Background,
   Class,
+  ClassSpecific,
   IEquipment,
   IEquipmentBase,
   EquipmentCategory,
@@ -40,6 +43,7 @@ const resolvers = {
   Feature,
   IGear,
   Gear,
+  Level,
   MagicItem,
   MagicSchool,
   Monster,

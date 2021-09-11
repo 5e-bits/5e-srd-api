@@ -519,7 +519,7 @@ type ClassSpellcasting {
   spellcasting_ability: AbilityScore!
 }
 
-# TODO: Add class_levels, multi_classing, proficiency_choices, starting_equipment_options, and subclasses relations
+# TODO: Add multi_classing, proficiency_choices, starting_equipment_options, and subclasses relations
 type Class {
   index: String!
   name: String!
@@ -529,6 +529,7 @@ type Class {
   spellcasting: ClassSpellcasting
   spells: [Spell!]
   starting_equipment: [Quantity!]!
+  class_levels: [Level!]!
 }
 
 # TODO: Add subclass, prerequisites, reference, and feature_specific relations 
@@ -539,6 +540,112 @@ type Feature {
   desc: [String!]!
   parent: Feature
   class: Class!
+}
+
+type LevelSpellcasting {
+  cantrips_known: Int
+  spell_slots_level_1: Int
+  spell_slots_level_2: Int
+  spell_slots_level_3: Int
+  spell_slots_level_4: Int
+  spell_slots_level_5: Int
+  spell_slots_level_6: Int
+  spell_slots_level_7: Int
+  spell_slots_level_8: Int
+  spell_slots_level_9: Int
+  spells_known: Int
+}
+
+type Dice {
+  dice_count: Int!
+  dice_value: Int!
+}
+
+type BarbarianSpecific {
+  rage_count: Int!
+  rage_damage_bonus: Int!
+  brutal_critical_dice: Int!
+}
+
+type BardSpecific {
+  bardic_inspiration_die: Int!
+  song_of_rest_die: Int!
+  magical_secrets_max_5: Int!
+  magical_secrets_max_7: Int!
+  magical_secrets_max_9: Int!
+}
+
+type ClericSpecific {
+  channel_divinity_charges: Int!
+  destroy_undead_cr: Float!
+}
+
+type DruidSpecific {
+  wild_shape_max_cr: Float!
+  wild_shape_swim: Boolean!
+  wild_shape_fly: Boolean!
+}
+
+type FighterSpecific {
+  action_surges: Int!
+  indomitable_uses: Int!
+  extra_attacks: Int!
+}
+
+type MonkSpecific {
+  martial_arts: Dice!
+  ki_points: Int!
+  unarmored_movement: Int!
+}
+
+type PaladinSpecific {
+  aura_range: Int!
+}
+
+type RangerSpecific {
+  favored_enemies: Int!
+  favored_terrain: Int!
+}
+
+type RogueSpecific {
+  sneak_attack: Dice!
+}
+
+type SpellSlotCreation {
+  sorcery_point_cost: Int!
+  spell_slot_level: Int!
+}
+
+type SorcererSpecific {
+  sorcery_points: Int!
+  metamagic_known: Int!
+  creating_spell_slots: [SpellSlotCreation!]!
+}
+
+type WarlockSpecific {
+  invocations_known: Int!
+  mystic_arcanum_level_6: Int!
+  mystic_arcanum_level_7: Int!
+  mystic_arcanum_level_8: Int!
+  mystic_arcanum_level_9: Int!
+}
+
+type WizardSpecific {
+  arcane_recovery_levels: Int!
+}
+
+union ClassSpecific = BarbarianSpecific | BardSpecific | ClericSpecific | DruidSpecific | FighterSpecific | MonkSpecific | PaladinSpecific | RangerSpecific | RogueSpecific | SorcererSpecific | WarlockSpecific | WizardSpecific
+
+# TODO: Add subclass and subclass_specific relations
+type Level {
+  index: String!
+  level: Int!
+  ability_score_bonuses: Int
+  class: Class!
+  features: [Feature!]!
+  prof_bonus: Int
+  spellcasting: LevelSpellcasting
+  class_specific: ClassSpecific
 }
 
 type Query {
@@ -563,7 +670,9 @@ type Query {
   feature(index: String): Feature
   features: [Feature!]
   language(index: String): Language
-  languages: [Language]
+  languages: [Language!]
+  level(index: String): Level
+  levels: [Level!]
   magicItem(index: String): MagicItem
   magicItems: [MagicItem!]
   magicSchool(index: String): MagicSchool

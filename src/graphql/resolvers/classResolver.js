@@ -1,5 +1,6 @@
 const AbilityScoreModel = require('../../models/abilityScore');
 const EquipmentModel = require('../../models/equipment');
+const LevelModel = require('../../models/level');
 const ProficiencyModel = require('../../models/proficiency');
 const SpellModel = require('../../models/spell');
 
@@ -32,6 +33,7 @@ const Class = {
       item: equipment.find(e => e.index === se.equipment.index),
     }));
   },
+  class_levels: async klass => await LevelModel.find({ 'class.index': klass.index }).lean(),
 };
 
 module.exports = Class;
