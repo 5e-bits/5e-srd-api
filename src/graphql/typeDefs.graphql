@@ -284,13 +284,13 @@ type MagicSchool {
   spells: [Spell!]!
 }
 
-# TODO: Add subclasses relations to spell
 type Spell {
   index: String!
   area_of_effect: AreaOfEffect
   attack_type: String
   casting_time: String!
   classes: [Class!]!
+  subclasses: [Subclass!]!
   components: [SpellComponent]
   concentration: Boolean!
   damage: SpellDamage
@@ -519,7 +519,7 @@ type ClassSpellcasting {
   spellcasting_ability: AbilityScore!
 }
 
-# TODO: Add multi_classing, proficiency_choices, starting_equipment_options, and subclasses relations
+# TODO: Add multi_classing, proficiency_choices, and starting_equipment_options relations
 type Class {
   index: String!
   name: String!
@@ -530,9 +530,10 @@ type Class {
   spells: [Spell!]
   starting_equipment: [Quantity!]!
   class_levels: [Level!]!
+  subclasses: [Subclass!]!
 }
 
-# TODO: Add subclass, prerequisites, reference, and feature_specific relations 
+# TODO: Add prerequisites, reference, and feature_specific relations 
 type Feature {
   index: String!
   name: String!
@@ -540,6 +541,7 @@ type Feature {
   desc: [String!]!
   parent: Feature
   class: Class!
+  subclass: Subclass
 }
 
 type LevelSpellcasting {
@@ -636,16 +638,44 @@ type WizardSpecific {
 
 union ClassSpecific = BarbarianSpecific | BardSpecific | ClericSpecific | DruidSpecific | FighterSpecific | MonkSpecific | PaladinSpecific | RangerSpecific | RogueSpecific | SorcererSpecific | WarlockSpecific | WizardSpecific
 
-# TODO: Add subclass and subclass_specific relations
+type DevotionSpecific {
+  aura_range: Int!
+}
+
+type LoreSpecific {
+  additional_magical_secrets_max_lvl: Int!
+}
+
+union SubclassSpecific = DevotionSpecific | LoreSpecific
+
 type Level {
   index: String!
   level: Int!
   ability_score_bonuses: Int
   class: Class!
+  subclass: Subclass
   features: [Feature!]!
   prof_bonus: Int
   spellcasting: LevelSpellcasting
   class_specific: ClassSpecific
+  subclass_specific: SubclassSpecific
+}
+
+union SpellPrerequisite = Feature | Level
+
+type SpellWithPrerequisite {
+  prerequisites: [SpellPrerequisite]!
+  spell: Spell!
+}
+
+type Subclass {
+  index: String!
+  name: String!
+  desc: [String!]!
+  class: Class!
+  subclass_flavor: String!
+  subclass_levels: [Level]!
+  spells: [SpellWithPrerequisite!]
 }
 
 type Query {
@@ -691,6 +721,8 @@ type Query {
   skills: [Skill!]
   spell(index: String): Spell
   spells: [Spell!]
+  subclass(index: String): Subclass
+  subclasses: [Subclass!]!
   subrace(index: String): Subrace
   subraces: [Subrace!]!
   trait: Trait

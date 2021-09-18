@@ -22,6 +22,9 @@ const Race = require('./raceResolver');
 const Rule = require('./ruleResolver');
 const Skill = require('./skillResolver');
 const Spell = require('./spellResolver');
+const SpellPrerequisite = require('./spellPrerequisiteResolver');
+const Subclass = require('./subclassResolver');
+const SubclassSpecific = require('./subclassSpecificResolver');
 const Subrace = require('./subraceResolver');
 const Tool = require('./toolResolver');
 const Trait = require('./traitResolver');
@@ -54,6 +57,9 @@ const resolvers = {
   Rule,
   Skill,
   Spell,
+  SpellPrerequisite,
+  Subclass,
+  SubclassSpecific,
   Subrace,
   Tool,
   Trait,

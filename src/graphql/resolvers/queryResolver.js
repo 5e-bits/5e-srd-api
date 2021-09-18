@@ -19,6 +19,7 @@ const Rule = require('../../models/rule');
 const RuleSection = require('../../models/ruleSection');
 const Skill = require('../../models/skill');
 const Spell = require('../../models/spell');
+const Subclass = require('../../models/subclass');
 const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const WeaponProperty = require('../../models/weaponProperty');
@@ -170,6 +171,13 @@ const Query = {
   },
   async spells() {
     return await Spell.find().lean();
+  },
+  async subclass(query, args) {
+    const filter = args.index ? { index: args.index } : {};
+    return await Subclass.findOne(filter).lean();
+  },
+  async subclasses() {
+    return await Subclass.find().lean();
   },
   async subrace(query, args) {
     const filter = args.index ? { index: args.index } : {};
