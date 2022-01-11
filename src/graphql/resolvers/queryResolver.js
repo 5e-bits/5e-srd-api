@@ -162,8 +162,34 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Level.findOne(filter).lean();
   },
-  async levels() {
-    return await Level.find().lean();
+  async levels(query, args) {
+    const filters = [];
+    if (args.class) {
+      const filter = { 'class.index': { $in: args.class } };
+      filters.push(filter);
+    }
+
+    if (args.subclass) {
+      const filter = { 'subclass.index': { $in: args.subclass } };
+      filters.push(filter);
+    }
+
+    if (args.level) {
+      const filter = { level: { $in: args.level } };
+      filters.push(filter);
+    }
+
+    let filter = {};
+    if (filters.length === 1) {
+      filter = filters[0];
+    }
+    if (filters.length > 1) {
+      filter = {
+        $and: filters,
+      };
+    }
+
+    return await Level.find(filter).lean();
   },
   async magicItem(query, args) {
     const filter = args.index ? { index: args.index } : {};
