@@ -122,8 +122,13 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await MagicItem.findOne(filter).lean();
   },
-  async magicItems() {
-    return await MagicItem.find().lean();
+  async magicItems(query, args) {
+    let filter = {};
+    if (args.equipment_category) {
+      filter = { 'equipment_category.index': { $in: args.equipment_category } };
+    }
+
+    return await MagicItem.find(filter).lean();
   },
   async magicSchool(query, args) {
     const filter = args.index ? { index: args.index } : {};

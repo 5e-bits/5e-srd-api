@@ -714,7 +714,7 @@ type Query {
   level(index: String): Level
   levels: [Level!]
   magicItem(index: String): MagicItem
-  magicItems: [MagicItem!]
+  magicItems(equipment_category: StringFilter): [MagicItem!]
   magicSchool(index: String): MagicSchool
   magicSchools: [MagicSchool!]
   monster(index: String): Monster
