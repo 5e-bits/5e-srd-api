@@ -169,8 +169,24 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Spell.findOne(filter).lean();
   },
-  async spells() {
-    return await Spell.find().lean();
+  async spells(query, args) {
+    const filters = [];
+    if (args.school) {
+      const filter = { 'school.index': { $in: args.school } };
+      filters.push(filter);
+    }
+
+    let filter = {};
+    if (filters.length === 1) {
+      filter = filters[0];
+    }
+    if (filters.length > 1) {
+      filter = {
+        $and: filters,
+      };
+    }
+
+    return await Spell.find(filter).lean();
   },
   async subclass(query, args) {
     const filter = args.index ? { index: args.index } : {};

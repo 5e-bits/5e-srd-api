@@ -23,6 +23,7 @@ const Rule = require('./ruleResolver');
 const Skill = require('./skillResolver');
 const Spell = require('./spellResolver');
 const SpellPrerequisite = require('./spellPrerequisiteResolver');
+const StringFilter = require('./scalars/stringFilterResolver');
 const Subclass = require('./subclassResolver');
 const SubclassSpecific = require('./subclassSpecificResolver');
 const Subrace = require('./subraceResolver');
@@ -58,6 +59,7 @@ const resolvers = {
   Skill,
   Spell,
   SpellPrerequisite,
+  StringFilter,
   Subclass,
   SubclassSpecific,
   Subrace,
