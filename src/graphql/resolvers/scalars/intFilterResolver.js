@@ -1,8 +1,8 @@
 const { GraphQLScalarType, Kind } = require('graphql');
 
-const StringFilter = new GraphQLScalarType({
-  name: 'StringFilter',
-  description: 'String or list of strings',
+const IntFilter = new GraphQLScalarType({
+  name: 'IntFilter',
+  description: 'Int or list of ints',
   serialize(value) {
     return value;
   },
@@ -10,13 +10,13 @@ const StringFilter = new GraphQLScalarType({
     if (Array.isArray(value)) {
       const filter = [];
       for (const x of value) {
-        if (typeof x === 'string') {
+        if (Number.isInteger(x)) {
           filter.push(x);
         }
       }
 
       return filter;
-    } else if (typeof value === 'string') {
+    } else if (Number.isInteger(value)) {
       return [value];
     } else {
       return null;
@@ -26,13 +26,13 @@ const StringFilter = new GraphQLScalarType({
     if (ast.kind === Kind.LIST) {
       const filter = [];
       for (const x of ast.values) {
-        if (x.kind === Kind.STRING) {
+        if (x.kind === Kind.INT) {
           filter.push(x.value);
         }
       }
 
       return filter;
-    } else if (ast.kind === Kind.STRING) {
+    } else if (ast.kind === Kind.INT) {
       return [ast.value];
     } else {
       return null;
@@ -40,4 +40,4 @@ const StringFilter = new GraphQLScalarType({
   },
 });
 
-module.exports = StringFilter;
+module.exports = IntFilter;

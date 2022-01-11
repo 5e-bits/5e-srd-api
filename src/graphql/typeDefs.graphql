@@ -3,6 +3,11 @@ String or list of strings
 """
 scalar StringFilter
 
+"""
+Int or list of ints
+"""
+scalar IntFilter
+
 type AbilityScore {
   index: String!
   name: String!
@@ -725,7 +730,7 @@ type Query {
   skill(index: String): Skill
   skills: [Skill!]
   spell(index: String): Spell
-  spells(school: StringFilter): [Spell!]
+  spells(school: StringFilter, level: IntFilter): [Spell!]
   subclass(index: String): Subclass
   subclasses: [Subclass!]!
   subrace(index: String): Subrace

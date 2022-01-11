@@ -176,6 +176,11 @@ const Query = {
       filters.push(filter);
     }
 
+    if (args.level) {
+      const filter = { level: { $in: args.level } };
+      filters.push(filter);
+    }
+
     let filter = {};
     if (filters.length === 1) {
       filter = filters[0];

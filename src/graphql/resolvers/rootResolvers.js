@@ -11,6 +11,7 @@ const Feat = require('./featResolver');
 const Feature = require('./featureResolver');
 const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
+const IntFilter = require('./scalars/intFilterResolver');
 const Level = require('./levelResolver');
 const MagicItem = require('./magicItemResolver');
 const MagicSchool = require('./magicShoolResolver');
@@ -47,6 +48,7 @@ const resolvers = {
   Feature,
   IGear,
   Gear,
+  IntFilter,
   Level,
   MagicItem,
   MagicSchool,
