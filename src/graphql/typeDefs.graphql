@@ -696,7 +696,7 @@ type Query {
   background(index: String): Background
   backgrounds: [Background!]!
   class(index: String): Class
-  classes: [Class!]!
+  classes(hit_die: IntFilter): [Class!]!
   condition: Condition
   conditions: [Condition!]
   damageType(index: String): DamageType

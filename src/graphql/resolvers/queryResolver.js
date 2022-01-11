@@ -50,8 +50,12 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Class.findOne(filter).lean();
   },
-  async classes() {
-    return await Class.find().lean();
+  async classes(query, args) {
+    let filter = {};
+    if (args.hit_die) {
+      filter = { hit_die: { $in: args.hit_die } };
+    }
+    return await Class.find(filter).lean();
   },
   async condition(query, args) {
     const filter = args.index ? { index: args.index } : {};
