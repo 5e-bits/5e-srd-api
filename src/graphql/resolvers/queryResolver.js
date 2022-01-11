@@ -134,8 +134,29 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Language.findOne(filter).lean();
   },
-  async languages() {
-    return await Language.find().lean();
+  async languages(query, args) {
+    const filters = [];
+    if (args.type) {
+      const type = args.type[0].toUpperCase() + args.type.slice(1).toLowerCase();
+      filters.push({ type });
+    }
+
+    if (args.script) {
+      const filter = { script: { $in: args.script } };
+      filters.push(filter);
+    }
+
+    let filter = {};
+    if (filters.length === 1) {
+      filter = filters[0];
+    }
+    if (filters.length > 1) {
+      filter = {
+        $and: filters,
+      };
+    }
+
+    return await Language.find(filter).lean();
   },
   async level(query, args) {
     const filter = args.index ? { index: args.index } : {};

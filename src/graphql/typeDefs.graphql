@@ -226,12 +226,17 @@ type Feat {
   prerequisites: [AbilityScorePrerequisite!]!
 }
 
+enum LanguageType {
+  STANDARD,
+  EXOTIC
+}
+
 type Language {
   index: String!
   name: String!
   desc: String
   script: String
-  type: String!
+  type: LanguageType!
   typical_speakers: [String!]!
 }
 
@@ -710,7 +715,7 @@ type Query {
   feature(index: String): Feature
   features(level: IntFilter, class: StringFilter, subclass: StringFilter): [Feature!]
   language(index: String): Language
-  languages: [Language!]
+  languages(type: LanguageType, script: StringFilter): [Language!]
   level(index: String): Level
   levels: [Level!]
   magicItem(index: String): MagicItem
