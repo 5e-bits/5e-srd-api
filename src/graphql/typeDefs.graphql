@@ -728,7 +728,7 @@ type Query {
   ruleSection(index: String): RuleSection
   ruleSections: [RuleSection!]
   skill(index: String): Skill
-  skills: [Skill!]
+  skills(ability_score: StringFilter): [Skill!]
   spell(index: String): Spell
   spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter): [Spell!]
   subclass(index: String): Subclass

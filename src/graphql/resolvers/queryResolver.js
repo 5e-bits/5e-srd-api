@@ -162,8 +162,13 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Skill.findOne(filter).lean();
   },
-  async skills() {
-    return await Skill.find().lean();
+  async skills(query, args) {
+    let filter = {};
+    if (args.ability_score) {
+      filter = { 'ability_score.index': { $in: args.ability_score } };
+    }
+
+    return await Skill.find(filter).lean();
   },
   async spell(query, args) {
     const filter = args.index ? { index: args.index } : {};
