@@ -708,7 +708,7 @@ type Query {
   feat(index: String): Feat
   feats: [Feat!]
   feature(index: String): Feature
-  features: [Feature!]
+  features(level: IntFilter, class: StringFilter, subclass: StringFilter): [Feature!]
   language(index: String): Language
   languages: [Language!]
   level(index: String): Level

@@ -101,8 +101,34 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Feature.findOne(filter).lean();
   },
-  async features() {
-    return await Feature.find().lean();
+  async features(query, args) {
+    const filters = [];
+    if (args.level) {
+      const filter = { level: { $in: args.level } };
+      filters.push(filter);
+    }
+
+    if (args.class) {
+      const filter = { 'class.index': { $in: args.class } };
+      filters.push(filter);
+    }
+
+    if (args.subclass) {
+      const filter = { 'subclass.index': { $in: args.subclass } };
+      filters.push(filter);
+    }
+
+    let filter = {};
+    if (filters.length === 1) {
+      filter = filters[0];
+    }
+    if (filters.length > 1) {
+      filter = {
+        $and: filters,
+      };
+    }
+
+    return await Feature.find(filter).lean();
   },
   async language(query, args) {
     const filter = args.index ? { index: args.index } : {};
