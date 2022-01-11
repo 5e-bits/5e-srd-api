@@ -181,6 +181,16 @@ const Query = {
       filters.push(filter);
     }
 
+    if (args.class) {
+      const filter = { classes: { $elemMatch: { index: { $in: args.class } } } };
+      filters.push(filter);
+    }
+
+    if (args.subclass) {
+      const filter = { subclasses: { $elemMatch: { index: { $in: args.subclass } } } };
+      filters.push(filter);
+    }
+
     let filter = {};
     if (filters.length === 1) {
       filter = filters[0];

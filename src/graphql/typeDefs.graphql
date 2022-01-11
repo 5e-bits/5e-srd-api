@@ -730,7 +730,7 @@ type Query {
   skill(index: String): Skill
   skills: [Skill!]
   spell(index: String): Spell
-  spells(school: StringFilter, level: IntFilter): [Spell!]
+  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter): [Spell!]
   subclass(index: String): Subclass
   subclasses: [Subclass!]!
   subrace(index: String): Subrace
