@@ -75,8 +75,13 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Equipment.findOne(filter).lean();
   },
-  async equipments() {
-    return await Equipment.find().lean();
+  async equipments(query, args) {
+    let filter = {};
+    if (args.equipment_category) {
+      filter = { 'equipment_category.index': { $in: args.equipment_category } };
+    }
+
+    return await Equipment.find(filter).lean();
   },
   async equipmentCategory(query, args) {
     const filter = args.index ? { index: args.index } : {};

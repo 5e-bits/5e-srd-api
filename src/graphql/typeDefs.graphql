@@ -702,7 +702,7 @@ type Query {
   damageType(index: String): DamageType
   damageTypes: [DamageType!]
   equipment(index: String): IEquipment
-  equipments: [IEquipment!]
+  equipments(equipment_category: StringFilter): [IEquipment!]
   equipmentCategory(index: String): EquipmentCategory
   equipmentCategories: [EquipmentCategory!]
   feat(index: String): Feat
