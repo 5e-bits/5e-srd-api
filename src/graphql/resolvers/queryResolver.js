@@ -24,6 +24,45 @@ const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const WeaponProperty = require('../../models/weaponProperty');
 
+const coalesceFilters = filters => {
+  let filter = {};
+  if (filters.length === 1) {
+    filter = filters[0];
+  } else if (filters.length > 1) {
+    filter = {
+      $and: filters,
+    };
+  }
+
+  return filter;
+};
+
+const resolveNumberFilter = (value, propertyName) => {
+  const filter = {};
+
+  if (Array.isArray(value)) {
+    filter[propertyName] = { $in: value };
+  } else {
+    const rangeFilter = {};
+    if (value.lte) {
+      rangeFilter.$lte = value.lte;
+    }
+    if (value.gte) {
+      rangeFilter.$gte = value.gte;
+    }
+    if (value.lt) {
+      rangeFilter.$lt = value.lt;
+    }
+    if (value.gt) {
+      rangeFilter.$gt = value.gt;
+    }
+
+    filter[propertyName] = rangeFilter;
+  }
+
+  return filter;
+};
+
 const Query = {
   async abilityScore(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -53,7 +92,7 @@ const Query = {
   async classes(query, args) {
     let filter = {};
     if (args.hit_die) {
-      filter = { hit_die: { $in: args.hit_die } };
+      filter = resolveNumberFilter(args.hit_die, 'hit_die');
     }
     return await Class.find(filter).lean();
   },
@@ -104,8 +143,7 @@ const Query = {
   async features(query, args) {
     const filters = [];
     if (args.level) {
-      const filter = { level: { $in: args.level } };
-      filters.push(filter);
+      filters.push(resolveNumberFilter(args.level, 'level'));
     }
 
     if (args.class) {
@@ -118,17 +156,7 @@ const Query = {
       filters.push(filter);
     }
 
-    let filter = {};
-    if (filters.length === 1) {
-      filter = filters[0];
-    }
-    if (filters.length > 1) {
-      filter = {
-        $and: filters,
-      };
-    }
-
-    return await Feature.find(filter).lean();
+    return await Feature.find(coalesceFilters(filters)).lean();
   },
   async language(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -146,17 +174,7 @@ const Query = {
       filters.push(filter);
     }
 
-    let filter = {};
-    if (filters.length === 1) {
-      filter = filters[0];
-    }
-    if (filters.length > 1) {
-      filter = {
-        $and: filters,
-      };
-    }
-
-    return await Language.find(filter).lean();
+    return await Language.find(coalesceFilters(filters)).lean();
   },
   async level(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -175,21 +193,10 @@ const Query = {
     }
 
     if (args.level) {
-      const filter = { level: { $in: args.level } };
-      filters.push(filter);
+      filters.push(resolveNumberFilter(args.level, 'level'));
     }
 
-    let filter = {};
-    if (filters.length === 1) {
-      filter = filters[0];
-    }
-    if (filters.length > 1) {
-      filter = {
-        $and: filters,
-      };
-    }
-
-    return await Level.find(filter).lean();
+    return await Level.find(coalesceFilters(filters)).lean();
   },
   async magicItem(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -214,8 +221,76 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Monster.findOne(filter).lean();
   },
-  async monsters() {
-    return await Monster.find().lean();
+  async monsters(query, args) {
+    const filters = [];
+    if (args.size) {
+      const filter = { size: { $in: args.size } };
+      filters.push(filter);
+    }
+
+    if (args.type) {
+      const filter = { type: { $in: args.type } };
+      filters.push(filter);
+    }
+
+    if (args.subtype) {
+      const filter = { subtype: { $in: args.subtype } };
+      filters.push(filter);
+    }
+
+    if (args.damage_immunity) {
+      const filter = { damage_immunities: { $elemMatch: { $in: args.damage_immunity } } };
+      filters.push(filter);
+    }
+
+    if (args.damage_resistance) {
+      const filter = { damage_resistances: { $elemMatch: { $in: args.damage_resistance } } };
+      filters.push(filter);
+    }
+
+    if (args.damage_vulnerability) {
+      const filter = { damage_vulnerabilities: { $elemMatch: { $in: args.damage_vulnerability } } };
+      filters.push(filter);
+    }
+
+    if (args.armor_class) {
+      filters.push(resolveNumberFilter(args.armor_class, 'armor_class'));
+    }
+
+    if (args.challenge_rating) {
+      const filter = { challenge_rating: { $in: args.challenge_rating } };
+      filters.push(filter);
+    }
+
+    if (args.charisma) {
+      filters.push(resolveNumberFilter(args.charisma, 'charisma'));
+    }
+
+    if (args.constitution) {
+      filters.push(resolveNumberFilter(args.constitution, 'constitution'));
+    }
+
+    if (args.dexterity) {
+      filters.push(resolveNumberFilter(args.dexterity, 'dexterity'));
+    }
+
+    if (args.intelligence) {
+      filters.push(resolveNumberFilter(args.intelligence, 'intelligence'));
+    }
+
+    if (args.strength) {
+      filters.push(resolveNumberFilter(args.strength, 'strength'));
+    }
+
+    if (args.wisdom) {
+      filters.push(resolveNumberFilter(args.wisdom, 'wisdom'));
+    }
+
+    if (args.xp) {
+      filters.push(resolveNumberFilter(args.xp, 'xp'));
+    }
+
+    return await Monster.find(coalesceFilters(filters)).lean();
   },
   async proficiency(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -269,8 +344,7 @@ const Query = {
     }
 
     if (args.level) {
-      const filter = { level: { $in: args.level } };
-      filters.push(filter);
+      filters.push(resolveNumberFilter(args.level, 'level'));
     }
 
     if (args.class) {
@@ -283,17 +357,7 @@ const Query = {
       filters.push(filter);
     }
 
-    let filter = {};
-    if (filters.length === 1) {
-      filter = filters[0];
-    }
-    if (filters.length > 1) {
-      filter = {
-        $and: filters,
-      };
-    }
-
-    return await Spell.find(filter).lean();
+    return await Spell.find(coalesceFilters(filters)).lean();
   },
   async subclass(query, args) {
     const filter = args.index ? { index: args.index } : {};

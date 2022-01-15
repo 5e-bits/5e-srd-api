@@ -9,6 +9,7 @@ const IEquipmentBase = require('./iEquipmentBaseResolver');
 const EquipmentCategory = require('./equipmentCategoryResolver');
 const Feat = require('./featResolver');
 const Feature = require('./featureResolver');
+const FloatFilter = require('./scalars/floatFilterResolver');
 const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
 const IntFilter = require('./scalars/intFilterResolver');
@@ -17,11 +18,14 @@ const Level = require('./levelResolver');
 const MagicItem = require('./magicItemResolver');
 const MagicSchool = require('./magicShoolResolver');
 const Monster = require('./monsterResolver');
+const MonsterSubtypeFilter = require('./scalars/monsterSubtypeFilterResolver');
+const MonsterTypeFilter = require('./scalars/monsterTypeFilterResolver');
 const Pack = require('./packResolver');
 const Proficiency = require('./proficiencyResolver');
 const ProficiencyReference = require('./proficiencyReferenceResolver');
 const Race = require('./raceResolver');
 const Rule = require('./ruleResolver');
+const SizeFilter = require('./scalars/sizeFilterResolver');
 const Skill = require('./skillResolver');
 const Spell = require('./spellResolver');
 const SpellPrerequisite = require('./spellPrerequisiteResolver');
@@ -47,6 +51,7 @@ const resolvers = {
   EquipmentCategory,
   Feat,
   Feature,
+  FloatFilter,
   IGear,
   Gear,
   IntFilter,
@@ -55,11 +60,14 @@ const resolvers = {
   MagicItem,
   MagicSchool,
   Monster,
+  MonsterSubtypeFilter,
+  MonsterTypeFilter,
   Pack,
   Proficiency,
   ProficiencyReference,
   Race,
   Rule,
+  SizeFilter,
   Skill,
   Spell,
   SpellPrerequisite,

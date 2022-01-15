@@ -4,9 +4,14 @@ String or list of strings
 scalar StringFilter
 
 """
-Int or list of ints
+Int, list of ints, or object with gte (>=), gt (>), lte (<=), and lt (<) properties for range of values
 """
 scalar IntFilter
+
+"""
+Float, list of floats, or object with gte (>=), gt (>), lte (<=), and lt (<) properties for range of values
+"""
+scalar FloatFilter
 
 type AbilityScore {
   index: String!
@@ -433,6 +438,59 @@ enum Size {
   GARGANTUAN
 }
 
+"""
+Size oe list of sizes
+"""
+scalar SizeFilter
+
+enum MonsterType {
+  BEAST
+  MONSTROSITY
+  DRAGON
+  HUMANOID
+  UNDEAD
+  FIEND
+  CELESTIAL
+  CONSTRUCT
+  GIANT
+  ELEMENTAL
+  FEY
+  ABERRATION
+  OOZE
+  SWARM
+  PLANT
+}
+
+"""
+MonsterType or list of MonsterTypes
+"""
+scalar MonsterTypeFilter
+
+enum MonsterSubtype {
+  ANY_RACE
+  HUMAN
+  DWARF
+  ELF
+  GOBLINOID
+  MERFOLK
+  SHAPECHANGER
+  DEMON
+  DEVIL
+  ORC
+  SAHUAGIN
+  TITAN
+  KOBOLD
+  GNOLL
+  GRIMLOCK
+  LIZARDFOLK
+  GNOME
+}
+
+"""
+MonsterSubtype or list of MonsterSubtypes
+"""
+scalar MonsterSubtypeFilter
+
 # TODO: add actions
 type Monster {
   index: String!
@@ -459,8 +517,8 @@ type Monster {
   special_abilities: [SpecialAbility!]
   speed: MonsterSpeed!
   strength: Int!
-  subtype: String
-  type: String!
+  subtype: MonsterSubtype
+  type: MonsterType!
   wisdom: Int!
   xp: Int!
 }
@@ -723,7 +781,7 @@ type Query {
   magicSchool(index: String): MagicSchool
   magicSchools: [MagicSchool!]
   monster(index: String): Monster
-  monsters: [Monster!]
+  monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter): [Monster!]
   proficiency(index: String): Proficiency
   proficiencies: [Proficiency!]
   race(index: String): Race

@@ -116,6 +116,14 @@ const Monster = {
 
     return resolvedSpecialAbilities;
   },
+  subtype: monster => (monster.subtype ? monster.subtype.toUpperCase().replace(' ', '_') : null),
+  type: monster => {
+    if (monster.type.includes('swarm')) {
+      return 'SWARM';
+    } else {
+      return monster.type.toUpperCase();
+    }
+  },
 };
 
 module.exports = Monster;

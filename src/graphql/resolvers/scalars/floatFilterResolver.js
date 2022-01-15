@@ -1,9 +1,9 @@
 const { GraphQLScalarType, Kind } = require('graphql');
 
-const IntFilter = new GraphQLScalarType({
-  name: 'IntFilter',
+const FloatFilter = new GraphQLScalarType({
+  name: 'FloatFilter',
   description:
-    'Int, list of ints, or object with gte (>=), gt (>), lte (<=), and lt (<) properties for range of values',
+    'Float, list of floats, or object with gte (>=), gt (>), lte (<=), and lt (<) properties for range of values',
   serialize(value) {
     return value;
   },
@@ -11,26 +11,26 @@ const IntFilter = new GraphQLScalarType({
     if (Array.isArray(value)) {
       const filter = [];
       for (const x of value) {
-        if (Number.isInteger(x)) {
+        if (typeof x === 'number') {
           filter.push(x);
         }
       }
 
       return filter;
-    } else if (Number.isInteger(value)) {
+    } else if (typeof value === 'number') {
       return [value];
     } else if (typeof value === 'object') {
       const returnObject = {};
-      if (Number.isInteger(value.lte)) {
+      if (typeof value.lte === 'number') {
         returnObject.lte = value.lte;
       }
-      if (Number.isInteger(value.gte)) {
+      if (typeof value.gte === 'number') {
         returnObject.gte = value.gte;
       }
-      if (Number.isInteger(value.lt)) {
+      if (typeof value.lt === 'number') {
         returnObject.lt = value.lt;
       }
-      if (Number.isInteger(value.gt)) {
+      if (typeof value.gt === 'number') {
         returnObject.gt = value.gt;
       }
 
@@ -47,13 +47,13 @@ const IntFilter = new GraphQLScalarType({
     if (ast.kind === Kind.LIST) {
       const filter = [];
       for (const x of ast.values) {
-        if (x.kind === Kind.INT) {
+        if (x.kind === Kind.FLOAT || x.kind === Kind.INT) {
           filter.push(x.value);
         }
       }
 
       return filter;
-    } else if (ast.kind === Kind.INT) {
+    } else if (ast.kind === Kind.FLOAT || ast.kind === Kind.INT) {
       return [ast.value];
     } else if (ast.kind === Kind.OBJECT) {
       const returnObject = {};
@@ -62,16 +62,16 @@ const IntFilter = new GraphQLScalarType({
       const lt = ast.fields.find(f => f.name.value === 'lt');
       const gt = ast.fields.find(f => f.name.value === 'gt');
 
-      if (lte && lte.value.kind === Kind.INT) {
+      if (lte && (lte.value.kind === Kind.FLOAT || lte.value.kind === Kind.INT)) {
         returnObject.lte = lte.value.value;
       }
-      if (gte && gte.value.kind === Kind.INT) {
+      if (gte && (gte.value.kind === Kind.FLOAT || gte.value.kind === Kind.INT)) {
         returnObject.gte = gte.value.value;
       }
-      if (lt && lt.value.kind === Kind.INT) {
+      if (lt && (lt.value.kind === Kind.FLOAT || lt.value.kind === Kind.INT)) {
         returnObject.lt = lt.value.value;
       }
-      if (gt && gt.value.kind === Kind.INT) {
+      if (gt && (gt.value.kind === Kind.FLOAT || gt.value.kind === Kind.INT)) {
         returnObject.gt = gt.value.value;
       }
 
@@ -86,4 +86,4 @@ const IntFilter = new GraphQLScalarType({
   },
 });
 
-module.exports = IntFilter;
+module.exports = FloatFilter;
