@@ -258,8 +258,7 @@ const Query = {
     }
 
     if (args.challenge_rating) {
-      const filter = { challenge_rating: { $in: args.challenge_rating } };
-      filters.push(filter);
+      filters.push(resolveNumberFilter(args.challenge_rating, 'challenge_rating'));
     }
 
     if (args.charisma) {
