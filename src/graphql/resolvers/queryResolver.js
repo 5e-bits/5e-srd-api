@@ -296,8 +296,24 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Proficiency.findOne(filter).lean();
   },
-  async proficiencies() {
-    return await Proficiency.find().lean();
+  async proficiencies(query, args) {
+    const filters = [];
+    if (args.class) {
+      const filter = { classes: { $elemMatch: { index: { $in: args.class } } } };
+      filters.push(filter);
+    }
+
+    if (args.race) {
+      const filter = { races: { $elemMatch: { index: { $in: args.race } } } };
+      filters.push(filter);
+    }
+
+    if (args.type) {
+      const filter = { type: { $in: args.type } };
+      filters.push(filter);
+    }
+
+    return await Proficiency.find(coalesceFilters(filters)).lean();
   },
   async race(query, args) {
     const filter = args.index ? { index: args.index } : {};

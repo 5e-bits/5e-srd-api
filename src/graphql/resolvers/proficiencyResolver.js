@@ -30,6 +30,11 @@ const Proficiency = {
     if (url.includes('equipment')) return await Equipment.findOne({ url }).lean();
     if (url.includes('skills')) return await Skill.findOne({ url }).lean();
   },
+  type: proficiency =>
+    proficiency.type
+      .toUpperCase()
+      .replace("'", '')
+      .replace(' ', '_'),
 };
 
 module.exports = Proficiency;

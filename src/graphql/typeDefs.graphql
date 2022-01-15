@@ -329,11 +329,28 @@ type Spell {
 
 union ProficiencyReference = EquipmentCategory | Skill | AbilityScore | Tool | Armor | Weapon | Vehicle | Gear | Pack | Ammunition
 
+enum ProficiencyType {
+  WEAPONS
+  ARTISANS_TOOLS
+  SKILLS
+  ARMOR
+  MUSICAL_INSTRUMENTS
+  SAVING_THROWS
+  OTHER
+  GAMING_SETS
+  VEHICLES
+}
+
+"""
+ProficiencyType or list of ProficiencyTypes
+"""
+scalar ProficiencyTypeFilter
+
 type Proficiency {
   index: String!
   name: String!
   classes: [Class!]!
-  type: String!
+  type: ProficiencyType!
   races: [ProficiencyRace!]!
   reference: ProficiencyReference!
 }
@@ -789,7 +806,7 @@ type Query {
   monster(index: String): Monster
   monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter): [Monster!]
   proficiency(index: String): Proficiency
-  proficiencies: [Proficiency!]
+  proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter): [Proficiency!]
   race(index: String): Race
   races: [Race!]!
   rule(index: String): Rule

@@ -24,6 +24,7 @@ const Pack = require('./packResolver');
 const Proficiency = require('./proficiencyResolver');
 const ProficiencyRace = require('./proficiencyRaceResolver');
 const ProficiencyReference = require('./proficiencyReferenceResolver');
+const ProficiencyTypeFilter = require('./scalars/proficiencyTypeFilterResolver');
 const Race = require('./raceResolver');
 const Rule = require('./ruleResolver');
 const SizeFilter = require('./scalars/sizeFilterResolver');
@@ -67,6 +68,7 @@ const resolvers = {
   Proficiency,
   ProficiencyRace,
   ProficiencyReference,
+  ProficiencyTypeFilter,
   Race,
   Rule,
   SizeFilter,
