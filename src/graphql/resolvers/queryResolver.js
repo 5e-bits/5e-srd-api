@@ -380,12 +380,12 @@ const Query = {
   async traits() {
     return await Trait.find().lean();
   },
-  async weaponProperty() {
-    return await WeaponProperty.findOne().lean();
-  },
-  async weaponProperties(query, args) {
+  async weaponProperty(query, args) {
     const filter = args.index ? { index: args.index } : {};
-    return await WeaponProperty.find(filter).lean();
+    return await WeaponProperty.findOne(filter).lean();
+  },
+  async weaponProperties() {
+    return await WeaponProperty.find().lean();
   },
 };
 
