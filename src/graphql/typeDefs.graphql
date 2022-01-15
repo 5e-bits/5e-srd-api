@@ -808,7 +808,7 @@ type Query {
   proficiency(index: String): Proficiency
   proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter): [Proficiency!]
   race(index: String): Race
-  races: [Race!]!
+  races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter): [Race!]!
   rule(index: String): Rule
   rules: [Rule]
   ruleSection(index: String): RuleSection

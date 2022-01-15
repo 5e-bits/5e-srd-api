@@ -319,8 +319,30 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Race.findOne(filter).lean();
   },
-  async races() {
-    return await Race.find().lean();
+  async races(query, args) {
+    const filters = [];
+    if (args.ability_bonus) {
+      const filter = {
+        ability_bonuses: { $elemMatch: { 'ability_score.index': { $in: args.ability_bonus } } },
+      };
+      filters.push(filter);
+    }
+
+    if (args.size) {
+      const filter = { size: { $in: args.size } };
+      filters.push(filter);
+    }
+
+    if (args.language) {
+      const filter = { languages: { $elemMatch: { index: { $in: args.language } } } };
+      filters.push(filter);
+    }
+
+    if (args.speed) {
+      filters.push(resolveNumberFilter(args.speed, 'speed'));
+    }
+
+    return await Race.find(coalesceFilters(filters)).lean();
   },
   async rule(query, args) {
     const filter = args.index ? { index: args.index } : {};
