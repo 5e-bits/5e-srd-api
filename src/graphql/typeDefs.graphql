@@ -334,7 +334,7 @@ type Proficiency {
   name: String!
   classes: [Class!]!
   type: String!
-  races: [Race!]!
+  races: [ProficiencyRace!]!
   reference: ProficiencyReference!
 }
 
@@ -540,10 +540,10 @@ type AbilityBonus {
 }
 
 # TODO: Add ability_bonus_options, language_options, starting_proficiency_options
-type Race {
+type Race implements ProficiencyRace {
   index: String!
   name: String!
-  ability_bonuses: [AbilityBonus]!
+  ability_bonuses: [AbilityBonus!]!
   age: String!
   alignment: String!
   language_desc: String!
@@ -557,7 +557,7 @@ type Race {
 }
 
 # TODO: Add language_options relation
-type Subrace {
+type Subrace implements ProficiencyRace {
   index: String!
   name: String!
   ability_bonuses: [AbilityBonus!]!
@@ -565,6 +565,12 @@ type Subrace {
   race: Race!
   racial_traits: [Trait!]!
   starting_proficiencies: [Proficiency!]!
+}
+
+interface ProficiencyRace {
+  index: String!
+  name: String!
+  ability_bonuses: [AbilityBonus!]!
 }
 
 type BackgroundFeature {

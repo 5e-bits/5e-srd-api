@@ -22,6 +22,7 @@ const MonsterSubtypeFilter = require('./scalars/monsterSubtypeFilterResolver');
 const MonsterTypeFilter = require('./scalars/monsterTypeFilterResolver');
 const Pack = require('./packResolver');
 const Proficiency = require('./proficiencyResolver');
+const ProficiencyRace = require('./proficiencyRaceResolver');
 const ProficiencyReference = require('./proficiencyReferenceResolver');
 const Race = require('./raceResolver');
 const Rule = require('./ruleResolver');
@@ -64,6 +65,7 @@ const resolvers = {
   MonsterTypeFilter,
   Pack,
   Proficiency,
+  ProficiencyRace,
   ProficiencyReference,
   Race,
   Rule,
