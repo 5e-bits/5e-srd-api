@@ -19,7 +19,7 @@ const SizeFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (typeof value === 'string' && sizes.includes(value)) {
       return [getSize(value)];
     } else {
@@ -35,7 +35,7 @@ const SizeFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (ast.kind === Kind.ENUM && sizes.includes(ast.value)) {
       return [getSize(ast.value)];
     } else {

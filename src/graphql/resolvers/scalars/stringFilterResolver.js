@@ -15,7 +15,7 @@ const StringFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (typeof value === 'string') {
       return [value];
     } else {
@@ -31,7 +31,7 @@ const StringFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (ast.kind === Kind.STRING) {
       return [ast.value];
     } else {

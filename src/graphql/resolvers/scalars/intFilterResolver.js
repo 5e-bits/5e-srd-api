@@ -16,7 +16,7 @@ const IntFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (Number.isInteger(value)) {
       return [value];
     } else if (typeof value === 'object') {
@@ -34,11 +34,7 @@ const IntFilter = new GraphQLScalarType({
         returnObject.gt = value.gt;
       }
 
-      if (Object.keys(returnObject).length > 0) {
-        return returnObject;
-      } else {
-        return null;
-      }
+      return Object.keys(returnObject).length > 0 ? returnObject : null;
     } else {
       return null;
     }
@@ -52,7 +48,7 @@ const IntFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (ast.kind === Kind.INT) {
       return [ast.value];
     } else if (ast.kind === Kind.OBJECT) {
@@ -75,11 +71,7 @@ const IntFilter = new GraphQLScalarType({
         returnObject.gt = gt.value.value;
       }
 
-      if (Object.keys(returnObject).length > 0) {
-        return returnObject;
-      } else {
-        return null;
-      }
+      return Object.keys(returnObject).length > 0 ? returnObject : null;
     } else {
       return null;
     }

@@ -37,7 +37,7 @@ const MonsterSubtypeFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (typeof value === 'string' && subtypes.includes(value)) {
       return [getSubtype(value)];
     } else {
@@ -53,7 +53,7 @@ const MonsterSubtypeFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (ast.kind === Kind.ENUM && subtypes.includes(ast.value)) {
       return [getSubtype(ast.value)];
     } else {

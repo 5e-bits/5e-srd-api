@@ -41,7 +41,7 @@ const MonsterTypeFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (typeof value === 'string' && types.includes(value)) {
       return [getType(value)];
     } else {
@@ -57,7 +57,7 @@ const MonsterTypeFilter = new GraphQLScalarType({
         }
       }
 
-      return filter;
+      return filter.length > 0 ? filter : null;
     } else if (ast.kind === Kind.ENUM && types.includes(ast.value)) {
       return [getType(ast.value)];
     } else {
