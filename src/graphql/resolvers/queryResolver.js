@@ -23,45 +23,7 @@ const Subclass = require('../../models/subclass');
 const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const WeaponProperty = require('../../models/weaponProperty');
-
-const coalesceFilters = filters => {
-  let filter = {};
-  if (filters.length === 1) {
-    filter = filters[0];
-  } else if (filters.length > 1) {
-    filter = {
-      $and: filters,
-    };
-  }
-
-  return filter;
-};
-
-const resolveNumberFilter = (value, propertyName) => {
-  const filter = {};
-
-  if (Array.isArray(value)) {
-    filter[propertyName] = { $in: value };
-  } else {
-    const rangeFilter = {};
-    if (value.lte) {
-      rangeFilter.$lte = value.lte;
-    }
-    if (value.gte) {
-      rangeFilter.$gte = value.gte;
-    }
-    if (value.lt) {
-      rangeFilter.$lt = value.lt;
-    }
-    if (value.gt) {
-      rangeFilter.$gt = value.gt;
-    }
-
-    filter[propertyName] = rangeFilter;
-  }
-
-  return filter;
-};
+const { coalesceFilters, resolveNumberFilter, resolveSpellsArgs } = require('./common');
 
 const Query = {
   async abilityScore(query, args) {
@@ -374,73 +336,7 @@ const Query = {
     return await Spell.findOne(filter).lean();
   },
   async spells(query, args) {
-    const filters = [];
-    if (args.school) {
-      const filter = { 'school.index': { $in: args.school } };
-      filters.push(filter);
-    }
-
-    if (args.level) {
-      filters.push(resolveNumberFilter(args.level, 'level'));
-    }
-
-    if (args.class) {
-      const filter = { classes: { $elemMatch: { index: { $in: args.class } } } };
-      filters.push(filter);
-    }
-
-    if (args.subclass) {
-      const filter = { subclasses: { $elemMatch: { index: { $in: args.subclass } } } };
-      filters.push(filter);
-    }
-
-    if (args.concentration !== undefined) {
-      const filter = { concentration: args.concentration };
-      filters.push(filter);
-    }
-
-    if (args.ritual !== undefined) {
-      const filter = { ritual: args.ritual };
-      filters.push(filter);
-    }
-
-    if (args.attack_type) {
-      const filter = { attack_type: { $in: args.attack_type } };
-      filters.push(filter);
-    }
-
-    if (args.casting_time) {
-      const filter = { casting_time: { $in: args.casting_time } };
-      filters.push(filter);
-    }
-
-    if (args.area_of_effect) {
-      const { area_of_effect } = args;
-      if (area_of_effect.type) {
-        const filter = { 'area_of_effect.type': { $in: area_of_effect.type } };
-        filters.push(filter);
-      }
-      if (area_of_effect.size) {
-        filters.push(resolveNumberFilter(area_of_effect.size, 'area_of_effect.size'));
-      }
-    }
-
-    if (args.damage_type) {
-      const filter = { 'damage.damage_type.index': { $in: args.damage_type } };
-      filters.push(filter);
-    }
-
-    if (args.dc_type) {
-      const filter = { 'dc.dc_type.index': { $in: args.dc_type } };
-      filters.push(filter);
-    }
-
-    if (args.range) {
-      const filter = { range: { $in: args.range } };
-      filters.push(filter);
-    }
-
-    return await Spell.find(coalesceFilters(filters)).lean();
+    return await Spell.find(resolveSpellsArgs(args, [])).lean();
   },
   async subclass(query, args) {
     const filter = args.index ? { index: args.index } : {};

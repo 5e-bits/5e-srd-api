@@ -661,7 +661,7 @@ type Class {
   proficiencies: [Proficiency!]!
   saving_throws: [AbilityScore!]!
   spellcasting: ClassSpellcasting
-  spells: [Spell!]
+  spells(school: StringFilter, level: IntFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [Spell!]
   starting_equipment: [Quantity!]!
   class_levels: [Level!]!
   subclasses: [Subclass!]!
@@ -809,7 +809,7 @@ type Subclass {
   class: Class!
   subclass_flavor: String!
   subclass_levels: [Level]!
-  spells: [SpellWithPrerequisite!]
+  spells(school: StringFilter, class: StringFilter, level: IntFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [SpellWithPrerequisite!]
 }
 
 input AreaOfEffectFilter {

@@ -4,6 +4,7 @@ const LevelModel = require('../../models/level');
 const ProficiencyModel = require('../../models/proficiency');
 const SpellModel = require('../../models/spell');
 const SubclassModel = require('../../models/subclass');
+const { resolveSpellsArgs } = require('./common');
 
 const Class = {
   proficiencies: async klass =>
@@ -21,8 +22,10 @@ const Class = {
           }).lean(),
         }
       : null,
-  spells: async klass =>
-    SpellModel.find({ classes: { $elemMatch: { index: klass.index } } }).lean(),
+  spells: async (klass, args) =>
+    SpellModel.find(
+      resolveSpellsArgs(args, [{ classes: { $elemMatch: { index: klass.index } } }])
+    ).lean(),
   starting_equipment: async klass => {
     const starting_equipment = klass.starting_equipment;
     const equipment = await EquipmentModel.find({
