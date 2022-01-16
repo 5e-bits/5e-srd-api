@@ -86,7 +86,14 @@ const Query = {
     if (args.hit_die) {
       filter = resolveNumberFilter(args.hit_die, 'hit_die');
     }
-    return await Class.find(filter).lean();
+
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value => value.toLowerCase());
+    }
+    return await Class.find(filter)
+      .sort(sort)
+      .lean();
   },
   async condition(query, args) {
     const filter = args.index ? { index: args.index } : {};
