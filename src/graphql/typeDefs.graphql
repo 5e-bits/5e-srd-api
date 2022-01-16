@@ -314,7 +314,7 @@ type MagicSchool {
   index: String!
   name: String!
   desc: String!
-  spells: [Spell!]!
+  spells(level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [Spell!]!
 }
 
 enum SpellAttackType {
