@@ -421,8 +421,7 @@ const Query = {
         filters.push(filter);
       }
       if (area_of_effect.size) {
-        const filter = { 'area_of_effect.size': { $in: area_of_effect.size } };
-        filters.push(filter);
+        filters.push(resolveNumberFilter(area_of_effect.size, 'area_of_effect.size'));
       }
     }
 
