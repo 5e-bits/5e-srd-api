@@ -860,6 +860,17 @@ enum ClassOrderBy {
   HIT_DIE
 }
 
+input MagicItemOrder {
+  by: MagicItemOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: MagicItemOrder
+}
+
+enum MagicItemOrderBy {
+  NAME
+  EQUIPMENT_CATEGORY
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -886,7 +897,7 @@ type Query {
   level(index: String): Level
   levels(class: StringFilter, subclass: StringFilter, level: IntFilter): [Level!]
   magicItem(index: String): MagicItem
-  magicItems(equipment_category: StringFilter): [MagicItem!]
+  magicItems(equipment_category: StringFilter, order: MagicItemOrder): [MagicItem!]
   magicSchool(index: String): MagicSchool
   magicSchools: [MagicSchool!]
   monster(index: String): Monster

@@ -240,7 +240,16 @@ const Query = {
       filter = { 'equipment_category.index': { $in: args.equipment_category } };
     }
 
-    return await MagicItem.find(filter).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value =>
+        value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()
+      );
+    }
+
+    return await MagicItem.find(filter)
+      .sort(sort)
+      .lean();
   },
   async magicSchool(query, args) {
     const filter = args.index ? { index: args.index } : {};
