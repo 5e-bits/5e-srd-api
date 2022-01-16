@@ -1,4 +1,5 @@
 const EquipmentCategory = require('../../models/equipmentCategory');
+const Spell = require('../../models/spell');
 
 const equipmentBaseFieldResolvers = {
   equipment_category: async equipment =>
@@ -32,7 +33,10 @@ const resolveEquipmentType = equipment => {
   return null;
 };
 
-const resolveSpellsArgs = (args, baseFilters) => {
+const resolveSpellOrderBy = value =>
+  value === 'AREA_OF_EFFECT_SIZE' ? 'area_of_effect.size' : value.toLowerCase();
+
+const resolveSpells = async (args, baseFilters) => {
   const filters = [...baseFilters];
   if (args.school) {
     const filter = { 'school.index': { $in: args.school } };
@@ -99,7 +103,19 @@ const resolveSpellsArgs = (args, baseFilters) => {
     filters.push(filter);
   }
 
-  return coalesceFilters(filters);
+  const sort = {};
+  if (args.order) {
+    let order = args.order;
+
+    do {
+      sort[resolveSpellOrderBy(order.by)] = getMongoSortDirection(order.direction);
+      order = order.then_by;
+    } while (order);
+  }
+
+  return await Spell.find(coalesceFilters(filters))
+    .sort(sort)
+    .lean();
 };
 
 const coalesceFilters = filters => {
@@ -141,6 +157,8 @@ const resolveNumberFilter = (value, propertyName) => {
   return filter;
 };
 
+const getMongoSortDirection = value => (value === 'ASCENDING' ? 1 : -1);
+
 const levelObjectToArray = (obj, fieldName) =>
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
 
@@ -153,5 +171,6 @@ module.exports = {
   levelObjectToArray,
   coalesceFilters,
   resolveNumberFilter,
-  resolveSpellsArgs,
+  resolveSpells,
+  getMongoSortDirection,
 };

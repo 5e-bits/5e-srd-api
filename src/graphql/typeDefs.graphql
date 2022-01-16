@@ -314,7 +314,7 @@ type MagicSchool {
   index: String!
   name: String!
   desc: String!
-  spells(level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [Spell!]!
+  spells(level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder): [Spell!]!
 }
 
 enum SpellAttackType {
@@ -661,7 +661,7 @@ type Class {
   proficiencies: [Proficiency!]!
   saving_throws: [AbilityScore!]!
   spellcasting: ClassSpellcasting
-  spells(school: StringFilter, level: IntFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [Spell!]
+  spells(school: StringFilter, level: IntFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder): [Spell!]
   starting_equipment: [Quantity!]!
   class_levels: [Level!]!
   subclasses: [Subclass!]!
@@ -809,12 +809,32 @@ type Subclass {
   class: Class!
   subclass_flavor: String!
   subclass_levels: [Level]!
-  spells(school: StringFilter, class: StringFilter, level: IntFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [SpellWithPrerequisite!]
+  spells(school: StringFilter, class: StringFilter, level: IntFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder): [SpellWithPrerequisite!]
 }
 
 input AreaOfEffectFilter {
   type: AreaOfEffectTypeFilter
   size: IntFilter
+}
+
+enum OrderByDirection {
+  ASCENDING
+  DESCENDING
+}
+
+input SpellOrder {
+  by: SpellOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: SpellOrder
+}
+
+enum SpellOrderBy {
+  NAME
+  LEVEL
+  AREA_OF_EFFECT_SIZE
+  CONCENTRATION
+  RITUAL
+  SCHOOL
 }
 
 type Query {
@@ -859,7 +879,7 @@ type Query {
   skill(index: String): Skill
   skills(ability_score: StringFilter): [Skill!]
   spell(index: String): Spell
-  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [Spell!]
+  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder): [Spell!]
   subclass(index: String): Subclass
   subclasses: [Subclass!]!
   subrace(index: String): Subrace

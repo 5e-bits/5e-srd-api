@@ -1,8 +1,7 @@
 const ClassModel = require('../../models/class');
 const FeatureModel = require('../../models/feature');
 const LevelModel = require('../../models/level');
-const SpellModel = require('../../models/spell');
-const { resolveSpellsArgs } = require('./common');
+const { resolveSpells } = require('./common');
 
 const Subclass = {
   class: async subclass => await ClassModel.findOne({ index: subclass.class.index }).lean(),
@@ -11,13 +10,11 @@ const Subclass = {
   spells: async (subclass, args) => {
     if (!subclass.spells) return null;
 
-    const spells = await SpellModel.find(
-      resolveSpellsArgs(args, [
-        {
-          index: { $in: subclass.spells.map(s => s.spell.index) },
-        },
-      ])
-    ).lean();
+    const spells = await resolveSpells(args, [
+      {
+        index: { $in: subclass.spells.map(s => s.spell.index) },
+      },
+    ]);
 
     let spellsToReturn = [];
     for (const spell of subclass.spells) {

@@ -23,7 +23,7 @@ const Subclass = require('../../models/subclass');
 const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const WeaponProperty = require('../../models/weaponProperty');
-const { coalesceFilters, resolveNumberFilter, resolveSpellsArgs } = require('./common');
+const { coalesceFilters, resolveNumberFilter, resolveSpells } = require('./common');
 
 const Query = {
   async abilityScore(query, args) {
@@ -336,7 +336,7 @@ const Query = {
     return await Spell.findOne(filter).lean();
   },
   async spells(query, args) {
-    return await Spell.find(resolveSpellsArgs(args, [])).lean();
+    return await resolveSpells(args, []);
   },
   async subclass(query, args) {
     const filter = args.index ? { index: args.index } : {};
