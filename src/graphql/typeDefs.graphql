@@ -887,7 +887,7 @@ type Query {
   equipment(index: String): IEquipment
   equipments(equipment_category: StringFilter, order: EquipmentOrder): [IEquipment!]
   equipmentCategory(index: String): EquipmentCategory
-  equipmentCategories: [EquipmentCategory!]
+  equipmentCategories(order_direction: OrderByDirection): [EquipmentCategory!]
   feat(index: String): Feat
   feats(order_direction: OrderByDirection): [Feat!]
   feature(index: String): Feature
@@ -899,7 +899,7 @@ type Query {
   magicItem(index: String): MagicItem
   magicItems(equipment_category: StringFilter, order: MagicItemOrder): [MagicItem!]
   magicSchool(index: String): MagicSchool
-  magicSchools: [MagicSchool!]
+  magicSchools(order_direction: OrderByDirection): [MagicSchool!]
   monster(index: String): Monster
   monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter): [Monster!]
   proficiency(index: String): Proficiency

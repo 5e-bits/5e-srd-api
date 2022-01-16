@@ -150,8 +150,15 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await EquipmentCategory.findOne(filter).lean();
   },
-  async equipmentCategories() {
-    return await EquipmentCategory.find().lean();
+  async equipmentCategories(query, args) {
+    const sort = {};
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await EquipmentCategory.find()
+      .sort(sort)
+      .lean();
   },
   async feat(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -255,8 +262,15 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await MagicSchool.findOne(filter).lean();
   },
-  async magicSchools() {
-    return await MagicSchool.find().lean();
+  async magicSchools(query, args) {
+    const sort = {};
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await MagicSchool.find()
+      .sort(sort)
+      .lean();
   },
   async monster(query, args) {
     const filter = args.index ? { index: args.index } : {};
