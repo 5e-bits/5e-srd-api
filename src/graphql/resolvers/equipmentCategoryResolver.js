@@ -1,7 +1,6 @@
 const Equipment = require('../../models/equipment');
 const MagicItem = require('../../models/magicItem');
 
-//TODO: handle case where equipment is magic item
 const EquipmentCategory = {
   equipment: async equipmentCategory => {
     const indexes = equipmentCategory.equipment.map(e => e.index);

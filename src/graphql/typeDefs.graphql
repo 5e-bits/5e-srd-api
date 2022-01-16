@@ -837,25 +837,37 @@ enum SpellOrderBy {
   SCHOOL
 }
 
+input EquipmentOrder {
+  by: EquipmentOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: EquipmentOrder
+}
+
+enum EquipmentOrderBy {
+  NAME
+  WEIGHT
+  EQUIPMENT_CATEGORY
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
-  abilityScores: [AbilityScore!]
+  abilityScores(order_direction: OrderByDirection): [AbilityScore!]
   alignment(index: String): Alignment
-  alignments: [Alignment!]
+  alignments(order_direction: OrderByDirection): [Alignment!]
   background(index: String): Background
-  backgrounds: [Background!]!
+  backgrounds(order_direction: OrderByDirection): [Background!]!
   class(index: String): Class
   classes(hit_die: IntFilter): [Class!]!
   condition: Condition
-  conditions: [Condition!]
+  conditions(order_direction: OrderByDirection): [Condition!]
   damageType(index: String): DamageType
-  damageTypes: [DamageType!]
+  damageTypes(order_direction: OrderByDirection): [DamageType!]
   equipment(index: String): IEquipment
-  equipments(equipment_category: StringFilter): [IEquipment!]
+  equipments(equipment_category: StringFilter, order: EquipmentOrder): [IEquipment!]
   equipmentCategory(index: String): EquipmentCategory
   equipmentCategories: [EquipmentCategory!]
   feat(index: String): Feat
-  feats: [Feat!]
+  feats(order_direction: OrderByDirection): [Feat!]
   feature(index: String): Feature
   features(level: IntFilter, class: StringFilter, subclass: StringFilter): [Feature!]
   language(index: String): Language
@@ -873,19 +885,19 @@ type Query {
   race(index: String): Race
   races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter): [Race!]!
   rule(index: String): Rule
-  rules: [Rule]
+  rules(order_direction: OrderByDirection): [Rule]
   ruleSection(index: String): RuleSection
-  ruleSections: [RuleSection!]
+  ruleSections(order_direction: OrderByDirection): [RuleSection!]
   skill(index: String): Skill
   skills(ability_score: StringFilter): [Skill!]
   spell(index: String): Spell
   spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder): [Spell!]
   subclass(index: String): Subclass
-  subclasses: [Subclass!]!
+  subclasses(order_direction: OrderByDirection): [Subclass!]!
   subrace(index: String): Subrace
-  subraces: [Subrace!]!
+  subraces(order_direction: OrderByDirection): [Subrace!]!
   trait: Trait
-  traits: [Trait!]
+  traits(order_direction: OrderByDirection): [Trait!]
   weaponProperty(index: String): WeaponProperty
-  weaponProperties: [WeaponProperty]
+  weaponProperties(order_direction: OrderByDirection): [WeaponProperty]
 }

@@ -23,29 +23,59 @@ const Subclass = require('../../models/subclass');
 const Subrace = require('../../models/subrace');
 const Trait = require('../../models/trait');
 const WeaponProperty = require('../../models/weaponProperty');
-const { coalesceFilters, resolveNumberFilter, resolveSpells } = require('./common');
+const {
+  coalesceFilters,
+  resolveNumberFilter,
+  resolveSpells,
+  getMongoSortDirection,
+  coalesceSort,
+} = require('./common');
 
 const Query = {
   async abilityScore(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await AbilityScore.findOne(filter).lean();
   },
-  async abilityScores() {
-    return await AbilityScore.find().lean();
+  async abilityScores(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await AbilityScore.find()
+      .sort(sort)
+      .lean();
   },
   async alignment(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await Alignment.findOne(filter).lean();
   },
-  async alignments() {
-    return await Alignment.find().lean();
+  async alignments(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Alignment.find()
+      .sort(sort)
+      .lean();
   },
   async background(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await Background.findOne(filter).lean();
   },
-  async backgrounds() {
-    return await Background.find().lean();
+  async backgrounds(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Background.find()
+      .sort(sort)
+      .lean();
   },
   async class(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -62,15 +92,31 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Condition.findOne(filter).lean();
   },
-  async conditions() {
-    return Condition.find().lean();
+  async conditions(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return Condition.find()
+      .sort(sort)
+      .lean();
   },
   async damageType(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await DamageType.findOne(filter).lean();
   },
-  async damageTypes() {
-    return await DamageType.find().lean();
+  async damageTypes(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await DamageType.find()
+      .sort(sort)
+      .lean();
   },
   async equipment(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -82,7 +128,16 @@ const Query = {
       filter = { 'equipment_category.index': { $in: args.equipment_category } };
     }
 
-    return await Equipment.find(filter).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value =>
+        value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()
+      );
+    }
+
+    return await Equipment.find(filter)
+      .sort(sort)
+      .lean();
   },
   async equipmentCategory(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -95,8 +150,16 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Feat.findOne(filter).lean();
   },
-  async feats() {
-    return await Feat.find().lean();
+  async feats(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Feat.find()
+      .sort(sort)
+      .lean();
   },
   async feature(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -309,15 +372,31 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Rule.findOne(filter).lean();
   },
-  async rules() {
-    return await Rule.find().lean();
+  async rules(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Rule.find()
+      .sort(sort)
+      .lean();
   },
   async ruleSection(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await RuleSection.findOne(filter).lean();
   },
-  async ruleSections() {
-    return await RuleSection.find().lean();
+  async ruleSections(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await RuleSection.find()
+      .sort(sort)
+      .lean();
   },
   async skill(query, args) {
     const filter = args.index ? { index: args.index } : {};
@@ -342,29 +421,61 @@ const Query = {
     const filter = args.index ? { index: args.index } : {};
     return await Subclass.findOne(filter).lean();
   },
-  async subclasses() {
-    return await Subclass.find().lean();
+  async subclasses(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Subclass.find()
+      .sort(sort)
+      .lean();
   },
   async subrace(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await Subrace.findOne(filter).lean();
   },
-  async subraces() {
-    return await Subrace.find().lean();
+  async subraces(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Subrace.find()
+      .sort(sort)
+      .lean();
   },
   async trait(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await Trait.findOne(filter).lean();
   },
-  async traits() {
-    return await Trait.find().lean();
+  async traits(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await Trait.find()
+      .sort(sort)
+      .lean();
   },
   async weaponProperty(query, args) {
     const filter = args.index ? { index: args.index } : {};
     return await WeaponProperty.findOne(filter).lean();
   },
-  async weaponProperties() {
-    return await WeaponProperty.find().lean();
+  async weaponProperties(query, args) {
+    const sort = {};
+
+    if (args.order_direction) {
+      sort.name = getMongoSortDirection(args.order_direction);
+    }
+
+    return await WeaponProperty.find()
+      .sort(sort)
+      .lean();
   },
 };
 

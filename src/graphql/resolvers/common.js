@@ -103,14 +103,9 @@ const resolveSpells = async (args, baseFilters) => {
     filters.push(filter);
   }
 
-  const sort = {};
+  let sort = {};
   if (args.order) {
-    let order = args.order;
-
-    do {
-      sort[resolveSpellOrderBy(order.by)] = getMongoSortDirection(order.direction);
-      order = order.then_by;
-    } while (order);
+    sort = coalesceSort(args.order, resolveSpellOrderBy);
   }
 
   return await Spell.find(coalesceFilters(filters))
@@ -129,6 +124,24 @@ const coalesceFilters = filters => {
   }
 
   return filter;
+};
+
+const coalesceSort = (order, getPropertyName) => {
+  const sort = {};
+  const maxDepth = 10;
+  let depth = 0;
+
+  do {
+    if (depth >= maxDepth) {
+      throw 'Maximum sort depth reached';
+    }
+
+    sort[getPropertyName(order.by)] = getMongoSortDirection(order.direction);
+    order = order.then_by;
+    ++depth;
+  } while (order);
+
+  return sort;
 };
 
 const resolveNumberFilter = (value, propertyName) => {
@@ -173,4 +186,5 @@ module.exports = {
   resolveNumberFilter,
   resolveSpells,
   getMongoSortDirection,
+  coalesceSort,
 };
