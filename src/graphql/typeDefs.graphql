@@ -259,9 +259,22 @@ type RuleSection {
 }
 
 type AreaOfEffect {
-  type: String!
+  type: AreaOfEffectType!
   size: Int!
 }
+
+enum AreaOfEffectType {
+  SPHERE
+  CUBE
+  CYLINDER
+  LINE
+  CONE
+}
+
+"""
+AreaOfEffectType or list of AreaOfEffectTypes
+"""
+scalar AreaOfEffectTypeFilter
 
 enum SpellComponent {
   V
@@ -304,11 +317,36 @@ type MagicSchool {
   spells: [Spell!]!
 }
 
+enum SpellAttackType {
+  MELEE
+  RANGED
+}
+
+"""
+SpellAttackType or list of SpellAttackTypes
+"""
+scalar SpellAttackTypeFilter
+
+enum CastingTime {
+  ACTION
+  MINUTE
+  HOUR
+  BONUS_ACTION
+  MINUTES_10
+  DAY
+  REACTION
+}
+
+"""
+CastingTime or list of CastingTimes
+"""
+scalar CastingTimeFilter
+
 type Spell {
   index: String!
   area_of_effect: AreaOfEffect
-  attack_type: String
-  casting_time: String!
+  attack_type: SpellAttackType
+  casting_time: CastingTime!
   classes: [Class!]!
   subclasses: [Subclass!]!
   components: [SpellComponent]
@@ -774,6 +812,11 @@ type Subclass {
   spells: [SpellWithPrerequisite!]
 }
 
+input AreaOfEffectFilter {
+  type: AreaOfEffectTypeFilter
+  size: IntFilter
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores: [AbilityScore!]
@@ -816,7 +859,7 @@ type Query {
   skill(index: String): Skill
   skills(ability_score: StringFilter): [Skill!]
   spell(index: String): Spell
-  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter): [Spell!]
+  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter): [Spell!]
   subclass(index: String): Subclass
   subclasses: [Subclass!]!
   subrace(index: String): Subrace

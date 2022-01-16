@@ -394,6 +394,53 @@ const Query = {
       filters.push(filter);
     }
 
+    if (args.concentration !== undefined) {
+      const filter = { concentration: args.concentration };
+      filters.push(filter);
+    }
+
+    if (args.ritual !== undefined) {
+      const filter = { ritual: args.ritual };
+      filters.push(filter);
+    }
+
+    if (args.attack_type) {
+      const filter = { attack_type: { $in: args.attack_type } };
+      filters.push(filter);
+    }
+
+    if (args.casting_time) {
+      const filter = { casting_time: { $in: args.casting_time } };
+      filters.push(filter);
+    }
+
+    if (args.area_of_effect) {
+      const { area_of_effect } = args;
+      if (area_of_effect.type) {
+        const filter = { 'area_of_effect.type': { $in: area_of_effect.type } };
+        filters.push(filter);
+      }
+      if (area_of_effect.size) {
+        const filter = { 'area_of_effect.size': { $in: area_of_effect.size } };
+        filters.push(filter);
+      }
+    }
+
+    if (args.damage_type) {
+      const filter = { 'damage.damage_type.index': { $in: args.damage_type } };
+      filters.push(filter);
+    }
+
+    if (args.dc_type) {
+      const filter = { 'dc.dc_type.index': { $in: args.dc_type } };
+      filters.push(filter);
+    }
+
+    if (args.range) {
+      const filter = { range: { $in: args.range } };
+      filters.push(filter);
+    }
+
     return await Spell.find(coalesceFilters(filters)).lean();
   },
   async subclass(query, args) {

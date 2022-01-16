@@ -1,7 +1,9 @@
 const AbilityScore = require('./abilityScoreResolver');
 const Ammunition = require('./ammunitionResolver');
+const AreaOfEffectTypeFilter = require('./scalars/areaOfEffectTypeFilter');
 const Armor = require('./armorResolver');
 const Background = require('./backgroundResolver');
+const CastingTimeFilter = require('./scalars/castingTimeFilterResolver');
 const Class = require('./classResolver');
 const ClassSpecific = require('./classSpecificResolver');
 const IEquipment = require('./iEquipmentResolver');
@@ -30,6 +32,7 @@ const Rule = require('./ruleResolver');
 const SizeFilter = require('./scalars/sizeFilterResolver');
 const Skill = require('./skillResolver');
 const Spell = require('./spellResolver');
+const SpellAttackTypeFilter = require('./scalars/spellAttackTypeFilterResolver');
 const SpellPrerequisite = require('./spellPrerequisiteResolver');
 const StringFilter = require('./scalars/stringFilterResolver');
 const Subclass = require('./subclassResolver');
@@ -44,8 +47,10 @@ const Weapon = require('./weaponResolver');
 const resolvers = {
   AbilityScore,
   Ammunition,
+  AreaOfEffectTypeFilter,
   Armor,
   Background,
+  CastingTimeFilter,
   Class,
   ClassSpecific,
   IEquipment,
@@ -74,6 +79,7 @@ const resolvers = {
   SizeFilter,
   Skill,
   Spell,
+  SpellAttackTypeFilter,
   SpellPrerequisite,
   StringFilter,
   Subclass,
