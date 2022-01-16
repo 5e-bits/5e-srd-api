@@ -869,7 +869,7 @@ type Query {
   backgrounds(order_direction: OrderByDirection): [Background!]!
   class(index: String): Class
   classes(hit_die: IntFilter, order: ClassOrder): [Class!]!
-  condition: Condition
+  condition(index: String): Condition
   conditions(order_direction: OrderByDirection): [Condition!]
   damageType(index: String): DamageType
   damageTypes(order_direction: OrderByDirection): [DamageType!]
@@ -907,7 +907,7 @@ type Query {
   subclasses(order_direction: OrderByDirection): [Subclass!]!
   subrace(index: String): Subrace
   subraces(order_direction: OrderByDirection): [Subrace!]!
-  trait: Trait
+  trait(index: String): Trait
   traits(order_direction: OrderByDirection): [Trait!]
   weaponProperty(index: String): WeaponProperty
   weaponProperties(order_direction: OrderByDirection): [WeaponProperty]
