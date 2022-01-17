@@ -788,7 +788,7 @@ type Level {
   ability_score_bonuses: Int
   class: Class!
   subclass: Subclass
-  features: [Feature!]!
+  features(order_direction: OrderByDirection): [Feature!]!
   prof_bonus: Int
   spellcasting: LevelSpellcasting
   class_specific: ClassSpecific
@@ -882,6 +882,19 @@ enum EquipmentCategoryOrderBy {
   WEIGHT
 }
 
+input FeatureOrder {
+  by: FeatureOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: FeatureOrder
+}
+
+enum FeatureOrderBy {
+  NAME
+  LEVEL
+  CLASS
+  SUBCLASS
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -902,7 +915,7 @@ type Query {
   feat(index: String): Feat
   feats(order_direction: OrderByDirection): [Feat!]
   feature(index: String): Feature
-  features(level: IntFilter, class: StringFilter, subclass: StringFilter): [Feature!]
+  features(level: IntFilter, class: StringFilter, subclass: StringFilter, order: FeatureOrder): [Feature!]
   language(index: String): Language
   languages(type: LanguageType, script: StringFilter): [Language!]
   level(index: String): Level
