@@ -67,7 +67,7 @@ type Cost {
 type EquipmentCategory {
   index: String!
   name: String!
-  equipment: [IEquipmentBase!]!
+  equipment(order: EquipmentCategoryOrder): [IEquipmentBase!]!
 }
 
 interface IEquipmentBase {
@@ -869,6 +869,17 @@ input MagicItemOrder {
 enum MagicItemOrderBy {
   NAME
   EQUIPMENT_CATEGORY
+}
+
+input EquipmentCategoryOrder {
+  by: EquipmentCategoryOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: EquipmentCategoryOrder
+}
+
+enum EquipmentCategoryOrderBy {
+  NAME
+  WEIGHT
 }
 
 type Query {
