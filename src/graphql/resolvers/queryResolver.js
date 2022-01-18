@@ -89,7 +89,7 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase());
+      sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
     }
     return await Class.find(filter)
       .sort(sort)
@@ -137,8 +137,10 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value =>
-        value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()
+      sort = coalesceSort(
+        args.order,
+        value => (value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()),
+        3
       );
     }
 
@@ -197,16 +199,20 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => {
-        switch (value) {
-          case 'CLASS':
-            return 'class.name';
-          case 'SUBCLASS':
-            return 'subclass.name';
-          default:
-            return value.toLowerCase();
-        }
-      });
+      sort = coalesceSort(
+        args.order,
+        value => {
+          switch (value) {
+            case 'CLASS':
+              return 'class.name';
+            case 'SUBCLASS':
+              return 'subclass.name';
+            default:
+              return value.toLowerCase();
+          }
+        },
+        4
+      );
     }
 
     return await Feature.find(coalesceFilters(filters))
@@ -231,7 +237,7 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase());
+      sort = coalesceSort(args.order, value => value.toLowerCase(), 3);
     }
 
     return await Language.find(coalesceFilters(filters))
@@ -268,16 +274,20 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => {
-        switch (value) {
-          case 'CLASS':
-            return 'class.name';
-          case 'SUBCLASS':
-            return 'subclass.name';
-          default:
-            return value.toLowerCase();
-        }
-      });
+      sort = coalesceSort(
+        args.order,
+        value => {
+          switch (value) {
+            case 'CLASS':
+              return 'class.name';
+            case 'SUBCLASS':
+              return 'subclass.name';
+            default:
+              return value.toLowerCase();
+          }
+        },
+        5
+      );
     }
 
     return await Level.find(coalesceFilters(filters))
@@ -296,8 +306,10 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value =>
-        value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()
+      sort = coalesceSort(
+        args.order,
+        value => (value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()),
+        2
       );
     }
 

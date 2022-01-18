@@ -105,7 +105,7 @@ const resolveSpells = async (args, baseFilters) => {
 
   let sort = {};
   if (args.order) {
-    sort = coalesceSort(args.order, resolveSpellOrderBy);
+    sort = coalesceSort(args.order, resolveSpellOrderBy, 6);
   }
 
   return await Spell.find(coalesceFilters(filters))
@@ -126,9 +126,8 @@ const coalesceFilters = filters => {
   return filter;
 };
 
-const coalesceSort = (order, getPropertyName) => {
+const coalesceSort = (order, getPropertyName, maxDepth) => {
   const sort = {};
-  const maxDepth = 10;
   let depth = 0;
 
   do {

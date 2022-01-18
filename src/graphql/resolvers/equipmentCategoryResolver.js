@@ -11,7 +11,7 @@ const EquipmentCategory = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase());
+      sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
     }
 
     if (sort.name) {
