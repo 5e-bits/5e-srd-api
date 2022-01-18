@@ -262,11 +262,27 @@ const Query = {
       filters.push(resolveNumberFilter(args.prof_bonus, 'prof_bonus'));
     }
 
-    if (args.ability_score_bonus) {
-      filters.push(resolveNumberFilter(args.ability_score_bonus, 'ability_score_bonuses'));
+    if (args.ability_score_bonuses) {
+      filters.push(resolveNumberFilter(args.ability_score_bonuses, 'ability_score_bonuses'));
     }
 
-    return await Level.find(coalesceFilters(filters)).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value => {
+        switch (value) {
+          case 'CLASS':
+            return 'class.name';
+          case 'SUBCLASS':
+            return 'subclass.name';
+          default:
+            return value.toLowerCase();
+        }
+      });
+    }
+
+    return await Level.find(coalesceFilters(filters))
+      .sort(sort)
+      .lean();
   },
   async magicItem(query, args) {
     const filter = args.index ? { index: args.index } : {};

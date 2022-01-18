@@ -921,6 +921,20 @@ enum LanguageOrderBy {
   SCRIPT
 }
 
+input LevelOrder {
+  by: LevelOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: LevelOrder
+}
+
+enum LevelOrderBy {
+  LEVEL
+  CLASS
+  SUBCLASS
+  PROF_BONUS
+  ABILITY_SCORE_BONUSES
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -945,7 +959,7 @@ type Query {
   language(index: String): Language
   languages(type: LanguageType, script: LanguageScriptFilter, order: LanguageOrder): [Language!]
   level(index: String): Level
-  levels(class: StringFilter, subclass: StringFilter, level: IntFilter, prof_bonus: IntFilter, ability_score_bonus: IntFilter): [Level!]
+  levels(class: StringFilter, subclass: StringFilter, level: IntFilter, prof_bonus: IntFilter, ability_score_bonuses: IntFilter, order: LevelOrder): [Level!]
   magicItem(index: String): MagicItem
   magicItems(equipment_category: StringFilter, order: MagicItemOrder): [MagicItem!]
   magicSchool(index: String): MagicSchool
