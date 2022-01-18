@@ -945,7 +945,7 @@ type Query {
   language(index: String): Language
   languages(type: LanguageType, script: LanguageScriptFilter, order: LanguageOrder): [Language!]
   level(index: String): Level
-  levels(class: StringFilter, subclass: StringFilter, level: IntFilter): [Level!]
+  levels(class: StringFilter, subclass: StringFilter, level: IntFilter, prof_bonus: IntFilter, ability_score_bonus: IntFilter): [Level!]
   magicItem(index: String): MagicItem
   magicItems(equipment_category: StringFilter, order: MagicItemOrder): [MagicItem!]
   magicSchool(index: String): MagicSchool

@@ -258,6 +258,14 @@ const Query = {
       filters.push(resolveNumberFilter(args.level, 'level'));
     }
 
+    if (args.prof_bonus) {
+      filters.push(resolveNumberFilter(args.prof_bonus, 'prof_bonus'));
+    }
+
+    if (args.ability_score_bonus) {
+      filters.push(resolveNumberFilter(args.ability_score_bonus, 'ability_score_bonuses'));
+    }
+
     return await Level.find(coalesceFilters(filters)).lean();
   },
   async magicItem(query, args) {
