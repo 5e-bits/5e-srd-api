@@ -16,6 +16,7 @@ const IGear = require('./iGearResolver');
 const Gear = require('./gearResolver');
 const IntFilter = require('./scalars/intFilterResolver');
 const Language = require('./languageResolver');
+const LanguageScriptFilter = require('./scalars/languageScriptFilterResolver');
 const Level = require('./levelResolver');
 const MagicItem = require('./magicItemResolver');
 const MagicSchool = require('./magicShoolResolver');
@@ -63,6 +64,7 @@ const resolvers = {
   Gear,
   IntFilter,
   Language,
+  LanguageScriptFilter,
   Level,
   MagicItem,
   MagicSchool,

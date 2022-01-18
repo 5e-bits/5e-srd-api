@@ -236,11 +236,25 @@ enum LanguageType {
   EXOTIC
 }
 
+enum LanguageScript {
+  COMMON
+  ELVISH
+  DWARVISH
+  INFERNAL
+  DRACONIC
+  CELESTIAL
+}
+
+"""
+LanguageScript or list of LanguageScripts
+"""
+scalar LanguageScriptFilter
+
 type Language {
   index: String!
   name: String!
   desc: String
-  script: String
+  script: LanguageScript
   type: LanguageType!
   typical_speakers: [String!]!
 }
@@ -895,6 +909,18 @@ enum FeatureOrderBy {
   SUBCLASS
 }
 
+input LanguageOrder {
+  by: LanguageOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: LanguageOrder
+}
+
+enum LanguageOrderBy {
+  NAME
+  TYPE
+  SCRIPT
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -917,7 +943,7 @@ type Query {
   feature(index: String): Feature
   features(level: IntFilter, class: StringFilter, subclass: StringFilter, order: FeatureOrder): [Feature!]
   language(index: String): Language
-  languages(type: LanguageType, script: StringFilter): [Language!]
+  languages(type: LanguageType, script: LanguageScriptFilter, order: LanguageOrder): [Language!]
   level(index: String): Level
   levels(class: StringFilter, subclass: StringFilter, level: IntFilter): [Level!]
   magicItem(index: String): MagicItem
