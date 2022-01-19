@@ -433,7 +433,14 @@ const Query = {
       filters.push(filter);
     }
 
-    return await Proficiency.find(coalesceFilters(filters)).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
+    }
+
+    return await Proficiency.find(coalesceFilters(filters))
+      .sort(sort)
+      .lean();
   },
   async race(query, args) {
     const filter = args.index ? { index: args.index } : {};
