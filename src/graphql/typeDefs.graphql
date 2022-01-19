@@ -935,6 +935,28 @@ enum LevelOrderBy {
   ABILITY_SCORE_BONUSES
 }
 
+input MonsterOrder {
+  by: MonsterOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: MonsterOrder
+}
+
+enum MonsterOrderBy {
+  NAME
+  SIZE
+  TYPE
+  SUBTYPE
+  ARMOR_CLASS
+  CHALLENGE_RATING
+  CHARISMA
+  CONSTITUTION
+  STRENGTH
+  WISDOM
+  INTELLIGENCE
+  DEXTERITY
+  XP
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -965,7 +987,7 @@ type Query {
   magicSchool(index: String): MagicSchool
   magicSchools(order_direction: OrderByDirection): [MagicSchool!]
   monster(index: String): Monster
-  monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter): [Monster!]
+  monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter, order: MonsterOrder): [Monster!]
   proficiency(index: String): Proficiency
   proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter): [Proficiency!]
   race(index: String): Race

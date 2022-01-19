@@ -403,7 +403,14 @@ const Query = {
       filters.push(resolveNumberFilter(args.xp, 'xp'));
     }
 
-    return await Monster.find(coalesceFilters(filters)).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value => value.toLowerCase(), 13);
+    }
+
+    return await Monster.find(coalesceFilters(filters))
+      .sort(sort)
+      .lean();
   },
   async proficiency(query, args) {
     const filter = args.index ? { index: args.index } : {};

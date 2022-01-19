@@ -134,8 +134,15 @@ const coalesceSort = (order, getPropertyName, maxDepth) => {
     if (depth >= maxDepth) {
       throw 'Maximum sort depth reached';
     }
+    const propertyName = getPropertyName(order.by);
+    let direction = getMongoSortDirection(order.direction);
 
-    sort[getPropertyName(order.by)] = getMongoSortDirection(order.direction);
+    // The sizes happen to be in the correct order when counted in revese-alphabetical order
+    if (propertyName === 'size') {
+      direction = -direction;
+    }
+
+    sort[propertyName] = direction;
     order = order.then_by;
     ++depth;
   } while (order);
