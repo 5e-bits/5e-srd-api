@@ -18,7 +18,7 @@ type AbilityScore {
   name: String!
   full_name: String!
   desc: [String!]!
-  skills: [Skill!]!
+  skills(order_direction: OrderByDirection): [Skill!]!
 }
 
 type Skill {
@@ -980,6 +980,17 @@ enum RaceOrderBy {
   SPEED
 }
 
+input SkillOrder {
+  by: SkillOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: SkillOrder
+}
+
+enum SkillOrderBy {
+  NAME
+  ABILITY_SCORE
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -1020,7 +1031,7 @@ type Query {
   ruleSection(index: String): RuleSection
   ruleSections(order_direction: OrderByDirection): [RuleSection!]
   skill(index: String): Skill
-  skills(ability_score: StringFilter): [Skill!]
+  skills(ability_score: StringFilter, order: SkillOrder): [Skill!]
   spell(index: String): Spell
   spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder): [Spell!]
   subclass(index: String): Subclass

@@ -518,7 +518,18 @@ const Query = {
       filter = { 'ability_score.index': { $in: args.ability_score } };
     }
 
-    return await Skill.find(filter).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(
+        args.order,
+        value => (value === 'ABILITY_SCORE' ? 'ability_score.name' : value.toLowerCase()),
+        2
+      );
+    }
+
+    return await Skill.find(filter)
+      .sort(sort)
+      .lean();
   },
   async spell(query, args) {
     const filter = args.index ? { index: args.index } : {};
