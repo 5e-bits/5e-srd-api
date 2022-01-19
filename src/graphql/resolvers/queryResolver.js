@@ -469,7 +469,14 @@ const Query = {
       filters.push(resolveNumberFilter(args.speed, 'speed'));
     }
 
-    return await Race.find(coalesceFilters(filters)).lean();
+    let sort = {};
+    if (args.order) {
+      sort = coalesceSort(args.order, value => value.toLowerCase(), 3);
+    }
+
+    return await Race.find(coalesceFilters(filters))
+      .sort(sort)
+      .lean();
   },
   async rule(query, args) {
     const filter = args.index ? { index: args.index } : {};

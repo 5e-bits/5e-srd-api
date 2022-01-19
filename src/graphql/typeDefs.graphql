@@ -968,6 +968,18 @@ enum ProficiencyOrderBy {
   TYPE
 }
 
+input RaceOrder {
+  by: RaceOrderBy!
+  direction: OrderByDirection! = ASCENDING
+  then_by: RaceOrder
+}
+
+enum RaceOrderBy {
+  NAME
+  SIZE
+  SPEED
+}
+
 type Query {
   abilityScore(index: String): AbilityScore
   abilityScores(order_direction: OrderByDirection): [AbilityScore!]
@@ -1002,7 +1014,7 @@ type Query {
   proficiency(index: String): Proficiency
   proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter, order: ProficiencyOrder): [Proficiency!]
   race(index: String): Race
-  races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter): [Race!]!
+  races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter, order: RaceOrder): [Race!]!
   rule(index: String): Rule
   rules(order_direction: OrderByDirection): [Rule]
   ruleSection(index: String): RuleSection
