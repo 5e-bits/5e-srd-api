@@ -19,6 +19,8 @@
   },
   "rules": {
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "prettier/prettier": ["error"]
-  }
+    "prettier/prettier": ["error"],
+    "@typescript-eslint/no-var-requires": "warn"
+  },
+  "ignorePatterns": ["dist/**/*.js"]
 }
