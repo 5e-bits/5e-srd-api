@@ -7,7 +7,10 @@
   "private": true,
   "scripts": {
     "build:ts": "tsc",
-    "start": "npm run build:ts && node built/src/start.js",
+    "build": "npm-run-all clean build:ts copy-assets",
+    "clean": "rimraf dist/*",
+    "copy-assets": "ts-node tools/copyAssets",
+    "start": "npm run build && node dist/src/start.js",
     "lint": "eslint . --ext .js",
     "test": "jest -c jest.config.js",
     "test:unit": "jest -c jest.config.unit.js",
@@ -39,18 +42,26 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^17.0.21",
+    "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "fs-extra": "^10.0.1",
     "jest": "^26.6.3",
     "mockingoose": "^2.13.2",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "redis-mock": "^0.51.0",
+    "rimraf": "^3.0.2",
+    "shelljs": "^0.8.5",
     "supertest": "^4.0.2",
+    "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   }
 }

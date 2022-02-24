@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { promisify } = require('util');
-const { mongodbUri, redisClient, prewarmCache } = require('./util');
-const createApp = require('./server');
+import mongoose from 'mongoose';
+import { promisify } from 'util';
+import { mongodbUri, redisClient, prewarmCache } from './util/index';
+import createApp from './server';
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
 const start = async () => {
@@ -21,8 +21,8 @@ const start = async () => {
   const app = await createApp();
 
   console.log('Starting server...');
-  const server = app.listen(process.env.PORT || 3000, () => {
-    const port = server.address().port;
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
     console.log(`Listening on port ${port}! 🚀`);
   });
 };

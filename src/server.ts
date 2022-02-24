@@ -1,10 +1,10 @@
-import * as express from 'express';
-import * as morgan from 'morgan';
-import * as cors from 'cors';
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 import { bugsnagMiddleware } from './middleware/bugsnag';
 import { createApolloMiddleware } from './middleware/apolloServer';
 
-module.exports = async () => {
+export default async () => {
   const app = express();
   // enable cors in preflight
   app.options('*', cors());
@@ -28,7 +28,7 @@ module.exports = async () => {
   app.get('/docs', require('./controllers/docsController'));
   app.use('/api', require('./routes/api'));
 
-  app.use(function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  app.use(function(req: express.Request, res: express.Response) {
     res.status(404);
 
     // TODO: Add a fun 404 page
