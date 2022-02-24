@@ -1,10 +1,10 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const { bugsnagMiddleware } = require('./middleware/bugsnag');
-const { createApolloMiddleware } = require('./middleware/apolloServer');
+import * as express from 'express';
+import * as morgan from 'morgan';
+import * as cors from 'cors';
+import { bugsnagMiddleware } from './middleware/bugsnag';
+import { createApolloMiddleware } from './middleware/apolloServer';
 
-const createApp = async () => {
+module.exports = async () => {
   const app = express();
   // enable cors in preflight
   app.options('*', cors());
@@ -28,7 +28,7 @@ const createApp = async () => {
   app.get('/docs', require('./controllers/docsController'));
   app.use('/api', require('./routes/api'));
 
-  app.use(function(req, res, _next) {
+  app.use(function(req: express.Request, res: express.Response, next: express.NextFunction) {
     res.status(404);
 
     // TODO: Add a fun 404 page
@@ -45,6 +45,3 @@ const createApp = async () => {
   app.use(bugsnagMiddleware.errorHandler);
   return app;
 };
-
-// module.exports = app;
-module.exports = createApp;

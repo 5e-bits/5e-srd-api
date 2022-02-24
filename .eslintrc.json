@@ -5,13 +5,15 @@
     "es6": true,
     "jquery": true
   },
-  "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended"],
-  "plugins": ["prettier", "jest"],
+  "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended", "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"],
+  "plugins": ["prettier", "jest", "@typescript-eslint"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
     "jest/globals": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018
   },
