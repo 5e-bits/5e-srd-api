@@ -9,9 +9,6 @@ import apiRoutes from './routes/api';
 
 export default async () => {
   const app = express();
-  // enable cors in preflight
-  app.options('*', cors());
-
   // Middleware stuff
   app.set('view engine', 'ejs');
   app.set('views', __dirname + '/views');
@@ -20,7 +17,8 @@ export default async () => {
   app.use('/css', express.static(__dirname + '/css'));
   app.use('/public', express.static(__dirname + '/public'));
   app.use(morgan('short'));
-  app.use(cors({ origin: '*' }));
+  // Enable all CORS requests
+  app.use(cors());
 
   console.log('Setting up Apollo GraphQL server');
   const apolloMiddleware = await createApolloMiddleware();
