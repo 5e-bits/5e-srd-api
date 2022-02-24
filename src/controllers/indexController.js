@@ -1,3 +1,3 @@
-module.exports = (req, res, _next) => {
+export default (req, res) => {
   res.render('pages/index');
 };
