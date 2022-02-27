@@ -5,9 +5,18 @@
     "es6": true,
     "jquery": true
   },
-  "extends": ["eslint:recommended", "prettier", "plugin:jest/recommended", "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"],
-  "plugins": ["prettier", "jest", "@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:jest/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "jest",
+    "@typescript-eslint"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
@@ -18,9 +27,19 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "prettier/prettier": ["error"],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "prettier/prettier": [
+      "error"
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "warn"
   },
-  "ignorePatterns": ["dist/**/*.js"]
+  "ignorePatterns": [
+    "dist/**/*.js"
+  ]
 }

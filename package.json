@@ -20,7 +20,6 @@
   "dependencies": {
     "@bugsnag/js": "^7.16.1",
     "@bugsnag/plugin-express": "^7.16.1",
-    "@types/morgan": "^1.9.3",
     "apollo-server-express": "^2.19.2",
     "apollo-server-plugin-response-cache": "^0.7.0",
     "cookie-parser": "^1.4.5",
@@ -43,6 +42,7 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
+    "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.21",
     "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
@@ -62,6 +62,7 @@
     "shelljs": "^0.8.5",
     "supertest": "^4.0.2",
     "ts-node": "^10.5.0",
+    "typedoc": "^0.22.12",
     "typescript": "^4.5.5"
   }
 }
