@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const ClassSpecificCreatingSpellSlot = {
   sorcery_point_cost: { type: Number, index: true },
@@ -71,7 +70,7 @@ const SubclassSpecific = {
   aura_range: { type: Number, index: true },
 };
 
-const Level = new Schema({
+const Level = new mongoose.Schema({
   _id: { type: String, select: false },
   ability_score_bonuses: { type: Number, index: true },
   class: APIReference,

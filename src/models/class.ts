@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const Equipment = {
   equipment: APIReference,
@@ -24,7 +23,7 @@ const ProficiencyChoice = {
   type: { type: String, index: true },
 };
 
-const SpellcastingInfo = new Schema({
+const SpellcastingInfo = new mongoose.Schema({
   desc: { type: [String], index: true },
   name: { type: String, index: true },
 });
@@ -53,7 +52,7 @@ const MultiClassing = {
   proficiency_choices: [ProficiencyChoice],
 };
 
-const Class = new Schema({
+const Class = new mongoose.Schema({
   _id: { type: String, select: false },
   class_levels: { type: String, index: true },
   multi_classing: MultiClassing,

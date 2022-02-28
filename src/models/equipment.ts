@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const ArmorClass = {
   base: { type: Number, index: true },
@@ -43,7 +42,7 @@ const TwoHandedDamage = {
   damage_type: APIReference,
 };
 
-const Equipment = new Schema({
+const Equipment = new mongoose.Schema({
   _id: { type: String, select: false },
   armor_category: { type: String, index: true },
   armor_class: ArmorClass,

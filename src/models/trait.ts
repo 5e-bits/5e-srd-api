@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const Proficiency = {
   index: { type: String, index: true },
@@ -51,7 +50,7 @@ const TraitSpecific = {
   breath_weapon: Action,
 };
 
-const Trait = new Schema({
+const Trait = new mongoose.Schema({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },

@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import mongoose from 'mongoose';
+import { APIReference } from './common';
 
-const AbilityScore = new Schema({
+const AbilityScore = new mongoose.Schema({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   full_name: { type: String, index: true },

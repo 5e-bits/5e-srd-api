@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const LanguageOptions = {
   _id: false,
@@ -50,7 +49,7 @@ const Feature = {
   desc: { type: [String], index: true },
 };
 
-const Background = new Schema({
+const Background = new mongoose.Schema({
   _id: { type: String, select: false },
   index: { type: String, index: true },
   name: { type: String, index: true },

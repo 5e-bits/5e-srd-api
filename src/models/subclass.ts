@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const SpellPrerequisite = {
   index: { type: String, index: true },
@@ -14,7 +13,7 @@ const Spell = {
   spell: APIReference,
 };
 
-const Subclass = new Schema({
+const Subclass = new mongoose.Schema({
   _id: { type: String, select: false },
   class: APIReference,
   desc: { type: [String], index: true },

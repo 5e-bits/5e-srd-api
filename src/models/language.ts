@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import * as mongoose from 'mongoose';
 
-const Language = new Schema({
+const Language = new mongoose.Schema({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },

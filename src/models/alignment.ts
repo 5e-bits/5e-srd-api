@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import * as mongoose from 'mongoose';
 
-const Alignment = new Schema({
+const Alignment = new mongoose.Schema({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   abbreviation: { type: String, index: true },

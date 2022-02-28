@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
-const Rule = new Schema({
+const Rule = new mongoose.Schema({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },

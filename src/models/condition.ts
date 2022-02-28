@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import * as mongoose from 'mongoose';
 
-const DamageType = new Schema({
+const Condition = new mongoose.Schema({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -9,4 +8,4 @@ const DamageType = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('DamageType', DamageType, 'damage-types');
+module.exports = mongoose.model('Condition', Condition, 'conditions');

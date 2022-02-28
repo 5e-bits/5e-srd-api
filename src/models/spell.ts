@@ -1,14 +1,13 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
-const AreaOfEffect = new Schema({
+const AreaOfEffect = new mongoose.Schema({
   _id: false,
   size: Number,
   type: String,
 });
 
-const Damage = new Schema({
+const Damage = new mongoose.Schema({
   _id: false,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   damage_at_slot_level: Object,
@@ -17,14 +16,14 @@ const Damage = new Schema({
   damage_type: APIReference,
 });
 
-const DC = new Schema({
+const DC = new mongoose.Schema({
   _id: false,
   dc_success: String,
   dc_type: APIReference,
   desc: String,
 });
 
-const Spell = new Schema({
+const Spell = new mongoose.Schema({
   _id: {
     type: String,
     select: false,

@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const ActionDamage = {
   damage_dice: { type: String, index: true },
@@ -52,7 +51,7 @@ const Speed = {
   walk: { type: String, index: true },
 };
 
-const MonsterSchema = new Schema({
+const MonsterSchema = new mongoose.Schema({
   _id: { type: String, select: false },
   actions: [Action],
   alignment: { type: String, index: true },

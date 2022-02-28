@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
-const EquipmentCategory = new Schema({
+const EquipmentCategory = new mongoose.Schema({
   _id: { type: String, select: false },
   equipment: [APIReference],
   index: { type: String, index: true },

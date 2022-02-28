@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const Choice = {
   choose: { type: Number, index: true },
@@ -18,7 +17,7 @@ const FeatureSpecific = {
   expertise_options: Choice,
 };
 
-const Feature = new Schema({
+const Feature = new mongoose.Schema({
   _id: { type: String, select: false },
   choice: Choice,
   class: APIReference,

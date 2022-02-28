@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+import * as mongoose from 'mongoose';
+import { APIReference } from './common';
 
 const Reference = {
   index: { type: String, index: true },
@@ -9,7 +8,7 @@ const Reference = {
   url: { type: String, index: true },
 };
 
-const Proficiency = new Schema({
+const Proficiency = new mongoose.Schema({
   _id: { type: String, select: false },
   classes: [APIReference],
   index: { type: String, index: true },
