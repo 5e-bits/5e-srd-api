@@ -85,4 +85,4 @@ const Level = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Level', Level, 'levels');
+export default mongoose.model('Level', Level, 'levels');

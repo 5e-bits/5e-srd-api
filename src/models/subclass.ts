@@ -25,4 +25,4 @@ const Subclass = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Subclass', Subclass, 'subclasses');
+export default mongoose.model('Subclass', Subclass, 'subclasses');

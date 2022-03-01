@@ -64,4 +64,4 @@ const Trait = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Trait', Trait, 'traits');
+export default mongoose.model('Trait', Trait, 'traits');

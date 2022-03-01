@@ -70,4 +70,4 @@ const Class = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Class', Class, 'classes');
+export default mongoose.model('Class', Class, 'classes');

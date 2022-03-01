@@ -10,4 +10,4 @@ const Rule = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Rule', Rule, 'rules');
+export default mongoose.model('Rule', Rule, 'rules');

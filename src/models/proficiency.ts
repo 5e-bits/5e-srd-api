@@ -19,4 +19,4 @@ const Proficiency = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Proficiency', Proficiency, 'proficiencies');
+export default mongoose.model('Proficiency', Proficiency, 'proficiencies');

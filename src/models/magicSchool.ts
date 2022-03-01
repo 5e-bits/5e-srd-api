@@ -8,4 +8,4 @@ const MagicSchool = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('MagicSchool', MagicSchool, 'magic-schools');
+export default mongoose.model('MagicSchool', MagicSchool, 'magic-schools');

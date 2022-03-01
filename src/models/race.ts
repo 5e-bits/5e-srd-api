@@ -50,4 +50,4 @@ const Race = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Race', Race, 'races');
+export default mongoose.model('Race', Race, 'races');

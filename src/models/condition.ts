@@ -8,4 +8,4 @@ const Condition = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Condition', Condition, 'conditions');
+export default mongoose.model('Condition', Condition, 'conditions');

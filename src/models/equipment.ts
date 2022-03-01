@@ -73,4 +73,4 @@ const Equipment = new mongoose.Schema({
   weight: { type: Number, index: true },
 });
 
-module.exports = mongoose.model('Equipment', Equipment, 'equipment');
+export default mongoose.model('Equipment', Equipment, 'equipment');

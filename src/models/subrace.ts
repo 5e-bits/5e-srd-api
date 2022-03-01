@@ -25,4 +25,4 @@ const Subrace = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Subrace', Subrace, 'subraces');
+export default mongoose.model('Subrace', Subrace, 'subraces');

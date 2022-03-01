@@ -8,4 +8,4 @@ const RuleSection = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('RuleSection', RuleSection, 'rule-sections');
+export default mongoose.model('RuleSection', RuleSection, 'rule-sections');

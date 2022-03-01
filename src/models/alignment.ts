@@ -9,4 +9,4 @@ const Alignment = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Alignment', Alignment, 'alignments');
+export default mongoose.model('Alignment', Alignment, 'alignments');

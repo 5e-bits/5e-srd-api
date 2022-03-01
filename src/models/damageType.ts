@@ -8,4 +8,4 @@ const DamageType = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('DamageType', DamageType, 'damage-types');
+export default mongoose.model('DamageType', DamageType, 'damage-types');

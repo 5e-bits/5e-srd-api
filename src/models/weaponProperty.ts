@@ -8,4 +8,4 @@ const WeaponProperty = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('WeaponProperty', WeaponProperty, 'weapon-properties');
+export default mongoose.model('WeaponProperty', WeaponProperty, 'weapon-properties');

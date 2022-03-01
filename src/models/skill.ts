@@ -10,4 +10,4 @@ const Skill = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Skill', Skill, 'skills');
+export default mongoose.model('Skill', Skill, 'skills');

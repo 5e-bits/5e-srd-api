@@ -10,4 +10,4 @@ const MagicItem = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('MagicItem', MagicItem, 'magic-items');
+export default mongoose.model('MagicItem', MagicItem, 'magic-items');

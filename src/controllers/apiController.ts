@@ -1,3 +1,5 @@
+import { Request, Response } from 'express';
+// TODO: We're generating this now, so we can query the DB instead of hardcoding it.
 const API_INDEX = {
   'ability-scores': '/api/ability-scores',
   alignments: '/api/alignments',
@@ -25,8 +27,8 @@ const API_INDEX = {
   'weapon-properties': '/api/weapon-properties',
 };
 
-exports.API_INDEX = API_INDEX;
-
-exports.index = (req, res, _next) => {
+const index = (req: Request, res: Response) => {
   res.status(200).json(API_INDEX);
 };
+
+export { API_INDEX, index };

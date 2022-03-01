@@ -65,4 +65,4 @@ const Background = new mongoose.Schema({
   flaws: CharacteristicOptions,
 });
 
-module.exports = mongoose.model('Background', Background, 'backgrounds');
+export default mongoose.model('Background', Background, 'backgrounds');

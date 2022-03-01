@@ -52,4 +52,4 @@ const Spell = new mongoose.Schema({
   url: String,
 });
 
-module.exports = mongoose.model('Spell', Spell, 'spells');
+export default mongoose.model('Spell', Spell, 'spells');

@@ -11,4 +11,4 @@ const AbilityScore = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('AbilityScore', AbilityScore, 'ability-scores');
+export default mongoose.model('AbilityScore', AbilityScore, 'ability-scores');

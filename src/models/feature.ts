@@ -33,4 +33,4 @@ const Feature = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Feature', Feature, 'features');
+export default mongoose.model('Feature', Feature, 'features');

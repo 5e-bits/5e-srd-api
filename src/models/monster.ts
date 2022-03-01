@@ -86,4 +86,4 @@ const MonsterSchema = new mongoose.Schema({
   xp: { type: Number, index: true },
 });
 
-module.exports = mongoose.model('Monster', MonsterSchema, 'monsters');
+export default mongoose.model('Monster', MonsterSchema, 'monsters');

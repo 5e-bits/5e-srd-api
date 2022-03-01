@@ -9,4 +9,4 @@ const EquipmentCategory = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');
+export default mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');
