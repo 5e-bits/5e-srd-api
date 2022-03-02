@@ -1,6 +1,14 @@
 import * as mongoose from 'mongoose';
 
-const DamageType = new mongoose.Schema({
+interface DamageType {
+  _id?: string;
+  desc: string[];
+  index: string;
+  name: string;
+  url: string;
+}
+
+const DamageType = new mongoose.Schema<DamageType>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -8,4 +16,4 @@ const DamageType = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('DamageType', DamageType, 'damage-types');
+export default mongoose.model<DamageType>('DamageType', DamageType, 'damage-types');

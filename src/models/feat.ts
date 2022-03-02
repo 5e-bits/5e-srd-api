@@ -1,12 +1,26 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
+
+interface Prerequisite {
+  ability_score: APIReference;
+  minimum_score: number;
+}
 
 const Prerequisite = {
-  ability_score: APIReference,
+  ability_score: APIReferenceSchema,
   minimum_score: { type: Number, index: true },
 };
 
-const Feat = new mongoose.Schema({
+interface Feat {
+  _id?: string;
+  index: string;
+  name: string;
+  prerequisites: Prerequisite[];
+  desc: string[];
+  url: string;
+}
+
+const Feat = new mongoose.Schema<Feat>({
   _id: { type: String, select: false },
   index: { type: String, index: true },
   name: { type: String, index: true },
@@ -15,4 +29,4 @@ const Feat = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Feat', Feat, 'feats');
+export default mongoose.model<Feat>('Feat', Feat, 'feats');

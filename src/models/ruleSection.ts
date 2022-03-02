@@ -1,6 +1,14 @@
 import * as mongoose from 'mongoose';
 
-const RuleSection = new mongoose.Schema({
+interface RuleSection {
+  _id?: string;
+  desc: string;
+  index: string;
+  name: string;
+  url: string;
+}
+
+const RuleSection = new mongoose.Schema<RuleSection>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },
@@ -8,4 +16,4 @@ const RuleSection = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('RuleSection', RuleSection, 'rule-sections');
+export default mongoose.model<RuleSection>('RuleSection', RuleSection, 'rule-sections');

@@ -1,6 +1,14 @@
 import * as mongoose from 'mongoose';
 
-const Condition = new mongoose.Schema({
+interface Condition {
+  _id?: string;
+  desc: string[];
+  index: string;
+  name: string;
+  url: string;
+}
+
+const Condition = new mongoose.Schema<Condition>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -8,4 +16,4 @@ const Condition = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Condition', Condition, 'conditions');
+export default mongoose.model<Condition>('Condition', Condition, 'conditions');

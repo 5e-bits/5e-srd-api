@@ -1,6 +1,15 @@
 import * as mongoose from 'mongoose';
 
-const Alignment = new mongoose.Schema({
+interface Alignment {
+  _id?: string;
+  desc: string;
+  abbreviation: string;
+  index: string;
+  name: string;
+  url: string;
+}
+
+const Alignment = new mongoose.Schema<Alignment>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   abbreviation: { type: String, index: true },
@@ -9,4 +18,4 @@ const Alignment = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Alignment', Alignment, 'alignments');
+export default mongoose.model<Alignment>('Alignment', Alignment, 'alignments');

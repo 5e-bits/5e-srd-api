@@ -1,13 +1,22 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
 
-const MagicItem = new mongoose.Schema({
+interface MagicItem {
+  _id?: string;
+  desc: string[];
+  equipment_category: APIReference;
+  index: string;
+  name: string;
+  url: string;
+}
+
+const MagicItem = new mongoose.Schema<MagicItem>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
-  equipment_category: APIReference,
+  equipment_category: APIReferenceSchema,
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
 });
 
-export default mongoose.model('MagicItem', MagicItem, 'magic-items');
+export default mongoose.model<MagicItem>('MagicItem', MagicItem, 'magic-items');

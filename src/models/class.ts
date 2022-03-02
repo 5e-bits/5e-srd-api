@@ -1,15 +1,31 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
+
+interface Equipment {
+  equipment: APIReference;
+  quantity: number;
+}
 
 const Equipment = {
-  equipment: APIReference,
+  equipment: APIReferenceSchema,
   quantity: { type: Number, index: true },
 };
 
+interface StartingEquipmentOption {
+  equipment: APIReference;
+  quantity: number;
+}
+
 const StartingEquipmentOption = {
-  equipment: APIReference,
+  equipment: APIReferenceSchema,
   quantity: { type: Number, index: true },
 };
+
+interface StartingEquipmentOptions {
+  choose: number;
+  from: StartingEquipmentOption[];
+  type: string;
+}
 
 const StartingEquipmentOptions = {
   choose: { type: Number, index: true },
@@ -17,27 +33,55 @@ const StartingEquipmentOptions = {
   type: { type: String, index: true },
 };
 
+interface ProficiencyChoice {
+  choose: number;
+  from: APIReference[];
+  type: string;
+}
+
 const ProficiencyChoice = {
   choose: { type: Number, index: true },
-  from: [APIReference],
+  from: [APIReferenceSchema],
   type: { type: String, index: true },
 };
+
+interface SpellcastingInfo {
+  desc: string[];
+  name: string;
+}
 
 const SpellcastingInfo = new mongoose.Schema({
   desc: { type: [String], index: true },
   name: { type: String, index: true },
 });
 
+interface Spellcasting {
+  info: SpellcastingInfo[];
+  level: number;
+  spellcasting_ability: APIReference;
+}
+
 const Spellcasting = {
   info: [SpellcastingInfo],
   level: { type: Number, index: true },
-  spellcasting_ability: APIReference,
+  spellcasting_ability: APIReferenceSchema,
 };
 
+interface MultiClassingPrereq {
+  ability_score: APIReference;
+  minimum_score: number;
+}
+
 const MultiClassingPrereq = {
-  ability_score: APIReference,
+  ability_score: APIReferenceSchema,
   minimum_score: { type: Number, index: true },
 };
+
+interface MultiClassingPrereqOptions {
+  choose: number;
+  from: MultiClassingPrereq[];
+  type: string;
+}
 
 const MultiClassingPrereqOptions = {
   choose: { type: Number, index: true },
@@ -45,29 +89,54 @@ const MultiClassingPrereqOptions = {
   type: { type: String, index: true },
 };
 
+interface MultiClassing {
+  prerequisites: MultiClassingPrereq[];
+  prerequisite_options: MultiClassingPrereqOptions;
+  proficiencies: APIReference[];
+  proficiency_choices?: ProficiencyChoice[];
+}
+
 const MultiClassing = {
   prerequisites: [MultiClassingPrereq],
   prerequisite_options: MultiClassingPrereqOptions,
-  proficiencies: [APIReference],
+  proficiencies: [APIReferenceSchema],
   proficiency_choices: [ProficiencyChoice],
 };
 
-const Class = new mongoose.Schema({
+interface Class {
+  _id?: string;
+  class_levels: string;
+  multi_classing: MultiClassing;
+  hit_die: number;
+  index: string;
+  name: string;
+  proficiencies: APIReference[];
+  proficiency_choices: ProficiencyChoice[];
+  saving_throws: APIReference[];
+  spellcasting?: Spellcasting;
+  spells?: string;
+  starting_equipment: Equipment[];
+  starting_equipment_options: StartingEquipmentOptions[];
+  subclasses: APIReference[];
+  url: string;
+}
+
+const Class = new mongoose.Schema<Class>({
   _id: { type: String, select: false },
   class_levels: { type: String, index: true },
   multi_classing: MultiClassing,
   hit_die: { type: Number, index: true },
   index: { type: String, index: true },
   name: { type: String, index: true },
-  proficiencies: [APIReference],
+  proficiencies: [APIReferenceSchema],
   proficiency_choices: [ProficiencyChoice],
-  saving_throws: [APIReference],
+  saving_throws: [APIReferenceSchema],
   spellcasting: Spellcasting,
   spells: { type: String, index: true },
   starting_equipment: [Equipment],
   starting_equipment_options: [StartingEquipmentOptions],
-  subclasses: [APIReference],
+  subclasses: [APIReferenceSchema],
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Class', Class, 'classes');
+export default mongoose.model<Class>('Class', Class, 'classes');

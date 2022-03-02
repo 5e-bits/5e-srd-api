@@ -1,6 +1,14 @@
 import * as mongoose from 'mongoose';
 
-const MagicSchool = new mongoose.Schema({
+interface MagicSchool {
+  _id?: string;
+  desc: string;
+  index: string;
+  name: string;
+  url: string;
+}
+
+const MagicSchool = new mongoose.Schema<MagicSchool>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },
@@ -8,4 +16,4 @@ const MagicSchool = new mongoose.Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('MagicSchool', MagicSchool, 'magic-schools');
+export default mongoose.model<MagicSchool>('MagicSchool', MagicSchool, 'magic-schools');

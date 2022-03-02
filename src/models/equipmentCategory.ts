@@ -1,12 +1,24 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
 
-const EquipmentCategory = new mongoose.Schema({
+interface EquipmentCategory {
+  _id?: string;
+  equipment: APIReference[];
+  index: number;
+  name: string;
+  url: string;
+}
+
+const EquipmentCategory = new mongoose.Schema<EquipmentCategory>({
   _id: { type: String, select: false },
-  equipment: [APIReference],
+  equipment: [APIReferenceSchema],
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
 });
 
-export default mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');
+export default mongoose.model<EquipmentCategory>(
+  'EquipmentCategory',
+  EquipmentCategory,
+  'equipment-categories'
+);

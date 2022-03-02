@@ -1,13 +1,22 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
 
-const Skill = new mongoose.Schema({
+interface Skill {
+  _id?: string;
+  ability_score: APIReference;
+  desc: string[];
+  index: string;
+  name: string;
+  url: string;
+}
+
+const Skill = new mongoose.Schema<Skill>({
   _id: { type: String, select: false },
-  ability_score: APIReference,
+  ability_score: APIReferenceSchema,
   desc: { type: [String], index: true },
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Skill', Skill, 'skills');
+export default mongoose.model<Skill>('Skill', Skill, 'skills');
