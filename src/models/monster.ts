@@ -159,9 +159,85 @@ const Sense = {
   truesight: { type: String, index: true },
 };
 
-const SpecialAbility = {
-  desc: { type: String, index: true },
+interface SpecialAbilityUsage {
+  type: string;
+  times?: number;
+  rest_types?: string[];
+}
+
+const SpecialAbilityUsage = {
+  type: { type: String, index: true },
+  times: { type: Number, index: true },
+  rest_types: { type: [String], index: true },
+};
+
+interface SpecialAbilitySpell {
+  name: string;
+  level: number;
+  url: string;
+  notes?: string;
+  usage?: SpecialAbilityUsage;
+}
+
+const SpecialAbilitySpell = {
   name: { type: String, index: true },
+  level: { type: Number, index: true },
+  url: { type: String, index: true },
+  notes: { type: String, index: true },
+  usage: SpecialAbilityUsage,
+};
+
+interface SpecialAbilitySpellcasting {
+  level?: number;
+  ability: APIReference;
+  dc?: number;
+  modifier?: number;
+  components_required: string[];
+  school?: string;
+  slots?: {
+    1: number;
+    2?: number;
+    3?: number;
+    4?: number;
+    5?: number;
+    6?: number;
+    7?: number;
+    8?: number;
+    9?: number;
+  };
+  spells: SpecialAbilitySpell[];
+}
+
+const SpecialAbilitySpellcasting = {
+  level: { type: Number, index: true },
+  ability: APIReferenceSchema,
+  dc: { type: Number, index: true },
+  modifier: { type: Number, index: true },
+  components_required: { type: [String], index: true },
+  school: { type: String, index: true },
+  // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
+  slots: Object,
+  spells: [SpecialAbilitySpell],
+};
+
+interface SpecialAbility {
+  name: string;
+  desc: string;
+  attack_bonus?: number;
+  damage?: ActionDamage[];
+  dc?: ActionDC;
+  spellcasting?: SpecialAbilitySpellcasting;
+  usage: SpecialAbilityUsage;
+}
+
+const SpecialAbility = {
+  name: { type: String, index: true },
+  desc: { type: String, index: true },
+  attack_bonus: { type: Number, index: true },
+  damage: [ActionDamage],
+  dc: ActionDC,
+  spellcasting: SpecialAbilitySpellcasting,
+  usage: SpecialAbilityUsage,
 };
 
 interface Speed {
@@ -207,8 +283,7 @@ interface Monster {
   reactions?: Reaction[];
   senses: Sense;
   size: string;
-  // TODO: This needs to be analyzed because we're missing stuff
-  // special_abilities?: SpecialAbility[];
+  special_abilities?: SpecialAbility[];
   speed: Speed;
   strength: number;
   subtype: string;
