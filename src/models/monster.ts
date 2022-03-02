@@ -11,11 +11,98 @@ const ActionDamage = {
   damage_type: APIReferenceSchema,
 };
 
+interface ActionDC {
+  dc_type: APIReference;
+  dc_value: number;
+  success_type: string;
+}
+
+const ActionDC = {
+  dc_type: APIReferenceSchema,
+  dc_value: { type: Number, index: true },
+  success_type: { type: String, index: true },
+};
+
+interface ActionAttack {
+  name: string;
+  dc: ActionDC;
+  damage?: ActionDamage[];
+}
+
+const ActionAttack = {
+  name: { type: String, index: true },
+  dc: ActionDC,
+  damage: [ActionDamage],
+};
+
+interface ActionAttackOptions {
+  choose: number;
+  type: string;
+  from: ActionAttack[];
+}
+
+const ActionAttackOptions = {
+  choose: { type: Number, required: true },
+  type: { type: String, required: true },
+  from: [ActionAttack],
+};
+
+interface ActionOption {
+  name: string;
+  count: number;
+  type: string;
+}
+
+const ActionOption = {
+  name: { type: String, index: true },
+  count: { type: Number, index: true },
+  type: { type: String, index: true },
+};
+
+interface ActionOptions {
+  choose: number;
+  from: ActionOption[];
+}
+
+const ActionOptions = {
+  choose: { type: Number, index: true },
+  from: [ActionOption],
+};
+
+interface ActionUsage {
+  type: string;
+  dice: string;
+  min_value?: number;
+}
+
+const ActionUsage = {
+  type: { type: String, index: true },
+  dice: { type: String, index: true },
+  min_value: { type: Number, index: true },
+};
+
+interface Action {
+  name: string;
+  desc: string;
+  attack_bonus?: number;
+  damage?: ActionDamage[];
+  dc?: ActionDC;
+  options?: ActionOptions[];
+  usage?: ActionUsage;
+  attack_options?: ActionAttackOptions[];
+  attacks?: ActionAttack[];
+}
+
 const Action = {
+  name: { type: String, index: true },
+  desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
   damage: [ActionDamage],
-  desc: { type: String, index: true },
-  name: { type: String, index: true },
+  dc: ActionDC,
+  options: [ActionOptions],
+  usage: ActionUsage,
+  attack_options: [ActionAttackOptions],
+  attacks: [ActionAttack],
 };
 
 const LegendaryAction = {
@@ -80,8 +167,7 @@ const Speed = {
 
 interface Monster {
   _id?: mongoose.Types.ObjectId;
-  // TODO: This needs to be analyzed because we're missing stuff
-  // actions?: Action[];
+  actions?: Action[];
   alignment: string;
   armor_class: number;
   challenge_rating: number;
