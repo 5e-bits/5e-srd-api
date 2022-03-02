@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
 interface AbilityScore {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   desc: string[];
   full_name: string;
   index: string;

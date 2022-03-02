@@ -34,7 +34,7 @@ const FeatureSpecific = {
 };
 
 interface Feature {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   class: APIReference;
   desc: string[];
   parent?: APIReference;

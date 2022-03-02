@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 interface Alignment {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   desc: string;
   abbreviation: string;
   index: string;

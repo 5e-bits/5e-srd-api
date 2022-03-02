@@ -104,7 +104,7 @@ const TraitSpecific = {
 };
 
 interface Trait {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   desc: string;
   index: string;
   name: string;

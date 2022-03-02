@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
 interface MagicItem {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   desc: string[];
   equipment_category: APIReference;
   index: string;

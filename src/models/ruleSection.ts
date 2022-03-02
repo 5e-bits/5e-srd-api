@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 interface RuleSection {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   desc: string;
   index: string;
   name: string;

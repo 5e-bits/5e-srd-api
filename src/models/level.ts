@@ -140,7 +140,7 @@ const SubclassSpecific = {
 };
 
 interface Level {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   ability_bonus_options?: number;
   class: APIReference;
   class_specific?: ClassSpecific;

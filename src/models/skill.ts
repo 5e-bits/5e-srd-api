@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
 interface Skill {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   ability_score: APIReference;
   desc: string[];
   index: string;

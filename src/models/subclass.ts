@@ -26,7 +26,7 @@ const Spell = {
 };
 
 interface Subclass {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   class: APIReference;
   desc: string[];
   index: string;

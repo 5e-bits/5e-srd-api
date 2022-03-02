@@ -12,7 +12,7 @@ const Prerequisite = {
 };
 
 interface Feat {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   index: string;
   name: string;
   prerequisites: Prerequisite[];

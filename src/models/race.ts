@@ -58,7 +58,7 @@ const StartingProficiencyOptions = {
 };
 
 interface Race {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   ability_bonus_options?: RaceAbilityBonusOptions;
   ability_bonuses: RaceAbilityBonus[];
   age: string;

@@ -16,7 +16,7 @@ const Reference = {
 };
 
 interface Proficiency {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   classes: APIReference[];
   index: string;
   name: string;

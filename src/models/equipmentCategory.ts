@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
 interface EquipmentCategory {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   equipment: APIReference[];
   index: string;
   name: string;

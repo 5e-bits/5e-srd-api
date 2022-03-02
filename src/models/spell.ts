@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
 interface AreaOfEffect {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   size: number;
   type: string;
 }
@@ -14,7 +14,7 @@ const AreaOfEffect = new mongoose.Schema({
 });
 
 interface Damage {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   damage_at_slot_level?: {
     2?: string;
     3?: string;
@@ -44,7 +44,7 @@ const Damage = new mongoose.Schema({
 });
 
 interface DC {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   dc_success: string;
   dc_type: APIReference;
   desc?: string;
@@ -58,7 +58,7 @@ const DC = new mongoose.Schema({
 });
 
 interface Spell {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   area_of_effect?: AreaOfEffect;
   attack_type?: string;
   casting_time: string;

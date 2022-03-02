@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
 interface LanguageOptions {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   choose: number;
   from: APIReference[];
   type: string;
@@ -16,7 +16,7 @@ const LanguageOptions = {
 };
 
 interface Equipment {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   equipment: APIReference;
   quantity: number;
 }
@@ -28,7 +28,7 @@ const Equipment = {
 };
 
 interface StartingEquipmentOption {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   equipment: APIReference;
   quantity: number;
 }
@@ -40,7 +40,7 @@ const StartingEquipmentOption = {
 };
 
 interface StartingEquipmentOptions {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   choose: number;
   from: StartingEquipmentOption[];
   type: string;
@@ -98,7 +98,7 @@ const Feature = {
 };
 
 interface Background {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   index: string;
   name: string;
   starting_proficiencies: APIReference[];

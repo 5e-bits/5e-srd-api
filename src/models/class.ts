@@ -104,7 +104,7 @@ const MultiClassing = {
 };
 
 interface Class {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   class_levels: string;
   multi_classing: MultiClassing;
   hit_die: number;

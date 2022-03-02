@@ -84,7 +84,7 @@ const TwoHandedDamage = {
 };
 
 interface Equipment {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   armor_category?: string;
   armor_class?: ArmorClass;
   capacity?: number;

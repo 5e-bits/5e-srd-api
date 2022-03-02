@@ -24,7 +24,7 @@ const LanguageOptions = {
 };
 
 interface Subrace {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   ability_bonuses: AbilityBonus[];
   desc: string;
   index: string;
