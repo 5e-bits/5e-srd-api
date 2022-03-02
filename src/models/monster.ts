@@ -131,9 +131,16 @@ const Proficiency = {
   value: { type: Number, index: true },
 };
 
+interface Reaction {
+  name: string;
+  desc: string;
+  dc?: ActionDC;
+}
+
 const Reaction = {
-  desc: { type: String, index: true },
   name: { type: String, index: true },
+  desc: { type: String, index: true },
+  dc: ActionDC,
 };
 
 interface Sense {
@@ -197,8 +204,7 @@ interface Monster {
   legendary_actions?: LegendaryAction[];
   name: string;
   proficiencies: Proficiency[];
-  // TODO: This needs to be analyzed because we're missing stuff
-  // reactions?: Reaction[];
+  reactions?: Reaction[];
   senses: Sense;
   size: string;
   // TODO: This needs to be analyzed because we're missing stuff
