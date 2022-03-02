@@ -1,20 +1,70 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
+
+interface ClassSpecificCreatingSpellSlot {
+  sorcery_point_cost: number;
+  spell_slot_level: number;
+}
 
 const ClassSpecificCreatingSpellSlot = {
   sorcery_point_cost: { type: Number, index: true },
   spell_slot_level: { type: Number, index: true },
 };
 
+interface ClassSpecificMartialArt {
+  dice_count: number;
+  dice_value: number;
+}
+
 const ClassSpecificMartialArt = {
   dice_count: { type: Number, index: true },
   dice_value: { type: Number, index: true },
 };
 
+interface ClassSpecificSneakAttack {
+  dice_count: number;
+  dice_value: number;
+}
+
 const ClassSpecificSneakAttack = {
   dice_count: { type: Number, index: true },
   dice_value: { type: Number, index: true },
 };
+
+interface ClassSpecific {
+  action_surges?: number;
+  arcane_recovery_levels?: number;
+  aura_range?: number;
+  bardic_inspiration_die?: number;
+  brutal_critical_dice?: number;
+  channel_divinity_charges?: number;
+  creating_spell_slots?: ClassSpecificCreatingSpellSlot[];
+  destroy_undead_cr?: number;
+  extra_attacks?: number;
+  favored_enemies?: number;
+  favored_terrain?: number;
+  indomitable_uses?: number;
+  invocations_known?: number;
+  ki_points?: number;
+  magical_secrets_max_5?: number;
+  magical_secrets_max_7?: number;
+  magical_secrets_max_9?: number;
+  martial_arts?: ClassSpecificMartialArt;
+  metamagic_known?: number;
+  mystic_arcanum_level_6?: number;
+  mystic_arcanum_level_7?: number;
+  mystic_arcanum_level_8?: number;
+  mystic_arcanum_level_9?: number;
+  rage_count?: number;
+  rage_damage_bonus?: number;
+  sneak_attack?: ClassSpecificSneakAttack;
+  song_of_rest_die?: number;
+  sorcery_points?: number;
+  unarmored_movement?: number;
+  wild_shape_fly?: boolean;
+  wild_shape_max_cr?: number;
+  wild_shape_swim?: boolean;
+}
 
 const ClassSpecific = {
   action_surges: { type: Number, index: true },
@@ -51,6 +101,20 @@ const ClassSpecific = {
   wild_shape_swim: { type: Boolean, index: true },
 };
 
+interface Spellcasting {
+  cantrips_known?: number;
+  spell_slots_level_1: number;
+  spell_slots_level_2: number;
+  spell_slots_level_3: number;
+  spell_slots_level_4: number;
+  spell_slots_level_5: number;
+  spell_slots_level_6?: number;
+  spell_slots_level_7?: number;
+  spell_slots_level_8?: number;
+  spell_slots_level_9?: number;
+  spells_known?: number;
+}
+
 const Spellcasting = {
   cantrips_known: { type: Number, index: true },
   spell_slots_level_1: { type: Number, index: true },
@@ -65,24 +129,44 @@ const Spellcasting = {
   spells_known: { type: Number, index: true },
 };
 
+interface SubclassSpecific {
+  additional_magical_secrets_max_lvl?: number;
+  aura_range?: number;
+}
+
 const SubclassSpecific = {
   additional_magical_secrets_max_lvl: { type: Number, index: true },
   aura_range: { type: Number, index: true },
 };
 
-const Level = new mongoose.Schema({
+interface Level {
+  _id?: string;
+  ability_bonus_options?: number;
+  class: APIReference;
+  class_specific?: ClassSpecific;
+  features: APIReference[];
+  index: string;
+  level: number;
+  prof_bonus?: number;
+  spellcasting?: Spellcasting;
+  subclass?: APIReference;
+  subclass_specific?: SubclassSpecific;
+  url: string;
+}
+
+const Level = new mongoose.Schema<Level>({
   _id: { type: String, select: false },
   ability_score_bonuses: { type: Number, index: true },
-  class: APIReference,
+  class: APIReferenceSchema,
   class_specific: ClassSpecific,
-  features: [APIReference],
+  features: [APIReferenceSchema],
   index: { type: String, index: true },
   level: { type: Number, index: true },
   prof_bonus: { type: Number, index: true },
   spellcasting: Spellcasting,
-  subclass: APIReference,
+  subclass: APIReferenceSchema,
   subclass_specific: SubclassSpecific,
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Level', Level, 'levels');
+export default mongoose.model<Level>('Level', Level, 'levels');

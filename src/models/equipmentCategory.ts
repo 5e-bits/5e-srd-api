@@ -4,7 +4,7 @@ import { APIReference, APIReferenceSchema } from './common';
 interface EquipmentCategory {
   _id?: string;
   equipment: APIReference[];
-  index: number;
+  index: string;
   name: string;
   url: string;
 }

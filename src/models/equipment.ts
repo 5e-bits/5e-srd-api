@@ -95,7 +95,7 @@ interface Equipment {
   desc: string[];
   equipment_category: APIReference;
   gear_category?: APIReference;
-  index: number;
+  index: string;
   name: string;
   properties?: APIReference[];
   quantity?: number;
