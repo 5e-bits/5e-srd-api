@@ -1,18 +1,6 @@
 import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
-interface Proficiency {
-  index: number;
-  name: string;
-  url: string;
-}
-
-const Proficiency = {
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-};
-
 interface ProficiencyChoices {
   choose: number;
   from: APIReference[];
@@ -108,7 +96,7 @@ interface Trait {
   desc: string;
   index: string;
   name: string;
-  proficiencies: Proficiency[];
+  proficiencies: APIReference[];
   proficiency_choices?: ProficiencyChoices;
   races: APIReference[];
   subraces: APIReference[];
@@ -122,7 +110,7 @@ const Trait = new mongoose.Schema<Trait>({
   desc: { type: [String], index: true },
   index: { type: String, index: true },
   name: { type: String, index: true },
-  proficiencies: [Proficiency],
+  proficiencies: [APIReferenceSchema],
   proficiency_choices: ProficiencyChoices,
   races: [APIReferenceSchema],
   subraces: [APIReferenceSchema],
