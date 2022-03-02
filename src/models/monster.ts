@@ -1,9 +1,14 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from './common';
+import { APIReference, APIReferenceSchema } from './common';
+
+interface ActionDamage {
+  damage_dice: string;
+  damage_type: APIReference;
+}
 
 const ActionDamage = {
   damage_dice: { type: String, index: true },
-  damage_type: APIReference,
+  damage_type: APIReferenceSchema,
 };
 
 const Action = {
@@ -19,8 +24,13 @@ const LegendaryAction = {
   name: { type: String, index: true },
 };
 
+interface Proficiency {
+  proficiency: APIReference;
+  value: number;
+}
+
 const Proficiency = {
-  proficiency: APIReference,
+  proficiency: APIReferenceSchema,
   value: { type: Number, index: true },
 };
 
@@ -28,6 +38,14 @@ const Reaction = {
   desc: { type: String, index: true },
   name: { type: String, index: true },
 };
+
+interface Sense {
+  blindsight?: string;
+  darkvision?: string;
+  passive_perception: number;
+  tremorsense?: string;
+  truesight?: string;
+}
 
 const Sense = {
   blindsight: { type: String, index: true },
@@ -42,6 +60,15 @@ const SpecialAbility = {
   name: { type: String, index: true },
 };
 
+interface Speed {
+  burrow?: string;
+  climb?: string;
+  fly?: string;
+  hover?: string;
+  swim?: string;
+  walk?: string;
+}
+
 const Speed = {
   burrow: { type: String, index: true },
   climb: { type: String, index: true },
@@ -51,20 +78,59 @@ const Speed = {
   walk: { type: String, index: true },
 };
 
-const MonsterSchema = new mongoose.Schema({
+interface Monster {
+  _id?: mongoose.Types.ObjectId;
+  // TODO: This needs to be analyzed because we're missing stuff
+  // actions?: Action[];
+  alignment: string;
+  armor_class: number;
+  challenge_rating: number;
+  charisma: number;
+  condition_immunities: string[];
+  constitution: number;
+  damage_immunities: string[];
+  damage_resistances: string[];
+  damage_vulnerabilities: string[];
+  dexterity: number;
+  forms?: APIReference[];
+  hit_dice: string;
+  hit_points: number;
+  index: string;
+  intelligence: number;
+  languages: string[];
+  // TODO: This needs to be analyzed because we're missing stuff
+  // legendary_actions?: LegendaryAction[];
+  name: string;
+  proficiencies: Proficiency[];
+  // TODO: This needs to be analyzed because we're missing stuff
+  // reactions?: Reaction[];
+  senses: Sense;
+  size: string;
+  // TODO: This needs to be analyzed because we're missing stuff
+  // special_abilities?: SpecialAbility[];
+  speed: Speed;
+  strength: number;
+  subtype: string;
+  type: string;
+  url: string;
+  wisdom: number;
+  xp: number;
+}
+
+const Monster = new mongoose.Schema<Monster>({
   _id: { type: String, select: false },
   actions: [Action],
   alignment: { type: String, index: true },
   armor_class: { type: Number, index: true },
   challenge_rating: { type: Number, index: true },
   charisma: { type: Number, index: true },
-  condition_immunities: [APIReference],
+  condition_immunities: [APIReferenceSchema],
   constitution: { type: Number, index: true },
   damage_immunities: [String],
   damage_resistances: [String],
   damage_vulnerabilities: [String],
   dexterity: { type: Number, index: true },
-  forms: [APIReference],
+  forms: [APIReferenceSchema],
   hit_dice: { type: String, index: true },
   hit_points: { type: Number, index: true },
   index: { type: String, index: true },
@@ -86,4 +152,4 @@ const MonsterSchema = new mongoose.Schema({
   xp: { type: Number, index: true },
 });
 
-export default mongoose.model('Monster', MonsterSchema, 'monsters');
+export default mongoose.model<Monster>('Monster', Monster, 'monsters');
