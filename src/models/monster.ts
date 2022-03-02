@@ -105,10 +105,20 @@ const Action = {
   attacks: [ActionAttack],
 };
 
+interface LegendaryAction {
+  name: string;
+  desc: string;
+  attack_bonus?: number;
+  damage?: ActionDamage[];
+  dc?: ActionDC;
+}
+
 const LegendaryAction = {
-  attack_bonus: { type: Number, index: true },
-  desc: { type: String, index: true },
   name: { type: String, index: true },
+  desc: { type: String, index: true },
+  attack_bonus: { type: Number, index: true },
+  damage: [ActionDamage],
+  dc: ActionDC,
 };
 
 interface Proficiency {
@@ -184,8 +194,7 @@ interface Monster {
   index: string;
   intelligence: number;
   languages: string[];
-  // TODO: This needs to be analyzed because we're missing stuff
-  // legendary_actions?: LegendaryAction[];
+  legendary_actions?: LegendaryAction[];
   name: string;
   proficiencies: Proficiency[];
   // TODO: This needs to be analyzed because we're missing stuff
