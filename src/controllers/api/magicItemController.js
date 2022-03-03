@@ -8,9 +8,12 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  const data = await redisClient.get(redisKey).catch(_err => {
+  let data;
+  try {
+    data = await redisClient.get(redisKey);
+  } catch (err) {
     return;
-  });
+  }
 
   if (data) {
     res.status(200).json(JSON.parse(data));
