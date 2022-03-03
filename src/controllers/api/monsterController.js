@@ -1,7 +1,5 @@
-const { promisify } = require('util');
 const Monster = require('../../models/monster');
 const { redisClient, escapeRegExp, ResourceList } = require('../../util');
-const getAsync = promisify(redisClient.get).bind(redisClient);
 
 exports.index = async (req, res, next) => {
   const searchQueries = {};
@@ -13,7 +11,7 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  const data = await getAsync(redisKey).catch(_err => {
+  const data = await redisClient.get(redisKey).catch(_err => {
     return;
   });
 

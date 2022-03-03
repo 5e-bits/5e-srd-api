@@ -5,12 +5,14 @@ services:
     image: bagelbits/5e-database:latest
 
   cache:
-    image: redis:6.2.3
+    image: redis:6.2.5
 
   api:
     environment:
       MONGODB_URI: mongodb://db/5e-database
       REDIS_URL: redis://cache
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
     build: .
     ports:
       - '3000:3000'

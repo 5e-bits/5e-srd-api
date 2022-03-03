@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const { promisify } = require('util');
 const { mongodbUri, redisClient, prewarmCache } = require('./util');
 const createApp = require('./server');
-const flushAsync = promisify(redisClient.flushall).bind(redisClient);
 
 const start = async () => {
   mongoose.set('useNewUrlParser', true);
@@ -11,8 +9,13 @@ const start = async () => {
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
   console.log('Database connection ready');
 
+  redisClient.on('error', err => console.log('Redis Client Error', err));
+
+  await redisClient.connect();
+  console.log('Redis connection ready');
+
   console.log('Flushing Redis');
-  await flushAsync();
+  await redisClient.flushAll();
 
   console.log('Prewarm Redis');
   await prewarmCache();
