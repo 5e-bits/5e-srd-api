@@ -12,7 +12,7 @@ const SpellController = require('../../../controllers/api/spellController');
 let response;
 beforeEach(() => {
   const client = redis.createClient();
-  client.flushall();
+  client.flushAll();
   mockingoose.resetAll();
   response = mockResponse();
 });

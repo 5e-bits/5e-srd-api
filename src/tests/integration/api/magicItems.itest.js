@@ -13,18 +13,13 @@ beforeAll(async () => {
   mongoose.set('useFindAndModify', false);
   mongoose.set('useCreateIndex', true);
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  await redisClient.connect();
   app = await createApp();
 });
 
 afterAll(async () => {
   await mongoose.disconnect();
-  await new Promise(resolve => {
-    redisClient.quit(() => {
-      resolve();
-    });
-  });
-  // redis.quit() creates a thread to close the connection.
-  // We wait until all threads have been run once to ensure the connection closes.
+  await redisClient.quit();
   await new Promise(resolve => setImmediate(resolve));
 });
 
@@ -36,7 +31,7 @@ describe('/api/magic-items', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    await redisClient.flushAll();
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/magic-items');
     res = await request(app).get('/api/magic-items');

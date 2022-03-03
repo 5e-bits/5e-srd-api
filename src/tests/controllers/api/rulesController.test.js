@@ -12,7 +12,7 @@ const RulesController = require('../../../controllers/api/ruleController');
 let response;
 beforeEach(() => {
   const client = redis.createClient();
-  client.flushall();
+  client.flushAll();
   mockingoose.resetAll();
   response = mockResponse();
 });

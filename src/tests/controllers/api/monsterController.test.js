@@ -12,7 +12,7 @@ const MonsterController = require('../../../controllers/api/monsterController');
 let response;
 beforeEach(() => {
   const client = redis.createClient();
-  client.flushall();
+  client.flushAll();
   mockingoose.resetAll();
   response = mockResponse();
 });
