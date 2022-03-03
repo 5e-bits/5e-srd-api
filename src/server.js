@@ -1,8 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 const { bugsnagMiddleware } = require('./middleware/bugsnag');
 const { createApolloMiddleware } = require('./middleware/apolloServer');
+
+const limiter = rateLimit({
+  windowMs: 1000, // 1 second
+  max: 1000, // limit each IP to 10000 requests per windowMs
+});
 
 const createApp = async () => {
   const app = express();
@@ -18,6 +24,8 @@ const createApp = async () => {
   app.use('/public', express.static(__dirname + '/public'));
   app.use(morgan('short'));
   app.use(cors({ origin: '*' }));
+
+  app.use(limiter);
 
   console.log('Setting up Apollo GraphQL server');
   const apolloMiddleware = await createApolloMiddleware();
