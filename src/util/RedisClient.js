@@ -1,5 +1,9 @@
 // const { noop } = require('lodash');
-const { redisUrl, redisHost, redisPort } = require('./environmentVariables');
+const { redisHost, redisPort, redisUsername, redisPassword } = require('./environmentVariables');
 const { createClient } = require('redis');
 
-module.exports = createClient({ socket: { host: redisHost, port: redisPort } });
+module.exports = createClient({
+  socket: { host: redisHost, port: redisPort },
+  username: redisUsername,
+  password: redisPassword,
+});

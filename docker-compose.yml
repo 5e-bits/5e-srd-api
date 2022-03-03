@@ -10,7 +10,6 @@ services:
   api:
     environment:
       MONGODB_URI: mongodb://db/5e-database
-      REDIS_URL: redis://cache
       REDIS_HOST: cache
       REDIS_PORT: 6379
     build: .
