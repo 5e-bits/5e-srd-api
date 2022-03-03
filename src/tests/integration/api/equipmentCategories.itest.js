@@ -20,7 +20,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await mongoose.disconnect();
   await redisClient.quit();
-  await new Promise(resolve => setImmediate(resolve));
 });
 
 describe('/api/equipment-categories', () => {
