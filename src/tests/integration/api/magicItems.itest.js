@@ -30,7 +30,7 @@ describe('/api/magic-items', () => {
   });
 
   it('should hit the cache', async () => {
-    await redisClient.flushAll();
+    await redisClient.del('/api/magic-items');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/magic-items');
     res = await request(app).get('/api/magic-items');

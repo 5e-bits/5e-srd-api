@@ -23,14 +23,14 @@ afterAll(async () => {
 });
 
 describe('/api/rules', () => {
-  it('should list rules properties', async () => {
+  it('should list rules', async () => {
     const res = await request(app).get('/api/rules');
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
 
   it('should hit the cache', async () => {
-    redisClient.del('/api/rules');
+    await redisClient.del('/api/rules');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/rules');
     res = await request(app).get('/api/rules');

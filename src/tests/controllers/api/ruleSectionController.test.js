@@ -12,7 +12,8 @@ const RuleSectionController = require('../../../controllers/api/ruleSectionContr
 let response;
 beforeEach(() => {
   const client = redis.createClient();
-  client.flushAll();
+  // TODO: redis-mock does not support redis@4.0.0
+  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
 });

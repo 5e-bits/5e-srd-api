@@ -22,33 +22,15 @@ afterAll(async () => {
   await redisClient.quit();
 });
 
-describe('/api/rule-sections/:index', () => {
-  it('should return one object', async () => {
-    const indexRes = await request(app).get('/api/rule-sections');
-    const index = indexRes.body.results[0].index;
-    const showRes = await request(app).get(`/api/rule-sections/${index}`);
-    expect(showRes.statusCode).toEqual(200);
-    expect(showRes.body.index).toEqual(index);
-  });
-
-  describe('with an invalid index', () => {
-    it('should return 404', async () => {
-      const invalidIndex = 'invalid-index';
-      const showRes = await request(app).get(`/api/rule-sections/${invalidIndex}`);
-      expect(showRes.statusCode).toEqual(404);
-    });
-  });
-});
-
 describe('/api/rule-sections', () => {
-  it('should list weapon properties', async () => {
+  it('should list rule sections', async () => {
     const res = await request(app).get('/api/rule-sections');
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
 
   it('should hit the cache', async () => {
-    redisClient.del('/api/rule-sections');
+    await redisClient.del('/api/rule-sections');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/rule-sections');
     res = await request(app).get('/api/rule-sections');
@@ -95,6 +77,24 @@ describe('/api/rule-sections', () => {
       const res = await request(app).get(`/api/rule-sections?desc=${queryDesc}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].index).toEqual(index);
+    });
+  });
+});
+
+describe('/api/rule-sections/:index', () => {
+  it('should return one object', async () => {
+    const indexRes = await request(app).get('/api/rule-sections');
+    const index = indexRes.body.results[0].index;
+    const showRes = await request(app).get(`/api/rule-sections/${index}`);
+    expect(showRes.statusCode).toEqual(200);
+    expect(showRes.body.index).toEqual(index);
+  });
+
+  describe('with an invalid index', () => {
+    it('should return 404', async () => {
+      const invalidIndex = 'invalid-index';
+      const showRes = await request(app).get(`/api/rule-sections/${invalidIndex}`);
+      expect(showRes.statusCode).toEqual(404);
     });
   });
 });

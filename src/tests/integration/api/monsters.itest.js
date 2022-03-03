@@ -30,7 +30,7 @@ describe('/api/monsters', () => {
   });
 
   it('should hit the cache', async () => {
-    await redisClient.flushAll();
+    await redisClient.del('/api/monsters');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/monsters');
     res = await request(app).get('/api/monsters');
