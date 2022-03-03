@@ -7,7 +7,7 @@ const { createApolloMiddleware } = require('./middleware/apolloServer');
 
 const limiter = rateLimit({
   windowMs: 1000, // 1 second
-  max: 1000, // limit each IP to 10000 requests per windowMs
+  max: 10000, // limit each IP to 10000 requests per windowMs
 });
 
 const createApp = async () => {
