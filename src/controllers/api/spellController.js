@@ -1,7 +1,5 @@
-const { promisify } = require('util');
 const Spell = require('../../models/spell');
 const { redisClient, escapeRegExp, ResourceList } = require('../../util');
-const getAsync = promisify(redisClient.get).bind(redisClient);
 
 exports.index = async (req, res, next) => {
   const searchQueries = {};
@@ -19,9 +17,12 @@ exports.index = async (req, res, next) => {
   }
 
   const redisKey = req.originalUrl;
-  const data = await getAsync(redisKey).catch(_err => {
+  let data;
+  try {
+    data = await redisClient.get(redisKey);
+  } catch (err) {
     return;
-  });
+  }
 
   if (data) {
     res.status(200).json(JSON.parse(data));

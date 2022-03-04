@@ -13,19 +13,13 @@ beforeAll(async () => {
   mongoose.set('useFindAndModify', false);
   mongoose.set('useCreateIndex', true);
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  await redisClient.connect();
   app = await createApp();
 });
 
 afterAll(async () => {
   await mongoose.disconnect();
-  await new Promise(resolve => {
-    redisClient.quit(() => {
-      resolve();
-    });
-  });
-  // redis.quit() creates a thread to close the connection.
-  // We wait until all threads have been run once to ensure the connection closes.
-  await new Promise(resolve => setImmediate(resolve));
+  await redisClient.quit();
 });
 
 describe('/api/monsters', () => {
@@ -36,7 +30,7 @@ describe('/api/monsters', () => {
   });
 
   it('should hit the cache', async () => {
-    redisClient.flushall();
+    await redisClient.del('/api/monsters');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/monsters');
     res = await request(app).get('/api/monsters');

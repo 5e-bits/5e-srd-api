@@ -13,48 +13,24 @@ beforeAll(async () => {
   mongoose.set('useFindAndModify', false);
   mongoose.set('useCreateIndex', true);
   await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  await redisClient.connect();
   app = await createApp();
 });
 
 afterAll(async () => {
   await mongoose.disconnect();
-  await new Promise(resolve => {
-    redisClient.quit(() => {
-      resolve();
-    });
-  });
-  // redis.quit() creates a thread to close the connection.
-  // We wait until all threads have been run once to ensure the connection closes.
-  await new Promise(resolve => setImmediate(resolve));
-});
-
-describe('/api/rule-sections/:index', () => {
-  it('should return one object', async () => {
-    const indexRes = await request(app).get('/api/rule-sections');
-    const index = indexRes.body.results[0].index;
-    const showRes = await request(app).get(`/api/rule-sections/${index}`);
-    expect(showRes.statusCode).toEqual(200);
-    expect(showRes.body.index).toEqual(index);
-  });
-
-  describe('with an invalid index', () => {
-    it('should return 404', async () => {
-      const invalidIndex = 'invalid-index';
-      const showRes = await request(app).get(`/api/rule-sections/${invalidIndex}`);
-      expect(showRes.statusCode).toEqual(404);
-    });
-  });
+  await redisClient.quit();
 });
 
 describe('/api/rule-sections', () => {
-  it('should list weapon properties', async () => {
+  it('should list rule sections', async () => {
     const res = await request(app).get('/api/rule-sections');
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
 
   it('should hit the cache', async () => {
-    redisClient.del('/api/rule-sections');
+    await redisClient.del('/api/rule-sections');
     const clientSet = jest.spyOn(redisClient, 'set');
     let res = await request(app).get('/api/rule-sections');
     res = await request(app).get('/api/rule-sections');
@@ -101,6 +77,24 @@ describe('/api/rule-sections', () => {
       const res = await request(app).get(`/api/rule-sections?desc=${queryDesc}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].index).toEqual(index);
+    });
+  });
+});
+
+describe('/api/rule-sections/:index', () => {
+  it('should return one object', async () => {
+    const indexRes = await request(app).get('/api/rule-sections');
+    const index = indexRes.body.results[0].index;
+    const showRes = await request(app).get(`/api/rule-sections/${index}`);
+    expect(showRes.statusCode).toEqual(200);
+    expect(showRes.body.index).toEqual(index);
+  });
+
+  describe('with an invalid index', () => {
+    it('should return 404', async () => {
+      const invalidIndex = 'invalid-index';
+      const showRes = await request(app).get(`/api/rule-sections/${invalidIndex}`);
+      expect(showRes.statusCode).toEqual(404);
     });
   });
 });

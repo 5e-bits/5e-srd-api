@@ -1,7 +1,4 @@
-const { promisify } = require('util');
-
 const redisClient = require('./RedisClient');
-const setAsync = promisify(redisClient.set).bind(redisClient);
 
 const { ResourceList } = require('./data');
 const MagicItem = require('../models/magicItem');
@@ -38,7 +35,7 @@ const prewarmCache = async () => {
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' });
     const jsonData = ResourceList(data);
-    await setAsync(element.endpoint, JSON.stringify(jsonData));
+    await redisClient.set(element.endpoint, JSON.stringify(jsonData));
   }
 };
 
