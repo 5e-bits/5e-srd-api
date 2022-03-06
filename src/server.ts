@@ -1,29 +1,34 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const rateLimit = require('express-rate-limit');
-const { bugsnagMiddleware } = require('./middleware/bugsnag');
-const { createApolloMiddleware } = require('./middleware/apolloServer');
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import { bugsnagMiddleware } from './middleware/bugsnag';
+import { createApolloMiddleware } from './middleware/apolloServer';
+import indexController from './controllers/indexController';
+import docsController from './controllers/docsController';
+import apiRoutes from './routes/api';
 
 const limiter = rateLimit({
   windowMs: 1000, // 1 second
   max: 10000, // limit each IP to 10000 requests per windowMs
 });
 
-const createApp = async () => {
+export default async () => {
   const app = express();
-  // enable cors in preflight
-  app.options('*', cors());
 
   // Middleware stuff
   app.set('view engine', 'ejs');
   app.set('views', __dirname + '/views');
-  app.use(bugsnagMiddleware.requestHandler);
+  if (bugsnagMiddleware?.requestHandler) {
+    app.use(bugsnagMiddleware.requestHandler);
+  }
+
   app.use('/js', express.static(__dirname + '/js'));
   app.use('/css', express.static(__dirname + '/css'));
   app.use('/public', express.static(__dirname + '/public'));
   app.use(morgan('short'));
-  app.use(cors({ origin: '*' }));
+  // Enable all CORS requests
+  app.use(cors());
 
   app.use(limiter);
 
@@ -32,11 +37,11 @@ const createApp = async () => {
   apolloMiddleware.applyMiddleware({ app });
 
   // Register routes
-  app.get('/', require('./controllers/indexController'));
-  app.get('/docs', require('./controllers/docsController'));
-  app.use('/api', require('./routes/api'));
+  app.get('/', indexController);
+  app.get('/docs', docsController);
+  app.use('/api', apiRoutes);
 
-  app.use(function(req, res, _next) {
+  app.use(function(req: express.Request, res: express.Response) {
     res.status(404);
 
     // TODO: Add a fun 404 page
@@ -50,9 +55,8 @@ const createApp = async () => {
     return res.send({ error: 'Not found' });
   });
 
-  app.use(bugsnagMiddleware.errorHandler);
+  if (bugsnagMiddleware?.errorHandler) {
+    app.use(bugsnagMiddleware.errorHandler);
+  }
   return app;
 };
-
-// module.exports = app;
-module.exports = createApp;

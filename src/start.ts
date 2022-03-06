@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { mongodbUri, redisClient, prewarmCache } = require('./util');
-const createApp = require('./server');
+import mongoose from 'mongoose';
+import { mongodbUri, redisClient, prewarmCache } from './util/index';
+import createApp from './server';
 
 const start = async () => {
   mongoose.set('useNewUrlParser', true);
@@ -24,8 +24,8 @@ const start = async () => {
   const app = await createApp();
 
   console.log('Starting server...');
-  const server = app.listen(process.env.PORT || 3000, () => {
-    const port = server.address().port;
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
     console.log(`Listening on port ${port}! 🚀`);
   });
 };
