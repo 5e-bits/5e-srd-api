@@ -2,7 +2,7 @@
   "name": "dnd-5e-srd-api",
   "version": "0.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "private": true,
   "scripts": {
@@ -27,13 +27,13 @@
     "debug": "^4.3.1",
     "ejs": "^2.5.5",
     "escape-string-regexp": "^2.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-rate-limit": "^6.3.0",
     "graphql": "^15.8.0",
     "graphql-compose": "^9.0.7",
     "graphql-compose-mongoose": "^9.7.1",
     "graphql-tools": "^8.2.0",
-    "mongoose": "^5.12",
+    "mongoose": "^6.2.4",
     "morgan": "^1.10.0",
     "node-fetch": "^3.1.1",
     "redis": "^4.0.4",

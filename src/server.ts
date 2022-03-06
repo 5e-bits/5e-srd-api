@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import { bugsnagMiddleware } from './middleware/bugsnag';
+import bugsnagMiddleware from './middleware/bugsnag';
 import { createApolloMiddleware } from './middleware/apolloServer';
 import indexController from './controllers/indexController';
 import docsController from './controllers/docsController';

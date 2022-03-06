@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 const router = express.Router();
 import FeatureController from '../../controllers/api/featureController';
 
