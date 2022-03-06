@@ -6,6 +6,7 @@
   },
   "private": true,
   "scripts": {
+    "build:ts": "tsc",
     "build": "npm-run-all clean build:ts copy-assets",
     "clean": "rimraf dist/*",
     "copy-assets": "ts-node tools/copyAssets",
