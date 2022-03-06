@@ -1,4 +1,4 @@
-FROM node:14.18
+FROM node:14.15.0-alpine
 
 ## Add code
 WORKDIR /app
