@@ -9,5 +9,7 @@ RUN npm install
 
 COPY . /app
 
+RUN npm run build
+
 # Start the main process.
-CMD ["npm", "start"]
+CMD ["node", "dist/src/start.js"]
