@@ -1,11 +1,11 @@
-const redisClient = require('./RedisClient');
+import redisClient from './RedisClient';
 
-const { ResourceList } = require('./data');
-const MagicItem = require('../models/magicItem');
-const Spell = require('../models/spell');
-const Monster = require('../models/monster');
-const Rule = require('../models/rule');
-const RuleSection = require('../models/ruleSection');
+import { ResourceList } from './data';
+import MagicItem from '../models/magicItem';
+import Spell from '../models/spell';
+import Monster from '../models/monster';
+import Rule from '../models/rule';
+import RuleSection from '../models/ruleSection';
 
 const prewarmCache = async () => {
   const toPrewarm = [
@@ -39,4 +39,4 @@ const prewarmCache = async () => {
   }
 };
 
-module.exports = prewarmCache;
+export default prewarmCache;
