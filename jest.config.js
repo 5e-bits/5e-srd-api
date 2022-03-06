@@ -3,7 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   collectCoverage: true,
-  testRegex: 'test\\.js$',
+  testRegex: 'test\\.(js|ts)$',
   modulePathIgnorePatterns: ['/dist/'],
   coveragePathIgnorePatterns: ['/node_modules/'],
 };

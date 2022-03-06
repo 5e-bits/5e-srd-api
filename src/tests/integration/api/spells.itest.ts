@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const request = require('supertest');
-const createApp = require('../../../server');
-const { mongodbUri, redisClient } = require('../../../util');
-let app;
+import { Application } from 'express';
+import mongoose from 'mongoose';
+import request from 'supertest';
+import createApp from '../../../server';
+import { mongodbUri, redisClient } from '../../../util';
+let app: Application;
 
 afterEach(() => {
   jest.clearAllMocks();

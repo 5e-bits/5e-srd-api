@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const request = require('supertest');
-const createApp = require('../../../server');
-const { mongodbUri, redisClient } = require('../../../util');
-let app;
+import { Application } from 'express';
+import mongoose from 'mongoose';
+import request from 'supertest';
+import createApp from '../../../server';
+import { mongodbUri, redisClient } from '../../../util';
+let app: Application;
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -61,7 +62,7 @@ describe('/api/rules', () => {
   describe('with desc query', () => {
     it('returns the object with matching desc', async () => {
       const indexRes = await request(app).get('/api/rules');
-      let index = indexRes.body.results[1].index;
+      const index = indexRes.body.results[1].index;
       const res = await request(app).get(`/api/rules/${index}`);
       const name = res.body.name;
       const descRes = await request(app).get(`/api/rules?desc=${name}`);
