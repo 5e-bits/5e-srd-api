@@ -1,11 +1,12 @@
-const router = require('express').Router();
-const ClassController = require('../../controllers/api/classController');
+import * as express from 'express';
+const router = express.Router();
+import ClassController from '../../controllers/api/classController';
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req: any, res: any, next: any) {
   ClassController.index(req, res, next);
 });
 
-router.get('/:index', function(req, res, next) {
+router.get('/:index', function(req: any, res: any, next: any) {
   ClassController.show(req, res, next);
 });
 
@@ -22,4 +23,4 @@ router.get('/:index/levels/:level/features', ClassController.showFeaturesForClas
 router.get('/:index/levels/:level', ClassController.showLevelForClass);
 router.get('/:index/levels', ClassController.showLevelsForClass);
 
-module.exports = router;
+export default router;
