@@ -3,10 +3,7 @@ import { mongodbUri, redisClient, prewarmCache } from './util/index';
 import createApp from './server';
 
 const start = async () => {
-  mongoose.set('useNewUrlParser', true);
-  mongoose.set('useFindAndModify', false);
-  mongoose.set('useCreateIndex', true);
-  await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  await mongoose.connect(mongodbUri);
   console.log('Database connection ready');
 
   redisClient.on('error', err => console.log('Redis Client Error', err));
