@@ -34,6 +34,7 @@ export default async () => {
 
   console.log('Setting up Apollo GraphQL server');
   const apolloMiddleware = await createApolloMiddleware();
+  await apolloMiddleware.start();
   apolloMiddleware.applyMiddleware({ app });
 
   // Register routes
