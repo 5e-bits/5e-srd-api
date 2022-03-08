@@ -1,5 +1,5 @@
-const ApiController = require('../../controllers/apiController');
-const { mockRequest, mockResponse, mockNext } = require('../support/requestHelpers');
+import ApiController from '../../controllers/apiController';
+import { mockRequest, mockResponse, mockNext } from '../support/requestHelpers';
 
 describe('index', () => {
   it('returns the routes', () => {
