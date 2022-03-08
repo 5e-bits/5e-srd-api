@@ -20,8 +20,8 @@
   "dependencies": {
     "@bugsnag/js": "^7.16.1",
     "@bugsnag/plugin-express": "^7.16.1",
-    "apollo-server-express": "^2.19.2",
-    "apollo-server-plugin-response-cache": "^0.7.0",
+    "apollo-server-express": "^3.6.3",
+    "apollo-server-plugin-response-cache": "^3.5.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.3",
     "debug": "^4.3.1",
