@@ -7,43 +7,50 @@ const SimpleController = require('../simpleController');
 
 const simpleController = new SimpleController(Race);
 
-exports.index = (req, res, next) => simpleController.index(req, res, next);
-exports.show = (req, res, next) => simpleController.show(req, res, next);
+exports.index = async (req, res, next) => simpleController.index(req, res, next);
+exports.show = async (req, res, next) => simpleController.show(req, res, next);
 
-exports.showSubracesForRace = (req, res, next) => {
+exports.showSubracesForRace = async (req, res, next) => {
   const urlString = '/api/races/' + req.params.index;
-  return Subrace.find({ 'race.url': urlString })
-    .select({ index: 1, name: 1, url: 1, _id: 0 })
-    .then(data => {
-      res.status(200).json(ResourceList(data));
-    })
-    .catch(err => {
-      next(err);
+
+  try {
+    const data = await Subrace.find({ 'race.url': urlString }).select({
+      index: 1,
+      name: 1,
+      url: 1,
+      _id: 0,
     });
+    return res.status(200).json(ResourceList(data));
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.showTraitsForRace = (req, res, next) => {
+exports.showTraitsForRace = async (req, res, next) => {
   const urlString = '/api/races/' + req.params.index;
-  return Trait.find({ 'races.url': urlString })
-    .select({ index: 1, name: 1, url: 1, _id: 0 })
-    .then(data => {
-      res.status(200).json(ResourceList(data));
-    })
-    .catch(err => {
-      next(err);
+
+  try {
+    const data = await Trait.find({ 'races.url': urlString }).select({
+      index: 1,
+      name: 1,
+      url: 1,
+      _id: 0,
     });
+    return res.status(200).json(ResourceList(data));
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.showProficienciesForRace = (req, res, next) => {
+exports.showProficienciesForRace = async (req, res, next) => {
   const urlString = '/api/races/' + req.params.index;
 
-  return Proficiency.find({ 'races.url': urlString })
-    .select({ index: 1, name: 1, url: 1, _id: 0 })
-    .sort({ index: 'asc' })
-    .then(data => {
-      res.status(200).json(ResourceList(data));
-    })
-    .catch(err => {
-      next(err);
-    });
+  try {
+    const data = await Proficiency.find({ 'races.url': urlString })
+      .select({ index: 1, name: 1, url: 1, _id: 0 })
+      .sort({ index: 'asc' });
+    return res.status(200).json(ResourceList(data));
+  } catch (err) {
+    next(err);
+  }
 };
