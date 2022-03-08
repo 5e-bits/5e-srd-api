@@ -1,17 +1,16 @@
-exports.mockRequest = (reqData = {}) => {
+import { MockResponse } from './types.d';
+
+const mockRequest = (reqData = {}) => {
   return reqData;
 };
 
-exports.mockResponse = () => {
-  type Response = {
-    status?: jest.Mock<any, any>;
-    json?: jest.Mock<any, any>;
-  };
-
-  const res: Response = {};
+const mockResponse = () => {
+  const res: MockResponse = {};
   res.status = jest.fn().mockReturnValue(res);
   res.json = jest.fn().mockReturnValue(res);
   return res;
 };
 
-exports.mockNext = jest.fn();
+const mockNext = jest.fn();
+
+export { mockRequest, mockResponse, mockNext };
