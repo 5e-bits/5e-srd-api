@@ -1,13 +1,12 @@
-// import mockingoose from 'mockingoose';
-import { mockRequest, mockResponse, mockNext } from '../support/requestHelpers';
-import { MockResponse } from '../support/types.d';
-import AbilityScore from '../../models/abilityScore';
-import SimpleController from '../../controllers/simpleController';
+const mockingoose = require('mockingoose');
+const { mockRequest, mockResponse, mockNext } = require('../support/requestHelpers');
+const AbilityScore = require('../../models/abilityScore');
+const SimpleController = require('../../controllers/simpleController');
 
-let response: MockResponse;
-let simpleController: SimpleController;
+let response;
+let simpleController;
 beforeEach(() => {
-  // mockingoose.resetAll();
+  mockingoose.resetAll();
   response = mockResponse();
   simpleController = new SimpleController(AbilityScore);
 });
@@ -33,7 +32,7 @@ describe('index', () => {
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    jest.spyOn(AbilityScore, 'find').mockReturnValueOnce(findDoc);
+    mockingoose(AbilityScore).toReturn(findDoc, 'find');
 
     await simpleController.index(request, response, mockNext);
 
@@ -43,7 +42,7 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      jest.spyOn(AbilityScore, 'find').mockReturnValueOnce(error);
+      mockingoose(AbilityScore).toReturn(error, 'find');
 
       await simpleController.index(request, response, mockNext);
 
@@ -65,7 +64,7 @@ describe('show', () => {
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    jest.spyOn(AbilityScore, 'findOne').mockReturnValueOnce(findOneDoc);
+    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
 
     await simpleController.show(request, response, mockNext);
 
@@ -75,7 +74,7 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      jest.spyOn(AbilityScore, 'findOne').mockReturnValueOnce(null);
+      mockingoose(AbilityScore).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
@@ -90,7 +89,7 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      jest.spyOn(AbilityScore, 'findOne').mockReturnValueOnce(error);
+      mockingoose(AbilityScore).toReturn(error, 'findOne');
 
       await simpleController.show(request, response, mockNext);
 
