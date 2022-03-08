@@ -6,4 +6,5 @@ export default {
   testRegex: 'test\\.(js|ts)$',
   modulePathIgnorePatterns: ['/dist/'],
   coveragePathIgnorePatterns: ['/node_modules/'],
+  silent: false,
 };
