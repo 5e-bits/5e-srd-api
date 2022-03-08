@@ -3,10 +3,14 @@ exports.mockRequest = (reqData = {}) => {
 };
 
 exports.mockResponse = () => {
-  const res = {
-    status: jest.fn().mockReturnValue({}),
-    json: jest.fn().mockReturnValue({}),
+  type Response = {
+    status?: jest.Mock<any, any>;
+    json?: jest.Mock<any, any>;
   };
+
+  const res: Response = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
   return res;
 };
 
