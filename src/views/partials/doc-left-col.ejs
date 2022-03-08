@@ -125,8 +125,6 @@
       function navOps() {
         //check sticky
         if (doc.scrollTop() >= offset.top - 65) {
-          console.log(window.innerHeight - offset.top);
-
           sticky.addClass('stick');
           sticky.css({
             width: sideNav.width() + 'px',
@@ -144,13 +142,8 @@
 
         for (var i = 0; i < navParents.length; i++) {
           parent = $(navParents[i]);
-
-          console.log('LOOK AT ME!');
-          console.log(parent);
           target = $(parent.find('a').attr('href'));
 
-          console.log(target);
-          console.log(target.offset());
           if (scrollTop >= target.offset().top) {
             activeParent = parent;
           } else {
