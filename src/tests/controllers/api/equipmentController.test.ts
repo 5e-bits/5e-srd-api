@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const Condition = require('../../../models/condition');
-const ConditionController = require('../../../controllers/api/conditionController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import Equipment from '../../../models/equipment';
+import EquipmentController from '../../../controllers/api/equipmentController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +12,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'blinded',
-      name: 'Blinded',
-      url: '/api/conditions/blinded',
+      index: 'abacus',
+      name: 'Abacus',
+      url: '/api/equipment/abacus',
     },
     {
-      index: 'charmed',
-      name: 'Charmed',
-      url: '/api/conditions/charmed',
+      index: 'acid-vial',
+      name: 'Acid (vial)',
+      url: '/api/equipment/acid-vial',
     },
     {
-      index: 'deafened',
-      name: 'Deafened',
-      url: '/api/conditions/deafened',
+      index: 'alchemists-fire-flask',
+      name: "Alchemist's fire (flask)",
+      url: '/api/equipment/alchemists-fire-flask',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Condition).toReturn(findDoc, 'find');
+    mockingoose(Equipment).toReturn(findDoc, 'find');
 
-    await ConditionController.index(request, response, mockNext);
+    await EquipmentController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +40,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Condition).toReturn(error, 'find');
+      mockingoose(Equipment).toReturn(error, 'find');
 
-      await ConditionController.index(request, response, mockNext);
+      await EquipmentController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +53,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'blinded',
-    name: 'Blinded',
-    url: '/api/conditions/blinded',
+    index: 'abacus',
+    name: 'Abacus',
+    url: '/api/equipment/abacus',
   };
 
-  const showParams = { index: 'blinded' };
+  const showParams = { index: 'abacus' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Condition).toReturn(findOneDoc, 'findOne');
+    mockingoose(Equipment).toReturn(findOneDoc, 'findOne');
 
-    await ConditionController.show(request, response, mockNext);
+    await EquipmentController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +72,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Condition).toReturn(null, 'findOne');
+      mockingoose(Equipment).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await ConditionController.show(invalidRequest, response, mockNext);
+      await EquipmentController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +87,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Condition).toReturn(error, 'findOne');
+      mockingoose(Equipment).toReturn(error, 'findOne');
 
-      await ConditionController.show(request, response, mockNext);
+      await EquipmentController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

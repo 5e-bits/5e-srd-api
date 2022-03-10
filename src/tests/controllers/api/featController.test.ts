@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const skill = require('../../../models/skill');
-const skillController = require('../../../controllers/api/skillController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import Feat from '../../../models/feat';
+import FeatController from '../../../controllers/api/featController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +12,18 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'acrobatics',
-      name: 'Acrobatics',
-      url: '/api/skills/acrobatics',
-    },
-    {
-      index: 'animal-handling',
-      name: 'Animal Handling',
-      url: '/api/skills/animal-handling',
-    },
-    {
-      index: 'arcana',
-      name: 'Arcana',
-      url: '/api/skills/arcana',
+      index: 'grappler',
+      name: 'Grappler',
+      url: '/api/feats/grappler',
     },
   ];
+
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(skill).toReturn(findDoc, 'find');
+    mockingoose(Feat).toReturn(findDoc, 'find');
 
-    await skillController.index(request, response, mockNext);
+    await FeatController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +31,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(skill).toReturn(error, 'find');
+      mockingoose(Feat).toReturn(error, 'find');
 
-      await skillController.index(request, response, mockNext);
+      await FeatController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +44,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'acrobatics',
-    name: 'Acrobatics',
-    url: '/api/skills/acrobatics',
+    index: 'grappler',
+    name: 'Grappler',
+    url: '/api/feats/grappler',
   };
 
-  const showParams = { index: 'acrobatics' };
+  const showParams = { index: 'grappler' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(skill).toReturn(findOneDoc, 'findOne');
+    mockingoose(Feat).toReturn(findOneDoc, 'findOne');
 
-    await skillController.show(request, response, mockNext);
+    await FeatController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +63,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(skill).toReturn(null, 'findOne');
+      mockingoose(Feat).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await skillController.show(invalidRequest, response, mockNext);
+      await FeatController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +78,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(skill).toReturn(error, 'findOne');
+      mockingoose(Feat).toReturn(error, 'findOne');
 
-      await skillController.show(request, response, mockNext);
+      await FeatController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

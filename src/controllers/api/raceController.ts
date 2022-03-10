@@ -2,16 +2,16 @@ import Race from '../../models/race';
 import Subrace from '../../models/subrace';
 import Trait from '../../models/trait';
 import Proficiency from '../../models/proficiency';
-const { ResourceList } = require('../../util/data');
+import { ResourceList } from '../../util/data';
 import SimpleController from '../simpleController';
 import { Request, Response } from 'express';
 
 const simpleController = new SimpleController(Race);
 
-export const index = async (req: Request, res: Response, next: any) => simpleController.index(req, res, next);
-export const show = async (req: Request, res: Response, next: any) => simpleController.show(req, res, next);
+export const index = async (req: any, res: any, next: any) => simpleController.index(req, res, next);
+export const show = async (req: any, res: any, next: any) => simpleController.show(req, res, next);
 
-export const showSubracesForRace = async (req: Request, res: Response, next: any) => {
+export const showSubracesForRace = async (req: any, res: any, next: any) => {
   const urlString = '/api/races/' + req.params.index;
 
   try {
@@ -27,7 +27,7 @@ export const showSubracesForRace = async (req: Request, res: Response, next: any
   }
 };
 
-export const showTraitsForRace = async (req: Request, res: Response, next: any) => {
+export const showTraitsForRace = async (req: any, res: any, next: any) => {
   const urlString = '/api/races/' + req.params.index;
 
   try {
@@ -43,7 +43,7 @@ export const showTraitsForRace = async (req: Request, res: Response, next: any) 
   }
 };
 
-export const showProficienciesForRace = async (req: Request, res: Response, next: any) => {
+export const showProficienciesForRace = async (req: any, res: any, next: any) => {
   const urlString = '/api/races/' + req.params.index;
 
   try {

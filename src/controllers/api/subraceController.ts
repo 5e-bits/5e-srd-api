@@ -7,10 +7,10 @@ import { Request, Response } from 'express';
 
 const simpleController = new SimpleController(Subrace);
 
-export const index = async (req: Request, res: Response, next: any) => simpleController.index(req, res, next);
-export const show = async (req: Request, res: Response, next: any) => simpleController.show(req, res, next);
+export const index = async (req: any, res: any, next: any) => simpleController.index(req, res, next);
+export const show = async (req: any, res: any, next: any) => simpleController.show(req, res, next);
 
-export const showTraitsForSubrace = async (req: Request, res: Response, next: any) => {
+export const showTraitsForSubrace = async (req: any, res: any, next: any) => {
   const urlString = '/api/subraces/' + req.params.index;
   try {
     const data = await Trait.find({ 'subraces.url': urlString }).select({
@@ -26,7 +26,7 @@ export const showTraitsForSubrace = async (req: Request, res: Response, next: an
   }
 };
 
-export const showProficienciesForSubrace = async (req: Request, res: Response, next: any) => {
+export const showProficienciesForSubrace = async (req: any, res: any, next: any) => {
   const urlString = '/api/subraces/' + req.params.index;
 
   try {

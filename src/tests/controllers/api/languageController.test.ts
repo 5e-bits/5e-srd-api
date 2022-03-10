@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const DamageType = require('../../../models/damageType');
-const DamageTypeController = require('../../../controllers/api/damageTypeController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import Language from '../../../models/language';
+import LanguageController from '../../../controllers/api/languageController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +12,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'acid',
-      name: 'Acid',
-      url: '/api/damage-types/acid',
+      index: 'abyssal',
+      name: 'Abyssal',
+      url: '/api/languages/abyssal',
     },
     {
-      index: 'bludgeoning',
-      name: 'Bludgeoning',
-      url: '/api/damage-types/bludgeoning',
+      index: 'celestial',
+      name: 'Celestial',
+      url: '/api/languages/celestial',
     },
     {
-      index: 'cold',
-      name: 'Cold',
-      url: '/api/damage-types/cold',
+      index: 'common',
+      name: 'Common',
+      url: '/api/languages/common',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(DamageType).toReturn(findDoc, 'find');
+    mockingoose(Language).toReturn(findDoc, 'find');
 
-    await DamageTypeController.index(request, response, mockNext);
+    await LanguageController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +40,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(DamageType).toReturn(error, 'find');
+      mockingoose(Language).toReturn(error, 'find');
 
-      await DamageTypeController.index(request, response, mockNext);
+      await LanguageController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +53,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'acid',
-    name: 'Acid',
-    url: '/api/damage-types/acid',
+    index: 'abyssal',
+    name: 'Abyssal',
+    url: '/api/languages/abyssal',
   };
 
-  const showParams = { index: 'acid' };
+  const showParams = { index: 'abyssal' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(DamageType).toReturn(findOneDoc, 'findOne');
+    mockingoose(Language).toReturn(findOneDoc, 'findOne');
 
-    await DamageTypeController.show(request, response, mockNext);
+    await LanguageController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +72,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(DamageType).toReturn(null, 'findOne');
+      mockingoose(Language).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await DamageTypeController.show(invalidRequest, response, mockNext);
+      await LanguageController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +87,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(DamageType).toReturn(error, 'findOne');
+      mockingoose(Language).toReturn(error, 'findOne');
 
-      await DamageTypeController.show(request, response, mockNext);
+      await LanguageController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

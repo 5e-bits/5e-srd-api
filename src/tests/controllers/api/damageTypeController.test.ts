@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const MagicSchool = require('../../../models/magicSchool');
-const MagicSchoolController = require('../../../controllers/api/magicSchoolController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import DamageType from '../../../models/damageType';
+import DamageTypeController from '../../../controllers/api/damageTypeController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +12,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'abjuration',
-      name: 'Abjuration',
-      url: '/api/magic-schools/abjuration',
+      index: 'acid',
+      name: 'Acid',
+      url: '/api/damage-types/acid',
     },
     {
-      index: 'conjuration',
-      name: 'Conjuration',
-      url: '/api/magic-schools/conjuration',
+      index: 'bludgeoning',
+      name: 'Bludgeoning',
+      url: '/api/damage-types/bludgeoning',
     },
     {
-      index: 'divination',
-      name: 'Divination',
-      url: '/api/magic-schools/divination',
+      index: 'cold',
+      name: 'Cold',
+      url: '/api/damage-types/cold',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(MagicSchool).toReturn(findDoc, 'find');
+    mockingoose(DamageType).toReturn(findDoc, 'find');
 
-    await MagicSchoolController.index(request, response, mockNext);
+    await DamageTypeController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +40,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(MagicSchool).toReturn(error, 'find');
+      mockingoose(DamageType).toReturn(error, 'find');
 
-      await MagicSchoolController.index(request, response, mockNext);
+      await DamageTypeController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +53,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'abjuration',
-    name: 'Abjuration',
-    url: '/api/magic-schools/abjuration',
+    index: 'acid',
+    name: 'Acid',
+    url: '/api/damage-types/acid',
   };
 
-  const showParams = { index: 'abjuration' };
+  const showParams = { index: 'acid' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(MagicSchool).toReturn(findOneDoc, 'findOne');
+    mockingoose(DamageType).toReturn(findOneDoc, 'findOne');
 
-    await MagicSchoolController.show(request, response, mockNext);
+    await DamageTypeController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +72,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(MagicSchool).toReturn(null, 'findOne');
+      mockingoose(DamageType).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await MagicSchoolController.show(invalidRequest, response, mockNext);
+      await DamageTypeController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +87,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(MagicSchool).toReturn(error, 'findOne');
+      mockingoose(DamageType).toReturn(error, 'findOne');
 
-      await MagicSchoolController.show(request, response, mockNext);
+      await DamageTypeController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

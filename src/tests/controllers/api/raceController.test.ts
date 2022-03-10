@@ -1,14 +1,14 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
 
-const Race = require('../../../models/race');
-const Subrace = require('../../../models/subrace');
-const Trait = require('../../../models/trait');
-const Proficiency = require('../../../models/proficiency');
+import Race from '../../../models/race';
+import Subrace from '../../../models/subrace';
+import Trait from '../../../models/trait';
+import Proficiency from '../../../models/proficiency';
 
-const RaceController = require('../../../controllers/api/raceController');
+import * as RaceController from '../../../controllers/api/raceController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();

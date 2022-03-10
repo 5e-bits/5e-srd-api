@@ -3,23 +3,16 @@ jest.mock('redis', () => {
   const redis = require('redis-mock');
   return redis;
 });
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const redis = require('redis');
-const { redisClient } = require('../../../util');
-const Rule = require('../../../models/rule');
-const RulesController = require('../../../controllers/api/ruleController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import redis from 'redis';
+import { redisClient } from '../../../util';
+import Rule from '../../../models/rule';
+import * as RulesController from '../../../controllers/api/ruleController';
 
-let response;
+let response: any;
 beforeEach(() => {
-  const client = redis.createClient();
-  // TODO: redis-mock does not support redis@4.0.0
-  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
-});
-
-afterAll(() => {
-  redisClient.quit();
 });
 
 describe('index', () => {

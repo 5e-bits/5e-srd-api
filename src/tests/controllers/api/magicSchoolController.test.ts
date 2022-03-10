@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const Feature = require('../../../models/feature');
-const FeatureController = require('../../../controllers/api/featureController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import MagicSchool from '../../../models/magicSchool';
+import MagicSchoolController from '../../../controllers/api/magicSchoolController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +12,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'action-surge-1-use',
-      name: 'Action Surge (1 use)',
-      url: '/api/features/action-surge-1-use',
+      index: 'abjuration',
+      name: 'Abjuration',
+      url: '/api/magic-schools/abjuration',
     },
     {
-      index: 'action-surge-2-uses',
-      name: 'Action Surge (2 uses)',
-      url: '/api/features/action-surge-2-uses',
+      index: 'conjuration',
+      name: 'Conjuration',
+      url: '/api/magic-schools/conjuration',
     },
     {
-      index: 'additional-magical-secrets',
-      name: 'Additional Magical Secrets',
-      url: '/api/features/additional-magical-secrets',
+      index: 'divination',
+      name: 'Divination',
+      url: '/api/magic-schools/divination',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Feature).toReturn(findDoc, 'find');
+    mockingoose(MagicSchool).toReturn(findDoc, 'find');
 
-    await FeatureController.index(request, response, mockNext);
+    await MagicSchoolController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +40,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Feature).toReturn(error, 'find');
+      mockingoose(MagicSchool).toReturn(error, 'find');
 
-      await FeatureController.index(request, response, mockNext);
+      await MagicSchoolController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +53,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'action-surge-1-use',
-    name: 'Action Surge (1 use)',
-    url: '/api/features/action-surge-1-use',
+    index: 'abjuration',
+    name: 'Abjuration',
+    url: '/api/magic-schools/abjuration',
   };
 
-  const showParams = { index: 'action-surge-1-use' };
+  const showParams = { index: 'abjuration' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Feature).toReturn(findOneDoc, 'findOne');
+    mockingoose(MagicSchool).toReturn(findOneDoc, 'findOne');
 
-    await FeatureController.show(request, response, mockNext);
+    await MagicSchoolController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +72,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Feature).toReturn(null, 'findOne');
+      mockingoose(MagicSchool).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await FeatureController.show(invalidRequest, response, mockNext);
+      await MagicSchoolController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +87,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Feature).toReturn(error, 'findOne');
+      mockingoose(MagicSchool).toReturn(error, 'findOne');
 
-      await FeatureController.show(request, response, mockNext);
+      await MagicSchoolController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

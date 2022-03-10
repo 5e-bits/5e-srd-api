@@ -1,38 +1,40 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const WeaponProperty = require('../../../models/weaponProperty');
-const WeaponPropertyController = require('../../../controllers/api/weaponPropertyController');
+import { mockRequest, mockResponse, mockNext } from '../support/requestHelpers';
+import AbilityScore from '../../models/abilityScore';
+import SimpleController from '../../controllers/simpleController';
 
-let response;
+let response: any;
+let simpleController: SimpleController;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
+  simpleController = new SimpleController(AbilityScore);
 });
 
 describe('index', () => {
   const findDoc = [
     {
-      index: 'ammunition',
-      name: 'Ammunition',
-      url: '/api/weapon-properties/ammunition',
+      index: 'str',
+      name: 'STR',
+      url: '/api/ability-scores/str',
     },
     {
-      index: 'finesse',
-      name: 'Finesse',
-      url: '/api/weapon-properties/finesse',
+      index: 'dex',
+      name: 'DEX',
+      url: '/api/ability-scores/dex',
     },
     {
-      index: 'heavy',
-      name: 'Heavy',
-      url: '/api/weapon-properties/heavy',
+      index: 'con',
+      name: 'CON',
+      url: '/api/ability-scores/con',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(WeaponProperty).toReturn(findDoc, 'find');
+    mockingoose(AbilityScore).toReturn(findDoc, 'find');
 
-    await WeaponPropertyController.index(request, response, mockNext);
+    await simpleController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(WeaponProperty).toReturn(error, 'find');
+      mockingoose(AbilityScore).toReturn(error, 'find');
 
-      await WeaponPropertyController.index(request, response, mockNext);
+      await simpleController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'ammunition',
-    name: 'Ammunition',
-    url: '/api/weapon-properties/ammunition',
+    index: 'str',
+    name: 'STR',
+    url: '/api/ability-scores/str',
   };
 
-  const showParams = { index: 'ammunition' };
+  const showParams = { index: 'str' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(WeaponProperty).toReturn(findOneDoc, 'findOne');
+    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
 
-    await WeaponPropertyController.show(request, response, mockNext);
+    await simpleController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +74,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(WeaponProperty).toReturn(null, 'findOne');
+      mockingoose(AbilityScore).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await WeaponPropertyController.show(invalidRequest, response, mockNext);
+      await simpleController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(WeaponProperty).toReturn(error, 'findOne');
+      mockingoose(AbilityScore).toReturn(error, 'findOne');
 
-      await WeaponPropertyController.show(request, response, mockNext);
+      await simpleController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

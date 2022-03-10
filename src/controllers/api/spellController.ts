@@ -2,7 +2,7 @@ import Spell from '../../models/spell';
 import { redisClient, escapeRegExp, ResourceList } from '../../util';
 import { Request, Response } from 'express';
 
-export const index = async (req: Request, res: Response, next: any) => {
+export const index = async (req: any, res: any, next: any) => {
   const searchQueries: { name?: any, level?: any } = {};
   if (req.query.name !== undefined) {
     searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name as string), 'i') };
@@ -43,7 +43,7 @@ export const index = async (req: Request, res: Response, next: any) => {
   }
 };
 
-export const show = async (req: Request, res: Response, next: any) => {
+export const show = async (req: any, res: any, next: any) => {
   try {
     const data = await Spell.findOne({ index: req.params.index });
     if (!data) return next();

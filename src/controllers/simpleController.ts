@@ -1,13 +1,14 @@
-const { ResourceList } = require('../util/data');
-const { escapeRegExp } = require('../util/regex');
+import { ResourceList } from '../util/data';
+import { escapeRegExp } from '../util/regex';
 
 class SimpleController {
-  constructor(Schema) {
+  Schema: any
+  constructor(Schema: any) {
     this.Schema = Schema;
   }
 
-  async index(req, res, next) {
-    const searchQueries = {};
+  async index(req: any, res: any, next: any) {
+    const searchQueries: { name?: any } = {};
     if (req.query.name !== undefined) {
       searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
     }
@@ -24,7 +25,7 @@ class SimpleController {
     }
   }
 
-  async show(req, res, next) {
+  async show(req: any, res: any, next: any) {
     try {
       const data = await this.Schema.findOne({ index: req.params.index });
       if (!data) return next();
@@ -35,4 +36,4 @@ class SimpleController {
   }
 }
 
-module.exports = SimpleController;
+export default SimpleController;

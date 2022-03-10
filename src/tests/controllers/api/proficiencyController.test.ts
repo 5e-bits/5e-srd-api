@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const Feat = require('../../../models/feat');
-const FeatController = require('../../../controllers/api/featController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import Proficiency from '../../../models/proficiency';
+import ProficiencyController from '../../../controllers/api/proficiencyController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,18 +12,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'grappler',
-      name: 'Grappler',
-      url: '/api/feats/grappler',
+      index: 'alchemists-supplies',
+      name: "Alchemist's supplies",
+      url: '/api/proficiencies/alchemists-supplies',
+    },
+    {
+      index: 'all-armor',
+      name: 'All armor',
+      url: '/api/proficiencies/all-armor',
+    },
+    {
+      index: 'bagpipes',
+      name: 'Bagpipes',
+      url: '/api/proficiencies/bagpipes',
     },
   ];
-
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Feat).toReturn(findDoc, 'find');
+    mockingoose(Proficiency).toReturn(findDoc, 'find');
 
-    await FeatController.index(request, response, mockNext);
+    await ProficiencyController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -31,9 +40,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Feat).toReturn(error, 'find');
+      mockingoose(Proficiency).toReturn(error, 'find');
 
-      await FeatController.index(request, response, mockNext);
+      await ProficiencyController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -44,18 +53,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'grappler',
-    name: 'Grappler',
-    url: '/api/feats/grappler',
+    index: 'alchemists-supplies',
+    name: "Alchemist's supplies",
+    url: '/api/proficiencies/alchemists-supplies',
   };
 
-  const showParams = { index: 'grappler' };
+  const showParams = { index: 'alchemists-supplies' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Feat).toReturn(findOneDoc, 'findOne');
+    mockingoose(Proficiency).toReturn(findOneDoc, 'findOne');
 
-    await FeatController.show(request, response, mockNext);
+    await ProficiencyController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -63,11 +72,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Feat).toReturn(null, 'findOne');
+      mockingoose(Proficiency).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await FeatController.show(invalidRequest, response, mockNext);
+      await ProficiencyController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -78,9 +87,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Feat).toReturn(error, 'findOne');
+      mockingoose(Proficiency).toReturn(error, 'findOne');
 
-      await FeatController.show(request, response, mockNext);
+      await ProficiencyController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

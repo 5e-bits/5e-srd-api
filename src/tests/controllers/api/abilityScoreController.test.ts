@@ -1,9 +1,10 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const Trait = require('../../../models/trait');
-const TraitController = require('../../../controllers/api/traitController');
+const mockingoose = require('mockingoose')
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers'
+import AbilityScore from '../../../models/abilityScore'
+import AbilityScoreController from '../../../controllers/api/abilityScoreController'
+import { MockResponse } from '../../support/types';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +13,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'artificers-lore',
-      name: "Artificer's Lore",
-      url: '/api/traits/artificers-lore',
+      index: 'str',
+      name: 'STR',
+      url: '/api/ability-scores/str',
     },
     {
-      index: 'brave',
-      name: 'Brave',
-      url: '/api/traits/brave',
+      index: 'dex',
+      name: 'DEX',
+      url: '/api/ability-scores/dex',
     },
     {
-      index: 'breath-weapon',
-      name: 'Breath Weapon',
-      url: '/api/traits/breath-weapon',
+      index: 'con',
+      name: 'CON',
+      url: '/api/ability-scores/con',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Trait).toReturn(findDoc, 'find');
+    mockingoose(AbilityScore).toReturn(findDoc, 'find');
 
-    await TraitController.index(request, response, mockNext);
+    await AbilityScoreController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +41,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Trait).toReturn(error, 'find');
+      mockingoose(AbilityScore).toReturn(error, 'find');
 
-      await TraitController.index(request, response, mockNext);
+      await AbilityScoreController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +54,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'abyssal',
-    name: 'Abyssal',
-    url: '/api/traits/abyssal',
+    index: 'str',
+    name: 'STR',
+    url: '/api/ability-scores/str',
   };
 
-  const showParams = { index: 'abyssal' };
+  const showParams = { index: 'str' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Trait).toReturn(findOneDoc, 'findOne');
+    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
 
-    await TraitController.show(request, response, mockNext);
+    await AbilityScoreController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +73,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Trait).toReturn(null, 'findOne');
+      mockingoose(AbilityScore).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await TraitController.show(invalidRequest, response, mockNext);
+      await AbilityScoreController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +88,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Trait).toReturn(error, 'findOne');
+      mockingoose(AbilityScore).toReturn(error, 'findOne');
 
-      await TraitController.show(request, response, mockNext);
+      await AbilityScoreController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

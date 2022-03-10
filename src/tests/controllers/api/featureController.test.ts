@@ -1,9 +1,9 @@
 const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const EquipmentCategory = require('../../../models/equipmentCategory');
-const EquipmentCategoryController = require('../../../controllers/api/equipmentCategoryController');
+import { mockRequest, mockResponse, mockNext } from '../../support/requestHelpers';
+import Feature from '../../../models/feature';
+import FeatureController from '../../../controllers/api/featureController';
 
-let response;
+let response: any;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -12,27 +12,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'adventuring-gear',
-      name: 'Adventuring Gear',
-      url: '/api/equipment-categories/adventuring-gear',
+      index: 'action-surge-1-use',
+      name: 'Action Surge (1 use)',
+      url: '/api/features/action-surge-1-use',
     },
     {
-      index: 'armor',
-      name: 'Armor',
-      url: '/api/equipment-categories/armor',
+      index: 'action-surge-2-uses',
+      name: 'Action Surge (2 uses)',
+      url: '/api/features/action-surge-2-uses',
     },
     {
-      index: 'artisans-tools',
-      name: "Artisan's Tools",
-      url: '/api/equipment-categories/artisans-tools',
+      index: 'additional-magical-secrets',
+      name: 'Additional Magical Secrets',
+      url: '/api/features/additional-magical-secrets',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(EquipmentCategory).toReturn(findDoc, 'find');
+    mockingoose(Feature).toReturn(findDoc, 'find');
 
-    await EquipmentCategoryController.index(request, response, mockNext);
+    await FeatureController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -40,9 +40,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(EquipmentCategory).toReturn(error, 'find');
+      mockingoose(Feature).toReturn(error, 'find');
 
-      await EquipmentCategoryController.index(request, response, mockNext);
+      await FeatureController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -53,18 +53,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'adventuring-gear',
-    name: 'Adventuring Gear',
-    url: '/api/equipment-categories/adventuring-gear',
+    index: 'action-surge-1-use',
+    name: 'Action Surge (1 use)',
+    url: '/api/features/action-surge-1-use',
   };
 
-  const showParams = { index: 'adventuring-gear' };
+  const showParams = { index: 'action-surge-1-use' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(EquipmentCategory).toReturn(findOneDoc, 'findOne');
+    mockingoose(Feature).toReturn(findOneDoc, 'findOne');
 
-    await EquipmentCategoryController.show(request, response, mockNext);
+    await FeatureController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -72,11 +72,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(EquipmentCategory).toReturn(null, 'findOne');
+      mockingoose(Feature).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await EquipmentCategoryController.show(invalidRequest, response, mockNext);
+      await FeatureController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -87,9 +87,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(EquipmentCategory).toReturn(error, 'findOne');
+      mockingoose(Feature).toReturn(error, 'findOne');
 
-      await EquipmentCategoryController.show(request, response, mockNext);
+      await FeatureController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

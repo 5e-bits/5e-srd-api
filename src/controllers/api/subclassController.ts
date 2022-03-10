@@ -1,16 +1,16 @@
 import Subclass from '../../models/subclass';
 import Level from '../../models/level';
 import Feature from '../../models/feature';
-const { ResourceList } = require('../../util/data');
+import { ResourceList } from '../../util/data';
 import SimpleController from '../simpleController';
 import { Request, Response } from 'express';
 
 const simpleController = new SimpleController(Subclass);
 
-export const index = async (req: Request, res: Response, next: any) => simpleController.index(req, res, next);
-export const show = async (req: Request, res: Response, next: any) => simpleController.show(req, res, next);
+export const index = async (req: any, res: any, next: any) => simpleController.index(req, res, next);
+export const show = async (req: any, res: any, next: any) => simpleController.show(req, res, next);
 
-export const showLevelsForSubclass = async (req: Request, res: Response, next: any) => {
+export const showLevelsForSubclass = async (req: any, res: any, next: any) => {
   const urlString = '/api/subclasses/' + req.params.index;
 
   try {
@@ -21,7 +21,7 @@ export const showLevelsForSubclass = async (req: Request, res: Response, next: a
   }
 };
 
-export const showLevelForSubclass = async (req: Request, res: Response, next: any) => {
+export const showLevelForSubclass = async (req: any, res: any, next: any) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
@@ -37,7 +37,7 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: an
   }
 };
 
-export const showFeaturesForSubclass = async (req: Request, res: Response, next: any) => {
+export const showFeaturesForSubclass = async (req: any, res: any, next: any) => {
   const urlString = '/api/subclasses/' + req.params.index;
 
   try {
@@ -52,7 +52,7 @@ export const showFeaturesForSubclass = async (req: Request, res: Response, next:
   }
 };
 
-export const showFeaturesForSubclassAndLevel = async (req: Request, res: Response, next: any) => {
+export const showFeaturesForSubclassAndLevel = async (req: any, res: any, next: any) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
