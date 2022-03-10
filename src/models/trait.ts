@@ -91,9 +91,9 @@ const TraitSpecific = {
   breath_weapon: Action,
 };
 
-interface Trait {
+interface Trait extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
-  desc: string;
+  desc: string[];
   index: string;
   name: string;
   proficiencies: APIReference[];
@@ -105,7 +105,7 @@ interface Trait {
   url: string;
 }
 
-const Trait = new mongoose.Schema<Trait>({
+const TraitSchema = new mongoose.Schema<Trait>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -119,4 +119,4 @@ const Trait = new mongoose.Schema<Trait>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Trait>('Trait', Trait, 'traits');
+export default mongoose.model<Trait>('Trait', TraitSchema, 'traits');

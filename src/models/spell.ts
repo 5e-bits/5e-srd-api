@@ -57,7 +57,7 @@ const DC = new mongoose.Schema({
   desc: { type: String, index: true },
 });
 
-interface Spell {
+interface Spell extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   area_of_effect?: AreaOfEffect;
   attack_type?: string;
@@ -88,12 +88,13 @@ interface Spell {
   range: string;
   ritual: boolean;
   school: APIReference;
+  subclasses: APIReference[];
   url: string;
 }
 
-const Spell = new mongoose.Schema<Spell>({
+const SpellSchema = new mongoose.Schema<Spell>({
   _id: { type: String, select: false },
-  area_of_effect: AreaOfEffect,
+  area_of_effect: { type: AreaOfEffect, index: true },
   attack_type: { type: String, index: true },
   casting_time: { type: String, index: true },
   classes: [APIReferenceSchema],
@@ -117,4 +118,4 @@ const Spell = new mongoose.Schema<Spell>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Spell>('Spell', Spell, 'spells');
+export default mongoose.model<Spell>('Spell', SpellSchema, 'spells');

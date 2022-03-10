@@ -11,7 +11,7 @@ const Prerequisite = {
   minimum_score: { type: Number, index: true },
 };
 
-interface Feat {
+interface Feat extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   index: string;
   name: string;
@@ -20,7 +20,7 @@ interface Feat {
   url: string;
 }
 
-const Feat = new mongoose.Schema<Feat>({
+const FeatSchema = new mongoose.Schema<Feat>({
   _id: { type: String, select: false },
   index: { type: String, index: true },
   name: { type: String, index: true },
@@ -29,4 +29,4 @@ const Feat = new mongoose.Schema<Feat>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Feat>('Feat', Feat, 'feats');
+export default mongoose.model<Feat>('Feat', FeatSchema, 'feats');

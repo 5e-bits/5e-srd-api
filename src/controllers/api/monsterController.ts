@@ -1,14 +1,15 @@
-const Monster = require('../../models/monster');
+import Monster from '../../models/monster';
 const { redisClient, escapeRegExp, ResourceList } = require('../../util');
+import { Request, Response } from 'express';
 
-exports.index = async (req, res, next) => {
-  const searchQueries = {};
+export const index = async (req: Request, res: Response, next: any) => {
+  const searchQueries: { name?: any, challenge_rating?: any } = {};
   if (req.query.name !== undefined) {
     searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
   }
-  if (req.query.challenge_rating !== undefined) {
-    searchQueries.challenge_rating = { $in: req.query.challenge_rating.split(',') };
-  }
+  // if (req.query.challenge_rating !== undefined) {
+  //   searchQueries.challenge_rating = { $in: req.query.challenge_rating.split(',') };
+  // }
 
   const redisKey = req.originalUrl;
   let data;
@@ -34,7 +35,7 @@ exports.index = async (req, res, next) => {
   }
 };
 
-exports.show = async (req, res, next) => {
+export const show = async (req: Request, res: Response, next: any) => {
   try {
     const data = await Monster.findOne({ index: req.params.index });
     if (!data) return next();

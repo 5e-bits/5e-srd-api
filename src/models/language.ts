@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-interface Language {
+interface Language extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string;
   index: string;
@@ -11,7 +11,7 @@ interface Language {
   url: string;
 }
 
-const Language = new mongoose.Schema<Language>({
+const LanguageSchema = new mongoose.Schema<Language>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },
@@ -22,4 +22,4 @@ const Language = new mongoose.Schema<Language>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Language>('Language', Language, 'languages');
+export default mongoose.model<Language>('Language', LanguageSchema, 'languages');

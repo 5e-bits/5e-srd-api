@@ -97,7 +97,7 @@ const Feature = {
   desc: { type: [String], index: true },
 };
 
-interface Background {
+interface Background extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   index: string;
   name: string;
@@ -107,13 +107,13 @@ interface Background {
   starting_equipment: Equipment[];
   starting_equipment_options: StartingEquipmentOptions[];
   feature: Feature;
-  personality_trait: CharacteristicOptions;
+  personality_traits: CharacteristicOptions;
   ideals: IdealOptions;
   bonds: CharacteristicOptions;
   flaws: CharacteristicOptions;
 }
 
-const Background = new mongoose.Schema<Background>({
+const BackgroundSchema = new mongoose.Schema<Background>({
   _id: { type: String, select: false },
   index: { type: String, index: true },
   name: { type: String, index: true },
@@ -129,4 +129,4 @@ const Background = new mongoose.Schema<Background>({
   flaws: CharacteristicOptions,
 });
 
-export default mongoose.model<Background>('Background', Background, 'backgrounds');
+export default mongoose.model<Background>('Background', BackgroundSchema, 'backgrounds');

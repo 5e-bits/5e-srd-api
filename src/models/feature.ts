@@ -33,7 +33,7 @@ const FeatureSpecific = {
   expertise_options: Choice,
 };
 
-interface Feature {
+interface Feature extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   class: APIReference;
   desc: string[];
@@ -48,7 +48,7 @@ interface Feature {
   url: string;
 }
 
-const Feature = new mongoose.Schema<Feature>({
+const FeatureSchema = new mongoose.Schema<Feature>({
   _id: { type: String, select: false },
   class: APIReferenceSchema,
   desc: { type: [String], index: true },
@@ -63,4 +63,4 @@ const Feature = new mongoose.Schema<Feature>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Feature>('Feature', Feature, 'features');
+export default mongoose.model<Feature>('Feature', FeatureSchema, 'features');

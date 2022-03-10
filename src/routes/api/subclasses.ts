@@ -1,12 +1,12 @@
 import * as express from 'express';
 const router = express.Router();
-import SubclassController from '../../controllers/api/subclassController';
+import * as SubclassController from '../../controllers/api/subclassController';
 
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function (req: any, res: any, next: any) {
   SubclassController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function (req: any, res: any, next: any) {
   SubclassController.show(req, res, next);
 });
 

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-interface Condition {
+interface Condition extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string[];
   index: string;
@@ -8,7 +8,7 @@ interface Condition {
   url: string;
 }
 
-const Condition = new mongoose.Schema<Condition>({
+const ConditionSchema = new mongoose.Schema<Condition>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -16,4 +16,4 @@ const Condition = new mongoose.Schema<Condition>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Condition>('Condition', Condition, 'conditions');
+export default mongoose.model<Condition>('Condition', ConditionSchema, 'conditions');

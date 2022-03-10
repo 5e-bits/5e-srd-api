@@ -1,16 +1,17 @@
-const Race = require('../../models/race');
-const Subrace = require('../../models/subrace');
-const Trait = require('../../models/trait');
-const Proficiency = require('../../models/proficiency');
+import Race from '../../models/race';
+import Subrace from '../../models/subrace';
+import Trait from '../../models/trait';
+import Proficiency from '../../models/proficiency';
 const { ResourceList } = require('../../util/data');
-const SimpleController = require('../simpleController');
+import SimpleController from '../simpleController';
+import { Request, Response } from 'express';
 
 const simpleController = new SimpleController(Race);
 
-exports.index = async (req, res, next) => simpleController.index(req, res, next);
-exports.show = async (req, res, next) => simpleController.show(req, res, next);
+export const index = async (req: Request, res: Response, next: any) => simpleController.index(req, res, next);
+export const show = async (req: Request, res: Response, next: any) => simpleController.show(req, res, next);
 
-exports.showSubracesForRace = async (req, res, next) => {
+export const showSubracesForRace = async (req: Request, res: Response, next: any) => {
   const urlString = '/api/races/' + req.params.index;
 
   try {
@@ -26,7 +27,7 @@ exports.showSubracesForRace = async (req, res, next) => {
   }
 };
 
-exports.showTraitsForRace = async (req, res, next) => {
+export const showTraitsForRace = async (req: Request, res: Response, next: any) => {
   const urlString = '/api/races/' + req.params.index;
 
   try {
@@ -42,7 +43,7 @@ exports.showTraitsForRace = async (req, res, next) => {
   }
 };
 
-exports.showProficienciesForRace = async (req, res, next) => {
+export const showProficienciesForRace = async (req: Request, res: Response, next: any) => {
   const urlString = '/api/races/' + req.params.index;
 
   try {

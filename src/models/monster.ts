@@ -258,7 +258,7 @@ const Speed = {
   walk: { type: String, index: true },
 };
 
-interface Monster {
+interface Monster extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   actions?: Action[];
   alignment: string;
@@ -293,7 +293,7 @@ interface Monster {
   xp: number;
 }
 
-const Monster = new mongoose.Schema<Monster>({
+const MonsterSchema = new mongoose.Schema<Monster>({
   _id: { type: String, select: false },
   actions: [Action],
   alignment: { type: String, index: true },
@@ -311,7 +311,7 @@ const Monster = new mongoose.Schema<Monster>({
   hit_points: { type: Number, index: true },
   index: { type: String, index: true },
   intelligence: { type: Number, index: true },
-  languages: { type: String, index: true },
+  languages: [String],
   legendary_actions: [LegendaryAction],
   name: { type: String, index: true },
   proficiencies: [Proficiency],
@@ -328,4 +328,4 @@ const Monster = new mongoose.Schema<Monster>({
   xp: { type: Number, index: true },
 });
 
-export default mongoose.model<Monster>('Monster', Monster, 'monsters');
+export default mongoose.model<Monster>('Monster', MonsterSchema, 'monsters');

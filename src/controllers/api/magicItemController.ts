@@ -1,19 +1,11 @@
-const Spell = require('../../models/spell');
+import MagicItem from '../../models/magicItem';
 const { redisClient, escapeRegExp, ResourceList } = require('../../util');
+import { Request, Response } from 'express';
 
-exports.index = async (req, res, next) => {
-  const searchQueries = {};
+export const index = async (req: Request, res: Response, next: any) => {
+  const searchQueries: { name?: any } = {};
   if (req.query.name !== undefined) {
     searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
-  }
-
-  if (req.query.level !== undefined) {
-    searchQueries.level = { $in: req.query.level.split(',') };
-  }
-
-  if (req.query.school !== undefined) {
-    const schoolRegex = req.query.school.split(',').map(c => new RegExp(escapeRegExp(c), 'i'));
-    searchQueries['school.name'] = { $in: schoolRegex };
   }
 
   const redisKey = req.originalUrl;
@@ -28,7 +20,7 @@ exports.index = async (req, res, next) => {
     res.status(200).json(JSON.parse(data));
   } else {
     try {
-      const data = await Spell.find(searchQueries)
+      const data = await MagicItem.find(searchQueries)
         .select({ index: 1, name: 1, url: 1, _id: 0 })
         .sort({ index: 'asc' });
       const jsonData = ResourceList(data);
@@ -40,9 +32,9 @@ exports.index = async (req, res, next) => {
   }
 };
 
-exports.show = async (req, res, next) => {
+export const show = async (req: Request, res: Response, next: any) => {
   try {
-    const data = await Spell.findOne({ index: req.params.index });
+    const data = await MagicItem.findOne({ index: req.params.index });
     if (!data) return next();
     return res.status(200).json(data);
   } catch (err) {

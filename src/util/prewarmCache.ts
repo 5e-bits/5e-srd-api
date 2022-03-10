@@ -1,4 +1,5 @@
 import redisClient from './RedisClient';
+import mongoose from 'mongoose';
 
 import { ResourceList } from './data';
 import MagicItem from '../models/magicItem';
@@ -8,7 +9,7 @@ import Rule from '../models/rule';
 import RuleSection from '../models/ruleSection';
 
 const prewarmCache = async () => {
-  const toPrewarm = [
+  const toPrewarm: { Schema: mongoose.Model<any, any>, endpoint: string }[] = [
     {
       Schema: MagicItem,
       endpoint: '/api/magic-items',
@@ -17,18 +18,18 @@ const prewarmCache = async () => {
       Schema: Spell,
       endpoint: '/api/spells',
     },
-    {
-      Schema: Monster,
-      endpoint: '/api/monsters',
-    },
-    {
-      Schema: Rule,
-      endpoint: '/api/rules',
-    },
-    {
-      Schema: RuleSection,
-      endpoint: '/api/rule-sections',
-    },
+    // {
+    //   Schema: Monster.schema,
+    //   endpoint: '/api/monsters',
+    // },
+    // {
+    //   Schema: Rule.schema,
+    //   endpoint: '/api/rules',
+    // },
+    // {
+    //   Schema: RuleSection.schema,
+    //   endpoint: '/api/rule-sections',
+    // },
   ];
   for (const element of toPrewarm) {
     const data = await element.Schema.find()

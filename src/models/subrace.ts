@@ -23,7 +23,7 @@ const LanguageOptions = {
   type: { type: String, index: true },
 };
 
-interface Subrace {
+interface Subrace extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   ability_bonuses: AbilityBonus[];
   desc: string;
@@ -36,7 +36,7 @@ interface Subrace {
   url: string;
 }
 
-const Subrace = new mongoose.Schema<Subrace>({
+const SubraceSchema = new mongoose.Schema<Subrace>({
   _id: { type: String, select: false },
   ability_bonuses: [AbilityBonus],
   desc: { type: String, index: true },
@@ -49,4 +49,4 @@ const Subrace = new mongoose.Schema<Subrace>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Subrace>('Subrace', Subrace, 'subraces');
+export default mongoose.model<Subrace>('Subrace', SubraceSchema, 'subraces');

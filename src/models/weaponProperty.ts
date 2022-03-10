@@ -1,14 +1,14 @@
 import * as mongoose from 'mongoose';
 
-interface WeaponProperty {
+interface WeaponProperty extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
-  desc: string;
+  desc: string[];
   index: string;
   name: string;
   url: string;
 }
 
-const WeaponProperty = new mongoose.Schema<WeaponProperty>({
+const WeaponPropertySchema = new mongoose.Schema<WeaponProperty>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -18,6 +18,6 @@ const WeaponProperty = new mongoose.Schema<WeaponProperty>({
 
 export default mongoose.model<WeaponProperty>(
   'WeaponProperty',
-  WeaponProperty,
+  WeaponPropertySchema,
   'weapon-properties'
 );

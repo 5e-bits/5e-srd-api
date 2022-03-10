@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-interface DamageType {
+interface DamageType extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string[];
   index: string;
@@ -8,7 +8,7 @@ interface DamageType {
   url: string;
 }
 
-const DamageType = new mongoose.Schema<DamageType>({
+const DamageTypeSchema = new mongoose.Schema<DamageType>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -16,4 +16,4 @@ const DamageType = new mongoose.Schema<DamageType>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<DamageType>('DamageType', DamageType, 'damage-types');
+export default mongoose.model<DamageType>('DamageType', DamageTypeSchema, 'damage-types');

@@ -103,7 +103,7 @@ const MultiClassing = {
   proficiency_choices: [ProficiencyChoice],
 };
 
-interface Class {
+interface Class extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   class_levels: string;
   multi_classing: MultiClassing;
@@ -121,7 +121,7 @@ interface Class {
   url: string;
 }
 
-const Class = new mongoose.Schema<Class>({
+const ClassSchema = new mongoose.Schema<Class>({
   _id: { type: String, select: false },
   class_levels: { type: String, index: true },
   multi_classing: MultiClassing,
@@ -139,4 +139,4 @@ const Class = new mongoose.Schema<Class>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Class>('Class', Class, 'classes');
+export default mongoose.model<Class>('Class', ClassSchema, 'classes');

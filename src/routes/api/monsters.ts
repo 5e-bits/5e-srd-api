@@ -1,6 +1,6 @@
 import * as express from 'express';
 const router = express.Router();
-import MonsterController from '../../controllers/api/monsterController';
+import * as MonsterController from '../../controllers/api/monsterController';
 
 router.get('/', MonsterController.index);
 router.get('/:index', MonsterController.show);

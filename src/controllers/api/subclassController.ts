@@ -1,15 +1,16 @@
-const Subclass = require('../../models/subclass');
-const Level = require('../../models/level');
-const Feature = require('../../models/feature');
+import Subclass from '../../models/subclass';
+import Level from '../../models/level';
+import Feature from '../../models/feature';
 const { ResourceList } = require('../../util/data');
-const SimpleController = require('../simpleController');
+import SimpleController from '../simpleController';
+import { Request, Response } from 'express';
 
 const simpleController = new SimpleController(Subclass);
 
-exports.index = async (req, res, next) => simpleController.index(req, res, next);
-exports.show = async (req, res, next) => simpleController.show(req, res, next);
+export const index = async (req: Request, res: Response, next: any) => simpleController.index(req, res, next);
+export const show = async (req: Request, res: Response, next: any) => simpleController.show(req, res, next);
 
-exports.showLevelsForSubclass = async (req, res, next) => {
+export const showLevelsForSubclass = async (req: Request, res: Response, next: any) => {
   const urlString = '/api/subclasses/' + req.params.index;
 
   try {
@@ -20,7 +21,7 @@ exports.showLevelsForSubclass = async (req, res, next) => {
   }
 };
 
-exports.showLevelForSubclass = async (req, res, next) => {
+export const showLevelForSubclass = async (req: Request, res: Response, next: any) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
@@ -36,7 +37,7 @@ exports.showLevelForSubclass = async (req, res, next) => {
   }
 };
 
-exports.showFeaturesForSubclass = async (req, res, next) => {
+export const showFeaturesForSubclass = async (req: Request, res: Response, next: any) => {
   const urlString = '/api/subclasses/' + req.params.index;
 
   try {
@@ -51,7 +52,7 @@ exports.showFeaturesForSubclass = async (req, res, next) => {
   }
 };
 
-exports.showFeaturesForSubclassAndLevel = async (req, res, next) => {
+export const showFeaturesForSubclassAndLevel = async (req: Request, res: Response, next: any) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }

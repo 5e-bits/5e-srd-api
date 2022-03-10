@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
-interface MagicItem {
+interface MagicItem extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string[];
   equipment_category: APIReference;
@@ -10,7 +10,7 @@ interface MagicItem {
   url: string;
 }
 
-const MagicItem = new mongoose.Schema<MagicItem>({
+const MagicItemSchema = new mongoose.Schema<MagicItem>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   equipment_category: APIReferenceSchema,
@@ -19,4 +19,4 @@ const MagicItem = new mongoose.Schema<MagicItem>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<MagicItem>('MagicItem', MagicItem, 'magic-items');
+export default mongoose.model<MagicItem>('MagicItem', MagicItemSchema, 'magic-items');

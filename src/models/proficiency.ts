@@ -15,7 +15,7 @@ const Reference = {
   url: { type: String, index: true },
 };
 
-interface Proficiency {
+interface Proficiency extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   classes: APIReference[];
   index: string;
@@ -26,7 +26,7 @@ interface Proficiency {
   url: string;
 }
 
-const Proficiency = new mongoose.Schema<Proficiency>({
+const ProficiencySchema = new mongoose.Schema<Proficiency>({
   _id: { type: String, select: false },
   classes: [APIReferenceSchema],
   index: { type: String, index: true },
@@ -37,4 +37,4 @@ const Proficiency = new mongoose.Schema<Proficiency>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Proficiency>('Proficiency', Proficiency, 'proficiencies');
+export default mongoose.model<Proficiency>('Proficiency', ProficiencySchema, 'proficiencies');

@@ -139,7 +139,7 @@ const SubclassSpecific = {
   aura_range: { type: Number, index: true },
 };
 
-interface Level {
+interface Level extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   ability_bonus_options?: number;
   class: APIReference;
@@ -154,9 +154,9 @@ interface Level {
   url: string;
 }
 
-const Level = new mongoose.Schema<Level>({
+const LevelSchema = new mongoose.Schema<Level>({
   _id: { type: String, select: false },
-  ability_score_bonuses: { type: Number, index: true },
+  ability_bonus_options: { type: Number, index: true },
   class: APIReferenceSchema,
   class_specific: ClassSpecific,
   features: [APIReferenceSchema],
@@ -169,4 +169,4 @@ const Level = new mongoose.Schema<Level>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Level>('Level', Level, 'levels');
+export default mongoose.model<Level>('Level', LevelSchema, 'levels');

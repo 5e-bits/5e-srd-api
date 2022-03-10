@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
-interface EquipmentCategory {
+interface EquipmentCategory extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   equipment: APIReference[];
   index: string;
@@ -9,7 +9,7 @@ interface EquipmentCategory {
   url: string;
 }
 
-const EquipmentCategory = new mongoose.Schema<EquipmentCategory>({
+const EquipmentCategorySchema = new mongoose.Schema<EquipmentCategory>({
   _id: { type: String, select: false },
   equipment: [APIReferenceSchema],
   index: { type: String, index: true },
@@ -19,6 +19,6 @@ const EquipmentCategory = new mongoose.Schema<EquipmentCategory>({
 
 export default mongoose.model<EquipmentCategory>(
   'EquipmentCategory',
-  EquipmentCategory,
+  EquipmentCategorySchema,
   'equipment-categories'
 );

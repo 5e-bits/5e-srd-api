@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
-interface AbilityScore {
+interface AbilityScore extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string[];
   full_name: string;
@@ -11,7 +11,7 @@ interface AbilityScore {
   url: string;
 }
 
-const AbilityScore = new mongoose.Schema<AbilityScore>({
+const AbilityScoreSchema = new mongoose.Schema<AbilityScore>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   full_name: { type: String, index: true },
@@ -21,4 +21,4 @@ const AbilityScore = new mongoose.Schema<AbilityScore>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<AbilityScore>('AbilityScore', AbilityScore, 'ability-scores');
+export default mongoose.model<AbilityScore>('AbilityScore', AbilityScoreSchema, 'ability-scores');

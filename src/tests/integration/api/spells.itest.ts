@@ -23,6 +23,7 @@ afterAll(async () => {
 describe('/api/spells', () => {
   it('should list spells', async () => {
     const res = await request(app).get('/api/spells');
+    console.log(res)
     expect(res.statusCode).toEqual(200);
     expect(res.body.results.length).not.toEqual(0);
   });
@@ -135,7 +136,7 @@ describe('/api/spells', () => {
         expect(indexRes.statusCode).toEqual(200);
         expect(
           indexRes.body.school.name == expectedSchool1 ||
-            indexRes.body.school.name == expectedSchool2
+          indexRes.body.school.name == expectedSchool2
         ).toBeTruthy();
       });
     });

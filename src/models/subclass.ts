@@ -25,7 +25,7 @@ const Spell = {
   spell: APIReferenceSchema,
 };
 
-interface Subclass {
+interface Subclass extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   class: APIReference;
   desc: string[];
@@ -37,7 +37,7 @@ interface Subclass {
   url: string;
 }
 
-const Subclass = new mongoose.Schema<Subclass>({
+const SubclassSchema = new mongoose.Schema<Subclass>({
   _id: { type: String, select: false },
   class: APIReferenceSchema,
   desc: { type: [String], index: true },
@@ -49,4 +49,4 @@ const Subclass = new mongoose.Schema<Subclass>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Subclass>('Subclass', Subclass, 'subclasses');
+export default mongoose.model<Subclass>('Subclass', SubclassSchema, 'subclasses');

@@ -57,7 +57,7 @@ const StartingProficiencyOptions = {
   type: { type: String, index: true },
 };
 
-interface Race {
+interface Race extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   ability_bonus_options?: RaceAbilityBonusOptions;
   ability_bonuses: RaceAbilityBonus[];
@@ -78,7 +78,7 @@ interface Race {
   url: string;
 }
 
-const Race = new mongoose.Schema<Race>({
+const RaceSchema = new mongoose.Schema<Race>({
   _id: { type: String, select: false },
   ability_bonus_options: RaceAbilityBonusOptions,
   ability_bonuses: [RaceAbilityBonus],
@@ -99,4 +99,4 @@ const Race = new mongoose.Schema<Race>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Race>('Race', Race, 'races');
+export default mongoose.model<Race>('Race', RaceSchema, 'races');

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-interface RuleSection {
+interface RuleSection extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string;
   index: string;
@@ -8,7 +8,7 @@ interface RuleSection {
   url: string;
 }
 
-const RuleSection = new mongoose.Schema<RuleSection>({
+const RuleSectionSchema = new mongoose.Schema<RuleSection>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },
@@ -16,4 +16,4 @@ const RuleSection = new mongoose.Schema<RuleSection>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<RuleSection>('RuleSection', RuleSection, 'rule-sections');
+export default mongoose.model<RuleSection>('RuleSection', RuleSectionSchema, 'rule-sections');

@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { APIReference, APIReferenceSchema } from './common';
 
-interface Rule {
+interface Rule extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   desc: string;
   index: string;
@@ -10,7 +10,7 @@ interface Rule {
   url: string;
 }
 
-const Rule = new mongoose.Schema<Rule>({
+const RuleSchema = new mongoose.Schema<Rule>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },
@@ -19,4 +19,4 @@ const Rule = new mongoose.Schema<Rule>({
   url: { type: String, index: true },
 });
 
-export default mongoose.model<Rule>('Rule', Rule, 'rules');
+export default mongoose.model<Rule>('Rule', RuleSchema, 'rules');

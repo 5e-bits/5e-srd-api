@@ -83,7 +83,7 @@ const TwoHandedDamage = {
   damage_type: APIReferenceSchema,
 };
 
-interface Equipment {
+interface Equipment extends mongoose.Document {
   _id?: mongoose.Types.ObjectId;
   armor_category?: string;
   armor_class?: ArmorClass;
@@ -114,7 +114,7 @@ interface Equipment {
   weight?: number;
 }
 
-const Equipment = new mongoose.Schema<Equipment>({
+const EquipmentSchema = new mongoose.Schema<Equipment>({
   _id: { type: String, select: false },
   armor_category: { type: String, index: true },
   armor_class: ArmorClass,
@@ -145,4 +145,4 @@ const Equipment = new mongoose.Schema<Equipment>({
   weight: { type: Number, index: true },
 });
 
-export default mongoose.model<Equipment>('Equipment', Equipment, 'equipment');
+export default mongoose.model<Equipment>('Equipment', EquipmentSchema, 'equipment');

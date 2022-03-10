@@ -1,31 +1,31 @@
-const composeMongoose = require('graphql-compose-mongoose').composeMongoose;
-const schemaComposer = require('graphql-compose').schemaComposer;
+import { composeMongoose } from 'graphql-compose-mongoose'
+import { schemaComposer } from 'graphql-compose'
 
-const AbilityScore = require('../models/abilityScore');
-const Alignment = require('../models/alignment');
-const Background = require('../models/background');
-const Condition = require('../models/condition');
-const Class = require('../models/class');
-const DamageType = require('../models/damageType');
-const Equipment = require('../models/equipment');
-const EquipmentCategory = require('../models/equipmentCategory');
-const Feat = require('../models/feat');
-const Feature = require('../models/feature');
-const Language = require('../models/language');
-const Level = require('../models/level');
-const MagicItem = require('../models/magicItem');
-const MagicSchool = require('../models/magicSchool');
-const Monster = require('../models/monster');
-const Proficiency = require('../models/proficiency');
-const Race = require('../models/race');
-const Rule = require('../models/rule');
-const RuleSection = require('../models/ruleSection');
-const Skill = require('../models/skill');
-const Spell = require('../models/spell');
-const Subclass = require('../models/subclass');
-const Subrace = require('../models/subrace');
-const Trait = require('../models/trait');
-const WeaponProperty = require('../models/weaponProperty');
+import AbilityScore from "../models/abilityScore"
+import Alignment from "../models/alignment"
+import Background from "../models/background"
+import Condition from "../models/condition"
+import Class from "../models/class"
+import DamageType from "../models/damageType"
+import Equipment from "../models/equipment"
+import EquipmentCategory from "../models/equipmentCategory"
+import Feat from "../models/feat"
+import Feature from "../models/feature"
+import Language from "../models/language"
+import Level from "../models/level"
+import MagicItem from "../models/magicItem"
+import MagicSchool from "../models/magicSchool"
+import Monster from "../models/monster"
+import Proficiency from "../models/proficiency"
+import Race from "../models/race"
+import Rule from "../models/rule"
+import RuleSection from "../models/ruleSection"
+import Skill from "../models/skill"
+import Spell from "../models/spell"
+import Subclass from "../models/subclass"
+import Subrace from "../models/subrace"
+import Trait from "../models/trait"
+import WeaponProperty from "../models/weaponProperty"
 
 const customizationOptions = {};
 const AbilityScoreTC = composeMongoose(AbilityScore);
@@ -139,7 +139,7 @@ EquipmentTC.addRelation('properties', {
   prepareArgs: {
     filter: source => ({
       _operators: {
-        index: { in: source.properties.map(prop => prop.index) },
+        index: { in: source.properties?.map(prop => prop.index) },
       },
     }),
   },
@@ -182,7 +182,7 @@ FeatureTC.addRelation('subclass', {
   resolver: () => SubclassTC.mongooseResolvers.findOne(customizationOptions),
   prepareArgs: {
     filter: source => ({
-      index: source.subclass.index,
+      index: source.subclass?.index,
     }),
   },
   projection: { subclass: true },
@@ -433,4 +433,4 @@ schemaComposer.Query.addFields({
 });
 
 const graphqlSchema = schemaComposer.buildSchema();
-module.exports = graphqlSchema;
+export default graphqlSchema;
