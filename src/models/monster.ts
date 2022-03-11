@@ -87,7 +87,7 @@ interface Action {
   attack_bonus?: number;
   damage?: ActionDamage[];
   dc?: ActionDC;
-  options?: ActionOptions[];
+  options?: ActionOptions;
   usage?: ActionUsage;
   attack_options?: ActionAttackOptions;
   attacks?: ActionAttack[];
