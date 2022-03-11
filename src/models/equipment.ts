@@ -4,7 +4,7 @@ import { APIReference, APIReferenceSchema } from './common';
 interface ArmorClass {
   base: number;
   dex_bonus: boolean;
-  max_bonus: number;
+  max_bonus: number | null;
 }
 
 const ArmorClass = {
