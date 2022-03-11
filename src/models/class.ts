@@ -90,8 +90,8 @@ const MultiClassingPrereqOptions = {
 };
 
 interface MultiClassing {
-  prerequisites: MultiClassingPrereq[];
-  prerequisite_options: MultiClassingPrereqOptions;
+  prerequisites?: MultiClassingPrereq[];
+  prerequisite_options?: MultiClassingPrereqOptions;
   proficiencies: APIReference[];
   proficiency_choices?: ProficiencyChoice[];
 }
