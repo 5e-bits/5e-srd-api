@@ -99,7 +99,7 @@ const Action = {
   attack_bonus: { type: Number, index: true },
   damage: [ActionDamage],
   dc: ActionDC,
-  options: [ActionOptions],
+  options: ActionOptions,
   usage: ActionUsage,
   attack_options: [ActionAttackOptions],
   attacks: [ActionAttack],
