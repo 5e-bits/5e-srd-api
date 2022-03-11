@@ -71,7 +71,7 @@ const ActionOptions = {
 
 interface ActionUsage {
   type: string;
-  dice: string;
+  dice?: string;
   min_value?: number;
 }
 
