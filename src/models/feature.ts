@@ -41,7 +41,7 @@ interface Feature {
   index: string;
   level: number;
   name: string;
-  prerequisites: Prerequisite[];
+  prerequisites?: Prerequisite[];
   reference?: string;
   subclass?: APIReference;
   feature_specific?: FeatureSpecific;
