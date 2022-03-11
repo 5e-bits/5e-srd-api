@@ -49,7 +49,7 @@ const ActionAttackOptions = {
 
 interface ActionOption {
   name: string;
-  count: number;
+  count: string;
   type: string;
 }
 
