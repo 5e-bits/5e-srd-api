@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 interface Language {
   _id?: mongoose.Types.ObjectId;
-  desc: string;
+  desc?: string;
   index: string;
   name: string;
   script: string;
