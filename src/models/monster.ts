@@ -89,7 +89,7 @@ interface Action {
   dc?: ActionDC;
   options?: ActionOptions[];
   usage?: ActionUsage;
-  attack_options?: ActionAttackOptions[];
+  attack_options?: ActionAttackOptions;
   attacks?: ActionAttack[];
 }
 
