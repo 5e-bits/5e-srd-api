@@ -29,14 +29,12 @@ const Equipment = {
 
 interface StartingEquipmentOption {
   _id?: mongoose.Types.ObjectId;
-  equipment: APIReference;
-  quantity: number;
+  equipment_category: APIReference;
 }
 
 const StartingEquipmentOption = {
   _id: false,
-  equipment: APIReferenceSchema,
-  quantity: { type: Number, index: true },
+  equipment_category: APIReferenceSchema,
 };
 
 interface StartingEquipmentOptions {
