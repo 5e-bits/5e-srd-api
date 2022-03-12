@@ -96,10 +96,10 @@ interface Trait {
   desc: string[];
   index: string;
   name: string;
-  proficiencies: APIReference[];
+  proficiencies?: APIReference[];
   proficiency_choices?: ProficiencyChoices;
-  races: APIReference[];
-  subraces: APIReference[];
+  races?: APIReference[];
+  subraces?: APIReference[];
   parent?: APIReference;
   trait_specific?: TraitSpecific;
   url: string;

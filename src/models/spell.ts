@@ -88,6 +88,7 @@ interface Spell {
   range: string;
   ritual: boolean;
   school: APIReference;
+  subclasses?: APIReference[];
   url: string;
 }
 

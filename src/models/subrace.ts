@@ -32,7 +32,7 @@ interface Subrace {
   name: string;
   race: APIReference;
   racial_traits: APIReference[];
-  starting_proficiencies: APIReference[];
+  starting_proficiencies?: APIReference[];
   url: string;
 }
 

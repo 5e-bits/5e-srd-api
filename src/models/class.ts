@@ -92,7 +92,7 @@ const MultiClassingPrereqOptions = {
 interface MultiClassing {
   prerequisites?: MultiClassingPrereq[];
   prerequisite_options?: MultiClassingPrereqOptions;
-  proficiencies: APIReference[];
+  proficiencies?: APIReference[];
   proficiency_choices?: ProficiencyChoice[];
 }
 
@@ -115,7 +115,7 @@ interface Class {
   saving_throws: APIReference[];
   spellcasting?: Spellcasting;
   spells?: string;
-  starting_equipment: Equipment[];
+  starting_equipment?: Equipment[];
   starting_equipment_options: StartingEquipmentOptions[];
   subclasses: APIReference[];
   url: string;

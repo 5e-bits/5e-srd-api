@@ -71,10 +71,10 @@ interface Race {
   size: string;
   size_description: string;
   speed: number;
-  starting_proficiencies: APIReference[];
+  starting_proficiencies?: APIReference[];
   starting_proficiency_options?: StartingProficiencyOptions;
-  subraces: APIReference[];
-  traits: APIReference[];
+  subraces?: APIReference[];
+  traits?: APIReference[];
   url: string;
 }
 

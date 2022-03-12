@@ -49,13 +49,13 @@ const ActionAttackOptions = {
 
 interface ActionOption {
   name: string;
-  count: number  | string;
+  count: number | string;
   type: string;
 }
 
 const ActionOption = {
   name: { type: String, index: true },
-  count: { type: Schema.Types.Mixed, index: true },
+  count: { type: mongoose.Schema.Types.Mixed, index: true },
   type: { type: String, index: true },
 };
 
@@ -192,7 +192,7 @@ interface SpecialAbilitySpellcasting {
   ability: APIReference;
   dc?: number;
   modifier?: number;
-  components_required: string[];
+  components_required?: string[];
   school?: string;
   slots?: {
     1: number;
@@ -265,28 +265,28 @@ interface Monster {
   armor_class: number;
   challenge_rating: number;
   charisma: number;
-  condition_immunities: string[];
+  condition_immunities?: string[];
   constitution: number;
-  damage_immunities: string[];
-  damage_resistances: string[];
-  damage_vulnerabilities: string[];
+  damage_immunities?: string[];
+  damage_resistances?: string[];
+  damage_vulnerabilities?: string[];
   dexterity: number;
   forms?: APIReference[];
   hit_dice: string;
   hit_points: number;
   index: string;
   intelligence: number;
-  languages: string[];
+  languages: string;
   legendary_actions?: LegendaryAction[];
   name: string;
-  proficiencies: Proficiency[];
+  proficiencies?: Proficiency[];
   reactions?: Reaction[];
   senses: Sense;
   size: string;
   special_abilities?: SpecialAbility[];
   speed: Speed;
   strength: number;
-  subtype: string;
+  subtype?: string;
   type: string;
   url: string;
   wisdom: number;
