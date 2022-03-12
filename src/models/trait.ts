@@ -43,7 +43,7 @@ const ActionDamage = {
 
 interface Useage {
   type: string;
-  time: string;
+  times: string;
 }
 
 const Usage = {
