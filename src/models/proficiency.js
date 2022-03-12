@@ -15,7 +15,7 @@ const Proficiency = new Schema({
   index: { type: String, index: true },
   name: { type: String, index: true },
   races: [APIReference],
-  references: [Reference],
+  reference: Reference,
   type: { type: String, index: true },
   url: { type: String, index: true },
 });
