@@ -26,7 +26,7 @@ const Choice = {
 };
 
 interface ActionDamage {
-  damage_dice: string;
+  damage_type: APIReference;
   damage_at_character_level: {
     1: string;
     6: string;
