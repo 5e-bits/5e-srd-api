@@ -31,7 +31,7 @@ interface Damage {
     11: string;
     17: string;
   };
-  damage_type: APIReference;
+  damage_type?: APIReference;
 }
 
 const Damage = new mongoose.Schema({
