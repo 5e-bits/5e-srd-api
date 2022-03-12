@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 interface WeaponProperty {
   _id?: mongoose.Types.ObjectId;
-  desc: string;
+  desc: string[];
   index: string;
   name: string;
   url: string;
