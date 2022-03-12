@@ -55,7 +55,7 @@ interface ActionOption {
 
 const ActionOption = {
   name: { type: String, index: true },
-  count: { type: Number, index: true },
+  count: { type: Schema.Types.Mixed, index: true },
   type: { type: String, index: true },
 };
 
