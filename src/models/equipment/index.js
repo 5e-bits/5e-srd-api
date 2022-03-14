@@ -1,47 +1,47 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const ArmorClass = {
+const ArmorClass = new Schema({
   base: { type: Number, index: true },
   dex_bonus: { type: Boolean, index: true },
   max_bonus: { type: Number, index: true },
-};
+});
 
-const Content = {
+const Content = new Schema({
   item: APIReference,
   quantity: { type: Number, index: true },
-};
+});
 
-const Cost = {
+const Cost = new Schema({
   quantity: { type: Number, index: true },
   unit: { type: String, index: true },
-};
+});
 
-const Damage = {
+const Damage = new Schema({
   damage_dice: { type: String, index: true },
   damage_type: APIReference,
-};
+});
 
-const Range = {
+const Range = new Schema({
   long: { type: Number, index: true },
   normal: { type: Number, index: true },
-};
+});
 
-const Speed = {
+const Speed = new Schema({
   quantity: { type: Number, index: true },
   unit: { type: String, index: true },
-};
+});
 
-const ThrowRange = {
+const ThrowRange = new Schema({
   long: { type: Number, index: true },
   normal: { type: Number, index: true },
-};
+});
 
-const TwoHandedDamage = {
+const TwoHandedDamage = new Schema({
   damage_dice: { type: String, index: true },
   damage_type: APIReference,
-};
+});
 
 const Equipment = new Schema({
   _id: { type: String, select: false },

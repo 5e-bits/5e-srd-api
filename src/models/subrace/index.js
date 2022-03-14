@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const AbilityBonus = {
+const AbilityBonus = new Schema({
   ability_score: APIReference,
   bonus: { type: Number, index: true },
-};
+});
 
-const LanguageOptions = {
+const LanguageOptions = new Schema({
   choose: { type: Number, index: true },
   from: [APIReference],
   type: { type: String, index: true },
-};
+});
 
 const Subrace = new Schema({
   _id: { type: String, select: false },

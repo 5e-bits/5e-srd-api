@@ -1,54 +1,54 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const LanguageOptions = {
+const LanguageOptions = new Schema({
   _id: false,
   choose: { type: Number, index: true },
   from: [APIReference],
   type: { type: String, index: true },
-};
+});
 
-const Equipment = {
+const Equipment = new Schema({
   _id: false,
   equipment: APIReference,
   quantity: { type: Number, index: true },
-};
+});
 
-const StartingEquipmentOption = {
+const StartingEquipmentOption = new Schema({
   _id: false,
   equipment: APIReference,
   quantity: { type: Number, index: true },
-};
+});
 
-const StartingEquipmentOptions = {
+const StartingEquipmentOptions = new Schema({
   _id: false,
   choose: { type: Number, index: true },
   from: [StartingEquipmentOption],
   type: { type: String, index: true },
-};
+});
 
-const Ideal = {
+const Ideal = new Schema({
   desc: { type: String, index: true },
   alignments: [APIReference],
-};
+});
 
-const CharacteristicOptions = {
+const CharacteristicOptions = new Schema({
   choose: { type: Number, index: true },
   from: { type: [String], index: true },
   type: { type: String, index: true },
-};
+});
 
-const IdealOptions = {
+const IdealOptions = new Schema({
   choose: { type: Number, index: true },
   from: [Ideal],
   type: { type: String, index: true },
-};
+});
 
-const Feature = {
+const Feature = new Schema({
   name: { type: String, index: true },
   desc: { type: [String], index: true },
-};
+});
 
 const Background = new Schema({
   _id: { type: String, select: false },

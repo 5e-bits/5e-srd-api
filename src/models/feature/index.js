@@ -1,22 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const Choice = {
+const Choice = new Schema({
   choose: { type: Number, index: true },
   from: [APIReference],
   type: { type: String, index: true },
-};
+});
 
-const Prerequisite = {
+const Prerequisite = new Schema({
   level: { type: Number, index: true },
   type: { type: String, index: true },
-};
+});
 
-const FeatureSpecific = {
+const FeatureSpecific = new Schema({
   subfeature_options: Choice,
   expertise_options: Choice,
-};
+});
 
 const Feature = new Schema({
   _id: { type: String, select: false },

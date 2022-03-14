@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const ClassSpecificCreatingSpellSlot = {
+const ClassSpecificCreatingSpellSlot = new Schema({
   sorcery_point_cost: { type: Number, index: true },
   spell_slot_level: { type: Number, index: true },
-};
+});
 
-const ClassSpecificMartialArt = {
+const ClassSpecificMartialArt = new Schema({
   dice_count: { type: Number, index: true },
   dice_value: { type: Number, index: true },
-};
+});
 
-const ClassSpecificSneakAttack = {
+const ClassSpecificSneakAttack = new Schema({
   dice_count: { type: Number, index: true },
   dice_value: { type: Number, index: true },
-};
+});
 
-const ClassSpecific = {
+const ClassSpecific = new Schema({
   action_surges: { type: Number, index: true },
   arcane_recovery_levels: { type: Number, index: true },
   aura_range: { type: Number, index: true },
@@ -50,9 +50,9 @@ const ClassSpecific = {
   wild_shape_fly: { type: Boolean, index: true },
   wild_shape_max_cr: { type: Number, index: true },
   wild_shape_swim: { type: Boolean, index: true },
-};
+});
 
-const Spellcasting = {
+const Spellcasting = new Schema({
   cantrips_known: { type: Number, index: true },
   spell_slots_level_1: { type: Number, index: true },
   spell_slots_level_2: { type: Number, index: true },
@@ -64,12 +64,12 @@ const Spellcasting = {
   spell_slots_level_8: { type: Number, index: true },
   spell_slots_level_9: { type: Number, index: true },
   spells_known: { type: Number, index: true },
-};
+});
 
-const SubclassSpecific = {
+const SubclassSpecific = new Schema({
   additional_magical_secrets_max_lvl: { type: Number, index: true },
   aura_range: { type: Number, index: true },
-};
+});
 
 const Level = new Schema({
   _id: { type: String, select: false },

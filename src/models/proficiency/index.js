@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const Reference = {
+const Reference = new Schema({
   index: { type: String, index: true },
   name: { type: String, index: true },
   type: { type: String, index: true },
   url: { type: String, index: true },
-};
+});
 
 const Proficiency = new Schema({
   _id: { type: String, select: false },

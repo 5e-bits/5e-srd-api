@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const Skill = new Schema({
+const Rule = new Schema({
   _id: { type: String, select: false },
-  ability_score: APIReference,
-  desc: { type: [String], index: true },
+  desc: { type: String, index: true },
   index: { type: String, index: true },
   name: { type: String, index: true },
+  subsections: [APIReference],
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Skill', Skill, 'skills');
+module.exports = mongoose.model('Rule', Rule, 'rules');

@@ -1,56 +1,56 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const ActionDamage = {
+const ActionDamage = new Schema({
   damage_dice: { type: String, index: true },
   damage_type: APIReference,
-};
+});
 
-const Action = {
+const Action = new Schema({
   attack_bonus: { type: Number, index: true },
   damage: [ActionDamage],
   desc: { type: String, index: true },
   name: { type: String, index: true },
-};
+});
 
-const LegendaryAction = {
+const LegendaryAction = new Schema({
   attack_bonus: { type: Number, index: true },
   desc: { type: String, index: true },
   name: { type: String, index: true },
-};
+});
 
-const Proficiency = {
+const Proficiency = new Schema({
   proficiency: APIReference,
   value: { type: Number, index: true },
-};
+});
 
-const Reaction = {
+const Reaction = new Schema({
   desc: { type: String, index: true },
   name: { type: String, index: true },
-};
+});
 
-const Sense = {
+const Sense = new Schema({
   blindsight: { type: String, index: true },
   darkvision: { type: String, index: true },
   passive_perception: { type: Number, index: true },
   tremorsense: { type: String, index: true },
   truesight: { type: String, index: true },
-};
+});
 
-const SpecialAbility = {
+const SpecialAbility = new Schema({
   desc: { type: String, index: true },
   name: { type: String, index: true },
-};
+});
 
-const Speed = {
+const Speed = new Schema({
   burrow: { type: String, index: true },
   climb: { type: String, index: true },
   fly: { type: String, index: true },
   hover: { type: Boolean, index: true },
   swim: { type: String, index: true },
   walk: { type: String, index: true },
-};
+});
 
 const MonsterSchema = new Schema({
   _id: { type: String, select: false },

@@ -1,57 +1,57 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const Equipment = {
+const Equipment = new Schema({
   equipment: APIReference,
   quantity: { type: Number, index: true },
-};
+});
 
-const StartingEquipmentOption = {
+const StartingEquipmentOption = new Schema({
   equipment: APIReference,
   quantity: { type: Number, index: true },
-};
+});
 
-const StartingEquipmentOptions = {
+const StartingEquipmentOptions = new Schema({
   choose: { type: Number, index: true },
   from: [StartingEquipmentOption],
   type: { type: String, index: true },
-};
+});
 
-const ProficiencyChoice = {
+const ProficiencyChoice = new Schema({
   choose: { type: Number, index: true },
   from: [APIReference],
   type: { type: String, index: true },
-};
+});
 
 const SpellcastingInfo = new Schema({
   desc: { type: [String], index: true },
   name: { type: String, index: true },
 });
 
-const Spellcasting = {
+const Spellcasting = new Schema({
   info: [SpellcastingInfo],
   level: { type: Number, index: true },
   spellcasting_ability: APIReference,
-};
+});
 
-const MultiClassingPrereq = {
+const MultiClassingPrereq = new Schema({
   ability_score: APIReference,
   minimum_score: { type: Number, index: true },
-};
+});
 
-const MultiClassingPrereqOptions = {
+const MultiClassingPrereqOptions = new Schema({
   choose: { type: Number, index: true },
   from: [MultiClassingPrereq],
   type: { type: String, index: true },
-};
+});
 
-const MultiClassing = {
+const MultiClassing = new Schema({
   prerequisites: [MultiClassingPrereq],
   prerequisite_options: MultiClassingPrereqOptions,
   proficiencies: [APIReference],
   proficiency_choices: [ProficiencyChoice],
-};
+});
 
 const Class = new Schema({
   _id: { type: String, select: false },

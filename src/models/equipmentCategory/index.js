@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const Rule = new Schema({
+const EquipmentCategory = new Schema({
   _id: { type: String, select: false },
-  desc: { type: String, index: true },
+  equipment: [APIReference],
   index: { type: String, index: true },
   name: { type: String, index: true },
-  subsections: [APIReference],
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Rule', Rule, 'rules');
+module.exports = mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');

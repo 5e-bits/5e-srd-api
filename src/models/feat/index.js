@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('./common');
+const { APIReference } = require('../common');
 
-const Prerequisite = {
+const Prerequisite = new Schema({
   ability_score: APIReference,
   minimum_score: { type: Number, index: true },
-};
+});
 
 const Feat = new Schema({
   _id: { type: String, select: false },
