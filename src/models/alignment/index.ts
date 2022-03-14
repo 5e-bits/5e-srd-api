@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
+import { Alignment } from './types';
 
-const Alignment = new Schema({
+const AlignmentSchema = new Schema<Alignment>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   abbreviation: { type: String, index: true },
@@ -10,4 +10,4 @@ const Alignment = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Alignment', Alignment, 'alignments');
+module.exports = model<Alignment>('Alignment', AlignmentSchema, 'alignments');
