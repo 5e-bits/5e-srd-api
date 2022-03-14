@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
 import { APIReference } from '../common';
 import { AbilityScore } from './types';
 
@@ -13,4 +12,4 @@ const AbilityScoreSchema = new Schema<AbilityScore>({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('AbilityScore', AbilityScoreSchema, 'ability-scores');
+module.exports = model('AbilityScore', AbilityScoreSchema, 'ability-scores');
