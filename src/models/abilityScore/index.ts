@@ -12,4 +12,4 @@ const AbilityScoreSchema = new Schema<AbilityScore>({
   url: { type: String, index: true },
 });
 
-module.exports = model('AbilityScore', AbilityScoreSchema, 'ability-scores');
+module.exports = model<AbilityScore>('AbilityScore', AbilityScoreSchema, 'ability-scores');
