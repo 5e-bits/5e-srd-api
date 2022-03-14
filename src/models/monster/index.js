@@ -7,17 +7,59 @@ const ActionDamage = new Schema({
   damage_type: APIReference,
 });
 
+const ActionDC = new Schema({
+  dc_type: APIReference,
+  dc_value: { type: Number, index: true },
+  success_type: { type: String, index: true },
+});
+
+const ActionAttack = new Schema({
+  name: { type: String, index: true },
+  dc: ActionDC,
+  damage: [ActionDamage],
+});
+
+const ActionAttackOptions = new Schema({
+  choose: { type: Number, required: true },
+  type: { type: String, required: true },
+  from: [ActionAttack],
+});
+
+const ActionOption = new Schema({
+  name: { type: String, index: true },
+  count: { type: Schema.Types.Mixed, index: true },
+  type: { type: String, index: true },
+});
+
+const ActionOptions = new Schema({
+  choose: { type: Number, index: true },
+  from: [ActionOption],
+});
+
+const ActionUsage = new Schema({
+  type: { type: String, index: true },
+  dice: { type: String, index: true },
+  min_value: { type: Number, index: true },
+});
+
 const Action = new Schema({
+  name: { type: String, index: true },
+  desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
   damage: [ActionDamage],
-  desc: { type: String, index: true },
-  name: { type: String, index: true },
+  dc: ActionDC,
+  options: ActionOptions,
+  usage: ActionUsage,
+  attack_options: ActionAttackOptions,
+  attacks: [ActionAttack],
 });
 
 const LegendaryAction = new Schema({
-  attack_bonus: { type: Number, index: true },
-  desc: { type: String, index: true },
   name: { type: String, index: true },
+  desc: { type: String, index: true },
+  attack_bonus: { type: Number, index: true },
+  damage: [ActionDamage],
+  dc: ActionDC,
 });
 
 const Proficiency = new Schema({
@@ -26,8 +68,9 @@ const Proficiency = new Schema({
 });
 
 const Reaction = new Schema({
-  desc: { type: String, index: true },
   name: { type: String, index: true },
+  desc: { type: String, index: true },
+  dc: ActionDC,
 });
 
 const Sense = new Schema({
@@ -38,9 +81,40 @@ const Sense = new Schema({
   truesight: { type: String, index: true },
 });
 
-const SpecialAbility = new Schema({
-  desc: { type: String, index: true },
+const SpecialAbilityUsage = new Schema({
+  type: { type: String, index: true },
+  times: { type: Number, index: true },
+  rest_types: { type: [String], index: true },
+});
+
+const SpecialAbilitySpell = new Schema({
   name: { type: String, index: true },
+  level: { type: Number, index: true },
+  url: { type: String, index: true },
+  notes: { type: String, index: true },
+  usage: SpecialAbilityUsage,
+});
+
+const SpecialAbilitySpellcasting = new Schema({
+  level: { type: Number, index: true },
+  ability: APIReference,
+  dc: { type: Number, index: true },
+  modifier: { type: Number, index: true },
+  components_required: { type: [String], index: true },
+  school: { type: String, index: true },
+  // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
+  slots: Object,
+  spells: [SpecialAbilitySpell],
+});
+
+const SpecialAbility = new Schema({
+  name: { type: String, index: true },
+  desc: { type: String, index: true },
+  attack_bonus: { type: Number, index: true },
+  damage: [ActionDamage],
+  dc: ActionDC,
+  spellcasting: SpecialAbilitySpellcasting,
+  usage: SpecialAbilityUsage,
 });
 
 const Speed = new Schema({
@@ -52,7 +126,7 @@ const Speed = new Schema({
   walk: { type: String, index: true },
 });
 
-const MonsterSchema = new Schema({
+const Monster = new Schema({
   _id: { type: String, select: false },
   actions: [Action],
   alignment: { type: String, index: true },
@@ -87,4 +161,4 @@ const MonsterSchema = new Schema({
   xp: { type: Number, index: true },
 });
 
-module.exports = mongoose.model('Monster', MonsterSchema, 'monsters');
+module.exports = mongoose.model('Monster', Monster, 'monsters');
