@@ -152,7 +152,7 @@ export type Monster = {
   special_abilities?: SpecialAbility[];
   speed: Speed;
   strength: number;
-  subtype: string;
+  subtype?: string;
   type: string;
   url: string;
   wisdom: number;
