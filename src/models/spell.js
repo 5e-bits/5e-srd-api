@@ -25,32 +25,29 @@ const DC = new Schema({
 });
 
 const Spell = new Schema({
-  _id: {
-    type: String,
-    select: false,
-  },
+  _id: { type: String, select: false },
   area_of_effect: AreaOfEffect,
-  attack_type: String,
-  casting_time: String,
+  attack_type: { type: String, index: true },
+  casting_time: { type: String, index: true },
   classes: [APIReference],
-  components: [String],
-  concentration: Boolean,
+  components: { type: [String], index: true },
+  concentration: { type: Boolean, index: true },
   damage: Damage,
   dc: DC,
-  desc: [String],
-  duration: String,
+  desc: { type: [String], index: true },
+  duration: { type: String, index: true },
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   heal_at_slot_level: Object,
-  higher_level: [String],
-  index: String,
+  higher_level: { type: [String], index: true },
+  index: { type: String, index: true },
   level: { type: Number, index: true },
-  material: String,
-  name: String,
-  range: String,
-  ritual: Boolean,
+  material: { type: String, index: true },
+  name: { type: String, index: true },
+  range: { type: String, index: true },
+  ritual: { type: Boolean, index: true },
   school: APIReference,
   subclasses: [APIReference],
-  url: String,
+  url: { type: String, index: true },
 });
 
 module.exports = mongoose.model('Spell', Spell, 'spells');
