@@ -6,6 +6,4 @@ const APIReference = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = {
-  APIReference,
-};
+export { APIReference };
