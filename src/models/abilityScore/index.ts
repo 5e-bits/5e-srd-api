@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
+import { Schema, model } from 'mongoose';
+import { APIReference } from '../common';
+import { AbilityScore } from './types';
 
-const AbilityScore = new Schema({
+const AbilityScoreSchema = new Schema<AbilityScore>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   full_name: { type: String, index: true },
@@ -12,4 +12,4 @@ const AbilityScore = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('AbilityScore', AbilityScore, 'ability-scores');
+export default model<AbilityScore>('AbilityScore', AbilityScoreSchema, 'ability-scores');
