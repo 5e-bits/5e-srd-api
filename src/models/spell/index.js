@@ -3,13 +3,11 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const AreaOfEffect = new Schema({
-  _id: false,
-  size: Number,
-  type: String,
+  size: { type: Number, required: true },
+  type: { type: String, index: true },
 });
 
 const Damage = new Schema({
-  _id: false,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   damage_at_slot_level: Object,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
@@ -18,39 +16,38 @@ const Damage = new Schema({
 });
 
 const DC = new Schema({
-  _id: false,
-  dc_success: String,
+  dc_success: { type: String, index: true },
   dc_type: APIReference,
-  desc: String,
+  desc: { type: String, index: true },
 });
 
 const Spell = new Schema({
   _id: {
-    type: String,
+    type: { type: String, index: true },
     select: false,
   },
   area_of_effect: AreaOfEffect,
-  attack_type: String,
-  casting_time: String,
+  attack_type: { type: String, index: true },
+  casting_time: { type: String, index: true },
   classes: [APIReference],
-  components: [String],
-  concentration: Boolean,
+  components: { type: [String], index: true },
+  concentration: { type: Boolean, index: true },
   damage: Damage,
   dc: DC,
-  desc: [String],
-  duration: String,
+  desc: { type: [String], index: true },
+  duration: { type: String, index: true },
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   heal_at_slot_level: Object,
-  higher_level: [String],
-  index: String,
-  level: Number,
-  material: String,
-  name: String,
-  range: String,
-  ritual: Boolean,
+  higher_level: { type: [String], index: true },
+  index: { type: String, index: true },
+  level: { type: Number, required: true },
+  material: { type: String, index: true },
+  name: { type: String, index: true },
+  range: { type: String, index: true },
+  ritual: { type: Boolean, index: true },
   school: APIReference,
   subclasses: [APIReference],
-  url: String,
+  url: { type: String, index: true },
 });
 
 module.exports = mongoose.model('Spell', Spell, 'spells');
