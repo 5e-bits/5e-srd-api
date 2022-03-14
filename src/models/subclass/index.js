@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const SpellPrerequisite = new Schema({
+  _id: false,
   index: { type: String, index: true },
   name: { type: String, index: true },
   type: { type: String, index: true },
@@ -10,6 +11,7 @@ const SpellPrerequisite = new Schema({
 });
 
 const Spell = new Schema({
+  _id: false,
   prerequisites: [SpellPrerequisite],
   spell: APIReference,
 });

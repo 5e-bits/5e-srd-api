@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const Reference = new Schema({
+  _id: false,
   index: { type: String, index: true },
   name: { type: String, index: true },
   type: { type: String, index: true },

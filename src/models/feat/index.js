@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const Prerequisite = new Schema({
+  _id: false,
   ability_score: APIReference,
   minimum_score: { type: Number, index: true },
 });

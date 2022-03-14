@@ -3,50 +3,59 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const Equipment = new Schema({
+  _id: false,
   equipment: APIReference,
   quantity: { type: Number, index: true },
 });
 
 const StartingEquipmentOption = new Schema({
+  _id: false,
   equipment: APIReference,
   quantity: { type: Number, index: true },
 });
 
 const StartingEquipmentOptions = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: [StartingEquipmentOption],
   type: { type: String, index: true },
 });
 
 const ProficiencyChoice = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: [APIReference],
   type: { type: String, index: true },
 });
 
 const SpellcastingInfo = new Schema({
+  _id: false,
   desc: { type: [String], index: true },
   name: { type: String, index: true },
 });
 
 const Spellcasting = new Schema({
+  _id: false,
   info: [SpellcastingInfo],
   level: { type: Number, index: true },
   spellcasting_ability: APIReference,
 });
 
 const MultiClassingPrereq = new Schema({
+  _id: false,
   ability_score: APIReference,
   minimum_score: { type: Number, index: true },
 });
 
 const MultiClassingPrereqOptions = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: [MultiClassingPrereq],
   type: { type: String, index: true },
 });
 
 const MultiClassing = new Schema({
+  _id: false,
   prerequisites: [MultiClassingPrereq],
   prerequisite_options: MultiClassingPrereqOptions,
   proficiencies: [APIReference],
