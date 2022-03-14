@@ -43,7 +43,7 @@ const Spell = new Schema({
   heal_at_slot_level: Object,
   higher_level: [String],
   index: String,
-  level: Number,
+  level: { type: Number, index: true },
   material: String,
   name: String,
   range: String,
