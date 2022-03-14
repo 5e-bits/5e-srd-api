@@ -3,21 +3,25 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const ClassSpecificCreatingSpellSlot = new Schema({
+  _id: false,
   sorcery_point_cost: { type: Number, index: true },
   spell_slot_level: { type: Number, index: true },
 });
 
 const ClassSpecificMartialArt = new Schema({
+  _id: false,
   dice_count: { type: Number, index: true },
   dice_value: { type: Number, index: true },
 });
 
 const ClassSpecificSneakAttack = new Schema({
+  _id: false,
   dice_count: { type: Number, index: true },
   dice_value: { type: Number, index: true },
 });
 
 const ClassSpecific = new Schema({
+  _id: false,
   action_surges: { type: Number, index: true },
   arcane_recovery_levels: { type: Number, index: true },
   aura_range: { type: Number, index: true },
@@ -53,6 +57,7 @@ const ClassSpecific = new Schema({
 });
 
 const Spellcasting = new Schema({
+  _id: false,
   cantrips_known: { type: Number, index: true },
   spell_slots_level_1: { type: Number, index: true },
   spell_slots_level_2: { type: Number, index: true },
@@ -67,6 +72,7 @@ const Spellcasting = new Schema({
 });
 
 const SubclassSpecific = new Schema({
+  _id: false,
   additional_magical_secrets_max_lvl: { type: Number, index: true },
   aura_range: { type: Number, index: true },
 });

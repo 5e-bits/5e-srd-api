@@ -3,11 +3,13 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const AreaOfEffect = new Schema({
+  _id: false,
   size: { type: Number, required: true },
   type: { type: String, index: true },
 });
 
 const Damage = new Schema({
+  _id: false,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   damage_at_slot_level: Object,
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
@@ -16,6 +18,7 @@ const Damage = new Schema({
 });
 
 const DC = new Schema({
+  _id: false,
   dc_success: { type: String, index: true },
   dc_type: APIReference,
   desc: { type: String, index: true },

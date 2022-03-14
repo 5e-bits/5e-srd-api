@@ -3,46 +3,54 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const ActionDamage = new Schema({
+  _id: false,
   damage_dice: { type: String, index: true },
   damage_type: APIReference,
 });
 
 const ActionDC = new Schema({
+  _id: false,
   dc_type: APIReference,
   dc_value: { type: Number, index: true },
   success_type: { type: String, index: true },
 });
 
 const ActionAttack = new Schema({
+  _id: false,
   name: { type: String, index: true },
   dc: ActionDC,
   damage: [ActionDamage],
 });
 
 const ActionAttackOptions = new Schema({
+  _id: false,
   choose: { type: Number, required: true },
   type: { type: String, required: true },
   from: [ActionAttack],
 });
 
 const ActionOption = new Schema({
+  _id: false,
   name: { type: String, index: true },
   count: { type: Schema.Types.Mixed, index: true },
   type: { type: String, index: true },
 });
 
 const ActionOptions = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: [ActionOption],
 });
 
 const ActionUsage = new Schema({
+  _id: false,
   type: { type: String, index: true },
   dice: { type: String, index: true },
   min_value: { type: Number, index: true },
 });
 
 const Action = new Schema({
+  _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
@@ -55,6 +63,7 @@ const Action = new Schema({
 });
 
 const LegendaryAction = new Schema({
+  _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
@@ -63,17 +72,20 @@ const LegendaryAction = new Schema({
 });
 
 const Proficiency = new Schema({
+  _id: false,
   proficiency: APIReference,
   value: { type: Number, index: true },
 });
 
 const Reaction = new Schema({
+  _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   dc: ActionDC,
 });
 
 const Sense = new Schema({
+  _id: false,
   blindsight: { type: String, index: true },
   darkvision: { type: String, index: true },
   passive_perception: { type: Number, index: true },
@@ -82,12 +94,14 @@ const Sense = new Schema({
 });
 
 const SpecialAbilityUsage = new Schema({
+  _id: false,
   type: { type: String, index: true },
   times: { type: Number, index: true },
   rest_types: { type: [String], index: true },
 });
 
 const SpecialAbilitySpell = new Schema({
+  _id: false,
   name: { type: String, index: true },
   level: { type: Number, index: true },
   url: { type: String, index: true },
@@ -96,6 +110,7 @@ const SpecialAbilitySpell = new Schema({
 });
 
 const SpecialAbilitySpellcasting = new Schema({
+  _id: false,
   level: { type: Number, index: true },
   ability: APIReference,
   dc: { type: Number, index: true },
@@ -108,6 +123,7 @@ const SpecialAbilitySpellcasting = new Schema({
 });
 
 const SpecialAbility = new Schema({
+  _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
@@ -118,6 +134,7 @@ const SpecialAbility = new Schema({
 });
 
 const Speed = new Schema({
+  _id: false,
   burrow: { type: String, index: true },
   climb: { type: String, index: true },
   fly: { type: String, index: true },

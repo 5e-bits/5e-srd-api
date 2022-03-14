@@ -3,11 +3,13 @@ const Schema = mongoose.Schema;
 const { APIReference } = require('../common');
 
 const AbilityBonus = new Schema({
+  _id: false,
   ability_score: APIReference,
   bonus: { type: Number, index: true },
 });
 
 const LanguageOptions = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: [APIReference],
   type: { type: String, index: true },

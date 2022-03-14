@@ -29,23 +29,27 @@ const StartingEquipmentOptions = new Schema({
 });
 
 const Ideal = new Schema({
+  _id: false,
   desc: { type: String, index: true },
   alignments: [APIReference],
 });
 
 const CharacteristicOptions = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: { type: [String], index: true },
   type: { type: String, index: true },
 });
 
 const IdealOptions = new Schema({
+  _id: false,
   choose: { type: Number, index: true },
   from: [Ideal],
   type: { type: String, index: true },
 });
 
 const Feature = new Schema({
+  _id: false,
   name: { type: String, index: true },
   desc: { type: [String], index: true },
 });
