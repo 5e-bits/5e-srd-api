@@ -15,6 +15,8 @@ const limiter = rateLimit({
 
 export default async () => {
   const app = express();
+  // enable cors in preflight
+  app.options('*', cors);
 
   // Middleware stuff
   app.set('view engine', 'ejs');
