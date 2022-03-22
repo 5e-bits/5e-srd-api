@@ -1,8 +1,10 @@
-description: "By virtue of your race, your character can speak, read, and write certain languages."
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - type: object
     properties:
+      desc:
+        description: "Brief description of the language."
+        type: string
       type:
         description: "Whether the language is standard or exotic."
         type: string

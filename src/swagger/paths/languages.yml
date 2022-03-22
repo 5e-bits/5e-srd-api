@@ -1,9 +1,14 @@
 get:
-  summary: "Get a language by index."
+  summary: Get a language by index.
+  description: |
+    # Language
+
+    By virtue of your race, your character can speak, read, and write 
+    certain languages.
   tags:
     - Character Data
   parameters:
-    - $ref: "../parameters/path/indexParam.yml"
+    - $ref: "../parameters/combined.yml#/language-index"
   responses:
     "200":
       description: "OK"
@@ -11,3 +16,12 @@ get:
         application/json:
           schema:
             $ref: "../schemas/combined.yml#/Language"
+          example:
+            index: elvish
+            name: Elvish
+            url: "/api/languages/elvish"
+            desc: "Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires."
+            type: Standard
+            script: Elvish
+            typical_speakers:
+              - Elves

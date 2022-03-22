@@ -8,3 +8,5 @@ ability-score-index:
   $ref: "./path/ability-scores.yml"
 alignment-index:
   $ref: "./path/alignments.yml"
+language-index:
+  $ref: "./path/languages.yml"
