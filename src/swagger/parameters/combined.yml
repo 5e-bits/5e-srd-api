@@ -20,3 +20,5 @@ class-resource:
   $ref: "./path/classes.yml#/resource"
 background-index:
   $ref: "./path/backgrounds.yml"
+weapon-property-index:
+  $ref: "./path/weapon-properties.yml"
