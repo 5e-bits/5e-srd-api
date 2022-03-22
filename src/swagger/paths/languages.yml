@@ -1,0 +1,13 @@
+get:
+  summary: "Get a language by index."
+  tags:
+    - Character Data
+  parameters:
+    - $ref: "../parameters/path/indexParam.yml"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/Language"

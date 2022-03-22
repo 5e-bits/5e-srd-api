@@ -1,0 +1,51 @@
+description: "race"
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - type: object
+    properties:
+      speed:
+        description: "Base move speed for this race (in feet per round)."
+        type: number
+      ability_bonuses:
+        description: "Racial bonuses to ability scores."
+        type: array
+        items:
+          $ref: "./combined.yml#/AbilityBonus"
+      alignment:
+        description: "Flavor description of likely alignments this race takes."
+        type: string
+      age:
+        description: "Flavor description of possible ages for this race."
+        type: string
+      size:
+        description: "Size class of this race."
+        type: string
+      size_description:
+        description: "Flavor description of height and weight for this race."
+        type: string
+      starting_proficiencies:
+        description: "Starting proficiencies for all new characters of this race."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      starting_proficiency_oprions:
+        description: "Starting proficiency options for all new characters of this race."
+        $ref: "./combined.yml#/Choice"
+      languages:
+        description: "Starting languages for all new characters of this race."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      language_desc:
+        description: "Flavor description of the languages this race knows."
+        type: string
+      traits:
+        description: "Racial traits that provide benefits to its members."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      subraces:
+        description: "All possible subraces that this race includes."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"

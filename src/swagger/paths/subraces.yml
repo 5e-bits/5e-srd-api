@@ -1,0 +1,45 @@
+# /api/subraces/{index}
+subraces-path:
+  get:
+    summary: "Get a subrace by index."
+    tags:
+      - Subraces
+    parameters:
+      - $ref: "../parameters/path/indexParam.yml"
+    responses:
+      "200":
+        description: "OK"
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/Subrace"
+# /api/subraces/{indexParam}/proficiencies
+subrace-proficiencies-path:
+  get:
+    summary: "Get proficiences available for a subrace."
+    tags:
+      - Subraces
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of proficiences for the subrace."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/subraces/{indexParam}/traits
+subrace-traits-path:
+  get:
+    summary: "Get traits available for a subrace."
+    tags:
+      - Subraces
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of traits for the subrace."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"

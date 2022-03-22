@@ -1,0 +1,13 @@
+get:
+  description: "Get all endpoint urls."
+  tags:
+    - Base
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: string

@@ -1,0 +1,6 @@
+indexParam:
+  $ref: "./path/indexParam.yml"
+classLevelParam:
+  $ref: "./path/classLevelParam.yml"
+spellLevelParam:
+  $ref: "./path/spellLevelParam.yml"

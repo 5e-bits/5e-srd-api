@@ -1,0 +1,170 @@
+# /api/classes/{indexParam}
+class-path:
+  get:
+    summary: "Get a class by index."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/path/indexParam.yml"
+    responses:
+      "200":
+        description: "OK"
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/Class"
+# /api/classes/{indexParam}/subclasses
+class-subclass-path:
+  get:
+    summary: "Get subclasses available for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of subclasses for the class."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+#/api/classes/{indexParam}/spells
+class-spells-path:
+  get:
+    summary: "Get spells available for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of spells for the class."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/classes/{indexParam}/spellcasting
+class-spellcasting-path:
+  get:
+    summary: "Get spellcasting info for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "Spellcasting resource for class."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/Spellcasting"
+# /api/classes/{indexParam}/features
+class-features-path:
+  get:
+    summary: "Get features available for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of features for the class."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/classes/{indexParam}/proficiencies
+class-proficiencies-path:
+  get:
+    summary: "Get proficiencies available for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of proficiencies for the class."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/classes/{indexParam}/multi-classing:
+class-multi-classing-path:
+  get:
+    summary: "Get multiclassing resource for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "Multiclassing resource for the class."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/Multiclassing"
+# /api/classes/{indexParam}/levels
+class-levels-path:
+  get:
+    summary: "Get all level resources for a class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of level resource for the class."
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/combined.yml#/ClassLevel"
+# /api/classes/{indexParam}/levels/{class_level}
+class-level-path:
+  get:
+    summary: "Get level resources for a class and level."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/classLevelParam"
+    responses:
+      "200":
+        description: "Level resource for the class and level."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/ClassLevel"
+# /api/classes/{indexParam}/levels/{class_level}/features:
+class-level-features-path:
+  get:
+    summary: "Get features available to a class at the requested level."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/classLevelParam"
+    responses:
+      "200":
+        description: "List of features for the class and level."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/classes/{indexParam}/levels/{spell_level}/spells
+class-spell-level-spells-path:
+  get:
+    summary: "Get spells of the requested spell level available to the class."
+    tags:
+      - Classes
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/spellLevelParam"
+    responses:
+      "200":
+        description: "List of spells for the class and level."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"

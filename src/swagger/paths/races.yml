@@ -1,0 +1,60 @@
+# /api/races/{indexParam}
+race-path:
+  get:
+    summary: "Get a race by index."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../parameters/path/indexParam.yml"
+    responses:
+      "200":
+        description: "OK"
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/Race"
+# /api/races/{indexParam}/subraces:
+race-subraces-path:
+  get:
+    summary: "Get subraces available for a race."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of subraces for the race."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/races/{indexParam}/proficiencies:
+race-proficiencies-path:
+  get:
+    summary: "Get proficiences available for a race."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of proficiences for the race."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/races/{indexParam}/traits:
+race-traits-path:
+  get:
+    summary: "Get traits available for a race."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of traits for the race."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"

@@ -1,0 +1,67 @@
+APIReference:
+  type: object
+  properties:
+    index:
+      description: "The resource index for shorthand searching."
+      type: string
+    name:
+      description: "The name of the referenced resource."
+      type: string
+    url:
+      description: "The URL of the referenced resource."
+      type: string
+APIReferenceList:
+  type: object
+  properties:
+    count:
+      description: "Total number of resource available."
+      type: number
+    results:
+      type: array
+      items:
+        $ref: "#/APIReference"
+Choice:
+  type: object
+  properties:
+    choose:
+      description: "The number of items to pick from the list."
+      type: number
+    type:
+      description: "The type of the resources to choose from."
+      type: string
+    from:
+      description: "A list of resources to choose from."
+      type: array
+      items:
+        $ref: "#/APIReference"
+Cost:
+  type: object
+  properties:
+    quantity:
+      description: "The numerical amount of coins."
+      type: number
+    unit:
+      description: "The unit of coinage."
+      type: string
+Damage:
+  type: object
+  properties:
+    damage_dice:
+      type: string
+    damage_type:
+      $ref: "./combined.yml#/APIReference"
+Prerequisite:
+  type: object
+  properties:
+    ability_score:
+      $ref: "./combined.yml#/APIReference"
+    minimum_score:
+      type: number
+ResourceDescription:
+  type: object
+  properties:
+    desc:
+      description: "The description of resource."
+      type: array
+      items:
+        type: string

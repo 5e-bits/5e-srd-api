@@ -1,0 +1,27 @@
+description: "trait"
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - $ref: "./combined.yml#/ResourceDescription"
+  - type: object
+    properties:
+      races:
+        description: "Races that have access to the trait."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      subraces:
+        description: "Subaces that have access to the trait."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      proficiencies:
+        description: "Proficiencies this trait grants."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      proficiency_choices:
+        description: "A choice of proficiencies this trait grants."
+        $ref: "./combined.yml#/Choice"
+      trait_specific:
+        description: "Information specific to this trait"
+        additionalProperties: true

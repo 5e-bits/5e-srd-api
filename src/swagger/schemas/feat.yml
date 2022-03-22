@@ -1,0 +1,11 @@
+description: "Feats are boons a character can receive at level up instead of an ability score increase."
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - $ref: "./combined.yml#/ResourceDescription"
+  - type: object
+    properties:
+      prerequisites:
+        description: "An object of APIReferences to ability scores and minimum scores."
+        type: array
+        items:
+          $ref: "./combined.yml#/Prerequisite"

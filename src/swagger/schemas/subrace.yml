@@ -1,0 +1,32 @@
+description: "subrace"
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - $ref: "./combined.yml#/ResourceDescription"
+  - type: object
+    properties:
+      race:
+        description: "The parent race for this subrace."
+        type: number
+      ability_bonuses:
+        description: "Additional ability bonuses for this subrace."
+        type: array
+        items:
+          $ref: "./combined.yml#/AbilityBonus"
+      starting_proficiencies:
+        description: "Starting proficiencies for all new characters of this subrace."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      languages:
+        description: "Starting languages for all new characters of this subrace."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      language_options:
+        description: "The starting languages to choose from for this subrace."
+        $ref: "./combined.yml#/Choice"
+      racial_traits:
+        description: "Racial traits that provide benefits to its members."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"

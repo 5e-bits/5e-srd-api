@@ -1,0 +1,1533 @@
+openapi: 3.0.1
+info:
+  title: defaultTitle
+  description: defaultDescription
+  version: '0.1'
+servers:
+  - url: 'https:/www.dnd5eapi.co'
+paths:
+  /api:
+    get:
+      description: Get all endpoint urls.
+      tags:
+        - Base
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  '/api/{endpoint}':
+    get:
+      summary: Get list of resources for an endpoint.
+      tags:
+        - Resource Lists
+      parameters:
+        - name: endpoint
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - ability-scores
+              - alignments
+              - backgrounds
+              - classes
+              - conditions
+              - damage-types
+              - equipment
+              - equipment-categories
+              - feats
+              - features
+              - languages
+              - magic-items
+              - magic-schools
+              - monsters
+              - proficiencies
+              - races
+              - rule-sections
+              - rules
+              - skills
+              - spells
+              - subclasses
+              - subraces
+              - traits
+              - weapon-properties
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/ability-scores/{index}':
+    get:
+      summary: Get an ability score by index.
+      tags:
+        - Character Data
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: single score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbilityScore'
+  '/api/alignments/{index}':
+    get:
+      summary: Get an alignment by index.
+      tags:
+        - Character Data
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alignments'
+  '/api/backgrounds/{index}':
+    get:
+      summary: Get a background by index.
+      tags:
+        - Backgrounds
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Background'
+  '/api/classes/{index}':
+    get:
+      summary: Get a class by index.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+  '/api/classes/{index}/subclasses':
+    get:
+      summary: Get subclasses available for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of subclasses for the class.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/classes/{index}/spells':
+    get:
+      summary: Get spells available for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of spells for the class.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/classes/{index}/spellcasting':
+    get:
+      summary: Get spellcasting info for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: Spellcasting resource for class.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spellcasting'
+  '/api/classes/{index}/features':
+    get:
+      summary: Get features available for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of features for the class.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/classes/{index}/proficiencies':
+    get:
+      summary: Get proficiencies available for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of proficiencies for the class.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/classes/{index}/multi-classing':
+    get:
+      summary: Get multiclassing resource for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: Multiclassing resource for the class.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Multiclassing'
+  '/api/classes/{index}/levels':
+    get:
+      summary: Get all level resources for a class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of level resource for the class.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassLevel'
+  '/api/classes/{index}/levels/{class_level}':
+    get:
+      summary: Get level resources for a class and level.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/classLevelParam'
+      responses:
+        '200':
+          description: Level resource for the class and level.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassLevel'
+  '/api/classes/{index}/levels/{class_level}/features':
+    get:
+      summary: Get features available to a class at the requested level.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/classLevelParam'
+      responses:
+        '200':
+          description: List of features for the class and level.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/classes/{index}/levels/{spell_level}/spells':
+    get:
+      summary: Get spells of the requested spell level available to the class.
+      tags:
+        - Classes
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/spellLevelParam'
+      responses:
+        '200':
+          description: List of spells for the class and level.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/conditions/{index}':
+    get:
+      summary: Get a condition by index.
+      tags:
+        - Game Mechanics
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Condition'
+  '/api/damage-types/{index}':
+    get:
+      summary: Get a damage type by index.
+      tags:
+        - Game Mechanics
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DamageType'
+  '/api/equipment/{index}':
+    get:
+      summary: Get an equipment item by index.
+      tags:
+        - Equipment
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+  '/api/equipment-categories/{index}':
+    get:
+      summary: Get an equipment category by index.
+      tags:
+        - Equipment
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentCategory'
+  '/api/feats/{index}':
+    get:
+      summary: Get a feat by index.
+      tags:
+        - Feats
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feat'
+  '/api/features/{index}':
+    get:
+      summary: Get a feature by index.
+      tags:
+        - Features
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+  '/api/languages/{index}':
+    get:
+      summary: Get a language by index.
+      tags:
+        - Character Data
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Language'
+  '/api/magic-items/{index}':
+    get:
+      summary: Get a magic item by index.
+      tags:
+        - Equipment
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MagicItem'
+  '/api/magic-schools/{index}':
+    get:
+      summary: Get a magic school by index.
+      tags:
+        - Game Mechanics
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MagicSchool'
+  '/api/proficiencies/{index}':
+    get:
+      summary: Get a proficiency by index.
+      tags:
+        - Character Data
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Proficiency'
+  '/api/races/{index}':
+    get:
+      summary: Get a race by index.
+      tags:
+        - Races
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Race'
+  '/api/races/{index}/subraces':
+    get:
+      summary: Get subraces available for a race.
+      tags:
+        - Races
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of subraces for the race.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/races/{index}/proficiencies':
+    get:
+      summary: Get proficiences available for a race.
+      tags:
+        - Races
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of proficiences for the race.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/races/{index}/traits':
+    get:
+      summary: Get traits available for a race.
+      tags:
+        - Races
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of traits for the race.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/rule-sections/{index}':
+    get:
+      summary: Get a rule section by index.
+      tags:
+        - Rules
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleSection'
+  '/api/rules/{index}':
+    get:
+      summary: Get a rule index.
+      tags:
+        - Rules
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+  '/api/skills/{index}':
+    get:
+      summary: Get a skill by index.
+      tags:
+        - Character Data
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+  '/api/spells/{index}':
+    get:
+      summary: Get a spell by index.
+      tags:
+        - Spells
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spell'
+  '/api/subclasses/{index}':
+    get:
+      summary: Get a subclass by index.
+      tags:
+        - Subclasses
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subclass'
+  '/api/subclasses/{index}/features':
+    get:
+      summary: Get features available for a subclass.
+      tags:
+        - Subclasses
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of features for the subclass.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/subclasses/{index}/levels':
+    get:
+      summary: Get all level resources for a subclass.
+      tags:
+        - Subclasses
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of level resource for the subclass.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubclassLevel'
+  '/api/subclasses/{index}/levels/{subclass_level}':
+    get:
+      summary: Get level resources for a subclass and level.
+      tags:
+        - Subclasses
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+        - name: subclass_level
+          in: path
+          required: true
+          schema:
+            type: number
+            minimum: 1
+            maximum: 20
+      responses:
+        '200':
+          description: LLevel resource for the class and level.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubclassLevel'
+  '/api/subclasses/{index}/levels/{subclass_level}/features':
+    get:
+      summary: Get features of the requested spell level available to the class.
+      tags:
+        - Subclasses
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+        - name: subclass_level
+          in: path
+          required: true
+          schema:
+            type: number
+            minimum: 0
+            maximum: 9
+      responses:
+        '200':
+          description: List of features for the subclass and level.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/subraces/{index}':
+    get:
+      summary: Get a subrace by index.
+      tags:
+        - Subraces
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subrace'
+  '/api/subraces/{index}/proficiencies':
+    get:
+      summary: Get proficiences available for a subrace.
+      tags:
+        - Subraces
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of proficiences for the subrace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/subraces/{index}/traits':
+    get:
+      summary: Get traits available for a subrace.
+      tags:
+        - Subraces
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: List of traits for the subrace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIReferenceList'
+  '/api/traits/{index}':
+    get:
+      summary: Get a trait by index.
+      tags:
+        - Traits
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trait'
+  '/api/weapon-properties/{index}':
+    get:
+      summary: Get a weapon property by index.
+      tags:
+        - Equipment
+      parameters:
+        - $ref: '#/components/parameters/indexParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeaponProperty'
+components:
+  parameters:
+    indexParam:
+      name: index
+      in: path
+      required: true
+      schema:
+        type: string
+    classLevelParam:
+      name: class_level
+      in: path
+      required: true
+      schema:
+        type: string
+        minimum: 0
+        maximum: 20
+    spellLevelParam:
+      name: spell_level
+      in: path
+      required: true
+      schema:
+        type: string
+        minimum: 0
+        maximum: 9
+  schemas:
+    APIReference:
+      type: object
+      properties:
+        index:
+          description: The resource index for shorthand searching.
+          type: string
+        name:
+          description: The name of the referenced resource.
+          type: string
+        url:
+          description: The URL of the referenced resource.
+          type: string
+    APIReferenceList:
+      type: object
+      properties:
+        count:
+          description: Total number of resource available.
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/APIReference'
+    Choice:
+      type: object
+      properties:
+        choose:
+          description: The number of items to pick from the list.
+          type: number
+        type:
+          description: The type of the resources to choose from.
+          type: string
+        from:
+          description: A list of resources to choose from.
+          type: array
+          items:
+            $ref: '#/components/schemas/APIReference'
+    Prerequisite:
+      type: object
+      properties:
+        ability_score:
+          $ref: '#/components/schemas/APIReference'
+        minimum_score:
+          type: number
+    ResourceDescription:
+      type: object
+      properties:
+        desc:
+          description: The description of resource.
+          type: array
+          items:
+            type: string
+    AbilityScore:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            full_name:
+              description: The full name for this ability score.
+              type: string
+            skills:
+              description: A list of skills that use this ability score.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    Alignments:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            abbreviation:
+              description: TThe abbreviation/initials/acronym for this alignment resource.
+              type: string
+    Class:
+      description: 'A character class is a fundamental part of the identity and nature of characters in the Dungeons & Dragons role-playing game. A character''s capabilities, strengths, and weaknesses are largely defined by its class. A character''s class affects a character''s available skills and abilities.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            hit_die:
+              description: 'The hit die of the class. (ex: 12 == 1d12).'
+              type: number
+            class_levels:
+              description: The URL of the class's level resource.
+              type: string
+            multi_classing:
+              $ref: '#/components/schemas/Multiclassing'
+            spellcasting:
+              $ref: '#/components/schemas/Spellcasting'
+            spells:
+              description: The URL of the class's spell resource list.
+              type: string
+            starting_equipment:
+              description: An object with the possible choices of equipment for new characters of this class.
+              type: object
+              properties:
+                equipment:
+                  $ref: '#/components/schemas/APIReference'
+                quantity:
+                  type: number
+            proficiency_choices:
+              description: Starting proficiencies where the player must choose a certain number from the given list of proficiencies.
+              type: array
+              items:
+                $ref: '#/components/schemas/Choice'
+            proficiencies:
+              description: Starting proficiencies all new characters of this class start with.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            saving_throws:
+              description: Saving throws that the class is proficient in.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            subclasses:
+              description: All possible subclasses that this class can specialize in.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    Damage:
+      type: object
+      properties:
+        damage_dice:
+          type: string
+        damage_type:
+          $ref: '#/components/schemas/APIReference'
+    Multiclassing:
+      description: Information on how to multiclass for a particular class.
+      type: object
+      properties:
+        prerequisites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prerequisite'
+        prerequisite_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Choice'
+        proficiencies:
+          description: Proficiencies available when multiclassing.
+          type: array
+          items:
+            $ref: '#/components/schemas/APIReference'
+        proficiency_choices:
+          description: A list of choices of proficiencies that are given when multiclassing.
+          type: array
+          items:
+            $ref: '#/components/schemas/Choice'
+    Spellcasting:
+      description: Spellcasting information for a class.
+      type: object
+      properties:
+        level:
+          description: The level at which the class can start using its Spellcasting abilities.
+          type: number
+        info:
+          description: Descriptions of the class' ability to cast spells.
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              desc:
+                type: array
+                items:
+                  type: string
+    Gear:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            equipment_category:
+              $ref: '#/components/schemas/APIReference'
+            gear_category:
+              $ref: '#/components/schemas/APIReference'
+            cost:
+              $ref: '#/components/schemas/Cost'
+            weight:
+              description: How much the equipment weighs.
+              type: number
+    EquipmentPack:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            equipment_category:
+              $ref: '#/components/schemas/APIReference'
+            gear_category:
+              $ref: '#/components/schemas/APIReference'
+            cost:
+              $ref: '#/components/schemas/Cost'
+            contents:
+              description: The list of adventuring gear in the pack.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    EquipmentCategory:
+      description: A category that various equipment fall under.
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            equipment:
+              description: A list of the equipment that falls into this category.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    Equipment:
+      oneOf:
+        - $ref: '#/components/schemas/Weapon'
+        - $ref: '#/components/schemas/Armor'
+        - $ref: '#/components/schemas/Gear'
+        - $ref: '#/components/schemas/EquipmentPack'
+    Cost:
+      type: object
+      properties:
+        quantity:
+          description: The numerical amount of coins.
+          type: number
+        unit:
+          description: The unit of coinage.
+          type: string
+    Weapon:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            equipment_category:
+              $ref: '#/components/schemas/APIReference'
+            weapon_category:
+              description: The category of weapon this falls into.
+              type: string
+            weapon_range:
+              description: Whether this is a Melee or Ranged weapon.
+              type: string
+            category_range:
+              description: A combination of weapon_category and weapon_range.
+              type: string
+            range:
+              type: object
+              properties:
+                normal:
+                  description: The weapon's normal range in feet.
+                  type: number
+                long:
+                  description: The weapon's long range in feet.
+                  type: number
+            damage:
+              $ref: '#/components/schemas/Damage'
+            two_handed_damage:
+              $ref: '#/components/schemas/Damage'
+            properties:
+              description: A list of the properties this weapon has.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            cost:
+              $ref: '#/components/schemas/Cost'
+            weight:
+              description: How much the equipment weighs.
+              type: number
+    Armor:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            equipment_category:
+              $ref: '#/components/schemas/APIReference'
+            armor_category:
+              description: The category of armor this falls into.
+              type: string
+            armor_class:
+              description: Details on how to calculate armor class.
+              type: object
+              additionalProperties:
+                type: string
+            str_minimum:
+              description: Minimum STR required to use this armor.
+              type: number
+            stealth_disadvantage:
+              description: Whether the armor gives disadvantage for Stealth.
+              type: boolean
+            cost:
+              $ref: '#/components/schemas/Cost'
+            weight:
+              description: How much the equipment weighs.
+              type: number
+    MagicItem:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            equipment_category:
+              $ref: '#/components/schemas/APIReference'
+    DamageType:
+      description: 'Different attacks, damaging spells, and other harmful effects deal different types of damage. Damage types have no rules of their own, but other rules, such as damage resistance, rely on the types.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+    Condition:
+      description: 'Conditions alter a creature’s capabilities in a variety of ways and can arise as a result of a spell, a class feature, a monster’s attack, or other effect. Most conditions, such as blinded, are impairments, but a few, such as invisible, can be advantageous.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+    MagicSchool:
+      description: 'Academies of magic group spells into eight categories called schools of magic. Scholars, particularly wizards, apply these categories to all spells, believing that all magic functions in essentially the same way, whether it derives from rigorous study or is bestowed by a deity.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+    Skill:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            ability_score:
+              $ref: '#/components/schemas/APIReference'
+    Proficiency:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            type:
+              description: The general category of the proficiency.
+              type: string
+            classes:
+              description: Classes that start with this proficiency.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            races:
+              description: Races that start with this proficiency.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            reference:
+              $ref: '#/components/schemas/APIReference'
+    Language:
+      description: 'By virtue of your race, your character can speak, read, and write certain languages.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            type:
+              description: Whether the language is standard or exotic.
+              type: string
+            script:
+              description: The script used for writing in this language.
+              type: string
+            typical_speakers:
+              description: Races that tend to speak this language.
+              type: array
+              items:
+                type: string
+    Background:
+      description: 'Every story has a beginning. Your character’s background reveals where you came from, how you became an adventurer, and your place in the world. Your fighter might have been a courageous knight or a grizzled soldier. Your wizard could have been a sage or an artisan. Your rogue might have gotten by as a guild thief or commanded audiences as a jester.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            starting_proficiencies:
+              description: Starting proficiencies for all new characters of this background.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            starting_equipment:
+              description: The starting equipment a character automatically gets.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    Feat:
+      description: Feats are boons a character can receive at level up instead of an ability score increase.
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            prerequisites:
+              description: An object of APIReferences to ability scores and minimum scores.
+              type: array
+              items:
+                $ref: '#/components/schemas/Prerequisite'
+    Subclass:
+      description: A path a class may take as levels are gained.
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            class:
+              $ref: '#/components/schemas/APIReference'
+    SubclassLevel:
+      description: subclass level
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            level:
+              description: The number value for the current level object.
+              type: number
+            ability_score_bonuses:
+              description: 'Total number of ability score bonuses gained, added from previous levels.'
+              type: number
+            prof_bonus:
+              description: Proficiency bonus for this class at the specified level.
+              type: number
+            features:
+              description: Features automatically gained at this level.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            spellcasting:
+              description: Summary of spells known at this level.
+              type: object
+              properties:
+                cantrips_known:
+                  type: number
+                spells_known:
+                  type: number
+                spell_slots_level_1:
+                  type: number
+                spell_slots_level_2:
+                  type: number
+                spell_slots_level_3:
+                  type: number
+                spell_slots_level_4:
+                  type: number
+                spell_slots_level_5:
+                  type: number
+                spell_slots_level_6:
+                  type: number
+                spell_slots_level_7:
+                  type: number
+                spell_slots_level_8:
+                  type: number
+                spell_slots_level_9:
+                  type: number
+            classspecific:
+              description: Class specific information such as dice values for bard songs and number of warlock invocations.
+              additionalProperties: {}
+    ClassLevel:
+      description: level
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            level:
+              description: The number value for the current level object.
+              type: number
+            ability_score_bonuses:
+              description: 'Total number of ability score bonuses gained, added from previous levels.'
+              type: number
+            prof_bonus:
+              description: Proficiency bonus for this class at the specified level.
+              type: number
+            features:
+              description: Features automatically gained at this level.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            spellcasting:
+              description: Summary of spells known at this level.
+              type: object
+              properties:
+                cantrips_known:
+                  type: number
+                spells_known:
+                  type: number
+                spell_slots_level_1:
+                  type: number
+                spell_slots_level_2:
+                  type: number
+                spell_slots_level_3:
+                  type: number
+                spell_slots_level_4:
+                  type: number
+                spell_slots_level_5:
+                  type: number
+                spell_slots_level_6:
+                  type: number
+                spell_slots_level_7:
+                  type: number
+                spell_slots_level_8:
+                  type: number
+                spell_slots_level_9:
+                  type: number
+            classspecific:
+              description: Class specific information such as dice values for bard songs and number of warlock invocations.
+              additionalProperties: {}
+    Feature:
+      description: feature
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            level:
+              description: The level this feature is gained.
+              type: number
+            class:
+              $ref: '#/components/schemas/APIReference'
+            subclass:
+              $ref: '#/components/schemas/APIReference'
+            feature_specific:
+              description: Information specific to this feature.
+              additionalProperties: true
+    Race:
+      description: race
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            speed:
+              description: Base move speed for this race (in feet per round).
+              type: number
+            ability_bonuses:
+              description: Racial bonuses to ability scores.
+              type: array
+              items:
+                $ref: '#/components/schemas/AbilityBonus'
+            alignment:
+              description: Flavor description of likely alignments this race takes.
+              type: string
+            age:
+              description: Flavor description of possible ages for this race.
+              type: string
+            size:
+              description: Size class of this race.
+              type: string
+            size_description:
+              description: Flavor description of height and weight for this race.
+              type: string
+            starting_proficiencies:
+              description: Starting proficiencies for all new characters of this race.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            starting_proficiency_oprions:
+              description: Starting proficiency options for all new characters of this race.
+              $ref: '#/components/schemas/Choice'
+            languages:
+              description: Starting languages for all new characters of this race.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            language_desc:
+              description: Flavor description of the languages this race knows.
+              type: string
+            traits:
+              description: Racial traits that provide benefits to its members.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            subraces:
+              description: All possible subraces that this race includes.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    AbilityBonus:
+      type: object
+      properties:
+        bonus:
+          description: The bonus amount for this ability score.
+          type: number
+        ability_score:
+          $ref: '#/components/schemas/APIReference'
+    Spell:
+      description: 'A spell is a discrete magical effect, a single shaping of the magical energies that suffuse the multiverse into a specific, limited expression.'
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            higher_level:
+              description: Description for casting the spell at a higher level.
+              type: array
+              items:
+                type: string
+            range:
+              description: The range of the spell.
+              type: string
+            components:
+              description: 'The required components for a spell are shorthanded to V,S, and M which stand for verbal, somatic, and material.'
+              type: string
+            material:
+              description: The material component for the spell to be cast.
+              type: string
+            ritual:
+              description: Determines if a spell can be cast in a 10-min(in-game) ritual.
+              type: boolean
+            duration:
+              description: How long the spell effect lasts.
+              type: string
+            concentration:
+              description: Determines if a spell needs concentration to persist.
+              type: boolean
+            casting_time:
+              description: How long it takes for the spell to activate.
+              type: string
+            level:
+              description: The level of the spell.
+              type: number
+            attack_type:
+              description: The attack type of the spell.
+              type: string
+            damage:
+              type: object
+              properties:
+                damage_at_slot_level:
+                  type: object
+                  additionalProperties: true
+                damage_type:
+                  $ref: '#/components/schemas/APIReference'
+            school:
+              description: The magic school this spell belongs to.
+              $ref: '#/components/schemas/APIReference'
+            classes:
+              description: The classes that are able to learn this spell.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            subclasses:
+              description: A list of subclasses that have access to this spell.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    Subrace:
+      description: subrace
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            race:
+              description: The parent race for this subrace.
+              type: number
+            ability_bonuses:
+              description: Additional ability bonuses for this subrace.
+              type: array
+              items:
+                $ref: '#/components/schemas/AbilityBonus'
+            starting_proficiencies:
+              description: Starting proficiencies for all new characters of this subrace.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            languages:
+              description: Starting languages for all new characters of this subrace.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            language_options:
+              description: The starting languages to choose from for this subrace.
+              $ref: '#/components/schemas/Choice'
+            racial_traits:
+              description: Racial traits that provide benefits to its members.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    Trait:
+      description: trait
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            races:
+              description: Races that have access to the trait.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            subraces:
+              description: Subaces that have access to the trait.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            proficiencies:
+              description: Proficiencies this trait grants.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+            proficiency_choices:
+              description: A choice of proficiencies this trait grants.
+              $ref: '#/components/schemas/Choice'
+            trait_specific:
+              description: Information specific to this trait
+              additionalProperties: true
+    WeaponProperty:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+    Rule:
+      description: Rules are pages in the SRD that document the mechanics of Dungeons and Dragons. Rules have descriptions which is the text directly underneath the rule heading in the SRD. Rules also have subsections for each heading underneath the rule in the SRD.
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            subsections:
+              description: Sections for each subheading underneath the rule in the SRD.
+              type: array
+              items:
+                $ref: '#/components/schemas/APIReference'
+    RuleSection:
+      description: Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+    Monster:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - $ref: '#/components/schemas/ResourceDescription'
+        - type: object
+          properties:
+            size:
+              description: The size of the monster ranging from Tiny to Gargantuan.
+              type: string
+              enum:
+                - Tiny
+                - Small
+                - Medium
+                - Large
+                - Huge
+                - Gargantuan
+            type:
+              description: The type of monster.
+              type: string
+            subtype:
+              description: The sub-category of a monster used for classification of monsters."
+              type: string
+            alignments:
+              description: A creature's general moral and personal attitudes.
+              type: string
+            armor_class:
+              description: The difficulty for a player to successfully deal damage to a monster.
+              type: number
+            hit_points:
+              description: The hit points of a monster determine how much damage it is able to take before it can be defeated.
+              type: number
+            hit_dice:
+              description: 'The hit die of a monster can be used to make a version of the same monster whose hit points are determined by the roll of the die. For example: A monster with 2d6 would have its hit points determine by rolling a 6 sided die twice.'
+              type: string
+            actions:
+              description: A list of actions that are available to the monster to take during combat.
+              type: object
+              additionalProperties:
+                type: string
+            legendary_actions:
+              description: A list of legendary actions that are available to the monster to take during combat.
+              type: object
+              additionalProperties:
+                type: string
+            challenge_rating:
+              description: A monster's challenge rating is a guideline number that says when a monster becomes an appropriate challenge against the party's average level. For example. A group of 4 players with an average level of 4 would have an appropriate combat challenge against a monster with a challenge rating of 4 but a monster with a challenge rating of 8 against the same group of players would pose a significant threat.
+              type: number
+            charisma:
+              description: The charisma of a monster. A monster's ability to charm or intimidate a player.
+              type: number
+            condition_immunities:
+              description: A list of conditions that a monster is immune to.
+              type: array
+            constitution:
+              description: The constitution of a monster. How sturdy a monster is."
+              type: number
+            damage_immunities:
+              description: A list of damage types that a monster will take double damage from.
+              type: array
+              items:
+                type: string
+            damage_resistances:
+              description: A list of damage types that a monster will take half damage from.
+              type: array
+              items:
+                type: string
+            damage_vulnerabilities:
+              description: A list of damage types that a monster will take double damage from.
+              type: array
+              items:
+                type: string
+            dexterity:
+              description: The dexterity of a monster. The monster's ability for swift movement or stealth
+              type: number
+            forms:
+              description: Only applicable to Lycanthropes that have multiple forms. This links to the other related monster entries that are the same.
+              oneOf:
+                - $ref: '#/components/schemas/APIReference'
+            intelligence:
+              description: The intelligence of a monster. The monster's ability to outsmart a player.
+              type: number
+            languages:
+              description: The languages a monster is able to speak.
+              type: array
+              items:
+                type: string
+            proficiencies:
+              description: A list of proficiencies of a monster.
+              type: object
+              additionalProperties:
+                type: string
+            reactions?:
+              description: A list of reactions that is available to the monster to take during combat.
+              type: object
+              additionalProperties:
+                type: string
+            senses:
+              description: Monsters typically have a passive perception but they might also have other senses to detect players.
+              type: object
+              additionalProperties:
+                type: string
+            special_abilities?:
+              description: A list of the monster's special abilities.
+              type: object
+              additionalProperties:
+                type: string
+            speed:
+              description: Speed for a monster determines how fast it can move per turn.
+              type: object
+              additionalProperties:
+                type: string
+            strength:
+              description: The strength of a monster. How hard a monster can hit a player.
+              type: number
+            wisdom:
+              description: The wisdom of a monster. A monster's ability to ascertain the player's plan.
+              type: number
+            xp:
+              type: number

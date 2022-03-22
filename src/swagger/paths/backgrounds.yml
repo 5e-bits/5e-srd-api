@@ -1,0 +1,13 @@
+get:
+  summary: "Get a background by index."
+  tags:
+    - Backgrounds
+  parameters:
+    - $ref: "../parameters/path/indexParam.yml"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/Background"

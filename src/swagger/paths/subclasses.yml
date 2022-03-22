@@ -1,0 +1,91 @@
+# /api/subclass/{index}
+subclass-path:
+  get:
+    summary: "Get a subclass by index."
+    tags:
+      - Subclasses
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "OK"
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/Subclass"
+# /api/subclasses/{indexParam}/features:
+subclass-features-path:
+  get:
+    summary: "Get features available for a subclass."
+    tags:
+      - Subclasses
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of features for the subclass."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"
+# /api/subclasses/{indexParam}/levels:
+subclass-levels-path:
+  get:
+    summary: "Get all level resources for a subclass."
+    tags:
+      - Subclasses
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+    responses:
+      "200":
+        description: "List of level resource for the subclass."
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../schemas/combined.yml#/SubclassLevel"
+# /api/subclasses/{indexParam}/levels/{subclass_level}:
+subclass-level-path:
+  get:
+    summary: "Get level resources for a subclass and level."
+    tags:
+      - Subclasses
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+      - name: subclass_level
+        in: path
+        required: true
+        schema:
+          type: number
+          minimum: 1
+          maximum: 20
+    responses:
+      "200":
+        description: "LLevel resource for the class and level."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/SubclassLevel"
+# /api/subclasses/{indexParam}/levels/{subclass_level}/features:
+subclass-level-features-path:
+  get:
+    summary: "Get features of the requested spell level available to the class."
+    tags:
+      - Subclasses
+    parameters:
+      - $ref: "../parameters/combined.yml#/indexParam"
+      - name: subclass_level
+        in: path
+        required: true
+        schema:
+          type: number
+          minimum: 0
+          maximum: 9
+    responses:
+      "200":
+        description: "List of features for the subclass and level."
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/APIReferenceList"

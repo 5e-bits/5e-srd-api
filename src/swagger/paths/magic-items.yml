@@ -1,0 +1,13 @@
+get:
+  summary: "Get a magic item by index."
+  tags:
+    - Equipment
+  parameters:
+    - $ref: "../parameters/path/indexParam.yml"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/MagicItem"

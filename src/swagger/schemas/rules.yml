@@ -1,0 +1,17 @@
+Rule:
+  description: "Rules are pages in the SRD that document the mechanics of Dungeons and Dragons. Rules have descriptions which is the text directly underneath the rule heading in the SRD. Rules also have subsections for each heading underneath the rule in the SRD."
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        subsections:
+          description: "Sections for each subheading underneath the rule in the SRD."
+          type: array
+          items:
+            $ref: "./combined.yml#/APIReference"
+RuleSection:
+  description: "Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD."
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
