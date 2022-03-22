@@ -9,7 +9,7 @@ Prerequisite:
 ResourceDescription:
   $ref: "./common.yml#/ResourceDescription"
 AbilityScore:
-  $ref: "./abilityscores.yml#/AbilityScore"
+  $ref: "./ability-scores.yml#/ability-score-model"
 Alignments:
   $ref: "./alignments.yml"
 Class:
@@ -63,7 +63,7 @@ Feature:
 Race:
   $ref: "./race.yml"
 AbilityBonus:
-  $ref: "./abilityscores.yml#/AbilityBonus"
+  $ref: "./ability-scores.yml#/AbilityBonus"
 Spell:
   $ref: "./spell.yml"
 Subrace:

@@ -1,4 +1,4 @@
-AbilityScore:
+ability-score-model:
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -12,6 +12,7 @@ AbilityScore:
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
+
 AbilityBonus:
   type: object
   properties:

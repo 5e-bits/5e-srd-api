@@ -1,0 +1,8 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the ability score to get.
+schema:
+  type: string
+  enum: [cha, con, dex, int, str, wis]

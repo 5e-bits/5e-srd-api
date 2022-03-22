@@ -4,3 +4,5 @@ classLevelParam:
   $ref: "./path/classLevelParam.yml"
 spellLevelParam:
   $ref: "./path/spellLevelParam.yml"
+ability-score-index:
+  $ref: "./path/ability-scores.yml"
