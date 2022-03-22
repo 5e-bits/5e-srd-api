@@ -1,54 +1,193 @@
 # /api/classes/{indexParam}
 class-path:
   get:
-    summary: "Get a class by index."
+    summary: Get a class by index.
+    description: |
+      # Class 
+
+      A character class is a fundamental part of the identity and nature of 
+      characters in the Dungeons & Dragons role-playing game. A character's 
+      capabilities, strengths, and weaknesses are largely defined by its class. 
+      A character's class affects a character's available skills and abilities.
     tags:
-      - Classes
+      - Class
     parameters:
-      - $ref: "../parameters/path/indexParam.yml"
+      - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "OK"
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/Class"
+            example:
+              class_levels: "/api/classes/barbarian/levels"
+              hit_die: 12
+              index: barbarian
+              multi_classing:
+                prerequisites:
+                  - ability_score:
+                      index: str
+                      name: STR
+                      url: "/api/ability-scores/str"
+                    minimum_score: 13
+                proficiencies:
+                  - index: shields
+                    name: Shields
+                    url: "/api/proficiencies/shields"
+                  - index: simple-weapons
+                    name: Simple Weapons
+                    url: "/api/proficiencies/simple-weapons"
+                  - index: martial-weapons
+                    name: Martial Weapons
+                    url: "/api/proficiencies/martial-weapons"
+                proficiency_choices: []
+              name: Barbarian
+              proficiencies:
+                - index: light-armor
+                  name: Light Armor
+                  url: "/api/proficiencies/light-armor"
+                - index: medium-armor
+                  name: Medium Armor
+                  url: "/api/proficiencies/medium-armor"
+                - index: shields
+                  name: Shields
+                  url: "/api/proficiencies/shields"
+                - index: simple-weapons
+                  name: Simple Weapons
+                  url: "/api/proficiencies/simple-weapons"
+                - index: martial-weapons
+                  name: Martial Weapons
+                  url: "/api/proficiencies/martial-weapons"
+              proficiency_choices:
+                - choose: 2
+                  from:
+                    - index: skill-animal-handling
+                      name: "Skill: Animal Handling"
+                      url: "/api/proficiencies/skill-animal-handling"
+                    - index: skill-athletics
+                      name: "Skill: Athletics"
+                      url: "/api/proficiencies/skill-athletics"
+                    - index: skill-intimidation
+                      name: "Skill: Intimidation"
+                      url: "/api/proficiencies/skill-intimidation"
+                    - index: skill-nature
+                      name: "Skill: Nature"
+                      url: "/api/proficiencies/skill-nature"
+                    - index: skill-perception
+                      name: "Skill: Perception"
+                      url: "/api/proficiencies/skill-perception"
+                    - index: skill-survival
+                      name: "Skill: Survival"
+                      url: "/api/proficiencies/skill-survival"
+                  type: proficiencies
+              saving_throws:
+                - index: str
+                  name: STR
+                  url: "/api/ability-scores/str"
+                - index: con
+                  name: CON
+                  url: "/api/ability-scores/con"
+              starting_equipment:
+                - equipment:
+                    index: explorers-pack
+                    name: Explorer's Pack
+                    url: "/api/equipment/explorers-pack"
+                  quantity: 1
+                - equipment:
+                    index: javelin
+                    name: Javelin
+                    url: "/api/equipment/javelin"
+                  quantity: 4
+              starting_equipment_options:
+                - choose: 1
+                  from:
+                    - equipment:
+                        index: greataxe
+                        name: Greataxe
+                        url: "/api/equipment/greataxe"
+                      quantity: 1
+                    - equipment_option:
+                        choose: 1
+                        from:
+                          equipment_category:
+                            index: martial-melee-weapons
+                            name: Martial Melee Weapons
+                            url: "/api/equipment-categories/martial-melee-weapons"
+                        type: equipment
+                  type: equipment
+                - choose: 1
+                  from:
+                    - equipment:
+                        index: handaxe
+                        name: Handaxe
+                        url: "/api/equipment/handaxe"
+                      quantity: 2
+                    - equipment_option:
+                        choose: 1
+                        from:
+                          equipment_category:
+                            index: simple-weapons
+                            name: Simple Weapons
+                            url: "/api/equipment-categories/simple-weapons"
+                        type: equipment
+                  type: equipment
+              subclasses:
+                - index: berserker
+                  name: Berserker
+                  url: "/api/subclasses/berserker"
+              url: "/api/classes/barbarian"
 # /api/classes/{indexParam}/subclasses
 class-subclass-path:
   get:
     summary: "Get subclasses available for a class."
     tags:
-      - Classes
+      - Class Resource Lists
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "List of subclasses for the class."
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/APIReferenceList"
+            example:
+              count: 1
+              results:
+                - index: berserker
+                  name: "Berserker"
+                  url: "/api/subclasses/berserker"
 #/api/classes/{indexParam}/spells
 class-spells-path:
   get:
     summary: "Get spells available for a class."
     tags:
-      - Classes
+      - Class Resource Lists
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "List of spells for the class."
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/APIReferenceList"
+            example:
+              count: 2
+              results:
+                - index: power-word-kill
+                  name: Power Word Kill
+                  url: "/api/spells/power-word-kill"
+                - index: true-polymorph
+                  name: True Polymorph
+                  url: "/api/spells/true-polymorph"
 # /api/classes/{indexParam}/spellcasting
 class-spellcasting-path:
   get:
     summary: "Get spellcasting info for a class."
     tags:
-      - Classes
+      - Class
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
     responses:
@@ -63,7 +202,7 @@ class-features-path:
   get:
     summary: "Get features available for a class."
     tags:
-      - Classes
+      - Class Resource Lists
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
     responses:
@@ -78,7 +217,7 @@ class-proficiencies-path:
   get:
     summary: "Get proficiencies available for a class."
     tags:
-      - Classes
+      - Class Resource Lists
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
     responses:
@@ -93,7 +232,7 @@ class-multi-classing-path:
   get:
     summary: "Get multiclassing resource for a class."
     tags:
-      - Classes
+      - Class
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
     responses:
@@ -108,7 +247,7 @@ class-levels-path:
   get:
     summary: "Get all level resources for a class."
     tags:
-      - Classes
+      - Class Levels
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
     responses:
@@ -125,7 +264,7 @@ class-level-path:
   get:
     summary: "Get level resources for a class and level."
     tags:
-      - Classes
+      - Class Levels
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
       - $ref: "../parameters/combined.yml#/classLevelParam"
@@ -141,7 +280,7 @@ class-level-features-path:
   get:
     summary: "Get features available to a class at the requested level."
     tags:
-      - Classes
+      - Class Levels
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
       - $ref: "../parameters/combined.yml#/classLevelParam"
@@ -157,7 +296,7 @@ class-spell-level-spells-path:
   get:
     summary: "Get spells of the requested spell level available to the class."
     tags:
-      - Classes
+      - Class Levels
     parameters:
       - $ref: "../parameters/combined.yml#/indexParam"
       - $ref: "../parameters/combined.yml#/spellLevelParam"

@@ -14,3 +14,7 @@ proficiency-index:
   $ref: "./path/proficiencies.yml"
 skill-index:
   $ref: "./path/skills.yml"
+class-index:
+  $ref: "./path/classes.yml#/class-index"
+class-resource:
+  $ref: "./path/classes.yml#/resource"

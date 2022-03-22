@@ -10,6 +10,8 @@ backgrounds:
   $ref: "./backgrounds.yml"
 classes:
   $ref: "./classes.yml#/class-path"
+class-lists:
+  $ref: "./classes.yml#/class-resource-list"
 class-subclass:
   $ref: "./classes.yml#/class-subclass-path"
 class-spells:

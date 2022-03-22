@@ -1,0 +1,30 @@
+class-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the class to get.
+  schema:
+    type: string
+    enum:
+      - barbarian
+      - bard
+      - cleric
+      - druid
+      - fighter
+      - monk
+      - paladin
+      - ranger
+      - rogue
+      - sorcerer
+      - warlock
+      - wizard
+resource:
+  name: resource
+  in: path
+  required: true
+  schema:
+    type: string
+    enum:
+      - spells
+      - things
