@@ -10,3 +10,5 @@ alignment-index:
   $ref: "./path/alignments.yml"
 language-index:
   $ref: "./path/languages.yml"
+proficiency-index:
+  $ref: "./path/proficiencies.yml"

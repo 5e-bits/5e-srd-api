@@ -1,9 +1,13 @@
 get:
   summary: "Get a proficiency by index."
+  description: |
+    # Proficiency 
+
+    By virtue of your race, your character can speak, read, and write certain Proficiencies.
   tags:
     - Character Data
   parameters:
-    - $ref: "../parameters/path/indexParam.yml"
+    - $ref: "../parameters/combined.yml#/proficiency-index"
   responses:
     "200":
       description: "OK"
@@ -11,3 +15,26 @@ get:
         application/json:
           schema:
             $ref: "../schemas/combined.yml#/Proficiency"
+          example:
+            index: medium-armor
+            name: Medium Armor
+            url: "/api/proficiencies/medium-armor"
+            type: Armor
+            classes:
+              - index: barbarian
+                name: Barbarian
+                url: "/api/classes/barbarian"
+              - index: cleric
+                name: Cleric
+                url: "/api/classes/cleric"
+              - index: druid
+                name: Druid
+                url: "/api/classes/druid"
+              - index: ranger
+                name: Ranger
+                url: "/api/classes/ranger"
+            races: []
+            reference:
+              index: medium-armor
+              name: Medium Armor
+              url: "/api/equipment-categories/medium-armor"

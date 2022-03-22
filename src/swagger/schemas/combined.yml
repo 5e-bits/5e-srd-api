@@ -45,7 +45,7 @@ MagicSchool:
 Skill:
   $ref: "./skill.yml"
 Proficiency:
-  $ref: "./proficiency.yml"
+  $ref: "./proficiencies.yml"
 Language:
   $ref: "./language.yml"
 Background:
