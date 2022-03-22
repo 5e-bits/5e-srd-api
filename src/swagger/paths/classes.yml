@@ -285,73 +285,141 @@ class-multi-classing-path:
       - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "Multiclassing resource for the class."
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/Multiclassing"
-# /api/classes/{indexParam}/levels
+            example:
+              prerequisites:
+                - ability_score:
+                    index: str
+                    name: STR
+                    url: "/api/ability-scores/str"
+                  minimum_score: 13
+              proficiencies:
+                - index: shields
+                  name: Shields
+                  url: "/api/proficiencies/shields"
+                - index: simple-weapons
+                  name: Simple Weapons
+                  url: "/api/proficiencies/simple-weapons"
+                - index: martial-weapons
+                  name: Martial Weapons
+                  url: "/api/proficiencies/martial-weapons"
+              proficiency_choices: []
+
+# /api/classes/{index}/levels
 class-levels-path:
   get:
     summary: "Get all level resources for a class."
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "List of level resource for the class."
+        description: OK
         content:
           application/json:
             schema:
               type: array
               items:
                 $ref: "../schemas/combined.yml#/ClassLevel"
-# /api/classes/{indexParam}/levels/{class_level}
+# /api/classes/{index}/levels/{class_level}
 class-level-path:
   get:
-    summary: "Get level resources for a class and level."
+    summary: "Get level resource for a class and level."
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
-      - $ref: "../parameters/combined.yml#/classLevelParam"
+      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: "../parameters/combined.yml#/class-level"
     responses:
       "200":
-        description: "Level resource for the class and level."
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/ClassLevel"
-# /api/classes/{indexParam}/levels/{class_level}/features:
+            example:
+              level: 1
+              ability_score_bonuses: 0
+              prof_bonus: 2
+              features:
+                - index: rage
+                  name: Rage
+                  url: "/api/features/rage"
+                - index: barbarian-unarmored-defense
+                  name: Unarmored Defense
+                  url: "/api/features/barbarian-unarmored-defense"
+              class_specific:
+                creating_spell_slots: []
+                rage_count: 2
+                rage_damage_bonus: 2
+                brutal_critical_dice: 0
+              index: barbarian-1
+              class:
+                index: barbarian
+                name: Barbarian
+                url: "/api/classes/barbarian"
+              url: "/api/classes/barbarian/levels/1"
+# /api/classes/{index}/levels/{class_level}/features:
 class-level-features-path:
   get:
     summary: "Get features available to a class at the requested level."
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
-      - $ref: "../parameters/combined.yml#/classLevelParam"
+      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: "../parameters/combined.yml#/class-level"
     responses:
       "200":
-        description: "List of features for the class and level."
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/APIReferenceList"
-# /api/classes/{indexParam}/levels/{spell_level}/spells
+            example:
+              count: 2
+              results:
+                - index: barbarian-unarmored-defense
+                  name: Unarmored Defense
+                  url: "/api/features/barbarian-unarmored-defense"
+                - index: rage
+                  name: Rage
+                  url: "/api/features/rage"
+# /api/classes/{index}/levels/{spell_level}/spells
 class-spell-level-spells-path:
   get:
-    summary: "Get spells of the requested spell level available to the class."
+    summary: "Get spells of the requested level available to the class."
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
-      - $ref: "../parameters/combined.yml#/spellLevelParam"
+      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: "../parameters/combined.yml#/spell-level"
     responses:
       "200":
-        description: "List of spells for the class and level."
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/APIReferenceList"
+            example:
+              count: 5
+              results:
+                - index: dominate-monster
+                  name: Dominate Monster
+                  url: "/api/spells/dominate-monster"
+                - index: earthquake
+                  name: Earthquake
+                  url: "/api/spells/earthquake"
+                - index: incendiary-cloud
+                  name: Incendiary Cloud
+                  url: "/api/spells/incendiary-cloud"
+                - index: power-word-stun
+                  name: Power Word Stun
+                  url: "/api/spells/power-word-stun"
+                - index: sunburst
+                  name: Sunburst
+                  url: "/api/spells/sunburst"

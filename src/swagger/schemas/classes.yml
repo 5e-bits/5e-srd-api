@@ -45,7 +45,6 @@ Class:
           items:
             $ref: "./combined.yml#/APIReference"
 ClassLevel:
-  description: "level"
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object

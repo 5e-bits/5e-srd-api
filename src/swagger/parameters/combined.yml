@@ -22,3 +22,7 @@ background-index:
   $ref: "./path/backgrounds.yml"
 weapon-property-index:
   $ref: "./path/weapon-properties.yml"
+class-level:
+  $ref: "./path/classes.yml#/class-level"
+spell-level:
+  $ref: "./path/classes.yml#/spell-level"

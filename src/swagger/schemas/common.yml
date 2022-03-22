@@ -54,7 +54,8 @@ Prerequisite:
   type: object
   properties:
     ability_score:
-      $ref: "./combined.yml#/APIReference"
+      allOf:
+        - $ref: "./combined.yml#/APIReference"
     minimum_score:
       type: number
 ResourceDescription:

@@ -6,6 +6,7 @@ properties:
     items:
       $ref: "./combined.yml#/Prerequisite"
   prerequisite_options:
+    description: Choice of prerequisites to meet for.
     type: array
     items:
       $ref: "./combined.yml#/Choice"
@@ -15,7 +16,7 @@ properties:
     items:
       $ref: "./combined.yml#/APIReference"
   proficiency_choices:
-    description: "A list of choices of proficiencies that are given when multiclassing."
+    description: A list of choices of proficiencies that are given when multiclassing.
     type: array
     items:
       $ref: "./combined.yml#/Choice"
