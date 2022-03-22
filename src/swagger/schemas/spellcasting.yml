@@ -1,5 +1,5 @@
-description: "Spellcasting information for a class."
 type: object
+description: Contains information such as spells known, spellcasting ability, and cantrips known.
 properties:
   level:
     description: "The level at which the class can start using its Spellcasting abilities."
@@ -11,8 +11,14 @@ properties:
       type: object
       properties:
         name:
+          description: Feature name.
           type: string
         desc:
+          description: Feature description.
           type: array
           items:
             type: string
+  spellcasting_ability:
+    description: Reference to the attribute used for spellcasting by the class.
+    allOf:
+      - $ref: "./combined.yml#/APIReference"
