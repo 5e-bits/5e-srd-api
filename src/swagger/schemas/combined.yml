@@ -10,7 +10,7 @@ ResourceDescription:
   $ref: "./common.yml#/ResourceDescription"
 AbilityScore:
   $ref: "./ability-scores.yml#/ability-score-model"
-Alignments:
+Alignment:
   $ref: "./alignments.yml"
 Class:
   $ref: "./classes.yml#/Class"

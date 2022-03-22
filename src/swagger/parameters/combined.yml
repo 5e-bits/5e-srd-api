@@ -6,3 +6,5 @@ spellLevelParam:
   $ref: "./path/spellLevelParam.yml"
 ability-score-index:
   $ref: "./path/ability-scores.yml"
+alignment-index:
+  $ref: "./path/alignments.yml"

@@ -3,11 +3,17 @@ get:
   tags:
     - Character Data
   parameters:
-    - $ref: "../parameters/path/indexParam.yml"
+    - $ref: "../parameters/combined.yml#/alignment-index"
   responses:
     "200":
       description: "OK"
       content:
         application/json:
           schema:
-            $ref: "../schemas/combined.yml#/Alignments"
+            $ref: "../schemas/combined.yml#/Alignment"
+          example:
+            index: chaotic-neutral
+            name: Chaotic Neutral
+            url: "/api/alignments/chaotic-neutral"
+            desc: Chaotic neutral (CN) creatures follow their whims, holding their personal freedom above all else. Many barbarians and rogues, and some bards, are chaotic neutral.
+            abbreviation: CN
