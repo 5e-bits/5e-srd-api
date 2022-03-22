@@ -37,11 +37,11 @@ Armor:
 MagicItem:
   $ref: "./equipment.yml#/MagicItem"
 DamageType:
-  $ref: "./gamemechanics.yml#/DamageType"
+  $ref: "./game-mechanics.yml#/DamageType"
 Condition:
-  $ref: "./gamemechanics.yml#/Condition"
+  $ref: "./game-mechanics.yml#/Condition"
 MagicSchool:
-  $ref: "./gamemechanics.yml#/MagicSchool"
+  $ref: "./game-mechanics.yml#/MagicSchool"
 Skill:
   $ref: "./skills.yml"
 Proficiency:

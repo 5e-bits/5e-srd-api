@@ -30,3 +30,5 @@ condition-index:
   $ref: "./path/conditions.yml"
 damage-type-index:
   $ref: "./path/damage-types.yml"
+magic-school-index:
+  $ref: "./path/magic-schools.yml"
