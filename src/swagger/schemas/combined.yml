@@ -43,7 +43,7 @@ Condition:
 MagicSchool:
   $ref: "./gamemechanics.yml#/MagicSchool"
 Skill:
-  $ref: "./skill.yml"
+  $ref: "./skills.yml"
 Proficiency:
   $ref: "./proficiencies.yml"
 Language:

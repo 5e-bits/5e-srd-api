@@ -12,3 +12,5 @@ language-index:
   $ref: "./path/languages.yml"
 proficiency-index:
   $ref: "./path/proficiencies.yml"
+skill-index:
+  $ref: "./path/skills.yml"
