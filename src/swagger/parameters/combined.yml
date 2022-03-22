@@ -26,3 +26,7 @@ class-level:
   $ref: "./path/classes.yml#/class-level"
 spell-level:
   $ref: "./path/classes.yml#/spell-level"
+condition-index:
+  $ref: "./path/conditions.yml"
+damage-type-index:
+  $ref: "./path/damage-types.yml"
