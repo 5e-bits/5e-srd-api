@@ -1,5 +1,5 @@
 get:
-  description: "Get all endpoint urls."
+  summary: Get all endpoint urls.
   tags:
     - Base
   responses:
