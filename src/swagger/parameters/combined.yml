@@ -18,3 +18,5 @@ class-index:
   $ref: "./path/classes.yml#/class-index"
 class-resource:
   $ref: "./path/classes.yml#/resource"
+background-index:
+  $ref: "./path/backgrounds.yml"

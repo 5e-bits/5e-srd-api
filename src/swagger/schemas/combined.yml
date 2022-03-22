@@ -49,7 +49,7 @@ Proficiency:
 Language:
   $ref: "./language.yml"
 Background:
-  $ref: "./background.yml"
+  $ref: "./backgrounds.yml"
 Feat:
   $ref: "./feat.yml"
 Subclass:

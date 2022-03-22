@@ -28,7 +28,7 @@ allOf:
         type: array
         items:
           $ref: "./combined.yml#/APIReference"
-      starting_proficiency_oprions:
+      starting_proficiency_options:
         description: "Starting proficiency options for all new characters of this race."
         $ref: "./combined.yml#/Choice"
       languages:
