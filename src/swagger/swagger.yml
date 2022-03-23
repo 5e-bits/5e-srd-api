@@ -70,8 +70,8 @@ paths:
     $ref: "./paths/combined.yml#/magic-items"
   /api/magic-schools/{index}:
     $ref: "./paths/combined.yml#/magic-schools"
-  # /api/monsters/{index}:
-  #   $ref: "./paths/combined.yml#/monsters"
+  /api/monsters/{index}:
+    $ref: "./paths/combined.yml#/monsters"
   /api/proficiencies/{index}:
     $ref: "./paths/combined.yml#/proficiencies"
   /api/races/{index}:

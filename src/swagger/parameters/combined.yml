@@ -48,3 +48,5 @@ subrace-index:
   $ref: "./path/subraces.yml"
 trait-index:
   $ref: "./path/traits.yml"
+monster-index:
+  $ref: "./path/monsters.yml"

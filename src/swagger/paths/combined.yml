@@ -10,8 +10,6 @@ backgrounds:
   $ref: "./backgrounds.yml"
 classes:
   $ref: "./classes.yml#/class-path"
-class-lists:
-  $ref: "./classes.yml#/class-resource-list"
 class-subclass:
   $ref: "./classes.yml#/class-subclass-path"
 class-spells:
@@ -50,8 +48,8 @@ magic-items:
   $ref: "./magic-items.yml"
 magic-schools:
   $ref: "./magic-schools.yml"
-# # monsters:
-# #   $ref: "./monsters.yml"
+monsters:
+  $ref: "./monsters.yml"
 proficiencies:
   $ref: "./proficiencies.yml"
 races:
