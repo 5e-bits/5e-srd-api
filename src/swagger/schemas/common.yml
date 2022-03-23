@@ -1,4 +1,5 @@
 APIReference:
+  description: Reference to an API resource.
   type: object
   properties:
     index:
@@ -21,6 +22,7 @@ APIReferenceList:
       items:
         $ref: "#/APIReference"
 Choice:
+  description: An option to select items from a list.
   type: object
   properties:
     choose:

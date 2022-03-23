@@ -46,3 +46,5 @@ subclass-index:
   $ref: "./path/subclasses.yml"
 subrace-index:
   $ref: "./path/subraces.yml"
+trait-index:
+  $ref: "./path/traits.yml"

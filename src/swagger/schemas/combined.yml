@@ -69,7 +69,7 @@ Spell:
 Subrace:
   $ref: "./subrace.yml"
 Trait:
-  $ref: "./trait.yml"
+  $ref: "./traits.yml#/trait"
 WeaponProperty:
   $ref: "./weapon.yml#/WeaponProperty"
 Rule:
