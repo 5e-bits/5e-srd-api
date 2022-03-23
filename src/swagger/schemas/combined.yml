@@ -51,7 +51,7 @@ Language:
 Background:
   $ref: "./backgrounds.yml"
 Feat:
-  $ref: "./feat.yml"
+  $ref: "./feats.yml"
 Subclass:
   $ref: "./subclass.yml#/Subclass"
 SubclassLevel:
@@ -59,7 +59,7 @@ SubclassLevel:
 ClassLevel:
   $ref: "./classes.yml#/ClassLevel"
 Feature:
-  $ref: "./feature.yml"
+  $ref: "./features.yml"
 Race:
   $ref: "./race.yml"
 AbilityBonus:

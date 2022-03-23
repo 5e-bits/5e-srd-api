@@ -21,12 +21,14 @@ allOf:
         $ref: "./combined.yml#/Choice"
       feature:
         description: A special feature granted to new characters of this background.
-        name:
-          type: string
-        desc:
-          type: array
-          items:
-            - type: string
+        type: object
+        properties:
+          name:
+            type: string
+          desc:
+            type: array
+            items:
+              type: string
       personality_traits:
         $ref: "./combined.yml#/Choice"
       ideals:

@@ -34,3 +34,5 @@ magic-school-index:
   $ref: "./path/magic-schools.yml"
 equipment-index:
   $ref: "./path/equipment.yml"
+feature-index:
+  $ref: "./path/features.yml"

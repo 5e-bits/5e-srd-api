@@ -1,4 +1,3 @@
-description: "Feats are boons a character can receive at level up instead of an ability score increase."
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - $ref: "./combined.yml#/ResourceDescription"
