@@ -32,3 +32,5 @@ damage-type-index:
   $ref: "./path/damage-types.yml"
 magic-school-index:
   $ref: "./path/magic-schools.yml"
+equipment-index:
+  $ref: "./path/equipment.yml"
