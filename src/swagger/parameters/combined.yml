@@ -1,9 +1,3 @@
-indexParam:
-  $ref: "./path/indexParam.yml"
-classLevelParam:
-  $ref: "./path/classLevelParam.yml"
-spellLevelParam:
-  $ref: "./path/spellLevelParam.yml"
 ability-score-index:
   $ref: "./path/ability-scores.yml"
 alignment-index:
@@ -16,8 +10,6 @@ skill-index:
   $ref: "./path/skills.yml"
 class-index:
   $ref: "./path/classes.yml#/class-index"
-class-resource:
-  $ref: "./path/classes.yml#/resource"
 background-index:
   $ref: "./path/backgrounds.yml"
 weapon-property-index:
@@ -50,3 +42,5 @@ trait-index:
   $ref: "./path/traits.yml"
 monster-index:
   $ref: "./path/monsters.yml"
+spell-index:
+  $ref: "./path/spells.yml"

@@ -21,3 +21,4 @@ schema:
     - restrained
     - stunned
     - unconscious
+  example: blinded

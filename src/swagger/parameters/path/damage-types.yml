@@ -19,3 +19,4 @@ schema:
     - radiant
     - slashing
     - thunder
+  example: acid

@@ -12,3 +12,4 @@ schema:
     - equipment
     - spellcasting
     - using-ability-scores
+  example: adventuring

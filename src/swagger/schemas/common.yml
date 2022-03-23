@@ -1,5 +1,5 @@
 APIReference:
-  description: Reference to an API resource.
+  description: APIReference
   type: object
   properties:
     index:

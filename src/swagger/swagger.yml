@@ -5,7 +5,9 @@ info:
     Just a simple api for things within the Official 5th Edition SRD and easily 
     accessible through a modern RESTful API.
 
-    **Note**: these docs are still a work in progress, legacy documentation can
+    # Notes
+
+    These docs are still a work in progress, legacy documentation can
     be found on the [old documentation page](https://www.dnd5eapi.co/docs/).
   version: "0.1"
   license:

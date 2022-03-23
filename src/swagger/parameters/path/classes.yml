@@ -19,15 +19,7 @@ class-index:
       - sorcerer
       - warlock
       - wizard
-resource:
-  name: resource
-  in: path
-  required: true
-  schema:
-    type: string
-    enum:
-      - spells
-      - things
+    example: barbarian
 class-level:
   name: class_level
   in: path
@@ -36,6 +28,7 @@ class-level:
     type: number
     minimum: 0
     maximum: 20
+    example: 3
 spell-level:
   name: spell_level
   in: path
@@ -44,3 +37,4 @@ spell-level:
     type: number
     minimum: 1
     maximum: 9
+    example: 4

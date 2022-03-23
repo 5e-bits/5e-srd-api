@@ -6,3 +6,4 @@ description: |
 schema:
   type: string
   enum: [acolyte]
+  example: acolyte

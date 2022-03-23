@@ -1,7 +1,0 @@
-name: class_level
-in: path
-required: true
-schema:
-  type: string
-  minimum: 0
-  maximum: 20

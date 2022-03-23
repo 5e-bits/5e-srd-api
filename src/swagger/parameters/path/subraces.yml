@@ -10,3 +10,4 @@ schema:
     - hill-dwarf
     - lightfoot-halfling
     - rock-gnome
+  example: hill-dwarf
