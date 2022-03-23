@@ -15,9 +15,14 @@ The `/swagger` directory contains a work in progress OpenAPI 3.0 definition for 
 - Query parameters have not been defined. 
 - Examples have not been defined. 
 - Links have not been defined.
-- The `/classes` and `/monsters` endpoints haven't been fully fleshed out as their response types are the most complex. 
 - The naming convention used in the `/schemas` directory doesn't match the convention used elsewhere.
     - A result of reading two different tutorials, planning to fix this.
+- Remaining endpoints that still need a first pass:
+    - `/races/*`
+    - `/spells/{index}`
+    - `/subclasses/*`
+    - `/subraces/*`
+    - `/traits/{index}`
 
 ## Demo
 

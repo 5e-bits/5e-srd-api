@@ -5,7 +5,6 @@ Equipment:
     - $ref: "#/Gear"
     - $ref: "#/EquipmentPack"
 EquipmentCategory:
-  description: "A category that various equipment fall under."
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object
