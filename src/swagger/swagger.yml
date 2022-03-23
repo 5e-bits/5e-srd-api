@@ -1,7 +1,12 @@
 openapi: 3.0.1
 info:
   title: D&D 5e API
-  description: Just a simple api for things within the Official 5th Edition SRD and easily accessible through a modern RESTful API.
+  description: |
+    Just a simple api for things within the Official 5th Edition SRD and easily 
+    accessible through a modern RESTful API.
+
+    **Note**: these docs are still a work in progress, legacy documentation can
+    be found on the [old documentation page](https://www.dnd5eapi.co/docs/).
   version: "0.1"
   license:
     name: MIT License
@@ -10,7 +15,10 @@ info:
     name: 5eBits
     url: https://github.com/5e-bits
 servers:
+  - url: https://www.dnd5eapi.co
+    description: Production
   - url: http://localhost:3000
+    description: Local Development
 paths:
   /api:
     $ref: "./paths/combined.yml#/base"
