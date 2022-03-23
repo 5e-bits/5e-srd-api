@@ -7,11 +7,13 @@
   "private": true,
   "scripts": {
     "build:ts": "tsc",
-    "build": "npm-run-all clean build:ts copy-assets",
+    "build": "npm-run-all clean bundle-swagger build:ts copy-assets",
     "clean": "rimraf dist/*",
     "copy-assets": "ts-node tools/copyAssets",
     "start": "npm run build && node dist/src/start.js",
     "lint": "eslint . --ext .js",
+    "validate-swagger": "swagger-cli validate src/swagger/swagger.yml",
+    "bundle-swagger": "npm run validate-swagger && swagger-cli bundle --outfile src/swagger/dist/openapi.yml --type yaml src/swagger/swagger.yml && swagger-cli bundle --outfile src/swagger/dist/openapi.json --type json src/swagger/swagger.yml",
     "test": "npm run test:unit && npm run test:integration:local",
     "test:unit": "jest -c jest.config.unit.ts",
     "test:integration": "jest -c jest.config.integration.ts --runInBand --detectOpenHandles --forceExit",
@@ -37,7 +39,8 @@
     "morgan": "^1.10.0",
     "node-fetch": "^3.1.1",
     "redis": "^4.0.4",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "swagger-cli": "^4.0.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
