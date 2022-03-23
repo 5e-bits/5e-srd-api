@@ -1127,10 +1127,11 @@ paths:
   '/api/races/{index}':
     get:
       summary: Get a race by index.
+      description: Each race grants your character ability and skill bonuses as well as racial traits.
       tags:
         - Races
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/race-index'
       responses:
         '200':
           description: OK
@@ -1138,13 +1139,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Race'
+              example:
+                index: elf
+                name: Elf
+                url: /api/races/elf
+                ability_bonuses:
+                  - ability_score:
+                      index: dex
+                      name: DEX
+                      url: /api/ability-scores/dex
+                    bonus: 2
+                age: 'Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old.'
+                alignment: 'Elves love freedom, variety, and self-expression, so they lean strongly toward the gentler aspects of chaos. They value and protect others'' freedom as well as their own, and they are more often good than not. The drow are an exception; their exile has made them vicious and dangerous. Drow are more often evil than not.'
+                language_desc: 'You can speak, read, and write Common and Elvish. Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.'
+                languages:
+                  - index: common
+                    name: Common
+                    url: /api/languages/common
+                  - index: elvish
+                    name: Elvish
+                    url: /api/languages/elvish
+                size: Medium
+                size_description: Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.
+                speed: 30
+                starting_proficiencies:
+                  - index: skill-perception
+                    name: 'Skill: Perception'
+                    url: /api/proficiencies/skill-perception
+                subraces:
+                  - index: high-elf
+                    name: High Elf
+                    url: /api/subraces/high-elf
+                traits:
+                  - index: darkvision
+                    name: Darkvision
+                    url: /api/traits/darkvision
+                  - index: fey-ancestry
+                    name: Fey Ancestry
+                    url: /api/traits/fey-ancestry
+                  - index: trance
+                    name: Trance
+                    url: /api/traits/trance
   '/api/races/{index}/subraces':
     get:
       summary: Get subraces available for a race.
       tags:
         - Races
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/race-index'
       responses:
         '200':
           description: List of subraces for the race.
@@ -1154,14 +1196,14 @@ paths:
                 $ref: '#/components/schemas/APIReferenceList'
   '/api/races/{index}/proficiencies':
     get:
-      summary: Get proficiences available for a race.
+      summary: Get proficiencies available for a race.
       tags:
         - Races
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/race-index'
       responses:
         '200':
-          description: List of proficiences for the race.
+          description: List of proficiencies for the race.
           content:
             application/json:
               schema:
@@ -1172,7 +1214,7 @@ paths:
       tags:
         - Races
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/race-index'
       responses:
         '200':
           description: List of traits for the race.
@@ -1322,10 +1364,11 @@ paths:
   '/api/subclasses/{index}':
     get:
       summary: Get a subclass by index.
+      description: Subclasses reflect the different paths a class may take as levels are gained.
       tags:
         - Subclasses
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subclass-index'
       responses:
         '200':
           description: OK
@@ -1333,13 +1376,116 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Subclass'
+              example:
+                index: fiend
+                name: Fiend
+                url: /api/subclasses/fiend
+                class:
+                  index: warlock
+                  name: Warlock
+                  url: /api/classes/warlock
+                desc:
+                  - 'You have made a pact with a fiend from the lower planes of existence, a being whose aims are evil, even if you strive against those aims. Such beings desire the corruption or destruction of all things, ultimately including you. Fiends powerful enough to forge a pact include demon lords such as Demogorgon, Orcus, Fraz''Urb-luu, and Baphomet; archdevils such as Asmodeus, Dispater, Mephistopheles, and Belial; pit fiends and balors that are especially mighty; and ultroloths and other lords of the yugoloths.'
+                spells:
+                  - prerequisites:
+                      - index: warlock-1
+                        name: Warlock 1
+                        type: level
+                        url: /api/classes/warlock/levels/1
+                    spell:
+                      index: burning-hands
+                      name: Burning Hands
+                      url: /api/spells/burning-hands
+                  - prerequisites:
+                      - index: warlock-1
+                        name: Warlock 1
+                        type: level
+                        url: /api/classes/warlock/levels/1
+                    spell:
+                      index: command
+                      name: Command
+                      url: /api/spells/command
+                  - prerequisites:
+                      - index: warlock-3
+                        name: Warlock 3
+                        type: level
+                        url: /api/classes/warlock/levels/3
+                    spell:
+                      index: blindness-deafness
+                      name: Blindness/Deafness
+                      url: /api/spells/blindness-deafness
+                  - prerequisites:
+                      - index: warlock-3
+                        name: Warlock 3
+                        type: level
+                        url: /api/classes/warlock/levels/3
+                    spell:
+                      index: scorching-ray
+                      name: Scorching Ray
+                      url: /api/spells/scorching-ray
+                  - prerequisites:
+                      - index: warlock-5
+                        name: Warlock 5
+                        type: level
+                        url: /api/classes/warlock/levels/5
+                    spell:
+                      index: fireball
+                      name: Fireball
+                      url: /api/spells/fireball
+                  - prerequisites:
+                      - index: warlock-5
+                        name: Warlock 5
+                        type: level
+                        url: /api/classes/warlock/levels/5
+                    spell:
+                      index: stinking-cloud
+                      name: Stinking Cloud
+                      url: /api/spells/stinking-cloud
+                  - prerequisites:
+                      - index: warlock-7
+                        name: Warlock 7
+                        type: level
+                        url: /api/classes/warlock/levels/7
+                    spell:
+                      index: fire-shield
+                      name: Fire Shield
+                      url: /api/spells/fire-shield
+                  - prerequisites:
+                      - index: warlock-7
+                        name: Warlock 7
+                        type: level
+                        url: /api/classes/warlock/levels/7
+                    spell:
+                      index: wall-of-fire
+                      name: Wall of Fire
+                      url: /api/spells/wall-of-fire
+                  - prerequisites:
+                      - index: warlock-9
+                        name: Warlock 9
+                        type: level
+                        url: /api/classes/warlock/levels/9
+                    spell:
+                      index: flame-strike
+                      name: Flame Strike
+                      url: /api/spells/flame-strike
+                  - prerequisites:
+                      - index: warlock-9
+                        name: Warlock 9
+                        type: level
+                        url: /api/classes/warlock/levels/9
+                    spell:
+                      index: hallow
+                      name: Hallow
+                      url: /api/spells/hallow
+                subclass_flavor: Otherworldly Patron
+                subclass_levels: /api/subclasses/fiend/levels
   '/api/subclasses/{index}/features':
     get:
       summary: Get features available for a subclass.
       tags:
         - Subclasses
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subclass-index'
       responses:
         '200':
           description: List of features for the subclass.
@@ -1353,7 +1499,7 @@ paths:
       tags:
         - Subclasses
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subclass-index'
       responses:
         '200':
           description: List of level resource for the subclass.
@@ -1369,7 +1515,7 @@ paths:
       tags:
         - Subclasses
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subclass-index'
         - name: subclass_level
           in: path
           required: true
@@ -1379,25 +1525,41 @@ paths:
             maximum: 20
       responses:
         '200':
-          description: LLevel resource for the class and level.
+          description: Level resource for the subclass and level.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubclassLevel'
+              example:
+                index: devotion-3
+                url: /api/subclasses/devotion/levels/3
+                class:
+                  index: paladin
+                  name: Paladin
+                  url: /api/classes/paladin
+                features:
+                  - index: channel-divinity
+                    name: Channel Divinity
+                    url: /api/features/channel-divinity
+                level: 3
+                subclass:
+                  index: devotion
+                  name: Devotion
+                  url: /api/subclasses/devotion
   '/api/subclasses/{index}/levels/{subclass_level}/features':
     get:
       summary: Get features of the requested spell level available to the class.
       tags:
         - Subclasses
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subclass-index'
         - name: subclass_level
           in: path
           required: true
           schema:
             type: number
             minimum: 0
-            maximum: 9
+            maximum: 20
       responses:
         '200':
           description: List of features for the subclass and level.
@@ -1408,10 +1570,11 @@ paths:
   '/api/subraces/{index}':
     get:
       summary: Get a subrace by index.
+      description: Subraces reflect the different varieties of a certain parent race.
       tags:
         - Subraces
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subrace-index'
       responses:
         '200':
           description: OK
@@ -1419,13 +1582,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Subrace'
+              example:
+                index: hill-dwarf
+                name: Hill Dwarf
+                url: /api/subraces/hill-dwarf
+                ability_bonuses:
+                  - ability_score:
+                      index: wis
+                      name: WIS
+                      url: /api/ability-scores/wis
+                    bonus: 1
+                desc: 'As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.'
+                languages: []
+                race:
+                  index: dwarf
+                  name: Dwarf
+                  url: /api/races/dwarf
+                racial_traits:
+                  - index: dwarven-toughness
+                    name: Dwarven Toughness
+                    url: /api/traits/dwarven-toughness
+                starting_proficiencies: []
   '/api/subraces/{index}/proficiencies':
     get:
       summary: Get proficiences available for a subrace.
       tags:
         - Subraces
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subrace-index'
       responses:
         '200':
           description: List of proficiences for the subrace.
@@ -1439,7 +1623,7 @@ paths:
       tags:
         - Subraces
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/subrace-index'
       responses:
         '200':
           description: List of traits for the subrace.
@@ -1817,6 +2001,58 @@ components:
           - underwater-combat
           - using-each-ability
           - what-is-a-spell
+    race-index:
+      name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the race to get.
+      schema:
+        type: string
+        enum:
+          - dragonborn
+          - dwarf
+          - elf
+          - gnome
+          - half-elf
+          - half-orc
+          - halfling
+          - human
+          - tiefling
+    subclass-index:
+      name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the subclass to get.
+      schema:
+        type: string
+        enum:
+          - berserker
+          - champion
+          - devotion
+          - draconic
+          - evocation
+          - fiend
+          - hunter
+          - land
+          - life
+          - lore
+          - open-hand
+          - thief
+    subrace-index:
+      name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the subrace to get.
+      schema:
+        type: string
+        enum:
+          - high-elf
+          - hill-dwarf
+          - lightfoot-halfling
+          - rock-gnome
   schemas:
     APIReference:
       type: object
@@ -2248,55 +2484,75 @@ components:
           properties:
             class:
               $ref: '#/components/schemas/APIReference'
-    SubclassLevel:
-      description: subclass level
-      allOf:
-        - $ref: '#/components/schemas/APIReference'
-        - type: object
-          properties:
-            level:
-              description: The number value for the current level object.
-              type: number
-            ability_score_bonuses:
-              description: 'Total number of ability score bonuses gained, added from previous levels.'
-              type: number
-            prof_bonus:
-              description: Proficiency bonus for this class at the specified level.
-              type: number
-            features:
-              description: Features automatically gained at this level.
+            subclass_flavor:
+              description: The lore-friendly flavor text for a classes respective subclass.
+              type: string
+            subclass_levels:
+              description: A resource url that shows the subclass level progression.
+              type: string
+            spells:
               type: array
               items:
-                $ref: '#/components/schemas/APIReference'
-            spellcasting:
-              description: Summary of spells known at this level.
-              type: object
-              properties:
-                cantrips_known:
-                  type: number
-                spells_known:
-                  type: number
-                spell_slots_level_1:
-                  type: number
-                spell_slots_level_2:
-                  type: number
-                spell_slots_level_3:
-                  type: number
-                spell_slots_level_4:
-                  type: number
-                spell_slots_level_5:
-                  type: number
-                spell_slots_level_6:
-                  type: number
-                spell_slots_level_7:
-                  type: number
-                spell_slots_level_8:
-                  type: number
-                spell_slots_level_9:
-                  type: number
-            classspecific:
-              description: Class specific information such as dice values for bard songs and number of warlock invocations.
-              additionalProperties: {}
+                type: object
+                properties:
+                  prerequisites:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SpellPrereq'
+                  spell:
+                    $ref: '#/components/schemas/APIReference'
+    SubclassLevel:
+      type: object
+      properties:
+        index:
+          description: The resource index for shorthand searching.
+          type: string
+        url:
+          description: The URL of the referenced resource.
+          type: string
+        level:
+          description: The number value for the current level object.
+          type: number
+        ability_score_bonuses:
+          description: 'Total number of ability score bonuses gained, added from previous levels.'
+          type: number
+        prof_bonus:
+          description: Proficiency bonus for this class at the specified level.
+          type: number
+        features:
+          description: Features automatically gained at this level.
+          type: array
+          items:
+            $ref: '#/components/schemas/APIReference'
+        spellcasting:
+          description: Summary of spells known at this level.
+          type: object
+          properties:
+            cantrips_known:
+              type: number
+            spells_known:
+              type: number
+            spell_slots_level_1:
+              type: number
+            spell_slots_level_2:
+              type: number
+            spell_slots_level_3:
+              type: number
+            spell_slots_level_4:
+              type: number
+            spell_slots_level_5:
+              type: number
+            spell_slots_level_6:
+              type: number
+            spell_slots_level_7:
+              type: number
+            spell_slots_level_8:
+              type: number
+            spell_slots_level_9:
+              type: number
+        classspecific:
+          description: Class specific information such as dice values for bard songs and number of warlock invocations.
+          additionalProperties: {}
     ClassLevel:
       allOf:
         - $ref: '#/components/schemas/APIReference'
@@ -2362,7 +2618,6 @@ components:
               description: Information specific to this feature.
               additionalProperties: true
     Race:
-      description: race
       allOf:
         - $ref: '#/components/schemas/APIReference'
         - type: object
@@ -2682,6 +2937,14 @@ components:
               type: number
             xp:
               type: number
+    SpellPrereq:
+      allOf:
+        - $ref: '#/components/schemas/APIReference'
+        - type: object
+          properties:
+            type:
+              description: The type of prerequisite.
+              type: string
 externalDocs:
   description: Legacy api documentation.
   url: 'https://www.dnd5eapi.co/docs/'
