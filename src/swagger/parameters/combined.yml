@@ -36,3 +36,7 @@ equipment-index:
   $ref: "./path/equipment.yml"
 feature-index:
   $ref: "./path/features.yml"
+rule-index:
+  $ref: "./path/rules.yml"
+rule-section-index:
+  $ref: "./path/rule-sections.yml"
