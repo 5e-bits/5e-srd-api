@@ -44,3 +44,5 @@ race-index:
   $ref: "./path/races.yml"
 subclass-index:
   $ref: "./path/subclasses.yml"
+subrace-index:
+  $ref: "./path/subraces.yml"

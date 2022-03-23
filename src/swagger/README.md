@@ -18,9 +18,6 @@ The `/swagger` directory contains a work in progress OpenAPI 3.0 definition for 
 - The naming convention used in the `/schemas` directory doesn't match the convention used elsewhere.
     - A result of reading two different tutorials, planning to fix this.
 - Remaining endpoints that still need a first pass:
-    - `/spells/{index}`
-    - `/subclasses/*`
-    - `/subraces/*`
     - `/traits/{index}`
     - `/monsters/*`
 
