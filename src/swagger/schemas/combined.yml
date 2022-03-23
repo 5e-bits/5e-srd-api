@@ -78,3 +78,5 @@ RuleSection:
   $ref: "./rules.yml#/RuleSection"
 Monster:
   $ref: "./monster.yml#/Monster"
+SpellPrereq:
+  $ref: "./subclass.yml#/SpellPrereq"

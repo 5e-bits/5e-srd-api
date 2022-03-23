@@ -1,3 +1,12 @@
+SpellPrereq:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - type: object
+      properties:
+        type:
+          description: The type of prerequisite.
+          type: string
+
 Subclass:
   description: "A path a class may take as levels are gained."
   allOf:
@@ -7,6 +16,23 @@ Subclass:
       properties:
         class:
           $ref: "./combined.yml#/APIReference"
+        subclass_flavor:
+          description: The lore-friendly flavor text for a classes respective subclass.
+          type: string
+        subclass_levels:
+          description: A resource url that shows the subclass level progression.
+          type: string
+        spells:
+          type: array
+          items:
+            type: object
+            properties:
+              prerequisites:
+                type: array
+                items:
+                  $ref: "./combined.yml#/SpellPrereq"
+              spell:
+                $ref: "./combined.yml#/APIReference"
 SubclassLevel:
   description: "subclass level"
   allOf:

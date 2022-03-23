@@ -1,18 +1,128 @@
 # /api/subclass/{index}
 subclass-path:
   get:
-    summary: "Get a subclass by index."
+    summary: Get a subclass by index.
+    description: Subclasses reflect the different paths a class may take as levels are gained.
     tags:
       - Subclasses
     parameters:
-      - $ref: "../parameters/combined.yml#/indexParam"
+      - $ref: "../parameters/combined.yml#/subclass-index"
     responses:
       "200":
-        description: "OK"
+        description: OK
         content:
           application/json:
             schema:
               $ref: "../schemas/combined.yml#/Subclass"
+            example:
+              index: fiend
+              name: Fiend
+              url: "/api/subclasses/fiend"
+              class:
+                index: warlock
+                name: Warlock
+                url: "/api/classes/warlock"
+              desc:
+                - You have made a pact with a fiend from the lower planes of existence, a being whose
+                  aims are evil, even if you strive against those aims. Such beings desire the corruption
+                  or destruction of all things, ultimately including you. Fiends powerful enough to
+                  forge a pact include demon lords such as Demogorgon, Orcus, Fraz'Urb-luu, and Baphomet;
+                  archdevils such as Asmodeus, Dispater, Mephistopheles, and Belial; pit fiends and
+                  balors that are especially mighty; and ultroloths and other lords of the yugoloths.
+              spells:
+                - prerequisites:
+                    - index: warlock-1
+                      name: Warlock 1
+                      type: level
+                      url: "/api/classes/warlock/levels/1"
+                  spell:
+                    index: burning-hands
+                    name: Burning Hands
+                    url: "/api/spells/burning-hands"
+                - prerequisites:
+                    - index: warlock-1
+                      name: Warlock 1
+                      type: level
+                      url: "/api/classes/warlock/levels/1"
+                  spell:
+                    index: command
+                    name: Command
+                    url: "/api/spells/command"
+                - prerequisites:
+                    - index: warlock-3
+                      name: Warlock 3
+                      type: level
+                      url: "/api/classes/warlock/levels/3"
+                  spell:
+                    index: blindness-deafness
+                    name: Blindness/Deafness
+                    url: "/api/spells/blindness-deafness"
+                - prerequisites:
+                    - index: warlock-3
+                      name: Warlock 3
+                      type: level
+                      url: "/api/classes/warlock/levels/3"
+                  spell:
+                    index: scorching-ray
+                    name: Scorching Ray
+                    url: "/api/spells/scorching-ray"
+                - prerequisites:
+                    - index: warlock-5
+                      name: Warlock 5
+                      type: level
+                      url: "/api/classes/warlock/levels/5"
+                  spell:
+                    index: fireball
+                    name: Fireball
+                    url: "/api/spells/fireball"
+                - prerequisites:
+                    - index: warlock-5
+                      name: Warlock 5
+                      type: level
+                      url: "/api/classes/warlock/levels/5"
+                  spell:
+                    index: stinking-cloud
+                    name: Stinking Cloud
+                    url: "/api/spells/stinking-cloud"
+                - prerequisites:
+                    - index: warlock-7
+                      name: Warlock 7
+                      type: level
+                      url: "/api/classes/warlock/levels/7"
+                  spell:
+                    index: fire-shield
+                    name: Fire Shield
+                    url: "/api/spells/fire-shield"
+                - prerequisites:
+                    - index: warlock-7
+                      name: Warlock 7
+                      type: level
+                      url: "/api/classes/warlock/levels/7"
+                  spell:
+                    index: wall-of-fire
+                    name: Wall of Fire
+                    url: "/api/spells/wall-of-fire"
+                - prerequisites:
+                    - index: warlock-9
+                      name: Warlock 9
+                      type: level
+                      url: "/api/classes/warlock/levels/9"
+                  spell:
+                    index: flame-strike
+                    name: Flame Strike
+                    url: "/api/spells/flame-strike"
+                - prerequisites:
+                    - index: warlock-9
+                      name: Warlock 9
+                      type: level
+                      url: "/api/classes/warlock/levels/9"
+                  spell:
+                    index: hallow
+                    name: Hallow
+                    url: "/api/spells/hallow"
+              subclass_flavor: Otherworldly Patron
+              subclass_levels: "/api/subclasses/fiend/levels"
+
 # /api/subclasses/{indexParam}/features:
 subclass-features-path:
   get:
