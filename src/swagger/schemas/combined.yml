@@ -61,7 +61,7 @@ ClassLevel:
 Feature:
   $ref: "./features.yml"
 Race:
-  $ref: "./race.yml"
+  $ref: "./races.yml"
 AbilityBonus:
   $ref: "./ability-scores.yml#/AbilityBonus"
 Spell:

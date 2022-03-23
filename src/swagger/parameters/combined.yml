@@ -40,3 +40,5 @@ rule-index:
   $ref: "./path/rules.yml"
 rule-section-index:
   $ref: "./path/rule-sections.yml"
+race-index:
+  $ref: "./path/races.yml"
