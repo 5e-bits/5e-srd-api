@@ -890,10 +890,22 @@ paths:
   '/api/feats/{index}':
     get:
       summary: Get a feat by index.
+      description: |
+        # Feat 
+
+        A feat is a boon a character can receive at level up instead of an ability score increase.
       tags:
         - Feats
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - name: index
+          in: path
+          required: true
+          description: |
+            The `index` of the feat to get.
+          schema:
+            type: string
+            enum:
+              - grappler
       responses:
         '200':
           description: OK
@@ -901,13 +913,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Feat'
+              example:
+                index: grappler
+                name: Grappler
+                url: /api/feats/grappler
+                desc:
+                  - 'You’ve developed the Skills necessary to hold your own in close--quarters Grappling. You gain the following benefits:'
+                  - '- You have advantage on Attack Rolls against a creature you are Grappling.'
+                  - '- You can use your action to try to pin a creature Grappled by you. To do so, make another grapple check. If you succeed, you and the creature are both Restrained until the grapple ends.'
+                prerequisites:
+                  - ability_score:
+                      index: str
+                      name: STR
+                      url: /api/ability-scores/str
+                    minimum_score: 13
   '/api/features/{index}':
     get:
       summary: Get a feature by index.
+      description: |
+        # Feature 
+
+        When you gain a new level in a class, you get its features for that level. 
+        You don’t, however, receive the class’s starting Equipment, and a few 
+        features have additional rules when you’re multiclassing: Channel Divinity, 
+        Extra Attack, Unarmored Defense, and Spellcasting.
       tags:
         - Features
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/feature-index'
       responses:
         '200':
           description: OK
@@ -915,6 +948,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Feature'
+              example:
+                index: action-surge-1-use
+                name: Action Surge (1 use)
+                url: /api/features/action-surge-1-use
+                class:
+                  index: fighter
+                  name: Fighter
+                  url: /api/classes/fighter
+                desc:
+                  - 'Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action on top of your regular action and a possible bonus action.'
+                  - 'Once you use this feature, you must finish a short or long rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn.'
+                level: 2
+                prerequisites: []
   '/api/languages/{index}':
     get:
       summary: Get a language by index.
@@ -1083,10 +1129,11 @@ paths:
   '/api/rule-sections/{index}':
     get:
       summary: Get a rule section by index.
+      description: Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.
       tags:
         - Rules
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/rule-section-index'
       responses:
         '200':
           description: OK
@@ -1094,13 +1141,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RuleSection'
+              example:
+                index: time
+                name: Time
+                url: /api/rule-sections/time
+                desc: |
+                  ## Time
+
+                  In situations where keeping track of the passage of time is important, the GM determines the time a task requires. The GM might use a different time scale depending on the context of the situation at hand. In a dungeon environment, the adventurers' movement happens on a scale of **minutes**. It takes them about a minute to creep down a long hallway, another minute to check for traps on the door at the end of the hall, and a good ten minutes to search the chamber beyond for anything interesting or valuable.
+
+                  In a city or wilderness, a scale of **hours** is often more appropriate. Adventurers eager to reach the lonely tower at the heart of the forest hurry across those fifteen miles in just under four hours' time.
+
+                  For long journeys, a scale of **days** works best.
+
+                  Following the road from Baldur's Gate to Waterdeep, the adventurers spend four uneventful days before a goblin ambush interrupts their journey.
+
+                  In combat and other fast-paced situations, the game relies on **rounds**, a 6-second span of time.
   '/api/rules/{index}':
     get:
-      summary: Get a rule index.
+      summary: Get a rule by index.
+      description: |
+        # Rule 
+
+        Rules are pages in the SRD that document the mechanics of Dungeons and Dragons. 
+        Rules have descriptions which is the text directly underneath the rule heading 
+        in the SRD. Rules also have subsections for each heading underneath the rule in the SRD.
       tags:
         - Rules
       parameters:
-        - $ref: '#/components/parameters/indexParam'
+        - $ref: '#/components/parameters/rule-index'
       responses:
         '200':
           description: OK
@@ -1108,6 +1177,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Rule'
+              example:
+                index: using-ability-scores
+                name: Using Ability Scores
+                url: /api/rules/using-ability-scores
+                desc: |
+                  # Using Ability Scores
+
+                  Six abilities provide a quick description of every creature's physical and mental characteristics:
+                  - **Strength**, measuring physical power
+                  - **Dexterity**, measuring agility
+                  - **Constitution**, measuring endurance
+                  - **Intelligence**, measuring reasoning and memory
+                  - **Wisdom**, measuring perception and insight
+                  - **Charisma**, measuring force of personality
+
+                  Is a character muscle-bound and insightful? Brilliant and charming? Nimble and hardy? Ability scores define these qualities-a creature's assets as well as weaknesses.
+
+                  The three main rolls of the game-the ability check, the saving throw, and the attack roll-rely on the six ability scores. The book's introduction describes the basic rule behind these rolls: roll a d20, add an ability modifier derived from one of the six ability scores, and compare the total to a target number.
+
+                  **Ability Scores and Modifiers** Each of a creature's abilities has a score, a number that defines the magnitude of that ability. An ability score is not just a measure of innate capabilities, but also encompasses a creature's training and competence in activities related to that ability.
+
+                  A score of 10 or 11 is the normal human average, but adventurers and many monsters are a cut above average in most abilities. A score of 18 is the highest that a person usually reaches. Adventurers can have scores as high as 20, and monsters and divine beings can have scores as high as 30.
+
+                  Each ability also has a modifier, derived from the score and ranging from -5 (for an ability score of 1) to +10 (for a score of 30). The Ability Scores and Modifiers table notes the ability modifiers for the range of possible ability scores, from 1 to 30.
+                subsections:
+                  - index: ability-scores-and-modifiers
+                    name: Ability Scores and Modifiers
+                    url: /api/rule-sections/ability-scores-and-modifiers
+                  - index: advantage-and-disadvantage
+                    name: Advantage and Disadvantage
+                    url: /api/rule-sections/advantage-and-disadvantage
+                  - index: proficiency-bonus
+                    name: Proficiency Bonus
+                    url: /api/rule-sections/proficiency-bonus
+                  - index: ability-checks
+                    name: Ability Checks
+                    url: /api/rule-sections/ability-checks
+                  - index: using-each-ability
+                    name: Using Each Ability
+                    url: /api/rule-sections/using-each-ability
+                  - index: saving-throws
+                    name: Saving Throws
+                    url: /api/rule-sections/saving-throws
   '/api/skills/{index}':
     get:
       summary: Get a skill by index.
@@ -1586,6 +1698,71 @@ components:
       schema:
         type: string
       example: club
+    feature-index:
+      name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the feature to get.
+
+        Available values can be found in the resource list for this endpoint.
+      schema:
+        type: string
+      example: action-surge-1-use
+    rule-index:
+      name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the rule to get.
+      schema:
+        type: string
+        enum:
+          - adventuring
+          - appendix
+          - combat
+          - equipment
+          - spellcasting
+          - using-ability-scores
+    rule-section-index:
+      name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the rule section to get.
+      schema:
+        type: string
+        enum:
+          - ability-checks
+          - ability-scores-and-modifiers
+          - actions-in-combat
+          - advantage-and-disadvantage
+          - between-adventures
+          - casting-a-spell
+          - cover
+          - damage-and-healing
+          - diseases
+          - fantasy-historical-pantheons
+          - madness
+          - making-an-attack
+          - mounted-combat
+          - movement
+          - movement-and-position
+          - objects
+          - poisons
+          - proficiency-bonus
+          - resting
+          - saving-throws
+          - sentient-magic-items
+          - standard-exchange-rates
+          - the-environment
+          - the-order-of-combat
+          - the-planes-of-existence
+          - time
+          - traps
+          - underwater-combat
+          - using-each-ability
+          - what-is-a-spell
   schemas:
     APIReference:
       type: object
@@ -1982,12 +2159,14 @@ components:
               $ref: '#/components/schemas/Choice'
             feature:
               description: A special feature granted to new characters of this background.
-              name:
-                type: string
-              desc:
-                type: array
-                items:
-                  - type: string
+              type: object
+              properties:
+                name:
+                  type: string
+                desc:
+                  type: array
+                  items:
+                    type: string
             personality_traits:
               $ref: '#/components/schemas/Choice'
             ideals:
@@ -1997,7 +2176,6 @@ components:
             flaws:
               $ref: '#/components/schemas/Choice'
     Feat:
-      description: Feats are boons a character can receive at level up instead of an ability score increase.
       allOf:
         - $ref: '#/components/schemas/APIReference'
         - $ref: '#/components/schemas/ResourceDescription'
@@ -2115,7 +2293,6 @@ components:
               description: Class specific information such as dice values for bard songs and number of warlock invocations.
               additionalProperties: {}
     Feature:
-      description: feature
       allOf:
         - $ref: '#/components/schemas/APIReference'
         - $ref: '#/components/schemas/ResourceDescription'
@@ -2317,7 +2494,6 @@ components:
         - $ref: '#/components/schemas/APIReference'
         - $ref: '#/components/schemas/ResourceDescription'
     Rule:
-      description: Rules are pages in the SRD that document the mechanics of Dungeons and Dragons. Rules have descriptions which is the text directly underneath the rule heading in the SRD. Rules also have subsections for each heading underneath the rule in the SRD.
       allOf:
         - $ref: '#/components/schemas/APIReference'
         - $ref: '#/components/schemas/ResourceDescription'
@@ -2329,7 +2505,6 @@ components:
               items:
                 $ref: '#/components/schemas/APIReference'
     RuleSection:
-      description: Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.
       allOf:
         - $ref: '#/components/schemas/APIReference'
         - $ref: '#/components/schemas/ResourceDescription'
