@@ -51,6 +51,8 @@ Monster:
         condition_immunities:
           description: "A list of conditions that a monster is immune to."
           type: array
+          items:
+            type: string
         constitution:
           description: The constitution of a monster. How sturdy a monster is."
           type: number
