@@ -9,7 +9,13 @@
 </head>
 
 <body>
-    <rapi-doc spec-url="/swagger/openapi.json"> </rapi-doc>
+    <rapi-doc spec-url="/swagger/openapi.json" show-header="false" schema-description-expanded="true"
+        primary-color="#83a598" use-path-in-nav-bar="true" show-components="true" default-schema-tab="model"
+        info-description-headings-in-navbar="true" allow-authentication="false" allow-spec-file-download="true">
+        <!-- provide slot attribute to place an element at desired location -->
+        <img slot="nav-logo" src="/public/favicon.ico"
+            style="display:block; margin-left: auto; margin-right: auto; width: 50%; margin-bottom: 20px;" />
+    </rapi-doc>
 </body>
 
 </html>

@@ -6,3 +6,4 @@ description: |
 schema:
   type: string
   enum: [cha, con, dex, int, str, wis]
+  example: cha
