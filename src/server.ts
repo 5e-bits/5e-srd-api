@@ -6,6 +6,7 @@ import bugsnagMiddleware from './middleware/bugsnag';
 import { createApolloMiddleware } from './middleware/apolloServer';
 import indexController from './controllers/indexController';
 import docsController from './controllers/docsController';
+import expDocsController from './controllers/expDocsController';
 import apiRoutes from './routes/api';
 
 const limiter = rateLimit({
@@ -23,6 +24,7 @@ export default async () => {
     app.use(bugsnagMiddleware.requestHandler);
   }
 
+  app.use('/swagger', express.static(__dirname + '/swagger'))
   app.use('/js', express.static(__dirname + '/js'));
   app.use('/css', express.static(__dirname + '/css'));
   app.use('/public', express.static(__dirname + '/public'));
@@ -40,9 +42,10 @@ export default async () => {
   // Register routes
   app.get('/', indexController);
   app.get('/docs', docsController);
+  app.get('/expdocs', expDocsController);
   app.use('/api', apiRoutes);
 
-  app.use(function(req: express.Request, res: express.Response) {
+  app.use(function (req: express.Request, res: express.Response) {
     res.status(404);
 
     // TODO: Add a fun 404 page
