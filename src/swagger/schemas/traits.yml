@@ -56,7 +56,8 @@ trait-damage:
             type:
               type: string
 trait:
-  description: Trait
+  description: |
+    `Trait`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"

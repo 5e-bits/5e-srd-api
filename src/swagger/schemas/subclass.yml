@@ -36,7 +36,26 @@ subclass-model:
                   $ref: "./combined.yml#/SpellPrerequisite"
               spell:
                 $ref: "./combined.yml#/APIReference"
-SubclassLevel:
+subclass-level-resource-model:
+  type: object
+  properties:
+    index:
+      type: string
+    url:
+      type: string
+    level:
+      type: number
+    features:
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+    class:
+      $ref: "./combined.yml#/APIReference"
+    subclass:
+      $ref: "./combined.yml#/APIReference"
+subclass-level-model:
+  description: |
+    `SubclassLevel`
   type: object
   properties:
     index:
@@ -55,7 +74,7 @@ SubclassLevel:
       description: "Proficiency bonus for this class at the specified level."
       type: number
     features:
-      description: "Features automatically gained at this level."
+      description: List of features gained at this level.
       type: array
       items:
         $ref: "./combined.yml#/APIReference"

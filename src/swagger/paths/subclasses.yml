@@ -153,7 +153,7 @@ subclass-levels-path:
             schema:
               type: array
               items:
-                $ref: "../schemas/combined.yml#/SubclassLevel"
+                $ref: "../schemas/combined.yml#/SubclassLevelResource"
 # /api/subclasses/{index}/levels/{subclass_level}:
 subclass-level-path:
   get:

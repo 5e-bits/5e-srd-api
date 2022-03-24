@@ -1,5 +1,6 @@
 weapon-model:
-  description: Weapon
+  description: |
+    `Weapon`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"

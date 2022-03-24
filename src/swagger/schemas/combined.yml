@@ -55,7 +55,9 @@ Feat:
 Subclass:
   $ref: "./subclass.yml#/subclass-model"
 SubclassLevel:
-  $ref: "./subclass.yml#/SubclassLevel"
+  $ref: "./subclass.yml#/subclass-level-model"
+SubclassLevelResource:
+  $ref: "./subclass.yml#/subclass-level-resource-model"
 ClassLevel:
   $ref: "./classes.yml#/ClassLevel"
 Feature:

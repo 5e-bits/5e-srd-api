@@ -1,4 +1,5 @@
-description: Proficiency
+description: |
+  `Proficiency`
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - type: object
