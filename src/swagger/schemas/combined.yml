@@ -59,7 +59,7 @@ SubclassLevel:
 SubclassLevelResource:
   $ref: "./subclass.yml#/subclass-level-resource-model"
 ClassLevel:
-  $ref: "./classes.yml#/ClassLevel"
+  $ref: "./classes.yml#/class-level-model"
 Feature:
   $ref: "./features.yml"
 Race:

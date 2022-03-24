@@ -42,51 +42,57 @@ class-model:
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
-ClassLevel:
-  allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - type: object
+class-level-model:
+  description: |
+    `ClassLevel`
+  type: object
+  properties:
+    index:
+      description: "Resource index for shorthand searching."
+      type: string
+    url:
+      description: "URL of the referenced resource."
+      type: string
+    level:
+      description: "The number value for the current level object."
+      type: number
+    ability_score_bonuses:
+      description: "Total number of ability score bonuses gained, added from previous levels."
+      type: number
+    prof_bonus:
+      description: "Proficiency bonus for this class at the specified level."
+      type: number
+    features:
+      description: "Features automatically gained at this level."
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+    spellcasting:
+      description: "Summary of spells known at this level."
+      type: object
       properties:
-        level:
-          description: "The number value for the current level object."
+        cantrips_known:
           type: number
-        ability_score_bonuses:
-          description: "Total number of ability score bonuses gained, added from previous levels."
+        spells_known:
           type: number
-        prof_bonus:
-          description: "Proficiency bonus for this class at the specified level."
+        spell_slots_level_1:
           type: number
-        features:
-          description: "Features automatically gained at this level."
-          type: array
-          items:
-            $ref: "./combined.yml#/APIReference"
-        spellcasting:
-          description: "Summary of spells known at this level."
-          type: object
-          properties:
-            cantrips_known:
-              type: number
-            spells_known:
-              type: number
-            spell_slots_level_1:
-              type: number
-            spell_slots_level_2:
-              type: number
-            spell_slots_level_3:
-              type: number
-            spell_slots_level_4:
-              type: number
-            spell_slots_level_5:
-              type: number
-            spell_slots_level_6:
-              type: number
-            spell_slots_level_7:
-              type: number
-            spell_slots_level_8:
-              type: number
-            spell_slots_level_9:
-              type: number
-        classspecific:
-          description: "Class specific information such as dice values for bard songs and number of warlock invocations."
-          additionalProperties: {}
+        spell_slots_level_2:
+          type: number
+        spell_slots_level_3:
+          type: number
+        spell_slots_level_4:
+          type: number
+        spell_slots_level_5:
+          type: number
+        spell_slots_level_6:
+          type: number
+        spell_slots_level_7:
+          type: number
+        spell_slots_level_8:
+          type: number
+        spell_slots_level_9:
+          type: number
+    classspecific:
+      description: "Class specific information such as dice values for bard songs and number of warlock invocations."
+      additionalProperties: {}
