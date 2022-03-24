@@ -1,0 +1,16 @@
+DamageType:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+Condition:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+MagicSchool:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - type: object
+      properties:
+        desc:
+          description: Brief description of the resource.
+          type: string

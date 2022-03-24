@@ -1,0 +1,15 @@
+Rule:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        subsections:
+          description: "Sections for each subheading underneath the rule in the SRD."
+          type: array
+          items:
+            $ref: "./combined.yml#/APIReference"
+RuleSection:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"

@@ -1,0 +1,46 @@
+get:
+  summary: Get an equipment category by index.
+  description: These are the categories that various equipment fall under.
+  tags:
+    - Equipment
+  parameters:
+    - name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the equipment category score to get.
+
+        Available values can be found in the resource list for this endpoint.
+      schema:
+        type: string
+      example: "waterborne-vehicles"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/EquipmentCategory"
+          example:
+            index: waterborne-vehicles
+            name: Waterborne Vehicles
+            url: "/api/equipment-categories/waterborne-vehicles"
+            equipment:
+              - index: galley
+                name: Galley
+                url: "/api/equipment/galley"
+              - index: keelboat
+                name: Keelboat
+                url: "/api/equipment/keelboat"
+              - index: longship
+                name: Longship
+                url: "/api/equipment/longship"
+              - index: rowboat
+                name: Rowboat
+                url: "/api/equipment/rowboat"
+              - index: sailing-ship
+                name: Sailing ship
+                url: "/api/equipment/sailing-ship"
+              - index: warship
+                name: Warship
+                url: "/api/equipment/warship"

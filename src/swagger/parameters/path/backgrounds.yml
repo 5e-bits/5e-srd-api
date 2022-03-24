@@ -1,0 +1,9 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the background to get.
+schema:
+  type: string
+  enum: [acolyte]
+  example: acolyte

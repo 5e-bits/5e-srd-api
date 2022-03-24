@@ -1,0 +1,25 @@
+get:
+  summary: "Get a damage type by index."
+  description: |
+    # Damage type
+
+    Different attacks, damaging spells, and other harmful effects deal different 
+    types of damage. Damage types have no rules of their own, but other rules, 
+    such as damage resistance, rely on the types.
+  tags:
+    - Game Mechanics
+  parameters:
+    - $ref: "../parameters/combined.yml#/damage-type-index"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/DamageType"
+          example:
+            index: acid
+            name: Acid
+            url: "/api/damage-types/acid"
+            desc:
+              - "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage."

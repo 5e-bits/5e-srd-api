@@ -1,0 +1,43 @@
+get:
+  summary: Get an ability score by index.
+  description: |
+    # Ability Score
+
+    Each of a creature’s abilities has a score, a number that defines the 
+    magnitude of that ability. An ability score is not just a measure of innate 
+    capabilities, but also encompasses a creature’s training and competence in 
+    activities related to that ability.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: "../parameters/combined.yml#/ability-score-index"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/AbilityScore"
+          example:
+            index: "cha"
+            name: "CHA"
+            url: "/api/ability-scores/cha"
+            desc:
+              [
+                "Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.",
+                "A Charisma check might arise when you try to influence or entertain others, when you try to make an impression or tell a convincing lie, or when you are navigating a tricky social situation. The Deception, Intimidation, Performance, and Persuasion skills reflect aptitude in certain kinds of Charisma checks.",
+              ]
+            full_name: "Charisma"
+            skills:
+              - index: "deception"
+                name: "Deception"
+                url: "/api/skills/deception"
+              - index: "intimidation"
+                name: "Intimidation"
+                url: "/api/skills/intimidation"
+              - index: "performance"
+                name: "Performance"
+                url: "/api/skills/performance"
+              - index: "persuasion"
+                name: "Persuasion"
+                url: "/api/skills/persuasion"

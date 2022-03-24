@@ -1,0 +1,25 @@
+get:
+  summary: Get a magic school by index.
+  description: |
+    # Magic School
+
+    Academies of magic group spells into eight categories called schools of 
+    magic. Scholars, particularly wizards, apply these categories to all spells, 
+    believing that all magic functions in essentially the same way, whether it 
+    derives from rigorous study or is bestowed by a deity.
+  tags:
+    - Game Mechanics
+  parameters:
+    - $ref: "../parameters/combined.yml#/magic-school-index"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/MagicSchool"
+          example:
+            index: conjuration
+            name: Conjuration
+            url: "/api/magic-schools/conjuration"
+            desc: "Conjuration spells involve the transportation of objects and creatures from one location to another. Some spells summon creatures or objects to the caster's side, whereas others allow the caster to teleport to another location. Some conjurations create objects or effects out of nothing."

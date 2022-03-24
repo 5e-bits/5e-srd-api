@@ -1,0 +1,87 @@
+SpellPrereq:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - type: object
+      properties:
+        type:
+          description: The type of prerequisite.
+          type: string
+
+Subclass:
+  description: "A path a class may take as levels are gained."
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        class:
+          $ref: "./combined.yml#/APIReference"
+        subclass_flavor:
+          description: The lore-friendly flavor text for a classes respective subclass.
+          type: string
+        subclass_levels:
+          description: A resource url that shows the subclass level progression.
+          type: string
+        spells:
+          type: array
+          items:
+            type: object
+            properties:
+              prerequisites:
+                type: array
+                items:
+                  $ref: "./combined.yml#/SpellPrereq"
+              spell:
+                $ref: "./combined.yml#/APIReference"
+SubclassLevel:
+  type: object
+  properties:
+    index:
+      description: "The resource index for shorthand searching."
+      type: string
+    url:
+      description: "The URL of the referenced resource."
+      type: string
+    level:
+      description: "The number value for the current level object."
+      type: number
+    ability_score_bonuses:
+      description: "Total number of ability score bonuses gained, added from previous levels."
+      type: number
+    prof_bonus:
+      description: "Proficiency bonus for this class at the specified level."
+      type: number
+    features:
+      description: "Features automatically gained at this level."
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+    spellcasting:
+      description: "Summary of spells known at this level."
+      type: object
+      properties:
+        cantrips_known:
+          type: number
+        spells_known:
+          type: number
+        spell_slots_level_1:
+          type: number
+        spell_slots_level_2:
+          type: number
+        spell_slots_level_3:
+          type: number
+        spell_slots_level_4:
+          type: number
+        spell_slots_level_5:
+          type: number
+        spell_slots_level_6:
+          type: number
+        spell_slots_level_7:
+          type: number
+        spell_slots_level_8:
+          type: number
+        spell_slots_level_9:
+          type: number
+    classspecific:
+      description: "Class specific information such as dice values for bard songs and number of warlock invocations."
+      additionalProperties: {}

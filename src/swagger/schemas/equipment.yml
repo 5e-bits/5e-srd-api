@@ -1,0 +1,55 @@
+Equipment:
+  oneOf:
+    - $ref: "./combined.yml#/Weapon"
+    - $ref: "./combined.yml#/Armor"
+    - $ref: "#/Gear"
+    - $ref: "#/EquipmentPack"
+EquipmentCategory:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - type: object
+      properties:
+        equipment:
+          description: "A list of the equipment that falls into this category."
+          type: array
+          items:
+            $ref: "./combined.yml#/APIReference"
+Gear:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        equipment_category:
+          $ref: "./combined.yml#/APIReference"
+        gear_category:
+          $ref: "./combined.yml#/APIReference"
+        cost:
+          $ref: "./combined.yml#/Cost"
+        weight:
+          description: "How much the equipment weighs."
+          type: number
+EquipmentPack:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        equipment_category:
+          $ref: "./combined.yml#/APIReference"
+        gear_category:
+          $ref: "./combined.yml#/APIReference"
+        cost:
+          $ref: "./combined.yml#/Cost"
+        contents:
+          description: "The list of adventuring gear in the pack."
+          type: array
+          items:
+            $ref: "./combined.yml#/APIReference"
+MagicItem:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - type: object
+      properties:
+        equipment_category:
+          $ref: "./combined.yml#/APIReference"

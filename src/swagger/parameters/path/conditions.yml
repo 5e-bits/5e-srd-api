@@ -1,0 +1,24 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the condition to get.
+schema:
+  type: string
+  enum:
+    - blinded
+    - charmed
+    - deafened
+    - exhaustion
+    - frightened
+    - grappled
+    - incapacitated
+    - invisible
+    - paralyzed
+    - petrified
+    - poisoned
+    - prone
+    - restrained
+    - stunned
+    - unconscious
+  example: blinded

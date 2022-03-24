@@ -1,0 +1,15 @@
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - $ref: "./combined.yml#/ResourceDescription"
+  - type: object
+    properties:
+      level:
+        description: "The level this feature is gained."
+        type: number
+      class:
+        $ref: "./combined.yml#/APIReference"
+      subclass:
+        $ref: "./combined.yml#/APIReference"
+      feature_specific:
+        description: "Information specific to this feature."
+        additionalProperties: true

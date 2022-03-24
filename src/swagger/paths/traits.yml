@@ -1,0 +1,29 @@
+get:
+  summary: "Get a trait by index."
+  tags:
+    - Traits
+  parameters:
+    - $ref: "../parameters/combined.yml#/trait-index"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/Trait"
+          example:
+            index: trance
+            name: Trance
+            url: "/api/traits/trance"
+            desc:
+              - Elves do not need to sleep. Instead, they meditate deeply, remaining semiconscious,
+                for 4 hours a day. (The Common word for such meditation is "trance.") While meditating,
+                you can dream after a fashion; such dreams are actually mental exercises that have
+                become reflexive through years of practice. After resting this way, you gain the
+                same benefit that a human does from 8 hours of sleep.
+            proficiencies: []
+            races:
+              - index: elf
+                name: Elf
+                url: "/api/races/elf"
+            subraces: []

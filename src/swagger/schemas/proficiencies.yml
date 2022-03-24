@@ -1,0 +1,19 @@
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - type: object
+    properties:
+      type:
+        description: "The general category of the proficiency."
+        type: string
+      classes:
+        description: "Classes that start with this proficiency."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      races:
+        description: "Races that start with this proficiency."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      reference:
+        $ref: "./combined.yml#/APIReference"

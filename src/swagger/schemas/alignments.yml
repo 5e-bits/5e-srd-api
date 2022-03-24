@@ -1,0 +1,8 @@
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - $ref: "./combined.yml#/ResourceDescription"
+  - type: object
+    properties:
+      abbreviation:
+        description: "The abbreviation/initials/acronym for this alignment resource."
+        type: string

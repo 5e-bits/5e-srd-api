@@ -1,0 +1,20 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the weapon property to get.
+schema:
+  type: string
+  enum:
+    - ammunition
+    - finesse
+    - heavy
+    - light
+    - loading
+    - monk
+    - reach
+    - special
+    - thrown
+    - two-handed
+    - versatile
+  example: ammunition

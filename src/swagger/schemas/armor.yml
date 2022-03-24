@@ -1,0 +1,27 @@
+Armor:
+  allOf:
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        equipment_category:
+          $ref: "./combined.yml#/APIReference"
+        armor_category:
+          description: "The category of armor this falls into."
+          type: string
+        armor_class:
+          description: "Details on how to calculate armor class."
+          type: object
+          additionalProperties:
+            type: string
+        str_minimum:
+          description: "Minimum STR required to use this armor."
+          type: number
+        stealth_disadvantage:
+          description: "Whether the armor gives disadvantage for Stealth."
+          type: boolean
+        cost:
+          $ref: "./combined.yml#/Cost"
+        weight:
+          description: "How much the equipment weighs."
+          type: number

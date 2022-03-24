@@ -1,0 +1,15 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the rule to get.
+schema:
+  type: string
+  enum:
+    - adventuring
+    - appendix
+    - combat
+    - equipment
+    - spellcasting
+    - using-ability-scores
+  example: adventuring

@@ -1,0 +1,13 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the subrace to get.
+schema:
+  type: string
+  enum:
+    - high-elf
+    - hill-dwarf
+    - lightfoot-halfling
+    - rock-gnome
+  example: hill-dwarf

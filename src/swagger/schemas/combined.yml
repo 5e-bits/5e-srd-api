@@ -1,0 +1,82 @@
+APIReference:
+  $ref: "./common.yml#/APIReference"
+APIReferenceList:
+  $ref: "./common.yml#/APIReferenceList"
+Choice:
+  $ref: "./common.yml#/Choice"
+Prerequisite:
+  $ref: "./common.yml#/Prerequisite"
+ResourceDescription:
+  $ref: "./common.yml#/ResourceDescription"
+AbilityScore:
+  $ref: "./ability-scores.yml#/ability-score-model"
+Alignment:
+  $ref: "./alignments.yml"
+Class:
+  $ref: "./classes.yml#/Class"
+Damage:
+  $ref: "./common.yml#/Damage"
+Multiclassing:
+  $ref: "./multiclassing.yml"
+Spellcasting:
+  $ref: "./spellcasting.yml"
+Gear:
+  $ref: "./equipment.yml#/Gear"
+EquipmentPack:
+  $ref: "./equipment.yml#/EquipmentPack"
+EquipmentCategory:
+  $ref: "./equipment.yml#/EquipmentCategory"
+Equipment:
+  $ref: "./equipment.yml#/Equipment"
+Cost:
+  $ref: "./common.yml#/Cost"
+Weapon:
+  $ref: "./weapon.yml#/Weapon"
+Armor:
+  $ref: "./armor.yml#/Armor"
+MagicItem:
+  $ref: "./equipment.yml#/MagicItem"
+DamageType:
+  $ref: "./game-mechanics.yml#/DamageType"
+Condition:
+  $ref: "./game-mechanics.yml#/Condition"
+MagicSchool:
+  $ref: "./game-mechanics.yml#/MagicSchool"
+Skill:
+  $ref: "./skills.yml"
+Proficiency:
+  $ref: "./proficiencies.yml"
+Language:
+  $ref: "./language.yml"
+Background:
+  $ref: "./backgrounds.yml"
+Feat:
+  $ref: "./feats.yml"
+Subclass:
+  $ref: "./subclass.yml#/Subclass"
+SubclassLevel:
+  $ref: "./subclass.yml#/SubclassLevel"
+ClassLevel:
+  $ref: "./classes.yml#/ClassLevel"
+Feature:
+  $ref: "./features.yml"
+Race:
+  $ref: "./races.yml"
+AbilityBonus:
+  $ref: "./ability-scores.yml#/AbilityBonus"
+Spell:
+  $ref: "./spell.yml"
+Subrace:
+  $ref: "./subrace.yml"
+Trait:
+  $ref: "./traits.yml#/trait"
+WeaponProperty:
+  $ref: "./weapon.yml#/WeaponProperty"
+Rule:
+  $ref: "./rules.yml#/Rule"
+RuleSection:
+  $ref: "./rules.yml#/RuleSection"
+Monster:
+  $ref: "./monsters.yml#/Monster"
+SpellPrereq:
+  $ref: "./subclass.yml#/SpellPrereq"

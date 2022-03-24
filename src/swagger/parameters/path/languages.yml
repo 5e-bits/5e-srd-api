@@ -1,0 +1,25 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the language to get.
+schema:
+  type: string
+  enum:
+    - abyssal
+    - celestial
+    - common
+    - deep-speech
+    - draconic
+    - dwarvish
+    - elvish
+    - giant
+    - gnomish
+    - goblin
+    - halfling
+    - infernal
+    - orc
+    - primordial
+    - sylvan
+    - undercommon
+  example: abyssal
