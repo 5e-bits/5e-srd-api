@@ -1,4 +1,6 @@
-SpellPrereq:
+spell-prerequisite:
+  description: |
+    `SpellPrerequisite`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object
@@ -8,7 +10,8 @@ SpellPrereq:
           type: string
 
 subclass-model:
-  description: Subclass
+  description: |
+    `Subclass`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -17,10 +20,10 @@ subclass-model:
         class:
           $ref: "./combined.yml#/APIReference"
         subclass_flavor:
-          description: The lore-friendly flavor text for a classes respective subclass.
+          description: Lore-friendly flavor text for a classes respective subclass.
           type: string
         subclass_levels:
-          description: A resource url that shows the subclass level progression.
+          description: Resource url that shows the subclass level progression.
           type: string
         spells:
           type: array
@@ -30,20 +33,20 @@ subclass-model:
               prerequisites:
                 type: array
                 items:
-                  $ref: "./combined.yml#/SpellPrereq"
+                  $ref: "./combined.yml#/SpellPrerequisite"
               spell:
                 $ref: "./combined.yml#/APIReference"
 SubclassLevel:
   type: object
   properties:
     index:
-      description: "The resource index for shorthand searching."
+      description: "Resource index for shorthand searching."
       type: string
     url:
-      description: "The URL of the referenced resource."
+      description: "URL of the referenced resource."
       type: string
     level:
-      description: "The number value for the current level object."
+      description: "Number value for the current level object."
       type: number
     ability_score_bonuses:
       description: "Total number of ability score bonuses gained, added from previous levels."

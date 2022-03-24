@@ -6,5 +6,5 @@ allOf:
   - type: object
     properties:
       abbreviation:
-        description: Abbreviation/initials/acronym for this alignment.
+        description: Abbreviation/initials/acronym for the alignment.
         type: string

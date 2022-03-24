@@ -1,22 +1,30 @@
-description: Spell
+description: |
+  `Spell`
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - $ref: "./combined.yml#/ResourceDescription"
   - type: object
     properties:
       higher_level:
-        description: "Description for casting the spell at a higher level."
+        description: "List of descriptions for casting the spell at higher levels."
         type: array
         items:
           type: string
       range:
-        description: "The range of the spell."
+        description: "Range of the spell, usually expressed in feet."
         type: string
       components:
-        description: "The required components for a spell are shorthanded to V,S, and M which stand for verbal, somatic, and material."
-        type: string
+        description: |
+          List of shorthand for required components of the spell.
+          V: verbal
+          S: somatic
+          M: material
+        type: array
+        items:
+          type: string
+          enum: [V, S, M]
       material:
-        description: "The material component for the spell to be cast."
+        description: "TMaterial component for the spell to be cast."
         type: string
       ritual:
         description: "Determines if a spell can be cast in a 10-min(in-game) ritual."
@@ -31,10 +39,10 @@ allOf:
         description: "How long it takes for the spell to activate."
         type: string
       level:
-        description: "The level of the spell."
+        description: "Level of the spell."
         type: number
       attack_type:
-        description: "The attack type of the spell."
+        description: "Attack type of the spell."
         type: string
       damage:
         type: object
@@ -45,15 +53,15 @@ allOf:
           damage_type:
             $ref: "./combined.yml#/APIReference"
       school:
-        description: "The magic school this spell belongs to."
+        description: "Magic school this spell belongs to."
         $ref: "./combined.yml#/APIReference"
       classes:
-        description: "The classes that are able to learn this spell."
+        description: "List of classes that are able to learn the spell."
         type: array
         items:
           $ref: "./combined.yml#/APIReference"
       subclasses:
-        description: "A list of subclasses that have access to this spell."
+        description: "List of subclasses that have access to the spell."
         type: array
         items:
           $ref: "./combined.yml#/APIReference"
