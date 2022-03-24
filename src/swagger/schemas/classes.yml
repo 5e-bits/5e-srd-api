@@ -1,47 +1,44 @@
 class-model:
-  description: Class
+  description: |
+    `Class`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object
       properties:
         hit_die:
-          description: "The hit die of the class. (ex: 12 == 1d12)."
+          description: "Hit die of the class. (ex: 12 == 1d12)."
           type: number
         class_levels:
-          description: "The URL of the class's level resource."
+          description: URL of the level resource for the class.
           type: string
         multi_classing:
           $ref: "./combined.yml#/Multiclassing"
         spellcasting:
           $ref: "./combined.yml#/Spellcasting"
         spells:
-          description: "The URL of the class's spell resource list."
+          description: URL of the spell resource list for the class."
           type: string
         starting_equipment:
-          description: "An object with the possible choices of equipment for new characters of this class."
-          type: object
-          properties:
-            equipment:
-              $ref: "./combined.yml#/APIReference"
-            quantity:
-              type: number
+          description: Choices of starting equipment.
+          allOf:
+            - $ref: "./combined.yml#/Choice"
         proficiency_choices:
-          description: "Starting proficiencies where the player must choose a certain number from the given list of proficiencies."
+          description: List of choices of starting proficiencies.
           type: array
           items:
             $ref: "./combined.yml#/Choice"
         proficiencies:
-          description: "Starting proficiencies all new characters of this class start with."
+          description: List of starting proficiencies for all new characters of this class.
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
         saving_throws:
-          description: "Saving throws that the class is proficient in."
+          description: Saving throws the class is proficient in.
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
         subclasses:
-          description: "All possible subclasses that this class can specialize in."
+          description: List of all possible subclasses this class can specialize in.
           type: array
           items:
             $ref: "./combined.yml#/APIReference"

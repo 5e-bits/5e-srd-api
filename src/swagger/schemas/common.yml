@@ -1,15 +1,16 @@
 api-ref-model:
-  description: APIReference
+  description: |
+    `APIReference`
   type: object
   properties:
     index:
-      description: "The resource index for shorthand searching."
+      description: "Resource index for shorthand searching."
       type: string
     name:
-      description: "The name of the referenced resource."
+      description: "Name of the referenced resource."
       type: string
     url:
-      description: "The URL of the referenced resource."
+      description: "URL of the referenced resource."
       type: string
 api-ref-list-model:
   type: object
@@ -22,32 +23,35 @@ api-ref-list-model:
       items:
         $ref: "./combined.yml#/APIReference"
 choice-model:
-  description: Choice
+  description: |
+    `Choice`
   type: object
   properties:
     choose:
-      description: "The number of items to pick from the list."
+      description: "Number of items to pick from the list."
       type: number
     type:
-      description: "The type of the resources to choose from."
+      description: "Type of the resources to choose from."
       type: string
     from:
-      description: "A list of resources to choose from."
+      description: "List of resources to choose from."
       type: array
       items:
         $ref: "./combined.yml#/APIReference"
 cost-model:
-  description: Cost
+  description: |
+    `Cost`
   type: object
   properties:
     quantity:
-      description: "The numerical amount of coins."
+      description: "Numerical amount of coins."
       type: number
     unit:
-      description: "The unit of coinage."
+      description: "Unit of coinage."
       type: string
 damage-model:
-  description: Damage
+  description: |
+    `Damage`
   type: object
   properties:
     damage_dice:
@@ -55,20 +59,21 @@ damage-model:
     damage_type:
       $ref: "./combined.yml#/APIReference"
 prerequisite-model:
-  description: Prerequisite
+  description: |
+    `Prerequisite`
   type: object
   properties:
     ability_score:
       allOf:
         - $ref: "./combined.yml#/APIReference"
     minimum_score:
+      description: Minimum score to meet the prerequisite.
       type: number
 resource-description-model:
-  description: Description
   type: object
   properties:
     desc:
-      description: "The description of resource."
+      description: "Description of the resource."
       type: array
       items:
         type: string

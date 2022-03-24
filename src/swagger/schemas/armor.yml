@@ -1,4 +1,5 @@
-description: Armor
+description: |
+  `Armor`
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - $ref: "./combined.yml#/ResourceDescription"
