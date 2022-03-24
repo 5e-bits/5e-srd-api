@@ -1,0 +1,9 @@
+{
+    "verbose": false,
+    "ignore": [
+        "*.test.*",
+        "dist/*",
+        "node_modules/*"
+    ],
+    "ext": "js,ts,ejs,json,yml"
+}

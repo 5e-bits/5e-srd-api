@@ -11,6 +11,7 @@
     "clean": "rimraf dist/*",
     "copy-assets": "ts-node tools/copyAssets",
     "start": "npm run build && node dist/src/start.js",
+    "dev": "nodemon npm run start",
     "lint": "eslint . --ext .js",
     "validate-swagger": "swagger-cli validate src/swagger/swagger.yml",
     "bundle-swagger": "npm run validate-swagger && swagger-cli bundle --outfile src/swagger/dist/openapi.yml --type yaml src/swagger/swagger.yml && swagger-cli bundle --outfile src/swagger/dist/openapi.json --type json src/swagger/swagger.yml",
