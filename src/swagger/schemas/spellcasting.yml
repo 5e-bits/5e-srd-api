@@ -1,5 +1,5 @@
 type: object
-description: Contains information such as spells known, spellcasting ability, and cantrips known.
+description: Spellcasting
 properties:
   level:
     description: "The level at which the class can start using its Spellcasting abilities."

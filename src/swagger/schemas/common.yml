@@ -1,4 +1,4 @@
-APIReference:
+api-ref-model:
   description: APIReference
   type: object
   properties:
@@ -11,7 +11,7 @@ APIReference:
     url:
       description: "The URL of the referenced resource."
       type: string
-APIReferenceList:
+api-ref-list-model:
   type: object
   properties:
     count:
@@ -20,9 +20,9 @@ APIReferenceList:
     results:
       type: array
       items:
-        $ref: "#/APIReference"
-Choice:
-  description: An option to select items from a list.
+        $ref: "./combined.yml#/APIReference"
+choice-model:
+  description: Choice
   type: object
   properties:
     choose:
@@ -35,8 +35,9 @@ Choice:
       description: "A list of resources to choose from."
       type: array
       items:
-        $ref: "#/APIReference"
-Cost:
+        $ref: "./combined.yml#/APIReference"
+cost-model:
+  description: Cost
   type: object
   properties:
     quantity:
@@ -45,14 +46,16 @@ Cost:
     unit:
       description: "The unit of coinage."
       type: string
-Damage:
+damage-model:
+  description: Damage
   type: object
   properties:
     damage_dice:
       type: string
     damage_type:
       $ref: "./combined.yml#/APIReference"
-Prerequisite:
+prerequisite-model:
+  description: Prerequisite
   type: object
   properties:
     ability_score:
@@ -60,7 +63,8 @@ Prerequisite:
         - $ref: "./combined.yml#/APIReference"
     minimum_score:
       type: number
-ResourceDescription:
+resource-description-model:
+  description: Description
   type: object
   properties:
     desc:

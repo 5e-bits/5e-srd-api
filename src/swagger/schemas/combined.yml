@@ -1,47 +1,47 @@
 APIReference:
-  $ref: "./common.yml#/APIReference"
+  $ref: "./common.yml#/api-ref-model"
 APIReferenceList:
-  $ref: "./common.yml#/APIReferenceList"
+  $ref: "./common.yml#/api-ref-list-model"
 Choice:
-  $ref: "./common.yml#/Choice"
+  $ref: "./common.yml#/choice-model"
 Prerequisite:
-  $ref: "./common.yml#/Prerequisite"
+  $ref: "./common.yml#/prerequisite-model"
 ResourceDescription:
-  $ref: "./common.yml#/ResourceDescription"
+  $ref: "./common.yml#/resource-description-model"
 AbilityScore:
   $ref: "./ability-scores.yml#/ability-score-model"
 Alignment:
   $ref: "./alignments.yml"
 Class:
-  $ref: "./classes.yml#/Class"
+  $ref: "./classes.yml#/class-model"
 Damage:
-  $ref: "./common.yml#/Damage"
+  $ref: "./common.yml#/damage-model"
 Multiclassing:
   $ref: "./multiclassing.yml"
 Spellcasting:
   $ref: "./spellcasting.yml"
 Gear:
-  $ref: "./equipment.yml#/Gear"
+  $ref: "./equipment.yml#/gear-model"
 EquipmentPack:
-  $ref: "./equipment.yml#/EquipmentPack"
+  $ref: "./equipment.yml#/equipment-pack-model"
 EquipmentCategory:
-  $ref: "./equipment.yml#/EquipmentCategory"
+  $ref: "./equipment.yml#/equipment-category-model"
 Equipment:
-  $ref: "./equipment.yml#/Equipment"
+  $ref: "./equipment.yml#/equipment-model"
 Cost:
-  $ref: "./common.yml#/Cost"
+  $ref: "./common.yml#/cost-model"
 Weapon:
-  $ref: "./weapon.yml#/Weapon"
+  $ref: "./weapon.yml#/weapon-model"
 Armor:
-  $ref: "./armor.yml#/Armor"
+  $ref: "./armor.yml"
 MagicItem:
-  $ref: "./equipment.yml#/MagicItem"
+  $ref: "./equipment.yml#/magic-item-model"
 DamageType:
-  $ref: "./game-mechanics.yml#/DamageType"
+  $ref: "./game-mechanics.yml#/damage-type-model"
 Condition:
-  $ref: "./game-mechanics.yml#/Condition"
+  $ref: "./game-mechanics.yml#/condition-model"
 MagicSchool:
-  $ref: "./game-mechanics.yml#/MagicSchool"
+  $ref: "./game-mechanics.yml#/magic-school-model"
 Skill:
   $ref: "./skills.yml"
 Proficiency:
@@ -53,7 +53,7 @@ Background:
 Feat:
   $ref: "./feats.yml"
 Subclass:
-  $ref: "./subclass.yml#/Subclass"
+  $ref: "./subclass.yml#/subclass-model"
 SubclassLevel:
   $ref: "./subclass.yml#/SubclassLevel"
 ClassLevel:
@@ -71,12 +71,12 @@ Subrace:
 Trait:
   $ref: "./traits.yml#/trait"
 WeaponProperty:
-  $ref: "./weapon.yml#/WeaponProperty"
+  $ref: "./weapon.yml#/weapon-property-model"
 Rule:
-  $ref: "./rules.yml#/Rule"
+  $ref: "./rules.yml#/rule-model"
 RuleSection:
-  $ref: "./rules.yml#/RuleSection"
+  $ref: "./rules.yml#/rule-section-model"
 Monster:
-  $ref: "./monsters.yml#/Monster"
+  $ref: "./monsters.yml#/monster-model"
 SpellPrereq:
   $ref: "./subclass.yml#/SpellPrereq"

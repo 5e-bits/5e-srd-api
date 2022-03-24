@@ -1,4 +1,5 @@
-Rule:
+rule-model:
+  description: Rule
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -9,7 +10,8 @@ Rule:
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
-RuleSection:
+rule-section-model:
+  description: RuleSection
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"

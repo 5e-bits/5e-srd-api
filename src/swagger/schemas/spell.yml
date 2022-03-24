@@ -1,4 +1,4 @@
-description: "A spell is a discrete magical effect, a single shaping of the magical energies that suffuse the multiverse into a specific, limited expression."
+description: Spell
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - $ref: "./combined.yml#/ResourceDescription"

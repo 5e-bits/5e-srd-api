@@ -1,4 +1,5 @@
-Weapon:
+weapon-model:
+  description: Weapon
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -38,7 +39,8 @@ Weapon:
         weight:
           description: "How much the equipment weighs."
           type: number
-WeaponProperty:
+weapon-property-model:
+  description: WeaponProperty
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"

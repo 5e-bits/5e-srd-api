@@ -1,4 +1,5 @@
-Class:
+class-model:
+  description: Class
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object

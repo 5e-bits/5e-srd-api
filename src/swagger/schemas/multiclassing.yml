@@ -1,4 +1,4 @@
-description: "Information on how to multiclass for a particular class."
+description: "Multiclassing"
 type: object
 properties:
   prerequisites:

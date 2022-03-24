@@ -7,8 +7,8 @@ SpellPrereq:
           description: The type of prerequisite.
           type: string
 
-Subclass:
-  description: "A path a class may take as levels are gained."
+subclass-model:
+  description: Subclass
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
