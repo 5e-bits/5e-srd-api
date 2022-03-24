@@ -6,7 +6,7 @@ import bugsnagMiddleware from './middleware/bugsnag';
 import { createApolloMiddleware } from './middleware/apolloServer';
 import indexController from './controllers/indexController';
 import docsController from './controllers/docsController';
-import expDocsController from './controllers/expDocsController';
+import openapiDocsController from './controllers/openapiDocsController';
 import apiRoutes from './routes/api';
 
 const limiter = rateLimit({
@@ -42,7 +42,7 @@ export default async () => {
   // Register routes
   app.get('/', indexController);
   app.get('/docs', docsController);
-  app.get('/expdocs', expDocsController);
+  app.get('/openapidocs', openapiDocsController);
   app.use('/api', apiRoutes);
 
   app.use(function (req: express.Request, res: express.Response) {
