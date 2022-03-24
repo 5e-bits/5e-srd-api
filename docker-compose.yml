@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    build: ../5e-database
+    image: bagelbits/5e-database:latest
     ports:
       - "27017:27017"
 
