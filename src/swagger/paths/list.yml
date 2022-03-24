@@ -5,36 +5,7 @@ get:
   tags:
     - Resource Lists
   parameters:
-    - name: endpoint
-      in: path
-      required: true
-      schema:
-        type: string
-        enum:
-          - ability-scores
-          - alignments
-          - backgrounds
-          - classes
-          - conditions
-          - damage-types
-          - equipment
-          - equipment-categories
-          - feats
-          - features
-          - languages
-          - magic-items
-          - magic-schools
-          - monsters
-          - proficiencies
-          - races
-          - rule-sections
-          - rules
-          - skills
-          - spells
-          - subclasses
-          - subraces
-          - traits
-          - weapon-properties
+    - $ref: "../parameters/combined.yml#/base-endpoint-index"
   responses:
     "200":
       description: "OK"
