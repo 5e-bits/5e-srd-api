@@ -1,47 +1,28 @@
 # OpenAPI for the DND API
 
-## Summary
+The `/swagger` directory contains an OpenAPI 3.0 definition for the DND API.
 
-The `/swagger` directory contains a work in progress OpenAPI 3.0 definition for the DND API.
+We use the [swagger-cli](https://github.com/APIDevTools/swagger-cli) to validate and bundle
+our OpenAPI definition, and [RapiDoc](https://mrin9.github.io/RapiDoc/index.html) as the documentation viewer.
 
+## Current State
+
+In it's current state our OpenAPI documentation is _almost_ an accurate representation of the actual behavior of the API. The first version of these new docs was made based on models and responses defined in the existing documentation. A number of small inconsistencies were discovered that have not been addressed.
+
+### TODO
+- [ ] validate schemas against models or actual api responses
+- [ ] validate schema and field descriptions are accurate
+- [ ] reorganize tag ordering
+- [ ] add tag descriptions
+- [ ] add section in overview with summary of SRD / OGL
+- [ ] add troubleshooting section to overview
+
+## Why OpenAPI?
 ### Goals
 
 - Improve documentation readability and usability.
 - Reduce learning curve when it comes to using the API.
 - Make keeping documentation up-to-date easier.
-
-### Current State
-
-- Query parameters have not been defined. 
-- Examples have not been defined. 
-- Links have not been defined.
-- The naming convention used in the `/schemas` directory doesn't match the convention used elsewhere.
-    - A result of reading two different tutorials, planning to fix this.
-- Remaining endpoints that still need a first pass:
-    - `/traits/{index}`
-    - `/monsters/*`
-
-## Demo
-
-A valid OpenAPI definition gives us a bunch of options when it comes to surfacing docs to end users. Here's one example of what that might look like:
-
-![example!](./assets/oapi2.gif "example")
-
-To explore the existing definition you can load one of the files in the `/swagger/comb` directory into any OpenAPI 3.0 compatible viewer. A list some of these tools can be found on the [openapi.tools](https://openapi.tools/#documentation) site.
-
-## Developing Locally
-
-There's many possible ways to make changes and view them locally, I'll describe my personal setup and workflow here.
-
-- local copy of the [database](https://github.com/5e-bits/5e-database) running in a custom built docker container on a machine on my local network
-- [`redis`](https://redis.io/) running on my laptop
-- local copy of the [api](https://github.com/5e-bits/5e-srd-api) running against my local database
-    - I start this by running `MONGODB_URI=mongodb://<LOCAL_IP>/5e-database npm start` where `LOCAL_IP` is the ip address of the machine running the database docker container
-- [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer) extension for VSCode
-    - be sure to trigger the "Preview Swagger" command from the `swagger.yml` file
-
-
-## Background
 
 ### What is the OpenAPI Specification?
 
@@ -55,7 +36,13 @@ There's many possible ways to make changes and view them locally, I'll describe 
 
 [^swagger]: https://swagger.io/docs/specification/about/
 
-## Summary
+### Demo
+
+A valid OpenAPI definition gives us a bunch of options when it comes to surfacing docs to end users.
+
+![example!](./assets/demo.gif "example")
+
+## Documenting an Endpoint
 
 We need 3 pieces to document an endpoint under the OpenAPI spec: 
 - [PathItemObject][pathobj]: Describes the operations available on a single path. Defines the shape of parameters, requests, and responses for a particular endpoint.
@@ -68,7 +55,7 @@ We need 3 pieces to document an endpoint under the OpenAPI spec:
 
 [paramobj]: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameterObject
 
-## Organization
+## File Organization
 
 >An OpenAPI document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the user.[^oas_org]
 
@@ -78,34 +65,40 @@ The root of our OpenAPI definition lives in `swagger.yml`. This file contains ge
 
 [^oas_ref]: A simple object to allow referencing other components in the specification, internally and externally. https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject
 
-For reusability and readability definitions are split into 3 directories.
+For reusability and readability, definitions are split into 3 directories.
 - `/schemas`
-    - Each `.yml` file contains definitions of one or more `SchemaObject`. Each schema more or less corresponds to one of the models in the [`src/models` directory](https://github.com/5e-bits/5e-srd-api/tree/main/src/models).
+    - Each `.yml` file contains definitions of one or more `SchemaObject`. Each schema more or less corresponds to one of the models in the [`src/models` directory](https://github.com/5e-bits/5e-srd-api/tree/main/src/models). We use these schemas to describe the structure of response bodies.
 - `/paths`
-    - Each `.yml` file contains definitions of one or more `PathItemObject`, where each of those objects defines an operation on an endpoint. Each file more or less corresponds to a controller in the [`src/controllers/api` directory](https://github.com/5e-bits/5e-srd-api/tree/main/src/controllers/api).
+    - Each `.yml` file contains definitions of one or more `PathItemObject`, where each of those objects defines an operation on an endpoint. Each file more or less corresponds to a controller in the [`src/controllers/api` directory](https://github.com/5e-bits/5e-srd-api/tree/main/src/controllers/api). These objects also include the example response shown in the endpoint documentation.
 - `/parameters`
     - Contains definitions of reusable path and query parameters.
 
-Each of those directories contains a file named `combined.yml` consisting of named references to each of the objects defined in the other `.yml` files in that directory. The `combined.yml` file provides a single source we can reference from other components.
+Each of those directories contains a file named `combined.yml` consisting of named references to each of the objects defined in sibling `.yml` files in that directory. The `combined.yml` files provides a single source we can reference from other components. By only referencing objects from the `combined.yml` files, we avoid any problems with circular references.
+## Developing Locally
 
-## Working with our OpenAPI Document
+There's many possible ways to make changes and view them locally, I'll describe my personal setup and workflow here.
 
-While the `swagger.yml` file along with the contents of all files it references constitute a valid OpenAPI definition, sometimes it's useful to have that definition in a single file. We can validate our OpenAPI definition, and generate a single combined file using the [swagger-cli](https://github.com/APIDevTools/swagger-cli) tool. 
+- local copy of the [database](https://github.com/5e-bits/5e-database) running in a custom built docker container on a machine on my local network
+- [`redis`](https://redis.io/) running on my laptop
+- local copy of the [api](https://github.com/5e-bits/5e-srd-api) running against my local database
+    - I start this by running `MONGODB_URI=mongodb://<LOCAL_IP>/5e-database npm start` where `LOCAL_IP` is the ip address of the machine running the database docker container
+- [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer) extension for VSCode
+    - be sure to trigger the "Preview Swagger" command from the `swagger.yml` file
 
-The `/comb` directory contains the results of using this tool to combine our referenced files into a single document. The `JSON` and `YAML` files in that directory are equivalent valid OpenAPI documents.
+### Useful Commands
 
-They were generated with the following commands (after installing `swagger-cli`).
-```{bash}
-❯ swagger-cli bundle --outfile comb/openapi.yml --type yaml swagger.yml
-Created openapi.yml from swagger.yml                                                      
-❯ swagger-cli bundle --outfile comb/openapi.json --type json swagger.yml                    
-Created openapi.json from swagger.yml
-```
+From the root of the project directory two `npm` commands are available related to these docs.
+
+`npm run validate-swagger`
+- checks that the OpenAPI definition in `swagger/swagger.yml` is valid
+
+`npm run bundle-swagger`
+- bundles the OpenAPI definition in `swagger/swagger.json` with all the associated referenced files, and writes the file to the `swagger/dist` directory
 
 ## Planned Future Improvements
 
 - Generate pieces of documentation based on source code e.g., generate OpenAPI `SchemaObject` from a TypeScript `type` definition.
-- Provide examples for each `Request` and `Response`.
-
+- Add code snippet examples.
+- ...anything you want!
 
 

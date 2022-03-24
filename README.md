@@ -73,6 +73,11 @@ You can run unit tests locally by using the command: `npm run test:unit`
 Integration tests need to be ran in the API docker container for them to function properly.
 In order to run integration tests locally you can use the command: `npm run test:integration:local`
 
+## Documentation
+Public facing API documentation lives here: https://www.dnd5eapi.co/docs. 
+
+Documentation details and information on how to make changes to the docs can be found in the `/swagger` directory [README](src/swagger/README.md).
+
 ## Contributing
 
 - Fork this repository
