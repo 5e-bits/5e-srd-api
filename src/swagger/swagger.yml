@@ -163,8 +163,10 @@ paths:
     $ref: "./paths/combined.yml#/magic-items"
   /api/magic-schools/{index}:
     $ref: "./paths/combined.yml#/magic-schools"
-  /api/monsters/{index}:
+  /api/monsters:
     $ref: "./paths/combined.yml#/monsters"
+  /api/monsters/{index}:
+    $ref: "./paths/combined.yml#/monster"
   /api/proficiencies/{index}:
     $ref: "./paths/combined.yml#/proficiencies"
   /api/races/{index}:
@@ -181,8 +183,10 @@ paths:
     $ref: "./paths/combined.yml#/rules"
   /api/skills/{index}:
     $ref: "./paths/combined.yml#/skills"
-  /api/spells/{index}:
+  /api/spells:
     $ref: "./paths/combined.yml#/spells"
+  /api/spells/{index}:
+    $ref: "./paths/combined.yml#/spell"
   /api/subclasses/{index}:
     $ref: "./paths/combined.yml#/subclasses"
   /api/subclasses/{index}/features:

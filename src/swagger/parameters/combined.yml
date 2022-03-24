@@ -44,3 +44,9 @@ monster-index:
   $ref: "./path/monsters.yml"
 spell-index:
   $ref: "./path/spells.yml"
+level-filter:
+  $ref: "./query/spells.yml#/level-filter"
+school-filter:
+  $ref: "./query/spells.yml#/school-filter"
+challenge-rating-filter:
+  $ref: "./query/monsters.yml#/challenge-rating-filter"

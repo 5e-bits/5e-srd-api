@@ -1,0 +1,30 @@
+level-filter:
+  name: level
+  in: query
+  required: false
+  description: The level or levels to filter on.
+  schema:
+    type: array
+    items:
+      type: integer
+  examples:
+    single-value:
+      value: 1
+    multiple-value:
+      value: 1,2
+school-filter:
+  name: school
+  in: query
+  required: false
+  description: The magic school or schools to filter on.
+  schema:
+    type: array
+    items:
+      type: string
+  examples:
+    single-value:
+      value: illusion
+    multiple-value:
+      value: evocation,illusion
+    partial-value:
+      value: illu
