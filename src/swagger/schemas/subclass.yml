@@ -1,4 +1,6 @@
-SpellPrereq:
+spell-prerequisite:
+  description: |
+    `SpellPrerequisite`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object
@@ -7,8 +9,9 @@ SpellPrereq:
           description: The type of prerequisite.
           type: string
 
-Subclass:
-  description: "A path a class may take as levels are gained."
+subclass-model:
+  description: |
+    `Subclass`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -17,10 +20,10 @@ Subclass:
         class:
           $ref: "./combined.yml#/APIReference"
         subclass_flavor:
-          description: The lore-friendly flavor text for a classes respective subclass.
+          description: Lore-friendly flavor text for a classes respective subclass.
           type: string
         subclass_levels:
-          description: A resource url that shows the subclass level progression.
+          description: Resource url that shows the subclass level progression.
           type: string
         spells:
           type: array
@@ -30,20 +33,39 @@ Subclass:
               prerequisites:
                 type: array
                 items:
-                  $ref: "./combined.yml#/SpellPrereq"
+                  $ref: "./combined.yml#/SpellPrerequisite"
               spell:
                 $ref: "./combined.yml#/APIReference"
-SubclassLevel:
+subclass-level-resource-model:
   type: object
   properties:
     index:
-      description: "The resource index for shorthand searching."
       type: string
     url:
-      description: "The URL of the referenced resource."
       type: string
     level:
-      description: "The number value for the current level object."
+      type: number
+    features:
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+    class:
+      $ref: "./combined.yml#/APIReference"
+    subclass:
+      $ref: "./combined.yml#/APIReference"
+subclass-level-model:
+  description: |
+    `SubclassLevel`
+  type: object
+  properties:
+    index:
+      description: "Resource index for shorthand searching."
+      type: string
+    url:
+      description: "URL of the referenced resource."
+      type: string
+    level:
+      description: "Number value for the current level object."
       type: number
     ability_score_bonuses:
       description: "Total number of ability score bonuses gained, added from previous levels."
@@ -52,7 +74,7 @@ SubclassLevel:
       description: "Proficiency bonus for this class at the specified level."
       type: number
     features:
-      description: "Features automatically gained at this level."
+      description: List of features gained at this level.
       type: array
       items:
         $ref: "./combined.yml#/APIReference"

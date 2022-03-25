@@ -50,3 +50,5 @@ school-filter:
   $ref: "./query/spells.yml#/school-filter"
 challenge-rating-filter:
   $ref: "./query/monsters.yml#/challenge-rating-filter"
+base-endpoint-index:
+  $ref: "./path/base.yml"

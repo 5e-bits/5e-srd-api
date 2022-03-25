@@ -1,3 +1,5 @@
+description: |
+  `Skill`
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - $ref: "./combined.yml#/ResourceDescription"

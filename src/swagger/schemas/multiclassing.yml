@@ -1,22 +1,24 @@
-description: "Information on how to multiclass for a particular class."
+description: |
+  `Multiclassing`
 type: object
 properties:
   prerequisites:
+    description: List of prerequisites that must be met.
     type: array
     items:
       $ref: "./combined.yml#/Prerequisite"
   prerequisite_options:
-    description: Choice of prerequisites to meet for.
+    description: List of choices of prerequisites to meet for.
     type: array
     items:
       $ref: "./combined.yml#/Choice"
   proficiencies:
-    description: "Proficiencies available when multiclassing."
+    description: "List of proficiencies available when multiclassing."
     type: array
     items:
       $ref: "./combined.yml#/APIReference"
   proficiency_choices:
-    description: A list of choices of proficiencies that are given when multiclassing.
+    description: List of choices of proficiencies that are given when multiclassing.
     type: array
     items:
       $ref: "./combined.yml#/Choice"

@@ -1,3 +1,5 @@
+description: |
+  `Race`
 allOf:
   - $ref: "./combined.yml#/APIReference"
   - type: object

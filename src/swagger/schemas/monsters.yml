@@ -179,8 +179,9 @@ monster-special-ability:
     usage:
       $ref: "#/monster-usage"
 
-Monster:
-  description: Description of a `Monster` object.
+monster-model:
+  description: |
+    `Monster`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"

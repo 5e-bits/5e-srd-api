@@ -1,10 +1,14 @@
-Equipment:
+equipment-model:
+  description: |
+    `Equipment`
   oneOf:
     - $ref: "./combined.yml#/Weapon"
     - $ref: "./combined.yml#/Armor"
-    - $ref: "#/Gear"
-    - $ref: "#/EquipmentPack"
-EquipmentCategory:
+    - $ref: "./combined.yml#/Gear"
+    - $ref: "./combined.yml#/EquipmentPack"
+equipment-category-model:
+  description: |
+    `EquipmentCategory`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object
@@ -14,7 +18,9 @@ EquipmentCategory:
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
-Gear:
+gear-model:
+  description: |
+    `Gear`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -29,7 +35,9 @@ Gear:
         weight:
           description: "How much the equipment weighs."
           type: number
-EquipmentPack:
+equipment-pack-model:
+  description: |
+    `EquipmentPack`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - $ref: "./combined.yml#/ResourceDescription"
@@ -46,7 +54,9 @@ EquipmentPack:
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
-MagicItem:
+magic-item-model:
+  description: |
+    `MagicItem`
   allOf:
     - $ref: "./combined.yml#/APIReference"
     - type: object

@@ -4,7 +4,7 @@ required: true
 description: |
   The `index` of the `Spell` to get.
 
-  Available values can be found in the resource list for this endpoint.
+  Available values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `spells`.
 schema:
   type: string
   example: sacred-flame
