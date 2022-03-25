@@ -1,7 +1,7 @@
 base:
-  $ref: "./base.yml"
+  $ref: "./common.yml#/api-base"
 list:
-  $ref: "./list.yml"
+  $ref: "./common.yml#/resource-list"
 ability-scores:
   $ref: "./ability-scores.yml"
 alignments:
