@@ -16,7 +16,7 @@ class-model:
         spellcasting:
           $ref: "./combined.yml#/Spellcasting"
         spells:
-          description: URL of the spell resource list for the class."
+          description: URL of the spell resource list for the class.
           type: string
         starting_equipment:
           description: Choices of starting equipment.
