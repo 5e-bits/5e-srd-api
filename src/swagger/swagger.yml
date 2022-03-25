@@ -78,25 +78,7 @@ info:
     is `https://www.dnd5eapi.co/graphql`. GraphQL functionality is not covered in 
     this documentation.
 
-    # Status Page
-
-    The status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/
-
-    # Chat 
-
-    Come hang out with us [on Discord](https://discord.gg/TQuYTv7)!
-
-    # Contribute
-
-    This API is built from two repositories.
-      - The repo containing the data lives here: https://github.com/bagelbits/5e-database
-      - The repo with the API implementation lives here: https://github.com/bagelbits/5e-srd-api 
-
-    This is a evolving API and having fresh ideas are always welcome! You can 
-    open an issue in either repo, open a PR for changes, or just discuss with 
-    other users in this discord.
-
-    # Schemas
+    ## Schemas
 
     Definitions of all schemas will be accessible in a future update. Two of the most common schemas are described here.
 
@@ -121,9 +103,27 @@ info:
     }
     ```
 
-    # Notes
+    # Status Page
 
-    Legacy documentation can be found on the [old docs page](https://www.dnd5eapi.co/docs/).
+    The status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/
+
+    # Chat 
+
+    Come hang out with us [on Discord](https://discord.gg/TQuYTv7)!
+
+    # Contribute
+
+    This API is built from two repositories.
+      - The repo containing the data lives here: https://github.com/bagelbits/5e-database
+      - The repo with the API implementation lives here: https://github.com/bagelbits/5e-srd-api 
+
+    This is a evolving API and having fresh ideas are always welcome! You can 
+    open an issue in either repo, open a PR for changes, or just discuss with 
+    other users in this discord.
+
+    # Legacy Documentation
+
+    This documentation page is new! If you're looking for the legacy docs they can be found on the [old docs page](https://www.dnd5eapi.co/legacydocs/).
   version: "0.1"
   license:
     name: MIT License
