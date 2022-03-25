@@ -93,6 +93,6 @@ class-level-model:
           type: number
         spell_slots_level_9:
           type: number
-    classspecific:
+    class_specific:
       description: "Class specific information such as dice values for bard songs and number of warlock invocations."
       additionalProperties: {}
