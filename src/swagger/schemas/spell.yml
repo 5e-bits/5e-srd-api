@@ -24,7 +24,7 @@ allOf:
           type: string
           enum: [V, S, M]
       material:
-        description: "TMaterial component for the spell to be cast."
+        description: "Material component for the spell to be cast."
         type: string
       ritual:
         description: "Determines if a spell can be cast in a 10-min(in-game) ritual."
