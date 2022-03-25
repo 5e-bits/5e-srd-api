@@ -1,8 +1,8 @@
 # 5e-srd-api
 
 ![Build Status](https://github.com/bagelbits/5e-srd-api/workflows/5e%20SRD%20API%20CI/badge.svg?branch=main)
-![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fdn-d-5e-api%2Fuptime.json)
-![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fdn-d-5e-api%2Fresponse-time.json)
+![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fapi%2Fuptime.json)
+![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fapi%2Fresponse-time.json)
 
 [![Discord](https://img.shields.io/discord/656547667601653787)](https://discord.gg/TQuYTv7)
 
