@@ -2,9 +2,11 @@ description: |
   `Alignment`
 allOf:
   - $ref: "./combined.yml#/APIReference"
-  - $ref: "./combined.yml#/ResourceDescription"
   - type: object
     properties:
+      desc:
+        description: Brief description of the resource.
+        type: string
       abbreviation:
         description: Abbreviation/initials/acronym for the alignment.
         type: string

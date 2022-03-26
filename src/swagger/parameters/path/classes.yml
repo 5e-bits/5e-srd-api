@@ -19,7 +19,7 @@ class-index:
       - sorcerer
       - warlock
       - wizard
-    example: barbarian
+    example: paladin
 class-level:
   name: class_level
   in: path

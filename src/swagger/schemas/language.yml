@@ -9,7 +9,7 @@ allOf:
         type: string
       type:
         type: string
-        enum: [standard, exotic]
+        enum: [Standard, Exotic]
       script:
         description: "Script used for writing in the language."
         type: string

@@ -3,10 +3,7 @@ get:
   description: |
     # Skill
 
-    Each ability covers a broad range of capabilities, including skills that a 
-    character or a monster can be proficient in. A skill represents a specific 
-    aspect of an ability score, and an individual’s proficiency in a skill 
-    demonstrates a focus on that aspect.
+    Each ability covers a broad range of capabilities, including skills that a character or a monster can be proficient in. A skill represents a specific aspect of an ability score, and an individual's proficiency in a skill demonstrates a focus on that aspect. [[SRD p77](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=77)]
   tags:
     - Character Data
   parameters:
@@ -30,5 +27,4 @@ get:
               - Your Dexterity (Acrobatics) check covers your attempt to stay on your feet in a
                 tricky situation, such as when you're trying to run across a sheet of ice, balance
                 on a tightrope, or stay upright on a rocking ship's deck. The GM might also call
-                for a Dexterity (Acrobatics) check to see if you can perform acrobatic stunts, including
-                dives, rolls, somersaults, and flips.
+                for a Dexterity (Acrobatics) check to see if you can perform acrobatic stunts, including dives, rolls, somersaults, and flips.

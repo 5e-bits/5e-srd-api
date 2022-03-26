@@ -40,6 +40,22 @@ choice-model:
       type: array
       items:
         $ref: "./combined.yml#/APIReference"
+string-choice-model:
+  description: |
+    `String Choice`
+  type: object
+  properties:
+    choose:
+      description: "Number of items to pick from the list."
+      type: number
+    type:
+      description: "Type of resource to choose from."
+      type: string
+    from:
+      description: "List of descriptions to choose from."
+      type: array
+      items:
+        type: string
 cost-model:
   description: |
     `Cost`
@@ -79,3 +95,10 @@ resource-description-model:
       type: array
       items:
         type: string
+error-response-model:
+  type: object
+  properties:
+    error:
+      type: string
+  required:
+    - error

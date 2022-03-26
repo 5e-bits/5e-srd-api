@@ -1,7 +1,7 @@
 equipment-model:
   description: |
     `Equipment`
-  oneOf:
+  anyOf:
     - $ref: "./combined.yml#/Weapon"
     - $ref: "./combined.yml#/Armor"
     - $ref: "./combined.yml#/Gear"
@@ -63,3 +63,31 @@ magic-item-model:
       properties:
         equipment_category:
           $ref: "./combined.yml#/APIReference"
+equipment-option-model:
+  type: object
+  properties:
+    choose:
+      type: number
+    type:
+      type: string
+    from:
+      type: array
+      items:
+        anyOf:
+          - type: object
+            properties:
+              quantity:
+                type: number
+              equipment:
+                $ref: "./combined.yml#/APIReference"
+          - type: object
+            properties:
+              choose:
+                type: number
+              type:
+                type: string
+              from:
+                type: object
+                properties:
+                  equipment_category:
+                    $ref: "./combined.yml#/APIReference"

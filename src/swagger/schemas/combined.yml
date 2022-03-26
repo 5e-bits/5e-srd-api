@@ -49,7 +49,7 @@ Proficiency:
 Language:
   $ref: "./language.yml"
 Background:
-  $ref: "./backgrounds.yml"
+  $ref: "./backgrounds.yml#/background-model"
 Feat:
   $ref: "./feats.yml"
 Subclass:
@@ -82,3 +82,11 @@ Monster:
   $ref: "./monsters.yml#/monster-model"
 SpellPrerequisite:
   $ref: "./subclass.yml#/spell-prerequisite"
+equipment-option:
+  $ref: "./equipment.yml#/equipment-option-model"
+string-choice:
+  $ref: "./common.yml#/string-choice-model"
+ideal:
+  $ref: "./backgrounds.yml#/ideal-model"
+error-response:
+  $ref: "./common.yml#/error-response-model"

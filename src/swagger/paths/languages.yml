@@ -3,8 +3,7 @@ get:
   description: |
     # Language
 
-    By virtue of your race, your character can speak, read, and write 
-    certain languages.
+    Your race indicates the languages your character can speak by default, and your background might give you access to one or more additional languages of your choice. [[SRD p59](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=59)]
   tags:
     - Character Data
   parameters:

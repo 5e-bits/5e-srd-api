@@ -3,13 +3,11 @@ get:
   description: |
     # Background
 
-    Every story has a beginning. Your character’s background reveals where you 
-    came from, how you became an adventurer, and your place in the world. Your 
-    fighter might have been a courageous knight or a grizzled soldier. Your 
-    wizard could have been a sage or an artisan. Your rogue might have gotten 
-    by as a guild thief or commanded audiences as a jester."
+    Every story has a beginning. Your character's background reveals where you came from, how you became an adventurer, and your place in the world. Choosing a background provides you with important story cues about your character's identity. [[SRD p60](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=60)]
+
+    _Note:_ acolyte is the only background included in the SRD.
   tags:
-    - Backgrounds
+    - Character Data
   parameters:
     - $ref: "../parameters/combined.yml#/background-index"
   responses:

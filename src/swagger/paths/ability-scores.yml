@@ -3,10 +3,7 @@ get:
   description: |
     # Ability Score
 
-    Each of a creature’s abilities has a score, a number that defines the 
-    magnitude of that ability. An ability score is not just a measure of innate 
-    capabilities, but also encompasses a creature’s training and competence in 
-    activities related to that ability.
+    Represents one of the six abilities that describes a creature's physical and mental characteristics. The three main rolls of the game - the ability check, the saving throw, and the attack roll - rely on the ability scores. [[SRD p76](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=76)]
   tags:
     - Character Data
   parameters:
