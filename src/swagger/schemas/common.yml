@@ -4,7 +4,7 @@ api-ref-model:
   type: object
   properties:
     index:
-      description: "Resource index for shorthand searching."
+      description: Resource index for shorthand searching.
       type: string
     name:
       description: "Name of the referenced resource."
@@ -13,6 +13,8 @@ api-ref-model:
       description: "URL of the referenced resource."
       type: string
 api-ref-list-model:
+  description: |
+    `APIReferenceList`
   type: object
   properties:
     count:

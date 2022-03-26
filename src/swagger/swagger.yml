@@ -78,6 +78,31 @@ info:
     is `https://www.dnd5eapi.co/graphql`. GraphQL functionality is not covered in 
     this documentation.
 
+    ## Schemas
+
+    Definitions of all schemas will be accessible in a future update. Two of the most common schemas are described here.
+
+    ### `APIReference`
+    Represents a minimal representation of a resource. The detailed representation of the referenced resource can be retrieved by making a request to the referenced `URL`.
+    ```
+    APIReference {
+      index     string    
+      name      string    
+      url       string   
+    }
+    ```
+    <hr>
+
+    ### `Choice`
+    Represents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states "Skills: Choose two from	History, Insight, Medicine, Persuasion, and	Religion" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))
+    ```
+    Choice {
+      choose    number            
+      type      string            
+      from      [APIReference]   
+    }
+    ```
+
     # Status Page
 
     The status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/
@@ -96,10 +121,9 @@ info:
     open an issue in either repo, open a PR for changes, or just discuss with 
     other users in this discord.
 
-    # Notes
+    # Legacy Documentation
 
-    These docs are still a work in progress, legacy documentation can
-    be found on the [old documentation page](https://www.dnd5eapi.co/docs/).
+    This documentation page is new! If you're looking for the legacy docs they can be found on the [old docs page](https://www.dnd5eapi.co/legacydocs/).
   version: "0.1"
   license:
     name: MIT License
@@ -112,6 +136,20 @@ servers:
     description: Production
   - url: http://localhost:3000
     description: Local Development
+tags:
+  - name: Common
+  - name: Character Data
+    description: |
+      ### `AbilityScore`
+      Represents one of the six abilities that describes a creature's	physical and mental characteristics. The three	main	rolls	of the game - the	ability	check, the saving	throw,	and	the	attack roll - rely on the ability scores. [[SRD p75](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=76)]
+
+      - Strength,	measuring	physical power
+      - Dexterity, measuring	agility
+      - Constitution,	measuring	endurance
+      - Intelligence,	measuring	reasoning	and	memory
+      - Wisdom,	measuring	perception and	insight
+      - Charisma,	measuring	force	of personality
+
 paths:
   /api:
     $ref: "./paths/combined.yml#/base"
