@@ -8,7 +8,7 @@ class-path:
       A character class is a fundamental part of the identity and nature of 
       characters in the Dungeons & Dragons role-playing game. A character's 
       capabilities, strengths, and weaknesses are largely defined by its class. 
-      A character's class affects a character's available skills and abilities.
+      A character's class affects a character's available skills and abilities. [[SRD p8-55](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=8)]
     tags:
       - Class
     parameters:
@@ -140,7 +140,7 @@ class-path:
 # /api/classes/{indexParam}/subclasses
 class-subclass-path:
   get:
-    summary: "Get subclasses available for a class."
+    summary: Get subclasses available for a class.
     tags:
       - Class Resource Lists
     parameters:
@@ -156,12 +156,12 @@ class-subclass-path:
               count: 1
               results:
                 - index: berserker
-                  name: "Berserker"
+                  name: Berserker
                   url: "/api/subclasses/berserker"
 #/api/classes/{indexParam}/spells
 class-spells-path:
   get:
-    summary: "Get spells available for a class."
+    summary: Get spells available for a class.
     tags:
       - Class Resource Lists
     parameters:
@@ -185,7 +185,7 @@ class-spells-path:
 # /api/classes/{index}/spellcasting
 class-spellcasting-path:
   get:
-    summary: "Get spellcasting info for a class."
+    summary: Get spellcasting info for a class.
     tags:
       - Class
     parameters:
@@ -248,14 +248,14 @@ class-spellcasting-path:
 # /api/classes/{index}/features
 class-features-path:
   get:
-    summary: "Get features available for a class."
+    summary: Get features available for a class.
     tags:
       - Class Resource Lists
     parameters:
       - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "List of features for the class."
+        description: List of features for the class.
         content:
           application/json:
             schema:
@@ -263,14 +263,14 @@ class-features-path:
 # /api/classes/{index}/proficiencies
 class-proficiencies-path:
   get:
-    summary: "Get proficiencies available for a class."
+    summary: Get proficiencies available for a class.
     tags:
       - Class Resource Lists
     parameters:
       - $ref: "../parameters/combined.yml#/class-index"
     responses:
       "200":
-        description: "List of proficiencies for the class."
+        description: List of proficiencies for the class.
         content:
           application/json:
             schema:
@@ -278,7 +278,7 @@ class-proficiencies-path:
 # /api/classes/{index}/multi-classing:
 class-multi-classing-path:
   get:
-    summary: "Get multiclassing resource for a class."
+    summary: Get multiclassing resource for a class.
     tags:
       - Class
     parameters:
@@ -312,7 +312,7 @@ class-multi-classing-path:
 # /api/classes/{index}/levels
 class-levels-path:
   get:
-    summary: "Get all level resources for a class."
+    summary: Get all level resources for a class.
     tags:
       - Class Levels
     parameters:
@@ -329,7 +329,7 @@ class-levels-path:
 # /api/classes/{index}/levels/{class_level}
 class-level-path:
   get:
-    summary: "Get level resource for a class and level."
+    summary: Get level resource for a class and level.
     tags:
       - Class Levels
     parameters:
@@ -367,7 +367,7 @@ class-level-path:
 # /api/classes/{index}/levels/{class_level}/features:
 class-level-features-path:
   get:
-    summary: "Get features available to a class at the requested level."
+    summary: Get features available to a class at the requested level.
     tags:
       - Class Levels
     parameters:
@@ -392,7 +392,7 @@ class-level-features-path:
 # /api/classes/{index}/levels/{spell_level}/spells
 class-spell-level-spells-path:
   get:
-    summary: "Get spells of the requested level available to the class."
+    summary: Get spells of the requested level available to the class.
     tags:
       - Class Levels
     parameters:
