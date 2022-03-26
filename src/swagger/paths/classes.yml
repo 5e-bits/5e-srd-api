@@ -244,6 +244,14 @@ class-spellcasting-path:
                   desc:
                     - You can use a musical instrument (see Equipment) as a spellcasting focus for your
                       bard spells.
+      "404":
+        description: Not found.
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/combined.yml#/error-response"
+            example:
+              error: Not found
 
 # /api/classes/{index}/features
 class-features-path:
