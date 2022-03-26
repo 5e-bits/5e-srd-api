@@ -3,7 +3,7 @@ get:
   description: |
     # Proficiency 
 
-    By virtue of your race, your character can speak, read, and write certain Proficiencies.
+    By virtue of race, class, and background a character is proficient at using certain skills, weapons, and equipment. Characters can also gain additional proficiencies at higher levels or by multiclassing. A characters starting proficiencies are determined during character creation.
   tags:
     - Character Data
   parameters:

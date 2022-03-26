@@ -10,7 +10,7 @@ our OpenAPI definition, and [RapiDoc](https://mrin9.github.io/RapiDoc/index.html
 In it's current state our OpenAPI documentation is _almost_ an accurate representation of the actual behavior of the API. The first version of these new docs was made based on models and responses defined in the existing documentation. A number of small inconsistencies were discovered that have not been addressed.
 
 ### TODO
-- [ ] document query parameters
+- [x] document query parameters
 - [ ] standardize schema object naming (mostly cleanup the /schemas directory)
 - [ ] validate schemas against models or actual api responses
 - [ ] validate schema and field descriptions are accurate
@@ -18,6 +18,8 @@ In it's current state our OpenAPI documentation is _almost_ an accurate represen
 - [ ] add tag descriptions
 - [ ] add section in overview with summary of SRD / OGL
 - [ ] add troubleshooting section to overview
+- [ ] enumerate the `class.class_specific` field
+- [ ] give user option to change render style and schema style (rapidoc)
 
 ## Why OpenAPI?
 
