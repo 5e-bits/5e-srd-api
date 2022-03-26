@@ -32,7 +32,9 @@ allOf:
             items:
               type: string
       personality_traits:
-        $ref: "./combined.yml#/Choice"
+        description: Choice of personality traits for this background.
+        type: object
+
       ideals:
         $ref: "./combined.yml#/Choice"
       bonds:

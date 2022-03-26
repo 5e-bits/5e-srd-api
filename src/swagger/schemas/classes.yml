@@ -19,9 +19,20 @@ class-model:
           description: URL of the spell resource list for the class.
           type: string
         starting_equipment:
-          description: Choices of starting equipment.
-          allOf:
-            - $ref: "./combined.yml#/Choice"
+          description: List of equipment and their quantities all players of the class start with.
+          type: array
+          items:
+            type: object
+            properties:
+              quantity:
+                type: number
+              equipment:
+                $ref: "./combined.yml#/APIReference"
+        starting_equipment_options:
+          description: List of choices of starting equipment.
+          type: array
+          items:
+            $ref: "./combined.yml#/equipment-option"
         proficiency_choices:
           description: List of choices of starting proficiencies.
           type: array

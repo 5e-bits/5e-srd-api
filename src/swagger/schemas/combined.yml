@@ -82,3 +82,5 @@ Monster:
   $ref: "./monsters.yml#/monster-model"
 SpellPrerequisite:
   $ref: "./subclass.yml#/spell-prerequisite"
+equipment-option:
+  $ref: "./equipment.yml#/equipment-option-model"
