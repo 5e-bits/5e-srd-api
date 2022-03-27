@@ -1,3 +1,135 @@
+# TODO: add descriptions to these class-specific fields.
+cs-barbarian:
+  description: Barbarian Class Specific Features
+  type: object
+  properties:
+    rage_count:
+      type: number
+    rage_damage_bonus:
+      type: number
+    brutal_critical_dice:
+      type: number
+cs-bard:
+  description: Bard Class Specific Features
+  type: object
+  properties:
+    bardic_inspiration_dice:
+      type: number
+    song_of_rest_die:
+      type: number
+    magical_secrets_max_5:
+      type: number
+    magical_secrets_max_7:
+      type: number
+    magical_secrets_max_9:
+      type: number
+cs-cleric:
+  description: Cleric Class Specific Features
+  type: object
+  properties:
+    channel_divinity_charges:
+      type: number
+    destroy_undead_cr:
+      type: number
+cs-druid:
+  description: Druid Class Specific Features
+  type: object
+  properties:
+    wild_shape_max_cr:
+      type: number
+    wild_shape_swim:
+      type: boolean
+    wild_shape_fly:
+      type: boolean
+cs-fighter:
+  description: Fighter Class Specific Features
+  type: object
+  properties:
+    action_surges:
+      type: number
+    indomitable_uses:
+      type: number
+    extra_attacks:
+      type: number
+cs-monk:
+  description: Monk Class Specific Features
+  type: object
+  properties:
+    ki_points:
+      type: number
+    unarmored_movement:
+      type: number
+    martial_arts:
+      type: object
+      properties:
+        dice_count:
+          type: number
+        dice_value:
+          type: number
+cs-paladin:
+  description: Paladin Class Specific Features
+  type: object
+  properties:
+    aura_range:
+      type: number
+cs-ranger:
+  description: Bard Ranger Specific Features
+  type: object
+  properties:
+    favored_enemies:
+      type: number
+    favored_terrain:
+      type: number
+cs-rogue:
+  description: Bard Rogue Specific Features
+  type: object
+  properties:
+    sneak_attack:
+      type: object
+      properties:
+        dice_count:
+          type: number
+        dice_value:
+          type: number
+cs-sorcerer:
+  description: Bard Sorcerer Specific Features
+  type: object
+  properties:
+    sorcery_points:
+      type: number
+    metamagic_known:
+      type: number
+    creating_spell_slots:
+      type: array
+      items:
+        type: object
+        properties:
+          spell_slot_level:
+            type: number
+          sorcery_point_cost:
+            type: number
+cs-warlock:
+  description: Bard Warlock Specific Features
+  type: object
+  properties:
+    invocations_known:
+      type: number
+    mystic_arcanum_level_6:
+      type: number
+    mystic_arcanum_level_7:
+      type: number
+    mystic_arcanum_level_8:
+      type: number
+    mystic_arcanum_level_9:
+      type: number
+cs-wizard:
+  description: Wizard Class Specific Features
+  type: object
+  properties:
+    arcane_recover_levels:
+      type: number
+  
+
 class-model:
   description: |
     `Class`
@@ -106,4 +238,16 @@ class-level-model:
           type: number
     class_specific:
       description: "Class specific information such as dice values for bard songs and number of warlock invocations."
-      additionalProperties: {}
+      anyOf:
+        - $ref: "#/cs-barbarian"
+        - $ref: "#/cs-bard"
+        - $ref: "#/cs-cleric"
+        - $ref: "#/cs-druid"
+        - $ref: "#/cs-fighter"
+        - $ref: "#/cs-monk"
+        - $ref: "#/cs-paladin"
+        - $ref: "#/cs-ranger"
+        - $ref: "#/cs-rogue"
+        - $ref: "#/cs-sorcerer"
+        - $ref: "#/cs-warlock"
+        - $ref: "#/cs-wizard"
