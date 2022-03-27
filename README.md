@@ -74,9 +74,15 @@ Integration tests need to be ran in the API docker container for them to functio
 In order to run integration tests locally you can use the command: `npm run test:integration:local`
 
 ## Documentation
-Public facing API documentation lives here: https://www.dnd5eapi.co/docs. 
+Public facing API documentation lives here: https://www.dnd5eapi.co/docs.
 
-Documentation details and information on how to make changes to the docs can be found in the `/swagger` directory [README](src/swagger/README.md).
+We use [RapiDoc](https://mrin9.github.io/RapiDoc/index.html) to create the documentation UI from a bundled single file OpenAPI definition created as part of the `npm run build` task.
+
+Additional details and information on working with the documentation can be found in the `/swagger` directory's [README](src/swagger/README.md).
+
+### Postman
+
+
 
 ## Contributing
 
