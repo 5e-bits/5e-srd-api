@@ -270,9 +270,7 @@ monster-model:
             $ref: "./combined.yml#/APIReference"
         languages:
           description: "The languages a monster is able to speak."
-          type: array
-          items:
-            type: string
+          type: string
         proficiencies:
           description: "A list of proficiencies of a monster."
           type: array
