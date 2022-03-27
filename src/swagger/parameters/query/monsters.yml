@@ -9,8 +9,8 @@ challenge-rating-filter:
       type: number
   examples:
     single-value:
-      value: 1
+      value: [1]
     multiple-value:
-      value: 1,2
+      value: [1,2]
     multiple-value-with-float:
-      value: 2,0.25
+      value: [2,0.25]
