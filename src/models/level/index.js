@@ -28,7 +28,10 @@ const ClassSpecific = new Schema({
   bardic_inspiration_die: { type: Number, index: true },
   brutal_critical_dice: { type: Number, index: true },
   channel_divinity_charges: { type: Number, index: true },
-  creating_spell_slots: [ClassSpecificCreatingSpellSlot],
+  creating_spell_slots: {
+    type: [ClassSpecificCreatingSpellSlot],
+    default: undefined,
+  },
   destroy_undead_cr: { type: Number, index: true },
   extra_attacks: { type: Number, index: true },
   favored_enemies: { type: Number, index: true },
