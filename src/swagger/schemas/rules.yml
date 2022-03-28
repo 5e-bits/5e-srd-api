@@ -3,9 +3,11 @@ rule-model:
     `Rule`
   allOf:
     - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
     - type: object
       properties:
+        desc:
+          description: Description of the rule.
+          type: string
         subsections:
           description: "List of sections for each subheading underneath the rule in the SRD."
           type: array
@@ -16,4 +18,8 @@ rule-section-model:
     `RuleSection`
   allOf:
     - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - type: object
+      properties:
+        desc:
+          description: Description of the rule.
+          type: string

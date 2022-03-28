@@ -9,9 +9,9 @@ level-filter:
       type: integer
   examples:
     single-value:
-      value: 1
+      value: [1]
     multiple-value:
-      value: 1,2
+      value: [1,2]
 school-filter:
   name: school
   in: query
@@ -23,8 +23,8 @@ school-filter:
       type: string
   examples:
     single-value:
-      value: illusion
+      value: [illusion]
     multiple-value:
-      value: evocation,illusion
+      value: [evocation,illusion]
     partial-value:
-      value: illu
+      value: [illu]
