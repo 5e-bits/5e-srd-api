@@ -59,10 +59,29 @@ magic-item-model:
     `MagicItem`
   allOf:
     - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
     - type: object
       properties:
         equipment_category:
           $ref: "./combined.yml#/APIReference"
+        rarity:
+          type: object
+          properties:
+            name:
+              description: "The rarity of the item."
+              type: string
+              enum:
+                - Varies
+                - Common
+                - Uncommon
+                - Rare
+                - Very Rare
+                - Legendary
+                - Artifact
+        variants:
+          type: array
+          items:
+            $ref: "./combined.yml#/APIReference"
 equipment-option-model:
   type: object
   properties:

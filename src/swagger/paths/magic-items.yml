@@ -34,3 +34,6 @@ get:
               index: armor
               name: Armor
               url: "/api/equipment-categories/armor"
+            rarity:
+              name: Uncommon
+            variants: []
