@@ -362,7 +362,6 @@ class-level-path:
                   name: Unarmored Defense
                   url: "/api/features/barbarian-unarmored-defense"
               class_specific:
-                creating_spell_slots: []
                 rage_count: 2
                 rage_damage_bonus: 2
                 brutal_critical_dice: 0
