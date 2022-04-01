@@ -3,11 +3,11 @@ class-path:
   get:
     summary: Get a class by index.
     description: |
-      # Class 
+      # Class
 
-      A character class is a fundamental part of the identity and nature of 
-      characters in the Dungeons & Dragons role-playing game. A character's 
-      capabilities, strengths, and weaknesses are largely defined by its class. 
+      A character class is a fundamental part of the identity and nature of
+      characters in the Dungeons & Dragons role-playing game. A character's
+      capabilities, strengths, and weaknesses are largely defined by its class.
       A character's class affects a character's available skills and abilities. [[SRD p8-55](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=8)]
     tags:
       - Class
@@ -325,6 +325,7 @@ class-levels-path:
       - Class Levels
     parameters:
       - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: "../parameters/combined.yml#/challenge-rating-filter"
     responses:
       "200":
         description: OK
