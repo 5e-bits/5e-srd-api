@@ -56,10 +56,10 @@ const MultiClassingPrereqOptions = new Schema({
 
 const MultiClassing = new Schema({
   _id: false,
-  prerequisites: [MultiClassingPrereq],
-  prerequisite_options: MultiClassingPrereqOptions,
-  proficiencies: [APIReference],
-  proficiency_choices: [ProficiencyChoice],
+  prerequisites: { type: [MultiClassingPrereq], default: undefined },
+  prerequisite_options: { type: MultiClassingPrereqOptions, default: undefined },
+  proficiencies: { type: [APIReference], default: undefined },
+  proficiency_choices: { type: [ProficiencyChoice], default: undefined },
 });
 
 const Class = new Schema({

@@ -54,12 +54,12 @@ const Action = new Schema({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: [ActionDamage],
+  damage: { type: [ActionDamage], default: undefined },
   dc: ActionDC,
   options: ActionOptions,
   usage: ActionUsage,
   attack_options: ActionAttackOptions,
-  attacks: [ActionAttack],
+  attacks: { type: [ActionAttack], default: undefined },
 });
 
 const LegendaryAction = new Schema({
@@ -67,7 +67,7 @@ const LegendaryAction = new Schema({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: [ActionDamage],
+  damage: { type: [ActionDamage], default: undefined },
   dc: ActionDC,
 });
 
@@ -127,7 +127,7 @@ const SpecialAbility = new Schema({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: [ActionDamage],
+  damage: { type: [ActionDamage], default: undefined },
   dc: ActionDC,
   spellcasting: SpecialAbilitySpellcasting,
   usage: SpecialAbilityUsage,
@@ -156,7 +156,7 @@ const Monster = new Schema({
   damage_resistances: { type: [String], index: true },
   damage_vulnerabilities: { type: [String], index: true },
   dexterity: { type: Number, index: true },
-  forms: [APIReference],
+  forms: { type: [APIReference], default: undefined },
   hit_dice: { type: String, index: true },
   hit_points: { type: Number, index: true },
   index: { type: String, index: true },
@@ -165,7 +165,7 @@ const Monster = new Schema({
   legendary_actions: [LegendaryAction],
   name: { type: String, index: true },
   proficiencies: [Proficiency],
-  reactions: [Reaction],
+  reactions: { type: [Reaction], default: undefined },
   senses: Sense,
   size: { type: String, index: true },
   special_abilities: [SpecialAbility],
