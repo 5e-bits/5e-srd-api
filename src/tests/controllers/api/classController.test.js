@@ -120,7 +120,7 @@ describe('showLevelsForClass', () => {
       url: '/api/classes/barbarian/level/3',
     },
   ];
-  const request = mockRequest({ params: { index: 'barbarian' } });
+  const request = mockRequest({ query: {}, params: { index: 'barbarian' } });
 
   it('returns a list of objects', async () => {
     mockingoose(Level).toReturn(findDoc, 'find');
@@ -135,7 +135,7 @@ describe('showLevelsForClass', () => {
         mockingoose(Level).toReturn(null, 'findOne');
 
         const invalidShowParams = { index: 'test' };
-        const invalidRequest = mockRequest({ params: invalidShowParams });
+        const invalidRequest = mockRequest({ query: {}, params: invalidShowParams });
         await ClassController.showLevelsForClass(invalidRequest, response, mockNext);
 
         expect(response.status).toHaveBeenCalledWith(404);
