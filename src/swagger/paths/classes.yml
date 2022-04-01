@@ -325,7 +325,7 @@ class-levels-path:
       - Class Levels
     parameters:
       - $ref: "../parameters/combined.yml#/class-index"
-      - $ref: "../parameters/combined.yml#/challenge-rating-filter"
+      - $ref: "../parameters/combined.yml#/levels-subclass-filter"
     responses:
       "200":
         description: OK
