@@ -142,7 +142,7 @@ describe('/api/classes', () => {
         const indexRes = await request(app).get('/api/classes');
         const index = indexRes.body.results[1].index;
         const classRes = await request(app).get(`/api/classes/${index}`);
-        const subclass = classRes.body.results[1].subclasses[0].index;
+        const subclass = classRes.body.subclasses[0].index;
         const res = await request(app).get(`/api/classes/${index}/levels?subclass=${subclass}`);
         expect(res.statusCode).toEqual(200);
         expect(res.body.length).not.toEqual(0);
