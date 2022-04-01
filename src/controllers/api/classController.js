@@ -4,8 +4,8 @@ const Level = require('../../models/level');
 const Spell = require('../../models/spell');
 const Feature = require('../../models/feature');
 const Proficiency = require('../../models/proficiency');
-const { ResourceList } = require('../../util/data');
 const SimpleController = require('../simpleController');
+const { escapeRegExp, ResourceList } = require('../../util');
 
 const simpleController = new SimpleController(Class);
 
@@ -13,10 +13,19 @@ exports.index = async (req, res, next) => simpleController.index(req, res, next)
 exports.show = async (req, res, next) => simpleController.show(req, res, next);
 
 exports.showLevelsForClass = async (req, res, next) => {
-  const urlString = '/api/classes/' + req.params.index;
+  const searchQueries = {
+    'class.url': '/api/classes/' + req.params.index,
+    $or: [{ subclass: null }],
+  };
+
+  if (req.query.subclass !== undefined) {
+    searchQueries.$or.push({
+      'subclass.url': { $regex: new RegExp(escapeRegExp(req.query.subclass), 'i') },
+    });
+  }
 
   try {
-    const data = await Level.find({ 'class.url': urlString }).sort({ level: 'asc' });
+    const data = await Level.find(searchQueries).sort({ level: 'asc' });
     if (data && data.length) {
       return res.status(200).json(data);
     } else {
