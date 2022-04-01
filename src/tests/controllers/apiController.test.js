@@ -1,6 +1,6 @@
 const mockingoose = require('mockingoose');
 const { mockRequest, mockResponse, mockNext } = require('../support/requestHelpers');
-const Collection = require('../../../models/collection');
+const Collection = require('../../models/collection');
 const ApiController = require('../../controllers/apiController');
 
 let response;
