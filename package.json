@@ -17,7 +17,7 @@
     "bundle-swagger": "npm run validate-swagger && swagger-cli bundle --outfile src/swagger/dist/openapi.yml --type yaml src/swagger/swagger.yml && swagger-cli bundle --outfile src/swagger/dist/openapi.json --type json src/swagger/swagger.yml",
     "test": "npm run test:unit && npm run test:integration:local",
     "test:unit": "jest -c jest.config.unit.ts",
-    "test:integration": "jest -c jest.config.integration.ts --runInBand --detectOpenHandles --forceExit",
+    "test:integration": "jest -c jest.config.integration.ts --detectOpenHandles --forceExit",
     "test:integration:local": "docker-compose pull && docker-compose build && docker-compose run --use-aliases api npm run test:integration"
   },
   "dependencies": {

@@ -135,6 +135,17 @@ describe('/api/classes', () => {
         const res = await request(app).get(`/api/classes/${index}/levels`);
         expect(res.statusCode).toEqual(200);
         expect(res.body.length).not.toEqual(0);
+        expect(res.body.length).toEqual(20);
+      });
+
+      it('returns the subclass levels as well', async () => {
+        const indexRes = await request(app).get('/api/classes');
+        const index = indexRes.body.results[1].index;
+        const subclass = indexRes.body.results[1].subclasses[0].index;
+        const res = await request(app).get(`/api/classes/${index}/levels?subclass=${subclass}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.length).not.toEqual(0);
+        expect(res.body.length).toBeGreaterThan(20);
       });
 
       describe('/api/classes/:index/levels/:level', () => {
