@@ -82,6 +82,9 @@ magic-item-model:
           type: array
           items:
             $ref: "./combined.yml#/APIReference"
+        variant:
+          description: "Whether this is a variant or not"
+          type: boolean
 equipment-option-model:
   type: object
   properties:

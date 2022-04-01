@@ -37,3 +37,4 @@ get:
             rarity:
               name: Uncommon
             variants: []
+            variant: false

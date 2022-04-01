@@ -16,6 +16,7 @@ const MagicItem = new Schema({
   rarity: Rarity,
   url: { type: String, index: true },
   variants: [APIReference],
+  variant: Boolean,
 });
 
 module.exports = mongoose.model('MagicItem', MagicItem, 'magic-items');

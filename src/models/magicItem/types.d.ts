@@ -15,4 +15,5 @@ export type MagicItem = {
   rarity: Rarity;
   url: string;
   variants: APIReference[];
+  variant: boolean;
 };
