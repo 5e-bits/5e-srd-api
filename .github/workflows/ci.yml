@@ -4,8 +4,13 @@
 name: 5e SRD API CI/CD
 
 on:
+  create:
+    tags:
+      - 'v*'
   push:
     branches: [main]
+    tags:
+      - 'v*'
   pull_request:
     branches: [main]
   repository_dispatch:
@@ -78,7 +83,6 @@ jobs:
   container-release:
     name: Container Release
     runs-on: ubuntu-latest
-    needs: [deploy, github-release]
     if: github.event_name == 'create'
     env:
       REGISTRY: ghcr.io
