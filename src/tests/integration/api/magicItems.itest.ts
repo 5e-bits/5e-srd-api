@@ -40,7 +40,7 @@ describe('/api/magic-items', () => {
   describe('with name query', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/magic-items');
-      const name = indexRes.body.results[1].name;
+      const name = indexRes.body.results[5].name;
       const res = await request(app).get(`/api/magic-items?name=${name}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
@@ -48,7 +48,7 @@ describe('/api/magic-items', () => {
 
     it('is case insensitive', async () => {
       const indexRes = await request(app).get('/api/magic-items');
-      const name = indexRes.body.results[1].name;
+      const name = indexRes.body.results[5].name;
       const queryName = name.toLowerCase();
       const res = await request(app).get(`/api/magic-items?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
