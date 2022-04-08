@@ -59,7 +59,7 @@ jobs:
     name: Github Release
     runs-on: ubuntu-latest
     needs: [deploy]
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'push'
     outputs:
       new_release_published: ${{ steps.semantic.outputs.steps.semantic.outputs.new_release_published}}
       version: ${{ steps.semantic.outputs.new_release_version }}
