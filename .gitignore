@@ -42,3 +42,13 @@ jspm_packages
 
 dist
 dist/**
+
+# Portman creates some temporary files here during conversion.
+tmp/**
+
+# The generated collection includes UIDs that change on every generation. Ignoring the file
+# for now to avoid unnecessary git troubles.
+#
+# If conflicts in this file become an issue in the future we can stop
+# tracking it in git by uncommenting the line below.
+# collection.postman.json
