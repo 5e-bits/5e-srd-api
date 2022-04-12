@@ -2,10 +2,23 @@
 
 The `/swagger` directory contains an OpenAPI 3.0 definition for the DND API.
 
-We use the [swagger-cli](https://github.com/APIDevTools/swagger-cli) to validate and bundle
+We use [swagger-cli](https://github.com/APIDevTools/swagger-cli) to validate and bundle
 our OpenAPI definition, and [RapiDoc](https://mrin9.github.io/RapiDoc/index.html) as the documentation viewer.
 
-**Note:** there are currently a few inconsistencies between the current documentation and actual API response. Some are listed in the [todo section](#todo) of this README.
+**_Note:_** there are currently a handful of small inconsistencies between the documentation and actual API response. If you come across any please let us know!
+
+**_Possible Future Improvements (PRs Encouraged :)_**
+
+- [ ] standardize schema object naming (mostly cleanup the /schemas directory)
+- [ ] validate schemas against models or actual api responses
+- [ ] validate schema and field descriptions are accurate
+- [ ] reorganize tag ordering
+- [ ] add tag descriptions
+- [ ] enumerate the `class.class_specific` field
+- [ ] give user option to change render style and schema style (rapidoc)
+- [ ] generate pieces of documentation based on source code e.g., generate OpenAPI `SchemaObject` from a TypeScript `type` definition
+- [ ] code snippet examples in various languages
+- [ ] ...anything else you want!
 
 ## Background
 
@@ -94,18 +107,3 @@ For example, the CLI command equivalent to the config file would be:
 ```bash
 portman -l src/swagger/dist/openapi.yml -o collection.postman.json -t
 ```
-
-## TODO
-
-Here's a list of possible improvements that could be made to the docs:
-
-- [ ] standardize schema object naming (mostly cleanup the /schemas directory)
-- [ ] validate schemas against models or actual api responses
-- [ ] validate schema and field descriptions are accurate
-- [ ] reorganize tag ordering
-- [ ] add tag descriptions
-- [ ] enumerate the `class.class_specific` field
-- [ ] give user option to change render style and schema style (rapidoc)
-- [ ] generate pieces of documentation based on source code e.g., generate OpenAPI `SchemaObject` from a TypeScript `type` definition
-- [ ] code snippet examples in various languages
-- [ ] ...anything else you want!

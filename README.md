@@ -54,11 +54,11 @@ You should get a response with the available endpoints for the root:
 
 ## Using a local image of 5e Database
 
-If you are working on a feature which requires changes to both this repo, *and* the 5e-database repo, it is useful to know how to connect the former to the latter for testing purposes. A simple process for doing so is as follows:
+If you are working on a feature which requires changes to both this repo, _and_ the 5e-database repo, it is useful to know how to connect the former to the latter for testing purposes. A simple process for doing so is as follows:
 
-1) In the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `build: [relativePathToDatabaseRepo]`. Make sure not to commit this change, as it is intended for local testing only.
+1. In the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `build: [relativePathToDatabaseRepo]`. Make sure not to commit this change, as it is intended for local testing only.
 
-2) Run your branch of 5e-srd-api using the method outlined in the above section of this readme file. So long as there are no transient errors, the API should build successfully, and your changes to both repos should be noticeable.
+2. Run your branch of 5e-srd-api using the method outlined in the above section of this readme file. So long as there are no transient errors, the API should build successfully, and your changes to both repos should be noticeable.
 
 ## Data Issues
 
@@ -67,22 +67,21 @@ If you see anything wrong with the data itself, please open an issue or PR over 
 ## Running Tests
 
 ### Unit Tests
+
 You can run unit tests locally by using the command: `npm run test:unit`
 
 ### Integration Tests
+
 Integration tests need to be ran in the API docker container for them to function properly.
 In order to run integration tests locally you can use the command: `npm run test:integration:local`
 
 ## Documentation
+
 Public facing API documentation lives here: https://www.dnd5eapi.co/docs.
 
 We use [RapiDoc](https://mrin9.github.io/RapiDoc/index.html) to create the documentation UI from a bundled single file OpenAPI definition created as part of the `npm run build` task.
 
 Additional details and information on working with the documentation can be found in the `/swagger` directory's [README](src/swagger/README.md).
-
-### Postman
-
-
 
 ## Contributing
 
