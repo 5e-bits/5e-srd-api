@@ -1,0 +1,20 @@
+description: |
+  `Language`
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - type: object
+    properties:
+      desc:
+        description: "Brief description of the language."
+        type: string
+      type:
+        type: string
+        enum: [Standard, Exotic]
+      script:
+        description: "Script used for writing in the language."
+        type: string
+      typical_speakers:
+        description: "List of races that tend to speak the language."
+        type: array
+        items:
+          type: string

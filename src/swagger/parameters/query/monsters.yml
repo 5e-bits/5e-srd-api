@@ -1,0 +1,16 @@
+challenge-rating-filter:
+  name: challenge_rating
+  in: query
+  required: false
+  description: The challenge rating or ratings to filter on.
+  schema:
+    type: array
+    items:
+      type: number
+  examples:
+    single-value:
+      value: [1]
+    multiple-value:
+      value: [1,2]
+    multiple-value-with-float:
+      value: [2,0.25]

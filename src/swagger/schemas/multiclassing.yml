@@ -1,0 +1,24 @@
+description: |
+  `Multiclassing`
+type: object
+properties:
+  prerequisites:
+    description: List of prerequisites that must be met.
+    type: array
+    items:
+      $ref: "./combined.yml#/Prerequisite"
+  prerequisite_options:
+    description: List of choices of prerequisites to meet for.
+    type: array
+    items:
+      $ref: "./combined.yml#/Choice"
+  proficiencies:
+    description: "List of proficiencies available when multiclassing."
+    type: array
+    items:
+      $ref: "./combined.yml#/APIReference"
+  proficiency_choices:
+    description: List of choices of proficiencies that are given when multiclassing.
+    type: array
+    items:
+      $ref: "./combined.yml#/Choice"

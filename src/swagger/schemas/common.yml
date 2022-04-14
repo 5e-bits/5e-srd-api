@@ -1,0 +1,104 @@
+api-ref-model:
+  description: |
+    `APIReference`
+  type: object
+  properties:
+    index:
+      description: Resource index for shorthand searching.
+      type: string
+    name:
+      description: "Name of the referenced resource."
+      type: string
+    url:
+      description: "URL of the referenced resource."
+      type: string
+api-ref-list-model:
+  description: |
+    `APIReferenceList`
+  type: object
+  properties:
+    count:
+      description: "Total number of resources available."
+      type: number
+    results:
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+choice-model:
+  description: |
+    `Choice`
+  type: object
+  properties:
+    choose:
+      description: "Number of items to pick from the list."
+      type: number
+    type:
+      description: "Type of the resources to choose from."
+      type: string
+    from:
+      description: "List of resources to choose from."
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+string-choice-model:
+  description: |
+    `String Choice`
+  type: object
+  properties:
+    choose:
+      description: "Number of items to pick from the list."
+      type: number
+    type:
+      description: "Type of resource to choose from."
+      type: string
+    from:
+      description: "List of descriptions to choose from."
+      type: array
+      items:
+        type: string
+cost-model:
+  description: |
+    `Cost`
+  type: object
+  properties:
+    quantity:
+      description: "Numerical amount of coins."
+      type: number
+    unit:
+      description: "Unit of coinage."
+      type: string
+damage-model:
+  description: |
+    `Damage`
+  type: object
+  properties:
+    damage_dice:
+      type: string
+    damage_type:
+      $ref: "./combined.yml#/APIReference"
+prerequisite-model:
+  description: |
+    `Prerequisite`
+  type: object
+  properties:
+    ability_score:
+      allOf:
+        - $ref: "./combined.yml#/APIReference"
+    minimum_score:
+      description: Minimum score to meet the prerequisite.
+      type: number
+resource-description-model:
+  type: object
+  properties:
+    desc:
+      description: "Description of the resource."
+      type: array
+      items:
+        type: string
+error-response-model:
+  type: object
+  properties:
+    error:
+      type: string
+  required:
+    - error

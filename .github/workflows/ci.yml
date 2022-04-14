@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 5e SRD API CI
+name: 5e SRD API CI/CD
 
 on:
   push:
@@ -10,6 +10,9 @@ on:
     branches: [main]
   repository_dispatch:
     types: [build_application]
+
+env:
+  REGISTRY: ghcr.io
 
 jobs:
   unit:
@@ -40,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm run test:integration:local
-  heroku:
+  deploy:
     name: Trigger Heroku Deploy
     runs-on: ubuntu-latest
     needs: [unit, integration, lint]
@@ -52,31 +55,49 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "dnd-5e-srd-api"
           heroku_email: "cdurianward@gmail.com"
-  dockerhub:
-    name: Deploy to Docker Hub
+  github-release:
+    name: Github Release
     runs-on: ubuntu-latest
-    needs: heroku
-    if: github.ref == 'refs/heads/main'
+    needs: [deploy]
+    if: github.event_name == 'push'
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published}}
+      version: ${{ steps.semantic.outputs.new_release_version }}
     steps:
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
+      - name: Checkout latest code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  container-release:
+    name: Container Release
+    runs-on: ubuntu-latest
+    needs: [github-release]
+    if: ${{needs.github-release.outputs.new_release_published == 'true'}}
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        id: docker_build
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          push: true
-          tags: bagelbits/5e-srd-api:latest
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.github-release.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          labels:
+            version=${{ needs.github-release.outputs.version }}

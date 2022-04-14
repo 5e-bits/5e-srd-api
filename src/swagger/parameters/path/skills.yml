@@ -1,0 +1,27 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the skill to get.
+schema:
+  type: string
+  enum:
+    - acrobatics
+    - animal-handling
+    - arcana
+    - athletics
+    - deception
+    - history
+    - insight
+    - intimidation
+    - investigation
+    - medicine
+    - nature
+    - perception
+    - performance
+    - persuasion
+    - religion
+    - sleight-of-hand
+    - stealth
+    - survival
+  example: nature

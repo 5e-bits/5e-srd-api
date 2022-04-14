@@ -1,0 +1,21 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the subclass to get.
+schema:
+  type: string
+  enum:
+    - berserker
+    - champion
+    - devotion
+    - draconic
+    - evocation
+    - fiend
+    - hunter
+    - land
+    - life
+    - lore
+    - open-hand
+    - thief
+  example: fiend

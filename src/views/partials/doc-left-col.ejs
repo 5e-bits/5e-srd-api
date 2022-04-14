@@ -1,5 +1,8 @@
 <div class="col-sm-3 side-nav">
-  <div class="nav-group" style="width: 158px;">
+  <div
+    class="nav-group"
+    style="width: 158px;"
+  >
     <div class="doc-select hidden-xs">
       <ul>
         <li><a href="#intro">Introduction</a></li>
@@ -105,6 +108,7 @@
             <li><a href="#cost">Cost</a></li>
           </ul>
         </li>
+
       </ul>
     </div>
     <script type="text/javascript">
@@ -125,8 +129,6 @@
       function navOps() {
         //check sticky
         if (doc.scrollTop() >= offset.top - 65) {
-          console.log(window.innerHeight - offset.top);
-
           sticky.addClass('stick');
           sticky.css({
             width: sideNav.width() + 'px',
@@ -144,13 +146,8 @@
 
         for (var i = 0; i < navParents.length; i++) {
           parent = $(navParents[i]);
-
-          console.log('LOOK AT ME!');
-          console.log(parent);
           target = $(parent.find('a').attr('href'));
 
-          console.log(target);
-          console.log(target.offset());
           if (scrollTop >= target.offset().top) {
             activeParent = parent;
           } else {
@@ -182,11 +179,11 @@
         }
       }
 
-      doc.scroll(function() {
+      doc.scroll(function () {
         navOps();
       });
 
-      win.resize(function() {
+      win.resize(function () {
         navOps();
       });
 

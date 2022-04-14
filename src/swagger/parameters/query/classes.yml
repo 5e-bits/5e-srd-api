@@ -1,0 +1,12 @@
+levels-subclass-filter:
+  name: subclass
+  in: query
+  required: false
+  description: Adds subclasses for class to the response
+  schema:
+    type: string
+  examples:
+    single-value:
+      value: berserker
+    partial-value:
+      value: ber

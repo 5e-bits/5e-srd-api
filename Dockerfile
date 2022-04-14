@@ -1,4 +1,4 @@
-FROM node:14.15.0-alpine
+FROM node:14.17-alpine
 
 ## Add code
 WORKDIR /app
@@ -9,5 +9,7 @@ RUN npm install
 
 COPY . /app
 
+RUN npm run build
+
 # Start the main process.
-CMD ["npm", "start"]
+CMD ["node", "dist/src/start.js"]

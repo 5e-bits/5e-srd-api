@@ -1,0 +1,67 @@
+description: |
+  `Spell`
+allOf:
+  - $ref: "./combined.yml#/APIReference"
+  - $ref: "./combined.yml#/ResourceDescription"
+  - type: object
+    properties:
+      higher_level:
+        description: "List of descriptions for casting the spell at higher levels."
+        type: array
+        items:
+          type: string
+      range:
+        description: "Range of the spell, usually expressed in feet."
+        type: string
+      components:
+        description: |
+          List of shorthand for required components of the spell.
+          V: verbal
+          S: somatic
+          M: material
+        type: array
+        items:
+          type: string
+          enum: [V, S, M]
+      material:
+        description: "Material component for the spell to be cast."
+        type: string
+      ritual:
+        description: "Determines if a spell can be cast in a 10-min(in-game) ritual."
+        type: boolean
+      duration:
+        description: "How long the spell effect lasts."
+        type: string
+      concentration:
+        description: "Determines if a spell needs concentration to persist."
+        type: boolean
+      casting_time:
+        description: "How long it takes for the spell to activate."
+        type: string
+      level:
+        description: "Level of the spell."
+        type: number
+      attack_type:
+        description: "Attack type of the spell."
+        type: string
+      damage:
+        type: object
+        properties:
+          damage_at_slot_level:
+            type: object
+            additionalProperties: true
+          damage_type:
+            $ref: "./combined.yml#/APIReference"
+      school:
+        description: "Magic school this spell belongs to."
+        $ref: "./combined.yml#/APIReference"
+      classes:
+        description: "List of classes that are able to learn the spell."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"
+      subclasses:
+        description: "List of subclasses that have access to the spell."
+        type: array
+        items:
+          $ref: "./combined.yml#/APIReference"

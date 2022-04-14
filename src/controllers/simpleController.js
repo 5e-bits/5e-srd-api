@@ -6,32 +6,32 @@ class SimpleController {
     this.Schema = Schema;
   }
 
-  index(req, res, next) {
+  async index(req, res, next) {
     const searchQueries = {};
     if (req.query.name !== undefined) {
       searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
     }
 
-    return this.Schema.find(searchQueries)
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ index: 'asc' })
-      .then(data => {
-        res.status(200).json(ResourceList(data));
-      })
-      .catch(err => {
-        next(err);
-      });
+    try {
+      const data = await this.Schema.find(searchQueries)
+        .select({ index: 1, name: 1, url: 1, _id: 0 })
+        .sort({ index: 'asc' })
+        .exec();
+
+      return res.status(200).json(ResourceList(data));
+    } catch (err) {
+      next(err);
+    }
   }
 
-  show(req, res, next) {
-    return this.Schema.findOne({ index: req.params.index })
-      .then(data => {
-        if (!data) return next();
-        res.status(200).json(data);
-      })
-      .catch(err => {
-        next(err);
-      });
+  async show(req, res, next) {
+    try {
+      const data = await this.Schema.findOne({ index: req.params.index });
+      if (!data) return next();
+      res.status(200).json(data);
+    } catch (err) {
+      next(err);
+    }
   }
 }
 

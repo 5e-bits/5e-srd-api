@@ -2,15 +2,19 @@ version: '3.8'
 
 services:
   db:
-    image: bagelbits/5e-database:latest
+    image: ghcr.io/5e-bits/5e-database:latest
+    ports:
+      - "27017:27017"
 
   cache:
-    image: redis:6.2.3
+    image: redis:6.2.5
+    ports:
+      - "6379:6379"
 
   api:
     environment:
       MONGODB_URI: mongodb://db/5e-database
-      REDIS_URL: redis://cache
+      REDIS_URL: redis://cache:6379
     build: .
     ports:
       - '3000:3000'

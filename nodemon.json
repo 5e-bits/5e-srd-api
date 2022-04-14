@@ -1,0 +1,11 @@
+{
+    "verbose": false,
+    "ignore": [
+        "*.test.*",
+        "dist/*",
+        "node_modules/*",
+        "collection.postman.json",
+        "tmp/*"
+    ],
+    "ext": "js,ts,ejs,json,yml"
+}

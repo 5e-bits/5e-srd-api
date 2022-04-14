@@ -1,0 +1,40 @@
+get:
+  summary: Get a magic item by index.
+  description: These are the various magic items you can find in the game.
+  tags:
+    - Equipment
+  parameters:
+    - name: index
+      in: path
+      required: true
+      description: |
+        The `index` of the magic item to get.
+
+        Available values can be found in the resource list for this endpoint.
+      schema:
+        type: string
+      example: "adamantine-armor"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/MagicItem"
+          example:
+            index: adamantine-armor
+            name: Adamantine Armor
+            url: "/api/magic-items/adamantine-armor"
+            desc:
+              - Armor (medium or heavy, but not hide), uncommon
+              - This suit of armor is reinforced with adamantine, one of the hardest substances
+                in existence. While you're wearing it, any critical hit against you becomes a normal
+                hit.
+            equipment_category:
+              index: armor
+              name: Armor
+              url: "/api/equipment-categories/armor"
+            rarity:
+              name: Uncommon
+            variants: []
+            variant: false

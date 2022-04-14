@@ -1,0 +1,75 @@
+<!-- views/pages/dexpocs.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="title" content="D&D 5th Edition API" />
+    <meta name="description" content="REST API to access D&D 5th Edition SRD database" />
+    <meta name="keywords" content="Dungeons, Dragons, 5th, Edition, API, SRD" />
+    <meta name="theme-color" content="#D81921" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.dnd5eapi.co/" />
+    <meta property="og:title" content="D&D 5th Edition API" />
+    <meta property="og:description" content="REST API to access D&D 5th Edition SRD database" />
+    <meta property="og:image" content="/public/DnD-5e-meta-4k.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.dnd5eapi.co/" />
+    <meta property="twitter:title" content="D&D 5th Edition API" />
+    <meta
+      property="twitter:description"
+      content="REST API to access D&D 5th Edition SRD database"
+    />
+    <meta property="twitter:image" content="/public/dnd-5e-meta.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&amp;family=Open+Sans:wght@300;600&amp;family=Roboto+Mono&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      rapi-doc::part(label-selected-server) {
+        color: #fff;
+      }
+      rapi-doc {
+        width: 100%;
+      }
+    </style>
+    <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+  </head>
+
+  <body>
+    <rapi-doc
+      spec-url="/swagger/openapi.json"
+      show-header="false"
+      schema-description-expanded="false"
+      bg-color="#171717"
+      primary-color="#D81921"
+      text-color="#bebebe"
+      regular-font="IBM Plex Sans"
+      mono-font="JetBrains Mono"
+      theme="dark"
+      use-path-in-nav-bar="true"
+      show-components="true"
+      default-schema-tab="model"
+      info-description-headings-in-navbar="true"
+      allow-authentication="false"
+      allow-spec-file-download="true"
+    >
+      <!-- provide slot attribute to place an element at desired location -->
+      <img
+        slot="nav-logo"
+        src="/public/favicon.ico"
+        style="display:block; margin-left: auto; margin-right: auto; width: 50%; margin-bottom: 20px;"
+      />
+    </rapi-doc>
+  </body>
+</html>

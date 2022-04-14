@@ -1,0 +1,8 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the `Monster` to get.
+schema:
+  type: string
+  example: aboleth

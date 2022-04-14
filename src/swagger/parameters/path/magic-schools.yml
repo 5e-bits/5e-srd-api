@@ -1,0 +1,17 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the magic school to get.
+schema:
+  type: string
+  enum:
+    - abjuration
+    - conjuration
+    - divination
+    - enchantment
+    - evocation
+    - illusion
+    - necromancy
+    - transmutation
+  example: abjuration

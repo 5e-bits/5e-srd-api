@@ -1,0 +1,25 @@
+type: object
+description: |
+  `Spellcasting`
+properties:
+  level:
+    description: Level at which the class can start using its spellcasting abilities.
+    type: number
+  info:
+    description: "Descriptions of the class' ability to cast spells."
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          description: Feature name.
+          type: string
+        desc:
+          description: Feature description.
+          type: array
+          items:
+            type: string
+  spellcasting_ability:
+    description: Reference to the `AbilityScore` used for spellcasting by the class.
+    allOf:
+      - $ref: "./combined.yml#/APIReference"

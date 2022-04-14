@@ -1,0 +1,23 @@
+get:
+  summary: Get an alignment by index.
+  description: |
+    # Alignment
+
+    A typical creature in the game world has an alignment, which broadly describes its moral and personal attitudes. Alignment is a combination of two factors: one identifies morality (good, evil, or neutral), and the other describes attitudes toward society and order (lawful, chaotic, or neutral). Thus, nine distinct alignments define the possible combinations.[[SRD p58](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=58)]
+  tags:
+    - Character Data
+  parameters:
+    - $ref: "../parameters/combined.yml#/alignment-index"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/combined.yml#/Alignment"
+          example:
+            index: chaotic-neutral
+            name: Chaotic Neutral
+            url: "/api/alignments/chaotic-neutral"
+            desc: Chaotic neutral (CN) creatures follow their whims, holding their personal freedom above all else. Many barbarians and rogues, and some bards, are chaotic neutral.
+            abbreviation: CN
