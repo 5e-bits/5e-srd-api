@@ -108,8 +108,15 @@ const resolveSpells = async (args, baseFilters) => {
     sort = coalesceSort(args.order, resolveSpellOrderBy, 6);
   }
 
+  let skip = 0;
+  if (args.skip) {
+    skip = args.skip;
+  }
+
   return await Spell.find(coalesceFilters(filters))
     .sort(sort)
+    .skip(skip)
+    .limit(args.limit)
     .lean();
 };
 
