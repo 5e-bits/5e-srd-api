@@ -473,8 +473,15 @@ const Query = {
       sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
     }
 
+    let skip = 0;
+    if (args.skip) {
+      skip = args.skip;
+    }
+
     return await Proficiency.find(coalesceFilters(filters))
       .sort(sort)
+      .skip(skip)
+      .limit(args.limit)
       .lean();
   },
   async race(query, args) {

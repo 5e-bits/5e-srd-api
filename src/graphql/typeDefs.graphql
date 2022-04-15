@@ -1023,7 +1023,7 @@ type Query {
   monster(index: String): Monster
   monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter, order: MonsterOrder, skip: Int, limit: Int! = 100): [Monster!]
   proficiency(index: String): Proficiency
-  proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter, order: ProficiencyOrder): [Proficiency!]
+  proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter, order: ProficiencyOrder, skip: Int, limit: Int! = 100): [Proficiency!]
   race(index: String): Race
   races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter, order: RaceOrder): [Race!]!
   rule(index: String): Rule
