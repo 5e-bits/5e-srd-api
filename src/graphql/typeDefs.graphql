@@ -67,7 +67,7 @@ type Cost {
 type EquipmentCategory {
   index: String!
   name: String!
-  equipment(order: EquipmentCategoryOrder): [IEquipmentBase!]!
+  equipment(order: EquipmentCategoryOrder, skip: Int, limit: Int! = 100): [IEquipmentBase!]!
 }
 
 interface IEquipmentBase {

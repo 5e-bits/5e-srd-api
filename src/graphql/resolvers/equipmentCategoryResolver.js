@@ -38,7 +38,12 @@ const EquipmentCategory = {
       });
     }
 
-    return equipmentToReturn;
+    let skip = 0;
+    if (args.skip) {
+      skip = args.skip;
+    }
+
+    return equipmentToReturn.slice(skip, skip + args.limit);
   },
 };
 
