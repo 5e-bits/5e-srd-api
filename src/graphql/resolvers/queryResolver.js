@@ -304,8 +304,15 @@ const Query = {
       );
     }
 
+    let skip = 0;
+    if (args.skip) {
+      skip = args.skip;
+    }
+
     return await Level.find(coalesceFilters(filters))
       .sort(sort)
+      .skip(skip)
+      .limit(args.limit)
       .lean();
   },
   async magicItem(query, args) {
