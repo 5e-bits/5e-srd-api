@@ -144,8 +144,15 @@ const Query = {
       );
     }
 
+    let skip = 0;
+    if (args.skip) {
+      skip = args.skip;
+    }
+
     return await Equipment.find(filter)
       .sort(sort)
+      .skip(skip)
+      .limit(args.limit)
       .lean();
   },
   async equipmentCategory(query, args) {

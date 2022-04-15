@@ -1005,7 +1005,7 @@ type Query {
   damageType(index: String): DamageType
   damageTypes(order_direction: OrderByDirection): [DamageType!]
   equipment(index: String): IEquipment
-  equipments(equipment_category: StringFilter, order: EquipmentOrder): [IEquipment!]
+  equipments(equipment_category: StringFilter, order: EquipmentOrder, skip: Int, limit: Int! = 100): [IEquipment!]
   equipmentCategory(index: String): EquipmentCategory
   equipmentCategories(order_direction: OrderByDirection): [EquipmentCategory!]
   feat(index: String): Feat
