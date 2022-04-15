@@ -436,8 +436,15 @@ const Query = {
       sort = coalesceSort(args.order, value => value.toLowerCase(), 13);
     }
 
+    let skip = 0;
+    if (args.skip) {
+      skip = args.skip;
+    }
+
     return await Monster.find(coalesceFilters(filters))
       .sort(sort)
+      .skip(skip)
+      .limit(args.limit)
       .lean();
   },
   async proficiency(query, args) {
