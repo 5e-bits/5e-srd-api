@@ -1011,7 +1011,7 @@ type Query {
   feat(index: String): Feat
   feats(order_direction: OrderByDirection): [Feat!]
   feature(index: String): Feature
-  features(level: IntFilter, class: StringFilter, subclass: StringFilter, order: FeatureOrder): [Feature!]
+  features(level: IntFilter, class: StringFilter, subclass: StringFilter, order: FeatureOrder, skip: Int, limit: Int! = 100): [Feature!]
   language(index: String): Language
   languages(type: LanguageType, script: LanguageScriptFilter, order: LanguageOrder): [Language!]
   level(index: String): Level
