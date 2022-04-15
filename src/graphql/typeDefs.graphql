@@ -1017,7 +1017,7 @@ type Query {
   level(index: String): Level
   levels(class: StringFilter, subclass: StringFilter, level: IntFilter, prof_bonus: IntFilter, ability_score_bonuses: IntFilter, order: LevelOrder, skip: Int, limit: Int! = 100): [Level!]
   magicItem(index: String): MagicItem
-  magicItems(equipment_category: StringFilter, order: MagicItemOrder): [MagicItem!]
+  magicItems(equipment_category: StringFilter, order: MagicItemOrder, skip: Int, limit: Int! = 100): [MagicItem!]
   magicSchool(index: String): MagicSchool
   magicSchools(order_direction: OrderByDirection): [MagicSchool!]
   monster(index: String): Monster
