@@ -77,10 +77,19 @@ interface IEquipmentBase {
   equipment_category: EquipmentCategory!
 }
 
+enum MagicItemRarity {
+  VARIES
+  UNCOMMON
+  RARE
+  VERY_RARE
+  LEGENDARY
+}
+
 type MagicItem implements IEquipmentBase {
   index: String!
   name: String!
   desc: [String!]!
+  rarity: MagicItemRarity!
   equipment_category: EquipmentCategory!
 }
 
