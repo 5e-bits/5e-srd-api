@@ -10,7 +10,7 @@ const Background = {
 
     return starting_equipment.map(se => ({
       ...se,
-      item: equipment.find(e => e.index === se.equipment.index),
+      equipment: equipment.find(e => e.index === se.equipment.index),
     }));
   },
   starting_proficiencies: async background =>

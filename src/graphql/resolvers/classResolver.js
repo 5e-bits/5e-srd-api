@@ -31,7 +31,7 @@ const Class = {
 
     return starting_equipment.map(se => ({
       ...se,
-      item: equipment.find(e => e.index === se.equipment.index),
+      equipment: equipment.find(e => e.index === se.equipment.index),
     }));
   },
   class_levels: async klass => await LevelModel.find({ 'class.index': klass.index }).lean(),

@@ -132,9 +132,14 @@ type Gear implements IGear & IEquipment & IEquipmentBase {
   gear_category: EquipmentCategory!
 }
 
-type Quantity {
+type PackQuantity {
   quantity: Int!
   item: IEquipment!
+}
+
+type Quantity {
+  quantity: Int!
+  equipment: IEquipment!
 }
 
 type Pack implements IGear & IEquipment & IEquipmentBase {
@@ -145,7 +150,7 @@ type Pack implements IGear & IEquipment & IEquipmentBase {
   equipment_category: EquipmentCategory!
   weight: Float
   gear_category: EquipmentCategory!
-  contents: [Quantity!]!
+  contents: [PackQuantity!]!
 }
 
 type Ammunition implements IGear & IEquipment & IEquipmentBase {
