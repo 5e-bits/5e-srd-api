@@ -1,92 +1,94 @@
 APIReference:
-  $ref: "./common.yml#/api-ref-model"
+  $ref: './common.yml#/api-ref-model'
 APIReferenceList:
-  $ref: "./common.yml#/api-ref-list-model"
+  $ref: './common.yml#/api-ref-list-model'
 Choice:
-  $ref: "./common.yml#/choice-model"
+  $ref: './common.yml#/choice-model'
+Option:
+  $ref: './common.yml#/option-model'
+OptionSet:
+  $ref: './common.yml#/option-set-model'
 Prerequisite:
-  $ref: "./common.yml#/prerequisite-model"
+  $ref: './common.yml#/prerequisite-model'
 ResourceDescription:
-  $ref: "./common.yml#/resource-description-model"
+  $ref: './common.yml#/resource-description-model'
 AbilityScore:
-  $ref: "./ability-scores.yml#/ability-score-model"
+  $ref: './ability-scores.yml#/ability-score-model'
 Alignment:
-  $ref: "./alignments.yml"
+  $ref: './alignments.yml'
 Class:
-  $ref: "./classes.yml#/class-model"
+  $ref: './classes.yml#/class-model'
 Damage:
-  $ref: "./common.yml#/damage-model"
+  $ref: './common.yml#/damage-model'
+DC:
+  $ref: './common.yml#/dc-model'
 Multiclassing:
-  $ref: "./multiclassing.yml"
+  $ref: './multiclassing.yml'
 Spellcasting:
-  $ref: "./spellcasting.yml"
+  $ref: './spellcasting.yml'
 Gear:
-  $ref: "./equipment.yml#/gear-model"
+  $ref: './equipment.yml#/gear-model'
 EquipmentPack:
-  $ref: "./equipment.yml#/equipment-pack-model"
+  $ref: './equipment.yml#/equipment-pack-model'
 EquipmentCategory:
-  $ref: "./equipment.yml#/equipment-category-model"
+  $ref: './equipment.yml#/equipment-category-model'
 Equipment:
-  $ref: "./equipment.yml#/equipment-model"
+  $ref: './equipment.yml#/equipment-model'
 Cost:
-  $ref: "./common.yml#/cost-model"
+  $ref: './common.yml#/cost-model'
 Weapon:
-  $ref: "./weapon.yml#/weapon-model"
+  $ref: './weapon.yml#/weapon-model'
 Armor:
-  $ref: "./armor.yml"
+  $ref: './armor.yml'
 MagicItem:
-  $ref: "./equipment.yml#/magic-item-model"
+  $ref: './equipment.yml#/magic-item-model'
 DamageType:
-  $ref: "./game-mechanics.yml#/damage-type-model"
+  $ref: './game-mechanics.yml#/damage-type-model'
 Condition:
-  $ref: "./game-mechanics.yml#/condition-model"
+  $ref: './game-mechanics.yml#/condition-model'
 MagicSchool:
-  $ref: "./game-mechanics.yml#/magic-school-model"
+  $ref: './game-mechanics.yml#/magic-school-model'
 Skill:
-  $ref: "./skills.yml"
+  $ref: './skills.yml'
 Proficiency:
-  $ref: "./proficiencies.yml"
+  $ref: './proficiencies.yml'
 Language:
-  $ref: "./language.yml"
+  $ref: './language.yml'
 Background:
-  $ref: "./backgrounds.yml#/background-model"
+  $ref: './backgrounds.yml#/background-model'
 Feat:
-  $ref: "./feats.yml"
+  $ref: './feats.yml'
 Subclass:
-  $ref: "./subclass.yml#/subclass-model"
+  $ref: './subclass.yml#/subclass-model'
 SubclassLevel:
-  $ref: "./subclass.yml#/subclass-level-model"
+  $ref: './subclass.yml#/subclass-level-model'
 SubclassLevelResource:
-  $ref: "./subclass.yml#/subclass-level-resource-model"
+  $ref: './subclass.yml#/subclass-level-resource-model'
 ClassLevel:
-  $ref: "./classes.yml#/class-level-model"
+  $ref: './classes.yml#/class-level-model'
 Feature:
-  $ref: "./features.yml"
+  $ref: './features.yml'
 Race:
-  $ref: "./races.yml"
+  $ref: './races.yml'
 AbilityBonus:
-  $ref: "./ability-scores.yml#/AbilityBonus"
+  $ref: './ability-scores.yml#/AbilityBonus'
 Spell:
-  $ref: "./spell.yml"
+  $ref: './spell.yml'
 Subrace:
-  $ref: "./subrace.yml"
+  $ref: './subrace.yml'
 Trait:
-  $ref: "./traits.yml#/trait"
+  $ref: './traits.yml#/trait'
 WeaponProperty:
-  $ref: "./weapon.yml#/weapon-property-model"
+  $ref: './weapon.yml#/weapon-property-model'
 Rule:
-  $ref: "./rules.yml#/rule-model"
+  $ref: './rules.yml#/rule-model'
 RuleSection:
-  $ref: "./rules.yml#/rule-section-model"
+  $ref: './rules.yml#/rule-section-model'
 Monster:
-  $ref: "./monsters.yml#/monster-model"
+  $ref: './monsters.yml#/monster-model'
 SpellPrerequisite:
-  $ref: "./subclass.yml#/spell-prerequisite"
-equipment-option:
-  $ref: "./equipment.yml#/equipment-option-model"
-string-choice:
-  $ref: "./common.yml#/string-choice-model"
+  $ref: './subclass.yml#/spell-prerequisite'
 ideal:
-  $ref: "./backgrounds.yml#/ideal-model"
+  $ref: './backgrounds.yml#/ideal-model'
 error-response:
-  $ref: "./common.yml#/error-response-model"
+  $ref: './common.yml#/error-response-model'

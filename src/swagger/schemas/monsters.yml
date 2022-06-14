@@ -5,7 +5,7 @@ monster-dc:
     dc_type:
       description: Reference to the `AbilityScore` used for this DC.
       allOf:
-        - $ref: "./combined.yml#/APIReference"
+        - $ref: './combined.yml#/APIReference'
     dc_value:
       description: Check must equal or exceed this value for success.
       type: number
@@ -18,7 +18,7 @@ monster-damage:
   type: object
   properties:
     damage_type:
-      $ref: "./combined.yml#/APIReference"
+      $ref: './combined.yml#/APIReference'
     damage_dice:
       type: string
       pattern: '^\d+d\d+(\+\d+)?$'
@@ -30,9 +30,9 @@ monster-attack:
     name:
       type: string
     dc:
-      $ref: "#/monster-dc"
+      $ref: '#/monster-dc'
     damage:
-      $ref: "#/monster-damage"
+      $ref: '#/monster-damage'
 
 monster-action:
   description: Action available to a `Monster` in addition to the standard creature actions.
@@ -42,20 +42,22 @@ monster-action:
       type: string
     desc:
       type: string
-    options:
-      $ref: "./combined.yml#/Choice"
+    action_options:
+      $ref: './combined.yml#/Choice'
+    multiattack_type:
+      type: string
     attack_bonus:
       type: number
     dc:
-      $ref: "#/monster-dc"
+      $ref: '#/monster-dc'
     attacks:
       type: array
       items:
-        $ref: "#/monster-attack"
+        $ref: '#/monster-attack'
     damage:
       type: array
       items:
-        $ref: "#/monster-damage"
+        $ref: '#/monster-damage'
 
 monster-abilities:
   type: object
@@ -73,7 +75,7 @@ monster-abilities:
       description: "The monster's ability to outsmart a player."
       type: number
     strength:
-      description: "How hard a monster can hit a player."
+      description: 'How hard a monster can hit a player.'
       type: number
     wisdom:
       description: "A monster's ability to ascertain the player's plan."
@@ -85,7 +87,7 @@ monster-proficiency:
     value:
       type: number
     proficiency:
-      $ref: "./combined.yml#/APIReference"
+      $ref: './combined.yml#/APIReference'
 
 monster-sense:
   type: object
@@ -133,13 +135,13 @@ monster-spell:
     url:
       type: string
     usage:
-      $ref: "#/monster-usage"
+      $ref: '#/monster-usage'
 
 monster-spellcasting:
   type: object
   properties:
     ability:
-      $ref: "./combined.yml#/APIReference"
+      $ref: './combined.yml#/APIReference'
     dc:
       type: number
     modifier:
@@ -157,7 +159,7 @@ monster-spellcasting:
     spells:
       type: array
       items:
-        $ref: "#/monster-spell"
+        $ref: '#/monster-spell'
 
 monster-special-ability:
   type: object
@@ -171,21 +173,21 @@ monster-special-ability:
     damage:
       type: array
       items:
-        $ref: "#/monster-damage"
+        $ref: '#/monster-damage'
     dc:
-      $ref: "#/monster-dc"
+      $ref: '#/monster-dc'
     spellcasting:
-      $ref: "#/monster-spellcasting"
+      $ref: '#/monster-spellcasting'
     usage:
-      $ref: "#/monster-usage"
+      $ref: '#/monster-usage'
 
 monster-model:
   description: |
     `Monster`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
-    - $ref: "#/monster-abilities"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'
+    - $ref: '#/monster-abilities'
     - type: object
       properties:
         size:
@@ -199,7 +201,7 @@ monster-model:
             - Huge
             - Gargantuan
         type:
-          description: "The type of monster."
+          description: 'The type of monster.'
           type: string
         subtype:
           description: The sub-category of a monster used for classification of monsters."
@@ -220,78 +222,78 @@ monster-model:
             - any alignment
             - unaligned
         armor_class:
-          description: "The difficulty for a player to successfully deal damage to a monster."
+          description: 'The difficulty for a player to successfully deal damage to a monster.'
           type: number
         hit_points:
-          description: "The hit points of a monster determine how much damage it is able to take before it can be defeated."
+          description: 'The hit points of a monster determine how much damage it is able to take before it can be defeated.'
           type: number
         hit_dice:
-          description: "The hit die of a monster can be used to make a version of the same monster whose hit points are determined by the roll of the die. For example: A monster with 2d6 would have its hit points determine by rolling a 6 sided die twice."
+          description: 'The hit die of a monster can be used to make a version of the same monster whose hit points are determined by the roll of the die. For example: A monster with 2d6 would have its hit points determine by rolling a 6 sided die twice.'
           type: string
         actions:
-          description: "A list of actions that are available to the monster to take during combat."
+          description: 'A list of actions that are available to the monster to take during combat.'
           type: array
           items:
-            $ref: "#/monster-action"
+            $ref: '#/monster-action'
         legendary_actions:
-          description: "A list of legendary actions that are available to the monster to take during combat."
+          description: 'A list of legendary actions that are available to the monster to take during combat.'
           type: array
           items:
-            $ref: "#/monster-action"
+            $ref: '#/monster-action'
         challenge_rating:
           description: "A monster's challenge rating is a guideline number that says when a monster becomes an appropriate challenge against the party's average level. For example. A group of 4 players with an average level of 4 would have an appropriate combat challenge against a monster with a challenge rating of 4 but a monster with a challenge rating of 8 against the same group of players would pose a significant threat."
           type: number
           minimum: 0
           maximum: 21
         condition_immunities:
-          description: "A list of conditions that a monster is immune to."
+          description: 'A list of conditions that a monster is immune to.'
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
         damage_immunities:
-          description: "A list of damage types that a monster will take double damage from."
+          description: 'A list of damage types that a monster will take double damage from.'
           type: array
           items:
             type: string
         damage_resistances:
-          description: "A list of damage types that a monster will take half damage from."
+          description: 'A list of damage types that a monster will take half damage from.'
           type: array
           items:
             type: string
         damage_vulnerabilities:
-          description: "A list of damage types that a monster will take double damage from."
+          description: 'A list of damage types that a monster will take double damage from.'
           type: array
           items:
             type: string
         forms:
-          description: "List of other related monster entries that are of the same form. Only applicable to Lycanthropes that have multiple forms."
+          description: 'List of other related monster entries that are of the same form. Only applicable to Lycanthropes that have multiple forms.'
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
         languages:
-          description: "The languages a monster is able to speak."
+          description: 'The languages a monster is able to speak.'
           type: string
         proficiencies:
-          description: "A list of proficiencies of a monster."
+          description: 'A list of proficiencies of a monster.'
           type: array
           items:
-            $ref: "#/monster-proficiency"
+            $ref: '#/monster-proficiency'
         reactions:
-          description: "A list of reactions that is available to the monster to take during combat."
+          description: 'A list of reactions that is available to the monster to take during combat.'
           type: array
           items:
-            $ref: "#/monster-action"
+            $ref: '#/monster-action'
         senses:
-          description: "Monsters typically have a passive perception but they might also have other senses to detect players."
+          description: 'Monsters typically have a passive perception but they might also have other senses to detect players.'
           allOf:
-            - $ref: "#/monster-sense"
+            - $ref: '#/monster-sense'
         special_abilities:
           description: "A list of the monster's special abilities."
           type: array
           items:
-            $ref: "#/monster-special-ability"
+            $ref: '#/monster-special-ability'
         speed:
-          description: "Speed for a monster determines how fast it can move per turn."
+          description: 'Speed for a monster determines how fast it can move per turn.'
           type: object
           properties:
             walk:
