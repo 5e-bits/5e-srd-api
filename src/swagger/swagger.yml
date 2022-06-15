@@ -93,83 +93,15 @@ info:
     ```
     <hr>
 
-    ### `DC`
-    Represents a difficulty check.
-    ```
-    DC {
-      dc_type       APIReference
-      dc_value      number
-      success_type  "none" | "half" | "other"
-    }
-    ```
-    <hr>
-
-    ### `Damage`
-    Represents damage.
-    ```
-    Damage {
-      damage_type     APIReference
-      damage_dice     string
-    }
-    ```
-    <hr>
-
     ### `Choice`
     Represents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states "Skills: Choose two from	History, Insight, Medicine, Persuasion, and	Religion" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))
     ```
     Choice {
-      desc      string
       choose    number            
       type      string            
-      from      OptionSet   
+      from      [APIReference]   
     }
     ```
-    <hr>
-
-    ### `OptionSet`
-    The OptionSet structure provides the options to be chosen from, or sufficient data to fetch and interpret the options. All OptionSets have an `option_set_type` attribute that indicates the structure of the object that contains the options. The possible values are `options_array`, `equipment_category`, and `reference_list`. Other attributes on the OptionSet depend on the value of this attribute.
-    - `options_array`
-      - `options` (array): An array of Option objects. Each item in the array represents an option that can be chosen.
-    - `equipment_category`
-      - `equipment_category` (APIReference): A reference to an EquipmentCategory. Each item in the EquipmentCategory's `equipment` array represents one option that can be chosen.
-    - `resource_list`
-      - `resource_list_url` (string): A reference (by URL) to a collection in the database. The URL may include query parameters. Each item in the resulting ResourceList's `results` array represents one option that can be chosen.
-    <hr>
-
-    ### `Option`
-    When the options are given in an `options_array`, each item in the array inherits from the Option structure. All Options have an `option_type` attribute that indicates the structure of the option. The value of this attribute indicates how the option should be handled, and each type has different attributes. The possible values and their corresponding attributes are listed below.
-    - `reference` - A terminal option. Contains a reference to a Document that can be added to the list of options chosen.
-      - `item` (APIReference): A reference to the chosen item.
-    - `action` - A terminal option. Contains information describing an action, for use within Multiattack actions.
-      - `action_name` (string): The name of the action, according to its `name` attribute.
-      - `count` (number | string): The number of times this action can be repeated if this option is chosen.
-      - `type` (string = `"melee" | "ranged" | "ability" | "magic"`, optional): For attack actions that can be either melee, ranged, abilities, or magic.
-    - `multiple` - When this option is chosen, all of its child options are chosen, and must be resolved the same way as a normal option.
-      - `items` (array): An array of Option objects. All of them must be taken if the option is chosen.
-    - `choice` - A nested choice. If this option is chosen, the Choice structure contained within must be resolved like a normal Choice structure, and the results are the chosen options.
-      - `choice` (Choice): The Choice to resolve.
-    - `string` - A terminal option. Contains a reference to a string.
-      - `string` (string): The string.
-    - `ideal` - A terminal option. Contains information about an ideal.
-      - `desc` (string): A description of the ideal.
-      - `alignments` (ApiReference[]): A list of alignments of those who might follow the ideal.
-    - `counted_reference` - A terminal option. Contains a reference to something else in the API along with a count.
-      - `count` (number): Count.
-      - `of` (ApiReference): Thing being referenced.
-    - `score_prerequisite` - A terminal option. Contains a reference to an ability score and a minimum score.
-      - `ability_score` (ApiReference): Ability score being referenced.
-      - `minimum_score` (number): The minimum score required to satisfy the prerequisite.
-    - `ability_bonus` - A terminal option. Contains a reference to an ability score and a bonus
-      - `ability_score` (ApiReference): Ability score being referenced
-      - `bonus` (number): The bonus being applied to the ability score
-    - `breath` - A terminal option: Contains a reference to information about a breath attack.
-      - `name` (string): Name of the breath.
-      - `dc` (DC): Difficulty check of the breath attack.
-      - `damage` ([Damage]): Damage dealt by the breath attack, if any.
-    - `damage` - A terminal option. Contains information about damage.
-      - `damage_type` (ApiReference): Reference to type of damage.
-      - `damage_dice` (string): Damage expressed in dice (e.g. "13d6").
-      - `notes` (string): Information regarding the damage.
 
     ## FAQ
 
@@ -209,10 +141,10 @@ info:
     # Legacy Documentation
 
     This documentation page is new! If you're looking for the legacy docs they can be found on the [old docs page](https://www.dnd5eapi.co/legacydocs/).
-  version: '0.1'
+  version: "0.1"
   license:
     name: MIT License
-    url: 'https://github.com/5e-bits/5e-srd-api/blob/main/LICENSE.md'
+    url: "https://github.com/5e-bits/5e-srd-api/blob/main/LICENSE.md"
   contact:
     name: 5eBits
     url: https://github.com/5e-bits
@@ -227,107 +159,107 @@ tags:
 
 paths:
   /api:
-    $ref: './paths/combined.yml#/base'
+    $ref: "./paths/combined.yml#/base"
   /api/{endpoint}:
-    $ref: './paths/combined.yml#/list'
+    $ref: "./paths/combined.yml#/list"
   /api/ability-scores/{index}:
-    $ref: './paths/combined.yml#/ability-scores'
+    $ref: "./paths/combined.yml#/ability-scores"
   /api/alignments/{index}:
-    $ref: './paths/combined.yml#/alignments'
+    $ref: "./paths/combined.yml#/alignments"
   /api/backgrounds/{index}:
-    $ref: './paths/combined.yml#/backgrounds'
+    $ref: "./paths/combined.yml#/backgrounds"
   /api/classes/{index}:
-    $ref: './paths/combined.yml#/classes'
+    $ref: "./paths/combined.yml#/classes"
   /api/classes/{index}/subclasses:
-    $ref: './paths/combined.yml#/class-subclass'
+    $ref: "./paths/combined.yml#/class-subclass"
   /api/classes/{index}/spells:
-    $ref: './paths/combined.yml#/class-spells'
+    $ref: "./paths/combined.yml#/class-spells"
   /api/classes/{index}/spellcasting:
-    $ref: './paths/combined.yml#/class-spellcasting'
+    $ref: "./paths/combined.yml#/class-spellcasting"
   /api/classes/{index}/features:
-    $ref: './paths/combined.yml#/class-features'
+    $ref: "./paths/combined.yml#/class-features"
   /api/classes/{index}/proficiencies:
-    $ref: './paths/combined.yml#/class-proficiencies'
+    $ref: "./paths/combined.yml#/class-proficiencies"
   /api/classes/{index}/multi-classing:
-    $ref: './paths/combined.yml#/class-multi-classing'
+    $ref: "./paths/combined.yml#/class-multi-classing"
   /api/classes/{index}/levels:
-    $ref: './paths/combined.yml#/class-levels'
+    $ref: "./paths/combined.yml#/class-levels"
   /api/classes/{index}/levels/{class_level}:
-    $ref: './paths/combined.yml#/class-level'
+    $ref: "./paths/combined.yml#/class-level"
   /api/classes/{index}/levels/{class_level}/features:
-    $ref: './paths/combined.yml#/class-level-features'
+    $ref: "./paths/combined.yml#/class-level-features"
   /api/classes/{index}/levels/{spell_level}/spells:
-    $ref: './paths/combined.yml#/class-spell-level-spells'
+    $ref: "./paths/combined.yml#/class-spell-level-spells"
   /api/conditions/{index}:
-    $ref: './paths/combined.yml#/conditions'
+    $ref: "./paths/combined.yml#/conditions"
   /api/damage-types/{index}:
-    $ref: './paths/combined.yml#/damage-types'
+    $ref: "./paths/combined.yml#/damage-types"
   /api/equipment/{index}:
-    $ref: './paths/combined.yml#/equipment'
+    $ref: "./paths/combined.yml#/equipment"
   /api/equipment-categories/{index}:
-    $ref: './paths/combined.yml#/equipment-categories'
+    $ref: "./paths/combined.yml#/equipment-categories"
   /api/feats/{index}:
-    $ref: './paths/combined.yml#/feats'
+    $ref: "./paths/combined.yml#/feats"
   /api/features/{index}:
-    $ref: './paths/combined.yml#/features'
+    $ref: "./paths/combined.yml#/features"
   /api/languages/{index}:
-    $ref: './paths/combined.yml#/languages'
+    $ref: "./paths/combined.yml#/languages"
   /api/magic-items/{index}:
-    $ref: './paths/combined.yml#/magic-items'
+    $ref: "./paths/combined.yml#/magic-items"
   /api/magic-schools/{index}:
-    $ref: './paths/combined.yml#/magic-schools'
+    $ref: "./paths/combined.yml#/magic-schools"
   /api/monsters:
-    $ref: './paths/combined.yml#/monsters'
+    $ref: "./paths/combined.yml#/monsters"
   /api/monsters/{index}:
-    $ref: './paths/combined.yml#/monster'
+    $ref: "./paths/combined.yml#/monster"
   /api/proficiencies/{index}:
-    $ref: './paths/combined.yml#/proficiencies'
+    $ref: "./paths/combined.yml#/proficiencies"
   /api/races/{index}:
-    $ref: './paths/combined.yml#/races'
+    $ref: "./paths/combined.yml#/races"
   /api/races/{index}/subraces:
-    $ref: './paths/combined.yml#/race-subraces'
+    $ref: "./paths/combined.yml#/race-subraces"
   /api/races/{index}/proficiencies:
-    $ref: './paths/combined.yml#/race-proficiencies'
+    $ref: "./paths/combined.yml#/race-proficiencies"
   /api/races/{index}/traits:
-    $ref: './paths/combined.yml#/race-traits'
+    $ref: "./paths/combined.yml#/race-traits"
   /api/rule-sections/{index}:
-    $ref: './paths/combined.yml#/rule-sections'
+    $ref: "./paths/combined.yml#/rule-sections"
   /api/rules/{index}:
-    $ref: './paths/combined.yml#/rules'
+    $ref: "./paths/combined.yml#/rules"
   /api/skills/{index}:
-    $ref: './paths/combined.yml#/skills'
+    $ref: "./paths/combined.yml#/skills"
   /api/spells:
-    $ref: './paths/combined.yml#/spells'
+    $ref: "./paths/combined.yml#/spells"
   /api/spells/{index}:
-    $ref: './paths/combined.yml#/spell'
+    $ref: "./paths/combined.yml#/spell"
   /api/subclasses/{index}:
-    $ref: './paths/combined.yml#/subclasses'
+    $ref: "./paths/combined.yml#/subclasses"
   /api/subclasses/{index}/features:
-    $ref: './paths/combined.yml#/subclass-features'
+    $ref: "./paths/combined.yml#/subclass-features"
   /api/subclasses/{index}/levels:
-    $ref: './paths/combined.yml#/subclass-levels'
+    $ref: "./paths/combined.yml#/subclass-levels"
   /api/subclasses/{index}/levels/{subclass_level}:
-    $ref: './paths/combined.yml#/subclass-level'
+    $ref: "./paths/combined.yml#/subclass-level"
   /api/subclasses/{index}/levels/{subclass_level}/features:
-    $ref: './paths/combined.yml#/subclass-level-features'
+    $ref: "./paths/combined.yml#/subclass-level-features"
   /api/subraces/{index}:
-    $ref: './paths/combined.yml#/subraces'
+    $ref: "./paths/combined.yml#/subraces"
   /api/subraces/{index}/proficiencies:
-    $ref: './paths/combined.yml#/subrace-proficiencies'
+    $ref: "./paths/combined.yml#/subrace-proficiencies"
   /api/subraces/{index}/traits:
-    $ref: './paths/combined.yml#/subrace-traits'
+    $ref: "./paths/combined.yml#/subrace-traits"
   /api/traits/{index}:
-    $ref: './paths/combined.yml#/traits'
+    $ref: "./paths/combined.yml#/traits"
   /api/weapon-properties/{index}:
-    $ref: './paths/combined.yml#/weapon-properties'
+    $ref: "./paths/combined.yml#/weapon-properties"
 
 components:
   parameters:
-    $ref: './parameters/combined.yml'
+    $ref: "./parameters/combined.yml"
 
   schemas:
-    $ref: './schemas/combined.yml'
+    $ref: "./schemas/combined.yml"
 
 externalDocs:
   description: Legacy api documentation.
-  url: 'https://www.dnd5eapi.co/docs/'
+  url: "https://www.dnd5eapi.co/docs/"

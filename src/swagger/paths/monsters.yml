@@ -1,45 +1,47 @@
 monster-resource-list:
   get:
-    summary: 'Get list of monsters with optional filtering'
+    summary: "Get list of monsters with optional filtering"
     tags:
       - Monsters
     parameters:
-      - $ref: '../parameters/combined.yml#/challenge-rating-filter'
+      - $ref: "../parameters/combined.yml#/challenge-rating-filter"
     responses:
-      '200':
+      "200":
         description: OK
         content:
           application/json:
             schema:
-              $ref: '../schemas/combined.yml#/APIReferenceList'
+              $ref: "../schemas/combined.yml#/APIReferenceList"
 monster-index:
   get:
     summary: Get monster by index.
     tags:
       - Monsters
     parameters:
-      - $ref: '../parameters/combined.yml#/monster-index'
+      - $ref: "../parameters/combined.yml#/monster-index"
     responses:
-      '200':
+      "200":
         description: OK
         content:
           application/json:
             schema:
-              $ref: '../schemas/combined.yml#/Monster'
+              $ref: "../schemas/combined.yml#/Monster"
             example:
               index: aboleth
               name: Aboleth
-              url: '/api/monsters/aboleth'
+              url: "/api/monsters/aboleth"
               actions:
                 - attacks: []
                   damage: []
                   desc: The aboleth makes three tentacle attacks.
                   name: Multiattack
-                  multiattack_type: actions
-                  actions:
-                    - action_name: Tentacle
-                      count: 3
-                      type: melee
+                  options:
+                    choose: 1
+                    from:
+                      - "0":
+                          count: 3
+                          name: Tentacle
+                          type: melee
                 - attack_bonus: 9
                   attacks: []
                   damage:
@@ -47,20 +49,21 @@ monster-index:
                       damage_type:
                         index: bludgeoning
                         name: Bludgeoning
-                        url: '/api/damage-types/bludgeoning'
+                        url: "/api/damage-types/bludgeoning"
                     - damage_dice: 1d12
                       damage_type:
                         index: acid
                         name: Acid
-                        url: '/api/damage-types/acid'
+                        url: "/api/damage-types/acid"
                   dc:
                     dc_type:
                       index: con
                       name: CON
-                      url: '/api/ability-scores/con'
+                      url: "/api/ability-scores/con"
                     dc_value: 14
                     success_type: none
-                  desc: "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6 +
+                  desc:
+                    "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6 +
                     5) bludgeoning damage. If the target is a creature, it must succeed on a DC 14
                     Constitution saving throw or become diseased. The disease has no effect for 1
                     minute and can be removed by any magic that cures disease. After 1 minute, the
@@ -77,9 +80,10 @@ monster-index:
                       damage_type:
                         index: bludgeoning
                         name: Bludgeoning
-                        url: '/api/damage-types/bludgeoning'
-                  desc: 'Melee Weapon Attack: +9 to hit, reach 10 ft. one target. Hit: 15 (3d6 + 5)
-                    bludgeoning damage.'
+                        url: "/api/damage-types/bludgeoning"
+                  desc:
+                    "Melee Weapon Attack: +9 to hit, reach 10 ft. one target. Hit: 15 (3d6 + 5)
+                    bludgeoning damage."
                   name: Tail
                 - attacks: []
                   damage: []
@@ -87,7 +91,7 @@ monster-index:
                     dc_type:
                       index: wis
                       name: WIS
-                      url: '/api/ability-scores/wis'
+                      url: "/api/ability-scores/wis"
                     dc_value: 14
                     success_type: none
                   desc: |-
@@ -125,35 +129,36 @@ monster-index:
                       damage_type:
                         index: psychic
                         name: Psychic
-                        url: '/api/damage-types/psychic'
-                  desc: One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the
+                        url: "/api/damage-types/psychic"
+                  desc:
+                    One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the
                     aboleth regains hit points equal to the damage the creature takes.
                   name: Psychic Drain (Costs 2 Actions)
               proficiencies:
                 - proficiency:
                     index: saving-throw-con
-                    name: 'Saving Throw: CON'
-                    url: '/api/proficiencies/saving-throw-con'
+                    name: "Saving Throw: CON"
+                    url: "/api/proficiencies/saving-throw-con"
                   value: 6
                 - proficiency:
                     index: saving-throw-int
-                    name: 'Saving Throw: INT'
-                    url: '/api/proficiencies/saving-throw-int'
+                    name: "Saving Throw: INT"
+                    url: "/api/proficiencies/saving-throw-int"
                   value: 8
                 - proficiency:
                     index: saving-throw-wis
-                    name: 'Saving Throw: WIS'
-                    url: '/api/proficiencies/saving-throw-wis'
+                    name: "Saving Throw: WIS"
+                    url: "/api/proficiencies/saving-throw-wis"
                   value: 6
                 - proficiency:
                     index: skill-history
-                    name: 'Skill: History'
-                    url: '/api/proficiencies/skill-history'
+                    name: "Skill: History"
+                    url: "/api/proficiencies/skill-history"
                   value: 12
                 - proficiency:
                     index: skill-perception
-                    name: 'Skill: Perception'
-                    url: '/api/proficiencies/skill-perception'
+                    name: "Skill: Perception"
+                    url: "/api/proficiencies/skill-perception"
                   value: 10
               reactions: []
               senses:
@@ -169,7 +174,7 @@ monster-index:
                     dc_type:
                       index: con
                       name: CON
-                      url: '/api/ability-scores/con'
+                      url: "/api/ability-scores/con"
                     dc_value: 14
                     success_type: none
                   desc:

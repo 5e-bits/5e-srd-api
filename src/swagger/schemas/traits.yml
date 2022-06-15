@@ -1,10 +1,24 @@
+trait-spell-option:
+  type: object
+  properties:
+    spell-options:
+      description: Choice of of `Spells` granted by the `Trait`.
+      allOf:
+        - $ref: "./combined.yml#/Choice"
+trait-subtrait-option:
+  type: object
+  properties:
+    subtrait-options:
+      description: Choice of one or more sub-traits granted by a parent `Trait`.
+      allOf:
+        - $ref: "./combined.yml#/Choice"
 trait-damage:
   type: object
   properties:
     damage-type:
       description: A damage type associated with this trait.
       allOf:
-        - $ref: './combined.yml#/APIReference'
+        - $ref: "./combined.yml#/APIReference"
     breath-weapon:
       description: The breath weapon action associated with a draconic ancestry.
       type: object
@@ -22,13 +36,13 @@ trait-damage:
                 type: string
             damage_type:
               allOf:
-                - $ref: './combined.yml#/APIReference'
+                - $ref: "./combined.yml#/APIReference"
         dc:
           type: object
           properties:
             dc_type:
               allOf:
-                - $ref: './combined.yml#/APIReference'
+                - $ref: "./combined.yml#/APIReference"
             success_type:
               description: How to modify damage on a successful saving throw.
               type: string
@@ -45,30 +59,32 @@ trait:
   description: |
     `Trait`
   allOf:
-    - $ref: './combined.yml#/APIReference'
-    - $ref: './combined.yml#/ResourceDescription'
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
     - type: object
       properties:
         races:
-          description: 'List of `Races` that have access to the trait.'
+          description: "List of `Races` that have access to the trait."
           type: array
           items:
-            $ref: './combined.yml#/APIReference'
+            $ref: "./combined.yml#/APIReference"
         subraces:
-          description: 'List of `Subraces` that have access to the trait.'
+          description: "List of `Subraces` that have access to the trait."
           type: array
           items:
-            $ref: './combined.yml#/APIReference'
+            $ref: "./combined.yml#/APIReference"
         proficiencies:
-          description: 'List of `Proficiencies` this trait grants.'
+          description: "List of `Proficiencies` this trait grants."
           type: array
           items:
-            $ref: './combined.yml#/APIReference'
+            $ref: "./combined.yml#/APIReference"
         proficiency_choices:
-          $ref: './combined.yml#/Choice'
+          description: "A choice of `Proficiencies` this trait grants."
+          allOf:
+            - $ref: "./combined.yml#/Choice"
         trait_specific:
-          description: 'Information specific to this trait'
+          description: "Information specific to this trait"
           oneOf:
-            - $ref: './combined.yml#/Choice'
-            - $ref: './combined.yml#/Choice'
-            - $ref: '#/trait-damage'
+            - $ref: "#/trait-spell-option"
+            - $ref: "#/trait-subtrait-option"
+            - $ref: "#/trait-damage"

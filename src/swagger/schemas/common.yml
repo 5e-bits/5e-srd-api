@@ -7,10 +7,10 @@ api-ref-model:
       description: Resource index for shorthand searching.
       type: string
     name:
-      description: 'Name of the referenced resource.'
+      description: "Name of the referenced resource."
       type: string
     url:
-      description: 'URL of the referenced resource.'
+      description: "URL of the referenced resource."
       type: string
 api-ref-list-model:
   description: |
@@ -18,163 +18,54 @@ api-ref-list-model:
   type: object
   properties:
     count:
-      description: 'Total number of resources available.'
+      description: "Total number of resources available."
       type: number
     results:
       type: array
       items:
-        $ref: './combined.yml#/APIReference'
+        $ref: "./combined.yml#/APIReference"
 choice-model:
   description: |
     `Choice`
   type: object
   properties:
-    desc:
-      description: 'Description of the choice to be made.'
-      type: string
     choose:
-      description: 'Number of items to pick from the list.'
+      description: "Number of items to pick from the list."
       type: number
     type:
-      description: 'Type of the resources to choose from.'
+      description: "Type of the resources to choose from."
       type: string
     from:
-      $ref: './combined.yml#/OptionSet'
-option-model:
+      description: "List of resources to choose from."
+      type: array
+      items:
+        $ref: "./combined.yml#/APIReference"
+string-choice-model:
   description: |
-    `Option`
+    `String Choice`
   type: object
   properties:
-    anyOf:
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        item:
-          $ref: './combined.yml#/APIReference'
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        action_name:
-          description: 'The name of the action.'
-          type: string
-        count:
-          description: 'The number of times this action can be repeated if chosen.'
-          type: number
-        type:
-          description: 'For attack options that can be melee, ranged, abilities, or thrown.'
-          type: string
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        items:
-          type: array
-          items:
-            $ref: './combined.yml#/Option'
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        choice:
-          $ref: './combined.yml#/Choice'
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        string:
-          description: 'The string.'
-          type: string
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        desc:
-          description: 'A description of the ideal.'
-          type: string
-        alignments:
-          description: 'A list of alignments of those who might follow the ideal.'
-          type: array
-          items:
-            $ref: './combined.yml#/APIReference'
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        count:
-          description: 'Count'
-          type: number
-        of:
-          $ref: './combined.yml#/APIReference'
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        ability_score:
-          $ref: './combined.yml#/APIReference'
-        minimum_score:
-          description: 'The minimum score required to satisfy the prerequisite.'
-          type: number
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        ability_score:
-          $ref: './combined.yml#/APIReference'
-        bonus:
-          description: 'The bonus being applied to the ability score'
-          type: number
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        name:
-          description: 'Name of the breath'
-          type: string
-        dc:
-          $ref: './combined.yml#/DC'
-        damage:
-          description: 'Damage dealt by the breath attack, if any.'
-          type: array
-          items:
-            $ref: './combined.yml#/Damage'
-      - option_type:
-          description: 'Type of option; determines other attributes.'
-          type: string
-        damage_type:
-          $ref: './combined.yml#/APIReference'
-        damage_dice:
-          description: 'Damage expressed in dice (e.g. "13d6").'
-          type: string
-        notes:
-          description: 'Information regarding the damage.'
-          type: string
-option-set-model:
-  description: |
-    `Option Set`
-  type: object
-  properties:
-    oneOf:
-      - option_set_type:
-          description: 'Type of option set; determines other attributes.'
-          type: string
-        options_array:
-          description: 'Array of options to choose from.'
-          type: array
-          items:
-            $ref: './combined.yml#/Option'
-      - option_set_type:
-          description: 'Type of option set; determines other attributes.'
-          type: string
-        equipment_category:
-          $ref: './combined.yml#/APIReference'
-      - option_set_type:
-          description: 'Type of option set; determines other attributes.'
-          type: string
-        resource_list:
-          description: 'A reference (by URL) to a collection in the database.'
-          type: string
+    choose:
+      description: "Number of items to pick from the list."
+      type: number
+    type:
+      description: "Type of resource to choose from."
+      type: string
+    from:
+      description: "List of descriptions to choose from."
+      type: array
+      items:
+        type: string
 cost-model:
   description: |
     `Cost`
   type: object
   properties:
     quantity:
-      description: 'Numerical amount of coins.'
+      description: "Numerical amount of coins."
       type: number
     unit:
-      description: 'Unit of coinage.'
+      description: "Unit of coinage."
       type: string
 damage-model:
   description: |
@@ -184,20 +75,7 @@ damage-model:
     damage_dice:
       type: string
     damage_type:
-      $ref: './combined.yml#/APIReference'
-dc-model:
-  description: |
-    `DC`
-  type: object
-  properties:
-    dc_type:
-      $ref: './combined.yml#/APIReference'
-    dc_value:
-      description: 'Value to beat'
-      type: number
-    success_type:
-      description: 'Result of a successful save. Can be \"none\", \"half\", or \"other\"'
-      type: string
+      $ref: "./combined.yml#/APIReference"
 prerequisite-model:
   description: |
     `Prerequisite`
@@ -205,15 +83,15 @@ prerequisite-model:
   properties:
     ability_score:
       allOf:
-        - $ref: './combined.yml#/APIReference'
+        - $ref: "./combined.yml#/APIReference"
     minimum_score:
-      description: 'Minimum score to meet the prerequisite.'
+      description: Minimum score to meet the prerequisite.
       type: number
 resource-description-model:
   type: object
   properties:
     desc:
-      description: 'Description of the resource.'
+      description: "Description of the resource."
       type: array
       items:
         type: string

@@ -2,73 +2,73 @@ equipment-model:
   description: |
     `Equipment`
   anyOf:
-    - $ref: './combined.yml#/Weapon'
-    - $ref: './combined.yml#/Armor'
-    - $ref: './combined.yml#/Gear'
-    - $ref: './combined.yml#/EquipmentPack'
+    - $ref: "./combined.yml#/Weapon"
+    - $ref: "./combined.yml#/Armor"
+    - $ref: "./combined.yml#/Gear"
+    - $ref: "./combined.yml#/EquipmentPack"
 equipment-category-model:
   description: |
     `EquipmentCategory`
   allOf:
-    - $ref: './combined.yml#/APIReference'
+    - $ref: "./combined.yml#/APIReference"
     - type: object
       properties:
         equipment:
-          description: 'A list of the equipment that falls into this category.'
+          description: "A list of the equipment that falls into this category."
           type: array
           items:
-            $ref: './combined.yml#/APIReference'
+            $ref: "./combined.yml#/APIReference"
 gear-model:
   description: |
     `Gear`
   allOf:
-    - $ref: './combined.yml#/APIReference'
-    - $ref: './combined.yml#/ResourceDescription'
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
     - type: object
       properties:
         equipment_category:
-          $ref: './combined.yml#/APIReference'
+          $ref: "./combined.yml#/APIReference"
         gear_category:
-          $ref: './combined.yml#/APIReference'
+          $ref: "./combined.yml#/APIReference"
         cost:
-          $ref: './combined.yml#/Cost'
+          $ref: "./combined.yml#/Cost"
         weight:
-          description: 'How much the equipment weighs.'
+          description: "How much the equipment weighs."
           type: number
 equipment-pack-model:
   description: |
     `EquipmentPack`
   allOf:
-    - $ref: './combined.yml#/APIReference'
-    - $ref: './combined.yml#/ResourceDescription'
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
     - type: object
       properties:
         equipment_category:
-          $ref: './combined.yml#/APIReference'
+          $ref: "./combined.yml#/APIReference"
         gear_category:
-          $ref: './combined.yml#/APIReference'
+          $ref: "./combined.yml#/APIReference"
         cost:
-          $ref: './combined.yml#/Cost'
+          $ref: "./combined.yml#/Cost"
         contents:
-          description: 'The list of adventuring gear in the pack.'
+          description: "The list of adventuring gear in the pack."
           type: array
           items:
-            $ref: './combined.yml#/APIReference'
+            $ref: "./combined.yml#/APIReference"
 magic-item-model:
   description: |
     `MagicItem`
   allOf:
-    - $ref: './combined.yml#/APIReference'
-    - $ref: './combined.yml#/ResourceDescription'
+    - $ref: "./combined.yml#/APIReference"
+    - $ref: "./combined.yml#/ResourceDescription"
     - type: object
       properties:
         equipment_category:
-          $ref: './combined.yml#/APIReference'
+          $ref: "./combined.yml#/APIReference"
         rarity:
           type: object
           properties:
             name:
-              description: 'The rarity of the item.'
+              description: "The rarity of the item."
               type: string
               enum:
                 - Varies
@@ -81,7 +81,35 @@ magic-item-model:
         variants:
           type: array
           items:
-            $ref: './combined.yml#/APIReference'
+            $ref: "./combined.yml#/APIReference"
         variant:
-          description: 'Whether this is a variant or not'
+          description: "Whether this is a variant or not"
           type: boolean
+equipment-option-model:
+  type: object
+  properties:
+    choose:
+      type: number
+    type:
+      type: string
+    from:
+      type: array
+      items:
+        anyOf:
+          - type: object
+            properties:
+              quantity:
+                type: number
+              equipment:
+                $ref: "./combined.yml#/APIReference"
+          - type: object
+            properties:
+              choose:
+                type: number
+              type:
+                type: string
+              from:
+                type: object
+                properties:
+                  equipment_category:
+                    $ref: "./combined.yml#/APIReference"
