@@ -80,14 +80,14 @@ option-model:
         items:
           type: array
           items:
-            $ref: './combined.yml#/APIReference' # Should be Option but can't use due to circular reference
+            $ref: './combined.yml#/Option'
     - type: object
       properties:
         option_type:
           description: 'Type of option; determines other attributes.'
           type: string
         choice:
-          $ref: './combined.yml#/APIReference' # Should be Choice but can't use due to circular reference
+          $ref: './combined.yml#/Choice'
     - type: object
       properties:
         option_type:
