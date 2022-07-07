@@ -2,7 +2,7 @@
   "name": "dnd-5e-srd-api",
   "version": "0.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "private": true,
   "scripts": {
