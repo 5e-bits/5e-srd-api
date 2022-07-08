@@ -2,7 +2,7 @@ const Collection = require('../models/collection');
 
 exports.index = async (req, res, next) => {
   try {
-    const data = await Collection.find()
+    const data = await Collection.find({})
       .select({ index: 1, _id: 0 })
       .sort({ index: 'asc' })
       .exec();
