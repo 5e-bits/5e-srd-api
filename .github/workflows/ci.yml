@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - run: npm install
       - run: npm run test:unit
   lint:
@@ -31,10 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - run: npm install
       - run: npm run lint
   integration:
@@ -53,8 +53,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "dnd-5e-srd-api"
-          heroku_email: "cdurianward@gmail.com"
+          heroku_app_name: 'dnd-5e-srd-api'
+          heroku_email: 'cdurianward@gmail.com'
   github-release:
     name: Github Release
     runs-on: ubuntu-latest
@@ -99,5 +99,4 @@ jobs:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.github-release.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          labels:
-            version=${{ needs.github-release.outputs.version }}
+          labels: version=${{ needs.github-release.outputs.version }}

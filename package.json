@@ -2,7 +2,7 @@
   "name": "dnd-5e-srd-api",
   "version": "0.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "private": true,
   "scripts": {
@@ -63,12 +63,12 @@
     "fs-extra": "^10.0.1",
     "jest": "^27.5.1",
     "mockingoose": "^2.15.2",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.19",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "redis-mock": "^0.56.3",
     "rimraf": "^3.0.2",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^19.0.3",
     "shelljs": "^0.8.5",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.3",

@@ -1,4 +1,5 @@
 import redisClient from './RedisClient';
+import * as mongoose from 'mongoose';
 
 import { ResourceList } from './data';
 import MagicItem from '../models/magicItem';
@@ -7,8 +8,13 @@ import Monster from '../models/monster';
 import Rule from '../models/rule';
 import RuleSection from '../models/ruleSection';
 
+type PrewarmData = {
+  Schema: mongoose.Model<any, any>;
+  endpoint: string;
+};
+
 const prewarmCache = async () => {
-  const toPrewarm = [
+  const toPrewarm: PrewarmData[] = [
     {
       Schema: MagicItem,
       endpoint: '/api/magic-items',
