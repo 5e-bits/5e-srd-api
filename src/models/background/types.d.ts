@@ -1,46 +1,10 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
-
-type LanguageOptions = {
-  _id?: mongoose.Types.ObjectId;
-  choose: number;
-  from: APIReference[];
-  type: string;
-};
+import { APIReference, Choice } from '../common/types';
 
 type Equipment = {
   _id?: mongoose.Types.ObjectId;
   equipment: APIReference;
   quantity: number;
-};
-
-type StartingEquipmentOption = {
-  _id?: mongoose.Types.ObjectId;
-  equipment_category: APIReference;
-};
-
-type StartingEquipmentOptions = {
-  _id?: mongoose.Types.ObjectId;
-  choose: number;
-  from: StartingEquipmentOption[];
-  type: string;
-};
-
-type CharacteristicOptions = {
-  choose: number;
-  from: string[];
-  type: string;
-};
-
-type Ideal = {
-  desc: string;
-  alignments: APIReference[];
-};
-
-type IdealOptions = {
-  choose: number;
-  from: Ideal[];
-  type: string;
 };
 
 type Feature = {
@@ -53,13 +17,13 @@ export type Background = {
   index: string;
   name: string;
   starting_proficiencies: APIReference[];
-  language_options: LanguageOptions;
+  language_options: Choice;
   url: string;
   starting_equipment: Equipment[];
-  starting_equipment_options: StartingEquipmentOptions[];
+  starting_equipment_options: Choice[];
   feature: Feature;
-  personality_trait: CharacteristicOptions;
-  ideals: IdealOptions;
-  bonds: CharacteristicOptions;
-  flaws: CharacteristicOptions;
+  personality_trait: Choice;
+  ideals: Choice;
+  bonds: Choice;
+  flaws: Choice;
 };
