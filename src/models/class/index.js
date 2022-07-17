@@ -1,31 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
+const { APIReference, Choice } = require('../common');
 
 const Equipment = new Schema({
   _id: false,
   equipment: APIReference,
   quantity: { type: Number, index: true },
-});
-
-const StartingEquipmentOption = new Schema({
-  _id: false,
-  equipment: APIReference,
-  quantity: { type: Number, index: true },
-});
-
-const StartingEquipmentOptions = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [StartingEquipmentOption],
-  type: { type: String, index: true },
-});
-
-const ProficiencyChoice = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
 });
 
 const SpellcastingInfo = new Schema({
@@ -47,19 +27,12 @@ const MultiClassingPrereq = new Schema({
   minimum_score: { type: Number, index: true },
 });
 
-const MultiClassingPrereqOptions = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [MultiClassingPrereq],
-  type: { type: String, index: true },
-});
-
 const MultiClassing = new Schema({
   _id: false,
   prerequisites: { type: [MultiClassingPrereq], default: undefined },
-  prerequisite_options: { type: MultiClassingPrereqOptions, default: undefined },
+  prerequisite_options: { type: Choice, default: undefined },
   proficiencies: { type: [APIReference], default: undefined },
-  proficiency_choices: { type: [ProficiencyChoice], default: undefined },
+  proficiency_choices: { type: [Choice], default: undefined },
 });
 
 const Class = new Schema({
@@ -70,12 +43,12 @@ const Class = new Schema({
   index: { type: String, index: true },
   name: { type: String, index: true },
   proficiencies: [APIReference],
-  proficiency_choices: [ProficiencyChoice],
+  proficiency_choices: [Choice],
   saving_throws: [APIReference],
   spellcasting: Spellcasting,
   spells: { type: String, index: true },
   starting_equipment: [Equipment],
-  starting_equipment_options: [StartingEquipmentOptions],
+  starting_equipment_options: [Choice],
   subclasses: [APIReference],
   url: { type: String, index: true },
 });

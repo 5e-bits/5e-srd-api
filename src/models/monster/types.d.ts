@@ -21,7 +21,7 @@ type ActionAttack = {
 type ActionOption = {
   action_name: string;
   count: number | string;
-  type: string;
+  type: 'melee' | 'ranged' | 'ability' | 'magic';
 };
 
 type ActionUsage = {

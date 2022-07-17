@@ -1,26 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
+const { APIReference, Choice } = require('../common');
 
 const Proficiency = new Schema({
   _id: false,
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
-});
-
-const ProficiencyChoices = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
-});
-
-const Choice = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
 });
 
 const ActionDamage = new Schema({
@@ -65,7 +51,7 @@ const Trait = new Schema({
   index: { type: String, index: true },
   name: { type: String, index: true },
   proficiencies: [Proficiency],
-  proficiency_choices: ProficiencyChoices,
+  proficiency_choices: Choice,
   races: [APIReference],
   subraces: [APIReference],
   parent: APIReference,

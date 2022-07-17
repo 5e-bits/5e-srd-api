@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
+const { APIReference, Choice } = require('../common');
 
 const LanguageOptions = new Schema({
   _id: false,
@@ -15,30 +15,10 @@ const Equipment = new Schema({
   quantity: { type: Number, index: true },
 });
 
-const StartingEquipmentOption = new Schema({
-  _id: false,
-  equipment: APIReference,
-  quantity: { type: Number, index: true },
-});
-
-const StartingEquipmentOptions = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [StartingEquipmentOption],
-  type: { type: String, index: true },
-});
-
 const Ideal = new Schema({
   _id: false,
   desc: { type: String, index: true },
   alignments: [APIReference],
-});
-
-const CharacteristicOptions = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: { type: [String], index: true },
-  type: { type: String, index: true },
 });
 
 const IdealOptions = new Schema({
@@ -62,12 +42,12 @@ const Background = new Schema({
   language_options: LanguageOptions,
   url: { type: String, index: true },
   starting_equipment: [Equipment],
-  starting_equipment_options: [StartingEquipmentOptions],
+  starting_equipment_options: { type: [Choice], index: true },
   feature: Feature,
-  personality_traits: CharacteristicOptions,
+  personality_traits: Choice,
   ideals: IdealOptions,
-  bonds: CharacteristicOptions,
-  flaws: CharacteristicOptions,
+  bonds: Choice,
+  flaws: Choice,
 });
 
 module.exports = mongoose.model('Background', Background, 'backgrounds');

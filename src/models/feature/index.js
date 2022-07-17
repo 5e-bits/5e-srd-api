@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
-
-const Choice = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
-});
+const { APIReference, Choice } = require('../common');
 
 const Prerequisite = new Schema({
   _id: false,
@@ -23,7 +16,6 @@ const FeatureSpecific = new Schema({
 
 const Feature = new Schema({
   _id: { type: String, select: false },
-  choice: Choice,
   class: APIReference,
   desc: { type: [String], index: true },
   parent: APIReference,
