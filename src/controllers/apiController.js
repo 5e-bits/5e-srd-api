@@ -9,6 +9,8 @@ exports.index = async (req, res, next) => {
 
     const apiIndex = {};
     data.forEach(item => {
+      if (item.index === 'levels') return;
+
       apiIndex[item.index] = `/api/${item.index}`;
     });
 
