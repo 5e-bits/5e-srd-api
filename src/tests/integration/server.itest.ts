@@ -46,5 +46,6 @@ describe('/api', () => {
     const res = await request(app).get('/api');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('ability-scores');
+    expect(res.body).not.toHaveProperty('levels');
   });
 });
