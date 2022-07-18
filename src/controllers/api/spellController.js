@@ -8,11 +8,11 @@ exports.index = async (req, res, next) => {
   }
 
   if (req.query.level !== undefined) {
-    searchQueries.level = { $in: req.query.level.split(',') };
+    searchQueries.level = { $in: req.query.level };
   }
 
   if (req.query.school !== undefined) {
-    const schoolRegex = req.query.school.split(',').map(c => new RegExp(escapeRegExp(c), 'i'));
+    const schoolRegex = req.query.school.map(c => new RegExp(escapeRegExp(c), 'i'));
     searchQueries['school.name'] = { $in: schoolRegex };
   }
 
