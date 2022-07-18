@@ -82,7 +82,9 @@ describe('/api/monsters', () => {
         const cr20Res = await request(app).get(`/api/monsters?challenge_rating=${cr20}`);
         expect(cr20Res.statusCode).toEqual(200);
 
-        const bothRes = await request(app).get(`/api/monsters?challenge_rating=${cr1},${cr20}`);
+        const bothRes = await request(app).get(
+          `/api/monsters?challenge_rating=${cr1}&challenge_rating=${cr20}`
+        );
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
