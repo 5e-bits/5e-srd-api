@@ -8,7 +8,7 @@ const APIReference = new Schema({
   url: { type: String, index: true },
 });
 
-const DC = new Schema({
+const DifficultyClass = new Schema({
   _id: false,
   dc_type: { type: APIReference, index: true },
   dc_value: { type: Number, index: true },
@@ -102,7 +102,7 @@ Option.discriminators['ability_bonus'] = new Schema({
 Option.discriminators['breath'] = new Schema({
   _id: false,
   name: { type: String, index: true, required: true },
-  dc: { type: DC, index: true, required: true },
+  dc: { type: DifficultyClass, index: true, required: true },
   damage: { type: [Damage], index: true },
 });
 

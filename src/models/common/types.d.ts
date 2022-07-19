@@ -28,7 +28,7 @@ type ResourceListOptionSet = {
   resource_list_url: string;
 };
 
-type DC = {
+type DifficultyClass = {
   dc_type: APIReference;
   dc_value: number;
   success_type: 'none' | 'half' | 'other';
@@ -106,7 +106,7 @@ type AbilityBonusOption = {
 type BreathOption = {
   option_type: 'breath';
   name: string;
-  dc: DC;
+  dc: DifficultyClass;
   damage?: Damage[];
 };
 
