@@ -45,8 +45,12 @@ const Query = require('./queryResolver');
 const Vehicle = require('./vehicleResolver');
 const Weapon = require('./weaponResolver');
 
+import ActionCount from './scalars/actionCountResolver';
+import MonsterActionOption from './monsterActionOptionResolver';
+
 const resolvers = {
   AbilityScore,
+  ActionCount,
   Ammunition,
   AreaOfEffectTypeFilter,
   Armor,
@@ -68,6 +72,7 @@ const resolvers = {
   Level,
   MagicItem,
   MagicSchool,
+  MonsterActionOption,
   Monster,
   MonsterSubtypeFilter,
   MonsterTypeFilter,

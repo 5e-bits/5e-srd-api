@@ -574,11 +574,103 @@ MonsterSubtype or list of MonsterSubtypes
 """
 scalar MonsterSubtypeFilter
 
-# TODO: add actions
+scalar ActionCount
+
+type ActionOption {
+  option_type: String!
+  action_name: String!
+  count: ActionCount!
+  type: String
+}
+
+type MultipleActionOption {
+  option_type: String!
+  items: [ActionOption!]!
+}
+
+union MonsterActionOption = ActionOption | MultipleActionOption
+
+type MonsterActionOptionSet {
+  option_set_type: String!
+  options: [MonsterActionOption!]!
+}
+
+type MonsterActionChoice {
+  choose: Int!
+  type: String!
+  from: MonsterActionOptionSet!
+}
+
+type Action {
+  action_name: String!
+  count: ActionCount!
+  type: String!
+}
+
+type Attack {
+  damage: [Damage!]
+  dc: ActionDc!
+  name: String!
+}
+
+type DamageOption {
+  option_type: String!
+  damage_dice: String!
+  damage_type: DamageType!
+  notes: String
+}
+
+type DamageOptionSet {
+  option_set_type: String!
+  options: [DamageOption!]!
+}
+
+type ActionDamage {
+  damage_dice: String
+  damage_type: DamageType
+  choose: Int
+  dc: ActionDc
+  type: String
+  from: DamageOptionSet
+}
+
+type BreathOption {
+  option_type: String!
+  name: String!
+  dc: ActionDc!
+  damage: [Damage!]
+}
+
+type BreathOptionSet {
+  option_set_type: String!
+  options: [BreathOption!]!
+}
+
+type BreathChoice {
+  choose: Int!
+  type: String!
+  from: BreathOptionSet!
+}
+
+type MonsterAction {
+  action_options: MonsterActionChoice
+  actions: [Action!]
+  name: String!
+  multiattack_type: String
+  attack_bonus: Int
+  attacks: [Attack!]
+  damage: [ActionDamage!]
+  desc: String!
+  dc: ActionDc
+  options: BreathChoice
+  usage: Usage
+}
+
 type Monster {
   index: String!
   name: String!
   armor_class: Int!
+  actions: [MonsterAction!]
   challenge_rating: Float!
   charisma: Int!
   condition_immunities: [Condition!]!

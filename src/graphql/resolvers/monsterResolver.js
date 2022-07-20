@@ -14,13 +14,28 @@ const resolveDc = async dc => ({
 
 const resolveDamage = async damage => {
   const damageTypes = await DamageTypeModel.find({
-    index: { $in: damage.map(d => d.damage_type.index) },
+    index: { $in: damage.filter(d => d.damage_type).map(d => d.damage_type.index) },
   }).lean();
 
-  return damage.map(async d => ({
-    ...d,
-    damage_type: damageTypes.find(dt => dt.index === d.damage_type.index),
-  }));
+  return damage.map(async d => {
+    const newDamage = {
+      ...d,
+    };
+
+    if (d.damage_type) {
+      newDamage.damage_type = damageTypes.find(dt => dt.index === d.damage_type.index);
+    }
+
+    if (d.dc) {
+      newDamage.dc = await resolveDc(d.dc);
+    }
+
+    if (newDamage.from) {
+      newDamage.from.options = await resolveDamage(newDamage.from.options);
+    }
+
+    return newDamage;
+  });
 };
 
 const resolveUsage = usage => {
@@ -123,6 +138,62 @@ const Monster = {
     } else {
       return monster.type.toUpperCase();
     }
+  },
+  actions: async monster => {
+    const { actions } = monster;
+    if (!actions) {
+      return null;
+    }
+
+    const actionsToReturn = [];
+
+    for (const action of actions) {
+      const actionToAdd = { ...action };
+      if (action.attacks) {
+        actionToAdd.attacks = action.attacks.map(async attack => {
+          const attackToReturn = { name: attack.name, dc: await resolveDc(attack.dc) };
+          if (attack.damage) {
+            attackToReturn.damage = await resolveDamage(attack.damage);
+          }
+
+          return attackToReturn;
+        });
+      }
+
+      if (action.damage) {
+        actionToAdd.damage = await resolveDamage(action.damage);
+      }
+
+      if (action.dc) {
+        actionToAdd.dc = await resolveDc(action.dc);
+      }
+
+      if (action.options) {
+        actionToAdd.options = {
+          ...action.options,
+          from: {
+            ...action.options.from,
+            options: action.options.from.options.map(async option => {
+              const newOption = { ...option, dc: await resolveDc(option.dc) };
+
+              if (option.damage) {
+                newOption.damage = await resolveDamage(option.damage);
+              }
+
+              return newOption;
+            }),
+          },
+        };
+      }
+
+      if (action.usage) {
+        actionToAdd.usage = resolveUsage(action.usage);
+      }
+
+      actionsToReturn.push(actionToAdd);
+    }
+
+    return actionsToReturn;
   },
 };
 
