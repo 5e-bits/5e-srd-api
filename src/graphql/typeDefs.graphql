@@ -869,13 +869,62 @@ type BackgroundFeature {
   desc: [String!]!
 }
 
-# TODO: Add language_options, starting_equipment_options, personality_traits, ideals, bonds, and flaws relations
+type EquipmentCategoryOptionSet {
+  option_set_type: String!
+  equipment_category: EquipmentCategory!
+}
+
+type EquipmentCategoryChoice {
+  choose: Int!
+  type: String!
+  from: EquipmentCategoryOptionSet!
+}
+
+type IdealOption {
+  option_type: String!
+  desc: String!
+  alignments: [Alignment!]!
+}
+
+type IdealOptionSet {
+  option_set_type: String!
+  options: [IdealOption!]!
+}
+
+type IdealChoice {
+  choose: Int!
+  type: String!
+  from: IdealOptionSet!
+}
+
+type StringOption {
+  option_type: String!
+  string: String!
+}
+
+type StringOptionSet {
+  option_set_type: String!
+  options: [StringOption!]!
+}
+
+type StringChoice {
+  choose: Int!
+  type: String!
+  from: StringOptionSet!
+}
+
 type Background {
   index: String!
   name: String!
   starting_proficiencies: [Proficiency!]!
   starting_equipment: [Quantity!]!
   feature: BackgroundFeature!
+  language_options: LanguageChoice!
+  starting_equipment_options: [EquipmentCategoryChoice!]!
+  ideals: IdealChoice!
+  personality_traits: StringChoice!
+  bonds: StringChoice!
+  flaws: StringChoice!
 }
 
 type SpellcastingInfo {
