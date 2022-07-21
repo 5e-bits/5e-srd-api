@@ -81,7 +81,7 @@ describe('/api/spells', () => {
         expect(res2.statusCode).toEqual(200);
 
         const bothRes = await request(app).get(
-          `/api/spells?level=${expectedLevel1},${expectLevel2}`
+          `/api/spells?level=${expectedLevel1}&level=${expectLevel2}`
         );
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(res1.body.count + res2.body.count);
@@ -123,7 +123,7 @@ describe('/api/spells', () => {
         expect(res2.statusCode).toEqual(200);
 
         const bothRes = await request(app).get(
-          `/api/spells?school=${expectedSchool1},${expectedSchool2}`
+          `/api/spells?school=${expectedSchool1}&school=${expectedSchool2}`
         );
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(res1.body.count + res2.body.count);

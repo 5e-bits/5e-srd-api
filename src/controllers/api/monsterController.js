@@ -7,7 +7,7 @@ exports.index = async (req, res, next) => {
     searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
   }
   if (req.query.challenge_rating !== undefined) {
-    searchQueries.challenge_rating = { $in: req.query.challenge_rating.split(',') };
+    searchQueries.challenge_rating = { $in: req.query.challenge_rating };
   }
 
   const redisKey = req.originalUrl;
