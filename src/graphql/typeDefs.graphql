@@ -1025,6 +1025,52 @@ type Class {
   starting_equipment_options: [StartingEquipmentChoice!]!
 }
 
+type FeaturePrerequisite {
+  type: String!
+  feature: Feature
+  level: Int
+  spell: Spell
+}
+
+type FeatureOption {
+  option_type: String!
+  item: Feature!
+}
+
+type FeatureOptionSet {
+  option_set_type: String!
+  options: [FeatureOption!]!
+}
+
+type FeatureChoice {
+  choose: Int!
+  type: String!
+  from: FeatureOptionSet!
+}
+
+type ExpertiseMultipleOption {
+  option_type: String!
+  items: [ProficiencyOption!]!
+}
+
+union ExpertiseOption = ExpertiseMultipleOption | ProficiencyChoiceOption | ProficiencyReferenceOption
+
+type ExpertiseOptionSet {
+  option_set_type: String!
+  options: [ExpertiseOption!]!
+}
+
+type ExpertiseChoice {
+  choose: Int!
+  type: String!
+  from: ExpertiseOptionSet!
+}
+
+type FeatureSpecific {
+  expertise_options: ExpertiseChoice
+  subfeature_options: FeatureChoice
+}
+
 # TODO: Add prerequisites, reference, and feature_specific relations 
 type Feature {
   index: String!
@@ -1034,6 +1080,9 @@ type Feature {
   parent: Feature
   class: Class!
   subclass: Subclass
+  prerequisites: [FeaturePrerequisite!]!
+  reference: String
+  feature_specific: FeatureSpecific
 }
 
 type LevelSpellcasting {

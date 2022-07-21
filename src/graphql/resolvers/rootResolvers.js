@@ -48,6 +48,7 @@ const Weapon = require('./weaponResolver');
 import ActionCount from './scalars/actionCountResolver';
 import EquipmentMultipleItem from './equipmentMultipleItemResolver';
 import EquipmentOption from './equipmentOptionResolver';
+import ExpertiseOption from './expertiseOptionResolver';
 import MonsterActionOption from './monsterActionOptionResolver';
 import ProficiencyOption from './proficiencyOptionResolver';
 import StartingEquipmentOptionSet from './startingEquipmentOptionSetResolver';
@@ -67,6 +68,7 @@ const resolvers = {
   EquipmentCategory,
   EquipmentMultipleItem,
   EquipmentOption,
+  ExpertiseOption,
   Feat,
   Feature,
   FloatFilter,
