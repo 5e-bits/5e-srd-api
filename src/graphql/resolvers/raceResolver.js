@@ -26,6 +26,54 @@ const Race = {
   subraces: async race =>
     await Subrace.find({ index: { $in: race.subraces.map(s => s.index) } }).lean(),
   traits: async race => await Trait.find({ index: { $in: race.traits.map(t => t.index) } }).lean(),
+  ability_bonus_options: async race => {
+    if (!race.ability_bonus_options) {
+      return null;
+    }
+
+    return {
+      ...race.ability_bonus_options,
+      from: {
+        ...race.ability_bonus_options.from,
+        options: race.ability_bonus_options.from.options.map(async option => ({
+          ...option,
+          ability_score: await AbilityScore.findOne({ index: option.ability_score.index }),
+        })),
+      },
+    };
+  },
+  language_options: async race => {
+    if (!race.language_options) {
+      return null;
+    }
+
+    return {
+      ...race.language_options,
+      from: {
+        ...race.language_options.from,
+        options: race.language_options.from.options.map(async option => ({
+          ...option,
+          item: await Language.findOne({ index: option.item.index }).lean(),
+        })),
+      },
+    };
+  },
+  starting_proficiency_options: async race => {
+    if (!race.starting_proficiency_options) {
+      return null;
+    }
+
+    return {
+      ...race.starting_proficiency_options,
+      from: {
+        ...race.starting_proficiency_options.from,
+        options: race.starting_proficiency_options.from.options.map(async option => ({
+          ...option,
+          item: await Proficiency.findOne({ index: option.item.index }).lean(),
+        })),
+      },
+    };
+  },
 };
 
 module.exports = Race;

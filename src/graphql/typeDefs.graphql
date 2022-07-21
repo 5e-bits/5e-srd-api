@@ -710,6 +710,7 @@ type ProficiencyOptionSet {
 }
 
 type ProficiencyChoice {
+  desc: String
   choose: Int!
   type: String!
   from: ProficiencyOptionSet!
@@ -794,19 +795,54 @@ type AbilityBonus {
   bonus: Int!
 }
 
-# TODO: Add ability_bonus_options, language_options, starting_proficiency_options
+type AbilityBonusOption {
+  option_type: String!
+  bonus: Int!
+  ability_score: AbilityScore!
+}
+
+type AbilityBonusOptionSet {
+  option_set_type: String!
+  options: [AbilityBonusOption!]!
+}
+
+type AbilityBonusChoice {
+  choose: Int!
+  type: String!
+  from: AbilityBonusOptionSet!
+}
+
+type LanguageOption {
+  option_type: String!
+  item: Language!
+}
+
+type LanguageOptionSet {
+  option_set_type: String!
+  options: [LanguageOption!]!
+}
+
+type LanguageChoice {
+  choose: Int!
+  type: String!
+  from: LanguageOptionSet!
+}
+
 type Race implements ProficiencyRace {
   index: String!
   name: String!
   ability_bonuses: [AbilityBonus!]!
+  ability_bonus_options: AbilityBonusChoice
   age: String!
   alignment: String!
   language_desc: String!
   languages: [Language!]!
+  language_options: LanguageChoice
   size: Size!
   size_description: String!
   speed: Int!
   starting_proficiencies: [Proficiency!]!
+  starting_proficiency_options: ProficiencyChoice
   subraces: [Subrace!]!
   traits: [Trait!]!
 }
