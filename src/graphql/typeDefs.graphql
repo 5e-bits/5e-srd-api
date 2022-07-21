@@ -847,7 +847,6 @@ type Race implements ProficiencyRace {
   traits: [Trait!]!
 }
 
-# TODO: Add language_options relation
 type Subrace implements ProficiencyRace {
   index: String!
   name: String!
@@ -856,6 +855,7 @@ type Subrace implements ProficiencyRace {
   race: Race!
   racial_traits: [Trait!]!
   starting_proficiencies: [Proficiency!]!
+  language_options: LanguageChoice
 }
 
 interface ProficiencyRace {
