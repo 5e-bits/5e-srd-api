@@ -704,9 +704,16 @@ type ProficiencyReferenceOption {
   item: Proficiency!
 }
 
+type ProficiencyChoiceOption {
+  option_type: String!
+  choice: ProficiencyChoice!
+}
+
+union ProficiencyOption = ProficiencyChoiceOption | ProficiencyReferenceOption
+
 type ProficiencyOptionSet {
   option_set_type: String!
-  options: [ProficiencyReferenceOption!]!
+  options: [ProficiencyOption!]!
 }
 
 type ProficiencyChoice {
@@ -938,7 +945,70 @@ type ClassSpellcasting {
   spellcasting_ability: AbilityScore!
 }
 
-# TODO: Add multi_classing, proficiency_choices, and starting_equipment_options relations
+type PrerequisiteOption {
+  option_type: String!
+  ability_score: AbilityScore!
+  minimum_score: Int!
+}
+
+type PrerequisiteOptionSet {
+  option_set_type: String!
+  options: [PrerequisiteOption!]!
+}
+
+type PrerequisiteChoice {
+  choose: Int!
+  type: String!
+  from: PrerequisiteOptionSet!
+}
+
+type Multiclassing {
+  prerequisites: [AbilityScorePrerequisite!]
+  prerequisite_options: PrerequisiteChoice
+  proficiencies: [Proficiency!]!
+  proficiency_choices: [ProficiencyChoice!]
+}
+
+type ProficiencyPrerequisite {
+  type: String!
+  proficiency: Proficiency!
+}
+
+type CountedReferenceOption {
+  option_type: String!
+  count: Int!
+  of: IEquipment!
+  prerequisites: [ProficiencyPrerequisite!]
+}
+
+type EquipmentCategoryChoiceOption {
+  option_type: String!
+  choice: EquipmentCategoryChoice!
+}
+
+union EquipmentMultipleItem = CountedReferenceOption | EquipmentCategoryChoiceOption
+
+type EquipmentMultipleOption {
+  option_type: String!
+  items: [EquipmentMultipleItem!]!
+}
+
+union EquipmentOption = CountedReferenceOption | EquipmentCategoryChoiceOption | EquipmentMultipleOption
+
+type EquipmentOptionSet {
+  option_set_type: String!
+  options: [EquipmentOption!]!
+}
+
+union StartingEquipmentOptionSet = EquipmentCategoryOptionSet | EquipmentOptionSet
+
+type StartingEquipmentChoice {
+  choose: Int!
+  desc: String!
+  type: String!
+  from: StartingEquipmentOptionSet!
+}
+
 type Class {
   index: String!
   name: String!
@@ -950,6 +1020,9 @@ type Class {
   starting_equipment: [Quantity!]!
   class_levels: [Level!]!
   subclasses: [Subclass!]!
+  multi_classing: Multiclassing!
+  proficiency_choices: [ProficiencyChoice!]!
+  starting_equipment_options: [StartingEquipmentChoice!]!
 }
 
 # TODO: Add prerequisites, reference, and feature_specific relations 

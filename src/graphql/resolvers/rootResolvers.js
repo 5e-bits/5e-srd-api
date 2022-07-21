@@ -46,7 +46,11 @@ const Vehicle = require('./vehicleResolver');
 const Weapon = require('./weaponResolver');
 
 import ActionCount from './scalars/actionCountResolver';
+import EquipmentMultipleItem from './equipmentMultipleItemResolver';
+import EquipmentOption from './equipmentOptionResolver';
 import MonsterActionOption from './monsterActionOptionResolver';
+import ProficiencyOption from './proficiencyOptionResolver';
+import StartingEquipmentOptionSet from './startingEquipmentOptionSetResolver';
 
 const resolvers = {
   AbilityScore,
@@ -61,6 +65,8 @@ const resolvers = {
   IEquipment,
   IEquipmentBase,
   EquipmentCategory,
+  EquipmentMultipleItem,
+  EquipmentOption,
   Feat,
   Feature,
   FloatFilter,
@@ -78,6 +84,7 @@ const resolvers = {
   MonsterTypeFilter,
   Pack,
   Proficiency,
+  ProficiencyOption,
   ProficiencyRace,
   ProficiencyReference,
   ProficiencyTypeFilter,
@@ -88,6 +95,7 @@ const resolvers = {
   Spell,
   SpellAttackTypeFilter,
   SpellPrerequisite,
+  StartingEquipmentOptionSet,
   StringFilter,
   Subclass,
   SubclassSpecific,
