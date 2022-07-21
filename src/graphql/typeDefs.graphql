@@ -463,6 +463,7 @@ enum UsageType {
   PER_DAY
   RECHARGE_ON_ROLL
   RECHARGE_AFTER_REST
+  PER_REST
 }
 
 type Usage {
@@ -698,7 +699,84 @@ type Monster {
   xp: Int!
 }
 
-# TODO: Add trait_specific, and proficiency_choices relations
+type ProficiencyReferenceOption {
+  option_type: String!
+  item: Proficiency!
+}
+
+type ProficiencyOptionSet {
+  option_set_type: String!
+  options: [ProficiencyReferenceOption!]!
+}
+
+type ProficiencyChoice {
+  choose: Int!
+  type: String!
+  from: ProficiencyOptionSet!
+}
+
+type BreathWeaponDc {
+  type: AbilityScore!
+  success: DcSuccess!
+}
+
+type BreathWeaponUsage {
+  times: Int!
+  type: UsageType!
+}
+
+type BreathWeaponDamage {
+  damage_at_character_level: [DamageAtLevel!]!
+  damage_type: DamageType!
+}
+
+type BreathWeaponTrait {
+  name: String!
+  desc: String!
+  dc: BreathWeaponDc!
+  usage: BreathWeaponUsage!
+  damage: [BreathWeaponDamage!]!
+}
+
+type SpellOption {
+  option_type: String!
+  item: Spell!
+}
+
+type SpellOptionSet {
+  option_set_type: String!
+  options: [SpellOption!]!
+}
+
+type SpellChoice {
+  choose: Int!
+  type: String!
+  from: SpellOptionSet!
+}
+
+type TraitOption {
+  option_type: String!
+  item: Trait!
+}
+
+type TraitOptionSet {
+  option_set_type: String!
+  options: [TraitOption!]!
+}
+
+type TraitChoice {
+  choose: Int!
+  type: String!
+  from: TraitOptionSet!
+}
+
+type TraitSpecific {
+  breath_weapon: BreathWeaponTrait
+  damage_type: DamageType
+  spell_options: SpellChoice
+  subtrait_options: TraitChoice
+}
+
 type Trait {
   index: String!
   desc: [String!]!
@@ -707,6 +785,8 @@ type Trait {
   parent: Trait
   races: [Race]!
   subraces: [Subrace!]!
+  proficiency_choices: ProficiencyChoice
+  trait_specific: TraitSpecific
 }
 
 type AbilityBonus {

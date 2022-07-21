@@ -4,13 +4,8 @@ const DamageTypeModel = require('../../models/damageType');
 const MonsterModel = require('../../models/monster');
 const ProficiencyModel = require('../../models/proficiency');
 const SpellModel = require('../../models/spell');
-const { levelObjectToArray } = require('./common');
 
-const resolveDc = async dc => ({
-  type: await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean(),
-  value: dc.dc_value,
-  success: dc.success_type.toUpperCase(),
-});
+import { levelObjectToArray, resolveDc, resolveUsage } from './common';
 
 const resolveDamage = async damage => {
   const damageTypes = await DamageTypeModel.find({
@@ -36,13 +31,6 @@ const resolveDamage = async damage => {
 
     return newDamage;
   });
-};
-
-const resolveUsage = usage => {
-  const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
-  if (usage.rest_types) resolvedUsage.rest_types = usage.rest_types.map(rt => rt.toUpperCase());
-
-  return resolvedUsage;
 };
 
 const Monster = {

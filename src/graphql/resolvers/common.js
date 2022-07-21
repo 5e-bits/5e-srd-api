@@ -1,6 +1,8 @@
 const EquipmentCategory = require('../../models/equipmentCategory');
 const Spell = require('../../models/spell');
 
+import AbilityScoreModel from '../../models/abilityScore';
+
 const equipmentBaseFieldResolvers = {
   equipment_category: async equipment =>
     await EquipmentCategory.findOne({ index: equipment.equipment_category.index }).lean(),
@@ -188,6 +190,26 @@ const getMongoSortDirection = value => (value === 'ASCENDING' ? 1 : -1);
 const levelObjectToArray = (obj, fieldName) =>
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
 
+const resolveDc = async dc => {
+  const resolvedDc = {
+    type: await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean(),
+    success: dc.success_type.toUpperCase(),
+  };
+
+  if (dc.dc_value) {
+    resolvedDc.value = dc.dc_value;
+  }
+
+  return resolvedDc;
+};
+
+const resolveUsage = usage => {
+  const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
+  if (usage.rest_types) resolvedUsage.rest_types = usage.rest_types.map(rt => rt.toUpperCase());
+
+  return resolvedUsage;
+};
+
 module.exports = {
   equipmentBaseFieldResolvers,
   equipmentFieldResolvers,
@@ -200,4 +222,6 @@ module.exports = {
   resolveSpells,
   getMongoSortDirection,
   coalesceSort,
+  resolveDc,
+  resolveUsage,
 };
