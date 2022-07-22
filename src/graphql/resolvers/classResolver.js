@@ -1,11 +1,10 @@
-const AbilityScoreModel = require('../../models/abilityScore');
-const EquipmentModel = require('../../models/equipment');
-const LevelModel = require('../../models/level');
-const ProficiencyModel = require('../../models/proficiency');
-const SubclassModel = require('../../models/subclass');
-const { resolveSpells } = require('./common');
-
+import AbilityScoreModel from '../../models/abilityScore';
 import EquipmentCategoryModel from '../../models/equipmentCategory';
+import EquipmentModel from '../../models/equipment';
+import LevelModel from '../../models/level';
+import ProficiencyModel from '../../models/proficiency';
+import SubclassModel from '../../models/subclass';
+import { resolveSpells } from './common';
 
 const resolveEquipmentOption = async option => {
   if (option.option_type === 'counted_reference') {
@@ -169,4 +168,4 @@ const Class = {
     }),
 };
 
-module.exports = Class;
+export default Class;

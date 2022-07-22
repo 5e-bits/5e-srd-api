@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const scripts = ['COMMON', 'ELVISH', 'DWARVISH', 'INFERNAL', 'DRACONIC', 'CELESTIAL'];
 
@@ -11,4 +11,4 @@ const LanguageScriptFilter = createEnumScalarType(
   getScript
 );
 
-module.exports = LanguageScriptFilter;
+export default LanguageScriptFilter;

@@ -3,4 +3,4 @@ const Language = {
   script: language => (language.script ? language.script.toUpperCase() : null),
 };
 
-module.exports = Language;
+export default Language;

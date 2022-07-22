@@ -1,4 +1,4 @@
-const { resolveEquipmentType } = require('./common');
+import { resolveEquipmentType } from './common';
 
 const IEquipment = {
   __resolveType(equipment) {
@@ -6,4 +6,4 @@ const IEquipment = {
   },
 };
 
-module.exports = IEquipment;
+export default IEquipment;

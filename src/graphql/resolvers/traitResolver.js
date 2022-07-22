@@ -1,11 +1,10 @@
-const ProficiencyModel = require('../../models/proficiency');
-const RaceModel = require('../../models/race');
-const Subrace = require('../../models/subrace');
-
 import { levelObjectToArray, resolveDc, resolveUsage } from './common';
 
-import DamageType from '../../models/damageType';
-import Spell from '../../models/spell';
+import DamageTypeModel from '../../models/damageType';
+import ProficiencyModel from '../../models/proficiency';
+import RaceModel from '../../models/race';
+import SpellModel from '../../models/spell';
+import SubraceModel from '../../models/subrace';
 import TraitModel from '../../models/trait';
 
 const Trait = {
@@ -14,7 +13,7 @@ const Trait = {
   parent: async trait =>
     trait.parent ? await TraitModel.findOne({ index: trait.parent.index }).lean() : null,
   subraces: async trait =>
-    await Subrace.find({ index: { $in: trait.subraces.map(s => s.index) } }).lean(),
+    await SubraceModel.find({ index: { $in: trait.subraces.map(s => s.index) } }).lean(),
   races: async trait =>
     await RaceModel.find({ index: { $in: trait.races.map(r => r.index) } }).lean(),
   proficiency_choices: async trait => {
@@ -48,14 +47,14 @@ const Trait = {
         dc: resolveDc(trait_specific.breath_weapon.dc),
         damage: trait_specific.breath_weapon.damage.map(async damage => ({
           damage_at_character_level: levelObjectToArray(damage.damage_at_character_level, 'damage'),
-          damage_type: await DamageType.findOne({ index: damage.damage_type.index }).lean(),
+          damage_type: await DamageTypeModel.findOne({ index: damage.damage_type.index }).lean(),
         })),
         usage: resolveUsage(trait_specific.breath_weapon.usage),
       };
     }
 
     if (trait_specific.damage_type) {
-      traitSpecificToReturn.damage_type = await DamageType.findOne({
+      traitSpecificToReturn.damage_type = await DamageTypeModel.findOne({
         index: trait_specific.damage_type.index,
       }).lean();
     }
@@ -67,7 +66,7 @@ const Trait = {
           ...trait_specific.spell_options.from,
           options: trait_specific.spell_options.from.options.map(async option => ({
             ...option,
-            item: await Spell.findOne({ index: option.item.index }),
+            item: await SpellModel.findOne({ index: option.item.index }),
           })),
         },
       };
@@ -90,4 +89,4 @@ const Trait = {
   },
 };
 
-module.exports = Trait;
+export default Trait;

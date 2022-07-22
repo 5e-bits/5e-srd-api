@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const subtypes = [
   'ANY_RACE',
@@ -29,4 +29,4 @@ const MonsterSubtypeFilter = createEnumScalarType(
   getSubtype
 );
 
-module.exports = MonsterSubtypeFilter;
+export default MonsterSubtypeFilter;

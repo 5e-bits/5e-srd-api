@@ -1,11 +1,10 @@
-const AbilityScoreModel = require('../../models/abilityScore');
-const ConditionModel = require('../../models/condition');
-const DamageTypeModel = require('../../models/damageType');
-const MonsterModel = require('../../models/monster');
-const ProficiencyModel = require('../../models/proficiency');
-const SpellModel = require('../../models/spell');
-
 import { levelObjectToArray, resolveDc, resolveUsage } from './common';
+
+import ConditionModel from '../../models/condition';
+import DamageTypeModel from '../../models/damageType';
+import MonsterModel from '../../models/monster';
+import ProficiencyModel from '../../models/proficiency';
+import SpellModel from '../../models/spell';
 
 const resolveDamage = async damage => {
   const damageTypes = await DamageTypeModel.find({
@@ -185,4 +184,4 @@ const Monster = {
   },
 };
 
-module.exports = Monster;
+export default Monster;

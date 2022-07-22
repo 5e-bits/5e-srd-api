@@ -17,4 +17,4 @@ const ClassSpecific = {
   },
 };
 
-module.exports = ClassSpecific;
+export default ClassSpecific;

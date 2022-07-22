@@ -1,6 +1,6 @@
-const { GraphQLScalarType, Kind } = require('graphql');
+import { GraphQLScalarType, Kind } from 'graphql';
 
-const createEnumScalarType = (name, description, values, getValue) =>
+export const createEnumScalarType = (name, description, values, getValue) =>
   new GraphQLScalarType({
     name,
     description,
@@ -40,5 +40,3 @@ const createEnumScalarType = (name, description, values, getValue) =>
       }
     },
   });
-
-module.exports = { createEnumScalarType };

@@ -1,9 +1,9 @@
-const AbilityScore = require('../../models/abilityScore');
+import AbilityScoreModel from '../../models/abilityScore';
 
 const Feat = {
   prerequisites: async feat => {
     const prerequisites = feat.prerequisites;
-    const abilityScores = await AbilityScore.find({
+    const abilityScores = await AbilityScoreModel.find({
       index: { $in: prerequisites.map(p => p.ability_score.index) },
     }).lean();
 
@@ -14,4 +14,4 @@ const Feat = {
   },
 };
 
-module.exports = Feat;
+export default Feat;

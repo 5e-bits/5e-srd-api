@@ -1,4 +1,4 @@
-const { resolveEquipmentType } = require('./common');
+import { resolveEquipmentType } from './common';
 
 const ProficiencyReference = {
   __resolveType(reference) {
@@ -10,4 +10,4 @@ const ProficiencyReference = {
   },
 };
 
-module.exports = ProficiencyReference;
+export default ProficiencyReference;

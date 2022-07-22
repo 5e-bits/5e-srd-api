@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const types = [
   'WEAPONS',
@@ -32,4 +32,4 @@ const ProficiencyTypeFilter = createEnumScalarType(
   getType
 );
 
-module.exports = ProficiencyTypeFilter;
+export default ProficiencyTypeFilter;

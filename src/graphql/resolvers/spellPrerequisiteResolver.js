@@ -7,4 +7,4 @@ const SpellPrerequisite = {
   },
 };
 
-module.exports = SpellPrerequisite;
+export default SpellPrerequisite;

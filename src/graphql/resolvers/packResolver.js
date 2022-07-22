@@ -1,11 +1,11 @@
-const Equipment = require('../../models/equipment');
-const { gearFieldResolvers } = require('./common');
+import EquipmentModel from '../../models/equipment';
+import { gearFieldResolvers } from './common';
 
 const Pack = {
   ...gearFieldResolvers,
   contents: async pack => {
     const contents = pack.contents;
-    const equipment = await Equipment.find({
+    const equipment = await EquipmentModel.find({
       index: { $in: contents.map(c => c.item.index) },
     }).lean();
 
@@ -16,4 +16,4 @@ const Pack = {
   },
 };
 
-module.exports = Pack;
+export default Pack;

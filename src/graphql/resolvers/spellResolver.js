@@ -1,9 +1,9 @@
-const AbilityScore = require('../../models/abilityScore');
-const Class = require('../../models/class');
-const DamageType = require('../../models/damageType');
-const MagicSchool = require('../../models/magicSchool');
-const Subclass = require('../../models/subclass');
-const { levelObjectToArray } = require('./common');
+import AbilityScoreModel from '../../models/abilityScore';
+import ClassModel from '../../models/class';
+import DamageTypeModel from '../../models/damageType';
+import MagicSchoolModel from '../../models/magicSchool';
+import SubclassModel from '../../models/subclass';
+import { levelObjectToArray } from './common';
 
 const Spell = {
   attack_type: spell => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
@@ -32,14 +32,14 @@ const Spell = {
     }
   },
   classes: async spell =>
-    await Class.find({ index: { $in: spell.classes.map(c => c.index) } }).lean(),
+    await ClassModel.find({ index: { $in: spell.classes.map(c => c.index) } }).lean(),
   subclasses: async spell =>
-    await Subclass.find({ index: { $in: spell.subclasses.map(s => s.index) } }).lean(),
+    await SubclassModel.find({ index: { $in: spell.subclasses.map(s => s.index) } }).lean(),
   damage: async spell => {
     if (!spell.damage) return null;
     const spellDamage = {};
     if (spell.damage.damage_type)
-      spellDamage.damage_type = await DamageType.findOne({
+      spellDamage.damage_type = await DamageTypeModel.findOne({
         index: spell.damage.damage_type.index,
       }).lean();
     if (spell.damage.damage_at_slot_level)
@@ -59,13 +59,13 @@ const Spell = {
     spell.dc
       ? {
           ...spell.dc,
-          type: await AbilityScore.findOne({ index: spell.dc.dc_type.index }).lean(),
+          type: await AbilityScoreModel.findOne({ index: spell.dc.dc_type.index }).lean(),
           success: spell.dc.dc_success.toUpperCase(),
         }
       : null,
   heal_at_slot_level: spell =>
     spell.heal_at_slot_level ? levelObjectToArray(spell.heal_at_slot_level, 'healing') : null,
-  school: async spell => await MagicSchool.findOne({ index: spell.school.index }).lean(),
+  school: async spell => await MagicSchoolModel.findOne({ index: spell.school.index }).lean(),
 };
 
-module.exports = Spell;
+export default Spell;

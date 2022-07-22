@@ -1,9 +1,8 @@
-const ClassModel = require('../../models/class');
-const FeatureModel = require('../../models/feature');
-const SubclassModel = require('../../models/subclass');
-
+import ClassModel from '../../models/class';
+import FeatureModel from '../../models/feature';
 import ProficiencyModel from '../../models/proficiency';
 import SpellModel from '../../models/spell';
+import SubclassModel from '../../models/subclass';
 
 const resolveExpertiseOption = async option => {
   if (option.option_type === 'reference') {
@@ -94,4 +93,4 @@ const Feature = {
   },
 };
 
-module.exports = Feature;
+export default Feature;

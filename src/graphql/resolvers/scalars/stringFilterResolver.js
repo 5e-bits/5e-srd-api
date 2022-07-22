@@ -1,4 +1,4 @@
-const { GraphQLScalarType, Kind } = require('graphql');
+import { GraphQLScalarType, Kind } from 'graphql';
 
 const StringFilter = new GraphQLScalarType({
   name: 'StringFilter',
@@ -40,4 +40,4 @@ const StringFilter = new GraphQLScalarType({
   },
 });
 
-module.exports = StringFilter;
+export default StringFilter;

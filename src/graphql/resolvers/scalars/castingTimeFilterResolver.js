@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const times = ['ACTION', 'MINUTE', 'HOUR', 'BONUS_ACTION', 'MINUTES_10', 'DAY', 'REACTION'];
 
@@ -28,4 +28,4 @@ const CastingTimeFilter = createEnumScalarType(
   getTime
 );
 
-module.exports = CastingTimeFilter;
+export default CastingTimeFilter;

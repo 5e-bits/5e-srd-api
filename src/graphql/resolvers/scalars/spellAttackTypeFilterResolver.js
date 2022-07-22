@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const types = ['MELEE', 'RANGED'];
 
@@ -11,4 +11,4 @@ const SpellAttackTypeFilter = createEnumScalarType(
   getType
 );
 
-module.exports = SpellAttackTypeFilter;
+export default SpellAttackTypeFilter;

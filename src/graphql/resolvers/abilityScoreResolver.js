@@ -1,5 +1,5 @@
-const Skill = require('../../models/skill');
-const { getMongoSortDirection } = require('./common');
+import SkillModel from '../../models/skill';
+import { getMongoSortDirection } from './common';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore, args) => {
@@ -10,10 +10,10 @@ const AbilityScoreResolver = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await Skill.find(search)
+    return await SkillModel.find(search)
       .sort(sort)
       .lean();
   },
 };
 
-module.exports = AbilityScoreResolver;
+export default AbilityScoreResolver;

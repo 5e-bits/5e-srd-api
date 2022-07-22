@@ -1,12 +1,12 @@
-const Equipment = require('../../models/equipment');
-const MagicItem = require('../../models/magicItem');
-const { coalesceSort } = require('./common');
+import EquipmentModel from '../../models/equipment';
+import MagicItemModel from '../../models/magicItem';
+import { coalesceSort } from './common';
 
 const EquipmentCategory = {
   equipment: async (equipmentCategory, args) => {
     const indexes = equipmentCategory.equipment.map(e => e.index);
-    const equipment = await Equipment.find({ index: { $in: indexes } }).lean();
-    const magicItems = await MagicItem.find({ index: { $in: indexes } }).lean();
+    const equipment = await EquipmentModel.find({ index: { $in: indexes } }).lean();
+    const magicItems = await MagicItemModel.find({ index: { $in: indexes } }).lean();
     const equipmentToReturn = equipment.concat(magicItems);
 
     let sort = {};
@@ -47,4 +47,4 @@ const EquipmentCategory = {
   },
 };
 
-module.exports = EquipmentCategory;
+export default EquipmentCategory;

@@ -1,8 +1,8 @@
-const { resolveGearType } = require('./common');
+import { resolveGearType } from './common';
 
 const IGear = {
   __resolveType(gear) {
     return resolveGearType(gear);
   },
 };
-module.exports = IGear;
+export default IGear;

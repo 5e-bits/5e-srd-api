@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const types = ['SPHERE', 'CUBE', 'CYLINDER', 'LINE', 'CONE'];
 
@@ -11,4 +11,4 @@ const AreaOfEffectTypeFilter = createEnumScalarType(
   getType
 );
 
-module.exports = AreaOfEffectTypeFilter;
+export default AreaOfEffectTypeFilter;

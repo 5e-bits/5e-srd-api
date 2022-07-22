@@ -1,4 +1,4 @@
-const { GraphQLScalarType, Kind } = require('graphql');
+import { GraphQLScalarType, Kind } from 'graphql';
 
 const IntFilter = new GraphQLScalarType({
   name: 'IntFilter',
@@ -78,4 +78,4 @@ const IntFilter = new GraphQLScalarType({
   },
 });
 
-module.exports = IntFilter;
+export default IntFilter;

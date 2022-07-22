@@ -1,8 +1,8 @@
-const AbilityScore = require('../../models/abilityScore');
+import AbilityScoreModel from '../../models/abilityScore';
 
 const SkillResolver = {
   ability_score: async skill =>
-    await AbilityScore.findOne({ index: skill.ability_score.index }).lean(),
+    await AbilityScoreModel.findOne({ index: skill.ability_score.index }).lean(),
 };
 
-module.exports = SkillResolver;
+export default SkillResolver;

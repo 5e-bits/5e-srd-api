@@ -1,13 +1,13 @@
-const EquipmentCategory = require('../../models/equipmentCategory');
-const { equipmentFieldResolvers } = require('./common');
+import EquipmentCategoryModel from '../../models/equipmentCategory';
+import { equipmentFieldResolvers } from './common';
 
 const Armor = {
   ...equipmentFieldResolvers,
   armor_category: async armor => {
     let index = armor.armor_category.toLowerCase();
     index += index === 'shield' ? 's' : '-armor';
-    return await EquipmentCategory.findOne({ index }).lean();
+    return await EquipmentCategoryModel.findOne({ index }).lean();
   },
 };
 
-module.exports = Armor;
+export default Armor;

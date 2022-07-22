@@ -1,13 +1,13 @@
-const AbilityScore = require('../../models/abilityScore');
-const Language = require('../../models/language');
-const Proficiency = require('../../models/proficiency');
-const Subrace = require('../../models/subrace');
-const Trait = require('../../models/trait');
+import AbilityScoreModel from '../../models/abilityScore';
+import LanguageModel from '../../models/language';
+import ProficiencyModel from '../../models/proficiency';
+import SubraceModel from '../../models/subrace';
+import TraitModel from '../../models/trait';
 
 const Race = {
   ability_bonuses: async race => {
     const abilityBonuses = race.ability_bonuses;
-    const abilityScores = await AbilityScore.find({
+    const abilityScores = await AbilityScoreModel.find({
       index: { $in: abilityBonuses.map(ab => ab.ability_score.index) },
     }).lean();
 
@@ -17,15 +17,16 @@ const Race = {
     }));
   },
   languages: async race =>
-    await Language.find({ index: { $in: race.languages.map(l => l.index) } }).lean(),
+    await LanguageModel.find({ index: { $in: race.languages.map(l => l.index) } }).lean(),
   size: race => race.size.toUpperCase(),
   starting_proficiencies: async race =>
-    await Proficiency.find({
+    await ProficiencyModel.find({
       index: { $in: race.starting_proficiencies.map(p => p.index) },
     }).lean(),
   subraces: async race =>
-    await Subrace.find({ index: { $in: race.subraces.map(s => s.index) } }).lean(),
-  traits: async race => await Trait.find({ index: { $in: race.traits.map(t => t.index) } }).lean(),
+    await SubraceModel.find({ index: { $in: race.subraces.map(s => s.index) } }).lean(),
+  traits: async race =>
+    await TraitModel.find({ index: { $in: race.traits.map(t => t.index) } }).lean(),
   ability_bonus_options: async race => {
     if (!race.ability_bonus_options) {
       return null;
@@ -37,7 +38,7 @@ const Race = {
         ...race.ability_bonus_options.from,
         options: race.ability_bonus_options.from.options.map(async option => ({
           ...option,
-          ability_score: await AbilityScore.findOne({ index: option.ability_score.index }),
+          ability_score: await AbilityScoreModel.findOne({ index: option.ability_score.index }),
         })),
       },
     };
@@ -53,7 +54,7 @@ const Race = {
         ...race.language_options.from,
         options: race.language_options.from.options.map(async option => ({
           ...option,
-          item: await Language.findOne({ index: option.item.index }).lean(),
+          item: await LanguageModel.findOne({ index: option.item.index }).lean(),
         })),
       },
     };
@@ -69,11 +70,11 @@ const Race = {
         ...race.starting_proficiency_options.from,
         options: race.starting_proficiency_options.from.options.map(async option => ({
           ...option,
-          item: await Proficiency.findOne({ index: option.item.index }).lean(),
+          item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
         })),
       },
     };
   },
 };
 
-module.exports = Race;
+export default Race;

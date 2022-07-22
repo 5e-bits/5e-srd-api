@@ -1,7 +1,7 @@
-const { resolveSpells } = require('./common');
+import { resolveSpells } from './common';
 
 const MagicSchool = {
   spells: async (school, args) => await resolveSpells(args, [{ 'school.index': school.index }]),
 };
 
-module.exports = MagicSchool;
+export default MagicSchool;

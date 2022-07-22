@@ -1,32 +1,31 @@
-const EquipmentCategory = require('../../models/equipmentCategory');
-const Spell = require('../../models/spell');
-
 import AbilityScoreModel from '../../models/abilityScore';
+import EquipmentCategoryModel from '../../models/equipmentCategory';
+import SpellModel from '../../models/spell';
 
-const equipmentBaseFieldResolvers = {
+export const equipmentBaseFieldResolvers = {
   equipment_category: async equipment =>
-    await EquipmentCategory.findOne({ index: equipment.equipment_category.index }).lean(),
+    await EquipmentCategoryModel.findOne({ index: equipment.equipment_category.index }).lean(),
 };
 
-const equipmentFieldResolvers = {
+export const equipmentFieldResolvers = {
   ...equipmentBaseFieldResolvers,
   cost: equipment => ({ ...equipment.cost, unit: equipment.cost.unit.toUpperCase() }),
 };
 
-const gearFieldResolvers = {
+export const gearFieldResolvers = {
   ...equipmentFieldResolvers,
   gear_category: async gear =>
-    await EquipmentCategory.findOne({ index: gear.gear_category.index }).lean(),
+    await EquipmentCategoryModel.findOne({ index: gear.gear_category.index }).lean(),
 };
 
-const resolveGearType = gear => {
+export const resolveGearType = gear => {
   if (gear.contents) return 'Pack';
   if (gear.quantity) return 'Ammunition';
   if (gear.gear_category) return 'Gear';
   return null;
 };
 
-const resolveEquipmentType = equipment => {
+export const resolveEquipmentType = equipment => {
   if (equipment.tool_category) return 'Tool';
   if (equipment.gear_category) return resolveGearType(equipment);
   if (equipment.armor_class) return 'Armor';
@@ -38,7 +37,7 @@ const resolveEquipmentType = equipment => {
 const resolveSpellOrderBy = value =>
   value === 'AREA_OF_EFFECT_SIZE' ? 'area_of_effect.size' : value.toLowerCase();
 
-const resolveSpells = async (args, baseFilters) => {
+export const resolveSpells = async (args, baseFilters) => {
   const filters = [...baseFilters];
   if (args.school) {
     const filter = { 'school.index': { $in: args.school } };
@@ -115,14 +114,14 @@ const resolveSpells = async (args, baseFilters) => {
     skip = args.skip;
   }
 
-  return await Spell.find(coalesceFilters(filters))
+  return await SpellModel.find(coalesceFilters(filters))
     .sort(sort)
     .skip(skip)
     .limit(args.limit)
     .lean();
 };
 
-const coalesceFilters = filters => {
+export const coalesceFilters = filters => {
   let filter = {};
   if (filters.length === 1) {
     filter = filters[0];
@@ -135,7 +134,7 @@ const coalesceFilters = filters => {
   return filter;
 };
 
-const coalesceSort = (order, getPropertyName, maxDepth) => {
+export const coalesceSort = (order, getPropertyName, maxDepth) => {
   const sort = {};
   let depth = 0;
 
@@ -159,7 +158,7 @@ const coalesceSort = (order, getPropertyName, maxDepth) => {
   return sort;
 };
 
-const resolveNumberFilter = (value, propertyName) => {
+export const resolveNumberFilter = (value, propertyName) => {
   const filter = {};
 
   if (Array.isArray(value)) {
@@ -185,12 +184,12 @@ const resolveNumberFilter = (value, propertyName) => {
   return filter;
 };
 
-const getMongoSortDirection = value => (value === 'ASCENDING' ? 1 : -1);
+export const getMongoSortDirection = value => (value === 'ASCENDING' ? 1 : -1);
 
-const levelObjectToArray = (obj, fieldName) =>
+export const levelObjectToArray = (obj, fieldName) =>
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
 
-const resolveDc = async dc => {
+export const resolveDc = async dc => {
   const resolvedDc = {
     type: await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean(),
     success: dc.success_type.toUpperCase(),
@@ -203,25 +202,9 @@ const resolveDc = async dc => {
   return resolvedDc;
 };
 
-const resolveUsage = usage => {
+export const resolveUsage = usage => {
   const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
   if (usage.rest_types) resolvedUsage.rest_types = usage.rest_types.map(rt => rt.toUpperCase());
 
   return resolvedUsage;
-};
-
-module.exports = {
-  equipmentBaseFieldResolvers,
-  equipmentFieldResolvers,
-  gearFieldResolvers,
-  resolveGearType,
-  resolveEquipmentType,
-  levelObjectToArray,
-  coalesceFilters,
-  resolveNumberFilter,
-  resolveSpells,
-  getMongoSortDirection,
-  coalesceSort,
-  resolveDc,
-  resolveUsage,
 };

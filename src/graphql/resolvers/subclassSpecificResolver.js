@@ -7,4 +7,4 @@ const SubclassSpecific = {
   },
 };
 
-module.exports = SubclassSpecific;
+export default SubclassSpecific;

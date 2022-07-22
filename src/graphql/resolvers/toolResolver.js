@@ -1,5 +1,5 @@
-const EquipmentCategory = require('../../models/equipmentCategory');
-const { equipmentFieldResolvers } = require('./common');
+import EquipmentCategoryModel from '../../models/equipmentCategory';
+import { equipmentFieldResolvers } from './common';
 
 const Tool = {
   ...equipmentFieldResolvers,
@@ -9,8 +9,8 @@ const Tool = {
       .replace(/'/g, '')
       .toLowerCase();
     if (index.charAt(index.length - 1) !== 's') index += 's';
-    return await EquipmentCategory.findOne({ index }).lean();
+    return await EquipmentCategoryModel.findOne({ index }).lean();
   },
 };
 
-module.exports = Tool;
+export default Tool;

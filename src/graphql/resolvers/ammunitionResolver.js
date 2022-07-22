@@ -1,7 +1,7 @@
-const { gearFieldResolvers } = require('./common');
+import { gearFieldResolvers } from './common';
 
 const Ammunition = {
   ...gearFieldResolvers,
 };
 
-module.exports = Ammunition;
+export default Ammunition;

@@ -11,4 +11,4 @@ const ProficiencyRace = {
   },
 };
 
-module.exports = ProficiencyRace;
+export default ProficiencyRace;

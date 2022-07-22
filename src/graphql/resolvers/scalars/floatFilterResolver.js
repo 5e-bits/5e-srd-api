@@ -1,4 +1,4 @@
-const { GraphQLScalarType, Kind } = require('graphql');
+import { GraphQLScalarType, Kind } from 'graphql';
 
 const FloatFilter = new GraphQLScalarType({
   name: 'FloatFilter',
@@ -78,4 +78,4 @@ const FloatFilter = new GraphQLScalarType({
   },
 });
 
-module.exports = FloatFilter;
+export default FloatFilter;

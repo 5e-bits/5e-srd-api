@@ -1,4 +1,4 @@
-const { createEnumScalarType } = require('./enumFilterResolver');
+import { createEnumScalarType } from './enumFilterResolver';
 
 const types = [
   'BEAST',
@@ -33,4 +33,4 @@ const MonsterTypeFilter = createEnumScalarType(
   getType
 );
 
-module.exports = MonsterTypeFilter;
+export default MonsterTypeFilter;

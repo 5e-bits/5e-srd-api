@@ -1,7 +1,7 @@
-const { readFileSync } = require('fs');
-const path = require('path');
-const { makeExecutableSchema } = require('@graphql-tools/schema');
-const resolvers = require('./resolvers/rootResolvers');
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import path from 'path';
+import { readFileSync } from 'fs';
+import resolvers from './resolvers/rootResolvers';
 
 const typeDefs = readFileSync(
   path.resolve(process.cwd(), 'src', 'graphql', 'typeDefs.graphql'),
@@ -9,4 +9,4 @@ const typeDefs = readFileSync(
 );
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-module.exports = schema;
+export default schema;

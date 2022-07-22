@@ -1,14 +1,13 @@
-const Equipment = require('../../models/equipment');
-const Proficiency = require('../../models/proficiency');
-
-import Alignment from '../../models/alignment';
-import EquipmentCategory from '../../models/equipmentCategory';
-import Language from '../../models/language';
+import AlignmentModel from '../../models/alignment';
+import EquipmentCategoryModel from '../../models/equipmentCategory';
+import EquipmentModel from '../../models/equipment';
+import LanguageModel from '../../models/language';
+import ProficiencyModel from '../../models/proficiency';
 
 const Background = {
   starting_equipment: async background => {
     const starting_equipment = background.starting_equipment;
-    const equipment = await Equipment.find({
+    const equipment = await EquipmentModel.find({
       index: { $in: starting_equipment.map(se => se.equipment.index) },
     }).lean();
 
@@ -18,14 +17,14 @@ const Background = {
     }));
   },
   starting_proficiencies: async background =>
-    await Proficiency.find({
+    await ProficiencyModel.find({
       index: { $in: background.starting_proficiencies.map(sp => sp.index) },
     }).lean(),
   language_options: async background => ({
     ...background.language_options,
     from: {
       option_set_type: 'options_array',
-      options: (await Language.find().lean()).map(language => ({
+      options: (await LanguageModel.find().lean()).map(language => ({
         option_type: 'reference',
         item: language,
       })),
@@ -36,7 +35,7 @@ const Background = {
       ...option,
       from: {
         ...option.from,
-        equipment_category: await EquipmentCategory.findOne({
+        equipment_category: await EquipmentCategoryModel.findOne({
           index: option.from.equipment_category.index,
         }).lean(),
       },
@@ -47,7 +46,7 @@ const Background = {
       ...background.ideals.from,
       options: background.ideals.from.options.map(async option => ({
         ...option,
-        alignments: await Alignment.find({
+        alignments: await AlignmentModel.find({
           index: { $in: option.alignments.map(a => a.index) },
         }).lean(),
       })),
@@ -55,4 +54,4 @@ const Background = {
   }),
 };
 
-module.exports = Background;
+export default Background;

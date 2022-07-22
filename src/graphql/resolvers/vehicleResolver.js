@@ -1,5 +1,5 @@
-const EquipmentCategory = require('../../models/equipmentCategory');
-const { equipmentFieldResolvers } = require('./common');
+import EquipmentCategoryModel from '../../models/equipmentCategory';
+import { equipmentFieldResolvers } from './common';
 
 const Vehicle = {
   ...equipmentFieldResolvers,
@@ -8,8 +8,8 @@ const Vehicle = {
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/,/g, '');
-    return await EquipmentCategory.findOne({ index }).lean();
+    return await EquipmentCategoryModel.findOne({ index }).lean();
   },
 };
 
-module.exports = Vehicle;
+export default Vehicle;

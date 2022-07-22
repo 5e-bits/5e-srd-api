@@ -1,7 +1,7 @@
-const ClassModel = require('../../models/class');
-const FeatureModel = require('../../models/feature');
-const LevelModel = require('../../models/level');
-const { resolveSpells } = require('./common');
+import ClassModel from '../../models/class';
+import FeatureModel from '../../models/feature';
+import LevelModel from '../../models/level';
+import { resolveSpells } from './common';
 
 const Subclass = {
   class: async subclass => await ClassModel.findOne({ index: subclass.class.index }).lean(),
@@ -36,4 +36,4 @@ const Subclass = {
   },
 };
 
-module.exports = Subclass;
+export default Subclass;
