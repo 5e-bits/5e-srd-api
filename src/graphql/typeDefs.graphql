@@ -671,6 +671,7 @@ type Monster {
   index: String!
   name: String!
   armor_class: Int!
+  desc: String
   actions: [MonsterAction!]
   challenge_rating: Float!
   charisma: Int!
