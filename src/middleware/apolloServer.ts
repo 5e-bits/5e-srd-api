@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
+import depthLimit from 'graphql-depth-limit';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
 import schema from '../graphql/schema';
 
@@ -15,6 +16,7 @@ const createApolloMiddleware = async () => {
         calculateHttpHeaders: false,
       }),
     ],
+    validationRules: [depthLimit(10)],
   });
   return server;
 };
