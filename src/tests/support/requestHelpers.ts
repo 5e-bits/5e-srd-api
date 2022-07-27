@@ -1,16 +1,15 @@
 import { MockResponse } from './types.d';
+import { jest } from '@jest/globals';
 
-const mockRequest = (reqData = {}) => {
+export const mockRequest = (reqData = {}) => {
   return reqData;
 };
 
-const mockResponse = () => {
+export const mockResponse = () => {
   const res: MockResponse = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn().mockReturnValue(res);
+  res.status = jest.fn().mockReturnValue(res) as jest.Mock<any, any>;
+  res.json = jest.fn().mockReturnValue(res) as jest.Mock<any, any>;
   return res;
 };
 
-const mockNext = jest.fn();
-
-export { mockRequest, mockResponse, mockNext };
+export const mockNext = jest.fn();

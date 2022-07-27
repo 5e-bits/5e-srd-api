@@ -1,8 +1,9 @@
-import redisClient from './RedisClient';
-import prewarmCache from './prewarmCache';
-import { bugsnagApiKey, mongodbUri } from './environmentVariables';
-import { escapeRegExp } from './regex';
-import { ResourceList, ClassAPIResource } from './data';
+import { ClassAPIResource, ResourceList } from './data.js';
+import { bugsnagApiKey, mongodbUri } from './environmentVariables.js';
+
+import { escapeRegExp } from './regex.js';
+import prewarmCache from './prewarmCache.js';
+import redisClient from './RedisClient.js';
 
 export {
   bugsnagApiKey,

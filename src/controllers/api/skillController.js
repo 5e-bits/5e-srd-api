@@ -1,4 +1,4 @@
-const Skill = require('../../models/skill');
-const SimpleController = require('../simpleController');
+import SimpleController from '../simpleController.js';
+import Skill from '../../models/skill/index.js';
 
-module.exports = new SimpleController(Skill);
+export default new SimpleController(Skill);

@@ -4,33 +4,33 @@ import {
   getMongoSortDirection,
   resolveNumberFilter,
   resolveSpells,
-} from './common';
+} from './common.js';
 
-import AbilityScoreModel from '../../models/abilityScore';
-import AlignmentModel from '../../models/alignment';
-import BackgroundModel from '../../models/background';
-import ClassModel from '../../models/class';
-import ConditionModel from '../../models/condition';
-import DamageTypeModel from '../../models/damageType';
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import EquipmentModel from '../../models/equipment';
-import FeatModel from '../../models/feat';
-import FeatureModel from '../../models/feature';
-import LanguageModel from '../../models/language';
-import LevelModel from '../../models/level';
-import MagicItemModel from '../../models/magicItem';
-import MagicSchoolModel from '../../models/magicSchool';
-import MonsterModel from '../../models/monster';
-import ProficiencyModel from '../../models/proficiency';
-import RaceModel from '../../models/race';
-import RuleModel from '../../models/rule';
-import RuleSectionModel from '../../models/ruleSection';
-import SkillModel from '../../models/skill';
-import SpellModel from '../../models/spell';
-import SubclassModel from '../../models/subclass';
-import SubraceModel from '../../models/subrace';
-import TraitModel from '../../models/trait';
-import WeaponPropertyModel from '../../models/weaponProperty';
+import AbilityScoreModel from '../../models/abilityScore/index.js';
+import AlignmentModel from '../../models/alignment/index.js';
+import BackgroundModel from '../../models/background/index.js';
+import ClassModel from '../../models/class/index.js';
+import ConditionModel from '../../models/condition/index.js';
+import DamageTypeModel from '../../models/damageType/index.js';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import EquipmentModel from '../../models/equipment/index.js';
+import FeatModel from '../../models/feat/index.js';
+import FeatureModel from '../../models/feature/index.js';
+import LanguageModel from '../../models/language/index.js';
+import LevelModel from '../../models/level/index.js';
+import MagicItemModel from '../../models/magicItem/index.js';
+import MagicSchoolModel from '../../models/magicSchool/index.js';
+import MonsterModel from '../../models/monster/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
+import RaceModel from '../../models/race/index.js';
+import RuleModel from '../../models/rule/index.js';
+import RuleSectionModel from '../../models/ruleSection/index.js';
+import SkillModel from '../../models/skill/index.js';
+import SpellModel from '../../models/spell/index.js';
+import SubclassModel from '../../models/subclass/index.js';
+import SubraceModel from '../../models/subrace/index.js';
+import TraitModel from '../../models/trait/index.js';
+import WeaponPropertyModel from '../../models/weaponProperty/index.js';
 
 const Query = {
   async abilityScore(query, args) {

@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import WeaponPropertyController from '../../controllers/api/weaponPropertyController.js';
+
 const router = express.Router();
-import WeaponPropertyController from '../../controllers/api/weaponPropertyController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   WeaponPropertyController.index(req, res, next);

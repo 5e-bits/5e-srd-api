@@ -1,4 +1,4 @@
-const DamageType = require('../../models/damageType');
-const SimpleController = require('../simpleController');
+import DamageType from '../../models/damageType/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(DamageType);
+export default new SimpleController(DamageType);

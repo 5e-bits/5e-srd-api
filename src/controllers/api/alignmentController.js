@@ -1,4 +1,4 @@
-const Alignment = require('../../models/alignment');
-const SimpleController = require('../simpleController');
+import Alignment from '../../models/alignment/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Alignment);
+export default new SimpleController(Alignment);

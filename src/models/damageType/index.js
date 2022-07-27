@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const DamageType = new Schema({
@@ -9,4 +10,4 @@ const DamageType = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('DamageType', DamageType, 'damage-types');
+export default mongoose.model('DamageType', DamageType, 'damage-types');

@@ -1,4 +1,4 @@
-const EquipmentCategory = require('../../models/equipmentCategory');
-const SimpleController = require('../simpleController');
+import EquipmentCategory from '../../models/equipmentCategory/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(EquipmentCategory);
+export default new SimpleController(EquipmentCategory);

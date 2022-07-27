@@ -1,4 +1,4 @@
-import { resolveGearType } from './common';
+import { resolveGearType } from './common.js';
 
 const IGear = {
   __resolveType(gear) {

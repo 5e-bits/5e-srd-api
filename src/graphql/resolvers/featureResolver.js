@@ -1,8 +1,8 @@
-import ClassModel from '../../models/class';
-import FeatureModel from '../../models/feature';
-import ProficiencyModel from '../../models/proficiency';
-import SpellModel from '../../models/spell';
-import SubclassModel from '../../models/subclass';
+import ClassModel from '../../models/class/index.js';
+import FeatureModel from '../../models/feature/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
+import SpellModel from '../../models/spell/index.js';
+import SubclassModel from '../../models/subclass/index.js';
 
 const resolveExpertiseOption = async option => {
   if (option.option_type === 'reference') {

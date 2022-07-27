@@ -1,7 +1,7 @@
-import ClassModel from '../../models/class';
-import FeatureModel from '../../models/feature';
-import LevelModel from '../../models/level';
-import { resolveSpells } from './common';
+import ClassModel from '../../models/class/index.js';
+import FeatureModel from '../../models/feature/index.js';
+import LevelModel from '../../models/level/index.js';
+import { resolveSpells } from './common.js';
 
 const Subclass = {
   class: async subclass => await ClassModel.findOne({ index: subclass.class.index }).lean(),

@@ -1,12 +1,12 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+import * as RaceController from '../../../controllers/api/raceController.js';
 
-const Race = require('../../../models/race');
-const Subrace = require('../../../models/subrace');
-const Trait = require('../../../models/trait');
-const Proficiency = require('../../../models/proficiency');
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-const RaceController = require('../../../controllers/api/raceController');
+import Proficiency from '../../../models/proficiency/index.js';
+import Race from '../../../models/race/index.js';
+import Subrace from '../../../models/subrace/index.js';
+import Trait from '../../../models/trait/index.js';
+import mockingoose from 'mockingoose';
 
 let response;
 beforeEach(() => {

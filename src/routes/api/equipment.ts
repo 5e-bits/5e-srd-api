@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import EquipmentController from '../../controllers/api/equipmentController.js';
+
 const router = express.Router();
-import EquipmentController from '../../controllers/api/equipmentController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   EquipmentController.index(req, res, next);

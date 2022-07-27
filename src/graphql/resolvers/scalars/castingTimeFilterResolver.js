@@ -1,4 +1,4 @@
-import { createEnumScalarType } from './enumFilterResolver';
+import { createEnumScalarType } from './enumFilterResolver.js';
 
 const times = ['ACTION', 'MINUTE', 'HOUR', 'BONUS_ACTION', 'MINUTES_10', 'DAY', 'REACTION'];
 

@@ -1,7 +1,7 @@
-import ClassModel from '../../models/class';
-import FeatureModel from '../../models/feature';
-import SubclassModel from '../../models/subclass';
-import { getMongoSortDirection } from './common';
+import ClassModel from '../../models/class/index.js';
+import FeatureModel from '../../models/feature/index.js';
+import SubclassModel from '../../models/subclass/index.js';
+import { getMongoSortDirection } from './common.js';
 
 const Level = {
   class: async level => await ClassModel.findOne({ index: level.class.index }).lean(),

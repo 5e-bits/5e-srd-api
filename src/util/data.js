@@ -1,4 +1,4 @@
-const ClassAPIResource = data => {
+export const ClassAPIResource = data => {
   const mapped = data.map(item => {
     return {
       index: item.index,
@@ -13,14 +13,9 @@ const ClassAPIResource = data => {
   };
 };
 
-const ResourceList = data => {
+export const ResourceList = data => {
   return {
     count: data.length,
     results: data,
   };
-};
-
-module.exports = {
-  ClassAPIResource,
-  ResourceList,
 };

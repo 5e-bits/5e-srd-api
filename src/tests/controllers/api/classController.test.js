@@ -1,14 +1,14 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
+import * as ClassController from '../../../controllers/api/classController.js';
 
-const Class = require('../../../models/class');
-const Level = require('../../../models/level');
-const Subclass = require('../../../models/subclass');
-const Spell = require('../../../models/spell');
-const Feature = require('../../../models/feature');
-const Proficiency = require('../../../models/proficiency');
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-const ClassController = require('../../../controllers/api/classController');
+import Class from '../../../models/class/index.js';
+import Feature from '../../../models/feature/index.js';
+import Level from '../../../models/level/index.js';
+import Proficiency from '../../../models/proficiency/index.js';
+import Spell from '../../../models/spell/index.js';
+import Subclass from '../../../models/subclass/index.js';
+import mockingoose from 'mockingoose';
 
 let response;
 beforeEach(() => {

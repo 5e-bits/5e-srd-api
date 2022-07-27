@@ -1,4 +1,4 @@
-import { resolveEquipmentType } from './common';
+import { resolveEquipmentType } from './common.js';
 
 const IEquipment = {
   __resolveType(equipment) {

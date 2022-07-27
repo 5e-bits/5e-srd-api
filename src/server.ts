@@ -1,13 +1,19 @@
-import express from 'express';
-import morgan from 'morgan';
+import apiRoutes from './routes/api.js';
+import bugsnagMiddleware from './middleware/bugsnag.js';
 import cors from 'cors';
+import { createApolloMiddleware } from './middleware/apolloServer.js';
+import docsController from './controllers/docsController.js';
+import express from 'express';
+import { fileURLToPath } from 'url';
+import indexController from './controllers/indexController.js';
+import morgan from 'morgan';
+import openapiDocsController from './controllers/openapiDocsController.js';
+import path from 'path';
 import rateLimit from 'express-rate-limit';
-import bugsnagMiddleware from './middleware/bugsnag';
-import { createApolloMiddleware } from './middleware/apolloServer';
-import indexController from './controllers/indexController';
-import docsController from './controllers/docsController';
-import openapiDocsController from './controllers/openapiDocsController';
-import apiRoutes from './routes/api';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 const limiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -24,7 +30,7 @@ export default async () => {
     app.use(bugsnagMiddleware.requestHandler);
   }
 
-  app.use('/swagger', express.static(__dirname + '/swagger'))
+  app.use('/swagger', express.static(__dirname + '/swagger'));
   app.use('/js', express.static(__dirname + '/js'));
   app.use('/css', express.static(__dirname + '/css'));
   app.use('/public', express.static(__dirname + '/public'));
@@ -45,7 +51,7 @@ export default async () => {
   app.get('/docs', openapiDocsController);
   app.use('/api', apiRoutes);
 
-  app.use(function (req: express.Request, res: express.Response) {
+  app.use(function(req: express.Request, res: express.Response) {
     res.status(404);
 
     // TODO: Add a fun 404 page

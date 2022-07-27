@@ -1,5 +1,5 @@
-const { ResourceList } = require('../util/data');
-const { escapeRegExp } = require('../util/regex');
+import { ResourceList } from '../util/data.js';
+import { escapeRegExp } from '../util/regex.js';
 
 class SimpleController {
   constructor(Schema) {
@@ -35,4 +35,4 @@ class SimpleController {
   }
 }
 
-module.exports = SimpleController;
+export default SimpleController;

@@ -1,6 +1,6 @@
-import EquipmentModel from '../../models/equipment';
-import MagicItemModel from '../../models/magicItem';
-import { coalesceSort } from './common';
+import EquipmentModel from '../../models/equipment/index.js';
+import MagicItemModel from '../../models/magicItem/index.js';
+import { coalesceSort } from './common.js';
 
 const EquipmentCategory = {
   equipment: async (equipmentCategory, args) => {

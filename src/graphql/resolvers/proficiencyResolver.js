@@ -1,10 +1,10 @@
-import AbilityScoreModel from '../../models/abilityScore';
-import ClassModel from '../../models/class';
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import EquipmentModel from '../../models/equipment';
-import RaceModel from '../../models/race';
-import SkillModel from '../../models/skill';
-import SubraceModel from '../../models/subrace';
+import AbilityScoreModel from '../../models/abilityScore/index.js';
+import ClassModel from '../../models/class/index.js';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import EquipmentModel from '../../models/equipment/index.js';
+import RaceModel from '../../models/race/index.js';
+import SkillModel from '../../models/skill/index.js';
+import SubraceModel from '../../models/subrace/index.js';
 
 const Proficiency = {
   classes: async proficiency =>

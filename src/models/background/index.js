@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
 
 const LanguageOptions = new Schema({
   _id: false,
@@ -70,4 +71,4 @@ const Background = new Schema({
   flaws: CharacteristicOptions,
 });
 
-module.exports = mongoose.model('Background', Background, 'backgrounds');
+export default mongoose.model('Background', Background, 'backgrounds');

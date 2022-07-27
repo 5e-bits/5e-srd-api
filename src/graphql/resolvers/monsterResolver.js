@@ -1,10 +1,10 @@
-import { levelObjectToArray, resolveDc, resolveUsage } from './common';
+import { levelObjectToArray, resolveDc, resolveUsage } from './common.js';
 
-import ConditionModel from '../../models/condition';
-import DamageTypeModel from '../../models/damageType';
-import MonsterModel from '../../models/monster';
-import ProficiencyModel from '../../models/proficiency';
-import SpellModel from '../../models/spell';
+import ConditionModel from '../../models/condition/index.js';
+import DamageTypeModel from '../../models/damageType/index.js';
+import MonsterModel from '../../models/monster/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
+import SpellModel from '../../models/spell/index.js';
 
 const resolveDamage = async damage => {
   const damageTypes = await DamageTypeModel.find({

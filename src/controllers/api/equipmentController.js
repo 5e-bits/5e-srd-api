@@ -1,4 +1,4 @@
-const Equipment = require('../../models/equipment');
-const SimpleController = require('../simpleController');
+import Equipment from '../../models/equipment/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Equipment);
+export default new SimpleController(Equipment);

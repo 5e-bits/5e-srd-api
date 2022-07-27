@@ -1,10 +1,10 @@
-import AbilityScoreModel from '../../models/abilityScore';
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import EquipmentModel from '../../models/equipment';
-import LevelModel from '../../models/level';
-import ProficiencyModel from '../../models/proficiency';
-import SubclassModel from '../../models/subclass';
-import { resolveSpells } from './common';
+import AbilityScoreModel from '../../models/abilityScore/index.js';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import EquipmentModel from '../../models/equipment/index.js';
+import LevelModel from '../../models/level/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
+import SubclassModel from '../../models/subclass/index.js';
+import { resolveSpells } from './common.js';
 
 const resolveEquipmentOption = async option => {
   if (option.option_type === 'counted_reference') {

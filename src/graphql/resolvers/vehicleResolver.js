@@ -1,5 +1,5 @@
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import { equipmentFieldResolvers } from './common';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import { equipmentFieldResolvers } from './common.js';
 
 const Vehicle = {
   ...equipmentFieldResolvers,

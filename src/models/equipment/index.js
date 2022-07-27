@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
 
 const ArmorClass = new Schema({
   _id: false,
@@ -82,4 +83,4 @@ const Equipment = new Schema({
   weight: { type: Number, index: true },
 });
 
-module.exports = mongoose.model('Equipment', Equipment, 'equipment');
+export default mongoose.model('Equipment', Equipment, 'equipment');

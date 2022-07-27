@@ -1,4 +1,4 @@
-import { equipmentBaseFieldResolvers } from './common';
+import { equipmentBaseFieldResolvers } from './common.js';
 
 const MagicItem = {
   ...equipmentBaseFieldResolvers,

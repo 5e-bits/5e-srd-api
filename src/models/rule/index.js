@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
 
 const Rule = new Schema({
   _id: { type: String, select: false },
@@ -11,4 +12,4 @@ const Rule = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Rule', Rule, 'rules');
+export default mongoose.model('Rule', Rule, 'rules');

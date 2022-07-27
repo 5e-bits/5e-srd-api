@@ -1,6 +1,6 @@
-const Collection = require('../models/collection');
+import Collection from '../models/collection/index.js';
 
-exports.index = async (req, res, next) => {
+export const index = async (req, res, next) => {
   try {
     const data = await Collection.find({})
       .select({ index: 1, _id: 0 })

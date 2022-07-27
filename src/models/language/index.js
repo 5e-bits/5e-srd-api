@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const Language = new Schema({
@@ -12,4 +13,4 @@ const Language = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Language', Language, 'languages');
+export default mongoose.model('Language', Language, 'languages');

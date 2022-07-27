@@ -1,8 +1,8 @@
-import AbilityScoreModel from '../../models/abilityScore';
-import LanguageModel from '../../models/language';
-import ProficiencyModel from '../../models/proficiency';
-import SubraceModel from '../../models/subrace';
-import TraitModel from '../../models/trait';
+import AbilityScoreModel from '../../models/abilityScore/index.js';
+import LanguageModel from '../../models/language/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
+import SubraceModel from '../../models/subrace/index.js';
+import TraitModel from '../../models/trait/index.js';
 
 const Race = {
   ability_bonuses: async race => {

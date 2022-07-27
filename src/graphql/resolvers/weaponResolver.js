@@ -1,7 +1,7 @@
-import DamageTypeModel from '../../models/damageType';
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import WeaponPropertyModel from '../../models/weaponProperty';
-import { equipmentFieldResolvers } from './common';
+import DamageTypeModel from '../../models/damageType/index.js';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import WeaponPropertyModel from '../../models/weaponProperty/index.js';
+import { equipmentFieldResolvers } from './common.js';
 
 const Weapon = {
   ...equipmentFieldResolvers,

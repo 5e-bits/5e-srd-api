@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import LanguageController from '../../controllers/api/languageController.js';
+
 const router = express.Router();
-import LanguageController from '../../controllers/api/languageController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   LanguageController.index(req, res, next);

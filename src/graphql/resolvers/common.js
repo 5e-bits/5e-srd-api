@@ -1,6 +1,6 @@
-import AbilityScoreModel from '../../models/abilityScore';
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import SpellModel from '../../models/spell';
+import AbilityScoreModel from '../../models/abilityScore/index.js';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import SpellModel from '../../models/spell/index.js';
 
 export const equipmentBaseFieldResolvers = {
   equipment_category: async equipment =>

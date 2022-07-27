@@ -1,4 +1,4 @@
-const Background = require('../../models/background');
-const SimpleController = require('../simpleController');
+import Background from '../../models/background/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Background);
+export default new SimpleController(Background);

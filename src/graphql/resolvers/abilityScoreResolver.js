@@ -1,5 +1,5 @@
-import SkillModel from '../../models/skill';
-import { getMongoSortDirection } from './common';
+import SkillModel from '../../models/skill/index.js';
+import { getMongoSortDirection } from './common.js';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore, args) => {

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const WeaponProperty = new Schema({
@@ -9,4 +10,4 @@ const WeaponProperty = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('WeaponProperty', WeaponProperty, 'weapon-properties');
+export default mongoose.model('WeaponProperty', WeaponProperty, 'weapon-properties');

@@ -1,11 +1,11 @@
-import { levelObjectToArray, resolveDc, resolveUsage } from './common';
+import { levelObjectToArray, resolveDc, resolveUsage } from './common.js';
 
-import DamageTypeModel from '../../models/damageType';
-import ProficiencyModel from '../../models/proficiency';
-import RaceModel from '../../models/race';
-import SpellModel from '../../models/spell';
-import SubraceModel from '../../models/subrace';
-import TraitModel from '../../models/trait';
+import DamageTypeModel from '../../models/damageType/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
+import RaceModel from '../../models/race/index.js';
+import SpellModel from '../../models/spell/index.js';
+import SubraceModel from '../../models/subrace/index.js';
+import TraitModel from '../../models/trait/index.js';
 
 const Trait = {
   proficiencies: async trait =>

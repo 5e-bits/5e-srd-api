@@ -1,4 +1,4 @@
-import { resolveSpells } from './common';
+import { resolveSpells } from './common.js';
 
 const MagicSchool = {
   spells: async (school, args) => await resolveSpells(args, [{ 'school.index': school.index }]),

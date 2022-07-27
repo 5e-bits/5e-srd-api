@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
 
 const Choice = new Schema({
   _id: false,
@@ -37,4 +38,4 @@ const Feature = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Feature', Feature, 'features');
+export default mongoose.model('Feature', Feature, 'features');

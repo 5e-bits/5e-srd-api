@@ -1,4 +1,4 @@
-const Trait = require('../../models/trait');
-const SimpleController = require('../simpleController');
+import SimpleController from '../simpleController.js';
+import Trait from '../../models/trait/index.js';
 
-module.exports = new SimpleController(Trait);
+export default new SimpleController(Trait);

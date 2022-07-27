@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import SkillController from '../../controllers/api/skillController.js';
+
 const router = express.Router();
-import SkillController from '../../controllers/api/skillController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   SkillController.index(req, res, next);

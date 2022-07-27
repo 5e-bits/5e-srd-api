@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import ProficiencyController from '../../controllers/api/proficiencyController.js';
+
 const router = express.Router();
-import ProficiencyController from '../../controllers/api/proficiencyController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   ProficiencyController.index(req, res, next);

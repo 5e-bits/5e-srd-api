@@ -1,4 +1,4 @@
-import RuleSectionModel from '../../models/ruleSection';
+import RuleSectionModel from '../../models/ruleSection/index.js';
 
 const Rule = {
   subsections: async rule =>

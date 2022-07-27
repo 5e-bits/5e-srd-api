@@ -1,4 +1,4 @@
-const Language = require('../../models/language');
-const SimpleController = require('../simpleController');
+import Language from '../../models/language/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Language);
+export default new SimpleController(Language);

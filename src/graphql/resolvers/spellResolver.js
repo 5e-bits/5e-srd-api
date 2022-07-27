@@ -1,9 +1,9 @@
-import AbilityScoreModel from '../../models/abilityScore';
-import ClassModel from '../../models/class';
-import DamageTypeModel from '../../models/damageType';
-import MagicSchoolModel from '../../models/magicSchool';
-import SubclassModel from '../../models/subclass';
-import { levelObjectToArray } from './common';
+import AbilityScoreModel from '../../models/abilityScore/index.js';
+import ClassModel from '../../models/class/index.js';
+import DamageTypeModel from '../../models/damageType/index.js';
+import MagicSchoolModel from '../../models/magicSchool/index.js';
+import SubclassModel from '../../models/subclass/index.js';
+import { levelObjectToArray } from './common.js';
 
 const Spell = {
   attack_type: spell => (spell.attack_type ? spell.attack_type.toUpperCase() : null),

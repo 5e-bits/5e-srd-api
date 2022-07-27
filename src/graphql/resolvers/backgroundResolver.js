@@ -1,8 +1,8 @@
-import AlignmentModel from '../../models/alignment';
-import EquipmentCategoryModel from '../../models/equipmentCategory';
-import EquipmentModel from '../../models/equipment';
-import LanguageModel from '../../models/language';
-import ProficiencyModel from '../../models/proficiency';
+import AlignmentModel from '../../models/alignment/index.js';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import EquipmentModel from '../../models/equipment/index.js';
+import LanguageModel from '../../models/language/index.js';
+import ProficiencyModel from '../../models/proficiency/index.js';
 
 const Background = {
   starting_equipment: async background => {

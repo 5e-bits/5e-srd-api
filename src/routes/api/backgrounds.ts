@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import BackgroundController from '../../controllers/api/backgroundController.js';
+
 const router = express.Router();
-import BackgroundController from '../../controllers/api/backgroundController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   BackgroundController.index(req, res, next);

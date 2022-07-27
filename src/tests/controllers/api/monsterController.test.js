@@ -1,25 +1,14 @@
-const mockingoose = require('mockingoose');
-jest.mock('redis', () => {
-  const redis = require('redis-mock');
-  return redis;
-});
-const redis = require('redis');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const { redisClient } = require('../../../util');
-const Monster = require('../../../models/monster');
-const MonsterController = require('../../../controllers/api/monsterController');
+import * as MonsterController from '../../../controllers/api/monsterController.js';
+
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+
+import Monster from '../../../models/monster/index.js';
+import mockingoose from 'mockingoose';
 
 let response;
 beforeEach(() => {
-  const client = redis.createClient();
-  // TODO: redis-mock does not support redis@4.0.0
-  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
-});
-
-afterAll(() => {
-  redisClient.quit();
 });
 
 describe('index', () => {

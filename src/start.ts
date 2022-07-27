@@ -1,6 +1,7 @@
+import { mongodbUri, prewarmCache, redisClient } from './util/index.js';
+
+import createApp from './server.js';
 import mongoose from 'mongoose';
-import { mongodbUri, redisClient, prewarmCache } from './util/index';
-import createApp from './server';
 
 const start = async () => {
   await mongoose.connect(mongodbUri);

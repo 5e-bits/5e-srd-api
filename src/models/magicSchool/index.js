@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const MagicSchool = new Schema({
@@ -9,4 +10,4 @@ const MagicSchool = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('MagicSchool', MagicSchool, 'magic-schools');
+export default mongoose.model('MagicSchool', MagicSchool, 'magic-schools');

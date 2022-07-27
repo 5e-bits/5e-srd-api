@@ -1,4 +1,4 @@
-const Proficiency = require('../../models/proficiency');
-const SimpleController = require('../simpleController');
+import Proficiency from '../../models/proficiency/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Proficiency);
+export default new SimpleController(Proficiency);

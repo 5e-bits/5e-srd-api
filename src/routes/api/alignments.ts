@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import AlignmentController from '../../controllers/api/alignmentController.js';
+
 const router = express.Router();
-import AlignmentController from '../../controllers/api/alignmentController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   AlignmentController.index(req, res, next);
