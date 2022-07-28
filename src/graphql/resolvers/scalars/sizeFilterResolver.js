@@ -1,6 +1,6 @@
 import { createEnumScalarType } from './enumFilterResolver.js';
 
-const sizes = ['MEDIUM', 'LARGE', 'TINY', 'HUGE', 'SMALL', 'GARGANTUAN'];
+const sizes = ['TINY', 'SMALL', 'MEDIUM', 'LARGE', 'HUGE', 'GARGANTUAN'];
 
 const getSize = size => size[0].toUpperCase() + size.slice(1).toLowerCase();
 

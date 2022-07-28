@@ -208,3 +208,11 @@ export const resolveUsage = usage => {
 
   return resolvedUsage;
 };
+
+export const resolveChoice = (choice, fromOverride, replace = false) => ({
+  ...choice,
+  from: {
+    ...(replace ? {} : choice.from),
+    ...fromOverride,
+  },
+});

@@ -3,6 +3,7 @@ import FeatureModel from '../../models/feature/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SpellModel from '../../models/spell/index.js';
 import SubclassModel from '../../models/subclass/index.js';
+import { resolveChoice } from './common.js';
 
 const resolveExpertiseOption = async option => {
   if (option.option_type === 'reference') {
@@ -15,16 +16,12 @@ const resolveExpertiseOption = async option => {
   if (option.option_type === 'choice') {
     return {
       ...option,
-      choice: {
-        ...option.choice,
-        from: {
-          ...option.choice.from,
-          options: option.choice.from.options.map(async o => ({
-            ...o,
-            item: await ProficiencyModel.findOne({ index: o.item.index }).lean(),
-          })),
-        },
-      },
+      choice: resolveChoice(option.choice, {
+        options: option.choice.from.options.map(async o => ({
+          ...o,
+          item: await ProficiencyModel.findOne({ index: o.item.index }).lean(),
+        })),
+      }),
     };
   }
 
@@ -65,28 +62,26 @@ const Feature = {
     const featureSpecificToReturn = {};
 
     if (feature_specific.subfeature_options) {
-      featureSpecificToReturn.subfeature_options = {
-        ...feature_specific.subfeature_options,
-        from: {
-          ...feature_specific.subfeature_options.from,
+      featureSpecificToReturn.subfeature_options = resolveChoice(
+        feature_specific.subfeature_options,
+        {
           options: feature_specific.subfeature_options.from.options.map(async option => ({
             ...option,
             item: await FeatureModel.findOne({ index: option.item.index }).lean(),
           })),
-        },
-      };
+        }
+      );
     }
 
     if (feature_specific.expertise_options) {
-      featureSpecificToReturn.expertise_options = {
-        ...feature_specific.expertise_options,
-        from: {
-          ...feature_specific.expertise_options.from,
+      featureSpecificToReturn.expertise_options = resolveChoice(
+        feature_specific.expertise_options,
+        {
           options: feature_specific.expertise_options.from.options.map(
             async option => await resolveExpertiseOption(option)
           ),
-        },
-      };
+        }
+      );
     }
 
     return featureSpecificToReturn;

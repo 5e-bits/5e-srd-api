@@ -33,8 +33,8 @@ const Proficiency = {
   type: proficiency =>
     proficiency.type
       .toUpperCase()
-      .replace("'", '')
-      .replace(' ', '_'),
+      .replace(/'/g, '')
+      .replace(/\s+/g, '_'),
 };
 
 export default Proficiency;

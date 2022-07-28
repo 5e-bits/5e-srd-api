@@ -1,4 +1,4 @@
-import { levelObjectToArray, resolveDc, resolveUsage } from './common.js';
+import { levelObjectToArray, resolveChoice, resolveDc, resolveUsage } from './common.js';
 
 import DamageTypeModel from '../../models/damageType/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
@@ -19,16 +19,12 @@ const Trait = {
   proficiency_choices: async trait => {
     if (trait.proficiency_choices) {
       const { proficiency_choices } = trait;
-      return {
-        ...proficiency_choices,
-        from: {
-          ...proficiency_choices.from,
-          options: proficiency_choices.from.options.map(async option => ({
-            ...option,
-            item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
-          })),
-        },
-      };
+      return resolveChoice(proficiency_choices, {
+        options: proficiency_choices.from.options.map(async option => ({
+          ...option,
+          item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
+        })),
+      });
     } else {
       return null;
     }
@@ -60,29 +56,21 @@ const Trait = {
     }
 
     if (trait_specific.spell_options) {
-      traitSpecificToReturn.spell_options = {
-        ...trait_specific.spell_options,
-        from: {
-          ...trait_specific.spell_options.from,
-          options: trait_specific.spell_options.from.options.map(async option => ({
-            ...option,
-            item: await SpellModel.findOne({ index: option.item.index }),
-          })),
-        },
-      };
+      traitSpecificToReturn.spell_options = resolveChoice(trait_specific.spell_options, {
+        options: trait_specific.spell_options.from.options.map(async option => ({
+          ...option,
+          item: await SpellModel.findOne({ index: option.item.index }),
+        })),
+      });
     }
 
     if (trait_specific.subtrait_options) {
-      traitSpecificToReturn.subtrait_options = {
-        ...trait_specific.subtrait_options,
-        from: {
-          ...trait_specific.subtrait_options.from,
-          options: trait_specific.subtrait_options.from.options.map(async option => ({
-            ...option,
-            item: await TraitModel.findOne({ index: option.item.index }).lean(),
-          })),
-        },
-      };
+      traitSpecificToReturn.subtrait_options = resolveChoice(trait_specific.subtrait_options, {
+        options: trait_specific.subtrait_options.from.options.map(async option => ({
+          ...option,
+          item: await TraitModel.findOne({ index: option.item.index }).lean(),
+        })),
+      });
     }
 
     return traitSpecificToReturn;

@@ -3,6 +3,7 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import RaceModel from '../../models/race/index.js';
 import TraitModel from '../../models/trait/index.js';
+import { resolveChoice } from './common.js';
 
 const Subrace = {
   ability_bonuses: async subrace => {
@@ -28,16 +29,12 @@ const Subrace = {
       return null;
     }
 
-    return {
-      ...subrace.language_options,
-      from: {
-        ...subrace.language_options.from,
-        options: subrace.language_options.from.options.map(async option => ({
-          ...option,
-          item: await LanguageModel.findOne({ index: option.item.index }).lean(),
-        })),
-      },
-    };
+    return resolveChoice(subrace.language_options, {
+      options: subrace.language_options.from.options.map(async option => ({
+        ...option,
+        item: await LanguageModel.findOne({ index: option.item.index }).lean(),
+      })),
+    });
   },
 };
 

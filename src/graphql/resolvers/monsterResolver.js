@@ -1,4 +1,4 @@
-import { levelObjectToArray, resolveDc, resolveUsage } from './common.js';
+import { levelObjectToArray, resolveChoice, resolveDc, resolveUsage } from './common.js';
 
 import ConditionModel from '../../models/condition/index.js';
 import DamageTypeModel from '../../models/damageType/index.js';
@@ -118,7 +118,7 @@ const Monster = {
 
     return resolvedSpecialAbilities;
   },
-  subtype: monster => (monster.subtype ? monster.subtype.toUpperCase().replace(' ', '_') : null),
+  subtype: monster => (monster.subtype ? monster.subtype.toUpperCase().replace(/\s+/g, '_') : null),
   type: monster => {
     if (monster.type.includes('swarm')) {
       return 'SWARM';
@@ -156,21 +156,17 @@ const Monster = {
       }
 
       if (action.options) {
-        actionToAdd.options = {
-          ...action.options,
-          from: {
-            ...action.options.from,
-            options: action.options.from.options.map(async option => {
-              const newOption = { ...option, dc: await resolveDc(option.dc) };
+        actionToAdd.options = resolveChoice(action.options, {
+          options: action.options.from.options.map(async option => {
+            const newOption = { ...option, dc: await resolveDc(option.dc) };
 
-              if (option.damage) {
-                newOption.damage = await resolveDamage(option.damage);
-              }
+            if (option.damage) {
+              newOption.damage = await resolveDamage(option.damage);
+            }
 
-              return newOption;
-            }),
-          },
-        };
+            return newOption;
+          }),
+        });
       }
 
       if (action.usage) {

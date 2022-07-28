@@ -4,7 +4,7 @@ import EquipmentModel from '../../models/equipment/index.js';
 import LevelModel from '../../models/level/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SubclassModel from '../../models/subclass/index.js';
-import { resolveSpells } from './common.js';
+import { resolveChoice, resolveSpells } from './common.js';
 
 const resolveEquipmentOption = async option => {
   if (option.option_type === 'counted_reference') {
@@ -17,15 +17,11 @@ const resolveEquipmentOption = async option => {
   if (option.option_type === 'choice') {
     return {
       ...option,
-      choice: {
-        ...option.choice,
-        from: {
-          ...option.choice.from,
-          equipment_category: await EquipmentCategoryModel.findOne({
-            index: option.choice.from.equipment_category.index,
-          }).lean(),
-        },
-      },
+      choice: resolveChoice(option.choice, {
+        equipment_category: await EquipmentCategoryModel.findOne({
+          index: option.choice.from.equipment_category.index,
+        }).lean(),
+      }),
     };
   }
 
@@ -87,42 +83,36 @@ const Class = {
     }
 
     if (multi_classing.prerequisite_options) {
-      multiclassingToReturn.prerequisite_options = {
-        ...multi_classing.prerequisite_options,
-        from: {
-          ...multi_classing.prerequisite_options.from,
+      multiclassingToReturn.prerequisite_options = resolveChoice(
+        multi_classing.prerequisite_options,
+        {
           options: multi_classing.prerequisite_options.from.options.map(async option => ({
             ...option,
             ability_score: await AbilityScoreModel.findOne({
               index: option.ability_score.index,
             }).lean(),
           })),
-        },
-      };
+        }
+      );
     }
 
     if (multi_classing.proficiency_choices) {
       multiclassingToReturn.proficiency_choices = multi_classing.proficiency_choices.map(
-        async choice => ({
-          ...choice,
-          from: {
-            ...choice.from,
+        async choice =>
+          resolveChoice(choice, {
             options: choice.from.options.map(async option => ({
               ...option,
               item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
             })),
-          },
-        })
+          })
       );
     }
 
     return multiclassingToReturn;
   },
   proficiency_choices: async klass =>
-    klass.proficiency_choices.map(async choice => ({
-      ...choice,
-      from: {
-        ...choice.from,
+    klass.proficiency_choices.map(async choice =>
+      resolveChoice(choice, {
         options: choice.from.options.map(async option =>
           option.option_type === 'reference'
             ? {
@@ -131,20 +121,16 @@ const Class = {
               }
             : {
                 ...option,
-                choice: {
-                  ...option.choice,
-                  from: {
-                    ...option.choice.from,
-                    options: option.choice.from.options.map(async o => ({
-                      ...o,
-                      item: await ProficiencyModel.findOne({ index: o.item.index }).lean(),
-                    })),
-                  },
-                },
+                choice: resolveChoice(option.choice, {
+                  options: option.choice.from.options.map(async o => ({
+                    ...o,
+                    item: await ProficiencyModel.findOne({ index: o.item.index }).lean(),
+                  })),
+                }),
               }
         ),
-      },
-    })),
+      })
+    ),
   starting_equipment_options: async klass =>
     klass.starting_equipment_options.map(async se_option => {
       const optionToReturn = { ...se_option };
