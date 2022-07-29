@@ -6,7 +6,7 @@ const getType = type => type.toLowerCase();
 
 const SpellAttackTypeFilter = createEnumScalarType(
   'SpellAttackTypeFilter',
-  'SpellAttackType or list of SpellAttackTypes',
+  'SpellAttackType ("MELEE", "RANGED") or list of SpellAttackTypes',
   types,
   getType
 );

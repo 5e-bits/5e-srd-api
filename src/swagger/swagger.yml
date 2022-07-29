@@ -75,8 +75,8 @@ info:
     ## GraphQL
 
     This API supports [GraphQL](https://graphql.org/). The GraphQL URL for this API
-    is `https://www.dnd5eapi.co/graphql`. GraphQL functionality is not covered in 
-    this documentation.
+    is `https://www.dnd5eapi.co/graphql`. Most of your questions regarding the GraphQL schema can be answered
+    by querying the endpoint with the Apollo sandbox explorer.  
 
     ## Schemas
 
@@ -141,10 +141,10 @@ info:
     # Legacy Documentation
 
     This documentation page is new! If you're looking for the legacy docs they can be found on the [old docs page](https://www.dnd5eapi.co/legacydocs/).
-  version: "0.1"
+  version: '0.1'
   license:
     name: MIT License
-    url: "https://github.com/5e-bits/5e-srd-api/blob/main/LICENSE.md"
+    url: 'https://github.com/5e-bits/5e-srd-api/blob/main/LICENSE.md'
   contact:
     name: 5eBits
     url: https://github.com/5e-bits
@@ -159,107 +159,107 @@ tags:
 
 paths:
   /api:
-    $ref: "./paths/combined.yml#/base"
+    $ref: './paths/combined.yml#/base'
   /api/{endpoint}:
-    $ref: "./paths/combined.yml#/list"
+    $ref: './paths/combined.yml#/list'
   /api/ability-scores/{index}:
-    $ref: "./paths/combined.yml#/ability-scores"
+    $ref: './paths/combined.yml#/ability-scores'
   /api/alignments/{index}:
-    $ref: "./paths/combined.yml#/alignments"
+    $ref: './paths/combined.yml#/alignments'
   /api/backgrounds/{index}:
-    $ref: "./paths/combined.yml#/backgrounds"
+    $ref: './paths/combined.yml#/backgrounds'
   /api/classes/{index}:
-    $ref: "./paths/combined.yml#/classes"
+    $ref: './paths/combined.yml#/classes'
   /api/classes/{index}/subclasses:
-    $ref: "./paths/combined.yml#/class-subclass"
+    $ref: './paths/combined.yml#/class-subclass'
   /api/classes/{index}/spells:
-    $ref: "./paths/combined.yml#/class-spells"
+    $ref: './paths/combined.yml#/class-spells'
   /api/classes/{index}/spellcasting:
-    $ref: "./paths/combined.yml#/class-spellcasting"
+    $ref: './paths/combined.yml#/class-spellcasting'
   /api/classes/{index}/features:
-    $ref: "./paths/combined.yml#/class-features"
+    $ref: './paths/combined.yml#/class-features'
   /api/classes/{index}/proficiencies:
-    $ref: "./paths/combined.yml#/class-proficiencies"
+    $ref: './paths/combined.yml#/class-proficiencies'
   /api/classes/{index}/multi-classing:
-    $ref: "./paths/combined.yml#/class-multi-classing"
+    $ref: './paths/combined.yml#/class-multi-classing'
   /api/classes/{index}/levels:
-    $ref: "./paths/combined.yml#/class-levels"
+    $ref: './paths/combined.yml#/class-levels'
   /api/classes/{index}/levels/{class_level}:
-    $ref: "./paths/combined.yml#/class-level"
+    $ref: './paths/combined.yml#/class-level'
   /api/classes/{index}/levels/{class_level}/features:
-    $ref: "./paths/combined.yml#/class-level-features"
+    $ref: './paths/combined.yml#/class-level-features'
   /api/classes/{index}/levels/{spell_level}/spells:
-    $ref: "./paths/combined.yml#/class-spell-level-spells"
+    $ref: './paths/combined.yml#/class-spell-level-spells'
   /api/conditions/{index}:
-    $ref: "./paths/combined.yml#/conditions"
+    $ref: './paths/combined.yml#/conditions'
   /api/damage-types/{index}:
-    $ref: "./paths/combined.yml#/damage-types"
+    $ref: './paths/combined.yml#/damage-types'
   /api/equipment/{index}:
-    $ref: "./paths/combined.yml#/equipment"
+    $ref: './paths/combined.yml#/equipment'
   /api/equipment-categories/{index}:
-    $ref: "./paths/combined.yml#/equipment-categories"
+    $ref: './paths/combined.yml#/equipment-categories'
   /api/feats/{index}:
-    $ref: "./paths/combined.yml#/feats"
+    $ref: './paths/combined.yml#/feats'
   /api/features/{index}:
-    $ref: "./paths/combined.yml#/features"
+    $ref: './paths/combined.yml#/features'
   /api/languages/{index}:
-    $ref: "./paths/combined.yml#/languages"
+    $ref: './paths/combined.yml#/languages'
   /api/magic-items/{index}:
-    $ref: "./paths/combined.yml#/magic-items"
+    $ref: './paths/combined.yml#/magic-items'
   /api/magic-schools/{index}:
-    $ref: "./paths/combined.yml#/magic-schools"
+    $ref: './paths/combined.yml#/magic-schools'
   /api/monsters:
-    $ref: "./paths/combined.yml#/monsters"
+    $ref: './paths/combined.yml#/monsters'
   /api/monsters/{index}:
-    $ref: "./paths/combined.yml#/monster"
+    $ref: './paths/combined.yml#/monster'
   /api/proficiencies/{index}:
-    $ref: "./paths/combined.yml#/proficiencies"
+    $ref: './paths/combined.yml#/proficiencies'
   /api/races/{index}:
-    $ref: "./paths/combined.yml#/races"
+    $ref: './paths/combined.yml#/races'
   /api/races/{index}/subraces:
-    $ref: "./paths/combined.yml#/race-subraces"
+    $ref: './paths/combined.yml#/race-subraces'
   /api/races/{index}/proficiencies:
-    $ref: "./paths/combined.yml#/race-proficiencies"
+    $ref: './paths/combined.yml#/race-proficiencies'
   /api/races/{index}/traits:
-    $ref: "./paths/combined.yml#/race-traits"
+    $ref: './paths/combined.yml#/race-traits'
   /api/rule-sections/{index}:
-    $ref: "./paths/combined.yml#/rule-sections"
+    $ref: './paths/combined.yml#/rule-sections'
   /api/rules/{index}:
-    $ref: "./paths/combined.yml#/rules"
+    $ref: './paths/combined.yml#/rules'
   /api/skills/{index}:
-    $ref: "./paths/combined.yml#/skills"
+    $ref: './paths/combined.yml#/skills'
   /api/spells:
-    $ref: "./paths/combined.yml#/spells"
+    $ref: './paths/combined.yml#/spells'
   /api/spells/{index}:
-    $ref: "./paths/combined.yml#/spell"
+    $ref: './paths/combined.yml#/spell'
   /api/subclasses/{index}:
-    $ref: "./paths/combined.yml#/subclasses"
+    $ref: './paths/combined.yml#/subclasses'
   /api/subclasses/{index}/features:
-    $ref: "./paths/combined.yml#/subclass-features"
+    $ref: './paths/combined.yml#/subclass-features'
   /api/subclasses/{index}/levels:
-    $ref: "./paths/combined.yml#/subclass-levels"
+    $ref: './paths/combined.yml#/subclass-levels'
   /api/subclasses/{index}/levels/{subclass_level}:
-    $ref: "./paths/combined.yml#/subclass-level"
+    $ref: './paths/combined.yml#/subclass-level'
   /api/subclasses/{index}/levels/{subclass_level}/features:
-    $ref: "./paths/combined.yml#/subclass-level-features"
+    $ref: './paths/combined.yml#/subclass-level-features'
   /api/subraces/{index}:
-    $ref: "./paths/combined.yml#/subraces"
+    $ref: './paths/combined.yml#/subraces'
   /api/subraces/{index}/proficiencies:
-    $ref: "./paths/combined.yml#/subrace-proficiencies"
+    $ref: './paths/combined.yml#/subrace-proficiencies'
   /api/subraces/{index}/traits:
-    $ref: "./paths/combined.yml#/subrace-traits"
+    $ref: './paths/combined.yml#/subrace-traits'
   /api/traits/{index}:
-    $ref: "./paths/combined.yml#/traits"
+    $ref: './paths/combined.yml#/traits'
   /api/weapon-properties/{index}:
-    $ref: "./paths/combined.yml#/weapon-properties"
+    $ref: './paths/combined.yml#/weapon-properties'
 
 components:
   parameters:
-    $ref: "./parameters/combined.yml"
+    $ref: './parameters/combined.yml'
 
   schemas:
-    $ref: "./schemas/combined.yml"
+    $ref: './schemas/combined.yml'
 
 externalDocs:
   description: Legacy api documentation.
-  url: "https://www.dnd5eapi.co/docs/"
+  url: 'https://www.dnd5eapi.co/docs/'

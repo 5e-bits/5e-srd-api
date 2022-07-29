@@ -6,7 +6,7 @@ const getType = type => type.toLowerCase();
 
 const AreaOfEffectTypeFilter = createEnumScalarType(
   'AreaOfEffectTypeFilter',
-  'AreaOfEffectType or list of AreaOfEffectTypes',
+  'AreaOfEffectType ("SPHERE", "CUBE", "CYLINDER", "LINE", "CONE") or list of AreaOfEffectTypes',
   types,
   getType
 );

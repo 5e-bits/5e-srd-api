@@ -23,7 +23,7 @@ const getTime = time => {
 
 const CastingTimeFilter = createEnumScalarType(
   'CastingTimeFilter',
-  'CastingTime or list of CastingTimes',
+  'CastingTime ("ACTION", "MINUTE", "HOUR", "BONUS_ACTION", "MINUTES_10", "DAY", "REACTION") or list of CastingTimes',
   times,
   getTime
 );

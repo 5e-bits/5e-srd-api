@@ -24,7 +24,7 @@ const getSubtype = subtype => subtype.toLowerCase().replace(/_/g, ' ');
 
 const MonsterSubtypeFilter = createEnumScalarType(
   'MonsterSubtypeFilter',
-  'MonsterSubtype or list of MonsterSubtypes',
+  'MonsterSubtype ("ANY_RACE", "HUMAN", "DWARF", "ELF", "GOBLINOID", "MERFOLK", "SHAPECHANGER", "DEMON", "DEVIL", "ORC", "SAHUAGIN", "TITAN", "KOBOLD", "GNOLL", "GRIMLOCK", "LIZARDFOLK", "GNOME") or list of MonsterSubtypes',
   subtypes,
   getSubtype
 );

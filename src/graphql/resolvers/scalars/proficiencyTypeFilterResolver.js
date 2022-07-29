@@ -27,7 +27,7 @@ const getType = type => {
 
 const ProficiencyTypeFilter = createEnumScalarType(
   'ProficiencyTypeFilter',
-  'ProficiencyType or list of ProficiencyTypes',
+  'ProficiencyType ("WEAPONS", "ARTISANS_TOOLS", "SKILLS", "ARMOR", "MUSICAL_INSTRUMENTS", "SAVING_THROWS", "OTHER", "GAMING_SETS", "VEHICLES") or list of ProficiencyTypes',
   types,
   getType
 );

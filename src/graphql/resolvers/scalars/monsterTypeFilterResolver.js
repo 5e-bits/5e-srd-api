@@ -28,7 +28,7 @@ const getType = type => {
 
 const MonsterTypeFilter = createEnumScalarType(
   'MonsterTypeFilter',
-  'MonsterTypes or list of MonsterTypes',
+  'MonsterTypes ("BEAST", "MONSTROSITY", "DRAGON", "HUMANOID", "UNDEAD", "FIEND", "CELESTIAL", "CONSTRUCT", "GIANT", "ELEMENTAL", "FEY", "ABERRATION", "OOZE", "SWARM", "PLANT") or list of MonsterTypes',
   types,
   getType
 );
