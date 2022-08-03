@@ -1,14 +1,7 @@
-import { APIReference } from '../common/index.js';
+import { APIReference, Choice } from '../common/index.js';
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
-
-const Choice = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [APIReference],
-  type: { type: String, index: true },
-});
 
 const Prerequisite = new Schema({
   _id: false,
@@ -24,7 +17,6 @@ const FeatureSpecific = new Schema({
 
 const Feature = new Schema({
   _id: { type: String, select: false },
-  choice: Choice,
   class: APIReference,
   desc: { type: [String], index: true },
   parent: APIReference,

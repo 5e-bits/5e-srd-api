@@ -1,4 +1,4 @@
-import { APIReference } from '../common/index.js';
+import { APIReference, Choice } from '../common/index.js';
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -16,31 +16,11 @@ const ActionDC = new Schema({
   success_type: { type: String, index: true },
 });
 
-const ActionAttack = new Schema({
-  _id: false,
-  name: { type: String, index: true },
-  dc: ActionDC,
-  damage: [ActionDamage],
-});
-
-const ActionAttackOptions = new Schema({
-  _id: false,
-  choose: { type: Number, required: true },
-  type: { type: String, required: true },
-  from: [ActionAttack],
-});
-
 const ActionOption = new Schema({
   _id: false,
-  name: { type: String, index: true },
+  action_name: { type: String, index: true },
   count: { type: Schema.Types.Mixed, index: true },
-  type: { type: String, index: true },
-});
-
-const ActionOptions = new Schema({
-  _id: false,
-  choose: { type: Number, index: true },
-  from: [ActionOption],
+  type: { type: String, index: true, enum: ['melee', 'ranged', 'ability', 'magic'] },
 });
 
 const ActionUsage = new Schema({
@@ -57,10 +37,10 @@ const Action = new Schema({
   attack_bonus: { type: Number, index: true },
   damage: { type: [ActionDamage], default: undefined },
   dc: ActionDC,
-  options: ActionOptions,
   usage: ActionUsage,
-  attack_options: ActionAttackOptions,
-  attacks: { type: [ActionAttack], default: undefined },
+  multiattack_type: { type: String, index: true, enum: ['actions', 'action_options'] },
+  action_options: { type: Choice, index: true },
+  actions: { type: [ActionOption], index: true },
 });
 
 const LegendaryAction = new Schema({

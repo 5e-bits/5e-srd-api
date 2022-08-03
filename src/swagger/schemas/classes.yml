@@ -128,25 +128,24 @@ cs-wizard:
   properties:
     arcane_recover_levels:
       type: number
-  
 
 class-model:
   description: |
     `Class`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
+    - $ref: './combined.yml#/APIReference'
     - type: object
       properties:
         hit_die:
-          description: "Hit die of the class. (ex: 12 == 1d12)."
+          description: 'Hit die of the class. (ex: 12 == 1d12).'
           type: number
         class_levels:
           description: URL of the level resource for the class.
           type: string
         multi_classing:
-          $ref: "./combined.yml#/Multiclassing"
+          $ref: './combined.yml#/Multiclassing'
         spellcasting:
-          $ref: "./combined.yml#/Spellcasting"
+          $ref: './combined.yml#/Spellcasting'
         spells:
           description: URL of the spell resource list for the class.
           type: string
@@ -159,59 +158,59 @@ class-model:
               quantity:
                 type: number
               equipment:
-                $ref: "./combined.yml#/APIReference"
+                $ref: './combined.yml#/APIReference'
         starting_equipment_options:
           description: List of choices of starting equipment.
           type: array
           items:
-            $ref: "./combined.yml#/equipment-option"
+            $ref: './combined.yml#/Choice'
         proficiency_choices:
           description: List of choices of starting proficiencies.
           type: array
           items:
-            $ref: "./combined.yml#/Choice"
+            $ref: './combined.yml#/Choice'
         proficiencies:
           description: List of starting proficiencies for all new characters of this class.
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
         saving_throws:
           description: Saving throws the class is proficient in.
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
         subclasses:
           description: List of all possible subclasses this class can specialize in.
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
 class-level-model:
   description: |
     `ClassLevel`
   type: object
   properties:
     index:
-      description: "Resource index for shorthand searching."
+      description: 'Resource index for shorthand searching.'
       type: string
     url:
-      description: "URL of the referenced resource."
+      description: 'URL of the referenced resource.'
       type: string
     level:
-      description: "The number value for the current level object."
+      description: 'The number value for the current level object.'
       type: number
     ability_score_bonuses:
-      description: "Total number of ability score bonuses gained, added from previous levels."
+      description: 'Total number of ability score bonuses gained, added from previous levels.'
       type: number
     prof_bonus:
-      description: "Proficiency bonus for this class at the specified level."
+      description: 'Proficiency bonus for this class at the specified level.'
       type: number
     features:
-      description: "Features automatically gained at this level."
+      description: 'Features automatically gained at this level.'
       type: array
       items:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'
     spellcasting:
-      description: "Summary of spells known at this level."
+      description: 'Summary of spells known at this level.'
       type: object
       properties:
         cantrips_known:
@@ -237,17 +236,17 @@ class-level-model:
         spell_slots_level_9:
           type: number
     class_specific:
-      description: "Class specific information such as dice values for bard songs and number of warlock invocations."
+      description: 'Class specific information such as dice values for bard songs and number of warlock invocations.'
       anyOf:
-        - $ref: "#/cs-barbarian"
-        - $ref: "#/cs-bard"
-        - $ref: "#/cs-cleric"
-        - $ref: "#/cs-druid"
-        - $ref: "#/cs-fighter"
-        - $ref: "#/cs-monk"
-        - $ref: "#/cs-paladin"
-        - $ref: "#/cs-ranger"
-        - $ref: "#/cs-rogue"
-        - $ref: "#/cs-sorcerer"
-        - $ref: "#/cs-warlock"
-        - $ref: "#/cs-wizard"
+        - $ref: '#/cs-barbarian'
+        - $ref: '#/cs-bard'
+        - $ref: '#/cs-cleric'
+        - $ref: '#/cs-druid'
+        - $ref: '#/cs-fighter'
+        - $ref: '#/cs-monk'
+        - $ref: '#/cs-paladin'
+        - $ref: '#/cs-ranger'
+        - $ref: '#/cs-rogue'
+        - $ref: '#/cs-sorcerer'
+        - $ref: '#/cs-warlock'
+        - $ref: '#/cs-wizard'

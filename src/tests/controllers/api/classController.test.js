@@ -282,39 +282,47 @@ describe('showStartingEquipmentForClass', () => {
       {
         choose: 1,
         type: 'equipment',
-        from: [
-          [
+        from: {
+          option_set_type: 'options_array',
+          options: [
             {
-              equipment: {
-                index: 'crossbow-light',
-                name: 'Crossbow, light',
-                url: '/api/equipment/crossbow-light',
-              },
-              quantity: 1,
+              option_type: 'multiple',
+              items: [
+                {
+                  of: {
+                    index: 'crossbow-light',
+                    name: 'Crossbow, light',
+                    url: '/api/equipment/crossbow-light',
+                  },
+                  count: 1,
+                },
+                {
+                  of: {
+                    index: 'crossbow-bolt',
+                    name: 'Crossbow bolt',
+                    url: '/api/equipment/crossbow-bolt',
+                  },
+                  count: 20,
+                },
+              ],
             },
             {
-              equipment: {
-                index: 'crossbow-bolt',
-                name: 'Crossbow bolt',
-                url: '/api/equipment/crossbow-bolt',
-              },
-              quantity: 20,
-            },
-          ],
-          {
-            equipment_option: {
-              choose: 1,
-              type: 'equipment',
-              from: {
-                equipment_category: {
-                  index: 'simple-weapons',
-                  name: 'Simple Weapons',
-                  url: '/api/equipment-categories/simple-weapons',
+              option_type: 'choice',
+              choice: {
+                choose: 1,
+                type: 'equipment',
+                from: {
+                  option_set_type: 'equipment_category',
+                  equipment_category: {
+                    index: 'simple-weapons',
+                    name: 'Simple Weapons',
+                    url: '/api/equipment-categories/simple-weapons',
+                  },
                 },
               },
             },
-          },
-        ],
+          ],
+        },
       },
     ],
   };

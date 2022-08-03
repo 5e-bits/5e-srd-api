@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
+import { APIReference, Choice } from '../common/types';
 
 type Equipment = {
   equipment: APIReference;
@@ -9,18 +9,6 @@ type Equipment = {
 type StartingEquipmentOption = {
   equipment: APIReference;
   quantity: number;
-};
-
-type StartingEquipmentOptions = {
-  choose: number;
-  from: StartingEquipmentOption[];
-  type: string;
-};
-
-type ProficiencyChoice = {
-  choose: number;
-  from: APIReference[];
-  type: string;
 };
 
 type SpellcastingInfo = {
@@ -39,17 +27,11 @@ type MultiClassingPrereq = {
   minimum_score: number;
 };
 
-type MultiClassingPrereqOptions = {
-  choose: number;
-  from: MultiClassingPrereq[];
-  type: string;
-};
-
 type MultiClassing = {
   prerequisites?: MultiClassingPrereq[];
-  prerequisite_options?: MultiClassingPrereqOptions;
+  prerequisite_options?: Choice;
   proficiencies?: APIReference[];
-  proficiency_choices?: ProficiencyChoice[];
+  proficiency_choices?: Choice[];
 };
 
 export type Class = {
@@ -60,12 +42,12 @@ export type Class = {
   index: string;
   name: string;
   proficiencies: APIReference[];
-  proficiency_choices: ProficiencyChoice[];
+  proficiency_choices: Choice[];
   saving_throws: APIReference[];
   spellcasting?: Spellcasting;
   spells?: string;
   starting_equipment?: Equipment[];
-  starting_equipment_options: StartingEquipmentOptions[];
+  starting_equipment_options: Choice[];
   subclasses: APIReference[];
   url: string;
 };

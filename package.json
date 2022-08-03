@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@apideck/portman": "^1.14.2",
+    "@apidevtools/swagger-cli": "^4.0.4",
     "@bugsnag/js": "^7.16.1",
     "@bugsnag/plugin-express": "^7.16.1",
     "@graphql-tools/schema": "^8.3.10",
@@ -44,8 +45,7 @@
     "morgan": "^1.10.0",
     "node-fetch": "^3.1.1",
     "redis": "^4.2.0",
-    "serve-favicon": "^2.5.0",
-    "swagger-cli": "^4.0.4"
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "@semantic-release/github": "^8.0.2",
