@@ -12,16 +12,16 @@ class-path:
     tags:
       - Class
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/Class"
+              $ref: '../schemas/combined.yml#/Class'
             example:
-              class_levels: "/api/classes/barbarian/levels"
+              class_levels: '/api/classes/barbarian/levels'
               hit_die: 12
               index: barbarian
               multi_classing:
@@ -29,114 +29,143 @@ class-path:
                   - ability_score:
                       index: str
                       name: STR
-                      url: "/api/ability-scores/str"
+                      url: '/api/ability-scores/str'
                     minimum_score: 13
                 proficiencies:
                   - index: shields
                     name: Shields
-                    url: "/api/proficiencies/shields"
+                    url: '/api/proficiencies/shields'
                   - index: simple-weapons
                     name: Simple Weapons
-                    url: "/api/proficiencies/simple-weapons"
+                    url: '/api/proficiencies/simple-weapons'
                   - index: martial-weapons
                     name: Martial Weapons
-                    url: "/api/proficiencies/martial-weapons"
+                    url: '/api/proficiencies/martial-weapons'
                 proficiency_choices: []
               name: Barbarian
               proficiencies:
                 - index: light-armor
                   name: Light Armor
-                  url: "/api/proficiencies/light-armor"
+                  url: '/api/proficiencies/light-armor'
                 - index: medium-armor
                   name: Medium Armor
-                  url: "/api/proficiencies/medium-armor"
+                  url: '/api/proficiencies/medium-armor'
                 - index: shields
                   name: Shields
-                  url: "/api/proficiencies/shields"
+                  url: '/api/proficiencies/shields'
                 - index: simple-weapons
                   name: Simple Weapons
-                  url: "/api/proficiencies/simple-weapons"
+                  url: '/api/proficiencies/simple-weapons'
                 - index: martial-weapons
                   name: Martial Weapons
-                  url: "/api/proficiencies/martial-weapons"
+                  url: '/api/proficiencies/martial-weapons'
               proficiency_choices:
-                - choose: 2
-                  from:
-                    - index: skill-animal-handling
-                      name: "Skill: Animal Handling"
-                      url: "/api/proficiencies/skill-animal-handling"
-                    - index: skill-athletics
-                      name: "Skill: Athletics"
-                      url: "/api/proficiencies/skill-athletics"
-                    - index: skill-intimidation
-                      name: "Skill: Intimidation"
-                      url: "/api/proficiencies/skill-intimidation"
-                    - index: skill-nature
-                      name: "Skill: Nature"
-                      url: "/api/proficiencies/skill-nature"
-                    - index: skill-perception
-                      name: "Skill: Perception"
-                      url: "/api/proficiencies/skill-perception"
-                    - index: skill-survival
-                      name: "Skill: Survival"
-                      url: "/api/proficiencies/skill-survival"
+                - desc: Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival
+                  choose: 2
                   type: proficiencies
+                  from:
+                    option_set_type: options_array
+                    options:
+                      - option_type: reference
+                        item:
+                          index: skill-animal-handling
+                          name: 'Skill: Animal Handling'
+                          url: '/api/proficiencies/skill-animal-handling'
+                      - option_type: reference
+                        item:
+                          index: skill-athletics
+                          name: 'Skill: Athletics'
+                          url: '/api/proficiencies/skill-athletics'
+                      - option_type: reference
+                        item:
+                          index: skill-intimidation
+                          name: 'Skill: Intimidation'
+                          url: '/api/proficiencies/skill-intimidation'
+                      - option_type: reference
+                        item:
+                          index: skill-nature
+                          name: 'Skill: Nature'
+                          url: '/api/proficiencies/skill-nature'
+                      - option_type: reference
+                        item:
+                          index: skill-perception
+                          name: 'Skill: Perception'
+                          url: '/api/proficiencies/skill-perception'
+                      - option_type: reference
+                        item:
+                          index: skill-survival
+                          name: 'Skill: Survival'
+                          url: '/api/proficiencies/skill-survival'
               saving_throws:
                 - index: str
                   name: STR
-                  url: "/api/ability-scores/str"
+                  url: '/api/ability-scores/str'
                 - index: con
                   name: CON
-                  url: "/api/ability-scores/con"
+                  url: '/api/ability-scores/con'
               starting_equipment:
                 - equipment:
                     index: explorers-pack
                     name: Explorer's Pack
-                    url: "/api/equipment/explorers-pack"
+                    url: '/api/equipment/explorers-pack'
                   quantity: 1
                 - equipment:
                     index: javelin
                     name: Javelin
-                    url: "/api/equipment/javelin"
+                    url: '/api/equipment/javelin'
                   quantity: 4
               starting_equipment_options:
-                - choose: 1
-                  from:
-                    - equipment:
-                        index: greataxe
-                        name: Greataxe
-                        url: "/api/equipment/greataxe"
-                      quantity: 1
-                    - equipment_option:
-                        choose: 1
-                        from:
-                          equipment_category:
-                            index: martial-melee-weapons
-                            name: Martial Melee Weapons
-                            url: "/api/equipment-categories/martial-melee-weapons"
-                        type: equipment
+                - desc: (a) a greataxe or (b) any martial melee weapon
+                  choose: 1
                   type: equipment
-                - choose: 1
                   from:
-                    - equipment:
-                        index: handaxe
-                        name: Handaxe
-                        url: "/api/equipment/handaxe"
-                      quantity: 2
-                    - equipment_option:
-                        choose: 1
-                        from:
-                          equipment_category:
-                            index: simple-weapons
-                            name: Simple Weapons
-                            url: "/api/equipment-categories/simple-weapons"
-                        type: equipment
+                    option_set_type: options_array
+                    options:
+                      - option_type: counted_reference
+                        count: 1
+                        of:
+                          index: greataxe
+                          name: Greataxe
+                          url: '/api/equipment/greataxe'
+                      - option_type: choice
+                        choice:
+                          desc: any martial melee weapon
+                          choose: 1
+                          type: equipment
+                          from:
+                            option_set_type: equipment_category
+                            equipment_category:
+                              index: martial-melee-weapons
+                              name: Martial Melee Weapons
+                              url: '/api/equipment-categories/martial-melee-weapons'
+                - desc: (a) two handaxes or (b) any simple weapon
+                  choose: 1
                   type: equipment
+                  from:
+                    option_set_type: options_array
+                    options:
+                      - option_type: counted_reference
+                        count: 2
+                        of:
+                          index: handaxe
+                          name: Handaxe
+                          url: '/api/equipment/handaxe'
+                      - option_type: choice
+                        choice:
+                          desc: any simple weapon
+                          choose: 1
+                          type: equipment
+                          from:
+                            option_set_type: equipment_category
+                            equipment_category:
+                              index: simple-weapons
+                              name: Simple Weapons
+                              url: '/api/equipment-categories/simple-weapons'
               subclasses:
                 - index: berserker
                   name: Berserker
-                  url: "/api/subclasses/berserker"
-              url: "/api/classes/barbarian"
+                  url: '/api/subclasses/berserker'
+              url: '/api/classes/barbarian'
 # /api/classes/{indexParam}/subclasses
 class-subclass-path:
   get:
@@ -144,20 +173,20 @@ class-subclass-path:
     tags:
       - Class Resource Lists
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/APIReferenceList"
+              $ref: '../schemas/combined.yml#/APIReferenceList'
             example:
               count: 1
               results:
                 - index: berserker
                   name: Berserker
-                  url: "/api/subclasses/berserker"
+                  url: '/api/subclasses/berserker'
 #/api/classes/{indexParam}/spells
 class-spells-path:
   get:
@@ -165,23 +194,23 @@ class-spells-path:
     tags:
       - Class Resource Lists
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/APIReferenceList"
+              $ref: '../schemas/combined.yml#/APIReferenceList'
             example:
               count: 2
               results:
                 - index: power-word-kill
                   name: Power Word Kill
-                  url: "/api/spells/power-word-kill"
+                  url: '/api/spells/power-word-kill'
                 - index: true-polymorph
                   name: True Polymorph
-                  url: "/api/spells/true-polymorph"
+                  url: '/api/spells/true-polymorph'
 # /api/classes/{index}/spellcasting
 class-spellcasting-path:
   get:
@@ -189,20 +218,20 @@ class-spellcasting-path:
     tags:
       - Class
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/Spellcasting"
+              $ref: '../schemas/combined.yml#/Spellcasting'
             example:
               level: 1
               spellcasting_ability:
                 index: cha
                 name: CHA
-                url: "/api/ability-scores/cha"
+                url: '/api/ability-scores/cha'
               info:
                 - name: Cantrips
                   desc:
@@ -244,12 +273,12 @@ class-spellcasting-path:
                   desc:
                     - You can use a musical instrument (see Equipment) as a spellcasting focus for your
                       bard spells.
-      "404":
+      '404':
         description: Not found.
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/error-response"
+              $ref: '../schemas/combined.yml#/error-response'
             example:
               error: Not found
 
@@ -260,14 +289,14 @@ class-features-path:
     tags:
       - Class Resource Lists
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: List of features for the class.
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/APIReferenceList"
+              $ref: '../schemas/combined.yml#/APIReferenceList'
 # /api/classes/{index}/proficiencies
 class-proficiencies-path:
   get:
@@ -275,14 +304,14 @@ class-proficiencies-path:
     tags:
       - Class Resource Lists
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: List of proficiencies for the class.
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/APIReferenceList"
+              $ref: '../schemas/combined.yml#/APIReferenceList'
 # /api/classes/{index}/multi-classing:
 class-multi-classing-path:
   get:
@@ -290,31 +319,31 @@ class-multi-classing-path:
     tags:
       - Class
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
+      - $ref: '../parameters/combined.yml#/class-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/Multiclassing"
+              $ref: '../schemas/combined.yml#/Multiclassing'
             example:
               prerequisites:
                 - ability_score:
                     index: str
                     name: STR
-                    url: "/api/ability-scores/str"
+                    url: '/api/ability-scores/str'
                   minimum_score: 13
               proficiencies:
                 - index: shields
                   name: Shields
-                  url: "/api/proficiencies/shields"
+                  url: '/api/proficiencies/shields'
                 - index: simple-weapons
                   name: Simple Weapons
-                  url: "/api/proficiencies/simple-weapons"
+                  url: '/api/proficiencies/simple-weapons'
                 - index: martial-weapons
                   name: Martial Weapons
-                  url: "/api/proficiencies/martial-weapons"
+                  url: '/api/proficiencies/martial-weapons'
               proficiency_choices: []
 
 # /api/classes/{index}/levels
@@ -324,17 +353,17 @@ class-levels-path:
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
-      - $ref: "../parameters/combined.yml#/levels-subclass-filter"
+      - $ref: '../parameters/combined.yml#/class-index'
+      - $ref: '../parameters/combined.yml#/levels-subclass-filter'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: "../schemas/combined.yml#/ClassLevel"
+                $ref: '../schemas/combined.yml#/ClassLevel'
 # /api/classes/{index}/levels/{class_level}
 class-level-path:
   get:
@@ -342,15 +371,15 @@ class-level-path:
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
-      - $ref: "../parameters/combined.yml#/class-level"
+      - $ref: '../parameters/combined.yml#/class-index'
+      - $ref: '../parameters/combined.yml#/class-level'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/ClassLevel"
+              $ref: '../schemas/combined.yml#/ClassLevel'
             example:
               level: 1
               ability_score_bonuses: 0
@@ -358,10 +387,10 @@ class-level-path:
               features:
                 - index: rage
                   name: Rage
-                  url: "/api/features/rage"
+                  url: '/api/features/rage'
                 - index: barbarian-unarmored-defense
                   name: Unarmored Defense
-                  url: "/api/features/barbarian-unarmored-defense"
+                  url: '/api/features/barbarian-unarmored-defense'
               class_specific:
                 rage_count: 2
                 rage_damage_bonus: 2
@@ -370,8 +399,8 @@ class-level-path:
               class:
                 index: barbarian
                 name: Barbarian
-                url: "/api/classes/barbarian"
-              url: "/api/classes/barbarian/levels/1"
+                url: '/api/classes/barbarian'
+              url: '/api/classes/barbarian/levels/1'
 # /api/classes/{index}/levels/{class_level}/features:
 class-level-features-path:
   get:
@@ -379,24 +408,24 @@ class-level-features-path:
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
-      - $ref: "../parameters/combined.yml#/class-level"
+      - $ref: '../parameters/combined.yml#/class-index'
+      - $ref: '../parameters/combined.yml#/class-level'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/APIReferenceList"
+              $ref: '../schemas/combined.yml#/APIReferenceList'
             example:
               count: 2
               results:
                 - index: barbarian-unarmored-defense
                   name: Unarmored Defense
-                  url: "/api/features/barbarian-unarmored-defense"
+                  url: '/api/features/barbarian-unarmored-defense'
                 - index: rage
                   name: Rage
-                  url: "/api/features/rage"
+                  url: '/api/features/rage'
 # /api/classes/{index}/levels/{spell_level}/spells
 class-spell-level-spells-path:
   get:
@@ -404,30 +433,30 @@ class-spell-level-spells-path:
     tags:
       - Class Levels
     parameters:
-      - $ref: "../parameters/combined.yml#/class-index"
-      - $ref: "../parameters/combined.yml#/spell-level"
+      - $ref: '../parameters/combined.yml#/class-index'
+      - $ref: '../parameters/combined.yml#/spell-level'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../schemas/combined.yml#/APIReferenceList"
+              $ref: '../schemas/combined.yml#/APIReferenceList'
             example:
               count: 5
               results:
                 - index: dominate-monster
                   name: Dominate Monster
-                  url: "/api/spells/dominate-monster"
+                  url: '/api/spells/dominate-monster'
                 - index: earthquake
                   name: Earthquake
-                  url: "/api/spells/earthquake"
+                  url: '/api/spells/earthquake'
                 - index: incendiary-cloud
                   name: Incendiary Cloud
-                  url: "/api/spells/incendiary-cloud"
+                  url: '/api/spells/incendiary-cloud'
                 - index: power-word-stun
                   name: Power Word Stun
-                  url: "/api/spells/power-word-stun"
+                  url: '/api/spells/power-word-stun'
                 - index: sunburst
                   name: Sunburst
-                  url: "/api/spells/sunburst"
+                  url: '/api/spells/sunburst'

@@ -1,24 +1,12 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
-
-type ProficiencyChoices = {
-  choose: number;
-  from: APIReference[];
-  type: string;
-};
-
-type Choice = {
-  choose: number;
-  from: APIReference[];
-  type: string;
-};
+import { APIReference, Choice } from '../common/types';
 
 type ActionDamage = {
   damage_type: APIReference;
   damage_at_character_level: Record<number, string>;
 };
 
-type Useage = {
+type Usage = {
   type: string;
   times: string;
 };
@@ -31,7 +19,7 @@ type DC = {
 type Action = {
   name: string;
   desc: string;
-  usage: Useage;
+  usage: Usage;
   dc: DC;
   damage: ActionDamage[];
 };
@@ -49,7 +37,7 @@ export type Trait = {
   index: string;
   name: string;
   proficiencies?: APIReference[];
-  proficiency_choices?: ProficiencyChoices;
+  proficiency_choices?: Choice;
   races?: APIReference[];
   subraces?: APIReference[];
   parent?: APIReference;

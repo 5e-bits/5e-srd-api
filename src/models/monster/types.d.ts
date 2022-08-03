@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
+import { APIReference, Choice } from '../common/types';
 
 type ActionDamage = {
   damage_dice: string;
@@ -18,21 +18,10 @@ type ActionAttack = {
   damage?: ActionDamage[];
 };
 
-type ActionAttackOptions = {
-  choose: number;
-  type: string;
-  from: ActionAttack[];
-};
-
 type ActionOption = {
-  name: string;
+  action_name: string;
   count: number | string;
-  type: string;
-};
-
-type ActionOptions = {
-  choose: number;
-  from: ActionOption[];
+  type: 'melee' | 'ranged' | 'ability' | 'magic';
 };
 
 type ActionUsage = {
@@ -47,10 +36,11 @@ type Action = {
   attack_bonus?: number;
   damage?: ActionDamage[];
   dc?: ActionDC;
-  options?: ActionOptions;
+  options?: Choice;
   usage?: ActionUsage;
-  attack_options?: ActionAttackOptions;
-  attacks?: ActionAttack[];
+  multiattack_type: 'actions' | 'action_options';
+  actions: ActionOption[];
+  action_options: Choice;
 };
 
 type LegendaryAction = {

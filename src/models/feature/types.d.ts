@@ -1,11 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
-
-type Choice = {
-  choose: number;
-  from: APIReference[];
-  type: string;
-};
+import { APIReference, Choice } from '../common/types';
 
 type Prerequisite = {
   level: number;
