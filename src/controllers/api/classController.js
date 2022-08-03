@@ -1,18 +1,19 @@
-const Class = require('../../models/class');
-const Subclass = require('../../models/subclass');
-const Level = require('../../models/level');
-const Spell = require('../../models/spell');
-const Feature = require('../../models/feature');
-const Proficiency = require('../../models/proficiency');
-const SimpleController = require('../simpleController');
-const { escapeRegExp, ResourceList } = require('../../util');
+import { ResourceList, escapeRegExp } from '../../util/index.js';
+
+import Class from '../../models/class/index.js';
+import Feature from '../../models/feature/index.js';
+import Level from '../../models/level/index.js';
+import Proficiency from '../../models/proficiency/index.js';
+import SimpleController from '../simpleController.js';
+import Spell from '../../models/spell/index.js';
+import Subclass from '../../models/subclass/index.js';
 
 const simpleController = new SimpleController(Class);
 
-exports.index = async (req, res, next) => simpleController.index(req, res, next);
-exports.show = async (req, res, next) => simpleController.show(req, res, next);
+export const index = async (req, res, next) => simpleController.index(req, res, next);
+export const show = async (req, res, next) => simpleController.show(req, res, next);
 
-exports.showLevelsForClass = async (req, res, next) => {
+export const showLevelsForClass = async (req, res, next) => {
   const searchQueries = {
     'class.url': '/api/classes/' + req.params.index,
     $or: [{ subclass: null }],
@@ -36,7 +37,7 @@ exports.showLevelsForClass = async (req, res, next) => {
   }
 };
 
-exports.showLevelForClass = async (req, res, next) => {
+export const showLevelForClass = async (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
@@ -52,7 +53,7 @@ exports.showLevelForClass = async (req, res, next) => {
   }
 };
 
-exports.showMulticlassingForClass = async (req, res, next) => {
+export const showMulticlassingForClass = async (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
 
   try {
@@ -63,7 +64,7 @@ exports.showMulticlassingForClass = async (req, res, next) => {
   }
 };
 
-exports.showSubclassesForClass = async (req, res, next) => {
+export const showSubclassesForClass = async (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
 
   try {
@@ -80,7 +81,7 @@ exports.showSubclassesForClass = async (req, res, next) => {
   }
 };
 
-exports.showStartingEquipmentForClass = async (req, res, next) => {
+export const showStartingEquipmentForClass = async (req, res, next) => {
   try {
     const data = await Class.findOne({ index: req.params.index });
     return res.status(200).json({
@@ -92,7 +93,7 @@ exports.showStartingEquipmentForClass = async (req, res, next) => {
   }
 };
 
-exports.showSpellcastingForClass = async (req, res, next) => {
+export const showSpellcastingForClass = async (req, res, next) => {
   try {
     const data = await Class.findOne({ index: req.params.index });
     if (data && data.spellcasting) {
@@ -105,7 +106,7 @@ exports.showSpellcastingForClass = async (req, res, next) => {
   }
 };
 
-exports.showSpellsForClass = async (req, res, next) => {
+export const showSpellsForClass = async (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
 
   try {
@@ -118,7 +119,7 @@ exports.showSpellsForClass = async (req, res, next) => {
   }
 };
 
-exports.showSpellsForClassAndLevel = async (req, res, next) => {
+export const showSpellsForClassAndLevel = async (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
@@ -138,7 +139,7 @@ exports.showSpellsForClassAndLevel = async (req, res, next) => {
   }
 };
 
-exports.showFeaturesForClass = async (req, res, next) => {
+export const showFeaturesForClass = async (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
 
   try {
@@ -153,7 +154,7 @@ exports.showFeaturesForClass = async (req, res, next) => {
   }
 };
 
-exports.showFeaturesForClassAndLevel = async (req, res, next) => {
+export const showFeaturesForClassAndLevel = async (req, res, next) => {
   if (!Number.isInteger(parseInt(req.params.level))) {
     return res.status(404).json({ error: 'Not found' });
   }
@@ -173,7 +174,7 @@ exports.showFeaturesForClassAndLevel = async (req, res, next) => {
   }
 };
 
-exports.showProficienciesForClass = async (req, res, next) => {
+export const showProficienciesForClass = async (req, res, next) => {
   const urlString = '/api/classes/' + req.params.index;
 
   try {

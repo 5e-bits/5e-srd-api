@@ -1,6 +1,7 @@
+import * as SpellController from '../../controllers/api/spellController.js';
 import * as express from 'express';
+
 const router = express.Router();
-import SpellController from '../../controllers/api/spellController';
 
 router.get('/', SpellController.index);
 router.get('/:index', SpellController.show);

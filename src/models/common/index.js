@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
-const APIReference = new Schema({
+export const APIReference = new Schema({
   _id: false,
   index: { type: String, index: true },
   name: { type: String, index: true },
@@ -143,7 +144,7 @@ OptionSet.discriminators['options_array'] = new Schema({
   options: { type: [Option], index: true, required: true },
 });
 
-const Choice = new Schema({
+export const Choice = new Schema({
   _id: false,
   desc: { type: String, index: true },
   choose: { type: Number, index: true, required: true },
@@ -155,8 +156,3 @@ Option.discriminators['choice'] = new Schema({
   _id: false,
   choice: { type: Choice, index: true, required: true },
 });
-
-module.exports = {
-  APIReference,
-  Choice,
-};

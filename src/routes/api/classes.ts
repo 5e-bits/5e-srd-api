@@ -1,6 +1,7 @@
+import * as ClassController from '../../controllers/api/classController.js';
 import * as express from 'express';
+
 const router = express.Router();
-import ClassController from '../../controllers/api/classController';
 
 router.get('/', function(req: any, res: any, next: any) {
   ClassController.index(req, res, next);

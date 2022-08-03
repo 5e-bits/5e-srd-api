@@ -1,5 +1,3 @@
-import * as express from 'express';
-import * as ApiController from '../controllers/apiController';
 import {
   AbilityScoresHandler,
   AlignmentsHandler,
@@ -25,11 +23,14 @@ import {
   SubracesHandler,
   TraitsHandler,
   WeaponPropertiesHandler,
-} from './api/';
+} from './api/index.js';
+
+import express from 'express';
+import { index } from '../controllers/apiController.js';
 
 const router = express.Router();
 
-router.get('/', ApiController.index);
+router.get('/', index);
 
 router.use('/ability-scores', AbilityScoresHandler);
 router.use('/alignments', AlignmentsHandler);

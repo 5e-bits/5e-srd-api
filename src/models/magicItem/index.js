@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
 
 const Rarity = new Schema({
   _id: false,
@@ -19,4 +20,4 @@ const MagicItem = new Schema({
   variant: Boolean,
 });
 
-module.exports = mongoose.model('MagicItem', MagicItem, 'magic-items');
+export default mongoose.model('MagicItem', MagicItem, 'magic-items');

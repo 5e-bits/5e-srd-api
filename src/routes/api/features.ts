@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import FeatureController from '../../controllers/api/featureController.js';
+
 const router = express.Router();
-import FeatureController from '../../controllers/api/featureController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   FeatureController.index(req, res, next);

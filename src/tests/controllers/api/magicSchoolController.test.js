@@ -1,7 +1,8 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const MagicSchool = require('../../../models/magicSchool');
-const MagicSchoolController = require('../../../controllers/api/magicSchoolController');
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+
+import MagicSchool from '../../../models/magicSchool/index.js';
+import MagicSchoolController from '../../../controllers/api/magicSchoolController.js';
+import mockingoose from 'mockingoose';
 
 let response;
 beforeEach(() => {

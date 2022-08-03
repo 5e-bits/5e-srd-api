@@ -1,4 +1,4 @@
-const Condition = require('../../models/condition');
-const SimpleController = require('../simpleController');
+import Condition from '../../models/condition/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Condition);
+export default new SimpleController(Condition);

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const Alignment = new Schema({
@@ -10,4 +11,4 @@ const Alignment = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Alignment', Alignment, 'alignments');
+export default mongoose.model('Alignment', Alignment, 'alignments');

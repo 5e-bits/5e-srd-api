@@ -1,7 +1,8 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const Proficiency = require('../../../models/proficiency');
-const ProficiencyController = require('../../../controllers/api/proficiencyController');
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+
+import Proficiency from '../../../models/proficiency/index.js';
+import ProficiencyController from '../../../controllers/api/proficiencyController.js';
+import mockingoose from 'mockingoose';
 
 let response;
 beforeEach(() => {

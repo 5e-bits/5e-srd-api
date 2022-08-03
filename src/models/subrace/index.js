@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference, Choice } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference, Choice } = require('../common');
 
 const AbilityBonus = new Schema({
   _id: false,
@@ -21,4 +22,4 @@ const Subrace = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Subrace', Subrace, 'subraces');
+export default mongoose.model('Subrace', Subrace, 'subraces');

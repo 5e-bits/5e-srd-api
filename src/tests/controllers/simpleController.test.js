@@ -1,7 +1,8 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../support/requestHelpers');
-const AbilityScore = require('../../models/abilityScore');
-const SimpleController = require('../../controllers/simpleController');
+import { mockNext, mockRequest, mockResponse } from '../support/requestHelpers.js';
+
+import AbilityScore from '../../models/abilityScore/index.js';
+import SimpleController from '../../controllers/simpleController.js';
+import mockingoose from 'mockingoose';
 
 let response;
 let simpleController;

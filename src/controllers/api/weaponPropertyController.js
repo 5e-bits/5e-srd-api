@@ -1,4 +1,4 @@
-const WeaponProperty = require('../../models/weaponProperty');
-const SimpleController = require('../simpleController');
+import SimpleController from '../simpleController.js';
+import WeaponProperty from '../../models/weaponProperty/index.js';
 
-module.exports = new SimpleController(WeaponProperty);
+export default new SimpleController(WeaponProperty);

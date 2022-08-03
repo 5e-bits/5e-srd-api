@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import TraitController from '../../controllers/api/traitController.js';
+
 const router = express.Router();
-import TraitController from '../../controllers/api/traitController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   TraitController.index(req, res, next);

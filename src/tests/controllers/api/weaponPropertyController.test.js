@@ -1,7 +1,8 @@
-const mockingoose = require('mockingoose');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const WeaponProperty = require('../../../models/weaponProperty');
-const WeaponPropertyController = require('../../../controllers/api/weaponPropertyController');
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+
+import WeaponProperty from '../../../models/weaponProperty/index.js';
+import WeaponPropertyController from '../../../controllers/api/weaponPropertyController.js';
+import mockingoose from 'mockingoose';
 
 let response;
 beforeEach(() => {

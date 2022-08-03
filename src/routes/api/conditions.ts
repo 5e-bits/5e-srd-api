@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import ConditionController from '../../controllers/api/conditionController.js';
+
 const router = express.Router();
-import ConditionController from '../../controllers/api/conditionController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   ConditionController.index(req, res, next);

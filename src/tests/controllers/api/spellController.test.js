@@ -1,25 +1,14 @@
-const mockingoose = require('mockingoose');
-jest.mock('redis', () => {
-  const redis = require('redis-mock');
-  return redis;
-});
-const redis = require('redis');
-const { mockRequest, mockResponse, mockNext } = require('../../support/requestHelpers');
-const { redisClient } = require('../../../util');
-const Spell = require('../../../models/spell');
-const SpellController = require('../../../controllers/api/spellController');
+import * as SpellController from '../../../controllers/api/spellController.js';
+
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+import Spell from '../../../models/spell/index.js';
+import mockingoose from 'mockingoose';
+import { jest } from '@jest/globals';
 
 let response;
 beforeEach(() => {
-  const client = redis.createClient();
-  // TODO: redis-mock does not support redis@4.0.0
-  client.flushall();
   mockingoose.resetAll();
   response = mockResponse();
-});
-
-afterAll(() => {
-  redisClient.quit();
 });
 
 describe('index', () => {
@@ -41,6 +30,10 @@ describe('index', () => {
     },
   ];
   const request = mockRequest({ query: {} });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
   it('returns a list of objects', async () => {
     mockingoose(Spell).toReturn(findDoc, 'find');

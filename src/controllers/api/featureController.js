@@ -1,4 +1,4 @@
-const Feature = require('../../models/feature');
-const SimpleController = require('../simpleController');
+import Feature from '../../models/feature/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(Feature);
+export default new SimpleController(Feature);

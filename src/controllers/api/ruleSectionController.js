@@ -1,7 +1,8 @@
-const RuleSection = require('../../models/ruleSection');
-const { redisClient, escapeRegExp, ResourceList } = require('../../util');
+import { ResourceList, escapeRegExp, redisClient } from '../../util/index.js';
 
-exports.index = async (req, res, next) => {
+import RuleSection from '../../models/ruleSection/index.js';
+
+export const index = async (req, res, next) => {
   const searchQueries = {};
   if (req.query.name !== undefined) {
     searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
@@ -34,7 +35,7 @@ exports.index = async (req, res, next) => {
   }
 };
 
-exports.show = async (req, res, next) => {
+export const show = async (req, res, next) => {
   try {
     const data = await RuleSection.findOne({ index: req.params.index });
     if (!data) return next();

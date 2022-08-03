@@ -1,4 +1,4 @@
-const MagicSchool = require('../../models/magicSchool');
-const SimpleController = require('../simpleController');
+import MagicSchool from '../../models/magicSchool/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(MagicSchool);
+export default new SimpleController(MagicSchool);

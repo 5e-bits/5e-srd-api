@@ -1,12 +1,11 @@
-import redisClient from './RedisClient';
-import * as mongoose from 'mongoose';
-
-import { ResourceList } from './data';
-import MagicItem from '../models/magicItem';
-import Spell from '../models/spell';
-import Monster from '../models/monster';
-import Rule from '../models/rule';
-import RuleSection from '../models/ruleSection';
+import MagicItem from '../models/magicItem/index.js';
+import Monster from '../models/monster/index.js';
+import { ResourceList } from './data.js';
+import Rule from '../models/rule/index.js';
+import RuleSection from '../models/ruleSection/index.js';
+import Spell from '../models/spell/index.js';
+import mongoose from 'mongoose';
+import redisClient from './RedisClient.js';
 
 type PrewarmData = {
   Schema: mongoose.Model<any, any>;

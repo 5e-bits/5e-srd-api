@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference } = require('../common');
 
 const EquipmentCategory = new Schema({
   _id: { type: String, select: false },
@@ -10,4 +11,4 @@ const EquipmentCategory = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');
+export default mongoose.model('EquipmentCategory', EquipmentCategory, 'equipment-categories');

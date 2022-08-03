@@ -1,4 +1,4 @@
-const AbilityScore = require('../../models/abilityScore');
-const SimpleController = require('../simpleController');
+import AbilityScore from '../../models/abilityScore/index.js';
+import SimpleController from '../simpleController.js';
 
-module.exports = new SimpleController(AbilityScore);
+export default new SimpleController(AbilityScore);

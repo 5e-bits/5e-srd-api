@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const Condition = new Schema({
@@ -9,4 +10,4 @@ const Condition = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('Condition', Condition, 'conditions');
+export default mongoose.model('Condition', Condition, 'conditions');

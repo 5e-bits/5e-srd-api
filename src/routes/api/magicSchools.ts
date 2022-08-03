@@ -1,6 +1,9 @@
 import * as express from 'express';
+
+import MagicSchoolController from '../../controllers/api/magicSchoolController.js';
+
 const router = express.Router();
-import MagicSchoolController from '../../controllers/api/magicSchoolController';
+
 
 router.get('/', function(req: any, res: any, next: any) {
   MagicSchoolController.index(req, res, next);

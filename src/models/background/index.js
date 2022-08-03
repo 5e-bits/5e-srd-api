@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { APIReference, Choice } from '../common/index.js';
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-const { APIReference, Choice } = require('../common');
 
 const Equipment = new Schema({
   _id: false,
@@ -30,4 +31,4 @@ const Background = new Schema({
   flaws: Choice,
 });
 
-module.exports = mongoose.model('Background', Background, 'backgrounds');
+export default mongoose.model('Background', Background, 'backgrounds');

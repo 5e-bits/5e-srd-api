@@ -1,6 +1,7 @@
+import * as RaceController from '../../controllers/api/raceController.js';
 import * as express from 'express';
+
 const router = express.Router();
-import RaceController from '../../controllers/api/raceController';
 
 router.get('/', function(req: any, res: any, next: any) {
   RaceController.index(req, res, next);

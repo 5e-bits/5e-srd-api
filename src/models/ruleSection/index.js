@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const RuleSection = new Schema({
@@ -9,4 +10,4 @@ const RuleSection = new Schema({
   url: { type: String, index: true },
 });
 
-module.exports = mongoose.model('RuleSection', RuleSection, 'rule-sections');
+export default mongoose.model('RuleSection', RuleSection, 'rule-sections');
