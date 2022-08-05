@@ -66,6 +66,8 @@ trait:
             $ref: './combined.yml#/APIReference'
         proficiency_choices:
           $ref: './combined.yml#/Choice'
+        language_options:
+          $ref: './combined.yml#/Choice'
         trait_specific:
           description: 'Information specific to this trait'
           oneOf:
