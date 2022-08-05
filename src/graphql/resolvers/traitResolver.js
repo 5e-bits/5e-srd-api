@@ -6,6 +6,7 @@ import RaceModel from '../../models/race/index.js';
 import SpellModel from '../../models/spell/index.js';
 import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
+import LanguageModel from '../../models/language/index.js';
 
 const Trait = {
   proficiencies: async trait =>
@@ -74,6 +75,19 @@ const Trait = {
     }
 
     return traitSpecificToReturn;
+  },
+  language_options: async trait => {
+    if (trait.language_options) {
+      const { language_options } = trait;
+      return resolveChoice(language_options, {
+        options: language_options.from.options.map(async option => ({
+          ...option,
+          item: await LanguageModel.findOne({ index: option.item.index }).lean(),
+        })),
+      });
+    } else {
+      return null;
+    }
   },
 };
 

@@ -795,6 +795,7 @@ type Trait {
   races: [Race]!
   subraces: [Subrace!]!
   proficiency_choices: ProficiencyChoice
+  language_options: LanguageChoice
   trait_specific: TraitSpecific
 }
 
