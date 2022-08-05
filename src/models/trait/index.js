@@ -53,6 +53,7 @@ const Trait = new Schema({
   name: { type: String, index: true },
   proficiencies: [Proficiency],
   proficiency_choices: Choice,
+  language_options: Choice,
   races: [APIReference],
   subraces: [APIReference],
   parent: APIReference,
