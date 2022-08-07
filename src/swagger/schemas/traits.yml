@@ -13,6 +13,8 @@ trait-damage:
           type: string
         desc:
           type: string
+        size_and_shape:
+          type: string
         damage:
           type: object
           properties:

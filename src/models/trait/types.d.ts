@@ -22,6 +22,7 @@ type Action = {
   usage: Usage;
   dc: DC;
   damage: ActionDamage[];
+  size_and_shape: string;
 };
 
 type TraitSpecific = {

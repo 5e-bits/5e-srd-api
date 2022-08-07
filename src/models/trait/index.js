@@ -36,6 +36,7 @@ const Action = new Schema({
   usage: Usage,
   dc: DC,
   damage: [ActionDamage],
+  size_and_shape: { type: String, index: true },
 });
 
 const TraitSpecific = new Schema({
