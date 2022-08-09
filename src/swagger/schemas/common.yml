@@ -249,3 +249,11 @@ error-response-model:
       type: string
   required:
     - error
+area-of-effect-model:
+  type: object
+  properties:
+    size:
+      type: number
+    type:
+      type: string
+      enum: [sphere, cone, cylinder, line, cone]

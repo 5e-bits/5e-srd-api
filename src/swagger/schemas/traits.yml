@@ -13,8 +13,8 @@ trait-damage:
           type: string
         desc:
           type: string
-        size_and_shape:
-          type: string
+        area_of_effect:
+          $ref: './combined.yml#/AreaOfEffect'
         damage:
           type: object
           properties:

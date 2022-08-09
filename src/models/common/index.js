@@ -9,6 +9,12 @@ export const APIReference = new Schema({
   url: { type: String, index: true },
 });
 
+export const AreaOfEffect = new Schema({
+  _id: false,
+  size: { type: Number, required: true },
+  type: { type: String, index: true, enum: ['sphere', 'cube', 'cylinder', 'line', 'cone'] },
+});
+
 const DifficultyClass = new Schema({
   _id: false,
   dc_type: { type: APIReference, index: true },

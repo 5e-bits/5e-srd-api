@@ -1,11 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
-
-interface AreaOfEffect {
-  _id?: mongoose.Types.ObjectId;
-  size: number;
-  type: string;
-}
+import { APIReference, AreaOfEffect } from '../common/types';
 
 interface Damage {
   _id?: mongoose.Types.ObjectId;

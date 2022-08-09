@@ -216,3 +216,8 @@ export const resolveChoice = (choice, fromOverride, replace = false) => ({
     ...fromOverride,
   },
 });
+
+export const resolveAreaOfEffect = areaOfEffect => ({
+  ...areaOfEffect,
+  type: areaOfEffect.type.toUpperCase(),
+});

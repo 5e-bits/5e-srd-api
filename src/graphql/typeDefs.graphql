@@ -745,7 +745,7 @@ type BreathWeaponTrait {
   dc: BreathWeaponDc!
   usage: BreathWeaponUsage!
   damage: [BreathWeaponDamage!]!
-  size_and_shape: String
+  area_of_effect: AreaOfEffect!
 }
 
 type SpellOption {

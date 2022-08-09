@@ -11,6 +11,12 @@ export type Choice = {
   from: OptionSet;
 };
 
+export interface AreaOfEffect {
+  _id?: mongoose.Types.ObjectId;
+  size: number;
+  type: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone';
+}
+
 type OptionSet = OptionsArrayOptionSet | EquipmentCategoryOptionSet | ResourceListOptionSet;
 
 type OptionsArrayOptionSet = {

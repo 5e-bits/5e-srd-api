@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice } from '../common/types';
+import { APIReference, Choice, AreaOfEffect } from '../common/types';
 
 type ActionDamage = {
   damage_type: APIReference;
@@ -22,7 +22,7 @@ type Action = {
   usage: Usage;
   dc: DC;
   damage: ActionDamage[];
-  size_and_shape: string;
+  area_of_effect: AreaOfEffect;
 };
 
 type TraitSpecific = {
