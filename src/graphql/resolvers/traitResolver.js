@@ -1,4 +1,10 @@
-import { levelObjectToArray, resolveChoice, resolveDc, resolveUsage } from './common.js';
+import {
+  levelObjectToArray,
+  resolveAreaOfEffect,
+  resolveChoice,
+  resolveDc,
+  resolveUsage,
+} from './common.js';
 
 import DamageTypeModel from '../../models/damageType/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
@@ -47,6 +53,7 @@ const Trait = {
           damage_type: await DamageTypeModel.findOne({ index: damage.damage_type.index }).lean(),
         })),
         usage: resolveUsage(trait_specific.breath_weapon.usage),
+        area_of_effect: resolveAreaOfEffect(trait_specific.breath_weapon.area_of_effect),
       };
     }
 

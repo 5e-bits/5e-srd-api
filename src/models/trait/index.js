@@ -1,4 +1,4 @@
-import { APIReference, Choice } from '../common/index.js';
+import { APIReference, Choice, AreaOfEffect } from '../common/index.js';
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -36,6 +36,7 @@ const Action = new Schema({
   usage: Usage,
   dc: DC,
   damage: [ActionDamage],
+  area_of_effect: AreaOfEffect,
 });
 
 const TraitSpecific = new Schema({

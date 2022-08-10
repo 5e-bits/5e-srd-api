@@ -6,6 +6,8 @@ Damage:
   $ref: './common.yml#/damage-model'
 Choice:
   $ref: './common.yml#/choice-model'
+AreaOfEffect:
+  $ref: './common.yml#/area-of-effect-model'
 Prerequisite:
   $ref: './common.yml#/prerequisite-model'
 ResourceDescription:

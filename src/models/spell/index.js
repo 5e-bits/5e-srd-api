@@ -1,13 +1,7 @@
-import { APIReference } from '../common/index.js';
+import { APIReference, AreaOfEffect } from '../common/index.js';
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
-
-const AreaOfEffect = new Schema({
-  _id: false,
-  size: { type: Number, required: true },
-  type: { type: String, index: true },
-});
 
 const Damage = new Schema({
   _id: false,
