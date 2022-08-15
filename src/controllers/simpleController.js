@@ -7,12 +7,12 @@ class SimpleController {
   }
 
   async index(req, res, next) {
-    const searchQueries = {};
-    if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
-    }
-
     try {
+      const searchQueries = {};
+      if (req.query.name !== undefined) {
+        searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
+      }
+
       const data = await this.Schema.find(searchQueries)
         .select({ index: 1, name: 1, url: 1, _id: 0 })
         .sort({ index: 'asc' })
