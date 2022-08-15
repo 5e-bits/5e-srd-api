@@ -10,9 +10,9 @@ export const index = async (req, res, next) => simpleController.index(req, res, 
 export const show = async (req, res, next) => simpleController.show(req, res, next);
 
 export const showLevelsForSubclass = async (req, res, next) => {
-  const urlString = '/api/subclasses/' + req.params.index;
-
   try {
+    const urlString = '/api/subclasses/' + req.params.index;
+
     const data = await Level.find({ 'subclass.url': urlString }).sort({ level: 'asc' });
     return res.status(200).json(data);
   } catch (err) {
@@ -21,13 +21,13 @@ export const showLevelsForSubclass = async (req, res, next) => {
 };
 
 export const showLevelForSubclass = async (req, res, next) => {
-  if (!Number.isInteger(parseInt(req.params.level))) {
-    return res.status(404).json({ error: 'Not found' });
-  }
-
-  const urlString = '/api/subclasses/' + req.params.index + '/levels/' + req.params.level;
-
   try {
+    if (!Number.isInteger(parseInt(req.params.level))) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+
+    const urlString = '/api/subclasses/' + req.params.index + '/levels/' + req.params.level;
+
     const data = await Level.findOne({ url: urlString });
     if (!data) return next();
     return res.status(200).json(data);
@@ -37,9 +37,9 @@ export const showLevelForSubclass = async (req, res, next) => {
 };
 
 export const showFeaturesForSubclass = async (req, res, next) => {
-  const urlString = '/api/subclasses/' + req.params.index;
-
   try {
+    const urlString = '/api/subclasses/' + req.params.index;
+
     const data = await Feature.find({
       'subclass.url': urlString,
     })
@@ -52,13 +52,13 @@ export const showFeaturesForSubclass = async (req, res, next) => {
 };
 
 export const showFeaturesForSubclassAndLevel = async (req, res, next) => {
-  if (!Number.isInteger(parseInt(req.params.level))) {
-    return res.status(404).json({ error: 'Not found' });
-  }
-
-  const urlString = '/api/subclasses/' + req.params.index;
-
   try {
+    if (!Number.isInteger(parseInt(req.params.level))) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+
+    const urlString = '/api/subclasses/' + req.params.index;
+
     const data = await Feature.find({
       level: parseInt(req.params.level),
       'subclass.url': urlString,

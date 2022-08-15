@@ -11,9 +11,9 @@ export const index = async (req, res, next) => simpleController.index(req, res, 
 export const show = async (req, res, next) => simpleController.show(req, res, next);
 
 export const showSubracesForRace = async (req, res, next) => {
-  const urlString = '/api/races/' + req.params.index;
-
   try {
+    const urlString = '/api/races/' + req.params.index;
+
     const data = await Subrace.find({ 'race.url': urlString }).select({
       index: 1,
       name: 1,
@@ -27,9 +27,9 @@ export const showSubracesForRace = async (req, res, next) => {
 };
 
 export const showTraitsForRace = async (req, res, next) => {
-  const urlString = '/api/races/' + req.params.index;
-
   try {
+    const urlString = '/api/races/' + req.params.index;
+
     const data = await Trait.find({ 'races.url': urlString }).select({
       index: 1,
       name: 1,
@@ -43,9 +43,9 @@ export const showTraitsForRace = async (req, res, next) => {
 };
 
 export const showProficienciesForRace = async (req, res, next) => {
-  const urlString = '/api/races/' + req.params.index;
-
   try {
+    const urlString = '/api/races/' + req.params.index;
+
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' });
