@@ -1,16 +1,21 @@
 import SkillModel from '../../models/skill/index.js';
-import { getMongoSortDirection } from './common.js';
+import { coalesceFilters, getMongoSortDirection, resolveNameFilter } from './common.js';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore, args) => {
-    const search = { index: { $in: abilityScore.skills.map(s => s.index) } };
+    const filters = [{ index: { $in: abilityScore.skills.map(s => s.index) } }];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
 
     const sort = {};
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SkillModel.find(search)
+    return await SkillModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },

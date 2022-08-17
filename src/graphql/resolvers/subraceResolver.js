@@ -3,7 +3,7 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import RaceModel from '../../models/race/index.js';
 import TraitModel from '../../models/trait/index.js';
-import { resolveChoice } from './common.js';
+import { coalesceFilters, resolveChoice, resolveNameFilter } from './common.js';
 
 const Subrace = {
   ability_bonuses: async subrace => {
@@ -18,12 +18,34 @@ const Subrace = {
     }));
   },
   race: async subrace => await RaceModel.findOne({ index: subrace.race.index }).lean(),
-  racial_traits: async subrace =>
-    await TraitModel.find({ index: { $in: subrace.racial_traits.map(t => t.index) } }).lean(),
-  starting_proficiencies: async subrace =>
-    await ProficiencyModel.find({
-      index: { $in: subrace.starting_proficiencies.map(p => p.index) },
-    }).lean(),
+  racial_traits: async (subrace, args) => {
+    const filters = [
+      {
+        index: { $in: subrace.racial_traits.map(t => t.index) },
+      },
+    ];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
+    return await TraitModel.find(coalesceFilters(filters)).lean();
+  },
+  starting_proficiencies: async (subrace, args) => {
+    const filters = [
+      {
+        index: { $in: subrace.starting_proficiencies.map(p => p.index) },
+      },
+    ];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
+    return await ProficiencyModel.find(coalesceFilters(filters)).lean();
+  },
   language_options: async subrace => {
     if (!subrace.language_options) {
       return null;

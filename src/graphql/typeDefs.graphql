@@ -18,7 +18,7 @@ type AbilityScore {
   name: String!
   full_name: String!
   desc: [String!]!
-  skills(order_direction: OrderByDirection): [Skill!]!
+  skills(order_direction: OrderByDirection, name: String): [Skill!]!
 }
 
 type Skill {
@@ -67,7 +67,7 @@ type Cost {
 type EquipmentCategory {
   index: String!
   name: String!
-  equipment(order: EquipmentCategoryOrder, skip: Int, limit: Int! = 100): [IEquipmentBase!]!
+  equipment(order: EquipmentCategoryOrder, skip: Int, limit: Int! = 100, name: String): [IEquipmentBase!]!
 }
 
 interface IEquipmentBase {
@@ -193,7 +193,7 @@ type Weapon implements IEquipment & IEquipmentBase {
   weapon_range: WeaponRange!
   category_range: EquipmentCategory!
   two_handed_damage: Damage
-  properties: [WeaponProperty!]!
+  properties(name: String): [WeaponProperty!]!
   special: [String!]
 }
 
@@ -277,7 +277,7 @@ type Rule {
   index: String!
   name: String!
   desc: String!
-  subsections: [RuleSection!]!
+  subsections(name: String): [RuleSection!]!
 }
 
 type RuleSection {
@@ -342,7 +342,7 @@ type MagicSchool {
   index: String!
   name: String!
   desc: String!
-  spells(level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100): [Spell!]!
+  spells(level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100, name: String): [Spell!]!
 }
 
 enum SpellAttackType {
@@ -375,8 +375,8 @@ type Spell {
   area_of_effect: AreaOfEffect
   attack_type: SpellAttackType
   casting_time: CastingTime!
-  classes: [Class!]!
-  subclasses: [Subclass!]!
+  classes(name: String): [Class!]!
+  subclasses(name: String): [Subclass!]!
   components: [SpellComponent]
   concentration: Boolean!
   damage: SpellDamage
@@ -415,9 +415,9 @@ scalar ProficiencyTypeFilter
 type Proficiency {
   index: String!
   name: String!
-  classes: [Class!]!
+  classes(name: String): [Class!]!
   type: ProficiencyType!
-  races: [ProficiencyRace!]!
+  races(name: String): [ProficiencyRace!]!
   reference: ProficiencyReference!
 }
 
@@ -791,10 +791,10 @@ type Trait {
   index: String!
   desc: [String!]!
   name: String!
-  proficiencies: [Proficiency!]!
+  proficiencies(name: String): [Proficiency!]!
   parent: Trait
-  races: [Race]!
-  subraces: [Subrace!]!
+  races(name: String): [Race]!
+  subraces(name: String): [Subrace!]!
   proficiency_choices: ProficiencyChoice
   language_options: LanguageChoice
   trait_specific: TraitSpecific
@@ -846,15 +846,15 @@ type Race implements ProficiencyRace {
   age: String!
   alignment: String!
   language_desc: String!
-  languages: [Language!]!
+  languages(name: String): [Language!]!
   language_options: LanguageChoice
   size: Size!
   size_description: String!
   speed: Int!
-  starting_proficiencies: [Proficiency!]!
+  starting_proficiencies(name: String): [Proficiency!]!
   starting_proficiency_options: ProficiencyChoice
-  subraces: [Subrace!]!
-  traits: [Trait!]!
+  subraces(name: String): [Subrace!]!
+  traits(name: String): [Trait!]!
 }
 
 type Subrace implements ProficiencyRace {
@@ -863,8 +863,8 @@ type Subrace implements ProficiencyRace {
   ability_bonuses: [AbilityBonus!]!
   desc: String!
   race: Race!
-  racial_traits: [Trait!]!
-  starting_proficiencies: [Proficiency!]!
+  racial_traits(name: String): [Trait!]!
+  starting_proficiencies(name: String): [Proficiency!]!
   language_options: LanguageChoice
 }
 
@@ -926,8 +926,8 @@ type StringChoice {
 type Background {
   index: String!
   name: String!
-  starting_proficiencies: [Proficiency!]!
-  starting_equipment: [Quantity!]!
+  starting_proficiencies(name: String): [Proficiency!]!
+  starting_equipment(name: String): [Quantity!]!
   feature: BackgroundFeature!
   language_options: LanguageChoice!
   starting_equipment_options: [EquipmentCategoryChoice!]!
@@ -1016,13 +1016,13 @@ type Class {
   index: String!
   name: String!
   hit_die: Int!
-  proficiencies: [Proficiency!]!
+  proficiencies(name: String): [Proficiency!]!
   saving_throws: [AbilityScore!]!
   spellcasting: ClassSpellcasting
-  spells(school: StringFilter, level: IntFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100): [Spell!]
+  spells(school: StringFilter, level: IntFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100, name: String): [Spell!]
   starting_equipment: [Quantity!]!
   class_levels: [Level!]!
-  subclasses: [Subclass!]!
+  subclasses(name: String): [Subclass!]!
   multi_classing: Multiclassing!
   proficiency_choices: [ProficiencyChoice!]!
   starting_equipment_options: [StartingEquipmentChoice!]!
@@ -1198,7 +1198,7 @@ type Level {
   ability_score_bonuses: Int
   class: Class!
   subclass: Subclass
-  features(order_direction: OrderByDirection): [Feature!]!
+  features(order_direction: OrderByDirection, name: String): [Feature!]!
   prof_bonus: Int
   spellcasting: LevelSpellcasting
   class_specific: ClassSpecific
@@ -1219,7 +1219,7 @@ type Subclass {
   class: Class!
   subclass_flavor: String!
   subclass_levels: [Level]!
-  spells(school: StringFilter, class: StringFilter, level: IntFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100): [SpellWithPrerequisite!]
+  spells(school: StringFilter, class: StringFilter, level: IntFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100, name: String): [SpellWithPrerequisite!]
 }
 
 input AreaOfEffectFilter {
@@ -1389,53 +1389,53 @@ enum SkillOrderBy {
 
 type Query {
   abilityScore(index: String): AbilityScore
-  abilityScores(order_direction: OrderByDirection): [AbilityScore!]
+  abilityScores(order_direction: OrderByDirection, name: String, full_name: String): [AbilityScore!]
   alignment(index: String): Alignment
-  alignments(order_direction: OrderByDirection): [Alignment!]
+  alignments(order_direction: OrderByDirection, name: String): [Alignment!]
   background(index: String): Background
-  backgrounds(order_direction: OrderByDirection): [Background!]!
+  backgrounds(order_direction: OrderByDirection, name: String): [Background!]!
   class(index: String): Class
-  classes(hit_die: IntFilter, order: ClassOrder): [Class!]!
+  classes(hit_die: IntFilter, order: ClassOrder, name: String): [Class!]!
   condition(index: String): Condition
-  conditions(order_direction: OrderByDirection): [Condition!]
+  conditions(order_direction: OrderByDirection, name: String): [Condition!]
   damageType(index: String): DamageType
-  damageTypes(order_direction: OrderByDirection): [DamageType!]
+  damageTypes(order_direction: OrderByDirection, name: String): [DamageType!]
   equipment(index: String): IEquipment
-  equipments(equipment_category: StringFilter, order: EquipmentOrder, skip: Int, limit: Int! = 100): [IEquipment!]
+  equipments(equipment_category: StringFilter, order: EquipmentOrder, skip: Int, limit: Int! = 100, name: String): [IEquipment!]
   equipmentCategory(index: String): EquipmentCategory
-  equipmentCategories(order_direction: OrderByDirection): [EquipmentCategory!]
+  equipmentCategories(order_direction: OrderByDirection, name: String): [EquipmentCategory!]
   feat(index: String): Feat
-  feats(order_direction: OrderByDirection): [Feat!]
+  feats(order_direction: OrderByDirection, name: String): [Feat!]
   feature(index: String): Feature
-  features(level: IntFilter, class: StringFilter, subclass: StringFilter, order: FeatureOrder, skip: Int, limit: Int! = 100): [Feature!]
+  features(level: IntFilter, class: StringFilter, subclass: StringFilter, order: FeatureOrder, skip: Int, limit: Int! = 100, name: String): [Feature!]
   language(index: String): Language
-  languages(type: LanguageType, script: LanguageScriptFilter, order: LanguageOrder): [Language!]
+  languages(type: LanguageType, script: LanguageScriptFilter, order: LanguageOrder, name: String): [Language!]
   level(index: String): Level
   levels(class: StringFilter, subclass: StringFilter, level: IntFilter, prof_bonus: IntFilter, ability_score_bonuses: IntFilter, order: LevelOrder, skip: Int, limit: Int! = 100): [Level!]
   magicItem(index: String): MagicItem
-  magicItems(equipment_category: StringFilter, order: MagicItemOrder, skip: Int, limit: Int! = 100): [MagicItem!]
+  magicItems(equipment_category: StringFilter, order: MagicItemOrder, skip: Int, limit: Int! = 100, name: String): [MagicItem!]
   magicSchool(index: String): MagicSchool
-  magicSchools(order_direction: OrderByDirection): [MagicSchool!]
+  magicSchools(order_direction: OrderByDirection, name: String): [MagicSchool!]
   monster(index: String): Monster
-  monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter, order: MonsterOrder, skip: Int, limit: Int! = 100): [Monster!]
+  monsters(size: SizeFilter, type: MonsterTypeFilter, subtype: MonsterSubtypeFilter, damage_immunity: StringFilter, damage_resistance: StringFilter, damage_vulnerability: StringFilter, armor_class: IntFilter, challenge_rating: FloatFilter, charisma: IntFilter, constitution: IntFilter, dexterity: IntFilter, intelligence: IntFilter, strength: IntFilter, wisdom: IntFilter, xp: IntFilter, order: MonsterOrder, skip: Int, limit: Int! = 100, name: String): [Monster!]
   proficiency(index: String): Proficiency
-  proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter, order: ProficiencyOrder, skip: Int, limit: Int! = 100): [Proficiency!]
+  proficiencies(class: StringFilter, race: StringFilter, type: ProficiencyTypeFilter, order: ProficiencyOrder, skip: Int, limit: Int! = 100, name: String): [Proficiency!]
   race(index: String): Race
-  races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter, order: RaceOrder): [Race!]!
+  races(ability_bonus: StringFilter, size: SizeFilter, language: StringFilter, speed: IntFilter, order: RaceOrder, name: String): [Race!]!
   rule(index: String): Rule
-  rules(order_direction: OrderByDirection): [Rule]
+  rules(order_direction: OrderByDirection, name: String): [Rule]
   ruleSection(index: String): RuleSection
-  ruleSections(order_direction: OrderByDirection): [RuleSection!]
+  ruleSections(order_direction: OrderByDirection, name: String): [RuleSection!]
   skill(index: String): Skill
-  skills(ability_score: StringFilter, order: SkillOrder): [Skill!]
+  skills(ability_score: StringFilter, order: SkillOrder, name: String): [Skill!]
   spell(index: String): Spell
-  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100): [Spell!]
+  spells(school: StringFilter, level: IntFilter, class: StringFilter, subclass: StringFilter, concentration: Boolean, ritual: Boolean, attack_type: SpellAttackTypeFilter, casting_time: CastingTimeFilter, area_of_effect: AreaOfEffectFilter, damage_type: StringFilter, dc_type: StringFilter, range: StringFilter, order: SpellOrder, skip: Int, limit: Int! = 100, name: String): [Spell!]
   subclass(index: String): Subclass
-  subclasses(order_direction: OrderByDirection): [Subclass!]!
+  subclasses(order_direction: OrderByDirection, name: String): [Subclass!]!
   subrace(index: String): Subrace
-  subraces(order_direction: OrderByDirection): [Subrace!]!
+  subraces(order_direction: OrderByDirection, name: String): [Subrace!]!
   trait(index: String): Trait
-  traits(order_direction: OrderByDirection): [Trait!]
+  traits(order_direction: OrderByDirection, name: String): [Trait!]
   weaponProperty(index: String): WeaponProperty
-  weaponProperties(order_direction: OrderByDirection): [WeaponProperty]
+  weaponProperties(order_direction: OrderByDirection, name: String): [WeaponProperty]
 }

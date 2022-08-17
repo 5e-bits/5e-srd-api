@@ -1,8 +1,21 @@
 import RuleSectionModel from '../../models/ruleSection/index.js';
+import { coalesceFilters, resolveNameFilter } from './common.js';
 
 const Rule = {
-  subsections: async rule =>
-    await RuleSectionModel.find({ index: { $in: rule.subsections.map(r => r.index) } }).lean(),
+  subsections: async (rule, args) => {
+    const filters = [
+      {
+        index: { $in: rule.subsections.map(r => r.index) },
+      },
+    ];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
+    return await RuleSectionModel.find(coalesceFilters(filters)).lean();
+  },
 };
 
 export default Rule;

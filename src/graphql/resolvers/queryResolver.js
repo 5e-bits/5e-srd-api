@@ -2,6 +2,7 @@ import {
   coalesceFilters,
   coalesceSort,
   getMongoSortDirection,
+  resolveNameFilter,
   resolveNumberFilter,
   resolveSpells,
 } from './common.js';
@@ -39,12 +40,23 @@ const Query = {
   },
   async abilityScores(query, args) {
     const sort = {};
+    const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
+    if (args.full_name) {
+      const filter = { full_name: new RegExp(args.full_name, 'i') };
+      filters.push(filter);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await AbilityScoreModel.find()
+    return await AbilityScoreModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -54,12 +66,17 @@ const Query = {
   },
   async alignments(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await AlignmentModel.find()
+    return await AlignmentModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -69,12 +86,17 @@ const Query = {
   },
   async backgrounds(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await BackgroundModel.find()
+    return await BackgroundModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -83,16 +105,23 @@ const Query = {
     return await ClassModel.findOne(filter).lean();
   },
   async classes(query, args) {
-    let filter = {};
+    const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.hit_die) {
-      filter = resolveNumberFilter(args.hit_die, 'hit_die');
+      const filter = resolveNumberFilter(args.hit_die, 'hit_die');
+      filters.push(filter);
     }
 
     let sort = {};
     if (args.order) {
       sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
     }
-    return await ClassModel.find(filter)
+    return await ClassModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -102,12 +131,17 @@ const Query = {
   },
   async conditions(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return ConditionModel.find()
+    return ConditionModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -117,12 +151,17 @@ const Query = {
   },
   async damageTypes(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await DamageTypeModel.find()
+    return await DamageTypeModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -131,9 +170,16 @@ const Query = {
     return await EquipmentModel.findOne(filter).lean();
   },
   async equipments(query, args) {
-    let filter = {};
+    const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.equipment_category) {
-      filter = { 'equipment_category.index': { $in: args.equipment_category } };
+      const filter = { 'equipment_category.index': { $in: args.equipment_category } };
+      filters.push(filter);
     }
 
     let sort = {};
@@ -150,7 +196,7 @@ const Query = {
       skip = args.skip;
     }
 
-    return await EquipmentModel.find(filter)
+    return await EquipmentModel.find(coalesceFilters(filters))
       .sort(sort)
       .skip(skip)
       .limit(args.limit)
@@ -162,11 +208,17 @@ const Query = {
   },
   async equipmentCategories(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
+
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await EquipmentCategoryModel.find()
+    return await EquipmentCategoryModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -175,13 +227,19 @@ const Query = {
     return await FeatModel.findOne(filter).lean();
   },
   async feats(query, args) {
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
+
     const sort = {};
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await FeatModel.find()
+    return await FeatModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -191,6 +249,12 @@ const Query = {
   },
   async features(query, args) {
     const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.level) {
       filters.push(resolveNumberFilter(args.level, 'level'));
     }
@@ -240,6 +304,12 @@ const Query = {
   },
   async languages(query, args) {
     const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.type) {
       const type = args.type[0].toUpperCase() + args.type.slice(1).toLowerCase();
       filters.push({ type });
@@ -321,9 +391,16 @@ const Query = {
     return await MagicItemModel.findOne(filter).lean();
   },
   async magicItems(query, args) {
-    let filter = {};
+    const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.equipment_category) {
-      filter = { 'equipment_category.index': { $in: args.equipment_category } };
+      const filter = { 'equipment_category.index': { $in: args.equipment_category } };
+      filters.push(filter);
     }
 
     let sort = {};
@@ -340,7 +417,7 @@ const Query = {
       skip = args.skip;
     }
 
-    return await MagicItemModel.find(filter)
+    return await MagicItemModel.find(coalesceFilters(filters))
       .sort(sort)
       .skip(skip)
       .limit(args.limit)
@@ -352,11 +429,17 @@ const Query = {
   },
   async magicSchools(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
+
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await MagicSchoolModel.find()
+    return await MagicSchoolModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -366,6 +449,11 @@ const Query = {
   },
   async monsters(query, args) {
     const filters = [];
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.size) {
       const filter = { size: { $in: args.size } };
       filters.push(filter);
@@ -454,6 +542,12 @@ const Query = {
   },
   async proficiencies(query, args) {
     const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.class) {
       const filter = { classes: { $elemMatch: { index: { $in: args.class } } } };
       filters.push(filter);
@@ -491,6 +585,12 @@ const Query = {
   },
   async races(query, args) {
     const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.ability_bonus) {
       const filter = {
         ability_bonuses: { $elemMatch: { 'ability_score.index': { $in: args.ability_bonus } } },
@@ -527,12 +627,17 @@ const Query = {
   },
   async rules(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await RuleModel.find()
+    return await RuleModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -542,12 +647,17 @@ const Query = {
   },
   async ruleSections(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await RuleSectionModel.find()
+    return await RuleSectionModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -556,9 +666,16 @@ const Query = {
     return await SkillModel.findOne(filter).lean();
   },
   async skills(query, args) {
-    let filter = {};
+    const filters = [];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
     if (args.ability_score) {
-      filter = { 'ability_score.index': { $in: args.ability_score } };
+      const filter = { 'ability_score.index': { $in: args.ability_score } };
+      filters.push(filter);
     }
 
     let sort = {};
@@ -570,7 +687,7 @@ const Query = {
       );
     }
 
-    return await SkillModel.find(filter)
+    return await SkillModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -587,12 +704,17 @@ const Query = {
   },
   async subclasses(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SubclassModel.find()
+    return await SubclassModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -602,12 +724,17 @@ const Query = {
   },
   async subraces(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SubraceModel.find()
+    return await SubraceModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -617,12 +744,17 @@ const Query = {
   },
   async traits(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await TraitModel.find()
+    return await TraitModel.find(filter)
       .sort(sort)
       .lean();
   },
@@ -632,12 +764,17 @@ const Query = {
   },
   async weaponProperties(query, args) {
     const sort = {};
+    let filter = {};
+
+    if (args.name) {
+      filter = resolveNameFilter(args.name);
+    }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await WeaponPropertyModel.find()
+    return await WeaponPropertyModel.find(filter)
       .sort(sort)
       .lean();
   },

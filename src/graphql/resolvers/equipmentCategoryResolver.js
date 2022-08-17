@@ -1,12 +1,19 @@
 import EquipmentModel from '../../models/equipment/index.js';
 import MagicItemModel from '../../models/magicItem/index.js';
-import { coalesceSort } from './common.js';
+import { coalesceFilters, coalesceSort, resolveNameFilter } from './common.js';
 
 const EquipmentCategory = {
   equipment: async (equipmentCategory, args) => {
     const indexes = equipmentCategory.equipment.map(e => e.index);
-    const equipment = await EquipmentModel.find({ index: { $in: indexes } }).lean();
-    const magicItems = await MagicItemModel.find({ index: { $in: indexes } }).lean();
+    const filters = [{ index: { $in: indexes } }];
+
+    if (args.name) {
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
+    }
+
+    const equipment = await EquipmentModel.find(coalesceFilters(filters)).lean();
+    const magicItems = await MagicItemModel.find(coalesceFilters(filters)).lean();
     const equipmentToReturn = equipment.concat(magicItems);
 
     let sort = {};

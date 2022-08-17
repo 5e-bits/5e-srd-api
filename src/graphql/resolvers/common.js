@@ -39,6 +39,11 @@ const resolveSpellOrderBy = value =>
 
 export const resolveSpells = async (args, baseFilters) => {
   const filters = [...baseFilters];
+  if (args.name) {
+    const filter = resolveNameFilter(args.name);
+    filters.push(filter);
+  }
+
   if (args.school) {
     const filter = { 'school.index': { $in: args.school } };
     filters.push(filter);
@@ -221,3 +226,5 @@ export const resolveAreaOfEffect = areaOfEffect => ({
   ...areaOfEffect,
   type: areaOfEffect.type.toUpperCase(),
 });
+
+export const resolveNameFilter = name => ({ name: new RegExp(name, 'i') });
