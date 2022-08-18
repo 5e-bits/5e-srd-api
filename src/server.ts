@@ -47,7 +47,6 @@ export default async () => {
 
   // Register routes
   app.get('/', indexController);
-  app.get('/legacydocs', docsController);
   app.get('/docs', openapiDocsController);
   app.use('/api', apiRoutes);
 
