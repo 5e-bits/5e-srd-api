@@ -15,6 +15,7 @@
   "plugins": [
     "prettier",
     "jest",
+    "ejs",
     "@typescript-eslint"
   ],
   "globals": {
