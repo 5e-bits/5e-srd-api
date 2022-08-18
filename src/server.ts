@@ -2,7 +2,6 @@ import apiRoutes from './routes/api.js';
 import bugsnagMiddleware from './middleware/bugsnag.js';
 import cors from 'cors';
 import { createApolloMiddleware } from './middleware/apolloServer.js';
-import docsController from './controllers/docsController.js';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import indexController from './controllers/indexController.js';
