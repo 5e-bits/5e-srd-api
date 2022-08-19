@@ -11,6 +11,10 @@ const resolveEquipmentOption = async option => {
     return {
       ...option,
       of: await EquipmentModel.findOne({ index: option.of.index }).lean(),
+      prerequisites: option.prerequisites?.map(async prereq => ({
+        ...prereq,
+        proficiency: await ProficiencyModel.findOne({ index: prereq.proficiency.index }).lean(),
+      })),
     };
   }
 
