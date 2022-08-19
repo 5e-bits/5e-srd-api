@@ -66,17 +66,18 @@ const Query = {
   },
   async alignments(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await AlignmentModel.find(filter)
+    return await AlignmentModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -86,17 +87,18 @@ const Query = {
   },
   async backgrounds(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await BackgroundModel.find(filter)
+    return await BackgroundModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -131,17 +133,18 @@ const Query = {
   },
   async conditions(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return ConditionModel.find(filter)
+    return ConditionModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -151,17 +154,18 @@ const Query = {
   },
   async damageTypes(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await DamageTypeModel.find(filter)
+    return await DamageTypeModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -208,17 +212,18 @@ const Query = {
   },
   async equipmentCategories(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await EquipmentCategoryModel.find(filter)
+    return await EquipmentCategoryModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -227,10 +232,11 @@ const Query = {
     return await FeatModel.findOne(filter).lean();
   },
   async feats(query, args) {
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     const sort = {};
@@ -239,7 +245,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await FeatModel.find(filter)
+    return await FeatModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -429,17 +435,18 @@ const Query = {
   },
   async magicSchools(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await MagicSchoolModel.find(filter)
+    return await MagicSchoolModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -627,17 +634,18 @@ const Query = {
   },
   async rules(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await RuleModel.find(filter)
+    return await RuleModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -647,17 +655,18 @@ const Query = {
   },
   async ruleSections(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await RuleSectionModel.find(filter)
+    return await RuleSectionModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -704,17 +713,18 @@ const Query = {
   },
   async subclasses(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SubclassModel.find(filter)
+    return await SubclassModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -724,17 +734,18 @@ const Query = {
   },
   async subraces(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SubraceModel.find(filter)
+    return await SubraceModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -744,17 +755,18 @@ const Query = {
   },
   async traits(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await TraitModel.find(filter)
+    return await TraitModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
@@ -764,17 +776,18 @@ const Query = {
   },
   async weaponProperties(query, args) {
     const sort = {};
-    let filter = {};
+    const filters = [];
 
     if (args.name) {
-      filter = resolveNameFilter(args.name);
+      const filter = resolveNameFilter(args.name);
+      filters.push(filter);
     }
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await WeaponPropertyModel.find(filter)
+    return await WeaponPropertyModel.find(coalesceFilters(filters))
       .sort(sort)
       .lean();
   },
