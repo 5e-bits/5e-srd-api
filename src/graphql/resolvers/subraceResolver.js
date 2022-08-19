@@ -3,7 +3,7 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import RaceModel from '../../models/race/index.js';
 import TraitModel from '../../models/trait/index.js';
-import { coalesceFilters, resolveChoice, resolveNameFilter } from './common.js';
+import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
 
 const Subrace = {
   ability_bonuses: async subrace => {
@@ -26,7 +26,7 @@ const Subrace = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -40,7 +40,7 @@ const Subrace = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

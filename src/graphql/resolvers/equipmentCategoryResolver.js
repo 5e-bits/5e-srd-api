@@ -1,6 +1,6 @@
 import EquipmentModel from '../../models/equipment/index.js';
 import MagicItemModel from '../../models/magicItem/index.js';
-import { coalesceFilters, coalesceSort, resolveNameFilter } from './common.js';
+import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common.js';
 
 const EquipmentCategory = {
   equipment: async (equipmentCategory, args) => {
@@ -8,7 +8,7 @@ const EquipmentCategory = {
     const filters = [{ index: { $in: indexes } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

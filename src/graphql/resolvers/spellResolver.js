@@ -7,7 +7,7 @@ import {
   coalesceFilters,
   levelObjectToArray,
   resolveAreaOfEffect,
-  resolveNameFilter,
+  resolveContainsStringFilter,
 } from './common.js';
 
 const Spell = {
@@ -18,7 +18,7 @@ const Spell = {
     const filters = [{ index: { $in: spell.classes.map(c => c.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -28,7 +28,7 @@ const Spell = {
     const filters = [{ index: { $in: spell.subclasses.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

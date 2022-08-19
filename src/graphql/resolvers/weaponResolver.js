@@ -1,7 +1,7 @@
 import DamageTypeModel from '../../models/damageType/index.js';
 import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import WeaponPropertyModel from '../../models/weaponProperty/index.js';
-import { coalesceFilters, equipmentFieldResolvers, resolveNameFilter } from './common.js';
+import { coalesceFilters, equipmentFieldResolvers, resolveContainsStringFilter } from './common.js';
 
 const Weapon = {
   ...equipmentFieldResolvers,
@@ -26,7 +26,7 @@ const Weapon = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

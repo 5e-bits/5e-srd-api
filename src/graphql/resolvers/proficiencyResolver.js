@@ -5,14 +5,14 @@ import EquipmentModel from '../../models/equipment/index.js';
 import RaceModel from '../../models/race/index.js';
 import SkillModel from '../../models/skill/index.js';
 import SubraceModel from '../../models/subrace/index.js';
-import { coalesceFilters, resolveNameFilter } from './common.js';
+import { coalesceFilters, resolveContainsStringFilter } from './common.js';
 
 const Proficiency = {
   classes: async (proficiency, args) => {
     const filters = [{ index: { $in: proficiency.classes.map(c => c.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -24,7 +24,7 @@ const Proficiency = {
       const filters = [{ index }];
 
       if (args.name) {
-        const filter = resolveNameFilter(args.name);
+        const filter = resolveContainsStringFilter(args.name);
         filters.push(filter);
       }
 

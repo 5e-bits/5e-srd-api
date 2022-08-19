@@ -1,5 +1,5 @@
 import RuleSectionModel from '../../models/ruleSection/index.js';
-import { coalesceFilters, resolveNameFilter } from './common.js';
+import { coalesceFilters, resolveContainsStringFilter } from './common.js';
 
 const Rule = {
   subsections: async (rule, args) => {
@@ -10,7 +10,7 @@ const Rule = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

@@ -4,7 +4,12 @@ import EquipmentModel from '../../models/equipment/index.js';
 import LevelModel from '../../models/level/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SubclassModel from '../../models/subclass/index.js';
-import { coalesceFilters, resolveChoice, resolveNameFilter, resolveSpells } from './common.js';
+import {
+  coalesceFilters,
+  resolveChoice,
+  resolveContainsStringFilter,
+  resolveSpells,
+} from './common.js';
 
 const resolveEquipmentOption = async option => {
   if (option.option_type === 'counted_reference') {
@@ -44,7 +49,7 @@ const Class = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -81,7 +86,7 @@ const Class = {
     const filters = [{ index: { $in: klass.subclasses.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

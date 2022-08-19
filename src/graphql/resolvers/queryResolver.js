@@ -2,7 +2,7 @@ import {
   coalesceFilters,
   coalesceSort,
   getMongoSortDirection,
-  resolveNameFilter,
+  resolveContainsStringFilter,
   resolveNumberFilter,
   resolveSpells,
 } from './common.js';
@@ -43,12 +43,12 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
     if (args.full_name) {
-      const filter = { full_name: new RegExp(args.full_name, 'i') };
+      const filter = resolveContainsStringFilter(args.full_name, 'full_name');
       filters.push(filter);
     }
 
@@ -69,7 +69,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -90,7 +90,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -110,7 +110,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -136,7 +136,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -157,7 +157,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -177,7 +177,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -215,7 +215,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -235,7 +235,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -257,7 +257,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -312,7 +312,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -400,7 +400,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -438,7 +438,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -457,7 +457,7 @@ const Query = {
   async monsters(query, args) {
     const filters = [];
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -551,7 +551,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -594,7 +594,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -637,7 +637,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -658,7 +658,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -678,7 +678,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -716,7 +716,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -737,7 +737,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -758,7 +758,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -779,7 +779,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

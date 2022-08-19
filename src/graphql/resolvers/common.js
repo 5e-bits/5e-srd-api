@@ -40,7 +40,7 @@ const resolveSpellOrderBy = value =>
 export const resolveSpells = async (args, baseFilters) => {
   const filters = [...baseFilters];
   if (args.name) {
-    const filter = resolveNameFilter(args.name);
+    const filter = resolveContainsStringFilter(args.name);
     filters.push(filter);
   }
 
@@ -227,4 +227,6 @@ export const resolveAreaOfEffect = areaOfEffect => ({
   type: areaOfEffect.type.toUpperCase(),
 });
 
-export const resolveNameFilter = name => ({ name: new RegExp(name, 'i') });
+export const resolveContainsStringFilter = (val, prop = 'name') => ({
+  [prop]: new RegExp(val, 'i'),
+});

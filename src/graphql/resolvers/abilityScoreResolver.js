@@ -1,12 +1,12 @@
 import SkillModel from '../../models/skill/index.js';
-import { coalesceFilters, getMongoSortDirection, resolveNameFilter } from './common.js';
+import { coalesceFilters, getMongoSortDirection, resolveContainsStringFilter } from './common.js';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore, args) => {
     const filters = [{ index: { $in: abilityScore.skills.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

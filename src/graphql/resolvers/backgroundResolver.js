@@ -3,7 +3,7 @@ import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import EquipmentModel from '../../models/equipment/index.js';
 import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
-import { coalesceFilters, resolveChoice, resolveNameFilter } from './common.js';
+import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
 
 const Background = {
   starting_equipment: async (background, args) => {
@@ -15,7 +15,7 @@ const Background = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -34,7 +34,7 @@ const Background = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

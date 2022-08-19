@@ -1,7 +1,7 @@
 import ClassModel from '../../models/class/index.js';
 import FeatureModel from '../../models/feature/index.js';
 import SubclassModel from '../../models/subclass/index.js';
-import { coalesceFilters, getMongoSortDirection, resolveNameFilter } from './common.js';
+import { coalesceFilters, getMongoSortDirection, resolveContainsStringFilter } from './common.js';
 
 const Level = {
   class: async level => await ClassModel.findOne({ index: level.class.index }).lean(),
@@ -12,7 +12,7 @@ const Level = {
     const filters = [{ index: { $in: level.features.map(f => f.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

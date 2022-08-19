@@ -3,7 +3,7 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
-import { coalesceFilters, resolveChoice, resolveNameFilter } from './common.js';
+import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
 
 const Race = {
   ability_bonuses: async race => {
@@ -21,7 +21,7 @@ const Race = {
     const filters = [{ index: { $in: race.languages.map(l => l.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -36,7 +36,7 @@ const Race = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -46,7 +46,7 @@ const Race = {
     const filters = [{ index: { $in: race.subraces.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -56,7 +56,7 @@ const Race = {
     const filters = [{ index: { $in: race.traits.map(t => t.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 

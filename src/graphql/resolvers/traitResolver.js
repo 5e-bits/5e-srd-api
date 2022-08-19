@@ -4,7 +4,7 @@ import {
   resolveAreaOfEffect,
   resolveChoice,
   resolveDc,
-  resolveNameFilter,
+  resolveContainsStringFilter,
   resolveUsage,
 } from './common.js';
 
@@ -25,7 +25,7 @@ const Trait = {
     ];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -37,7 +37,7 @@ const Trait = {
     const filters = [{ index: { $in: trait.subraces.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
@@ -47,7 +47,7 @@ const Trait = {
     const filters = [{ index: { $in: trait.races.map(r => r.index) } }];
 
     if (args.name) {
-      const filter = resolveNameFilter(args.name);
+      const filter = resolveContainsStringFilter(args.name);
       filters.push(filter);
     }
 
