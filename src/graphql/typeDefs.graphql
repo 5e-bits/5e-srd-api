@@ -560,12 +560,12 @@ MonsterSubtype or list of MonsterSubtypes
 """
 scalar MonsterSubtypeFilter
 
-scalar ActionCount
+scalar IntOrString
 
 type ActionOption {
   option_type: String!
   action_name: String!
-  count: ActionCount!
+  count: IntOrString!
   type: String
 }
 
@@ -589,7 +589,7 @@ type MonsterActionChoice {
 
 type Action {
   action_name: String!
-  count: ActionCount!
+  count: IntOrString!
   type: String!
 }
 
@@ -1031,7 +1031,7 @@ type FeatureOptionSet {
 }
 
 type FeatureChoice {
-  choose: Int!
+  choose: IntOrString!
   type: String!
   from: FeatureOptionSet!
 }

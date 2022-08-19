@@ -153,7 +153,7 @@ OptionSet.discriminators['options_array'] = new Schema({
 export const Choice = new Schema({
   _id: false,
   desc: { type: String, index: true },
-  choose: { type: Number, index: true, required: true },
+  choose: { type: mongoose.Mixed, index: true, required: true },
   type: { type: String, index: true, required: true },
   from: { type: OptionSet, index: true, required: true },
 });

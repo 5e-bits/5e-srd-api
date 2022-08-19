@@ -6,7 +6,7 @@ export type APIReference = {
 
 export type Choice = {
   desc?: string;
-  choose: number;
+  choose: number | string;
   type: string;
   from: OptionSet;
 };

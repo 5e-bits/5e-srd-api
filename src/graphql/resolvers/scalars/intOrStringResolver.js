@@ -1,11 +1,11 @@
 import { GraphQLScalarType } from 'graphql';
 
-const ActionCount = new GraphQLScalarType({
-  name: 'ActionCount',
+const IntOrString = new GraphQLScalarType({
+  name: 'IntOrString',
   description: 'Int or string',
   serialize(value) {
     return value;
   },
 });
 
-export default ActionCount;
+export default IntOrString;

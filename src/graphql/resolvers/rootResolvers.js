@@ -1,5 +1,5 @@
 import AbilityScore from './abilityScoreResolver.js';
-import ActionCount from './scalars/actionCountResolver.js';
+import IntOrString from './scalars/intOrStringResolver.js';
 import Ammunition from './ammunitionResolver.js';
 import AreaOfEffectTypeFilter from './scalars/areaOfEffectTypeFilter.js';
 import Armor from './armorResolver.js';
@@ -53,7 +53,6 @@ import Weapon from './weaponResolver.js';
 
 const resolvers = {
   AbilityScore,
-  ActionCount,
   Ammunition,
   AreaOfEffectTypeFilter,
   Armor,
@@ -72,6 +71,7 @@ const resolvers = {
   IGear,
   Gear,
   IntFilter,
+  IntOrString,
   Language,
   LanguageScriptFilter,
   Level,
