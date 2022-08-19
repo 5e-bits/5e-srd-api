@@ -9,26 +9,6 @@ const Spell = {
   attack_type: spell => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
   area_of_effect: spell =>
     spell.area_of_effect ? resolveAreaOfEffect(spell.area_of_effect) : null,
-  casting_time: spell => {
-    const { casting_time } = spell;
-
-    switch (casting_time) {
-      case '1 action':
-        return 'ACTION';
-      case '1 minute':
-        return 'MINUTE';
-      case '1 hour':
-        return 'HOUR';
-      case '1 bonus action':
-        return 'BONUS_ACTION';
-      case '10 minutes':
-        return 'MINUTES_10';
-      case '24 hours':
-        return 'DAY';
-      case '1 reaction':
-        return 'REACTION';
-    }
-  },
   classes: async spell =>
     await ClassModel.find({ index: { $in: spell.classes.map(c => c.index) } }).lean(),
   subclasses: async spell =>

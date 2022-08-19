@@ -4,7 +4,6 @@ import Ammunition from './ammunitionResolver.js';
 import AreaOfEffectTypeFilter from './scalars/areaOfEffectTypeFilter.js';
 import Armor from './armorResolver.js';
 import Background from './backgroundResolver.js';
-import CastingTimeFilter from './scalars/castingTimeFilterResolver.js';
 import Class from './classResolver.js';
 import ClassSpecific from './classSpecificResolver.js';
 import EquipmentCategory from './equipmentCategoryResolver.js';
@@ -59,7 +58,6 @@ const resolvers = {
   AreaOfEffectTypeFilter,
   Armor,
   Background,
-  CastingTimeFilter,
   Class,
   ClassSpecific,
   IEquipment,
