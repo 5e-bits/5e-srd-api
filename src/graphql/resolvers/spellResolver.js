@@ -3,16 +3,35 @@ import ClassModel from '../../models/class/index.js';
 import DamageTypeModel from '../../models/damageType/index.js';
 import MagicSchoolModel from '../../models/magicSchool/index.js';
 import SubclassModel from '../../models/subclass/index.js';
-import { levelObjectToArray, resolveAreaOfEffect } from './common.js';
+import {
+  coalesceFilters,
+  levelObjectToArray,
+  resolveAreaOfEffect,
+  resolveContainsStringFilter,
+} from './common.js';
 
 const Spell = {
   attack_type: spell => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
   area_of_effect: spell =>
     spell.area_of_effect ? resolveAreaOfEffect(spell.area_of_effect) : null,
-  classes: async spell =>
-    await ClassModel.find({ index: { $in: spell.classes.map(c => c.index) } }).lean(),
-  subclasses: async spell =>
-    await SubclassModel.find({ index: { $in: spell.subclasses.map(s => s.index) } }).lean(),
+  classes: async (spell, args) => {
+    const filters = [{ index: { $in: spell.classes.map(c => c.index) } }];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await ClassModel.find(coalesceFilters(filters)).lean();
+  },
+  subclasses: async (spell, args) => {
+    const filters = [{ index: { $in: spell.subclasses.map(s => s.index) } }];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await SubclassModel.find(coalesceFilters(filters)).lean();
+  },
   damage: async spell => {
     if (!spell.damage) return null;
     const spellDamage = {};

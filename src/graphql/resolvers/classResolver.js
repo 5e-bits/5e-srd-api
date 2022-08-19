@@ -4,7 +4,12 @@ import EquipmentModel from '../../models/equipment/index.js';
 import LevelModel from '../../models/level/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SubclassModel from '../../models/subclass/index.js';
-import { resolveChoice, resolveSpells } from './common.js';
+import {
+  coalesceFilters,
+  resolveChoice,
+  resolveContainsStringFilter,
+  resolveSpells,
+} from './common.js';
 
 const resolveEquipmentOption = async option => {
   if (option.option_type === 'counted_reference') {
@@ -36,8 +41,19 @@ const resolveEquipmentOption = async option => {
 };
 
 const Class = {
-  proficiencies: async klass =>
-    await ProficiencyModel.find({ index: { $in: klass.proficiencies.map(p => p.index) } }).lean(),
+  proficiencies: async (klass, args) => {
+    const filters = [
+      {
+        index: { $in: klass.proficiencies.map(p => p.index) },
+      },
+    ];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await ProficiencyModel.find(coalesceFilters(filters)).lean();
+  },
   saving_throws: async klass =>
     await AbilityScoreModel.find({
       index: { $in: klass.saving_throws.map(st => st.index) },
@@ -65,8 +81,15 @@ const Class = {
     }));
   },
   class_levels: async klass => await LevelModel.find({ 'class.index': klass.index }).lean(),
-  subclasses: async klass =>
-    await SubclassModel.find({ index: { $in: klass.subclasses.map(s => s.index) } }).lean(),
+  subclasses: async (klass, args) => {
+    const filters = [{ index: { $in: klass.subclasses.map(s => s.index) } }];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await SubclassModel.find(coalesceFilters(filters)).lean();
+  },
   multi_classing: async klass => {
     const multiclassingToReturn = {};
     const { multi_classing } = klass;

@@ -5,17 +5,31 @@ import EquipmentModel from '../../models/equipment/index.js';
 import RaceModel from '../../models/race/index.js';
 import SkillModel from '../../models/skill/index.js';
 import SubraceModel from '../../models/subrace/index.js';
+import { coalesceFilters, resolveContainsStringFilter } from './common.js';
 
 const Proficiency = {
-  classes: async proficiency =>
-    await ClassModel.find({ index: { $in: proficiency.classes.map(c => c.index) } }).lean(),
-  races: async proficiency => {
+  classes: async (proficiency, args) => {
+    const filters = [{ index: { $in: proficiency.classes.map(c => c.index) } }];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await ClassModel.find(coalesceFilters(filters)).lean();
+  },
+  races: async (proficiency, args) => {
     const races = [];
     for (const { url, index } of proficiency.races) {
+      const filters = [{ index }];
+
+      if (args.name) {
+        filters.push(resolveContainsStringFilter(args.name));
+      }
+
       if (url.includes('subrace')) {
-        races.push(await SubraceModel.findOne({ index: index }).lean());
+        races.push(await SubraceModel.findOne(coalesceFilters(filters)).lean());
       } else {
-        races.push(await RaceModel.findOne({ index: index }).lean());
+        races.push(await RaceModel.findOne(coalesceFilters(filters)).lean());
       }
     }
 

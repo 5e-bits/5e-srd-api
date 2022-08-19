@@ -1,7 +1,7 @@
 import DamageTypeModel from '../../models/damageType/index.js';
 import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import WeaponPropertyModel from '../../models/weaponProperty/index.js';
-import { equipmentFieldResolvers } from './common.js';
+import { coalesceFilters, equipmentFieldResolvers, resolveContainsStringFilter } from './common.js';
 
 const Weapon = {
   ...equipmentFieldResolvers,
@@ -18,8 +18,19 @@ const Weapon = {
           }).lean(),
         }
       : null,
-  properties: async weapon =>
-    await WeaponPropertyModel.find({ index: { $in: weapon.properties.map(p => p.index) } }).lean(),
+  properties: async (weapon, args) => {
+    const filters = [
+      {
+        index: { $in: weapon.properties.map(p => p.index) },
+      },
+    ];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await WeaponPropertyModel.find(coalesceFilters(filters)).lean();
+  },
   weapon_category: async weapon =>
     await EquipmentCategoryModel.findOne({
       index: `${weapon.weapon_category.toLowerCase()}-weapons`,

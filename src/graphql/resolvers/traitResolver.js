@@ -1,8 +1,10 @@
 import {
+  coalesceFilters,
   levelObjectToArray,
   resolveAreaOfEffect,
   resolveChoice,
   resolveDc,
+  resolveContainsStringFilter,
   resolveUsage,
 } from './common.js';
 
@@ -15,14 +17,39 @@ import TraitModel from '../../models/trait/index.js';
 import LanguageModel from '../../models/language/index.js';
 
 const Trait = {
-  proficiencies: async trait =>
-    await ProficiencyModel.find({ index: { $in: trait.proficiencies.map(p => p.index) } }).lean(),
+  proficiencies: async (trait, args) => {
+    const filters = [
+      {
+        index: { $in: trait.proficiencies.map(p => p.index) },
+      },
+    ];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await ProficiencyModel.find(coalesceFilters(filters)).lean();
+  },
   parent: async trait =>
     trait.parent ? await TraitModel.findOne({ index: trait.parent.index }).lean() : null,
-  subraces: async trait =>
-    await SubraceModel.find({ index: { $in: trait.subraces.map(s => s.index) } }).lean(),
-  races: async trait =>
-    await RaceModel.find({ index: { $in: trait.races.map(r => r.index) } }).lean(),
+  subraces: async (trait, args) => {
+    const filters = [{ index: { $in: trait.subraces.map(s => s.index) } }];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await SubraceModel.find(coalesceFilters(filters)).lean();
+  },
+  races: async (trait, args) => {
+    const filters = [{ index: { $in: trait.races.map(r => r.index) } }];
+
+    if (args.name) {
+      filters.push(resolveContainsStringFilter(args.name));
+    }
+
+    return await RaceModel.find(coalesceFilters(filters)).lean();
+  },
   proficiency_choices: async trait => {
     if (trait.proficiency_choices) {
       const { proficiency_choices } = trait;
