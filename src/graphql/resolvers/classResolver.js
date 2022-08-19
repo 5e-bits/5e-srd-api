@@ -49,8 +49,7 @@ const Class = {
     ];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();
@@ -86,8 +85,7 @@ const Class = {
     const filters = [{ index: { $in: klass.subclasses.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await SubclassModel.find(coalesceFilters(filters)).lean();

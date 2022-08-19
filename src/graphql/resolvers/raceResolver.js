@@ -21,8 +21,7 @@ const Race = {
     const filters = [{ index: { $in: race.languages.map(l => l.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await LanguageModel.find(coalesceFilters(filters)).lean();
@@ -36,8 +35,7 @@ const Race = {
     ];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();
@@ -46,8 +44,7 @@ const Race = {
     const filters = [{ index: { $in: race.subraces.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await SubraceModel.find(coalesceFilters(filters)).lean();
@@ -56,8 +53,7 @@ const Race = {
     const filters = [{ index: { $in: race.traits.map(t => t.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await TraitModel.find(coalesceFilters(filters)).lean();

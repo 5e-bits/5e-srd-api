@@ -26,8 +26,7 @@ const Weapon = {
     ];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await WeaponPropertyModel.find(coalesceFilters(filters)).lean();

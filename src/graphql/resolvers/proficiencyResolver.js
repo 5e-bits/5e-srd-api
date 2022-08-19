@@ -12,8 +12,7 @@ const Proficiency = {
     const filters = [{ index: { $in: proficiency.classes.map(c => c.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await ClassModel.find(coalesceFilters(filters)).lean();
@@ -24,8 +23,7 @@ const Proficiency = {
       const filters = [{ index }];
 
       if (args.name) {
-        const filter = resolveContainsStringFilter(args.name);
-        filters.push(filter);
+        filters.push(resolveContainsStringFilter(args.name));
       }
 
       if (url.includes('subrace')) {

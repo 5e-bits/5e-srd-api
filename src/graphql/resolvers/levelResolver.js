@@ -12,8 +12,7 @@ const Level = {
     const filters = [{ index: { $in: level.features.map(f => f.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {

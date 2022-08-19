@@ -6,8 +6,7 @@ const AbilityScoreResolver = {
     const filters = [{ index: { $in: abilityScore.skills.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     const sort = {};

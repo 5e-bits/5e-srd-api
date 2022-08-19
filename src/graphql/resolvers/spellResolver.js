@@ -18,8 +18,7 @@ const Spell = {
     const filters = [{ index: { $in: spell.classes.map(c => c.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await ClassModel.find(coalesceFilters(filters)).lean();
@@ -28,8 +27,7 @@ const Spell = {
     const filters = [{ index: { $in: spell.subclasses.map(s => s.index) } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await SubclassModel.find(coalesceFilters(filters)).lean();

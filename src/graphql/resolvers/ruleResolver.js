@@ -10,8 +10,7 @@ const Rule = {
     ];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await RuleSectionModel.find(coalesceFilters(filters)).lean();

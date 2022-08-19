@@ -8,8 +8,7 @@ const EquipmentCategory = {
     const filters = [{ index: { $in: indexes } }];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     const equipment = await EquipmentModel.find(coalesceFilters(filters)).lean();

@@ -43,13 +43,11 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.full_name) {
-      const filter = resolveContainsStringFilter(args.full_name, 'full_name');
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.full_name, 'full_name'));
     }
 
     if (args.order_direction) {
@@ -69,8 +67,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -90,8 +87,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -110,13 +106,11 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.hit_die) {
-      const filter = resolveNumberFilter(args.hit_die, 'hit_die');
-      filters.push(filter);
+      filters.push(resolveNumberFilter(args.hit_die, 'hit_die'));
     }
 
     let sort = {};
@@ -136,8 +130,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -157,8 +150,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -177,13 +169,11 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.equipment_category) {
-      const filter = { 'equipment_category.index': { $in: args.equipment_category } };
-      filters.push(filter);
+      filters.push({ 'equipment_category.index': { $in: args.equipment_category } });
     }
 
     let sort = {};
@@ -215,8 +205,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -235,8 +224,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     const sort = {};
@@ -257,8 +245,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.level) {
@@ -312,8 +299,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.type) {
@@ -400,8 +386,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.equipment_category) {
@@ -438,8 +423,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -457,38 +441,31 @@ const Query = {
   async monsters(query, args) {
     const filters = [];
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.size) {
-      const filter = { size: { $in: args.size } };
-      filters.push(filter);
+      filters.push({ size: { $in: args.size } });
     }
 
     if (args.type) {
-      const filter = { type: { $in: args.type } };
-      filters.push(filter);
+      filters.push({ type: { $in: args.type } });
     }
 
     if (args.subtype) {
-      const filter = { subtype: { $in: args.subtype } };
-      filters.push(filter);
+      filters.push({ subtype: { $in: args.subtype } });
     }
 
     if (args.damage_immunity) {
-      const filter = { damage_immunities: { $elemMatch: { $in: args.damage_immunity } } };
-      filters.push(filter);
+      filters.push({ damage_immunities: { $elemMatch: { $in: args.damage_immunity } } });
     }
 
     if (args.damage_resistance) {
-      const filter = { damage_resistances: { $elemMatch: { $in: args.damage_resistance } } };
-      filters.push(filter);
+      filters.push({ damage_resistances: { $elemMatch: { $in: args.damage_resistance } } });
     }
 
     if (args.damage_vulnerability) {
-      const filter = { damage_vulnerabilities: { $elemMatch: { $in: args.damage_vulnerability } } };
-      filters.push(filter);
+      filters.push({ damage_vulnerabilities: { $elemMatch: { $in: args.damage_vulnerability } } });
     }
 
     if (args.armor_class) {
@@ -551,8 +528,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.class) {
@@ -594,25 +570,21 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.ability_bonus) {
-      const filter = {
+      filters.push({
         ability_bonuses: { $elemMatch: { 'ability_score.index': { $in: args.ability_bonus } } },
-      };
-      filters.push(filter);
+      });
     }
 
     if (args.size) {
-      const filter = { size: { $in: args.size } };
-      filters.push(filter);
+      filters.push({ size: { $in: args.size } });
     }
 
     if (args.language) {
-      const filter = { languages: { $elemMatch: { index: { $in: args.language } } } };
-      filters.push(filter);
+      filters.push({ languages: { $elemMatch: { index: { $in: args.language } } } });
     }
 
     if (args.speed) {
@@ -637,8 +609,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -658,8 +629,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -678,13 +648,11 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.ability_score) {
-      const filter = { 'ability_score.index': { $in: args.ability_score } };
-      filters.push(filter);
+      filters.push({ 'ability_score.index': { $in: args.ability_score } });
     }
 
     let sort = {};
@@ -716,8 +684,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -737,8 +704,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -758,8 +724,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {
@@ -779,8 +744,7 @@ const Query = {
     const filters = [];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     if (args.order_direction) {

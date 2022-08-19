@@ -15,8 +15,7 @@ const Background = {
     ];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     const equipment = await EquipmentModel.find(coalesceFilters(filters)).lean();
@@ -34,8 +33,7 @@ const Background = {
     ];
 
     if (args.name) {
-      const filter = resolveContainsStringFilter(args.name);
-      filters.push(filter);
+      filters.push(resolveContainsStringFilter(args.name));
     }
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();

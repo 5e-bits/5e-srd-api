@@ -45,8 +45,7 @@ export const resolveSpells = async (args, baseFilters) => {
   }
 
   if (args.school) {
-    const filter = { 'school.index': { $in: args.school } };
-    filters.push(filter);
+    filters.push({ 'school.index': { $in: args.school } });
   }
 
   if (args.level) {
@@ -54,40 +53,33 @@ export const resolveSpells = async (args, baseFilters) => {
   }
 
   if (args.class) {
-    const filter = { classes: { $elemMatch: { index: { $in: args.class } } } };
-    filters.push(filter);
+    filters.push({ classes: { $elemMatch: { index: { $in: args.class } } } });
   }
 
   if (args.subclass) {
-    const filter = { subclasses: { $elemMatch: { index: { $in: args.subclass } } } };
-    filters.push(filter);
+    filters.push({ subclasses: { $elemMatch: { index: { $in: args.subclass } } } });
   }
 
   if (args.concentration !== undefined) {
-    const filter = { concentration: args.concentration };
-    filters.push(filter);
+    filters.push({ concentration: args.concentration });
   }
 
   if (args.ritual !== undefined) {
-    const filter = { ritual: args.ritual };
-    filters.push(filter);
+    filters.push({ ritual: args.ritual });
   }
 
   if (args.attack_type) {
-    const filter = { attack_type: { $in: args.attack_type } };
-    filters.push(filter);
+    filters.push({ attack_type: { $in: args.attack_type } });
   }
 
   if (args.casting_time) {
-    const filter = { casting_time: { $in: args.casting_time } };
-    filters.push(filter);
+    filters.push({ casting_time: { $in: args.casting_time } });
   }
 
   if (args.area_of_effect) {
     const { area_of_effect } = args;
     if (area_of_effect.type) {
-      const filter = { 'area_of_effect.type': { $in: area_of_effect.type } };
-      filters.push(filter);
+      filters.push({ 'area_of_effect.type': { $in: area_of_effect.type } });
     }
     if (area_of_effect.size) {
       filters.push(resolveNumberFilter(area_of_effect.size, 'area_of_effect.size'));
@@ -95,18 +87,15 @@ export const resolveSpells = async (args, baseFilters) => {
   }
 
   if (args.damage_type) {
-    const filter = { 'damage.damage_type.index': { $in: args.damage_type } };
-    filters.push(filter);
+    filters.push({ 'damage.damage_type.index': { $in: args.damage_type } });
   }
 
   if (args.dc_type) {
-    const filter = { 'dc.dc_type.index': { $in: args.dc_type } };
-    filters.push(filter);
+    filters.push({ 'dc.dc_type.index': { $in: args.dc_type } });
   }
 
   if (args.range) {
-    const filter = { range: { $in: args.range } };
-    filters.push(filter);
+    filters.push({ range: { $in: args.range } });
   }
 
   let sort = {};
