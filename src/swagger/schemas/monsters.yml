@@ -247,6 +247,9 @@ monster-model:
         hit_dice:
           description: 'The hit die of a monster can be used to make a version of the same monster whose hit points are determined by the roll of the die. For example: A monster with 2d6 would have its hit points determine by rolling a 6 sided die twice.'
           type: string
+        hit_points_roll:
+          description: "The roll for determining a monster's hit points, which consists of the hit dice (e.g. 18d10) and the modifier determined by its Constitution (e.g. +36). For example, 18d10+36"
+          type: string
         actions:
           description: 'A list of actions that are available to the monster to take during combat.'
           type: array

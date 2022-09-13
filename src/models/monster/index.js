@@ -140,6 +140,7 @@ const Monster = new Schema({
   forms: { type: [APIReference], default: undefined },
   hit_dice: { type: String, index: true },
   hit_points: { type: Number, index: true },
+  hit_points_roll: { type: String, index: true },
   index: { type: String, index: true },
   intelligence: { type: Number, index: true },
   languages: { type: String, index: true },

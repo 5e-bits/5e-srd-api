@@ -110,6 +110,7 @@ monster-index:
               forms: []
               hit_dice: 18d10
               hit_points: 135
+              hit_points_roll: 18d10+36
               intelligence: 18
               languages: Deep Speech, telepathy 120 ft.
               legendary_actions:
