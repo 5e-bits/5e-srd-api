@@ -7,8 +7,9 @@ type Prerequisite = {
 };
 
 type FeatureSpecific = {
-  subfeature_options: Choice;
-  expertise_options: Choice;
+  subfeature_options?: Choice;
+  expertise_options?: Choice;
+  invocations?: APIReference[];
 };
 
 export type Feature = {

@@ -13,6 +13,7 @@ const FeatureSpecific = new Schema({
   _id: false,
   subfeature_options: Choice,
   expertise_options: Choice,
+  invocations: [APIReference],
 });
 
 const Feature = new Schema({
