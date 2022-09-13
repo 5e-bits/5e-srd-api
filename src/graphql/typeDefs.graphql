@@ -79,6 +79,7 @@ interface IEquipmentBase {
 
 enum MagicItemRarity {
   VARIES
+  COMMON
   UNCOMMON
   RARE
   VERY_RARE
