@@ -1057,9 +1057,9 @@ type ExpertiseChoice {
 type FeatureSpecific {
   expertise_options: ExpertiseChoice
   subfeature_options: FeatureChoice
+  invocations: [Feature!]
 }
 
-# TODO: Add prerequisites, reference, and feature_specific relations 
 type Feature {
   index: String!
   name: String!
