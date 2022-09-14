@@ -84,6 +84,7 @@ enum MagicItemRarity {
   RARE
   VERY_RARE
   LEGENDARY
+  ARTIFACT
 }
 
 type MagicItem implements IEquipmentBase {
