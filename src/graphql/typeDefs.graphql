@@ -671,6 +671,7 @@ type Monster {
   forms: [Monster!]
   hit_dice: String!
   hit_points: Int!
+  hit_points_roll: String!
   intelligence: Int!
   languages: String!
   legendary_actions: [LegendaryAction!]
