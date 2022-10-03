@@ -84,6 +84,12 @@ const Feature = {
       );
     }
 
+    if (feature_specific.invocations) {
+      featureSpecificToReturn.invocations = await FeatureModel.find({
+        index: { $in: feature_specific.invocations.map(({ index }) => index) },
+      }).lean();
+    }
+
     return featureSpecificToReturn;
   },
 };
