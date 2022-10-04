@@ -131,6 +131,7 @@ export type Monster = {
   hit_dice: string;
   hit_points: number;
   hit_points_roll: string;
+  image: string;
   index: string;
   intelligence: number;
   languages: string[];

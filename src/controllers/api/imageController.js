@@ -1,5 +1,4 @@
 import aws from 'aws-sdk';
-import mime from 'mime-types';
 
 const s3 = new aws.S3({ params: { Bucket: 'dnd-5e-api-images' } });
 
@@ -15,7 +14,7 @@ const show = async (req, res, next) => {
         res.status(200);
         res.end('Error Fetching File');
       } else {
-        res.writeHead(200, { 'Content-Type': mime.lookup(params.Key) });
+        res.writeHead(200, { 'Content-Type': data.ContentType });
         res.write(data.Body, 'binary');
         res.end(null, 'binary');
       }
