@@ -8,6 +8,7 @@ export { default as EquipmentHandler } from './equipment.js';
 export { default as EquipmentCategoriesHandler } from './equipmentCategories.js';
 export { default as FeatsHandler } from './feats.js';
 export { default as FeaturesHandler } from './features.js';
+export { default as ImageHandler } from './images.js';
 export { default as LanguagesHandler } from './languages.js';
 export { default as MagicItemsHandler } from './magicItems.js';
 export { default as MagicSchoolsHandler } from './magicSchools.js';
