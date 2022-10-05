@@ -1,4 +1,12 @@
-import { mongodbUri, prewarmCache, redisClient } from './util/index.js';
+import aws from 'aws-sdk';
+import {
+  mongodbUri,
+  prewarmCache,
+  redisClient,
+  awsRegion,
+  awsAccessKeyId,
+  awsSecretAccessKey,
+} from './util/index.js';
 
 import createApp from './server.js';
 import mongoose from 'mongoose';
@@ -17,6 +25,13 @@ const start = async () => {
 
   console.log('Prewarm Redis');
   await prewarmCache();
+
+  console.log('Configure AWS');
+  aws.config.update({
+    secretAccessKey: awsSecretAccessKey,
+    accessKeyId: awsAccessKeyId,
+    region: awsRegion,
+  });
 
   console.log('Setting up Express server');
   const app = await createApp();

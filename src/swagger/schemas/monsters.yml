@@ -207,6 +207,9 @@ monster-model:
     - $ref: '#/monster-abilities'
     - type: object
       properties:
+        image:
+          description: 'The image url of the monster.'
+          type: string
         size:
           description: The size of the monster ranging from Tiny to Gargantuan."
           type: string

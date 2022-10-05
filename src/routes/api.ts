@@ -9,6 +9,7 @@ import {
   EquipmentHandler,
   FeatsHandler,
   FeaturesHandler,
+  ImageHandler,
   LanguagesHandler,
   MagicItemsHandler,
   MagicSchoolsHandler,
@@ -42,6 +43,7 @@ router.use('/equipment-categories', EquipmentCategoriesHandler);
 router.use('/equipment', EquipmentHandler);
 router.use('/feats', FeatsHandler);
 router.use('/features', FeaturesHandler);
+router.use('/images', ImageHandler);
 router.use('/languages', LanguagesHandler);
 router.use('/magic-items', MagicItemsHandler);
 router.use('/magic-schools', MagicSchoolsHandler);

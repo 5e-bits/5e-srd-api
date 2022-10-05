@@ -30,6 +30,7 @@
     "@graphql-tools/schema": "^8.3.10",
     "apollo-server-express": "^3.6.3",
     "apollo-server-plugin-response-cache": "^3.7.0",
+    "aws-sdk": "^2.1228.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.3",
     "debug": "^4.3.1",
