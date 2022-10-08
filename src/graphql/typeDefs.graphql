@@ -686,6 +686,7 @@ type Monster {
   type: MonsterType!
   wisdom: Int!
   xp: Int!
+  image: String
 }
 
 type ProficiencyReferenceOption {
