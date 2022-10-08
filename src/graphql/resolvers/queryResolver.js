@@ -444,6 +444,10 @@ const Query = {
       filters.push(resolveContainsStringFilter(args.name));
     }
 
+    if (args.image) {
+      filters.push(resolveContainsStringFilter(args.image, 'image'));
+    }
+
     if (args.size) {
       filters.push({ size: { $in: args.size } });
     }
