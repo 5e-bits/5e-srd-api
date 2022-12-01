@@ -9,6 +9,12 @@ export const index = async (req, res, next) => {
       searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
     }
     if (req.query.challenge_rating !== undefined) {
+      if (isNaN(Number(req.query.challenge_rating))) {
+        req.query.challenge_rating = req.query.challenge_rating
+          .split(',')
+          .map(Number)
+          .filter(item => !isNaN(item));
+      }
       searchQueries.challenge_rating = { $in: req.query.challenge_rating };
     }
 
