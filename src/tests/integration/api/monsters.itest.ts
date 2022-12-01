@@ -91,6 +91,10 @@ describe('/api/monsters', () => {
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
+        const altBothRes = await request(app).get(`/api/monsters?challenge_rating=${cr1},${cr20}`);
+        expect(altBothRes.statusCode).toEqual(200);
+        expect(altBothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
+
         const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
         const randomResult = bothRes.body.results[randomIndex];
 
