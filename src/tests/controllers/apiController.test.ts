@@ -1,11 +1,12 @@
+import mockingoose from 'mockingoose';
 import * as ApiController from '../../controllers/apiController.js';
 
 import { mockNext, mockRequest, mockResponse } from '../support/requestHelpers.js';
 
 import Collection from '../../models/collection/index.js';
-import mockingoose from 'mockingoose';
+import { MockResponse } from '../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();

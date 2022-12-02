@@ -1,11 +1,11 @@
-import * as MonsterController from '../../../controllers/api/monsterController.js';
-
+import mockingoose from 'mockingoose';
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import Monster from '../../../models/monster/index.js';
-import mockingoose from 'mockingoose';
+import WeaponProperty from '../../../models/weaponProperty/index.js';
+import WeaponPropertyController from '../../../controllers/api/weaponPropertyController.js';
+import { MockResponse } from '../../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -14,27 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'aboleth',
-      name: 'Aboleth',
-      url: '/api/monsters/aboleth',
+      index: 'ammunition',
+      name: 'Ammunition',
+      url: '/api/weapon-properties/ammunition',
     },
     {
-      index: 'acolyte',
-      name: 'Acolyte',
-      url: '/api/monsters/acolyte',
+      index: 'finesse',
+      name: 'Finesse',
+      url: '/api/weapon-properties/finesse',
     },
     {
-      index: 'adult-black-dragon',
-      name: 'Adult Black Dragon',
-      url: '/api/monsters/adult-black-dragon',
+      index: 'heavy',
+      name: 'Heavy',
+      url: '/api/weapon-properties/heavy',
     },
   ];
-  const request = mockRequest({ query: {}, originalUrl: '/api/monsters' });
+  const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Monster).toReturn(findDoc, 'find');
+    mockingoose(WeaponProperty).toReturn(findDoc, 'find');
 
-    await MonsterController.index(request, response, mockNext);
+    await WeaponPropertyController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -42,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Monster).toReturn(error, 'find');
+      mockingoose(WeaponProperty).toReturn(error, 'find');
 
-      await MonsterController.index(request, response, mockNext);
+      await WeaponPropertyController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -55,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'aboleth',
-    name: 'Aboleth',
-    url: '/api/monsters/aboleth',
+    index: 'ammunition',
+    name: 'Ammunition',
+    url: '/api/weapon-properties/ammunition',
   };
 
-  const showParams = { index: 'aboleth' };
+  const showParams = { index: 'ammunition' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Monster).toReturn(findOneDoc, 'findOne');
+    mockingoose(WeaponProperty).toReturn(findOneDoc, 'findOne');
 
-    await MonsterController.show(request, response, mockNext);
+    await WeaponPropertyController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -74,24 +74,24 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Monster).toReturn(null, 'findOne');
+      mockingoose(WeaponProperty).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await MonsterController.show(invalidRequest, response, mockNext);
+      await WeaponPropertyController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith();
+      expect(mockNext).toHaveBeenCalled();
     });
   });
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Monster).toReturn(error, 'findOne');
+      mockingoose(WeaponProperty).toReturn(error, 'findOne');
 
-      await MonsterController.show(request, response, mockNext);
+      await WeaponPropertyController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

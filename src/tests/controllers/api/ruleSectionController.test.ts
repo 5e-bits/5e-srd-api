@@ -1,3 +1,4 @@
+import { MockResponse } from '../../support/types.d';
 import * as RuleSectionController from '../../../controllers/api/ruleSectionController.js';
 
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
@@ -5,7 +6,7 @@ import { mockNext, mockRequest, mockResponse } from '../../support/requestHelper
 import RuleSection from '../../../models/ruleSection/index.js';
 import mockingoose from 'mockingoose';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();

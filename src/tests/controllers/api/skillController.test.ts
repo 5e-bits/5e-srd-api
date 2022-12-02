@@ -1,10 +1,11 @@
+import { MockResponse } from '../../support/types.d';
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import Proficiency from '../../../models/proficiency/index.js';
-import ProficiencyController from '../../../controllers/api/proficiencyController.js';
 import mockingoose from 'mockingoose';
+import skill from '../../../models/skill/index.js';
+import skillController from '../../../controllers/api/skillController.js';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,27 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'alchemists-supplies',
-      name: "Alchemist's supplies",
-      url: '/api/proficiencies/alchemists-supplies',
+      index: 'acrobatics',
+      name: 'Acrobatics',
+      url: '/api/skills/acrobatics',
     },
     {
-      index: 'all-armor',
-      name: 'All armor',
-      url: '/api/proficiencies/all-armor',
+      index: 'animal-handling',
+      name: 'Animal Handling',
+      url: '/api/skills/animal-handling',
     },
     {
-      index: 'bagpipes',
-      name: 'Bagpipes',
-      url: '/api/proficiencies/bagpipes',
+      index: 'arcana',
+      name: 'Arcana',
+      url: '/api/skills/arcana',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Proficiency).toReturn(findDoc, 'find');
+    mockingoose(skill).toReturn(findDoc, 'find');
 
-    await ProficiencyController.index(request, response, mockNext);
+    await skillController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -41,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Proficiency).toReturn(error, 'find');
+      mockingoose(skill).toReturn(error, 'find');
 
-      await ProficiencyController.index(request, response, mockNext);
+      await skillController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -54,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'alchemists-supplies',
-    name: "Alchemist's supplies",
-    url: '/api/proficiencies/alchemists-supplies',
+    index: 'acrobatics',
+    name: 'Acrobatics',
+    url: '/api/skills/acrobatics',
   };
 
-  const showParams = { index: 'alchemists-supplies' };
+  const showParams = { index: 'acrobatics' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Proficiency).toReturn(findOneDoc, 'findOne');
+    mockingoose(skill).toReturn(findOneDoc, 'findOne');
 
-    await ProficiencyController.show(request, response, mockNext);
+    await skillController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -73,11 +74,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Proficiency).toReturn(null, 'findOne');
+      mockingoose(skill).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await ProficiencyController.show(invalidRequest, response, mockNext);
+      await skillController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -88,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Proficiency).toReturn(error, 'findOne');
+      mockingoose(skill).toReturn(error, 'findOne');
 
-      await ProficiencyController.show(request, response, mockNext);
+      await skillController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

@@ -1,10 +1,11 @@
-import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
-
-import DamageType from '../../../models/damageType/index.js';
-import DamageTypeController from '../../../controllers/api/damageTypeController.js';
 import mockingoose from 'mockingoose';
+import * as SpellController from '../../../controllers/api/spellController.js';
 
-let response;
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+import Spell from '../../../models/spell/index.js';
+import { MockResponse } from '../../support/types.d';
+
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,27 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'acid',
-      name: 'Acid',
-      url: '/api/damage-types/acid',
+      index: 'acid-arrow',
+      name: 'Acid Arrow',
+      url: '/api/spells/acid-arrow',
     },
     {
-      index: 'bludgeoning',
-      name: 'Bludgeoning',
-      url: '/api/damage-types/bludgeoning',
+      index: 'acid-splash',
+      name: 'Acid Splash',
+      url: '/api/spells/acid-splash',
     },
     {
-      index: 'cold',
-      name: 'Cold',
-      url: '/api/damage-types/cold',
+      index: 'aid',
+      name: 'Aid',
+      url: '/api/spells/aid',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(DamageType).toReturn(findDoc, 'find');
+    mockingoose(Spell).toReturn(findDoc, 'find');
 
-    await DamageTypeController.index(request, response, mockNext);
+    await SpellController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -41,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(DamageType).toReturn(error, 'find');
+      mockingoose(Spell).toReturn(error, 'find');
 
-      await DamageTypeController.index(request, response, mockNext);
+      await SpellController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -54,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'acid',
-    name: 'Acid',
-    url: '/api/damage-types/acid',
+    index: 'acid-arrow',
+    name: 'Acid Arrow',
+    url: '/api/spells/acid-arrow',
   };
 
-  const showParams = { index: 'acid' };
+  const showParams = { index: 'acid-arrow' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(DamageType).toReturn(findOneDoc, 'findOne');
+    mockingoose(Spell).toReturn(findOneDoc, 'findOne');
 
-    await DamageTypeController.show(request, response, mockNext);
+    await SpellController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -73,24 +74,24 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(DamageType).toReturn(null, 'findOne');
+      mockingoose(Spell).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await DamageTypeController.show(invalidRequest, response, mockNext);
+      await SpellController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith();
     });
   });
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(DamageType).toReturn(error, 'findOne');
+      mockingoose(Spell).toReturn(error, 'findOne');
 
-      await DamageTypeController.show(request, response, mockNext);
+      await SpellController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

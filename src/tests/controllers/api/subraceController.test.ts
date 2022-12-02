@@ -1,14 +1,14 @@
-import * as RaceController from '../../../controllers/api/raceController.js';
+import mockingoose from 'mockingoose';
+import * as SubraceController from '../../../controllers/api/subraceController.js';
 
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
 import Proficiency from '../../../models/proficiency/index.js';
-import Race from '../../../models/race/index.js';
 import Subrace from '../../../models/subrace/index.js';
 import Trait from '../../../models/trait/index.js';
-import mockingoose from 'mockingoose';
+import { MockResponse } from '../../support/types';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -17,27 +17,32 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'dragonborn',
-      name: 'Dragonborn',
-      url: '/api/races/dragonborn',
+      index: 'high-elf',
+      name: 'High Elf',
+      url: '/api/subraces/high-elf',
     },
     {
-      index: 'dwarf',
-      name: 'Dwarf',
-      url: '/api/races/dwarf',
+      index: 'hill-dwarf',
+      name: 'Hill Dwarf',
+      url: '/api/subraces/hill-dwarf',
     },
     {
-      index: 'elf',
-      name: 'Elf',
-      url: '/api/races/elf',
+      index: 'lightfoot-halfling',
+      name: 'Lightfoot Halfling',
+      url: '/api/subraces/lightfoot-halfling',
+    },
+    {
+      index: 'rock-gnome',
+      name: 'Rock Gnome',
+      url: '/api/subraces/rock-gnome',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Race).toReturn(findDoc, 'find');
+    mockingoose(Subrace).toReturn(findDoc, 'find');
 
-    await RaceController.index(request, response, mockNext);
+    await SubraceController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -45,9 +50,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Race).toReturn(error, 'find');
+      mockingoose(Subrace).toReturn(error, 'find');
 
-      await RaceController.index(request, response, mockNext);
+      await SubraceController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -58,18 +63,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'dragonborn',
-    name: 'Dragonborn',
-    url: '/api/races/dragonborn',
+    index: 'high-elf',
+    name: 'High Elf',
+    url: '/api/subraces/high-elf',
   };
 
-  const showParams = { index: 'dragonborn' };
+  const showParams = { index: 'high-elf' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Race).toReturn(findOneDoc, 'findOne');
+    mockingoose(Subrace).toReturn(findOneDoc, 'findOne');
 
-    await RaceController.show(request, response, mockNext);
+    await SubraceController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -77,11 +82,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Race).toReturn(null, 'findOne');
+      mockingoose(Subrace).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await RaceController.show(invalidRequest, response, mockNext);
+      await SubraceController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -92,42 +97,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Race).toReturn(error, 'findOne');
+      mockingoose(Subrace).toReturn(error, 'findOne');
 
-      await RaceController.show(request, response, mockNext);
-
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalledWith(error);
-    });
-  });
-});
-
-describe('showSubracesForRace', () => {
-  const findDoc = [
-    {
-      index: 'high-elf',
-      name: 'High Elf',
-      url: '/api/subraces/high-elf',
-    },
-  ];
-  const showParams = { index: 'dragonborn' };
-  const request = mockRequest({ params: showParams });
-
-  it('returns a list of objects', async () => {
-    mockingoose(Subrace).toReturn(findDoc, 'find');
-
-    await RaceController.showSubracesForRace(request, response, mockNext);
-
-    expect(response.status).toHaveBeenCalledWith(200);
-  });
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const error = new Error('Something went wrong');
-      mockingoose(Subrace).toReturn(error, 'find');
-
-      await RaceController.showSubracesForRace(request, response, mockNext);
+      await SubraceController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -136,7 +108,7 @@ describe('showSubracesForRace', () => {
   });
 });
 
-describe('showTraitsForRace', () => {
+describe('showTraitsForSubrace', () => {
   const findDoc = [
     {
       index: 'darkvision',
@@ -149,9 +121,9 @@ describe('showTraitsForRace', () => {
       url: '/api/traits/elf-weapon-training',
     },
     {
-      index: 'fey-ancestry',
-      name: 'Fey Ancestry',
-      url: '/api/traits/fey-ancestry',
+      index: 'extra-language',
+      name: 'Extra Language',
+      url: '/api/traits/extra-language',
     },
   ];
   const showParams = { index: 'elf' };
@@ -160,7 +132,7 @@ describe('showTraitsForRace', () => {
   it('returns a list of objects', async () => {
     mockingoose(Trait).toReturn(findDoc, 'find');
 
-    await RaceController.showTraitsForRace(request, response, mockNext);
+    await SubraceController.showTraitsForSubrace(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -170,7 +142,7 @@ describe('showTraitsForRace', () => {
       const error = new Error('Something went wrong');
       mockingoose(Trait).toReturn(error, 'find');
 
-      await RaceController.showTraitsForRace(request, response, mockNext);
+      await SubraceController.showTraitsForSubrace(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -179,7 +151,7 @@ describe('showTraitsForRace', () => {
   });
 });
 
-describe('showProficienciesForRace', () => {
+describe('showProficienciesForSubrace', () => {
   const findDoc = [
     {
       index: 'daggers',
@@ -197,12 +169,12 @@ describe('showProficienciesForRace', () => {
       url: '/api/proficiencies/quarterstaffs',
     },
   ];
-  const request = mockRequest({ params: { index: 'elf' } });
+  const request = mockRequest({ params: { index: 'high-elf' } });
 
   it('returns a list of objects', async () => {
     mockingoose(Proficiency).toReturn(findDoc, 'find');
 
-    await RaceController.showProficienciesForRace(request, response, mockNext);
+    await SubraceController.showProficienciesForSubrace(request, response, mockNext);
     expect(response.status).toHaveBeenCalledWith(200);
   });
 
@@ -211,7 +183,7 @@ describe('showProficienciesForRace', () => {
       const error = new Error('Something went wrong');
       mockingoose(Proficiency).toReturn(error, 'find');
 
-      await RaceController.showProficienciesForRace(request, response, mockNext);
+      await SubraceController.showProficienciesForSubrace(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

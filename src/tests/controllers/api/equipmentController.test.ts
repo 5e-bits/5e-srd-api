@@ -1,10 +1,11 @@
+import mockingoose from 'mockingoose';
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import mockingoose from 'mockingoose';
-import skill from '../../../models/skill/index.js';
-import skillController from '../../../controllers/api/skillController.js';
+import Equipment from '../../../models/equipment/index.js';
+import EquipmentController from '../../../controllers/api/equipmentController.js';
+import { MockResponse } from '../../support/types';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,27 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'acrobatics',
-      name: 'Acrobatics',
-      url: '/api/skills/acrobatics',
+      index: 'abacus',
+      name: 'Abacus',
+      url: '/api/equipment/abacus',
     },
     {
-      index: 'animal-handling',
-      name: 'Animal Handling',
-      url: '/api/skills/animal-handling',
+      index: 'acid-vial',
+      name: 'Acid (vial)',
+      url: '/api/equipment/acid-vial',
     },
     {
-      index: 'arcana',
-      name: 'Arcana',
-      url: '/api/skills/arcana',
+      index: 'alchemists-fire-flask',
+      name: "Alchemist's fire (flask)",
+      url: '/api/equipment/alchemists-fire-flask',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(skill).toReturn(findDoc, 'find');
+    mockingoose(Equipment).toReturn(findDoc, 'find');
 
-    await skillController.index(request, response, mockNext);
+    await EquipmentController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -41,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(skill).toReturn(error, 'find');
+      mockingoose(Equipment).toReturn(error, 'find');
 
-      await skillController.index(request, response, mockNext);
+      await EquipmentController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -54,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'acrobatics',
-    name: 'Acrobatics',
-    url: '/api/skills/acrobatics',
+    index: 'abacus',
+    name: 'Abacus',
+    url: '/api/equipment/abacus',
   };
 
-  const showParams = { index: 'acrobatics' };
+  const showParams = { index: 'abacus' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(skill).toReturn(findOneDoc, 'findOne');
+    mockingoose(Equipment).toReturn(findOneDoc, 'findOne');
 
-    await skillController.show(request, response, mockNext);
+    await EquipmentController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -73,11 +74,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(skill).toReturn(null, 'findOne');
+      mockingoose(Equipment).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await skillController.show(invalidRequest, response, mockNext);
+      await EquipmentController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -88,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(skill).toReturn(error, 'findOne');
+      mockingoose(Equipment).toReturn(error, 'findOne');
 
-      await skillController.show(request, response, mockNext);
+      await EquipmentController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

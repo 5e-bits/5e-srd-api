@@ -1,10 +1,12 @@
+import mockingoose from 'mockingoose';
+import * as MagicItemController from '../../../controllers/api/magicItemController.js';
+
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import MagicSchool from '../../../models/magicSchool/index.js';
-import MagicSchoolController from '../../../controllers/api/magicSchoolController.js';
-import mockingoose from 'mockingoose';
+import MagicItem from '../../../models/magicItem/index.js';
+import { MockResponse } from '../../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,27 +15,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'abjuration',
-      name: 'Abjuration',
-      url: '/api/magic-schools/abjuration',
+      index: 'adamantine-armor',
+      name: 'Adamantine Armor',
+      url: '/api/magic-items/adamantine-armor',
     },
     {
-      index: 'conjuration',
-      name: 'Conjuration',
-      url: '/api/magic-schools/conjuration',
+      index: 'ammunition',
+      name: 'Ammunition, +1, +2, or +3',
+      url: '/api/magic-items/ammunition',
     },
     {
-      index: 'divination',
-      name: 'Divination',
-      url: '/api/magic-schools/divination',
+      index: 'amulet-of-health',
+      name: 'Amulet of Health',
+      url: '/api/magic-items/amulet-of-health',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(MagicSchool).toReturn(findDoc, 'find');
+    mockingoose(MagicItem).toReturn(findDoc, 'find');
 
-    await MagicSchoolController.index(request, response, mockNext);
+    await MagicItemController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -41,9 +43,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(MagicSchool).toReturn(error, 'find');
+      mockingoose(MagicItem).toReturn(error, 'find');
 
-      await MagicSchoolController.index(request, response, mockNext);
+      await MagicItemController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -54,18 +56,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'abjuration',
-    name: 'Abjuration',
-    url: '/api/magic-schools/abjuration',
+    index: 'adamantine-armor',
+    name: 'Adamantine Armor',
+    url: '/api/magic-items/adamantine-armor',
   };
 
-  const showParams = { index: 'abjuration' };
+  const showParams = { index: 'adamantine-armor' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(MagicSchool).toReturn(findOneDoc, 'findOne');
+    mockingoose(MagicItem).toReturn(findOneDoc, 'findOne');
 
-    await MagicSchoolController.show(request, response, mockNext);
+    await MagicItemController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -73,24 +75,24 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(MagicSchool).toReturn(null, 'findOne');
+      mockingoose(MagicItem).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await MagicSchoolController.show(invalidRequest, response, mockNext);
+      await MagicItemController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith();
     });
   });
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(MagicSchool).toReturn(error, 'findOne');
+      mockingoose(MagicItem).toReturn(error, 'findOne');
 
-      await MagicSchoolController.show(request, response, mockNext);
+      await MagicItemController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

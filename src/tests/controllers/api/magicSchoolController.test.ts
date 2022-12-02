@@ -1,10 +1,11 @@
+import mockingoose from 'mockingoose';
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import Feat from '../../../models/feat/index.js';
-import FeatController from '../../../controllers/api/featController.js';
-import mockingoose from 'mockingoose';
+import MagicSchool from '../../../models/magicSchool/index.js';
+import MagicSchoolController from '../../../controllers/api/magicSchoolController.js';
+import { MockResponse } from '../../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,18 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'grappler',
-      name: 'Grappler',
-      url: '/api/feats/grappler',
+      index: 'abjuration',
+      name: 'Abjuration',
+      url: '/api/magic-schools/abjuration',
+    },
+    {
+      index: 'conjuration',
+      name: 'Conjuration',
+      url: '/api/magic-schools/conjuration',
+    },
+    {
+      index: 'divination',
+      name: 'Divination',
+      url: '/api/magic-schools/divination',
     },
   ];
-
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Feat).toReturn(findDoc, 'find');
+    mockingoose(MagicSchool).toReturn(findDoc, 'find');
 
-    await FeatController.index(request, response, mockNext);
+    await MagicSchoolController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -32,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Feat).toReturn(error, 'find');
+      mockingoose(MagicSchool).toReturn(error, 'find');
 
-      await FeatController.index(request, response, mockNext);
+      await MagicSchoolController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -45,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'grappler',
-    name: 'Grappler',
-    url: '/api/feats/grappler',
+    index: 'abjuration',
+    name: 'Abjuration',
+    url: '/api/magic-schools/abjuration',
   };
 
-  const showParams = { index: 'grappler' };
+  const showParams = { index: 'abjuration' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Feat).toReturn(findOneDoc, 'findOne');
+    mockingoose(MagicSchool).toReturn(findOneDoc, 'findOne');
 
-    await FeatController.show(request, response, mockNext);
+    await MagicSchoolController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -64,11 +74,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Feat).toReturn(null, 'findOne');
+      mockingoose(MagicSchool).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await FeatController.show(invalidRequest, response, mockNext);
+      await MagicSchoolController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -79,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Feat).toReturn(error, 'findOne');
+      mockingoose(MagicSchool).toReturn(error, 'findOne');
 
-      await FeatController.show(request, response, mockNext);
+      await MagicSchoolController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

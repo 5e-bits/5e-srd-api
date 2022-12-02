@@ -1,10 +1,11 @@
+import mockingoose from 'mockingoose';
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import EquipmentCategory from '../../../models/equipmentCategory/index.js';
-import EquipmentCategoryController from '../../../controllers/api/equipmentCategoryController.js';
-import mockingoose from 'mockingoose';
+import Condition from '../../../models/condition/index.js';
+import ConditionController from '../../../controllers/api/conditionController.js';
+import { MockResponse } from '../../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,27 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'adventuring-gear',
-      name: 'Adventuring Gear',
-      url: '/api/equipment-categories/adventuring-gear',
+      index: 'blinded',
+      name: 'Blinded',
+      url: '/api/conditions/blinded',
     },
     {
-      index: 'armor',
-      name: 'Armor',
-      url: '/api/equipment-categories/armor',
+      index: 'charmed',
+      name: 'Charmed',
+      url: '/api/conditions/charmed',
     },
     {
-      index: 'artisans-tools',
-      name: "Artisan's Tools",
-      url: '/api/equipment-categories/artisans-tools',
+      index: 'deafened',
+      name: 'Deafened',
+      url: '/api/conditions/deafened',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(EquipmentCategory).toReturn(findDoc, 'find');
+    mockingoose(Condition).toReturn(findDoc, 'find');
 
-    await EquipmentCategoryController.index(request, response, mockNext);
+    await ConditionController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -41,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(EquipmentCategory).toReturn(error, 'find');
+      mockingoose(Condition).toReturn(error, 'find');
 
-      await EquipmentCategoryController.index(request, response, mockNext);
+      await ConditionController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -54,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'adventuring-gear',
-    name: 'Adventuring Gear',
-    url: '/api/equipment-categories/adventuring-gear',
+    index: 'blinded',
+    name: 'Blinded',
+    url: '/api/conditions/blinded',
   };
 
-  const showParams = { index: 'adventuring-gear' };
+  const showParams = { index: 'blinded' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(EquipmentCategory).toReturn(findOneDoc, 'findOne');
+    mockingoose(Condition).toReturn(findOneDoc, 'findOne');
 
-    await EquipmentCategoryController.show(request, response, mockNext);
+    await ConditionController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -73,11 +74,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(EquipmentCategory).toReturn(null, 'findOne');
+      mockingoose(Condition).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await EquipmentCategoryController.show(invalidRequest, response, mockNext);
+      await ConditionController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -88,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(EquipmentCategory).toReturn(error, 'findOne');
+      mockingoose(Condition).toReturn(error, 'findOne');
 
-      await EquipmentCategoryController.show(request, response, mockNext);
+      await ConditionController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

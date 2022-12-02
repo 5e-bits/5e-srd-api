@@ -1,10 +1,11 @@
+import mockingoose from 'mockingoose';
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
 
-import Language from '../../../models/language/index.js';
-import LanguageController from '../../../controllers/api/languageController.js';
-import mockingoose from 'mockingoose';
+import Feature from '../../../models/feature/index.js';
+import FeatureController from '../../../controllers/api/featureController.js';
+import { MockResponse } from '../../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
@@ -13,27 +14,27 @@ beforeEach(() => {
 describe('index', () => {
   const findDoc = [
     {
-      index: 'abyssal',
-      name: 'Abyssal',
-      url: '/api/languages/abyssal',
+      index: 'action-surge-1-use',
+      name: 'Action Surge (1 use)',
+      url: '/api/features/action-surge-1-use',
     },
     {
-      index: 'celestial',
-      name: 'Celestial',
-      url: '/api/languages/celestial',
+      index: 'action-surge-2-uses',
+      name: 'Action Surge (2 uses)',
+      url: '/api/features/action-surge-2-uses',
     },
     {
-      index: 'common',
-      name: 'Common',
-      url: '/api/languages/common',
+      index: 'additional-magical-secrets',
+      name: 'Additional Magical Secrets',
+      url: '/api/features/additional-magical-secrets',
     },
   ];
   const request = mockRequest({ query: {} });
 
   it('returns a list of objects', async () => {
-    mockingoose(Language).toReturn(findDoc, 'find');
+    mockingoose(Feature).toReturn(findDoc, 'find');
 
-    await LanguageController.index(request, response, mockNext);
+    await FeatureController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -41,9 +42,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Language).toReturn(error, 'find');
+      mockingoose(Feature).toReturn(error, 'find');
 
-      await LanguageController.index(request, response, mockNext);
+      await FeatureController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -54,18 +55,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'abyssal',
-    name: 'Abyssal',
-    url: '/api/languages/abyssal',
+    index: 'action-surge-1-use',
+    name: 'Action Surge (1 use)',
+    url: '/api/features/action-surge-1-use',
   };
 
-  const showParams = { index: 'abyssal' };
+  const showParams = { index: 'action-surge-1-use' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(Language).toReturn(findOneDoc, 'findOne');
+    mockingoose(Feature).toReturn(findOneDoc, 'findOne');
 
-    await LanguageController.show(request, response, mockNext);
+    await FeatureController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -73,11 +74,11 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(Language).toReturn(null, 'findOne');
+      mockingoose(Feature).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await LanguageController.show(invalidRequest, response, mockNext);
+      await FeatureController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -88,9 +89,9 @@ describe('show', () => {
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(Language).toReturn(error, 'findOne');
+      mockingoose(Feature).toReturn(error, 'findOne');
 
-      await LanguageController.show(request, response, mockNext);
+      await FeatureController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();

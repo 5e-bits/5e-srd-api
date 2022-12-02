@@ -1,3 +1,4 @@
+import mockingoose from 'mockingoose';
 import * as ClassController from '../../../controllers/api/classController.js';
 
 import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
@@ -8,9 +9,9 @@ import Level from '../../../models/level/index.js';
 import Proficiency from '../../../models/proficiency/index.js';
 import Spell from '../../../models/spell/index.js';
 import Subclass from '../../../models/subclass/index.js';
-import mockingoose from 'mockingoose';
+import { MockResponse } from '../../support/types.d';
 
-let response;
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();

@@ -1,41 +1,41 @@
-import { mockNext, mockRequest, mockResponse } from '../support/requestHelpers.js';
-
-import AbilityScore from '../../models/abilityScore/index.js';
-import SimpleController from '../../controllers/simpleController.js';
 import mockingoose from 'mockingoose';
+import * as MonsterController from '../../../controllers/api/monsterController.js';
 
-let response;
-let simpleController;
+import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+
+import Monster from '../../../models/monster/index.js';
+import { MockResponse } from '../../support/types.d';
+
+let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
   response = mockResponse();
-  simpleController = new SimpleController(AbilityScore);
 });
 
 describe('index', () => {
   const findDoc = [
     {
-      index: 'str',
-      name: 'STR',
-      url: '/api/ability-scores/str',
+      index: 'aboleth',
+      name: 'Aboleth',
+      url: '/api/monsters/aboleth',
     },
     {
-      index: 'dex',
-      name: 'DEX',
-      url: '/api/ability-scores/dex',
+      index: 'acolyte',
+      name: 'Acolyte',
+      url: '/api/monsters/acolyte',
     },
     {
-      index: 'con',
-      name: 'CON',
-      url: '/api/ability-scores/con',
+      index: 'adult-black-dragon',
+      name: 'Adult Black Dragon',
+      url: '/api/monsters/adult-black-dragon',
     },
   ];
-  const request = mockRequest({ query: {} });
+  const request = mockRequest({ query: {}, originalUrl: '/api/monsters' });
 
   it('returns a list of objects', async () => {
-    mockingoose(AbilityScore).toReturn(findDoc, 'find');
+    mockingoose(Monster).toReturn(findDoc, 'find');
 
-    await simpleController.index(request, response, mockNext);
+    await MonsterController.index(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
   });
@@ -43,9 +43,9 @@ describe('index', () => {
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(AbilityScore).toReturn(error, 'find');
+      mockingoose(Monster).toReturn(error, 'find');
 
-      await simpleController.index(request, response, mockNext);
+      await MonsterController.index(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
@@ -56,18 +56,18 @@ describe('index', () => {
 
 describe('show', () => {
   const findOneDoc = {
-    index: 'str',
-    name: 'STR',
-    url: '/api/ability-scores/str',
+    index: 'aboleth',
+    name: 'Aboleth',
+    url: '/api/monsters/aboleth',
   };
 
-  const showParams = { index: 'str' };
+  const showParams = { index: 'aboleth' };
   const request = mockRequest({ params: showParams });
 
   it('returns an object', async () => {
-    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
+    mockingoose(Monster).toReturn(findOneDoc, 'findOne');
 
-    await simpleController.show(request, response, mockNext);
+    await MonsterController.show(request, response, mockNext);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
@@ -75,24 +75,24 @@ describe('show', () => {
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      mockingoose(AbilityScore).toReturn(null, 'findOne');
+      mockingoose(Monster).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = mockRequest({ params: invalidShowParams });
-      await simpleController.show(invalidRequest, response, mockNext);
+      await MonsterController.show(invalidRequest, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
-      expect(mockNext).toHaveBeenCalled();
+      expect(mockNext).toHaveBeenCalledWith();
     });
   });
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
       const error = new Error('Something went wrong');
-      mockingoose(AbilityScore).toReturn(error, 'findOne');
+      mockingoose(Monster).toReturn(error, 'findOne');
 
-      await simpleController.show(request, response, mockNext);
+      await MonsterController.show(request, response, mockNext);
 
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).not.toHaveBeenCalled();
