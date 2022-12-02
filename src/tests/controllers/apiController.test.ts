@@ -1,15 +1,12 @@
 import mockingoose from 'mockingoose';
+import { createRequest, createResponse } from 'node-mocks-http';
+
 import * as ApiController from '../../controllers/apiController.js';
-
-import { mockNext, mockRequest, mockResponse } from '../support/requestHelpers.js';
-
+import { mockNext } from '../support/requestHelpers.js';
 import Collection from '../../models/collection/index.js';
-import { MockResponse } from '../support/types.d';
 
-let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
-  response = mockResponse();
 });
 
 describe('index', () => {
@@ -29,14 +26,15 @@ describe('index', () => {
     b: '/api/b',
     c: '/api/c',
   };
-  const request = mockRequest();
+  const request = createRequest();
 
   it('returns the routes', async () => {
+    const response = createResponse();
     mockingoose(Collection).toReturn(findDoc, 'find');
 
     await ApiController.index(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
-    expect(response.json).toHaveBeenCalledWith(expectedResponse);
+    expect(response.statusCode).toBe(200);
+    expect(JSON.parse(response._getData())).toStrictEqual(expectedResponse);
   });
 });

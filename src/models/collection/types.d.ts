@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export type Collection = {
+export interface Collection {
   _id?: mongoose.Types.ObjectId;
   index: string;
-};
+}

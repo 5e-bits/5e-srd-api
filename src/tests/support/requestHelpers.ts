@@ -1,5 +1,5 @@
-import { MockResponse } from './types.d';
 import { jest } from '@jest/globals';
+import { MockResponse } from './types.d';
 
 export const mockRequest = (reqData = {}) => {
   return reqData;

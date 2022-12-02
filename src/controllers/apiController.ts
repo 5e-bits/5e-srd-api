@@ -1,13 +1,14 @@
+import { Request, Response, NextFunction } from 'express';
 import Collection from '../models/collection/index.js';
 
-export const index = async (req, res, next) => {
+export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await Collection.find({})
       .select({ index: 1, _id: 0 })
       .sort({ index: 'asc' })
       .exec();
 
-    const apiIndex = {};
+    const apiIndex: Record<string, string> = {};
     data.forEach(item => {
       if (item.index === 'levels') return;
 

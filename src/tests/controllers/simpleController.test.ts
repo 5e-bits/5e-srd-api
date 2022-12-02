@@ -1,15 +1,13 @@
-import { MockResponse } from '../support/types.d';
-import { mockNext, mockRequest, mockResponse } from '../support/requestHelpers.js';
+import mockingoose from 'mockingoose';
+import { createRequest, createResponse } from 'node-mocks-http';
 
+import { mockNext } from '../support/requestHelpers.js';
 import AbilityScore from '../../models/abilityScore/index.js';
 import SimpleController from '../../controllers/simpleController.js';
-import mockingoose from 'mockingoose';
 
-let response: MockResponse;
 let simpleController: SimpleController;
 beforeEach(() => {
   mockingoose.resetAll();
-  response = mockResponse();
   simpleController = new SimpleController(AbilityScore);
 });
 
@@ -31,25 +29,27 @@ describe('index', () => {
       url: '/api/ability-scores/con',
     },
   ];
-  const request = mockRequest({ query: {} });
+  const request = createRequest();
 
   it('returns a list of objects', async () => {
+    const response = createResponse();
     mockingoose(AbilityScore).toReturn(findDoc, 'find');
 
     await simpleController.index(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
+    expect(response.statusCode).toBe(200);
   });
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(AbilityScore).toReturn(error, 'find');
 
       await simpleController.index(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
@@ -63,40 +63,43 @@ describe('show', () => {
   };
 
   const showParams = { index: 'str' };
-  const request = mockRequest({ params: showParams });
+  const request = createRequest({ params: showParams });
 
   it('returns an object', async () => {
+    const response = createResponse();
     mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
 
     await simpleController.show(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
-    expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
+    expect(response.statusCode).toBe(200);
+    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams));
   });
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
+      const response = createResponse();
       mockingoose(AbilityScore).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
-      const invalidRequest = mockRequest({ params: invalidShowParams });
+      const invalidRequest = createRequest({ params: invalidShowParams });
       await simpleController.show(invalidRequest, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalled();
     });
   });
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(AbilityScore).toReturn(error, 'findOne');
 
       await simpleController.show(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
