@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference } from '../common/types';
 
 type Prerequisite = {
+  _id?: boolean;
   ability_score: APIReference;
   minimum_score: number;
 };

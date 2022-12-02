@@ -2,21 +2,25 @@ import * as mongoose from 'mongoose';
 import { APIReference } from '../common/types';
 
 type ClassSpecificCreatingSpellSlot = {
+  _id?: boolean;
   sorcery_point_cost: number;
   spell_slot_level: number;
 };
 
 type ClassSpecificMartialArt = {
+  _id?: boolean;
   dice_count: number;
   dice_value: number;
 };
 
 type ClassSpecificSneakAttack = {
+  _id?: boolean;
   dice_count: number;
   dice_value: number;
 };
 
 type ClassSpecific = {
+  _id?: boolean;
   action_surges?: number;
   arcane_recovery_levels?: number;
   aura_range?: number;
@@ -52,6 +56,7 @@ type ClassSpecific = {
 };
 
 type Spellcasting = {
+  _id?: boolean;
   cantrips_known?: number;
   spell_slots_level_1: number;
   spell_slots_level_2: number;
@@ -66,6 +71,7 @@ type Spellcasting = {
 };
 
 type SubclassSpecific = {
+  _id?: boolean;
   additional_magical_secrets_max_lvl?: number;
   aura_range?: number;
 };

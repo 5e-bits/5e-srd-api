@@ -1,71 +1,86 @@
-import { APIReference, Choice } from '../common/index.js';
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { APIReferenceSchema, ChoiceSchema } from '../common/index.js';
+import {
+  Action,
+  ActionDamage,
+  ActionDC,
+  ActionOption,
+  ActionUsage,
+  LegendaryAction,
+  Proficiency,
+  Reaction,
+  Sense,
+  SpecialAbilityUsage,
+  SpecialAbilitySpell,
+  SpecialAbilitySpellcasting,
+  SpecialAbility,
+  Speed,
+  Monster,
+} from './types';
 
-const Schema = mongoose.Schema;
-
-const ActionDamage = new Schema({
+const ActionDamageSchema = new Schema<ActionDamage>({
   _id: false,
   damage_dice: { type: String, index: true },
-  damage_type: APIReference,
+  damage_type: APIReferenceSchema,
 });
 
-const ActionDC = new Schema({
+const ActionDCSchema = new Schema<ActionDC>({
   _id: false,
-  dc_type: APIReference,
+  dc_type: APIReferenceSchema,
   dc_value: { type: Number, index: true },
   success_type: { type: String, index: true },
 });
 
-const ActionOption = new Schema({
+const ActionOptionSchema = new Schema<ActionOption>({
   _id: false,
   action_name: { type: String, index: true },
   count: { type: Schema.Types.Mixed, index: true },
   type: { type: String, index: true, enum: ['melee', 'ranged', 'ability', 'magic'] },
 });
 
-const ActionUsage = new Schema({
+const ActionUsageSchema = new Schema<ActionUsage>({
   _id: false,
   type: { type: String, index: true },
   dice: { type: String, index: true },
   min_value: { type: Number, index: true },
 });
 
-const Action = new Schema({
+const ActionSchema = new Schema<Action>({
   _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamage], default: undefined },
-  dc: ActionDC,
-  usage: ActionUsage,
+  damage: { type: [ActionDamageSchema], default: undefined },
+  dc: ActionDCSchema,
+  usage: ActionUsageSchema,
   multiattack_type: { type: String, index: true, enum: ['actions', 'action_options'] },
-  action_options: { type: Choice, index: true },
-  actions: { type: [ActionOption], index: true },
+  action_options: { type: ChoiceSchema, index: true },
+  actions: { type: [ActionOptionSchema], index: true },
 });
 
-const LegendaryAction = new Schema({
+const LegendaryActionSchema = new Schema<LegendaryAction>({
   _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamage], default: undefined },
-  dc: ActionDC,
+  damage: { type: [ActionDamageSchema], default: undefined },
+  dc: ActionDCSchema,
 });
 
-const Proficiency = new Schema({
+const ProficiencySchema = new Schema<Proficiency>({
   _id: false,
-  proficiency: APIReference,
+  proficiency: APIReferenceSchema,
   value: { type: Number, index: true },
 });
 
-const Reaction = new Schema({
+const ReactionSchema = new Schema<Reaction>({
   _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
-  dc: ActionDC,
+  dc: ActionDCSchema,
 });
 
-const Sense = new Schema({
+const SenseSchema = new Schema<Sense>({
   _id: false,
   blindsight: { type: String, index: true },
   darkvision: { type: String, index: true },
@@ -74,47 +89,47 @@ const Sense = new Schema({
   truesight: { type: String, index: true },
 });
 
-const SpecialAbilityUsage = new Schema({
+const SpecialAbilityUsageSchema = new Schema<SpecialAbilityUsage>({
   _id: false,
   type: { type: String, index: true },
   times: { type: Number, index: true },
   rest_types: { type: [String], index: true },
 });
 
-const SpecialAbilitySpell = new Schema({
+const SpecialAbilitySpellSchema = new Schema<SpecialAbilitySpell>({
   _id: false,
   name: { type: String, index: true },
   level: { type: Number, index: true },
   url: { type: String, index: true },
   notes: { type: String, index: true },
-  usage: SpecialAbilityUsage,
+  usage: SpecialAbilityUsageSchema,
 });
 
-const SpecialAbilitySpellcasting = new Schema({
+const SpecialAbilitySpellcastingSchema = new Schema<SpecialAbilitySpellcasting>({
   _id: false,
   level: { type: Number, index: true },
-  ability: APIReference,
+  ability: APIReferenceSchema,
   dc: { type: Number, index: true },
   modifier: { type: Number, index: true },
   components_required: { type: [String], index: true },
   school: { type: String, index: true },
   // As this has keys that are numbers, we have to use an `Object`, which you can't query subfields
   slots: Object,
-  spells: [SpecialAbilitySpell],
+  spells: [SpecialAbilitySpellSchema],
 });
 
-const SpecialAbility = new Schema({
+const SpecialAbilitySchema = new Schema<SpecialAbility>({
   _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamage], default: undefined },
-  dc: ActionDC,
-  spellcasting: SpecialAbilitySpellcasting,
-  usage: SpecialAbilityUsage,
+  damage: { type: [ActionDamageSchema], default: undefined },
+  dc: ActionDCSchema,
+  spellcasting: SpecialAbilitySpellcastingSchema,
+  usage: SpecialAbilityUsageSchema,
 });
 
-const Speed = new Schema({
+const SpeedSchema = new Schema<Speed>({
   _id: false,
   burrow: { type: String, index: true },
   climb: { type: String, index: true },
@@ -124,20 +139,20 @@ const Speed = new Schema({
   walk: { type: String, index: true },
 });
 
-const Monster = new Schema({
+const Monster = new Schema<Monster>({
   _id: { type: String, select: false },
-  actions: [Action],
+  actions: [ActionSchema],
   alignment: { type: String, index: true },
   armor_class: { type: Number, index: true },
   challenge_rating: { type: Number, index: true },
   charisma: { type: Number, index: true },
-  condition_immunities: [APIReference],
+  condition_immunities: [APIReferenceSchema],
   constitution: { type: Number, index: true },
   damage_immunities: { type: [String], index: true },
   damage_resistances: { type: [String], index: true },
   damage_vulnerabilities: { type: [String], index: true },
   dexterity: { type: Number, index: true },
-  forms: { type: [APIReference], default: undefined },
+  forms: { type: [APIReferenceSchema], default: undefined },
   hit_dice: { type: String, index: true },
   hit_points: { type: Number, index: true },
   hit_points_roll: { type: String, index: true },
@@ -145,14 +160,14 @@ const Monster = new Schema({
   index: { type: String, index: true },
   intelligence: { type: Number, index: true },
   languages: { type: String, index: true },
-  legendary_actions: [LegendaryAction],
+  legendary_actions: [LegendaryActionSchema],
   name: { type: String, index: true },
-  proficiencies: [Proficiency],
-  reactions: { type: [Reaction], default: undefined },
-  senses: Sense,
+  proficiencies: [ProficiencySchema],
+  reactions: { type: [ReactionSchema], default: undefined },
+  senses: SenseSchema,
   size: { type: String, index: true },
-  special_abilities: [SpecialAbility],
-  speed: Speed,
+  special_abilities: [SpecialAbilitySchema],
+  speed: SpeedSchema,
   strength: { type: Number, index: true },
   subtype: { type: String, index: true },
   type: { type: String, index: true },
@@ -161,4 +176,4 @@ const Monster = new Schema({
   xp: { type: Number, index: true },
 });
 
-export default mongoose.model('Monster', Monster, 'monsters');
+export default model('Monster', Monster, 'monsters');

@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference } from '../common/types';
 
 interface Rarity {
-  _id?: mongoose.Types.ObjectId;
+  _id?: boolean;
   name: string;
 }
 

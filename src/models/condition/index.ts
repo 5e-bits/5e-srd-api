@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { Condition } from './types';
 
-const Schema = mongoose.Schema;
-
-const WeaponProperty = new Schema({
+const ConditionSchema = new Schema<Condition>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -10,4 +9,4 @@ const WeaponProperty = new Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('WeaponProperty', WeaponProperty, 'weapon-properties');
+export default model('Condition', ConditionSchema, 'conditions');

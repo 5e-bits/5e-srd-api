@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { Language } from './types';
 
-const Schema = mongoose.Schema;
-
-const Language = new Schema({
+const LanguageSchema = new Schema<Language>({
   _id: { type: String, select: false },
   desc: { type: String, index: true },
   index: { type: String, index: true },
@@ -13,4 +12,4 @@ const Language = new Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Language', Language, 'languages');
+export default model('Language', LanguageSchema, 'languages');

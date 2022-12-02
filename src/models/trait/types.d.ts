@@ -1,22 +1,33 @@
 import * as mongoose from 'mongoose';
 import { APIReference, Choice, AreaOfEffect } from '../common/types';
 
+type Proficiency = {
+  _id?: boolean;
+  index: string;
+  name: string;
+  url: string;
+};
+
 type ActionDamage = {
+  _id?: boolean;
   damage_type: APIReference;
   damage_at_character_level: Record<number, string>;
 };
 
 type Usage = {
+  _id?: boolean;
   type: string;
-  times: string;
+  times: number;
 };
 
 type DC = {
+  _id?: boolean;
   dc_type: APIReference;
   success_type: string;
 };
 
 type Action = {
+  _id?: boolean;
   name: string;
   desc: string;
   usage: Usage;
@@ -26,6 +37,7 @@ type Action = {
 };
 
 type TraitSpecific = {
+  _id?: boolean;
   subtrait_options?: Choice;
   spell_options?: Choice;
   damage_type?: APIReference;
@@ -39,6 +51,7 @@ export type Trait = {
   name: string;
   proficiencies?: APIReference[];
   proficiency_choices?: Choice;
+  language_options?: Choice;
   races?: APIReference[];
   subraces?: APIReference[];
   parent?: APIReference;

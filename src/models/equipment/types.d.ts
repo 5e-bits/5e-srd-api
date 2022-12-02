@@ -2,42 +2,50 @@ import * as mongoose from 'mongoose';
 import { APIReference } from '../common/types';
 
 type ArmorClass = {
+  _id?: boolean;
   base: number;
   dex_bonus: boolean;
   max_bonus?: number;
 };
 
 type Content = {
+  _id?: boolean;
   item: APIReference;
   quantity: number;
 };
 
 type Cost = {
+  _id?: boolean;
   quantity: number;
   unit: string;
 };
 
 type Damage = {
+  _id?: boolean;
   damage_dice: string;
   damage_type: APIReference;
 };
 
 type Range = {
+  _id?: boolean;
   long?: number;
   normal: number;
 };
 
 type Speed = {
+  _id?: boolean;
   quantity: number;
   unit: string;
 };
 
 type ThrowRange = {
+  _id?: boolean;
   long: number;
   normal: number;
 };
 
 type TwoHandedDamage = {
+  _id?: boolean;
   damage_dice: string;
   damage_type: APIReference;
 };

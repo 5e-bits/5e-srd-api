@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, Choice } from '../common/types';
 
 type AbilityBonus = {
+  _id?: boolean;
   ability_score: APIReference;
   bonus: number;
 };

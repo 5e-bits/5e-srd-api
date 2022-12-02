@@ -2,35 +2,34 @@ import * as mongoose from 'mongoose';
 import { APIReference, Choice } from '../common/types';
 
 type ActionDamage = {
+  _id?: boolean;
   damage_dice: string;
   damage_type: APIReference;
 };
 
 type ActionDC = {
+  _id?: boolean;
   dc_type: APIReference;
   dc_value: number;
   success_type: string;
 };
 
-type ActionAttack = {
-  name: string;
-  dc: ActionDC;
-  damage?: ActionDamage[];
-};
-
 type ActionOption = {
+  _id?: boolean;
   action_name: string;
   count: number | string;
   type: 'melee' | 'ranged' | 'ability' | 'magic';
 };
 
 type ActionUsage = {
+  _id?: boolean;
   type: string;
   dice?: string;
   min_value?: number;
 };
 
 type Action = {
+  _id?: boolean;
   name: string;
   desc: string;
   attack_bonus?: number;
@@ -44,6 +43,7 @@ type Action = {
 };
 
 type LegendaryAction = {
+  _id?: boolean;
   name: string;
   desc: string;
   attack_bonus?: number;
@@ -52,17 +52,20 @@ type LegendaryAction = {
 };
 
 type Proficiency = {
+  _id?: boolean;
   proficiency: APIReference;
   value: number;
 };
 
 type Reaction = {
+  _id?: boolean;
   name: string;
   desc: string;
   dc?: ActionDC;
 };
 
 type Sense = {
+  _id?: boolean;
   blindsight?: string;
   darkvision?: string;
   passive_perception: number;
@@ -71,12 +74,14 @@ type Sense = {
 };
 
 type SpecialAbilityUsage = {
+  _id?: boolean;
   type: string;
   times?: number;
   rest_types?: string[];
 };
 
 type SpecialAbilitySpell = {
+  _id?: boolean;
   name: string;
   level: number;
   url: string;
@@ -85,6 +90,7 @@ type SpecialAbilitySpell = {
 };
 
 type SpecialAbilitySpellcasting = {
+  _id?: boolean;
   level?: number;
   ability: APIReference;
   dc?: number;
@@ -96,6 +102,7 @@ type SpecialAbilitySpellcasting = {
 };
 
 type SpecialAbility = {
+  _id?: boolean;
   name: string;
   desc: string;
   attack_bonus?: number;
@@ -106,6 +113,7 @@ type SpecialAbility = {
 };
 
 type Speed = {
+  _id?: boolean;
   burrow?: string;
   climb?: string;
   fly?: string;
@@ -134,7 +142,7 @@ export type Monster = {
   image?: string;
   index: string;
   intelligence: number;
-  languages: string[];
+  languages: string;
   legendary_actions?: LegendaryAction[];
   name: string;
   proficiencies: Proficiency[];

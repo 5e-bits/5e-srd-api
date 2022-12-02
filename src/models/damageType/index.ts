@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { DamageType } from './types';
 
-const Schema = mongoose.Schema;
-
-const Condition = new Schema({
+const DamageTypeSchema = new Schema<DamageType>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   index: { type: String, index: true },
@@ -10,4 +9,4 @@ const Condition = new Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Condition', Condition, 'conditions');
+export default model('DamageType', DamageTypeSchema, 'damage-types');

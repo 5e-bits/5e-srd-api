@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
-
-const Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
+import { Alignment } from './types';
 
 const Alignment = new Schema({
   _id: { type: String, select: false },
@@ -11,4 +10,4 @@ const Alignment = new Schema({
   url: { type: String, index: true },
 });
 
-export default mongoose.model('Alignment', Alignment, 'alignments');
+export default model('Alignment', Alignment, 'alignments');
