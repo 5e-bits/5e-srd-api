@@ -2,7 +2,7 @@ import { createEnumScalarType } from './enumFilterResolver.js';
 
 const types = ['SPHERE', 'CUBE', 'CYLINDER', 'LINE', 'CONE'];
 
-const getType = type => type.toLowerCase();
+const getType = (type: string) => type.toLowerCase();
 
 const AreaOfEffectTypeFilter = createEnumScalarType(
   'AreaOfEffectTypeFilter',

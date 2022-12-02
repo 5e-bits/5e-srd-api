@@ -18,7 +18,7 @@ const types = [
   'PLANT',
 ];
 
-const getType = type => {
+const getType = (type: string) => {
   if (type === 'SWARM') {
     return 'swarm of Tiny beasts';
   } else {

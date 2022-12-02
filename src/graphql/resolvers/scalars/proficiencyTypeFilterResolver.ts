@@ -12,7 +12,7 @@ const types = [
   'VEHICLES',
 ];
 
-const getType = type => {
+const getType = (type: string) => {
   if (type === 'ARTISANS_TOOLS') {
     return "Artisan's Tools";
   } else {

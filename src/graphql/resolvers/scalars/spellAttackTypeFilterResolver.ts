@@ -2,7 +2,7 @@ import { createEnumScalarType } from './enumFilterResolver.js';
 
 const types = ['MELEE', 'RANGED'];
 
-const getType = type => type.toLowerCase();
+const getType = (type: string) => type.toLowerCase();
 
 const SpellAttackTypeFilter = createEnumScalarType(
   'SpellAttackTypeFilter',

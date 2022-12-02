@@ -20,7 +20,7 @@ const subtypes = [
   'GNOME',
 ];
 
-const getSubtype = subtype => subtype.toLowerCase().replace(/_/g, ' ');
+const getSubtype = (subtype: string) => subtype.toLowerCase().replace(/_/g, ' ');
 
 const MonsterSubtypeFilter = createEnumScalarType(
   'MonsterSubtypeFilter',

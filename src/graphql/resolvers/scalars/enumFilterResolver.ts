@@ -1,6 +1,13 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 
-export const createEnumScalarType = (name, description, values, getValue) =>
+type GetValueCallback = (_: string) => string;
+
+export const createEnumScalarType = (
+  name: string,
+  description: string,
+  values: string[],
+  getValue: GetValueCallback
+) =>
   new GraphQLScalarType({
     name,
     description,

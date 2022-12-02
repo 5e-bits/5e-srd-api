@@ -1,5 +1,19 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 
+type ParseValueReturn = {
+  lte?: number;
+  gte?: number;
+  lt?: number;
+  gt?: number;
+};
+
+type ParseLiteralReturn = {
+  lte?: string;
+  gte?: string;
+  lt?: string;
+  gt?: string;
+};
+
 const IntFilter = new GraphQLScalarType({
   name: 'IntFilter',
   description:
@@ -20,7 +34,7 @@ const IntFilter = new GraphQLScalarType({
     } else if (Number.isInteger(value)) {
       return [value];
     } else if (typeof value === 'object') {
-      const returnObject = {};
+      const returnObject: ParseValueReturn = {};
       if (Number.isInteger(value.lte)) {
         returnObject.lte = value.lte;
       }
@@ -52,7 +66,7 @@ const IntFilter = new GraphQLScalarType({
     } else if (ast.kind === Kind.INT) {
       return [ast.value];
     } else if (ast.kind === Kind.OBJECT) {
-      const returnObject = {};
+      const returnObject: ParseLiteralReturn = {};
       const lte = ast.fields.find(f => f.name.value === 'lte');
       const gte = ast.fields.find(f => f.name.value === 'gte');
       const lt = ast.fields.find(f => f.name.value === 'lt');

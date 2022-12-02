@@ -2,7 +2,7 @@ import { createEnumScalarType } from './enumFilterResolver.js';
 
 const scripts = ['COMMON', 'ELVISH', 'DWARVISH', 'INFERNAL', 'DRACONIC', 'CELESTIAL'];
 
-const getScript = value => value[0] + value.slice(1).toLowerCase();
+const getScript = (value: string) => value[0] + value.slice(1).toLowerCase();
 
 const LanguageScriptFilter = createEnumScalarType(
   'LanguageScriptFilter',
