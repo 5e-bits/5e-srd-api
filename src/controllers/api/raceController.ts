@@ -1,3 +1,5 @@
+import { Request, Response, NextFunction } from 'express';
+
 import Proficiency from '../../models/proficiency/index.js';
 import Race from '../../models/race/index.js';
 import { ResourceList } from '../../util/data.js';
@@ -7,10 +9,12 @@ import Trait from '../../models/trait/index.js';
 
 const simpleController = new SimpleController(Race);
 
-export const index = async (req, res, next) => simpleController.index(req, res, next);
-export const show = async (req, res, next) => simpleController.show(req, res, next);
+export const index = async (req: Request, res: Response, next: NextFunction) =>
+  simpleController.index(req, res, next);
+export const show = async (req: Request, res: Response, next: NextFunction) =>
+  simpleController.show(req, res, next);
 
-export const showSubracesForRace = async (req, res, next) => {
+export const showSubracesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const urlString = '/api/races/' + req.params.index;
 
@@ -26,7 +30,7 @@ export const showSubracesForRace = async (req, res, next) => {
   }
 };
 
-export const showTraitsForRace = async (req, res, next) => {
+export const showTraitsForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const urlString = '/api/races/' + req.params.index;
 
@@ -42,7 +46,7 @@ export const showTraitsForRace = async (req, res, next) => {
   }
 };
 
-export const showProficienciesForRace = async (req, res, next) => {
+export const showProficienciesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const urlString = '/api/races/' + req.params.index;
 

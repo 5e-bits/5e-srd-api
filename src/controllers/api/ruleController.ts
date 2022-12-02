@@ -1,20 +1,26 @@
+import { Request, Response, NextFunction } from 'express';
 import { ResourceList, escapeRegExp, redisClient } from '../../util/index.js';
 
 import Rule from '../../models/rule/index.js';
 
-export const index = async (req, res, next) => {
+interface IndexQuery {
+  name?: { $regex: RegExp };
+  desc?: { $regex: RegExp };
+}
+
+export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const searchQueries = {};
+    const searchQueries: IndexQuery = {};
     if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name as string), 'i') };
     }
     if (req.query.desc !== undefined) {
-      searchQueries.desc = { $regex: new RegExp(escapeRegExp(req.query.desc), 'i') };
+      searchQueries.desc = { $regex: new RegExp(escapeRegExp(req.query.desc as string), 'i') };
     }
 
     const redisKey = req.originalUrl;
-    let data;
-    data = await redisClient.get(redisKey);
+    const data = await redisClient.get(redisKey);
+
     if (data) {
       res.status(200).json(JSON.parse(data));
     } else {
@@ -30,7 +36,7 @@ export const index = async (req, res, next) => {
   }
 };
 
-export const show = async (req, res, next) => {
+export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await Rule.findOne({ index: req.params.index });
     if (!data) return next();

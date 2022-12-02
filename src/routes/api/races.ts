@@ -3,11 +3,11 @@ import * as express from 'express';
 
 const router = express.Router();
 
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function(req, res, next) {
   RaceController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function(req, res, next) {
   RaceController.show(req, res, next);
 });
 

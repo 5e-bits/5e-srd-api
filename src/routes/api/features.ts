@@ -4,11 +4,11 @@ import FeatureController from '../../controllers/api/featureController.js';
 
 const router = express.Router();
 
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function(req, res, next) {
   FeatureController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function(req, res, next) {
   FeatureController.show(req, res, next);
 });
 

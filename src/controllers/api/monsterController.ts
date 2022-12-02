@@ -1,26 +1,33 @@
+import { Request, Response, NextFunction } from 'express';
+
 import { ResourceList, escapeRegExp, redisClient } from '../../util/index.js';
 
 import Monster from '../../models/monster/index.js';
 
-export const index = async (req, res, next) => {
+interface IndexQuery {
+  name?: { $regex: RegExp };
+  challenge_rating?: { $in: string[] | number[] };
+}
+
+export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const searchQueries = {};
+    const searchQueries: IndexQuery = {};
     if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name), 'i') };
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name as string), 'i') };
     }
     if (req.query.challenge_rating !== undefined) {
       if (typeof req.query.challenge_rating === 'string') {
-        req.query.challenge_rating = req.query.challenge_rating
-          .split(',')
-          .map(Number)
-          .filter(item => !isNaN(item));
+        req.query.challenge_rating = req.query.challenge_rating.split(',');
       }
-      searchQueries.challenge_rating = { $in: req.query.challenge_rating };
+
+      const challengeRating = req.query.challenge_rating as string[];
+      searchQueries.challenge_rating = {
+        $in: challengeRating.map(Number).filter(item => !isNaN(item)),
+      };
     }
 
     const redisKey = req.originalUrl;
-    let data;
-    data = await redisClient.get(redisKey);
+    const data = await redisClient.get(redisKey);
 
     if (data) {
       res.status(200).json(JSON.parse(data));
@@ -37,7 +44,7 @@ export const index = async (req, res, next) => {
   }
 };
 
-export const show = async (req, res, next) => {
+export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await Monster.findOne({ index: req.params.index });
     if (!data) return next();

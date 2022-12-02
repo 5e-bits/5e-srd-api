@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express';
 import Feature from '../../models/feature/index.js';
 import Level from '../../models/level/index.js';
 import { ResourceList } from '../../util/data.js';
@@ -6,10 +7,12 @@ import Subclass from '../../models/subclass/index.js';
 
 const simpleController = new SimpleController(Subclass);
 
-export const index = async (req, res, next) => simpleController.index(req, res, next);
-export const show = async (req, res, next) => simpleController.show(req, res, next);
+export const index = async (req: Request, res: Response, next: NextFunction) =>
+  simpleController.index(req, res, next);
+export const show = async (req: Request, res: Response, next: NextFunction) =>
+  simpleController.show(req, res, next);
 
-export const showLevelsForSubclass = async (req, res, next) => {
+export const showLevelsForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const urlString = '/api/subclasses/' + req.params.index;
 
@@ -20,7 +23,7 @@ export const showLevelsForSubclass = async (req, res, next) => {
   }
 };
 
-export const showLevelForSubclass = async (req, res, next) => {
+export const showLevelForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!Number.isInteger(parseInt(req.params.level))) {
       return res.status(404).json({ error: 'Not found' });
@@ -36,7 +39,7 @@ export const showLevelForSubclass = async (req, res, next) => {
   }
 };
 
-export const showFeaturesForSubclass = async (req, res, next) => {
+export const showFeaturesForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const urlString = '/api/subclasses/' + req.params.index;
 
@@ -51,7 +54,11 @@ export const showFeaturesForSubclass = async (req, res, next) => {
   }
 };
 
-export const showFeaturesForSubclassAndLevel = async (req, res, next) => {
+export const showFeaturesForSubclassAndLevel = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     if (!Number.isInteger(parseInt(req.params.level))) {
       return res.status(404).json({ error: 'Not found' });

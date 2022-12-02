@@ -4,12 +4,11 @@ import LanguageController from '../../controllers/api/languageController.js';
 
 const router = express.Router();
 
-
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function(req, res, next) {
   LanguageController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function(req, res, next) {
   LanguageController.show(req, res, next);
 });
 

@@ -1,8 +1,9 @@
+import { Request, Response, NextFunction } from 'express';
 import aws from 'aws-sdk';
 
 const s3 = new aws.S3({ params: { Bucket: 'dnd-5e-api-images' } });
 
-const show = async (req, res, next) => {
+const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const params = {
       Bucket: 'dnd-5e-api-images',

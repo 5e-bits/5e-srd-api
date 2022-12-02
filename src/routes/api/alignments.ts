@@ -4,12 +4,11 @@ import AlignmentController from '../../controllers/api/alignmentController.js';
 
 const router = express.Router();
 
-
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function(req, res, next) {
   AlignmentController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function(req, res, next) {
   AlignmentController.show(req, res, next);
 });
 
