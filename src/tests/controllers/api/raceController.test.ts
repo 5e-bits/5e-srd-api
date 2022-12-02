@@ -1,18 +1,16 @@
 import mockingoose from 'mockingoose';
+import { createRequest, createResponse } from 'node-mocks-http';
 import * as RaceController from '../../../controllers/api/raceController.js';
 
-import { mockNext, mockRequest, mockResponse } from '../../support/requestHelpers.js';
+import { mockNext } from '../../support/requestHelpers.js';
 
 import Proficiency from '../../../models/proficiency/index.js';
 import Race from '../../../models/race/index.js';
 import Subrace from '../../../models/subrace/index.js';
 import Trait from '../../../models/trait/index.js';
-import { MockResponse } from '../../support/types.d';
 
-let response: MockResponse;
 beforeEach(() => {
   mockingoose.resetAll();
-  response = mockResponse();
 });
 
 describe('index', () => {
@@ -33,25 +31,27 @@ describe('index', () => {
       url: '/api/races/elf',
     },
   ];
-  const request = mockRequest({ query: {} });
+  const request = createRequest({ query: {} });
 
   it('returns a list of objects', async () => {
+    const response = createResponse();
     mockingoose(Race).toReturn(findDoc, 'find');
 
     await RaceController.index(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
+    expect(response.statusCode).toBe(200);
   });
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(Race).toReturn(error, 'find');
 
       await RaceController.index(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
@@ -65,40 +65,43 @@ describe('show', () => {
   };
 
   const showParams = { index: 'dragonborn' };
-  const request = mockRequest({ params: showParams });
+  const request = createRequest({ params: showParams });
 
   it('returns an object', async () => {
+    const response = createResponse();
     mockingoose(Race).toReturn(findOneDoc, 'findOne');
 
     await RaceController.show(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
-    expect(response.json).toHaveBeenCalledWith(expect.objectContaining(showParams));
+    expect(response.statusCode).toBe(200);
+    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams));
   });
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
+      const response = createResponse();
       mockingoose(Race).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
-      const invalidRequest = mockRequest({ params: invalidShowParams });
+      const invalidRequest = createRequest({ params: invalidShowParams });
       await RaceController.show(invalidRequest, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalled();
     });
   });
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(Race).toReturn(error, 'findOne');
 
       await RaceController.show(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
@@ -113,25 +116,27 @@ describe('showSubracesForRace', () => {
     },
   ];
   const showParams = { index: 'dragonborn' };
-  const request = mockRequest({ params: showParams });
+  const request = createRequest({ params: showParams });
 
   it('returns a list of objects', async () => {
+    const response = createResponse();
     mockingoose(Subrace).toReturn(findDoc, 'find');
 
     await RaceController.showSubracesForRace(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
+    expect(response.statusCode).toBe(200);
   });
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(Subrace).toReturn(error, 'find');
 
       await RaceController.showSubracesForRace(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
@@ -156,25 +161,27 @@ describe('showTraitsForRace', () => {
     },
   ];
   const showParams = { index: 'elf' };
-  const request = mockRequest({ params: showParams });
+  const request = createRequest({ params: showParams });
 
   it('returns a list of objects', async () => {
+    const response = createResponse();
     mockingoose(Trait).toReturn(findDoc, 'find');
 
     await RaceController.showTraitsForRace(request, response, mockNext);
 
-    expect(response.status).toHaveBeenCalledWith(200);
+    expect(response.statusCode).toBe(200);
   });
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(Trait).toReturn(error, 'find');
 
       await RaceController.showTraitsForRace(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
@@ -198,24 +205,26 @@ describe('showProficienciesForRace', () => {
       url: '/api/proficiencies/quarterstaffs',
     },
   ];
-  const request = mockRequest({ params: { index: 'elf' } });
+  const request = createRequest({ params: { index: 'elf' } });
 
   it('returns a list of objects', async () => {
+    const response = createResponse();
     mockingoose(Proficiency).toReturn(findDoc, 'find');
 
     await RaceController.showProficienciesForRace(request, response, mockNext);
-    expect(response.status).toHaveBeenCalledWith(200);
+    expect(response.statusCode).toBe(200);
   });
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
+      const response = createResponse();
       const error = new Error('Something went wrong');
       mockingoose(Proficiency).toReturn(error, 'find');
 
       await RaceController.showProficienciesForRace(request, response, mockNext);
 
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
+      expect(response.statusCode).toBe(200);
+      expect(response._getData()).toStrictEqual('');
       expect(mockNext).toHaveBeenCalledWith(error);
     });
   });
