@@ -92,3 +92,9 @@ Additional details and information on working with the documentation can be foun
 ## Code of Conduct
 
 The Code of Conduct for this repo can be found [here.](https://github.com/5e-bits/5e-srd-api/wiki#code-of-conduct)
+
+## Contributors
+
+<a href="https://github.com/5e-bits/5e-srd-api/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=5e-bits/5e-srd-api" />
+</a>
