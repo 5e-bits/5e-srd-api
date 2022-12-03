@@ -1,4 +1,11 @@
-export const ClassAPIResource = data => {
+type ClassAPIData = {
+  index: string;
+  url: string;
+  class: {
+    name: string;
+  };
+}[];
+export const ClassAPIResource = (data: ClassAPIData) => {
   const mapped = data.map(item => {
     return {
       index: item.index,
@@ -13,7 +20,7 @@ export const ClassAPIResource = data => {
   };
 };
 
-export const ResourceList = data => {
+export const ResourceList = (data: any[]) => {
   return {
     count: data.length,
     results: data,
