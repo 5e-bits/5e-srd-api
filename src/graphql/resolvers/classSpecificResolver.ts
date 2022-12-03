@@ -1,5 +1,7 @@
+import { ClassSpecific as ClassSpecificType } from '../../models/level/types';
+
 const ClassSpecific = {
-  __resolveType(specific) {
+  __resolveType(specific: ClassSpecificType) {
     if (specific.rage_count !== undefined) return 'BarbarianSpecific';
     if (specific.bardic_inspiration_die !== undefined) return 'BardSpecific';
     if (specific.channel_divinity_charges !== undefined) return 'ClericSpecific';

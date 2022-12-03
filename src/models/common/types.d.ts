@@ -19,7 +19,7 @@ export interface AreaOfEffect {
   type: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone';
 }
 
-type OptionSet = OptionsArrayOptionSet | EquipmentCategoryOptionSet | ResourceListOptionSet;
+export type OptionSet = OptionsArrayOptionSet | EquipmentCategoryOptionSet | ResourceListOptionSet;
 
 type OptionsArrayOptionSet = {
   _id?: boolean;
@@ -52,7 +52,7 @@ type Damage = {
   damage_dice: string;
 };
 
-type Option =
+export type Option =
   | ReferenceOption
   | ActionOption
   | MultipleOption

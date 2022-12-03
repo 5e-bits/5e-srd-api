@@ -1,10 +1,17 @@
-import { levelObjectToArray, resolveChoice, resolveDc, resolveUsage } from './common.js';
+import { levelObjectToArray, resolveChoice, resolveDc } from './common.js';
 
 import ConditionModel from '../../models/condition/index.js';
 import DamageTypeModel from '../../models/damageType/index.js';
 import MonsterModel from '../../models/monster/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SpellModel from '../../models/spell/index.js';
+
+const resolveUsage = usage => {
+  const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
+  if (usage.rest_types) resolvedUsage.rest_types = usage.rest_types.map(rt => rt.toUpperCase());
+
+  return resolvedUsage;
+};
 
 const resolveDamage = async damage => {
   const damageTypes = await DamageTypeModel.find({

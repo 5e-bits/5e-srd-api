@@ -3,13 +3,20 @@ import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import WeaponPropertyModel from '../../models/weaponProperty/index.js';
 import { coalesceFilters, equipmentFieldResolvers, resolveContainsStringFilter } from './common.js';
 
+import { Equipment } from '../../models/equipment/types';
+
+type Args = {
+  name?: string;
+  order_direction?: string;
+};
+
 const Weapon = {
   ...equipmentFieldResolvers,
-  category_range: async weapon => {
-    const indexStart = weapon.category_range.replace(/\s+/g, '-').toLowerCase();
+  category_range: async (weapon: Equipment) => {
+    const indexStart = weapon.category_range?.replace(/\s+/g, '-').toLowerCase();
     return await EquipmentCategoryModel.findOne({ index: `${indexStart}-weapons` }).lean();
   },
-  damage: async weapon =>
+  damage: async (weapon: Equipment) =>
     weapon.damage
       ? {
           ...weapon.damage,
@@ -18,10 +25,10 @@ const Weapon = {
           }).lean(),
         }
       : null,
-  properties: async (weapon, args) => {
-    const filters = [
+  properties: async (weapon: Equipment, args: Args) => {
+    const filters: any[] = [
       {
-        index: { $in: weapon.properties.map(p => p.index) },
+        index: { $in: weapon.properties?.map(p => p.index) },
       },
     ];
 
@@ -31,11 +38,11 @@ const Weapon = {
 
     return await WeaponPropertyModel.find(coalesceFilters(filters)).lean();
   },
-  weapon_category: async weapon =>
+  weapon_category: async (weapon: Equipment) =>
     await EquipmentCategoryModel.findOne({
-      index: `${weapon.weapon_category.toLowerCase()}-weapons`,
+      index: `${weapon.weapon_category?.toLowerCase()}-weapons`,
     }).lean(),
-  weapon_range: weapon => weapon.weapon_range.toUpperCase(),
+  weapon_range: (weapon: Equipment) => weapon.weapon_range?.toUpperCase(),
 };
 
 export default Weapon;

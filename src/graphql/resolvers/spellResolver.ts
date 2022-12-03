@@ -10,12 +10,25 @@ import {
   resolveContainsStringFilter,
 } from './common.js';
 
+import { Spell } from '../../models/spell/types';
+import { DamageType } from '../../models/damageType/types';
+
+type Args = {
+  name?: string;
+  order_direction?: string;
+};
+type SpellDamage = {
+  damage_type?: DamageType;
+  damage_at_slot_level?: Record<string, string>[];
+  damage_at_character_level?: Record<string, string>[];
+};
+
 const Spell = {
-  attack_type: spell => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
-  area_of_effect: spell =>
+  attack_type: (spell: Spell) => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
+  area_of_effect: (spell: Spell) =>
     spell.area_of_effect ? resolveAreaOfEffect(spell.area_of_effect) : null,
-  classes: async (spell, args) => {
-    const filters = [{ index: { $in: spell.classes.map(c => c.index) } }];
+  classes: async (spell: Spell, args: Args) => {
+    const filters: any[] = [{ index: { $in: spell.classes.map(c => c.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -23,8 +36,8 @@ const Spell = {
 
     return await ClassModel.find(coalesceFilters(filters)).lean();
   },
-  subclasses: async (spell, args) => {
-    const filters = [{ index: { $in: spell.subclasses.map(s => s.index) } }];
+  subclasses: async (spell: Spell, args: Args) => {
+    const filters: any[] = [{ index: { $in: spell.subclasses?.map(s => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -32,9 +45,9 @@ const Spell = {
 
     return await SubclassModel.find(coalesceFilters(filters)).lean();
   },
-  damage: async spell => {
+  damage: async (spell: Spell) => {
     if (!spell.damage) return null;
-    const spellDamage = {};
+    const spellDamage: SpellDamage = {};
     if (spell.damage.damage_type)
       spellDamage.damage_type = await DamageTypeModel.findOne({
         index: spell.damage.damage_type.index,
@@ -52,7 +65,7 @@ const Spell = {
 
     return spellDamage;
   },
-  dc: async spell =>
+  dc: async (spell: Spell) =>
     spell.dc
       ? {
           ...spell.dc,
@@ -60,9 +73,10 @@ const Spell = {
           success: spell.dc.dc_success.toUpperCase(),
         }
       : null,
-  heal_at_slot_level: spell =>
+  heal_at_slot_level: (spell: Spell) =>
     spell.heal_at_slot_level ? levelObjectToArray(spell.heal_at_slot_level, 'healing') : null,
-  school: async spell => await MagicSchoolModel.findOne({ index: spell.school.index }).lean(),
+  school: async (spell: Spell) =>
+    await MagicSchoolModel.findOne({ index: spell.school.index }).lean(),
 };
 
 export default Spell;

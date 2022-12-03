@@ -1,7 +1,8 @@
 import { resolveEquipmentType } from './common.js';
+import { Equipment } from '../../models/equipment/types';
 
 const IEquipment = {
-  __resolveType(equipment) {
+  __resolveType(equipment: Equipment) {
     return resolveEquipmentType(equipment);
   },
 };

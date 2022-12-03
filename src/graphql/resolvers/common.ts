@@ -1,31 +1,33 @@
 import AbilityScoreModel from '../../models/abilityScore/index.js';
 import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import { Equipment } from '../../models/equipment/types';
+import { DifficultyClass, AreaOfEffect, Choice } from '../../models/common/types';
 import SpellModel from '../../models/spell/index.js';
 
 export const equipmentBaseFieldResolvers = {
-  equipment_category: async equipment =>
+  equipment_category: async (equipment: Equipment) =>
     await EquipmentCategoryModel.findOne({ index: equipment.equipment_category.index }).lean(),
 };
 
 export const equipmentFieldResolvers = {
   ...equipmentBaseFieldResolvers,
-  cost: equipment => ({ ...equipment.cost, unit: equipment.cost.unit.toUpperCase() }),
+  cost: (equipment: Equipment) => ({ ...equipment.cost, unit: equipment.cost.unit.toUpperCase() }),
 };
 
 export const gearFieldResolvers = {
   ...equipmentFieldResolvers,
-  gear_category: async gear =>
-    await EquipmentCategoryModel.findOne({ index: gear.gear_category.index }).lean(),
+  gear_category: async (gear: Equipment) =>
+    await EquipmentCategoryModel.findOne({ index: gear.gear_category?.index }).lean(),
 };
 
-export const resolveGearType = gear => {
+export const resolveGearType = (gear: Equipment) => {
   if (gear.contents) return 'Pack';
   if (gear.quantity) return 'Ammunition';
   if (gear.gear_category) return 'Gear';
   return null;
 };
 
-export const resolveEquipmentType = equipment => {
+export const resolveEquipmentType = (equipment: Equipment) => {
   if (equipment.tool_category) return 'Tool';
   if (equipment.gear_category) return resolveGearType(equipment);
   if (equipment.armor_class) return 'Armor';
@@ -34,10 +36,32 @@ export const resolveEquipmentType = equipment => {
   return null;
 };
 
-const resolveSpellOrderBy = value =>
+const resolveSpellOrderBy = (value: string) =>
   value === 'AREA_OF_EFFECT_SIZE' ? 'area_of_effect.size' : value.toLowerCase();
 
-export const resolveSpells = async (args, baseFilters) => {
+export type SpellQuery = {
+  name?: string;
+  school?: string;
+  level?: ResolveNumberValue;
+  class?: string;
+  subclass?: string;
+  concentration?: boolean;
+  ritual?: boolean;
+  attack_type?: string;
+  casting_time?: string;
+  area_of_effect: {
+    type: string;
+    size: ResolveNumberValue;
+  };
+  damage_type?: string;
+  dc_type?: string;
+  range?: string;
+  order?: Order;
+  skip: number;
+  limit: number;
+};
+
+export const resolveSpells = async (args: SpellQuery, baseFilters: any[]) => {
   const filters = [...baseFilters];
   if (args.name) {
     const filter = resolveContainsStringFilter(args.name);
@@ -115,7 +139,7 @@ export const resolveSpells = async (args, baseFilters) => {
     .lean();
 };
 
-export const coalesceFilters = filters => {
+export const coalesceFilters = (filters: any[]) => {
   let filter = {};
   if (filters.length === 1) {
     filter = filters[0];
@@ -128,11 +152,25 @@ export const coalesceFilters = filters => {
   return filter;
 };
 
-export const coalesceSort = (order, getPropertyName, maxDepth) => {
-  const sort = {};
+type GetPropertyNameCallback = (_: string) => string;
+type Order = {
+  by: string;
+  direction: string;
+  then_by?: Order;
+};
+
+export const coalesceSort = (
+  order: Order | undefined,
+  getPropertyName: GetPropertyNameCallback,
+  maxDepth: number
+) => {
+  const sort: Record<string, number> = {};
   let depth = 0;
 
   do {
+    if (!order) {
+      break;
+    }
     if (depth >= maxDepth) {
       throw 'Maximum sort depth reached';
     }
@@ -152,13 +190,29 @@ export const coalesceSort = (order, getPropertyName, maxDepth) => {
   return sort;
 };
 
-export const resolveNumberFilter = (value, propertyName) => {
-  const filter = {};
+type ResolveNumberValue =
+  | number[]
+  | {
+      lte?: number;
+      gte?: number;
+      lt?: number;
+      gt?: number;
+    };
+type NumberFilter = Record<string, { $in: number[] } | RangeFilter>;
+type RangeFilter = {
+  $gte?: number;
+  $lte?: number;
+  $lt?: number;
+  $gt?: number;
+};
+
+export const resolveNumberFilter = (value: ResolveNumberValue, propertyName: string) => {
+  const filter: NumberFilter = {};
 
   if (Array.isArray(value)) {
     filter[propertyName] = { $in: value };
   } else {
-    const rangeFilter = {};
+    const rangeFilter: RangeFilter = {};
     if (value.lte) {
       rangeFilter.$lte = value.lte;
     }
@@ -178,13 +232,18 @@ export const resolveNumberFilter = (value, propertyName) => {
   return filter;
 };
 
-export const getMongoSortDirection = value => (value === 'ASCENDING' ? 1 : -1);
+export const getMongoSortDirection = (value: string) => (value === 'ASCENDING' ? 1 : -1);
 
-export const levelObjectToArray = (obj, fieldName) =>
+export const levelObjectToArray = (obj: Record<number, string>, fieldName: string) =>
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
 
-export const resolveDc = async dc => {
-  const resolvedDc = {
+type ResolvedDC = {
+  type: string;
+  success: string;
+  value?: number;
+};
+export const resolveDc = async (dc: DifficultyClass) => {
+  const resolvedDc: ResolvedDC = {
     type: await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean(),
     success: dc.success_type.toUpperCase(),
   };
@@ -196,14 +255,7 @@ export const resolveDc = async dc => {
   return resolvedDc;
 };
 
-export const resolveUsage = usage => {
-  const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
-  if (usage.rest_types) resolvedUsage.rest_types = usage.rest_types.map(rt => rt.toUpperCase());
-
-  return resolvedUsage;
-};
-
-export const resolveChoice = (choice, fromOverride, replace = false) => ({
+export const resolveChoice = (choice: Choice, fromOverride: any, replace = false) => ({
   ...choice,
   from: {
     ...(replace ? {} : choice.from),
@@ -211,11 +263,11 @@ export const resolveChoice = (choice, fromOverride, replace = false) => ({
   },
 });
 
-export const resolveAreaOfEffect = areaOfEffect => ({
+export const resolveAreaOfEffect = (areaOfEffect: AreaOfEffect) => ({
   ...areaOfEffect,
   type: areaOfEffect.type.toUpperCase(),
 });
 
-export const resolveContainsStringFilter = (val, prop = 'name') => ({
+export const resolveContainsStringFilter = (val: string, prop = 'name') => ({
   [prop]: new RegExp(val, 'i'),
 });

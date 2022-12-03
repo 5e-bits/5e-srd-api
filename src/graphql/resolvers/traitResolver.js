@@ -5,7 +5,6 @@ import {
   resolveChoice,
   resolveDc,
   resolveContainsStringFilter,
-  resolveUsage,
 } from './common.js';
 
 import DamageTypeModel from '../../models/damageType/index.js';
@@ -15,6 +14,12 @@ import SpellModel from '../../models/spell/index.js';
 import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
 import LanguageModel from '../../models/language/index.js';
+
+const resolveUsage = usage => {
+  const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
+
+  return resolvedUsage;
+};
 
 const Trait = {
   proficiencies: async (trait, args) => {

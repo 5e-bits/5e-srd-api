@@ -1,16 +1,17 @@
 import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import { equipmentFieldResolvers } from './common.js';
 
-const Tool = {
+import { Equipment } from '../../models/equipment/types';
+
+const Vehicle = {
   ...equipmentFieldResolvers,
-  tool_category: async tool => {
-    let index = tool.tool_category
+  vehicle_category: async (vehicle: Equipment) => {
+    const index = vehicle.vehicle_category
+      ?.toLowerCase()
       .replace(/\s+/g, '-')
-      .replace(/'/g, '')
-      .toLowerCase();
-    if (index.charAt(index.length - 1) !== 's') index += 's';
+      .replace(/,/g, '');
     return await EquipmentCategoryModel.findOne({ index }).lean();
   },
 };
 
-export default Tool;
+export default Vehicle;
