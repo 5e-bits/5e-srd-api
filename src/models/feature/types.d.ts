@@ -2,11 +2,13 @@ import * as mongoose from 'mongoose';
 import { APIReference, Choice } from '../common/types';
 
 type Prerequisite = {
+  _id?: boolean;
   level: number;
   type: string;
 };
 
 type FeatureSpecific = {
+  _id?: boolean;
   subfeature_options?: Choice;
   expertise_options?: Choice;
   invocations?: APIReference[];

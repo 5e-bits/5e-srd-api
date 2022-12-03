@@ -4,12 +4,11 @@ import DamageTypeController from '../../controllers/api/damageTypeController.js'
 
 const router = express.Router();
 
-
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function(req, res, next) {
   DamageTypeController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function(req, res, next) {
   DamageTypeController.show(req, res, next);
 });
 

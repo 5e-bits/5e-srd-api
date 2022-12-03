@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference } from '../common/types';
 
 type Reference = {
+  _id: false;
   index: string;
   name: string;
   type: string;

@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference } from '../common/types';
 
 type SpellPrerequisite = {
+  _id?: boolean;
   index: string;
   name: string;
   type: string;
@@ -9,6 +10,7 @@ type SpellPrerequisite = {
 };
 
 type Spell = {
+  _id?: boolean;
   prerequisites: SpellPrerequisite[];
   spell: APIReference;
 };

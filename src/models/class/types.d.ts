@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { APIReference, Choice } from '../common/types';
 
 type Equipment = {
+  _id?: boolean;
   equipment: APIReference;
   quantity: number;
 };
@@ -12,22 +13,26 @@ type StartingEquipmentOption = {
 };
 
 type SpellcastingInfo = {
+  _id?: boolean;
   desc: string[];
   name: string;
 };
 
 type Spellcasting = {
+  _id?: boolean;
   info: SpellcastingInfo[];
   level: number;
   spellcasting_ability: APIReference;
 };
 
 type MultiClassingPrereq = {
+  _id?: boolean;
   ability_score: APIReference;
   minimum_score: number;
 };
 
 type MultiClassing = {
+  _id?: boolean;
   prerequisites?: MultiClassingPrereq[];
   prerequisite_options?: Choice;
   proficiencies?: APIReference[];

@@ -1,13 +1,13 @@
-import * as ClassController from '../../controllers/api/classController.js';
 import * as express from 'express';
+import * as ClassController from '../../controllers/api/classController.js';
 
 const router = express.Router();
 
-router.get('/', function(req: any, res: any, next: any) {
+router.get('/', function(req, res, next) {
   ClassController.index(req, res, next);
 });
 
-router.get('/:index', function(req: any, res: any, next: any) {
+router.get('/:index', function(req, res, next) {
   ClassController.show(req, res, next);
 });
 

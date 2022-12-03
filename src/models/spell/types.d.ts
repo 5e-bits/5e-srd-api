@@ -2,14 +2,14 @@ import * as mongoose from 'mongoose';
 import { APIReference, AreaOfEffect } from '../common/types';
 
 interface Damage {
-  _id?: mongoose.Types.ObjectId;
+  _id?: boolean;
   damage_at_slot_level?: Record<number, string>;
   damage_at_character_level?: Record<number, string>;
   damage_type?: APIReference;
 }
 
 interface DC {
-  _id?: mongoose.Types.ObjectId;
+  _id?: boolean;
   dc_success: string;
   dc_type: APIReference;
   desc?: string;
