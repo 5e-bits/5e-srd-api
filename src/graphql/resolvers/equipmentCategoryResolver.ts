@@ -2,20 +2,35 @@ import EquipmentModel from '../../models/equipment/index.js';
 import MagicItemModel from '../../models/magicItem/index.js';
 import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common.js';
 
+import { EquipmentCategory } from '../../models/equipmentCategory/types';
+import { MagicItem } from '../../models/magicItem/types';
+import { Equipment } from '../../models/equipment/types';
+import { Order } from './common';
+
+type Args = {
+  name?: string;
+  order?: Order;
+  skip?: number;
+  limit: number;
+};
+type SortParams = Record<string, number>;
+
 const EquipmentCategory = {
-  equipment: async (equipmentCategory, args) => {
+  equipment: async (equipmentCategory: EquipmentCategory, args: Args) => {
     const indexes = equipmentCategory.equipment.map(e => e.index);
-    const filters = [{ index: { $in: indexes } }];
+    const filters: any[] = [{ index: { $in: indexes } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
     }
 
+    let equipmentToReturn: (MagicItem | Equipment)[] = [];
     const equipment = await EquipmentModel.find(coalesceFilters(filters)).lean();
+    equipmentToReturn = equipmentToReturn.concat(equipment);
     const magicItems = await MagicItemModel.find(coalesceFilters(filters)).lean();
-    const equipmentToReturn = equipment.concat(magicItems);
+    equipmentToReturn = equipmentToReturn.concat(magicItems);
 
-    let sort = {};
+    let sort: SortParams = {};
     if (args.order) {
       sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
     }
@@ -34,9 +49,11 @@ const EquipmentCategory = {
 
     if (sort.weight) {
       equipmentToReturn.sort((a, b) => {
-        if (a.weight < b.weight) {
+        const aWeight = 'weight' in a ? a.weight || 0 : 0;
+        const bWeight = 'weight' in b ? b.weight || 0 : 0;
+        if (aWeight < bWeight) {
           return -sort.weight;
-        } else if (a.weight > b.weight) {
+        } else if (aWeight > bWeight) {
           return sort.weight;
         } else {
           return 0;

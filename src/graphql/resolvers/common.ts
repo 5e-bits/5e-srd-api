@@ -153,7 +153,7 @@ export const coalesceFilters = (filters: any[]) => {
 };
 
 type GetPropertyNameCallback = (_: string) => string;
-type Order = {
+export type Order = {
   by: string;
   direction: string;
   then_by?: Order;
