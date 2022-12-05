@@ -5,10 +5,17 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
 
+import { Background } from '../../models/background/types';
+
+type Args = {
+  name?: string;
+  order_direction?: string;
+};
+
 const Background = {
-  starting_equipment: async (background, args) => {
+  starting_equipment: async (background: Background, args: Args) => {
     const starting_equipment = background.starting_equipment;
-    const filters = [
+    const filters: any[] = [
       {
         index: { $in: starting_equipment.map(se => se.equipment.index) },
       },
@@ -25,8 +32,8 @@ const Background = {
       equipment: equipment.find(e => e.index === se.equipment.index),
     }));
   },
-  starting_proficiencies: async (background, args) => {
-    const filters = [
+  starting_proficiencies: async (background: Background, args: Args) => {
+    const filters: any[] = [
       {
         index: { $in: background.starting_proficiencies.map(sp => sp.index) },
       },
@@ -38,7 +45,7 @@ const Background = {
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();
   },
-  language_options: async background =>
+  language_options: async (background: Background) =>
     resolveChoice(
       background.language_options,
       {
@@ -50,23 +57,33 @@ const Background = {
       },
       true
     ),
-  starting_equipment_options: async background =>
-    background.starting_equipment_options.map(async option =>
-      resolveChoice(option, {
-        equipment_category: await EquipmentCategoryModel.findOne({
-          index: option.from.equipment_category.index,
-        }).lean(),
-      })
-    ),
-  ideals: async background =>
-    resolveChoice(background.ideals, {
-      options: background.ideals.from.options.map(async option => ({
-        ...option,
-        alignments: await AlignmentModel.find({
-          index: { $in: option.alignments.map(a => a.index) },
-        }).lean(),
-      })),
+  starting_equipment_options: async (background: Background) =>
+    background.starting_equipment_options.map(async option => {
+      if ('equipment_category' in option.from) {
+        return resolveChoice(option, {
+          equipment_category: await EquipmentCategoryModel.findOne({
+            index: option.from.equipment_category.index,
+          }).lean(),
+        });
+      }
     }),
+  ideals: async (background: Background) => {
+    if ('options' in background.ideals.from) {
+      const options = background.ideals.from.options.map(async option => {
+        if ('alignments' in option) {
+          return {
+            ...option,
+            alignments: await AlignmentModel.find({
+              index: { $in: option.alignments.map(a => a.index) },
+            }).lean(),
+          };
+        }
+      });
+      return resolveChoice(background.ideals, {
+        options,
+      });
+    }
+  },
 };
 
 export default Background;
