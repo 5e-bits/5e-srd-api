@@ -14,7 +14,7 @@ type ActionDamage = {
   damage_at_character_level: Record<number, string>;
 };
 
-type Usage = {
+export type Usage = {
   _id?: boolean;
   type: string;
   times: number;

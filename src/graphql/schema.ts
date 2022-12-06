@@ -5,7 +5,7 @@ import resolvers from './resolvers/rootResolvers';
 
 const typeDefs = readFileSync(
   path.resolve(process.cwd(), 'src', 'graphql', 'typeDefs.graphql'),
-  'UTF-8'
+  'utf-8'
 );
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
