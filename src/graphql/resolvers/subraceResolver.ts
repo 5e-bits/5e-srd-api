@@ -5,8 +5,15 @@ import RaceModel from '../../models/race/index.js';
 import TraitModel from '../../models/trait/index.js';
 import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
 
+import { Subrace } from '../../models/subrace/types';
+
+type Args = {
+  name?: string;
+  order_direction?: string;
+};
+
 const Subrace = {
-  ability_bonuses: async subrace => {
+  ability_bonuses: async (subrace: Subrace) => {
     const abilityBonuses = subrace.ability_bonuses;
     const abilityScores = await AbilityScoreModel.find({
       index: { $in: abilityBonuses.map(ab => ab.ability_score.index) },
@@ -17,9 +24,9 @@ const Subrace = {
       ability_score: abilityScores.find(as => as.index === ab.ability_score.index),
     }));
   },
-  race: async subrace => await RaceModel.findOne({ index: subrace.race.index }).lean(),
-  racial_traits: async (subrace, args) => {
-    const filters = [
+  race: async (subrace: Subrace) => await RaceModel.findOne({ index: subrace.race.index }).lean(),
+  racial_traits: async (subrace: Subrace, args: Args) => {
+    const filters: any[] = [
       {
         index: { $in: subrace.racial_traits.map(t => t.index) },
       },
@@ -31,10 +38,10 @@ const Subrace = {
 
     return await TraitModel.find(coalesceFilters(filters)).lean();
   },
-  starting_proficiencies: async (subrace, args) => {
-    const filters = [
+  starting_proficiencies: async (subrace: Subrace, args: Args) => {
+    const filters: any[] = [
       {
-        index: { $in: subrace.starting_proficiencies.map(p => p.index) },
+        index: { $in: subrace.starting_proficiencies?.map(p => p.index) },
       },
     ];
 
@@ -44,17 +51,21 @@ const Subrace = {
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();
   },
-  language_options: async subrace => {
+  language_options: async (subrace: Subrace) => {
     if (!subrace.language_options) {
       return null;
     }
 
-    return resolveChoice(subrace.language_options, {
-      options: subrace.language_options.from.options.map(async option => ({
-        ...option,
-        item: await LanguageModel.findOne({ index: option.item.index }).lean(),
-      })),
-    });
+    if ('options' in subrace.language_options.from) {
+      const options = subrace.language_options.from.options.map(async option => {
+        if ('item' in option) {
+          return await LanguageModel.findOne({ index: option.item.index }).lean();
+        }
+      });
+      return resolveChoice(subrace.language_options, {
+        options,
+      });
+    }
   },
 };
 

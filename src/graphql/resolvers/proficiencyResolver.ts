@@ -7,9 +7,16 @@ import SkillModel from '../../models/skill/index.js';
 import SubraceModel from '../../models/subrace/index.js';
 import { coalesceFilters, resolveContainsStringFilter } from './common.js';
 
+import { Proficiency } from '../../models/proficiency/types';
+
+type Args = {
+  name?: string;
+  order_direction?: string;
+};
+
 const Proficiency = {
-  classes: async (proficiency, args) => {
-    const filters = [{ index: { $in: proficiency.classes.map(c => c.index) } }];
+  classes: async (proficiency: Proficiency, args: Args) => {
+    const filters: any[] = [{ index: { $in: proficiency.classes?.map(c => c.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -17,10 +24,10 @@ const Proficiency = {
 
     return await ClassModel.find(coalesceFilters(filters)).lean();
   },
-  races: async (proficiency, args) => {
+  races: async (proficiency: Proficiency, args: Args) => {
     const races = [];
-    for (const { url, index } of proficiency.races) {
-      const filters = [{ index }];
+    for (const { url, index } of proficiency.races?.map(r => r) || []) {
+      const filters: any[] = [{ index }];
 
       if (args.name) {
         filters.push(resolveContainsStringFilter(args.name));
@@ -35,7 +42,7 @@ const Proficiency = {
 
     return races;
   },
-  reference: async proficiency => {
+  reference: async (proficiency: Proficiency) => {
     const { url } = proficiency.reference;
 
     if (url.includes('ability-scores')) return await AbilityScoreModel.findOne({ url }).lean();
@@ -44,7 +51,7 @@ const Proficiency = {
     if (url.includes('equipment')) return await EquipmentModel.findOne({ url }).lean();
     if (url.includes('skills')) return await SkillModel.findOne({ url }).lean();
   },
-  type: proficiency =>
+  type: (proficiency: Proficiency) =>
     proficiency.type
       .toUpperCase()
       .replace(/'/g, '')
