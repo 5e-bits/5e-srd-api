@@ -1,10 +1,24 @@
 import * as mongoose from 'mongoose';
 import { APIReference, Choice } from '../common/types';
 
-type Prerequisite = {
+type Prerequisite = LevelPrerequisite | FeaturePrerequisite | SpellPrerequisite;
+
+type LevelPrerequisite = {
   _id?: boolean;
-  level: number;
   type: string;
+  level: number;
+};
+
+type FeaturePrerequisite = {
+  _id?: boolean;
+  type: string;
+  feature: string;
+};
+
+type SpellPrerequisite = {
+  _id?: boolean;
+  type: string;
+  spell: string;
 };
 
 type FeatureSpecific = {
