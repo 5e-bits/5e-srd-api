@@ -234,7 +234,7 @@ export const resolveNumberFilter = (value: ResolveNumberValue, propertyName: str
 
 export const getMongoSortDirection = (value: string) => (value === 'ASCENDING' ? 1 : -1);
 
-export const levelObjectToArray = (obj: Record<number, string>, fieldName: string) =>
+export const levelObjectToArray = (obj: Record<string, number>, fieldName: string) =>
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
 
 type ResolvedDC = {
