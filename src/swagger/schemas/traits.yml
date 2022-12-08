@@ -26,15 +26,7 @@ trait-damage:
               allOf:
                 - $ref: './combined.yml#/APIReference'
         dc:
-          type: object
-          properties:
-            dc_type:
-              allOf:
-                - $ref: './combined.yml#/APIReference'
-            success_type:
-              description: How to modify damage on a successful saving throw.
-              type: string
-              example: half
+          $ref: './combined.yml#/dc-model'
         usage:
           description: Description of the usage constraints of this action.
           type: object

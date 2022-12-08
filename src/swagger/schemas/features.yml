@@ -12,6 +12,33 @@ allOf:
         $ref: "./combined.yml#/APIReference"
       subclass:
         $ref: "./combined.yml#/APIReference"
+      parent:
+        $ref: "./combined.yml#/APIReference"
+      prerequisites:
+        description: "The prerequisites for this feature."
+        type: array
+        items:
+          oneOf:
+            - type: object
+              properties:
+                type:
+                  type: string
+                level:
+                  type: number
+            - type: object
+              properties:
+                properties:
+                type:
+                  type: string
+                feature:
+                  type: string
+            - type: object
+              properties:
+                properties:
+                type:
+                  type: string
+                spell:
+                  type: string
       feature_specific:
         description: "Information specific to this feature."
         additionalProperties: true
