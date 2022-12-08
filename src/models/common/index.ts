@@ -36,7 +36,7 @@ export const AreaOfEffectSchema = new Schema<AreaOfEffect>({
   type: { type: String, index: true, enum: ['sphere', 'cube', 'cylinder', 'line', 'cone'] },
 });
 
-const DifficultyClassSchema = new Schema<DifficultyClass>({
+export const DifficultyClassSchema = new Schema<DifficultyClass>({
   _id: false,
   dc_type: { type: APIReferenceSchema, index: true },
   dc_value: { type: Number, index: true },

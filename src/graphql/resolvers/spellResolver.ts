@@ -19,8 +19,8 @@ type Args = {
 };
 type SpellDamage = {
   damage_type?: DamageType;
-  damage_at_slot_level?: Record<string, string>[];
-  damage_at_character_level?: Record<string, string>[];
+  damage_at_slot_level?: Record<string, string | number>[];
+  damage_at_character_level?: Record<string, string | number>[];
 };
 
 const Spell = {

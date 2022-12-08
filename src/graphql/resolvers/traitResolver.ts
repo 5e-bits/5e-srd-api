@@ -15,17 +15,36 @@ import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
 import LanguageModel from '../../models/language/index.js';
 
-const resolveUsage = usage => {
+import { ResolvedDC } from './common';
+import { Trait, Usage } from '../../models/trait/types';
+
+type Args = {
+  name?: string;
+  order_direction?: string;
+};
+type TraitSpecificClient = {
+  breath_weapon?: {
+    dc?: Promise<ResolvedDC>;
+    damage?: any;
+    usage?: any;
+    area_of_effect?: any;
+  };
+  damage_type?: any;
+  spell_options?: any;
+  subtrait_options?: any;
+};
+
+const resolveUsage = (usage: Usage) => {
   const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
 
   return resolvedUsage;
 };
 
 const Trait = {
-  proficiencies: async (trait, args) => {
-    const filters = [
+  proficiencies: async (trait: Trait, args: Args) => {
+    const filters: any[] = [
       {
-        index: { $in: trait.proficiencies.map(p => p.index) },
+        index: { $in: trait.proficiencies?.map(p => p.index) },
       },
     ];
 
@@ -35,10 +54,10 @@ const Trait = {
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();
   },
-  parent: async trait =>
+  parent: async (trait: Trait) =>
     trait.parent ? await TraitModel.findOne({ index: trait.parent.index }).lean() : null,
-  subraces: async (trait, args) => {
-    const filters = [{ index: { $in: trait.subraces.map(s => s.index) } }];
+  subraces: async (trait: Trait, args: Args) => {
+    const filters: any[] = [{ index: { $in: trait.subraces?.map(s => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -46,8 +65,8 @@ const Trait = {
 
     return await SubraceModel.find(coalesceFilters(filters)).lean();
   },
-  races: async (trait, args) => {
-    const filters = [{ index: { $in: trait.races.map(r => r.index) } }];
+  races: async (trait: Trait, args: Args) => {
+    const filters: any[] = [{ index: { $in: trait.races?.map(r => r.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -55,26 +74,33 @@ const Trait = {
 
     return await RaceModel.find(coalesceFilters(filters)).lean();
   },
-  proficiency_choices: async trait => {
+  proficiency_choices: async (trait: Trait) => {
     if (trait.proficiency_choices) {
       const { proficiency_choices } = trait;
-      return resolveChoice(proficiency_choices, {
-        options: proficiency_choices.from.options.map(async option => ({
-          ...option,
-          item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
-        })),
-      });
+      if ('options' in proficiency_choices.from) {
+        const options = proficiency_choices.from.options.map(async option => {
+          if ('item' in option) {
+            return {
+              ...option,
+              item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
+            };
+          }
+        });
+        return resolveChoice(proficiency_choices, {
+          options,
+        });
+      }
     } else {
       return null;
     }
   },
-  trait_specific: async trait => {
+  trait_specific: async (trait: Trait) => {
     const { trait_specific } = trait;
     if (!trait_specific) {
       return null;
     }
 
-    const traitSpecificToReturn = {};
+    const traitSpecificToReturn: TraitSpecificClient = {};
 
     if (trait_specific.breath_weapon) {
       traitSpecificToReturn.breath_weapon = {
@@ -95,35 +121,52 @@ const Trait = {
       }).lean();
     }
 
-    if (trait_specific.spell_options) {
+    if (trait_specific.spell_options && 'options' in trait_specific.spell_options.from) {
+      const options = trait_specific.spell_options.from.options.map(async option => {
+        if ('item' in option) {
+          return {
+            ...option,
+            item: await SpellModel.findOne({ index: option.item.index }),
+          };
+        }
+      });
       traitSpecificToReturn.spell_options = resolveChoice(trait_specific.spell_options, {
-        options: trait_specific.spell_options.from.options.map(async option => ({
-          ...option,
-          item: await SpellModel.findOne({ index: option.item.index }),
-        })),
+        options,
       });
     }
 
-    if (trait_specific.subtrait_options) {
+    if (trait_specific.subtrait_options && 'options' in trait_specific.subtrait_options.from) {
+      const options = trait_specific.subtrait_options.from.options.map(async option => {
+        if ('item' in option) {
+          return {
+            ...option,
+            item: await TraitModel.findOne({ index: option.item.index }).lean(),
+          };
+        }
+      });
       traitSpecificToReturn.subtrait_options = resolveChoice(trait_specific.subtrait_options, {
-        options: trait_specific.subtrait_options.from.options.map(async option => ({
-          ...option,
-          item: await TraitModel.findOne({ index: option.item.index }).lean(),
-        })),
+        options,
       });
     }
 
     return traitSpecificToReturn;
   },
-  language_options: async trait => {
+  language_options: async (trait: Trait) => {
     if (trait.language_options) {
       const { language_options } = trait;
-      return resolveChoice(language_options, {
-        options: language_options.from.options.map(async option => ({
-          ...option,
-          item: await LanguageModel.findOne({ index: option.item.index }).lean(),
-        })),
-      });
+      if ('options' in language_options.from) {
+        const options = language_options.from.options.map(async option => {
+          if ('item' in option) {
+            return {
+              ...option,
+              item: await LanguageModel.findOne({ index: option.item.index }).lean(),
+            };
+          }
+        });
+        return resolveChoice(language_options, {
+          options,
+        });
+      }
     } else {
       return null;
     }

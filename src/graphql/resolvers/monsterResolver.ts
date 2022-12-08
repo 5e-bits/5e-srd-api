@@ -6,29 +6,36 @@ import MonsterModel from '../../models/monster/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SpellModel from '../../models/spell/index.js';
 
-const resolveUsage = usage => {
-  const resolvedUsage = { ...usage, type: usage.type.toUpperCase().replace(/\s+/g, '_') };
-  if (usage.rest_types) resolvedUsage.rest_types = usage.rest_types.map(rt => rt.toUpperCase());
+import {
+  Monster,
+  ActionDamage,
+  ActionUsage,
+  SpecialAbilityUsage,
+} from '../../models/monster/types';
+
+const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
+  const resolvedUsage: Record<any, any> = {
+    ...usage,
+    type: usage.type.toUpperCase().replace(/\s+/g, '_'),
+  };
+  if ('rest_types' in usage)
+    resolvedUsage.rest_types = usage.rest_types?.map((rt: string) => rt.toUpperCase());
 
   return resolvedUsage;
 };
 
-const resolveDamage = async damage => {
+const resolveDamage = async (damage: ActionDamage[]) => {
   const damageTypes = await DamageTypeModel.find({
     index: { $in: damage.filter(d => d.damage_type).map(d => d.damage_type.index) },
   }).lean();
 
   return damage.map(async d => {
-    const newDamage = {
+    const newDamage: Record<any, any> = {
       ...d,
     };
 
     if (d.damage_type) {
       newDamage.damage_type = damageTypes.find(dt => dt.index === d.damage_type.index);
-    }
-
-    if (d.dc) {
-      newDamage.dc = await resolveDc(d.dc);
     }
 
     if (newDamage.from) {
@@ -40,21 +47,21 @@ const resolveDamage = async damage => {
 };
 
 const Monster = {
-  condition_immunities: async monster =>
+  condition_immunities: async (monster: Monster) =>
     await ConditionModel.find({
       index: { $in: monster.condition_immunities.map(ci => ci.index) },
     }).lean(),
-  forms: async monster =>
+  forms: async (monster: Monster) =>
     monster.forms
       ? await MonsterModel.find({ index: { $in: monster.forms.map(f => f.index) } }).lean()
       : null,
-  legendary_actions: async monster => {
+  legendary_actions: async (monster: Monster) => {
     const { legendary_actions } = monster;
     if (!legendary_actions) return null;
 
     const resolvedLegendaryActions = [];
     for (const legendaryAction of legendary_actions) {
-      const resolvedLegendaryAction = { ...legendaryAction };
+      const resolvedLegendaryAction: Record<any, any> = { ...legendaryAction };
       const { dc, damage } = legendaryAction;
 
       if (dc) resolvedLegendaryAction.dc = await resolveDc(dc);
@@ -66,7 +73,7 @@ const Monster = {
 
     return resolvedLegendaryActions;
   },
-  proficiencies: async monster => {
+  proficiencies: async (monster: Monster) => {
     const profs = await ProficiencyModel.find({
       index: { $in: monster.proficiencies.map(p => p.proficiency.index) },
     }).lean();
@@ -76,22 +83,22 @@ const Monster = {
       proficiency: profs.find(prof => prof.index === p.proficiency.index),
     }));
   },
-  reactions: async monster =>
+  reactions: async (monster: Monster) =>
     monster.reactions
       ? monster.reactions.map(async r => {
-          const resolvedReaction = { ...r };
+          const resolvedReaction: Record<any, any> = { ...r };
           if (r.dc) resolvedReaction.dc = resolveDc(r.dc);
           return resolvedReaction;
         })
       : null,
-  size: monster => monster.size.toUpperCase(),
-  special_abilities: async monster => {
+  size: (monster: Monster) => monster.size.toUpperCase(),
+  special_abilities: async (monster: Monster) => {
     const { special_abilities } = monster;
     if (!special_abilities) return null;
 
     const resolvedSpecialAbilities = [];
     for (const specialAbility of special_abilities) {
-      const resolvedSpecialAbility = { ...specialAbility };
+      const resolvedSpecialAbility: Record<any, any> = { ...specialAbility };
       const { dc, damage, usage, spellcasting } = specialAbility;
 
       if (dc) resolvedSpecialAbility.dc = await resolveDc(dc);
@@ -103,7 +110,7 @@ const Monster = {
       }
 
       if (spellcasting) {
-        const resolvedSpellcasting = { ...spellcasting };
+        const resolvedSpellcasting: Record<any, any> = { ...spellcasting };
 
         if (spellcasting.slots)
           resolvedSpellcasting.slots = levelObjectToArray(spellcasting.slots, 'slots');
@@ -112,7 +119,7 @@ const Monster = {
           url: { $in: spellcasting.spells.map(s => s.url) },
         }).lean();
         resolvedSpellcasting.spells = spellcasting.spells.map(async s => {
-          const spell = { spell: spells.find(sp => sp.url === s.url) };
+          const spell: Record<any, any> = { spell: spells.find(sp => sp.url === s.url) };
           if (s.usage) spell.usage = resolveUsage(s.usage);
           return spell;
         });
@@ -125,15 +132,16 @@ const Monster = {
 
     return resolvedSpecialAbilities;
   },
-  subtype: monster => (monster.subtype ? monster.subtype.toUpperCase().replace(/\s+/g, '_') : null),
-  type: monster => {
+  subtype: (monster: Monster) =>
+    monster.subtype ? monster.subtype.toUpperCase().replace(/\s+/g, '_') : null,
+  type: (monster: Monster) => {
     if (monster.type.includes('swarm')) {
       return 'SWARM';
     } else {
       return monster.type.toUpperCase();
     }
   },
-  actions: async monster => {
+  actions: async (monster: Monster) => {
     const { actions } = monster;
     if (!actions) {
       return null;
@@ -142,17 +150,7 @@ const Monster = {
     const actionsToReturn = [];
 
     for (const action of actions) {
-      const actionToAdd = { ...action };
-      if (action.attacks) {
-        actionToAdd.attacks = action.attacks.map(async attack => {
-          const attackToReturn = { name: attack.name, dc: await resolveDc(attack.dc) };
-          if (attack.damage) {
-            attackToReturn.damage = await resolveDamage(attack.damage);
-          }
-
-          return attackToReturn;
-        });
-      }
+      const actionToAdd: Record<any, any> = { ...action };
 
       if (action.damage) {
         actionToAdd.damage = await resolveDamage(action.damage);
@@ -162,16 +160,18 @@ const Monster = {
         actionToAdd.dc = await resolveDc(action.dc);
       }
 
-      if (action.options) {
+      if (action.options && 'options' in action.options.from) {
         actionToAdd.options = resolveChoice(action.options, {
           options: action.options.from.options.map(async option => {
-            const newOption = { ...option, dc: await resolveDc(option.dc) };
+            if (option.option_type === 'breath') {
+              const newOption: Record<any, any> = { ...option, dc: await resolveDc(option.dc) };
 
-            if (option.damage) {
-              newOption.damage = await resolveDamage(option.damage);
+              if (option.damage) {
+                newOption.damage = await resolveDamage(option.damage);
+              }
+
+              return newOption;
             }
-
-            return newOption;
           }),
         });
       }

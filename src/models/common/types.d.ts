@@ -42,7 +42,7 @@ type ResourceListOptionSet = {
 type DifficultyClass = {
   _id?: boolean;
   dc_type: APIReference;
-  dc_value: number;
+  dc_value?: number;
   success_type: 'none' | 'half' | 'other';
 };
 
@@ -110,6 +110,10 @@ type CountedReferenceOption = {
   option_type: 'counted_reference';
   count: number;
   of: APIReference;
+  prerequisites?: {
+    type: 'proficiency';
+    proficiency?: APIReference;
+  }[];
 };
 
 type ScorePrerequisiteOption = {
