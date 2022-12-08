@@ -15,7 +15,7 @@ monster-attack:
     name:
       type: string
     dc:
-      $ref: './combined.yml#/dc-model'
+      $ref: './combined.yml#/DC'
     damage:
       $ref: '#/monster-damage'
 
@@ -51,7 +51,7 @@ monster-action:
     attack_bonus:
       type: number
     dc:
-      $ref: './combined.yml#/dc-model'
+      $ref: './combined.yml#/DC'
     attacks:
       type: array
       items:
@@ -177,7 +177,7 @@ monster-special-ability:
       items:
         $ref: '#/monster-damage'
     dc:
-      $ref: './combined.yml#/dc-model'
+      $ref: './combined.yml#/DC'
     spellcasting:
       $ref: '#/monster-spellcasting'
     usage:

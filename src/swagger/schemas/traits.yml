@@ -26,7 +26,7 @@ trait-damage:
               allOf:
                 - $ref: './combined.yml#/APIReference'
         dc:
-          $ref: './combined.yml#/dc-model'
+          $ref: './combined.yml#/DC'
         usage:
           description: Description of the usage constraints of this action.
           type: object

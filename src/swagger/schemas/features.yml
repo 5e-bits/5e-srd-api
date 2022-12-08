@@ -18,7 +18,7 @@ allOf:
         description: "The prerequisites for this feature."
         type: array
         items:
-          oneOf:
+          anyOf:
             - type: object
               properties:
                 type:
@@ -27,18 +27,23 @@ allOf:
                   type: number
             - type: object
               properties:
-                properties:
                 type:
                   type: string
                 feature:
                   type: string
             - type: object
               properties:
-                properties:
                 type:
                   type: string
                 spell:
                   type: string
+        example:
+          - type: "level"
+            level: 3
+          - type: "feature"
+            feature: "martial-archetype"
+          - type: "spell"
+            spell: "shield"
       feature_specific:
         description: "Information specific to this feature."
         additionalProperties: true
