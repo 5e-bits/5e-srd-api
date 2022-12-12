@@ -36,11 +36,11 @@ import WeaponPropertyModel from '../../models/weaponProperty/index.js';
 import { SpellQuery, SortQuery } from './common';
 
 const Query = {
-  async abilityScore(_: any, args: Record<any, any>) {
+  async abilityScore(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await AbilityScoreModel.findOne(filter).lean();
   },
-  async abilityScores(_: any, args: Record<any, any>) {
+  async abilityScores(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -60,11 +60,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async alignment(_: any, args: Record<any, any>) {
+  async alignment(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await AlignmentModel.findOne(filter).lean();
   },
-  async alignments(_: any, args: Record<any, any>) {
+  async alignments(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -80,11 +80,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async background(_: any, args: Record<any, any>) {
+  async background(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await BackgroundModel.findOne(filter).lean();
   },
-  async backgrounds(_: any, args: Record<any, any>) {
+  async backgrounds(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -100,11 +100,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async class(_: any, args: Record<any, any>) {
+  async class(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await ClassModel.findOne(filter).lean();
   },
-  async classes(_: any, args: Record<any, any>) {
+  async classes(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -123,11 +123,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async condition(_: any, args: Record<any, any>) {
+  async condition(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await ConditionModel.findOne(filter).lean();
   },
-  async conditions(_: any, args: Record<any, any>) {
+  async conditions(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -143,11 +143,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async damageType(_: any, args: Record<any, any>) {
+  async damageType(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await DamageTypeModel.findOne(filter).lean();
   },
-  async damageTypes(_: any, args: Record<any, any>) {
+  async damageTypes(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -163,11 +163,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async equipment(_: any, args: Record<any, any>) {
+  async equipment(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await EquipmentModel.findOne(filter).lean();
   },
-  async equipments(_: any, args: Record<any, any>) {
+  async equipments(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -198,11 +198,11 @@ const Query = {
       .limit(args.limit)
       .lean();
   },
-  async equipmentCategory(_: any, args: Record<any, any>) {
+  async equipmentCategory(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await EquipmentCategoryModel.findOne(filter).lean();
   },
-  async equipmentCategories(_: any, args: Record<any, any>) {
+  async equipmentCategories(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -218,11 +218,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async feat(_: any, args: Record<any, any>) {
+  async feat(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await FeatModel.findOne(filter).lean();
   },
-  async feats(_: any, args: Record<any, any>) {
+  async feats(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -239,11 +239,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async feature(_: any, args: Record<any, any>) {
+  async feature(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await FeatureModel.findOne(filter).lean();
   },
-  async features(_: any, args: Record<any, any>) {
+  async features(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -293,11 +293,11 @@ const Query = {
       .limit(args.limit)
       .lean();
   },
-  async language(_: any, args: Record<any, any>) {
+  async language(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await LanguageModel.findOne(filter).lean();
   },
-  async languages(_: any, args: Record<any, any>) {
+  async languages(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -323,11 +323,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async level(_: any, args: Record<any, any>) {
+  async level(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await LevelModel.findOne(filter).lean();
   },
-  async levels(_: any, args: Record<any, any>) {
+  async levels(_: any, args: Record<string, any>) {
     const filters = [];
     if (args.class) {
       const filter = { 'class.index': { $in: args.class } };
@@ -380,11 +380,11 @@ const Query = {
       .limit(args.limit)
       .lean();
   },
-  async magicItem(_: any, args: Record<any, any>) {
+  async magicItem(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await MagicItemModel.findOne(filter).lean();
   },
-  async magicItems(_: any, args: Record<any, any>) {
+  async magicItems(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -416,11 +416,11 @@ const Query = {
       .limit(args.limit)
       .lean();
   },
-  async magicSchool(_: any, args: Record<any, any>) {
+  async magicSchool(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await MagicSchoolModel.findOne(filter).lean();
   },
-  async magicSchools(_: any, args: Record<any, any>) {
+  async magicSchools(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -436,11 +436,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async monster(_: any, args: Record<any, any>) {
+  async monster(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await MonsterModel.findOne(filter).lean();
   },
-  async monsters(_: any, args: Record<any, any>) {
+  async monsters(_: any, args: Record<string, any>) {
     const filters = [];
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -522,11 +522,11 @@ const Query = {
       .limit(args.limit)
       .lean();
   },
-  async proficiency(_: any, args: Record<any, any>) {
+  async proficiency(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await ProficiencyModel.findOne(filter).lean();
   },
-  async proficiencies(_: any, args: Record<any, any>) {
+  async proficiencies(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -564,11 +564,11 @@ const Query = {
       .limit(args.limit)
       .lean();
   },
-  async race(_: any, args: Record<any, any>) {
+  async race(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await RaceModel.findOne(filter).lean();
   },
-  async races(_: any, args: Record<any, any>) {
+  async races(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -602,11 +602,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async rule(_: any, args: Record<any, any>) {
+  async rule(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await RuleModel.findOne(filter).lean();
   },
-  async rules(_: any, args: Record<any, any>) {
+  async rules(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -622,11 +622,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async ruleSection(_: any, args: Record<any, any>) {
+  async ruleSection(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await RuleSectionModel.findOne(filter).lean();
   },
-  async ruleSections(_: any, args: Record<any, any>) {
+  async ruleSections(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -642,11 +642,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async skill(_: any, args: Record<any, any>) {
+  async skill(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await SkillModel.findOne(filter).lean();
   },
-  async skills(_: any, args: Record<any, any>) {
+  async skills(_: any, args: Record<string, any>) {
     const filters = [];
 
     if (args.name) {
@@ -670,18 +670,18 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async spell(_: any, args: Record<any, any>) {
+  async spell(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await SpellModel.findOne(filter).lean();
   },
   async spells(_: any, args: SpellQuery) {
     return await resolveSpells(args, []);
   },
-  async subclass(_: any, args: Record<any, any>) {
+  async subclass(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await SubclassModel.findOne(filter).lean();
   },
-  async subclasses(_: any, args: Record<any, any>) {
+  async subclasses(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -697,11 +697,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async subrace(_: any, args: Record<any, any>) {
+  async subrace(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await SubraceModel.findOne(filter).lean();
   },
-  async subraces(_: any, args: Record<any, any>) {
+  async subraces(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -717,11 +717,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async trait(_: any, args: Record<any, any>) {
+  async trait(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await TraitModel.findOne(filter).lean();
   },
-  async traits(_: any, args: Record<any, any>) {
+  async traits(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 
@@ -737,11 +737,11 @@ const Query = {
       .sort(sort)
       .lean();
   },
-  async weaponProperty(_: any, args: Record<any, any>) {
+  async weaponProperty(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
     return await WeaponPropertyModel.findOne(filter).lean();
   },
-  async weaponProperties(_: any, args: Record<any, any>) {
+  async weaponProperties(_: any, args: Record<string, any>) {
     const sort: SortQuery = {};
     const filters = [];
 

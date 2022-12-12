@@ -99,7 +99,7 @@ const Class = {
     return await SubclassModel.find(coalesceFilters(filters)).lean();
   },
   multi_classing: async (klass: Class) => {
-    const multiclassingToReturn: Record<any, any> = {};
+    const multiclassingToReturn: Record<string, any> = {};
     const { multi_classing } = klass;
 
     multiclassingToReturn.proficiencies = await ProficiencyModel.find({
@@ -193,7 +193,7 @@ const Class = {
     }),
   starting_equipment_options: async (klass: Class) =>
     klass.starting_equipment_options.map(async se_option => {
-      const optionToReturn: Record<any, any> = { ...se_option };
+      const optionToReturn: Record<string, any> = { ...se_option };
       const from = se_option.from;
 
       if (from.option_set_type === 'equipment_category') {

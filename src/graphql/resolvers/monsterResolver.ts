@@ -11,7 +11,7 @@ import { DamageType } from '../../models/damageType/types';
 import { Damage } from '../../models/common/types';
 
 const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
-  const resolvedUsage: Record<any, any> = {
+  const resolvedUsage: Record<string, any> = {
     ...usage,
     type: usage.type.toUpperCase().replace(/\s+/g, '_'),
   };
@@ -59,7 +59,7 @@ const Monster = {
 
     const resolvedLegendaryActions = [];
     for (const legendaryAction of legendary_actions) {
-      const resolvedLegendaryAction: Record<any, any> = { ...legendaryAction };
+      const resolvedLegendaryAction: Record<string, any> = { ...legendaryAction };
       const { dc, damage } = legendaryAction;
 
       if (dc) resolvedLegendaryAction.dc = await resolveDc(dc);
@@ -84,7 +84,7 @@ const Monster = {
   reactions: async (monster: Monster) =>
     monster.reactions
       ? monster.reactions.map(async r => {
-          const resolvedReaction: Record<any, any> = { ...r };
+          const resolvedReaction: Record<string, any> = { ...r };
           if (r.dc) resolvedReaction.dc = resolveDc(r.dc);
           return resolvedReaction;
         })
@@ -96,7 +96,7 @@ const Monster = {
 
     const resolvedSpecialAbilities = [];
     for (const specialAbility of special_abilities) {
-      const resolvedSpecialAbility: Record<any, any> = { ...specialAbility };
+      const resolvedSpecialAbility: Record<string, any> = { ...specialAbility };
       const { dc, damage, usage, spellcasting } = specialAbility;
 
       if (dc) resolvedSpecialAbility.dc = await resolveDc(dc);
@@ -108,7 +108,7 @@ const Monster = {
       }
 
       if (spellcasting) {
-        const resolvedSpellcasting: Record<any, any> = { ...spellcasting };
+        const resolvedSpellcasting: Record<string, any> = { ...spellcasting };
 
         if (spellcasting.slots)
           resolvedSpellcasting.slots = levelObjectToArray(spellcasting.slots, 'slots');
@@ -117,7 +117,7 @@ const Monster = {
           url: { $in: spellcasting.spells.map(s => s.url) },
         }).lean();
         resolvedSpellcasting.spells = spellcasting.spells.map(async s => {
-          const spell: Record<any, any> = { spell: spells.find(sp => sp.url === s.url) };
+          const spell: Record<string, any> = { spell: spells.find(sp => sp.url === s.url) };
           if (s.usage) spell.usage = resolveUsage(s.usage);
           return spell;
         });
@@ -148,7 +148,7 @@ const Monster = {
     const actionsToReturn = [];
 
     for (const action of actions) {
-      const actionToAdd: Record<any, any> = { ...action };
+      const actionToAdd: Record<string, any> = { ...action };
 
       if (action.damage) {
         actionToAdd.damage = await resolveDamage(action.damage);
@@ -162,7 +162,7 @@ const Monster = {
         actionToAdd.options = resolveChoice(action.options, {
           options: action.options.from.options.map(async option => {
             if (option.option_type === 'breath') {
-              const newOption: Record<any, any> = { ...option, dc: await resolveDc(option.dc) };
+              const newOption: Record<string, any> = { ...option, dc: await resolveDc(option.dc) };
 
               if (option.damage) {
                 newOption.damage = await resolveDamage(option.damage);
