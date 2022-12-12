@@ -7,6 +7,6 @@ export type AbilityScore = {
   full_name: string;
   index: string;
   name: string;
-  skills?: APIReference[];
+  skills: APIReference[] | [];
   url: string;
 };

@@ -155,16 +155,21 @@ export const coalesceFilters = (filters: any[]) => {
 type GetPropertyNameCallback = (_: string) => string;
 export type Order = {
   by: string;
-  direction: string;
+  direction: SortDirection;
   then_by?: Order;
 };
 
+export type QueryParams = {
+  name?: string;
+  order_direction?: SortDirection;
+};
+export type SortQuery = Record<string, 1 | -1>;
 export const coalesceSort = (
   order: Order | undefined,
   getPropertyName: GetPropertyNameCallback,
   maxDepth: number
 ) => {
-  const sort: Record<string, number> = {};
+  const sort: SortQuery = {};
   let depth = 0;
 
   do {
@@ -175,12 +180,7 @@ export const coalesceSort = (
       throw 'Maximum sort depth reached';
     }
     const propertyName = getPropertyName(order.by);
-    let direction = getMongoSortDirection(order.direction);
-
-    // The sizes happen to be in the correct order when counted in reverse-alphabetical order
-    if (propertyName === 'size') {
-      direction = -direction;
-    }
+    const direction: 1 | -1 = getMongoSortDirection(order.direction, propertyName);
 
     sort[propertyName] = direction;
     order = order.then_by;
@@ -232,7 +232,22 @@ export const resolveNumberFilter = (value: ResolveNumberValue, propertyName: str
   return filter;
 };
 
-export const getMongoSortDirection = (value: string) => (value === 'ASCENDING' ? 1 : -1);
+export type SortDirection = 'ASCENDING' | 'DESCENDING';
+export const getMongoSortDirection = (value: SortDirection, propertyName?: string | undefined) => {
+  if (value === 'ASCENDING') {
+    // The sizes happen to be in the correct order when counted in reverse-alphabetical order
+    if (propertyName === 'size') {
+      return -1;
+    }
+    return 1;
+  } else {
+    // The sizes happen to be in the correct order when counted in reverse-alphabetical order
+    if (propertyName === 'size') {
+      return 1;
+    }
+    return -1;
+  }
+};
 
 export const levelObjectToArray = (obj: Record<string, string | number>, fieldName: string) =>
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));

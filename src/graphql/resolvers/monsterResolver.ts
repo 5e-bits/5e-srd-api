@@ -6,12 +6,9 @@ import MonsterModel from '../../models/monster/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SpellModel from '../../models/spell/index.js';
 
-import {
-  Monster,
-  ActionDamage,
-  ActionUsage,
-  SpecialAbilityUsage,
-} from '../../models/monster/types';
+import { Monster, ActionUsage, SpecialAbilityUsage } from '../../models/monster/types';
+import { DamageType } from '../../models/damageType/types';
+import { Damage } from '../../models/common/types';
 
 const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
   const resolvedUsage: Record<any, any> = {
@@ -19,27 +16,28 @@ const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
     type: usage.type.toUpperCase().replace(/\s+/g, '_'),
   };
   if ('rest_types' in usage)
-    resolvedUsage.rest_types = usage.rest_types?.map((rt: string) => rt.toUpperCase());
+    resolvedUsage.rest_types = usage.rest_types?.map(rt => rt.toUpperCase());
 
   return resolvedUsage;
 };
 
-const resolveDamage = async (damage: ActionDamage[]) => {
+type ResolvedDamage = {
+  damage_dice: string;
+  damage_type?: DamageType | undefined;
+};
+
+const resolveDamage = async (damage: Damage[]) => {
   const damageTypes = await DamageTypeModel.find({
     index: { $in: damage.filter(d => d.damage_type).map(d => d.damage_type.index) },
   }).lean();
 
   return damage.map(async d => {
-    const newDamage: Record<any, any> = {
-      ...d,
+    const newDamage: ResolvedDamage = {
+      damage_dice: d.damage_dice,
     };
 
     if (d.damage_type) {
       newDamage.damage_type = damageTypes.find(dt => dt.index === d.damage_type.index);
-    }
-
-    if (newDamage.from) {
-      newDamage.from.options = await resolveDamage(newDamage.from.options);
     }
 
     return newDamage;

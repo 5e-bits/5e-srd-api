@@ -5,17 +5,12 @@ import EquipmentModel from '../../models/equipment/index.js';
 import RaceModel from '../../models/race/index.js';
 import SkillModel from '../../models/skill/index.js';
 import SubraceModel from '../../models/subrace/index.js';
-import { coalesceFilters, resolveContainsStringFilter } from './common.js';
+import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './common.js';
 
 import { Proficiency } from '../../models/proficiency/types';
 
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
-
 const Proficiency = {
-  classes: async (proficiency: Proficiency, args: Args) => {
+  classes: async (proficiency: Proficiency, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: proficiency.classes?.map(c => c.index) } }];
 
     if (args.name) {
@@ -24,7 +19,7 @@ const Proficiency = {
 
     return await ClassModel.find(coalesceFilters(filters)).lean();
   },
-  races: async (proficiency: Proficiency, args: Args) => {
+  races: async (proficiency: Proficiency, args: QueryParams) => {
     const races = [];
     for (const { url, index } of proficiency.races?.map(r => r) || []) {
       const filters: any[] = [{ index }];

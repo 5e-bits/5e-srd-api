@@ -3,17 +3,17 @@ import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import EquipmentModel from '../../models/equipment/index.js';
 import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
-import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
+import {
+  coalesceFilters,
+  resolveChoice,
+  resolveContainsStringFilter,
+  QueryParams,
+} from './common.js';
 
 import { Background } from '../../models/background/types';
 
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
-
 const Background = {
-  starting_equipment: async (background: Background, args: Args) => {
+  starting_equipment: async (background: Background, args: QueryParams) => {
     const starting_equipment = background.starting_equipment;
     const filters: any[] = [
       {
@@ -32,7 +32,7 @@ const Background = {
       equipment: equipment.find(e => e.index === se.equipment.index),
     }));
   },
-  starting_proficiencies: async (background: Background, args: Args) => {
+  starting_proficiencies: async (background: Background, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: background.starting_proficiencies.map(sp => sp.index) },

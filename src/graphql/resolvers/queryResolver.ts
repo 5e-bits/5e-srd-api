@@ -33,9 +33,7 @@ import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
 import WeaponPropertyModel from '../../models/weaponProperty/index.js';
 
-import { SpellQuery } from './common';
-
-type SortParams = Record<string, 1 | -1>;
+import { SpellQuery, SortQuery } from './common';
 
 const Query = {
   async abilityScore(_: any, args: Record<any, any>) {
@@ -43,7 +41,7 @@ const Query = {
     return await AbilityScoreModel.findOne(filter).lean();
   },
   async abilityScores(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -67,7 +65,7 @@ const Query = {
     return await AlignmentModel.findOne(filter).lean();
   },
   async alignments(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -87,7 +85,7 @@ const Query = {
     return await BackgroundModel.findOne(filter).lean();
   },
   async backgrounds(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -130,7 +128,7 @@ const Query = {
     return await ConditionModel.findOne(filter).lean();
   },
   async conditions(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -150,7 +148,7 @@ const Query = {
     return await DamageTypeModel.findOne(filter).lean();
   },
   async damageTypes(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -205,7 +203,7 @@ const Query = {
     return await EquipmentCategoryModel.findOne(filter).lean();
   },
   async equipmentCategories(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -231,7 +229,7 @@ const Query = {
       filters.push(resolveContainsStringFilter(args.name));
     }
 
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
 
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
@@ -423,7 +421,7 @@ const Query = {
     return await MagicSchoolModel.findOne(filter).lean();
   },
   async magicSchools(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -609,7 +607,7 @@ const Query = {
     return await RuleModel.findOne(filter).lean();
   },
   async rules(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -629,7 +627,7 @@ const Query = {
     return await RuleSectionModel.findOne(filter).lean();
   },
   async ruleSections(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -684,7 +682,7 @@ const Query = {
     return await SubclassModel.findOne(filter).lean();
   },
   async subclasses(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -704,7 +702,7 @@ const Query = {
     return await SubraceModel.findOne(filter).lean();
   },
   async subraces(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -724,7 +722,7 @@ const Query = {
     return await TraitModel.findOne(filter).lean();
   },
   async traits(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {
@@ -744,7 +742,7 @@ const Query = {
     return await WeaponPropertyModel.findOne(filter).lean();
   },
   async weaponProperties(_: any, args: Record<any, any>) {
-    const sort: SortParams = {};
+    const sort: SortQuery = {};
     const filters = [];
 
     if (args.name) {

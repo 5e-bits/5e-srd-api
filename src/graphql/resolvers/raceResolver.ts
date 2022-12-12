@@ -3,14 +3,14 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
-import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
+import {
+  coalesceFilters,
+  resolveChoice,
+  resolveContainsStringFilter,
+  QueryParams,
+} from './common.js';
 
 import { Race } from '../../models/race/types';
-
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
 
 const Race = {
   ability_bonuses: async (race: Race) => {
@@ -24,7 +24,7 @@ const Race = {
       ability_score: abilityScores.find(as => as.index === ab.ability_score.index),
     }));
   },
-  languages: async (race: Race, args: Args) => {
+  languages: async (race: Race, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: race.languages.map(l => l.index) } }];
 
     if (args.name) {
@@ -34,7 +34,7 @@ const Race = {
     return await LanguageModel.find(coalesceFilters(filters)).lean();
   },
   size: (race: Race) => race.size.toUpperCase(),
-  starting_proficiencies: async (race: Race, args: Args) => {
+  starting_proficiencies: async (race: Race, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: race.starting_proficiencies?.map(p => p.index) },
@@ -47,7 +47,7 @@ const Race = {
 
     return await ProficiencyModel.find(coalesceFilters(filters)).lean();
   },
-  subraces: async (race: Race, args: Args) => {
+  subraces: async (race: Race, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: race.subraces?.map(s => s.index) } }];
 
     if (args.name) {
@@ -56,7 +56,7 @@ const Race = {
 
     return await SubraceModel.find(coalesceFilters(filters)).lean();
   },
-  traits: async (race: Race, args: Args) => {
+  traits: async (race: Race, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: race.traits?.map(t => t.index) } }];
 
     if (args.name) {

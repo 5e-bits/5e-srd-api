@@ -15,13 +15,9 @@ import SubraceModel from '../../models/subrace/index.js';
 import TraitModel from '../../models/trait/index.js';
 import LanguageModel from '../../models/language/index.js';
 
-import { ResolvedDC } from './common';
+import { ResolvedDC, QueryParams } from './common';
 import { Trait, Usage } from '../../models/trait/types';
 
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
 type TraitSpecificClient = {
   breath_weapon?: {
     dc?: Promise<ResolvedDC>;
@@ -41,7 +37,7 @@ const resolveUsage = (usage: Usage) => {
 };
 
 const Trait = {
-  proficiencies: async (trait: Trait, args: Args) => {
+  proficiencies: async (trait: Trait, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: trait.proficiencies?.map(p => p.index) },
@@ -56,7 +52,7 @@ const Trait = {
   },
   parent: async (trait: Trait) =>
     trait.parent ? await TraitModel.findOne({ index: trait.parent.index }).lean() : null,
-  subraces: async (trait: Trait, args: Args) => {
+  subraces: async (trait: Trait, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: trait.subraces?.map(s => s.index) } }];
 
     if (args.name) {
@@ -65,7 +61,7 @@ const Trait = {
 
     return await SubraceModel.find(coalesceFilters(filters)).lean();
   },
-  races: async (trait: Trait, args: Args) => {
+  races: async (trait: Trait, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: trait.races?.map(r => r.index) } }];
 
     if (args.name) {

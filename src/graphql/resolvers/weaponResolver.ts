@@ -1,14 +1,14 @@
 import DamageTypeModel from '../../models/damageType/index.js';
 import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import WeaponPropertyModel from '../../models/weaponProperty/index.js';
-import { coalesceFilters, equipmentFieldResolvers, resolveContainsStringFilter } from './common.js';
+import {
+  coalesceFilters,
+  equipmentFieldResolvers,
+  resolveContainsStringFilter,
+  QueryParams,
+} from './common.js';
 
 import { Equipment } from '../../models/equipment/types';
-
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
 
 const Weapon = {
   ...equipmentFieldResolvers,
@@ -25,7 +25,7 @@ const Weapon = {
           }).lean(),
         }
       : null,
-  properties: async (weapon: Equipment, args: Args) => {
+  properties: async (weapon: Equipment, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: weapon.properties?.map(p => p.index) },

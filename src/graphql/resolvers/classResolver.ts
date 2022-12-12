@@ -10,15 +10,11 @@ import {
   resolveContainsStringFilter,
   resolveSpells,
   SpellQuery,
+  QueryParams,
 } from './common.js';
 
 import { Class } from '../../models/class/types';
 import { Option } from '../../models/common/types';
-
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
 
 const resolveEquipmentOption: any = async (option: Option) => {
   if (option.option_type === 'counted_reference') {
@@ -52,7 +48,7 @@ const resolveEquipmentOption: any = async (option: Option) => {
 };
 
 const Class = {
-  proficiencies: async (klass: Class, args: Args) => {
+  proficiencies: async (klass: Class, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: klass.proficiencies.map(p => p.index) },
@@ -93,7 +89,7 @@ const Class = {
   },
   class_levels: async (klass: Class) =>
     await LevelModel.find({ 'class.index': klass.index }).lean(),
-  subclasses: async (klass: Class, args: Args) => {
+  subclasses: async (klass: Class, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: klass.subclasses.map(s => s.index) } }];
 
     if (args.name) {

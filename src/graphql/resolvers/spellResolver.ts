@@ -8,15 +8,12 @@ import {
   levelObjectToArray,
   resolveAreaOfEffect,
   resolveContainsStringFilter,
+  QueryParams,
 } from './common.js';
 
 import { Spell } from '../../models/spell/types';
 import { DamageType } from '../../models/damageType/types';
 
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
 type SpellDamage = {
   damage_type?: DamageType;
   damage_at_slot_level?: Record<string, string | number>[];
@@ -27,7 +24,7 @@ const Spell = {
   attack_type: (spell: Spell) => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
   area_of_effect: (spell: Spell) =>
     spell.area_of_effect ? resolveAreaOfEffect(spell.area_of_effect) : null,
-  classes: async (spell: Spell, args: Args) => {
+  classes: async (spell: Spell, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: spell.classes.map(c => c.index) } }];
 
     if (args.name) {
@@ -36,7 +33,7 @@ const Spell = {
 
     return await ClassModel.find(coalesceFilters(filters)).lean();
   },
-  subclasses: async (spell: Spell, args: Args) => {
+  subclasses: async (spell: Spell, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: spell.subclasses?.map(s => s.index) } }];
 
     if (args.name) {

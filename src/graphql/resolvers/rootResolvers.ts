@@ -4,7 +4,7 @@ import Ammunition from './ammunitionResolver';
 import AreaOfEffectTypeFilter from './scalars/areaOfEffectTypeFilter';
 import Armor from './armorResolver';
 import Background from './backgroundResolver';
-import Class from './classResolver.js';
+import Class from './classResolver';
 import ClassSpecific from './classSpecificResolver';
 import EquipmentCategory from './equipmentCategoryResolver';
 import EquipmentMultipleItem from './equipmentMultipleItemResolver';

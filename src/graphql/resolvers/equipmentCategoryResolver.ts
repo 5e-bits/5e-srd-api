@@ -5,7 +5,7 @@ import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './co
 import { EquipmentCategory } from '../../models/equipmentCategory/types';
 import { MagicItem } from '../../models/magicItem/types';
 import { Equipment } from '../../models/equipment/types';
-import { Order } from './common';
+import { Order, SortQuery } from './common';
 
 type Args = {
   name?: string;
@@ -13,7 +13,6 @@ type Args = {
   skip?: number;
   limit: number;
 };
-type SortParams = Record<string, number>;
 
 const EquipmentCategory = {
   equipment: async (equipmentCategory: EquipmentCategory, args: Args) => {
@@ -30,7 +29,7 @@ const EquipmentCategory = {
     const magicItems = await MagicItemModel.find(coalesceFilters(filters)).lean();
     equipmentToReturn = equipmentToReturn.concat(magicItems);
 
-    let sort: SortParams = {};
+    let sort: SortQuery = {};
     if (args.order) {
       sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
     }

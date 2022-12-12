@@ -3,14 +3,14 @@ import LanguageModel from '../../models/language/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import RaceModel from '../../models/race/index.js';
 import TraitModel from '../../models/trait/index.js';
-import { coalesceFilters, resolveChoice, resolveContainsStringFilter } from './common.js';
+import {
+  coalesceFilters,
+  resolveChoice,
+  resolveContainsStringFilter,
+  QueryParams,
+} from './common.js';
 
 import { Subrace } from '../../models/subrace/types';
-
-type Args = {
-  name?: string;
-  order_direction?: string;
-};
 
 const Subrace = {
   ability_bonuses: async (subrace: Subrace) => {
@@ -25,7 +25,7 @@ const Subrace = {
     }));
   },
   race: async (subrace: Subrace) => await RaceModel.findOne({ index: subrace.race.index }).lean(),
-  racial_traits: async (subrace: Subrace, args: Args) => {
+  racial_traits: async (subrace: Subrace, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: subrace.racial_traits.map(t => t.index) },
@@ -38,7 +38,7 @@ const Subrace = {
 
     return await TraitModel.find(coalesceFilters(filters)).lean();
   },
-  starting_proficiencies: async (subrace: Subrace, args: Args) => {
+  starting_proficiencies: async (subrace: Subrace, args: QueryParams) => {
     const filters: any[] = [
       {
         index: { $in: subrace.starting_proficiencies?.map(p => p.index) },

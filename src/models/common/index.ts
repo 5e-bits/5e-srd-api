@@ -43,7 +43,7 @@ export const DifficultyClassSchema = new Schema<DifficultyClass>({
   success_type: { type: String, index: true, enum: ['none', 'half', 'other'] },
 });
 
-const DamageSchema = new Schema<Damage>({
+export const DamageSchema = new Schema<Damage>({
   _id: false,
   damage_type: { type: APIReferenceSchema, index: true },
   damage_dice: { type: String, index: true },

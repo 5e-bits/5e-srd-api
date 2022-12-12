@@ -1,8 +1,12 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema, DifficultyClassSchema } from '../common/index.js';
+import {
+  APIReferenceSchema,
+  ChoiceSchema,
+  DifficultyClassSchema,
+  DamageSchema,
+} from '../common/index.js';
 import {
   Action,
-  ActionDamage,
   ActionOption,
   ActionUsage,
   LegendaryAction,
@@ -16,12 +20,6 @@ import {
   Speed,
   Monster,
 } from './types';
-
-const ActionDamageSchema = new Schema<ActionDamage>({
-  _id: false,
-  damage_dice: { type: String, index: true },
-  damage_type: APIReferenceSchema,
-});
 
 const ActionOptionSchema = new Schema<ActionOption>({
   _id: false,
@@ -42,7 +40,7 @@ const ActionSchema = new Schema<Action>({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamageSchema], default: undefined },
+  damage: { type: [DamageSchema], default: undefined },
   dc: DifficultyClassSchema,
   usage: ActionUsageSchema,
   multiattack_type: { type: String, index: true, enum: ['actions', 'action_options'] },
@@ -55,7 +53,7 @@ const LegendaryActionSchema = new Schema<LegendaryAction>({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamageSchema], default: undefined },
+  damage: { type: [DamageSchema], default: undefined },
   dc: DifficultyClassSchema,
 });
 
@@ -115,7 +113,7 @@ const SpecialAbilitySchema = new Schema<SpecialAbility>({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamageSchema], default: undefined },
+  damage: { type: [DamageSchema], default: undefined },
   dc: DifficultyClassSchema,
   spellcasting: SpecialAbilitySpellcastingSchema,
   usage: SpecialAbilityUsageSchema,

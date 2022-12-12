@@ -1,11 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice, DifficultyClass } from '../common/types';
-
-type ActionDamage = {
-  _id?: boolean;
-  damage_dice: string;
-  damage_type: APIReference;
-};
+import { APIReference, Choice, DifficultyClass, Damage } from '../common/types';
 
 type ActionOption = {
   _id?: boolean;
@@ -26,7 +20,7 @@ type Action = {
   name: string;
   desc: string;
   attack_bonus?: number;
-  damage?: ActionDamage[];
+  damage?: Damage[];
   dc?: DifficultyClass;
   options?: Choice;
   usage?: ActionUsage;
