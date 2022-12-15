@@ -1,18 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice } from '../common/types';
-
-type ActionDamage = {
-  _id?: boolean;
-  damage_dice: string;
-  damage_type: APIReference;
-};
-
-type ActionDC = {
-  _id?: boolean;
-  dc_type: APIReference;
-  dc_value: number;
-  success_type: string;
-};
+import { APIReference, Choice, DifficultyClass, Damage } from '../common/types';
 
 type ActionOption = {
   _id?: boolean;
@@ -33,8 +20,8 @@ type Action = {
   name: string;
   desc: string;
   attack_bonus?: number;
-  damage?: ActionDamage[];
-  dc?: ActionDC;
+  damage?: Damage[];
+  dc?: DifficultyClass;
   options?: Choice;
   usage?: ActionUsage;
   multiattack_type: 'actions' | 'action_options';
@@ -48,7 +35,7 @@ type LegendaryAction = {
   desc: string;
   attack_bonus?: number;
   damage?: ActionDamage[];
-  dc?: ActionDC;
+  dc?: DifficultyClass;
 };
 
 type Proficiency = {
@@ -61,7 +48,7 @@ type Reaction = {
   _id?: boolean;
   name: string;
   desc: string;
-  dc?: ActionDC;
+  dc?: DifficultyClass;
 };
 
 type Sense = {
@@ -107,7 +94,7 @@ type SpecialAbility = {
   desc: string;
   attack_bonus?: number;
   damage?: ActionDamage[];
-  dc?: ActionDC;
+  dc?: DifficultyClass;
   spellcasting?: SpecialAbilitySpellcasting;
   usage: SpecialAbilityUsage;
 };
@@ -129,7 +116,7 @@ export type Monster = {
   armor_class: number;
   challenge_rating: number;
   charisma: number;
-  condition_immunities: string[];
+  condition_immunities: APIReference[];
   constitution: number;
   damage_immunities: string[];
   damage_resistances: string[];

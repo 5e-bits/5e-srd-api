@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice, AreaOfEffect } from '../common/types';
+import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '../common/types';
 
 type Proficiency = {
   _id?: boolean;
@@ -11,19 +11,13 @@ type Proficiency = {
 type ActionDamage = {
   _id?: boolean;
   damage_type: APIReference;
-  damage_at_character_level: Record<number, string>;
+  damage_at_character_level: Record<string, string>;
 };
 
-type Usage = {
+export type Usage = {
   _id?: boolean;
   type: string;
   times: number;
-};
-
-type DC = {
-  _id?: boolean;
-  dc_type: APIReference;
-  success_type: string;
 };
 
 type Action = {
@@ -31,7 +25,7 @@ type Action = {
   name: string;
   desc: string;
   usage: Usage;
-  dc: DC;
+  dc: DifficultyClass;
   damage: ActionDamage[];
   area_of_effect: AreaOfEffect;
 };

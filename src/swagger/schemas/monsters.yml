@@ -1,18 +1,3 @@
-monster-dc:
-  description: Ability Check associated with a particular action.
-  type: object
-  properties:
-    dc_type:
-      description: Reference to the `AbilityScore` used for this DC.
-      allOf:
-        - $ref: './combined.yml#/APIReference'
-    dc_value:
-      description: Check must equal or exceed this value for success.
-      type: number
-    success_type:
-      description: How to modify damage on a successful check.
-      type: string
-
 monster-damage:
   description: Damage type and dice associated with a particular attack.
   type: object
@@ -30,7 +15,7 @@ monster-attack:
     name:
       type: string
     dc:
-      $ref: '#/monster-dc'
+      $ref: './combined.yml#/DC'
     damage:
       $ref: '#/monster-damage'
 
@@ -66,7 +51,7 @@ monster-action:
     attack_bonus:
       type: number
     dc:
-      $ref: '#/monster-dc'
+      $ref: './combined.yml#/DC'
     attacks:
       type: array
       items:
@@ -192,7 +177,7 @@ monster-special-ability:
       items:
         $ref: '#/monster-damage'
     dc:
-      $ref: '#/monster-dc'
+      $ref: './combined.yml#/DC'
     spellcasting:
       $ref: '#/monster-spellcasting'
     usage:

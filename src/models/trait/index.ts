@@ -1,6 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema, AreaOfEffectSchema } from '../common/index.js';
-import { Proficiency, ActionDamage, Usage, DC, Action, TraitSpecific, Trait } from './types';
+import {
+  APIReferenceSchema,
+  ChoiceSchema,
+  AreaOfEffectSchema,
+  DifficultyClassSchema,
+} from '../common/index.js';
+import { Proficiency, ActionDamage, Usage, Action, TraitSpecific, Trait } from './types';
 
 const ProficiencySchema = new Schema<Proficiency>({
   _id: false,
@@ -22,18 +27,12 @@ const UsageSchema = new Schema<Usage>({
   times: { type: Number, index: true },
 });
 
-const DCSchema = new Schema<DC>({
-  _id: false,
-  dc_type: APIReferenceSchema,
-  success_type: { type: String, index: true },
-});
-
 const ActionSchema = new Schema<Action>({
   _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
   usage: UsageSchema,
-  dc: DCSchema,
+  dc: DifficultyClassSchema,
   damage: [ActionDamageSchema],
   area_of_effect: AreaOfEffectSchema,
 });

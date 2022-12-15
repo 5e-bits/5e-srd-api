@@ -1,9 +1,12 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema } from '../common/index.js';
+import {
+  APIReferenceSchema,
+  ChoiceSchema,
+  DifficultyClassSchema,
+  DamageSchema,
+} from '../common/index.js';
 import {
   Action,
-  ActionDamage,
-  ActionDC,
   ActionOption,
   ActionUsage,
   LegendaryAction,
@@ -17,19 +20,6 @@ import {
   Speed,
   Monster,
 } from './types';
-
-const ActionDamageSchema = new Schema<ActionDamage>({
-  _id: false,
-  damage_dice: { type: String, index: true },
-  damage_type: APIReferenceSchema,
-});
-
-const ActionDCSchema = new Schema<ActionDC>({
-  _id: false,
-  dc_type: APIReferenceSchema,
-  dc_value: { type: Number, index: true },
-  success_type: { type: String, index: true },
-});
 
 const ActionOptionSchema = new Schema<ActionOption>({
   _id: false,
@@ -50,8 +40,8 @@ const ActionSchema = new Schema<Action>({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamageSchema], default: undefined },
-  dc: ActionDCSchema,
+  damage: { type: [DamageSchema], default: undefined },
+  dc: DifficultyClassSchema,
   usage: ActionUsageSchema,
   multiattack_type: { type: String, index: true, enum: ['actions', 'action_options'] },
   action_options: { type: ChoiceSchema, index: true },
@@ -63,8 +53,8 @@ const LegendaryActionSchema = new Schema<LegendaryAction>({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamageSchema], default: undefined },
-  dc: ActionDCSchema,
+  damage: { type: [DamageSchema], default: undefined },
+  dc: DifficultyClassSchema,
 });
 
 const ProficiencySchema = new Schema<Proficiency>({
@@ -77,7 +67,7 @@ const ReactionSchema = new Schema<Reaction>({
   _id: false,
   name: { type: String, index: true },
   desc: { type: String, index: true },
-  dc: ActionDCSchema,
+  dc: DifficultyClassSchema,
 });
 
 const SenseSchema = new Schema<Sense>({
@@ -123,8 +113,8 @@ const SpecialAbilitySchema = new Schema<SpecialAbility>({
   name: { type: String, index: true },
   desc: { type: String, index: true },
   attack_bonus: { type: Number, index: true },
-  damage: { type: [ActionDamageSchema], default: undefined },
-  dc: ActionDCSchema,
+  damage: { type: [DamageSchema], default: undefined },
+  dc: DifficultyClassSchema,
   spellcasting: SpecialAbilitySpellcastingSchema,
   usage: SpecialAbilityUsageSchema,
 });

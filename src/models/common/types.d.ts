@@ -19,7 +19,7 @@ export interface AreaOfEffect {
   type: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone';
 }
 
-type OptionSet = OptionsArrayOptionSet | EquipmentCategoryOptionSet | ResourceListOptionSet;
+export type OptionSet = OptionsArrayOptionSet | EquipmentCategoryOptionSet | ResourceListOptionSet;
 
 type OptionsArrayOptionSet = {
   _id?: boolean;
@@ -42,7 +42,7 @@ type ResourceListOptionSet = {
 type DifficultyClass = {
   _id?: boolean;
   dc_type: APIReference;
-  dc_value: number;
+  dc_value?: number;
   success_type: 'none' | 'half' | 'other';
 };
 
@@ -52,7 +52,7 @@ type Damage = {
   damage_dice: string;
 };
 
-type Option =
+export type Option =
   | ReferenceOption
   | ActionOption
   | MultipleOption
@@ -110,6 +110,10 @@ type CountedReferenceOption = {
   option_type: 'counted_reference';
   count: number;
   of: APIReference;
+  prerequisites?: {
+    type: 'proficiency';
+    proficiency?: APIReference;
+  }[];
 };
 
 type ScorePrerequisiteOption = {
