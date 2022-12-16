@@ -470,10 +470,6 @@ const Query = {
       filters.push({ damage_vulnerabilities: { $elemMatch: { $in: args.damage_vulnerability } } });
     }
 
-    if (args.armor_class) {
-      filters.push(resolveNumberFilter(args.armor_class, 'armor_class'));
-    }
-
     if (args.challenge_rating) {
       filters.push(resolveNumberFilter(args.challenge_rating, 'challenge_rating'));
     }

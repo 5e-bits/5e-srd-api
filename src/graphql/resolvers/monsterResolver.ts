@@ -2,6 +2,7 @@ import { levelObjectToArray, resolveChoice, resolveDc } from './common.js';
 
 import ConditionModel from '../../models/condition/index.js';
 import DamageTypeModel from '../../models/damageType/index.js';
+import EquipmentModel from '../../models/equipment/index.js';
 import MonsterModel from '../../models/monster/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SpellModel from '../../models/spell/index.js';
@@ -45,6 +46,29 @@ const resolveDamage = async (damage: Damage[]) => {
 };
 
 const Monster = {
+  armor_class: async (monster: Monster) => {
+    const resolvedAC = monster.armor_class.map(async ac => {
+      const newAC: Record<string, any> = { ...ac };
+
+      if (ac.type === 'armor') {
+        newAC.armor = ac.armor?.map(async armor => {
+          return await EquipmentModel.findOne({ index: armor.index }).lean();
+        });
+      }
+
+      if (ac.type === 'condition') {
+        const condition = await ConditionModel.findOne({ index: ac.condition.index }).lean();
+        newAC.condition = condition;
+      }
+
+      if (ac.type === 'spell') {
+        const spell = await SpellModel.findOne({ index: ac.spell.index }).lean();
+        newAC.spell = spell;
+      }
+      return newAC;
+    });
+    return resolvedAC;
+  },
   condition_immunities: async (monster: Monster) =>
     await ConditionModel.find({
       index: { $in: monster.condition_immunities.map(ci => ci.index) },
