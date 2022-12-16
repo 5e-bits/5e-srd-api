@@ -9,6 +9,12 @@ import {
   Action,
   ActionOption,
   ActionUsage,
+  ArmorClass,
+  ArmorClassArmor,
+  ArmorClassCondition,
+  ArmorClassDex,
+  ArmorClassNatural,
+  ArmorClassSpell,
   LegendaryAction,
   Proficiency,
   Reaction,
@@ -46,6 +52,46 @@ const ActionSchema = new Schema<Action>({
   multiattack_type: { type: String, index: true, enum: ['actions', 'action_options'] },
   action_options: { type: ChoiceSchema, index: true },
   actions: { type: [ActionOptionSchema], index: true },
+});
+
+const ArmorClassSchema = new Schema<ArmorClass>(
+  {
+    _id: false,
+    type: { type: String, index: true, enum: ['dex', 'natural', 'armor', 'spell', 'condition'] },
+  },
+  { discriminatorKey: 'type', _id: false }
+);
+
+ArmorClassSchema.discriminators = {};
+ArmorClassSchema.discriminators.dex = new Schema<ArmorClassDex>({
+  _id: false,
+  value: { type: Number, index: true },
+});
+
+ArmorClassSchema.discriminators.natural = new Schema<ArmorClassNatural>({
+  _id: false,
+  value: { type: Number, index: true },
+});
+
+ArmorClassSchema.discriminators.armor = new Schema<ArmorClassArmor>({
+  _id: false,
+  value: { type: Number, index: true },
+  armor: { type: [APIReferenceSchema], index: true },
+  desc: { type: String, index: true },
+});
+
+ArmorClassSchema.discriminators.spell = new Schema<ArmorClassSpell>({
+  _id: false,
+  value: { type: Number, index: true },
+  spell: { type: APIReferenceSchema, index: true },
+  desc: { type: String, index: true },
+});
+
+ArmorClassSchema.discriminators.condition = new Schema<ArmorClassCondition>({
+  _id: false,
+  value: { type: Number, index: true },
+  condition: { type: APIReferenceSchema, index: true },
+  desc: { type: String, index: true },
 });
 
 const LegendaryActionSchema = new Schema<LegendaryAction>({
@@ -133,7 +179,7 @@ const Monster = new Schema<Monster>({
   _id: { type: String, select: false },
   actions: [ActionSchema],
   alignment: { type: String, index: true },
-  armor_class: { type: Number, index: true },
+  armor_class: [ArmorClassSchema],
   challenge_rating: { type: Number, index: true },
   charisma: { type: Number, index: true },
   condition_immunities: [APIReferenceSchema],
