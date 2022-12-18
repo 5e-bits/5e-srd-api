@@ -256,4 +256,4 @@ area-of-effect-model:
       type: number
     type:
       type: string
-      enum: [sphere, cone, cylinder, line, cone]
+      enum: [sphere, cone, cylinder, line, cube]
