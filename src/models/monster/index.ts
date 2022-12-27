@@ -70,21 +70,15 @@ ArmorClassSchema.discriminators.dex = new Schema<ArmorClassDex>({});
 ArmorClassSchema.discriminators.natural = new Schema<ArmorClassNatural>({});
 
 ArmorClassSchema.discriminators.armor = new Schema<ArmorClassArmor>({
-  value: { type: Number, index: true },
   armor: { type: [APIReferenceSchema], index: true },
-  desc: { type: String, index: true },
 });
 
 ArmorClassSchema.discriminators.spell = new Schema<ArmorClassSpell>({
-  value: { type: Number, index: true },
   spell: { type: APIReferenceSchema, index: true },
-  desc: { type: String, index: true },
 });
 
 ArmorClassSchema.discriminators.condition = new Schema<ArmorClassCondition>({
-  value: { type: Number, index: true },
   condition: { type: APIReferenceSchema, index: true },
-  desc: { type: String, index: true },
 });
 
 const LegendaryActionSchema = new Schema<LegendaryAction>({

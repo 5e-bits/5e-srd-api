@@ -654,10 +654,19 @@ type MonsterAction {
   usage: Usage
 }
 
+type MonsterArmorClass {
+  type: String!
+  desc: String
+  value: Int!
+  armor: [Equipment]
+  spell: Spell
+  condition: Condition
+}
+
 type Monster {
   index: String!
   name: String!
-  armor_class: Int!
+  armor_class: MonsterArmorClass!
   desc: String
   actions: [MonsterAction!]
   challenge_rating: Float!
