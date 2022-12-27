@@ -658,7 +658,7 @@ type MonsterArmorClass {
   type: String!
   desc: String
   value: Int!
-  armor: [Equipment]
+  armor: [IEquipment]
   spell: Spell
   condition: Condition
 }
