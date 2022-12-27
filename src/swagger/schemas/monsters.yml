@@ -9,6 +9,8 @@ monster-armor-class:
           enum: [dex]
         value:
           type: number
+        desc:
+          type: string
     - type: object
       properties:
         type:
@@ -16,6 +18,8 @@ monster-armor-class:
           enum: [natural]
         value:
           type: number
+        desc:
+          type: string
     - type: object
       properties:
         type:

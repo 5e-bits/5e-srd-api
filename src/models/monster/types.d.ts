@@ -40,6 +40,7 @@ type ArmorClassDex = {
   _id?: boolean;
   type: 'dex';
   value: number;
+  desc?: string;
 };
 
 type ArmorClassNatural = {

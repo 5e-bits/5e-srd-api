@@ -58,37 +58,30 @@ const ArmorClassSchema = new Schema<ArmorClass>(
   {
     _id: false,
     type: { type: String, index: true, enum: ['dex', 'natural', 'armor', 'spell', 'condition'] },
+    desc: { type: String, index: true },
+    value: { type: Number, index: true },
   },
   { discriminatorKey: 'type', _id: false }
 );
 
 ArmorClassSchema.discriminators = {};
-ArmorClassSchema.discriminators.dex = new Schema<ArmorClassDex>({
-  _id: false,
-  value: { type: Number, index: true },
-});
+ArmorClassSchema.discriminators.dex = new Schema<ArmorClassDex>({});
 
-ArmorClassSchema.discriminators.natural = new Schema<ArmorClassNatural>({
-  _id: false,
-  value: { type: Number, index: true },
-});
+ArmorClassSchema.discriminators.natural = new Schema<ArmorClassNatural>({});
 
 ArmorClassSchema.discriminators.armor = new Schema<ArmorClassArmor>({
-  _id: false,
   value: { type: Number, index: true },
   armor: { type: [APIReferenceSchema], index: true },
   desc: { type: String, index: true },
 });
 
 ArmorClassSchema.discriminators.spell = new Schema<ArmorClassSpell>({
-  _id: false,
   value: { type: Number, index: true },
   spell: { type: APIReferenceSchema, index: true },
   desc: { type: String, index: true },
 });
 
 ArmorClassSchema.discriminators.condition = new Schema<ArmorClassCondition>({
-  _id: false,
   value: { type: Number, index: true },
   condition: { type: APIReferenceSchema, index: true },
   desc: { type: String, index: true },
