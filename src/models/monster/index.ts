@@ -19,6 +19,7 @@ import {
   SpecialAbility,
   Speed,
   Monster,
+  ArmorClass,
 } from './types';
 
 const ActionOptionSchema = new Schema<ActionOption>({
@@ -129,10 +130,25 @@ const SpeedSchema = new Schema<Speed>({
   walk: { type: String, index: true },
 });
 
+const ArmorClassSchema = new Schema<ArmorClass>({
+  _id: false,
+  type: {
+    type: String,
+    index: true,
+    required: true,
+    enum: ['dex', 'natural', 'armor', 'spell', 'condition'],
+  },
+  value: { type: Number, index: true, required: true },
+  desc: { type: String, index: true },
+  armor: APIReferenceSchema,
+  spell: APIReferenceSchema,
+  condition: APIReferenceSchema,
+});
+
 const Monster = new Schema<Monster>({
   _id: { type: String, select: false },
   actions: [ActionSchema],
-  alignment: { type: String, index: true },
+  alignment: [ArmorClassSchema],
   armor_class: { type: Number, index: true },
   challenge_rating: { type: Number, index: true },
   charisma: { type: Number, index: true },

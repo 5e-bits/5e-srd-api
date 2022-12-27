@@ -183,6 +183,25 @@ monster-special-ability:
     usage:
       $ref: '#/monster-usage'
 
+monster-armor-class:
+  type: object
+  properties:
+    type:
+      type: string
+      enum: [dex, natural, armor, spell, condition]
+    value:
+      type: number
+    desc:
+      type: string
+    spell:
+      $ref: './combined.yml#/APIReference'
+    armor:
+      type: array
+      items:
+        $ref: './combined.yml#/APIReference'
+    condition:
+      $ref: './combined.yml#/APIReference'
+
 monster-model:
   description: |
     `Monster`
@@ -228,7 +247,9 @@ monster-model:
             - unaligned
         armor_class:
           description: 'The difficulty for a player to successfully deal damage to a monster.'
-          type: number
+          type: array
+          items:
+            $ref: '#/monster-armor-class'
         hit_points:
           description: 'The hit points of a monster determine how much damage it is able to take before it can be defeated.'
           type: number

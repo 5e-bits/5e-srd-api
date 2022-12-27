@@ -109,11 +109,46 @@ type Speed = {
   walk?: string;
 };
 
+type ArmorClassDex = {
+  type: 'dex';
+  value: number;
+};
+type ArmorClassNatural = {
+  type: 'natural';
+  value: number;
+  desc?: string;
+};
+type ArmorClassArmor = {
+  type: 'armor';
+  value: number;
+  armor: APIReference[]; // Equipment
+  desc?: string;
+};
+type ArmorClassSpell = {
+  type: 'spell';
+  value: number;
+  spell: APIReference; // Spell
+  desc?: string;
+};
+type ArmorClassCondition = {
+  type: 'condition';
+  value: number;
+  condition: APIReference; // Condition
+  desc?: string;
+};
+
+type ArmorClass =
+  | ArmorClassDex
+  | ArmorClassNatural
+  | ArmorClassArmor
+  | ArmorClassSpell
+  | ArmorClassCondition;
+
 export type Monster = {
   _id?: mongoose.Types.ObjectId;
   actions?: Action[];
   alignment: string;
-  armor_class: number;
+  armor_class: ArmorClass[];
   challenge_rating: number;
   charisma: number;
   condition_immunities: APIReference[];

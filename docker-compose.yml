@@ -3,14 +3,13 @@ version: '3.8'
 services:
   db:
     image: ghcr.io/5e-bits/5e-database:latest
-    # build: ../5e-database
     ports:
-      - "27017:27017"
+      - '27017:27017'
 
   cache:
     image: redis:6.2.5
     ports:
-      - "6379:6379"
+      - '6379:6379'
 
   api:
     environment:

@@ -5,8 +5,17 @@ import DamageTypeModel from '../../models/damageType/index.js';
 import MonsterModel from '../../models/monster/index.js';
 import ProficiencyModel from '../../models/proficiency/index.js';
 import SpellModel from '../../models/spell/index.js';
+import EquipmentModel from '../../models/equipment/index.js';
 
-import { Monster, ActionUsage, SpecialAbilityUsage } from '../../models/monster/types';
+import {
+  Monster,
+  ActionUsage,
+  SpecialAbilityUsage,
+  ArmorClassNatural,
+  ArmorClassSpell,
+  ArmorClassArmor,
+  ArmorClassCondition,
+} from '../../models/monster/types';
 import { DamageType } from '../../models/damageType/types';
 import { Damage } from '../../models/common/types';
 
@@ -182,6 +191,47 @@ const Monster = {
     }
 
     return actionsToReturn;
+  },
+  armor_class: async (monster: Monster) => {
+    const { armor_class } = monster;
+
+    const armorClassToReturn = [];
+
+    for (const ac of armor_class) {
+      const acTorReturn: any = {
+        type: ac.type.toUpperCase(),
+        value: ac.value,
+        desc: (ac as ArmorClassNatural).desc,
+      };
+
+      if ((ac as ArmorClassSpell).spell) {
+        const spell = await SpellModel.findOne({
+          index: (ac as ArmorClassSpell).spell.index,
+        }).lean();
+
+        acTorReturn.spell = spell;
+      }
+
+      if ((ac as ArmorClassArmor).armor) {
+        const armor = await EquipmentModel.find({
+          index: { $in: (ac as ArmorClassArmor).armor.map(a => a.index) },
+        }).lean();
+
+        acTorReturn.armor = armor;
+      }
+
+      if ((ac as ArmorClassCondition).condition) {
+        const condition = await ConditionModel.findOne({
+          index: (ac as ArmorClassCondition).condition.index,
+        }).lean();
+
+        acTorReturn.condition = condition;
+      }
+
+      armorClassToReturn.push(acTorReturn);
+    }
+
+    return armorClassToReturn;
   },
 };
 
