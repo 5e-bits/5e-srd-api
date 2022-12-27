@@ -98,7 +98,9 @@ monster-index:
                     times: 3
                     type: per day
               alignment: lawful evil
-              armor_class: 17
+              armor_class:
+                - type: natural
+                  value: 17
               challenge_rating: 10
               charisma: 18
               condition_immunities: []
