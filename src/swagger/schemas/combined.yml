@@ -41,9 +41,9 @@ MagicItem:
 DamageType:
   $ref: './game-mechanics.yml#/damage-type-model'
 DamageAtCharacterLevel:
-  $ref: './common.yml#/damage-at-character-level-model'
+  $ref: './spell.yml#/damage-at-character-level-model'
 DamageAtSlotLevel:
-  $ref: './common.yml#/damage-at-slot-level-model'
+  $ref: './spell.yml#/damage-at-slot-level-model'
 Condition:
   $ref: './game-mechanics.yml#/condition-model'
 MagicSchool:
@@ -73,7 +73,7 @@ Race:
 AbilityBonus:
   $ref: './ability-scores.yml#/AbilityBonus'
 Spell:
-  $ref: './spell.yml'
+  $ref: './spell.yml#/spell-model'
 Subrace:
   $ref: './subrace.yml'
 Trait:

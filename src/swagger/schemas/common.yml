@@ -257,23 +257,3 @@ area-of-effect-model:
     type:
       type: string
       enum: [sphere, cone, cylinder, line, cube]
-damage-at-character-level-model:
-  description: |
-    'Spell Damage'
-  type: object
-  properties:
-    damage_at_character_level:
-      type: object
-      additionalProperties: true
-    damage_type:
-      $ref: './combined.yml#/APIReference'
-damage-at-slot-level-model:
-  description: |
-    'Spell Damage'
-  type: object
-  properties: 
-    damage_at_slot_level:
-      type: object
-      additionalProperties: true
-    damage_type:
-      $ref: './combined.yml#/APIReference'
