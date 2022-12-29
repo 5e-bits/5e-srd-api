@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "304aff23-6274-480b-b64b-92d0eda3363f"
+    "postman_id": "a6d96046-9f01-4d0f-9904-fdef6516802d"
   },
   "item": [
     {
-      "id": "347ff874-d08e-4241-9234-c3bd4231808a",
+      "id": "1890c261-60d1-4d6a-81c0-2ee2229d7c85",
       "name": "Common",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "6e5f8fbd-e85d-45be-b835-314b0bcc2d36",
+          "id": "1010f7f6-90fc-496e-a614-587a30e9e67c",
           "name": "Get all resource URLs.",
           "request": {
             "name": "Get all resource URLs.",
@@ -43,7 +43,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "643e9eb5-f74d-4905-b5eb-1fa4a70e5723",
+              "id": "b35159f4-368e-4fbe-a857-8b36775043be",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -75,7 +75,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d3749bab-dded-4b67-9a06-130779be5bc3",
+                "id": "52b78891-d854-475a-8e0c-8d13409c364b",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -88,7 +88,7 @@
           ]
         },
         {
-          "id": "fa5bf179-0f3f-4d81-9908-01af79bb5abd",
+          "id": "56b3ae64-6998-4722-88a3-1d6dd209ff18",
           "name": "Get list of all available resources for an endpoint.",
           "request": {
             "name": "Get list of all available resources for an endpoint.",
@@ -131,7 +131,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "007ea878-e6ce-46fd-8e56-9fd4144c66a9",
+              "id": "6516e4e8-b22e-41b8-b2c8-3afc90872706",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -167,7 +167,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -175,7 +175,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "05ab2e30-3331-4262-8358-239a17a68f83",
+                "id": "3931eaa8-c249-49bb-a8b1-3c1bba027ef0",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/:endpoint - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -191,7 +191,7 @@
       "event": []
     },
     {
-      "id": "13edca1a-d0b6-471b-98f5-32b9472503ff",
+      "id": "e42fbea3-76a9-41cc-b1ac-55d6bf6134ce",
       "name": "Character Data",
       "description": {
         "content": "",
@@ -199,7 +199,7 @@
       },
       "item": [
         {
-          "id": "0e6a1df6-aa2f-4fca-a64d-552ae702323e",
+          "id": "3b94979f-435d-4389-b169-6a7600fd180b",
           "name": "Get an ability score by index.",
           "request": {
             "name": "Get an ability score by index.",
@@ -243,7 +243,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "5fcbfab4-ce85-494c-acab-50ff07e470c5",
+              "id": "0ad8acc8-2192-4218-a629-1ccf4fe7067e",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -288,7 +288,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "4e1f32a7-c74b-42df-ab11-2c597b5bb9e8",
+                "id": "30b1b8dd-b877-4cf3-8d7c-b6701e55dcde",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/ability-scores/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -301,7 +301,7 @@
           ]
         },
         {
-          "id": "aaccba23-1e89-4ead-9550-7a6262c0590e",
+          "id": "673fdc1a-0ea3-4e8a-82f5-6905487c6dbe",
           "name": "Get an alignment by index.",
           "request": {
             "name": "Get an alignment by index.",
@@ -345,7 +345,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "d18e5066-ffaf-4f7b-bc9e-3f8dd4c6b21d",
+              "id": "de7da5e5-7b98-4516-a250-e332c667eadc",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -390,7 +390,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "41cd7589-de1a-4aa6-a3d6-784702c3bd53",
+                "id": "aeb466e6-a131-4a8e-8847-ba681b9faf47",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/alignments/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -403,7 +403,7 @@
           ]
         },
         {
-          "id": "37c1178e-68ca-4195-a860-52a9e63fcf32",
+          "id": "f74e54c0-b50c-408a-be88-aa13276298ba",
           "name": "Get a background by index.",
           "request": {
             "name": "Get a background by index.",
@@ -447,7 +447,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "03084b37-16f3-401f-a220-e1c874fb9a79",
+              "id": "0e5a3244-75ed-4617-aeb2-c1981f44dcd1",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -492,7 +492,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "33e3f8e7-e0b0-4757-98df-6c26886315f1",
+                "id": "848d9a5b-bd89-4578-92e5-a36ae5623e21",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/backgrounds/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -505,7 +505,7 @@
           ]
         },
         {
-          "id": "2e2328c0-04c5-4268-bcdb-38f2fa82cf33",
+          "id": "49d0d3e6-b20f-497d-964f-2809a38a6000",
           "name": "Get a language by index.",
           "request": {
             "name": "Get a language by index.",
@@ -549,7 +549,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "2ede7290-ea8a-4c9b-abe0-bbe2f174400d",
+              "id": "32f02363-273b-4059-bc3b-f911b76256b9",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -594,7 +594,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "abe9732d-b303-4ff2-9702-1569ba4c0a68",
+                "id": "d82939ff-6bb4-45b8-9245-197fd0f68da2",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/languages/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -607,7 +607,7 @@
           ]
         },
         {
-          "id": "9d847f78-40f7-4ca8-a3a3-4b8da44d8fa0",
+          "id": "975f4602-3c7d-44e8-a792-212b7f91d47b",
           "name": "Get a proficiency by index.",
           "request": {
             "name": "Get a proficiency by index.",
@@ -651,7 +651,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "7364d842-26c1-47d7-b5bf-45271d1b9c77",
+              "id": "e64e1162-c21c-4e43-a454-efa4177e667e",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -696,7 +696,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "6f09342c-3816-4598-a255-94de57fd47eb",
+                "id": "674c89f6-e247-41eb-a25c-d07708c993d6",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/proficiencies/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -709,7 +709,7 @@
           ]
         },
         {
-          "id": "674a5f63-d474-4e28-b446-2fb8997815c5",
+          "id": "53dba3b0-b537-4017-b1ff-ae27408adc88",
           "name": "Get a skill by index.",
           "request": {
             "name": "Get a skill by index.",
@@ -753,7 +753,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "49b8e9b8-e038-4871-b8e0-79ecb97a5386",
+              "id": "a76c6477-a4a1-447a-beef-78f66b58974f",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -798,7 +798,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "9ea02fa9-372e-4054-b207-d7a0b307c3a4",
+                "id": "e4bef625-cc44-4e23-98dc-e3ef8025eb85",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/skills/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -814,7 +814,7 @@
       "event": []
     },
     {
-      "id": "ed648d64-8944-4830-b881-3a5612730c8e",
+      "id": "17d64feb-06a2-4ef3-95c3-369c55450505",
       "name": "Class",
       "description": {
         "content": "",
@@ -822,7 +822,7 @@
       },
       "item": [
         {
-          "id": "696befc4-493b-422d-9686-2e9258314bb4",
+          "id": "4d67128e-f171-4e74-99c7-ec5f8900aa54",
           "name": "Get a class by index.",
           "request": {
             "name": "Get a class by index.",
@@ -866,7 +866,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "ab2f231c-72b0-4531-8462-f30b8c30e540",
+              "id": "148abd0f-a68d-40d9-b812-523cc7621cb2",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -911,7 +911,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "3d81a5fc-6e51-466e-94c2-dad38a1e81c1",
+                "id": "c7fcb84a-aee9-4c90-9e4f-d89c1008f616",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -924,7 +924,7 @@
           ]
         },
         {
-          "id": "e02ffd0b-96d4-448d-8a4f-160241aeebea",
+          "id": "d00eaa16-21e3-4009-95f5-47fbf052cced",
           "name": "Get spellcasting info for a class.",
           "request": {
             "name": "Get spellcasting info for a class.",
@@ -968,7 +968,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "6b390c75-fd86-4ea4-ab28-db9d6d9a7405",
+              "id": "ec00c6f9-a07b-479e-8a30-9d017fa5ff76",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1013,7 +1013,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "e79aa0cc-e3fe-4e76-82fe-6656b3ceb3f0",
+              "id": "4c33add8-5ed6-4405-8d19-44e8fd0f5bd9",
               "name": "Not found.",
               "originalRequest": {
                 "url": {
@@ -1059,7 +1059,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "8675a2b0-8163-437c-854b-1fa3b651356c",
+                "id": "da87e8df-8f47-41f2-976d-669dcd792aee",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/spellcasting - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1072,7 +1072,7 @@
           ]
         },
         {
-          "id": "6c108ea9-711b-4d8e-9dcc-605774bc2776",
+          "id": "a116525a-1c7a-4643-9fa6-d2d72fe3c710",
           "name": "Get multiclassing resource for a class.",
           "request": {
             "name": "Get multiclassing resource for a class.",
@@ -1116,7 +1116,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "4e27d154-e6fd-4a42-95c6-4f8203e57ba2",
+              "id": "a3133b46-90ed-4373-b2b0-6ea026411291",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1162,7 +1162,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "5dc70293-86cc-4bfd-ac70-c54fac8c9bf9",
+                "id": "de1141d1-3df5-44bc-91f1-4910246cbd4e",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/multi-classing - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1178,7 +1178,7 @@
       "event": []
     },
     {
-      "id": "566045ee-b9dd-4895-9405-7dc7352a77cd",
+      "id": "f2a9a44d-6610-435c-a3ac-3241fb8e97b4",
       "name": "Class Resource Lists",
       "description": {
         "content": "",
@@ -1186,7 +1186,7 @@
       },
       "item": [
         {
-          "id": "20d8607b-2975-465c-8ac5-781ecad5d7e5",
+          "id": "62fbe80a-b2f5-4396-8257-b2c220b84d84",
           "name": "Get subclasses available for a class.",
           "request": {
             "name": "Get subclasses available for a class.",
@@ -1230,7 +1230,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "12a2449e-c0e9-42ba-9cfe-75a2165c774b",
+              "id": "45c34561-8dfd-41ec-acb0-d23118765278",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1276,7 +1276,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "25be14d6-416e-4603-af87-f1f88bd73488",
+                "id": "8ab4ff97-fca6-48e6-a892-336e67c0a41c",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/subclasses - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1289,7 +1289,7 @@
           ]
         },
         {
-          "id": "79fe4f88-b404-42d4-ada1-205de8b9641f",
+          "id": "60fd4db6-ddda-4531-a109-41bfd5d98a54",
           "name": "Get spells available for a class.",
           "request": {
             "name": "Get spells available for a class.",
@@ -1333,7 +1333,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "75d04357-b870-46cf-8902-4ea0b824e2f2",
+              "id": "ac9b3bf2-e5b1-457c-bd64-1887e1b249b9",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1379,7 +1379,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "8c941023-2b8c-4752-8b49-de37d8462b90",
+                "id": "12ec928d-a850-466e-a555-feba2111c04f",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/spells - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1392,7 +1392,7 @@
           ]
         },
         {
-          "id": "cb5bd1b3-bd5f-48c9-bb78-b50c934fa54a",
+          "id": "661324e8-8539-49ba-b7ad-ca0d44af5fda",
           "name": "Get features available for a class.",
           "request": {
             "name": "Get features available for a class.",
@@ -1436,7 +1436,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "ef38b9a8-fa47-4a92-a115-b154db353478",
+              "id": "9627266a-3105-4ecd-8afb-3539c59a0ff5",
               "name": "List of features for the class.",
               "originalRequest": {
                 "url": {
@@ -1474,7 +1474,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -1482,7 +1482,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "71571107-a7db-477d-bb5d-9c617c4f75b6",
+                "id": "a0017b07-b13f-4af0-b94e-b98e73f8b88c",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/features - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1495,7 +1495,7 @@
           ]
         },
         {
-          "id": "3bb340d3-1db0-4f09-95bd-2d2b68617622",
+          "id": "efdb672f-d044-45cb-a3ac-521ea30f9d04",
           "name": "Get proficiencies available for a class.",
           "request": {
             "name": "Get proficiencies available for a class.",
@@ -1539,7 +1539,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "93b1445f-bd8f-477d-85da-fb50c6a04638",
+              "id": "dfed98db-e0ee-47f4-92a4-5d7d6e6fa7ff",
               "name": "List of proficiencies for the class.",
               "originalRequest": {
                 "url": {
@@ -1577,7 +1577,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -1585,7 +1585,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "6d62bd47-1581-4026-8df5-b7c374275bc5",
+                "id": "cf75a167-f7e5-4b51-8f15-a2ee0d47d3b8",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/proficiencies - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1601,7 +1601,7 @@
       "event": []
     },
     {
-      "id": "bc72654f-f816-42aa-9b4d-d432160ae813",
+      "id": "c44bf0df-7561-450c-ab2b-372815ac7e25",
       "name": "Class Levels",
       "description": {
         "content": "",
@@ -1609,7 +1609,7 @@
       },
       "item": [
         {
-          "id": "fdf473a8-4487-49a3-bd0c-deb284c79051",
+          "id": "338f5261-1d45-4da3-a9cf-adf94de5a8ab",
           "name": "Get all level resources for a class.",
           "request": {
             "name": "Get all level resources for a class.",
@@ -1663,7 +1663,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "23e25460-a839-44db-a859-095794ccbf70",
+              "id": "bda602c5-fe0c-4ddd-927e-e8232b259954",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1706,7 +1706,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"index\": \"se\",\n    \"url\": \"mollit do in aute id\",\n    \"level\": -28923801.520690292,\n    \"ability_score_bonuses\": -82787122.505739,\n    \"prof_bonus\": 63362278.56782189,\n    \"features\": [\n      {\n        \"index\": \"do exercitation veniam qui\",\n        \"name\": \"enim aute in incididunt\",\n        \"url\": \"do ut in\"\n      },\n      {\n        \"index\": \"culpa cup\",\n        \"name\": \"nulla fugiat\",\n        \"url\": \"dolor adipisicing ut\"\n      }\n    ],\n    \"spellcasting\": {\n      \"cantrips_known\": 49364256.13430235,\n      \"spells_known\": 66027203.11883038,\n      \"spell_slots_level_1\": -46973579.94354339,\n      \"spell_slots_level_2\": -58919505.84560215,\n      \"spell_slots_level_3\": -42477215.059940934,\n      \"spell_slots_level_4\": 93882730.20255286,\n      \"spell_slots_level_5\": -46996027.17816114,\n      \"spell_slots_level_6\": -75446570.43586116,\n      \"spell_slots_level_7\": -69514258.9722015,\n      \"spell_slots_level_8\": 29947119.542373374,\n      \"spell_slots_level_9\": -18086839.399583846\n    },\n    \"class_specific\": {\n      \"rage_count\": -25167951.031981558,\n      \"rage_damage_bonus\": -33785821.288419135,\n      \"brutal_critical_dice\": 45061929.70379943\n    }\n  },\n  {\n    \"index\": \"dolore Duis\",\n    \"url\": \"ad ullamco ea\",\n    \"level\": -27041049.532479107,\n    \"ability_score_bonuses\": -57736369.34295334,\n    \"prof_bonus\": -59907520.54639889,\n    \"features\": [\n      {\n        \"index\": \"Lorem ea\",\n        \"name\": \"sed est dolore cupidatat aliquip\",\n        \"url\": \"laborum\"\n      },\n      {\n        \"index\": \"incididunt sunt\",\n        \"name\": \"tempor incididunt\",\n        \"url\": \"nostrud\"\n      }\n    ],\n    \"spellcasting\": {\n      \"cantrips_known\": -94850296.34205748,\n      \"spells_known\": 56096764.035248905,\n      \"spell_slots_level_1\": -74540765.63658965,\n      \"spell_slots_level_2\": -89714953.91736543,\n      \"spell_slots_level_3\": -16344468.155907512,\n      \"spell_slots_level_4\": 21451928.535762653,\n      \"spell_slots_level_5\": -43435441.806252405,\n      \"spell_slots_level_6\": 56524635.7334038,\n      \"spell_slots_level_7\": 5327530.378979832,\n      \"spell_slots_level_8\": -25742495.676039964,\n      \"spell_slots_level_9\": -42574110.21284874\n    },\n    \"class_specific\": {\n      \"rage_count\": 67475621.46277013,\n      \"rage_damage_bonus\": -63330901.55304708,\n      \"brutal_critical_dice\": -65521318.75586742\n    }\n  }\n]",
+              "body": "[\n  {\n    \"index\": \"culpa occaecat sit Duis aliquip\",\n    \"url\": \"anim irure\",\n    \"level\": 99695827.56689063,\n    \"ability_score_bonuses\": -27586994.861874774,\n    \"prof_bonus\": 40360207.86654708,\n    \"features\": [\n      {\n        \"index\": \"est\",\n        \"name\": \"Excepteur\",\n        \"url\": \"of\"\n      },\n      {\n        \"index\": \"in laboris\",\n        \"name\": \"ipsum irure magna deserunt\",\n        \"url\": \"dolore occaecat tempor voluptate\"\n      }\n    ],\n    \"spellcasting\": {\n      \"cantrips_known\": -68551367.22437814,\n      \"spells_known\": -6718905.433992222,\n      \"spell_slots_level_1\": 65789954.768153965,\n      \"spell_slots_level_2\": -2978648.7345468104,\n      \"spell_slots_level_3\": 43184007.4616586,\n      \"spell_slots_level_4\": 34649023.25023034,\n      \"spell_slots_level_5\": -61539505.17500317,\n      \"spell_slots_level_6\": -36940368.24164768,\n      \"spell_slots_level_7\": -74692579.12711442,\n      \"spell_slots_level_8\": -87636480.34234351,\n      \"spell_slots_level_9\": 16414660.347881675\n    },\n    \"class_specific\": {\n      \"rage_count\": 6168969.961262375,\n      \"rage_damage_bonus\": 54496855.40081197,\n      \"brutal_critical_dice\": -60449515.906928666\n    }\n  },\n  {\n    \"index\": \"dolore fugiat mol\",\n    \"url\": \"nisi consequat esse ut\",\n    \"level\": 9591872.991267353,\n    \"ability_score_bonuses\": 35105309.81400728,\n    \"prof_bonus\": -62093568.57539721,\n    \"features\": [\n      {\n        \"index\": \"voluptate Ut ipsum\",\n        \"name\": \"nisi Excepteur\",\n        \"url\": \"dolore irure anim\"\n      },\n      {\n        \"index\": \"id anim ipsum\",\n        \"name\": \"ut ullamco repr\",\n        \"url\": \"velit id eu labore\"\n      }\n    ],\n    \"spellcasting\": {\n      \"cantrips_known\": -59943551.62829561,\n      \"spells_known\": -72383223.99372299,\n      \"spell_slots_level_1\": 45106214.5125812,\n      \"spell_slots_level_2\": -61940705.410766885,\n      \"spell_slots_level_3\": -50492335.78095511,\n      \"spell_slots_level_4\": 83069419.09359726,\n      \"spell_slots_level_5\": -3698681.2280979156,\n      \"spell_slots_level_6\": -38426047.33102659,\n      \"spell_slots_level_7\": -2542429.182691291,\n      \"spell_slots_level_8\": 6215877.662909716,\n      \"spell_slots_level_9\": -76486917.0538188\n    },\n    \"class_specific\": {\n      \"rage_count\": 78786038.8879436,\n      \"rage_damage_bonus\": -56413608.90293647,\n      \"brutal_critical_dice\": -6826107.843831912\n    }\n  }\n]",
               "cookie": []
             }
           ],
@@ -1714,7 +1714,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "1238c4b0-ac05-40c5-9383-4c389c729003",
+                "id": "4db771fa-3775-4daf-a691-67659632a5af",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/levels - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1727,7 +1727,7 @@
           ]
         },
         {
-          "id": "4d72d988-565e-4e02-bfa4-74d269d62ad4",
+          "id": "c07380ce-4912-49f9-b590-025b03517b32",
           "name": "Get level resource for a class and level.",
           "request": {
             "name": "Get level resource for a class and level.",
@@ -1782,7 +1782,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "cc89a396-3ad5-49ad-be3b-099953bbcfca",
+              "id": "401fb015-a450-4256-953a-a44bbbfcddbe",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1839,7 +1839,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "a6fbe137-a7d4-4b94-8cd9-4bf224511fc1",
+                "id": "fca17ff2-2959-4a17-a6b3-5b708daf323d",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/levels/:class_level - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1852,7 +1852,7 @@
           ]
         },
         {
-          "id": "5d6587fa-6140-4399-8a65-7b33de3db968",
+          "id": "11b0ba15-2e16-4e39-b86a-e83608080aeb",
           "name": "Get features available to a class at the requested level.",
           "request": {
             "name": "Get features available to a class at the requested level.",
@@ -1908,7 +1908,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "3b27131e-10bc-4ad2-8be7-f1c7b8efc570",
+              "id": "9bdfb8e5-f02f-451f-9e40-f16a810fd1b3",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1966,7 +1966,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "7666ef23-305b-47ca-a400-516f74302624",
+                "id": "b423e666-c90d-4374-9e58-e09d47701d8c",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/levels/:class_level/features - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -1979,7 +1979,7 @@
           ]
         },
         {
-          "id": "ab06b65a-e850-4c66-884c-92c99e9ee382",
+          "id": "78957b72-b1d2-4f9f-9bd5-30d0b36abf1b",
           "name": "Get spells of the requested level available to the class.",
           "request": {
             "name": "Get spells of the requested level available to the class.",
@@ -2035,7 +2035,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "e3f7e64b-803b-4519-98b3-414fde7858bb",
+              "id": "3e72fac0-071f-4f82-9e02-d2aa376b1b85",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2093,7 +2093,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "f31322b2-8bb3-4d71-bc09-f5fe02cd9ccc",
+                "id": "7e7b8b2a-2226-465c-9517-13a4a05cfba5",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/classes/:index/levels/:spell_level/spells - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2109,7 +2109,7 @@
       "event": []
     },
     {
-      "id": "f9287be2-c06d-4cd4-9c7d-4e7855711cc3",
+      "id": "3fabf3e7-7d78-4550-80ee-224c46998f39",
       "name": "Game Mechanics",
       "description": {
         "content": "",
@@ -2117,7 +2117,7 @@
       },
       "item": [
         {
-          "id": "c963b703-bb91-429d-b45b-e7b388916e32",
+          "id": "f81fc3ff-7fc6-4318-940b-a8ce4ddf22f9",
           "name": "Get a condition by index.",
           "request": {
             "name": "Get a condition by index.",
@@ -2161,7 +2161,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "49288941-f445-490f-b7a2-7c6b47f169d6",
+              "id": "d1e91804-e6b5-48ef-a9bf-97f9d4fd4276",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2206,7 +2206,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "829eeb20-09ce-4cc0-bd22-982bd85f5bf1",
+                "id": "eac24d54-822a-4dbe-847f-f9d7abd6e4c8",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/conditions/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2219,7 +2219,7 @@
           ]
         },
         {
-          "id": "b316c1df-518e-4923-9372-a5d1fa07335f",
+          "id": "c64efa5d-2545-4617-bf56-c82e926b1577",
           "name": "Get a damage type by index.",
           "request": {
             "name": "Get a damage type by index.",
@@ -2263,7 +2263,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "6758d7b0-1952-4f0a-be91-90bdb07a9c16",
+              "id": "c6c46902-f66c-4f67-ba1f-80187500603d",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2308,7 +2308,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "e8e346e9-a1ea-472f-a853-0aea8fb5bf92",
+                "id": "35798205-1dbd-4f99-9858-8bd087ba1b66",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/damage-types/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2321,7 +2321,7 @@
           ]
         },
         {
-          "id": "494ffabf-49b3-4952-af7d-5c4ff0a40d41",
+          "id": "cd535860-a00f-4eec-b40d-3f320a5c58e2",
           "name": "Get a magic school by index.",
           "request": {
             "name": "Get a magic school by index.",
@@ -2365,7 +2365,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "730254a8-9a9b-4665-aed8-0c0e6ec4c540",
+              "id": "32c9dea9-76a5-4b8f-a5d6-c030532c2079",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2410,7 +2410,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "9d15ab38-7668-4fe1-baa4-daa3876cafcf",
+                "id": "5fa7bb47-3c50-4200-bba6-48fdd46e3c2f",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/magic-schools/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2426,7 +2426,7 @@
       "event": []
     },
     {
-      "id": "41a81bce-0ffc-44b8-b14b-86df072f4076",
+      "id": "652032fc-78f8-46b9-bdcb-8d6e1ff352fc",
       "name": "Equipment",
       "description": {
         "content": "",
@@ -2434,7 +2434,7 @@
       },
       "item": [
         {
-          "id": "33ac54d1-bc90-4ada-b609-4015a2bd47a4",
+          "id": "4d2ac565-657a-4d1d-b914-ca4990d7ee50",
           "name": "Get an equipment item by index.",
           "request": {
             "name": "Get an equipment item by index.",
@@ -2478,7 +2478,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "0b38c871-8b4f-4118-9d94-9b037e8e088d",
+              "id": "2c68a7b8-9114-4c88-a98a-f3688028c95e",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2523,7 +2523,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "06b7f825-80af-4bdf-8967-03585bbbf78c",
+                "id": "737c79cc-c599-4ecd-b4b7-bab111427cbe",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/equipment/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2536,7 +2536,7 @@
           ]
         },
         {
-          "id": "53dcb39a-0a9d-4616-aea0-7020b2c8f9a9",
+          "id": "202b47d3-a863-4678-8712-d45b2c75edae",
           "name": "Get an equipment category by index.",
           "request": {
             "name": "Get an equipment category by index.",
@@ -2580,7 +2580,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "8ac1c592-42eb-47ca-ac5a-a79d008be4ab",
+              "id": "996bc1e1-f23f-481c-8118-44953dfd7ce1",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2625,7 +2625,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "80bd1197-6ffb-4e8d-9c7b-7312be84eb3b",
+                "id": "28dac00d-961f-422b-b60d-281c703d9b58",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/equipment-categories/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2638,7 +2638,7 @@
           ]
         },
         {
-          "id": "6542df47-e74a-4e12-838e-66e36f1fb05c",
+          "id": "ebc6b15b-d61e-459a-8d76-585f18b5acf5",
           "name": "Get a magic item by index.",
           "request": {
             "name": "Get a magic item by index.",
@@ -2682,7 +2682,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "6667b8b4-691c-46a3-a0c0-9c82f456bec8",
+              "id": "c35048f9-04d2-4097-8337-5e422fbb12ba",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2727,7 +2727,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "69a4f2f7-5f82-4b1d-86a4-a8ffeae6e36d",
+                "id": "320c8c92-f7e0-44f6-b7cb-26fae1c90f17",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/magic-items/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2740,7 +2740,7 @@
           ]
         },
         {
-          "id": "8f7b9f03-2968-4a82-a8d1-3fedde772413",
+          "id": "0cbed4b2-2a54-4d34-afef-ae9b6915b735",
           "name": "Get a weapon property by index.",
           "request": {
             "name": "Get a weapon property by index.",
@@ -2783,7 +2783,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "8b86a3cf-881a-47e1-bf86-4478afcd800a",
+              "id": "56f6ce9c-c775-4dc5-bc24-a43677750644",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2828,7 +2828,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "c95446c7-121e-4400-97e8-e5a8ae831c23",
+                "id": "8c02aa2f-c232-4598-be4e-20d662287cc5",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/weapon-properties/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2844,7 +2844,7 @@
       "event": []
     },
     {
-      "id": "5e20c65b-434b-473c-817c-50392f46c673",
+      "id": "e5652d52-d47a-47b9-8419-93866fb77513",
       "name": "Feats",
       "description": {
         "content": "",
@@ -2852,7 +2852,7 @@
       },
       "item": [
         {
-          "id": "001070ef-e505-47ba-abf6-dd7b73cf9afb",
+          "id": "68d631b0-fa27-4359-ae31-3ea60027adcb",
           "name": "Get a feat by index.",
           "request": {
             "name": "Get a feat by index.",
@@ -2896,7 +2896,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "2319afcd-b240-455e-b0de-ca04d7c9d1e3",
+              "id": "cc63fb20-a7a2-4bb2-8666-ab63f8ad425b",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -2941,7 +2941,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "45c75789-dd13-445d-a9d5-bf7d52fc10fc",
+                "id": "dd0e09e0-7d58-416e-b963-9bda1f6e4a66",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/feats/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -2957,7 +2957,7 @@
       "event": []
     },
     {
-      "id": "d8f30e09-0197-44c7-be03-eadf04e3934c",
+      "id": "a171e152-32ac-43b9-92a9-83ef9e929bb3",
       "name": "Features",
       "description": {
         "content": "",
@@ -2965,7 +2965,7 @@
       },
       "item": [
         {
-          "id": "4cfba0fb-79bd-4804-a780-b8815b2878b1",
+          "id": "032ce2f7-364b-4048-a05b-41853b3a7480",
           "name": "Get a feature by index.",
           "request": {
             "name": "Get a feature by index.",
@@ -3009,7 +3009,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "4ba54643-2964-4e1a-bc8d-58ece03cafe5",
+              "id": "aece9662-ac7f-42e0-921c-355cebe2b4a2",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -3054,13 +3054,13 @@
             {
               "listen": "test",
               "script": {
-                "id": "318ec2f4-a95b-4544-a9de-ecd4272ad2f7",
+                "id": "7df358e1-7f0c-4571-9954-7d0cb0e52176",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/features/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
                   "// Validate if response header has matching content-type\npm.test(\"[GET]::/api/features/:index - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
                   "// Validate if response has JSON Body \npm.test(\"[GET]::/api/features/:index - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-                  "// Response Validation\nconst schema = {\"description\":\"`Feature`\\n\",\"allOf\":[{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},{\"type\":\"object\",\"properties\":{\"desc\":{\"description\":\"Description of the resource.\",\"type\":\"array\",\"items\":{\"type\":\"string\"}}}},{\"type\":\"object\",\"properties\":{\"level\":{\"description\":\"The level this feature is gained.\",\"type\":\"number\"},\"class\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"subclass\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"feature_specific\":{\"description\":\"Information specific to this feature.\",\"additionalProperties\":true}}}]}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/features/:index - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
+                  "// Response Validation\nconst schema = {\"description\":\"`Feature`\\n\",\"allOf\":[{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},{\"type\":\"object\",\"properties\":{\"desc\":{\"description\":\"Description of the resource.\",\"type\":\"array\",\"items\":{\"type\":\"string\"}}}},{\"type\":\"object\",\"properties\":{\"level\":{\"description\":\"The level this feature is gained.\",\"type\":\"number\"},\"class\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"subclass\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"parent\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"prerequisites\":{\"description\":\"The prerequisites for this feature.\",\"type\":\"array\",\"items\":{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"level\":{\"type\":\"number\"}}},{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"feature\":{\"type\":\"string\"}}},{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"spell\":{\"type\":\"string\"}}}]},\"example\":[{\"type\":\"level\",\"level\":3},{\"type\":\"feature\",\"feature\":\"martial-archetype\"},{\"type\":\"spell\",\"spell\":\"shield\"}]},\"feature_specific\":{\"description\":\"Information specific to this feature.\",\"additionalProperties\":true}}}]}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/features/:index - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
                 ]
               }
             }
@@ -3070,7 +3070,7 @@
       "event": []
     },
     {
-      "id": "77276bed-197b-4d98-9967-67e8b70b658f",
+      "id": "4fefa951-a12a-4bbe-83b8-15767dc33fb7",
       "name": "Monsters",
       "description": {
         "content": "",
@@ -3078,7 +3078,7 @@
       },
       "item": [
         {
-          "id": "4d41172c-12b4-4116-94db-6a00ae4ff72c",
+          "id": "6cf55aed-68bd-4415-979f-9e417d8ffd73",
           "name": "Get list of monsters with optional filtering",
           "request": {
             "name": "Get list of monsters with optional filtering",
@@ -3119,7 +3119,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "1fcd682d-6b80-418c-bd7f-e9f6db5f9992",
+              "id": "e21722e7-eb0a-4ff6-8a23-155003c79d8d",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -3149,7 +3149,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -3157,7 +3157,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "43274cf9-949b-43a1-9043-ae2fe9a5fa76",
+                "id": "862d6a14-4ff7-4bc1-b2bf-071c7415a98b",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/monsters - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3170,7 +3170,7 @@
           ]
         },
         {
-          "id": "dec05002-9251-4c98-b1b8-39348e158eaf",
+          "id": "a177b18a-bf6e-43bf-82f3-60331c88bcee",
           "name": "Get monster by index.",
           "request": {
             "name": "Get monster by index.",
@@ -3213,7 +3213,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "3720f829-00cc-4f8b-abf0-0a9f09e4d017",
+              "id": "e8ee0e70-01ea-457f-b462-600bfad75ac2",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -3250,7 +3250,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"index\": \"aboleth\",\n  \"name\": \"Aboleth\",\n  \"url\": \"/api/monsters/aboleth\",\n  \"actions\": [\n    {\n      \"attacks\": [],\n      \"damage\": [],\n      \"desc\": \"The aboleth makes three tentacle attacks.\",\n      \"name\": \"Multiattack\",\n      \"multiattack_type\": \"actions\",\n      \"actions\": [\n        {\n          \"action_name\": \"Tentacle\",\n          \"count\": 3,\n          \"type\": \"melee\"\n        }\n      ]\n    },\n    {\n      \"attack_bonus\": 9,\n      \"attacks\": [],\n      \"damage\": [\n        {\n          \"damage_dice\": \"2d6+5\",\n          \"damage_type\": {\n            \"index\": \"bludgeoning\",\n            \"name\": \"Bludgeoning\",\n            \"url\": \"/api/damage-types/bludgeoning\"\n          }\n        },\n        {\n          \"damage_dice\": \"1d12\",\n          \"damage_type\": {\n            \"index\": \"acid\",\n            \"name\": \"Acid\",\n            \"url\": \"/api/damage-types/acid\"\n          }\n        }\n      ],\n      \"dc\": {\n        \"dc_type\": {\n          \"index\": \"con\",\n          \"name\": \"CON\",\n          \"url\": \"/api/ability-scores/con\"\n        },\n        \"dc_value\": 14,\n        \"success_type\": \"none\"\n      },\n      \"desc\": \"Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a creature, it must succeed on a DC 14 Constitution saving throw or become diseased. The disease has no effect for 1 minute and can be removed by any magic that cures disease. After 1 minute, the diseased creature's skin becomes translucent and slimy, the creature can't regain hit points unless it is underwater, and the disease can be removed only by heal or another disease-curing spell of 6th level or higher. When the creature is outside a body of water, it takes 6 (1d12) acid damage every 10 minutes unless moisture is applied to the skin before 10 minutes have passed.\",\n      \"name\": \"Tentacle\"\n    },\n    {\n      \"attack_bonus\": 9,\n      \"attacks\": [],\n      \"damage\": [\n        {\n          \"damage_dice\": \"3d6+5\",\n          \"damage_type\": {\n            \"index\": \"bludgeoning\",\n            \"name\": \"Bludgeoning\",\n            \"url\": \"/api/damage-types/bludgeoning\"\n          }\n        }\n      ],\n      \"desc\": \"Melee Weapon Attack: +9 to hit, reach 10 ft. one target. Hit: 15 (3d6 + 5) bludgeoning damage.\",\n      \"name\": \"Tail\"\n    },\n    {\n      \"attacks\": [],\n      \"damage\": [],\n      \"dc\": {\n        \"dc_type\": {\n          \"index\": \"wis\",\n          \"name\": \"WIS\",\n          \"url\": \"/api/ability-scores/wis\"\n        },\n        \"dc_value\": 14,\n        \"success_type\": \"none\"\n      },\n      \"desc\": \"The aboleth targets one creature it can see within 30 ft. of it. The target must succeed on a DC 14 Wisdom saving throw or be magically charmed by the aboleth until the aboleth dies or until it is on a different plane of existence from the target. The charmed target is under the aboleth's control and can't take reactions, and the aboleth and the target can communicate telepathically with each other over any distance.\\nWhenever the charmed target takes damage, the target can repeat the saving throw. On a success, the effect ends. No more than once every 24 hours, the target can also repeat the saving throw when it is at least 1 mile away from the aboleth.\",\n      \"name\": \"Enslave\",\n      \"usage\": {\n        \"times\": 3,\n        \"type\": \"per day\"\n      }\n    }\n  ],\n  \"alignment\": \"lawful evil\",\n  \"armor_class\": 17,\n  \"challenge_rating\": 10,\n  \"charisma\": 18,\n  \"condition_immunities\": [],\n  \"constitution\": 15,\n  \"damage_immunities\": [],\n  \"damage_resistances\": [],\n  \"damage_vulnerabilities\": [],\n  \"dexterity\": 9,\n  \"forms\": [],\n  \"hit_dice\": \"18d10\",\n  \"hit_points\": 135,\n  \"intelligence\": 18,\n  \"languages\": \"Deep Speech, telepathy 120 ft.\",\n  \"legendary_actions\": [\n    {\n      \"damage\": [],\n      \"desc\": \"The aboleth makes a Wisdom (Perception) check.\",\n      \"name\": \"Detect\"\n    },\n    {\n      \"damage\": [],\n      \"desc\": \"The aboleth makes one tail attack.\",\n      \"name\": \"Tail Swipe\"\n    },\n    {\n      \"attack_bonus\": 0,\n      \"damage\": [\n        {\n          \"damage_dice\": \"3d6\",\n          \"damage_type\": {\n            \"index\": \"psychic\",\n            \"name\": \"Psychic\",\n            \"url\": \"/api/damage-types/psychic\"\n          }\n        }\n      ],\n      \"desc\": \"One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the aboleth regains hit points equal to the damage the creature takes.\",\n      \"name\": \"Psychic Drain (Costs 2 Actions)\"\n    }\n  ],\n  \"proficiencies\": [\n    {\n      \"proficiency\": {\n        \"index\": \"saving-throw-con\",\n        \"name\": \"Saving Throw: CON\",\n        \"url\": \"/api/proficiencies/saving-throw-con\"\n      },\n      \"value\": 6\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"saving-throw-int\",\n        \"name\": \"Saving Throw: INT\",\n        \"url\": \"/api/proficiencies/saving-throw-int\"\n      },\n      \"value\": 8\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"saving-throw-wis\",\n        \"name\": \"Saving Throw: WIS\",\n        \"url\": \"/api/proficiencies/saving-throw-wis\"\n      },\n      \"value\": 6\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"skill-history\",\n        \"name\": \"Skill: History\",\n        \"url\": \"/api/proficiencies/skill-history\"\n      },\n      \"value\": 12\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"skill-perception\",\n        \"name\": \"Skill: Perception\",\n        \"url\": \"/api/proficiencies/skill-perception\"\n      },\n      \"value\": 10\n    }\n  ],\n  \"reactions\": [],\n  \"senses\": {\n    \"darkvision\": \"120 ft.\",\n    \"passive_perception\": 20\n  },\n  \"size\": \"Large\",\n  \"special_abilities\": [\n    {\n      \"damage\": [],\n      \"desc\": \"The aboleth can breathe air and water.\",\n      \"name\": \"Amphibious\"\n    },\n    {\n      \"damage\": [],\n      \"dc\": {\n        \"dc_type\": {\n          \"index\": \"con\",\n          \"name\": \"CON\",\n          \"url\": \"/api/ability-scores/con\"\n        },\n        \"dc_value\": 14,\n        \"success_type\": \"none\"\n      },\n      \"desc\": \"While underwater, the aboleth is surrounded by transformative mucus. A creature that touches the aboleth or that hits it with a melee attack while within 5 ft. of it must make a DC 14 Constitution saving throw. On a failure, the creature is diseased for 1d4 hours. The diseased creature can breathe only underwater.\",\n      \"name\": \"Mucous Cloud\"\n    },\n    {\n      \"damage\": [],\n      \"desc\": \"If a creature communicates telepathically with the aboleth, the aboleth learns the creature's greatest desires if the aboleth can see the creature.\",\n      \"name\": \"Probing Telepathy\"\n    }\n  ],\n  \"speed\": {\n    \"swim\": \"40 ft.\",\n    \"walk\": \"10 ft.\"\n  },\n  \"strength\": 21,\n  \"subtype\": null,\n  \"type\": \"aberration\",\n  \"wisdom\": 15,\n  \"xp\": 5900\n}",
+              "body": "{\n  \"index\": \"aboleth\",\n  \"name\": \"Aboleth\",\n  \"url\": \"/api/monsters/aboleth\",\n  \"actions\": [\n    {\n      \"attacks\": [],\n      \"damage\": [],\n      \"desc\": \"The aboleth makes three tentacle attacks.\",\n      \"name\": \"Multiattack\",\n      \"multiattack_type\": \"actions\",\n      \"actions\": [\n        {\n          \"action_name\": \"Tentacle\",\n          \"count\": 3,\n          \"type\": \"melee\"\n        }\n      ]\n    },\n    {\n      \"attack_bonus\": 9,\n      \"attacks\": [],\n      \"damage\": [\n        {\n          \"damage_dice\": \"2d6+5\",\n          \"damage_type\": {\n            \"index\": \"bludgeoning\",\n            \"name\": \"Bludgeoning\",\n            \"url\": \"/api/damage-types/bludgeoning\"\n          }\n        },\n        {\n          \"damage_dice\": \"1d12\",\n          \"damage_type\": {\n            \"index\": \"acid\",\n            \"name\": \"Acid\",\n            \"url\": \"/api/damage-types/acid\"\n          }\n        }\n      ],\n      \"dc\": {\n        \"dc_type\": {\n          \"index\": \"con\",\n          \"name\": \"CON\",\n          \"url\": \"/api/ability-scores/con\"\n        },\n        \"dc_value\": 14,\n        \"success_type\": \"none\"\n      },\n      \"desc\": \"Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a creature, it must succeed on a DC 14 Constitution saving throw or become diseased. The disease has no effect for 1 minute and can be removed by any magic that cures disease. After 1 minute, the diseased creature's skin becomes translucent and slimy, the creature can't regain hit points unless it is underwater, and the disease can be removed only by heal or another disease-curing spell of 6th level or higher. When the creature is outside a body of water, it takes 6 (1d12) acid damage every 10 minutes unless moisture is applied to the skin before 10 minutes have passed.\",\n      \"name\": \"Tentacle\"\n    },\n    {\n      \"attack_bonus\": 9,\n      \"attacks\": [],\n      \"damage\": [\n        {\n          \"damage_dice\": \"3d6+5\",\n          \"damage_type\": {\n            \"index\": \"bludgeoning\",\n            \"name\": \"Bludgeoning\",\n            \"url\": \"/api/damage-types/bludgeoning\"\n          }\n        }\n      ],\n      \"desc\": \"Melee Weapon Attack: +9 to hit, reach 10 ft. one target. Hit: 15 (3d6 + 5) bludgeoning damage.\",\n      \"name\": \"Tail\"\n    },\n    {\n      \"attacks\": [],\n      \"damage\": [],\n      \"dc\": {\n        \"dc_type\": {\n          \"index\": \"wis\",\n          \"name\": \"WIS\",\n          \"url\": \"/api/ability-scores/wis\"\n        },\n        \"dc_value\": 14,\n        \"success_type\": \"none\"\n      },\n      \"desc\": \"The aboleth targets one creature it can see within 30 ft. of it. The target must succeed on a DC 14 Wisdom saving throw or be magically charmed by the aboleth until the aboleth dies or until it is on a different plane of existence from the target. The charmed target is under the aboleth's control and can't take reactions, and the aboleth and the target can communicate telepathically with each other over any distance.\\nWhenever the charmed target takes damage, the target can repeat the saving throw. On a success, the effect ends. No more than once every 24 hours, the target can also repeat the saving throw when it is at least 1 mile away from the aboleth.\",\n      \"name\": \"Enslave\",\n      \"usage\": {\n        \"times\": 3,\n        \"type\": \"per day\"\n      }\n    }\n  ],\n  \"alignment\": \"lawful evil\",\n  \"armor_class\": 17,\n  \"challenge_rating\": 10,\n  \"charisma\": 18,\n  \"condition_immunities\": [],\n  \"constitution\": 15,\n  \"damage_immunities\": [],\n  \"damage_resistances\": [],\n  \"damage_vulnerabilities\": [],\n  \"dexterity\": 9,\n  \"forms\": [],\n  \"hit_dice\": \"18d10\",\n  \"hit_points\": 135,\n  \"hit_points_roll\": \"18d10+36\",\n  \"intelligence\": 18,\n  \"languages\": \"Deep Speech, telepathy 120 ft.\",\n  \"legendary_actions\": [\n    {\n      \"damage\": [],\n      \"desc\": \"The aboleth makes a Wisdom (Perception) check.\",\n      \"name\": \"Detect\"\n    },\n    {\n      \"damage\": [],\n      \"desc\": \"The aboleth makes one tail attack.\",\n      \"name\": \"Tail Swipe\"\n    },\n    {\n      \"attack_bonus\": 0,\n      \"damage\": [\n        {\n          \"damage_dice\": \"3d6\",\n          \"damage_type\": {\n            \"index\": \"psychic\",\n            \"name\": \"Psychic\",\n            \"url\": \"/api/damage-types/psychic\"\n          }\n        }\n      ],\n      \"desc\": \"One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the aboleth regains hit points equal to the damage the creature takes.\",\n      \"name\": \"Psychic Drain (Costs 2 Actions)\"\n    }\n  ],\n  \"proficiencies\": [\n    {\n      \"proficiency\": {\n        \"index\": \"saving-throw-con\",\n        \"name\": \"Saving Throw: CON\",\n        \"url\": \"/api/proficiencies/saving-throw-con\"\n      },\n      \"value\": 6\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"saving-throw-int\",\n        \"name\": \"Saving Throw: INT\",\n        \"url\": \"/api/proficiencies/saving-throw-int\"\n      },\n      \"value\": 8\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"saving-throw-wis\",\n        \"name\": \"Saving Throw: WIS\",\n        \"url\": \"/api/proficiencies/saving-throw-wis\"\n      },\n      \"value\": 6\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"skill-history\",\n        \"name\": \"Skill: History\",\n        \"url\": \"/api/proficiencies/skill-history\"\n      },\n      \"value\": 12\n    },\n    {\n      \"proficiency\": {\n        \"index\": \"skill-perception\",\n        \"name\": \"Skill: Perception\",\n        \"url\": \"/api/proficiencies/skill-perception\"\n      },\n      \"value\": 10\n    }\n  ],\n  \"reactions\": [],\n  \"senses\": {\n    \"darkvision\": \"120 ft.\",\n    \"passive_perception\": 20\n  },\n  \"size\": \"Large\",\n  \"special_abilities\": [\n    {\n      \"damage\": [],\n      \"desc\": \"The aboleth can breathe air and water.\",\n      \"name\": \"Amphibious\"\n    },\n    {\n      \"damage\": [],\n      \"dc\": {\n        \"dc_type\": {\n          \"index\": \"con\",\n          \"name\": \"CON\",\n          \"url\": \"/api/ability-scores/con\"\n        },\n        \"dc_value\": 14,\n        \"success_type\": \"none\"\n      },\n      \"desc\": \"While underwater, the aboleth is surrounded by transformative mucus. A creature that touches the aboleth or that hits it with a melee attack while within 5 ft. of it must make a DC 14 Constitution saving throw. On a failure, the creature is diseased for 1d4 hours. The diseased creature can breathe only underwater.\",\n      \"name\": \"Mucous Cloud\"\n    },\n    {\n      \"damage\": [],\n      \"desc\": \"If a creature communicates telepathically with the aboleth, the aboleth learns the creature's greatest desires if the aboleth can see the creature.\",\n      \"name\": \"Probing Telepathy\"\n    }\n  ],\n  \"speed\": {\n    \"swim\": \"40 ft.\",\n    \"walk\": \"10 ft.\"\n  },\n  \"strength\": 21,\n  \"subtype\": null,\n  \"type\": \"aberration\",\n  \"wisdom\": 15,\n  \"xp\": 5900\n}",
               "cookie": []
             }
           ],
@@ -3258,7 +3258,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "bee6d5fe-031e-49db-bc54-4ea7cfab55b2",
+                "id": "6f8e3df8-f5bb-495c-9639-0093cca0f34d",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/monsters/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3274,7 +3274,7 @@
       "event": []
     },
     {
-      "id": "22000768-ea0a-46eb-9f59-9c2858b87a5e",
+      "id": "6212ec9f-ca11-42b9-a0f8-2fe4ac6248c9",
       "name": "Races",
       "description": {
         "content": "",
@@ -3282,7 +3282,7 @@
       },
       "item": [
         {
-          "id": "eddf4b14-ce23-49eb-b86e-540cf42a3974",
+          "id": "f860563b-b694-4755-856b-d2ac41c1aa5d",
           "name": "Get a race by index.",
           "request": {
             "name": "Get a race by index.",
@@ -3326,7 +3326,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "c53c629b-29a1-4ae7-ade7-eb31c142efd6",
+              "id": "a4cf29d4-7c92-4e10-9c78-acb29ece502e",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -3371,7 +3371,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "284a338b-b4fd-42c3-a767-8fe2a10d0396",
+                "id": "fff4c993-455a-4018-9435-32d28c628a1e",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/races/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3384,7 +3384,7 @@
           ]
         },
         {
-          "id": "03847153-b5b1-49ef-9bcf-f085e0a25819",
+          "id": "48b94940-cfde-4ff5-9b03-24e3ced1c95c",
           "name": "Get subraces available for a race.",
           "request": {
             "name": "Get subraces available for a race.",
@@ -3428,7 +3428,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "bf757369-179a-476a-8171-904582aee54e",
+              "id": "f4b7913d-c33f-4211-8885-f90a878107b8",
               "name": "List of subraces for the race.",
               "originalRequest": {
                 "url": {
@@ -3466,7 +3466,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -3474,7 +3474,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "46f86ba8-c0b5-4057-971e-5f123286eb66",
+                "id": "5b926048-4a88-4e4a-95cf-1beddee64890",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/races/:index/subraces - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3487,7 +3487,7 @@
           ]
         },
         {
-          "id": "a08654b4-58fe-4a76-ba1b-101c8cc568c1",
+          "id": "2b0c34d5-d798-4dbf-9b65-055f977ded06",
           "name": "Get proficiencies available for a race.",
           "request": {
             "name": "Get proficiencies available for a race.",
@@ -3531,7 +3531,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "30fc8c7b-b849-4de2-a208-cbab374f7e11",
+              "id": "317cc385-b340-4c89-828e-3db21d6b5405",
               "name": "List of proficiencies for the race.",
               "originalRequest": {
                 "url": {
@@ -3569,7 +3569,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -3577,7 +3577,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "e0d5f749-59d9-4386-b7f0-6cf92d4a57db",
+                "id": "92b4c85c-84d6-4bcd-9578-2d7d65d22bbd",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/races/:index/proficiencies - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3590,7 +3590,7 @@
           ]
         },
         {
-          "id": "879620ff-ea0b-4400-a95d-78ccbe525cb4",
+          "id": "1de3ee01-4a6b-48c8-b6e9-d75434888b88",
           "name": "Get traits available for a race.",
           "request": {
             "name": "Get traits available for a race.",
@@ -3634,7 +3634,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "234d913b-b1e4-4e04-9979-68e05470154d",
+              "id": "3ce53ee7-f35d-44ba-af9d-d1f8302e738d",
               "name": "List of traits for the race.",
               "originalRequest": {
                 "url": {
@@ -3672,7 +3672,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -3680,7 +3680,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "809d4ca4-9b79-4472-ae89-8f2d70b954d9",
+                "id": "b6444896-82af-462c-94b0-588187aedf77",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/races/:index/traits - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3696,7 +3696,7 @@
       "event": []
     },
     {
-      "id": "562a6b9f-9829-4695-8860-b1eba11ac78d",
+      "id": "bd0dd8f7-d112-44d0-9602-4a0aa6798dae",
       "name": "Rules",
       "description": {
         "content": "",
@@ -3704,7 +3704,7 @@
       },
       "item": [
         {
-          "id": "f828f33d-5fce-485c-a135-49a1b2f3e97d",
+          "id": "077e1fc1-54ff-45b7-aad1-a5ac6b5eb6c3",
           "name": "Get a rule section by index.",
           "request": {
             "name": "Get a rule section by index.",
@@ -3748,7 +3748,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "39271ce5-02fa-454f-9fb6-1f6b078cbbf4",
+              "id": "fd412693-ebc7-4c9d-9631-527cd1722746",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -3793,7 +3793,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "3cef157f-1e02-43d6-8fce-3a07f67916bf",
+                "id": "0816dda5-eaa6-454d-8a2b-ea373129f9af",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/rule-sections/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3806,7 +3806,7 @@
           ]
         },
         {
-          "id": "90cb9d2e-10db-44a6-b32e-fe0673cf65c4",
+          "id": "70e4288a-8352-424b-863c-d362d89dbc81",
           "name": "Get a rule by index.",
           "request": {
             "name": "Get a rule by index.",
@@ -3850,7 +3850,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "27ed0b28-e3e7-474e-a0fa-1c66def479fa",
+              "id": "859fd303-84b3-47bc-8fad-a13974853a29",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -3895,7 +3895,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "bfa775bf-003a-49b9-99fe-f5f182384427",
+                "id": "ae817c27-779a-4039-85fc-24ecdfdbca9c",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/rules/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -3911,7 +3911,7 @@
       "event": []
     },
     {
-      "id": "68b21ba3-3fc2-414b-9d73-bf5683aa0b18",
+      "id": "dd173eea-4aba-41e1-aa44-416cc407c613",
       "name": "Spells",
       "description": {
         "content": "",
@@ -3919,7 +3919,7 @@
       },
       "item": [
         {
-          "id": "7a44ec87-e77b-4cae-ba8f-e854a6a71f4a",
+          "id": "d4b6bc19-27ac-42c3-bd4d-f929518b83e5",
           "name": "Get list of spells with optional filtering.",
           "request": {
             "name": "Get list of spells with optional filtering.",
@@ -3969,7 +3969,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "18f5fb6c-3918-41ca-a6bb-eb5fcd493b0a",
+              "id": "0009557c-6469-4948-9596-982a66075737",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -4003,7 +4003,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -4011,7 +4011,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "36490954-4559-4ea8-b833-c095803bd682",
+                "id": "9887bb57-47fe-4b7e-a010-5dcc69c17f0f",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/spells - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4024,7 +4024,7 @@
           ]
         },
         {
-          "id": "bbade50f-17cb-4f23-a58f-83db17e78e6c",
+          "id": "9d8afbd5-ad42-4107-852f-6987a81cf302",
           "name": "Get a spell by index.",
           "request": {
             "name": "Get a spell by index.",
@@ -4067,7 +4067,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "f0a2c572-5389-4332-a7b0-44c8bd18af21",
+              "id": "d71f9f3e-f920-4648-91b1-f99684b04cc9",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -4112,13 +4112,13 @@
             {
               "listen": "test",
               "script": {
-                "id": "56f6a5a3-ccc2-4c4c-aedb-9f30604830dc",
+                "id": "0e76827d-bf6b-4f1f-9c45-6675fd7804ac",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/spells/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
                   "// Validate if response header has matching content-type\npm.test(\"[GET]::/api/spells/:index - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
                   "// Validate if response has JSON Body \npm.test(\"[GET]::/api/spells/:index - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-                  "// Response Validation\nconst schema = {\"description\":\"`Spell`\\n\",\"allOf\":[{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},{\"type\":\"object\",\"properties\":{\"desc\":{\"description\":\"Description of the resource.\",\"type\":\"array\",\"items\":{\"type\":\"string\"}}}},{\"type\":\"object\",\"properties\":{\"higher_level\":{\"description\":\"List of descriptions for casting the spell at higher levels.\",\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"range\":{\"description\":\"Range of the spell, usually expressed in feet.\",\"type\":\"string\"},\"components\":{\"description\":\"List of shorthand for required components of the spell.\\nV: verbal\\nS: somatic\\nM: material\\n\",\"type\":\"array\",\"items\":{\"type\":\"string\",\"enum\":[\"V\",\"S\",\"M\"]}},\"material\":{\"description\":\"Material component for the spell to be cast.\",\"type\":\"string\"},\"area_of_effect\":{\"type\":\"object\",\"properties\":{\"size\":{\"type\":\"number\"},\"type\":{\"type\":\"string\",\"enum\":[\"sphere\",\"cone\",\"cylinder\",\"line\",\"cone\"]}}},\"ritual\":{\"description\":\"Determines if a spell can be cast in a 10-min(in-game) ritual.\",\"type\":\"boolean\"},\"duration\":{\"description\":\"How long the spell effect lasts.\",\"type\":\"string\"},\"concentration\":{\"description\":\"Determines if a spell needs concentration to persist.\",\"type\":\"boolean\"},\"casting_time\":{\"description\":\"How long it takes for the spell to activate.\",\"type\":\"string\"},\"level\":{\"description\":\"Level of the spell.\",\"type\":\"number\"},\"attack_type\":{\"description\":\"Attack type of the spell.\",\"type\":\"string\"},\"damage\":{\"type\":\"object\",\"properties\":{\"damage_at_slot_level\":{\"type\":\"object\",\"additionalProperties\":true},\"damage_type\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}}},\"school\":{\"description\":\"Magic school this spell belongs to.\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"classes\":{\"description\":\"List of classes that are able to learn the spell.\",\"type\":\"array\",\"items\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}},\"subclasses\":{\"description\":\"List of subclasses that have access to the spell.\",\"type\":\"array\",\"items\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}}}}]}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/spells/:index - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
+                  "// Response Validation\nconst schema = {\"description\":\"`Spell`\\n\",\"allOf\":[{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},{\"type\":\"object\",\"properties\":{\"desc\":{\"description\":\"Description of the resource.\",\"type\":\"array\",\"items\":{\"type\":\"string\"}}}},{\"type\":\"object\",\"properties\":{\"higher_level\":{\"description\":\"List of descriptions for casting the spell at higher levels.\",\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"range\":{\"description\":\"Range of the spell, usually expressed in feet.\",\"type\":\"string\"},\"components\":{\"description\":\"List of shorthand for required components of the spell.\\nV: verbal\\nS: somatic\\nM: material\\n\",\"type\":\"array\",\"items\":{\"type\":\"string\",\"enum\":[\"V\",\"S\",\"M\"]}},\"material\":{\"description\":\"Material component for the spell to be cast.\",\"type\":\"string\"},\"area_of_effect\":{\"type\":\"object\",\"properties\":{\"size\":{\"type\":\"number\"},\"type\":{\"type\":\"string\",\"enum\":[\"sphere\",\"cone\",\"cylinder\",\"line\",\"cube\"]}}},\"ritual\":{\"description\":\"Determines if a spell can be cast in a 10-min(in-game) ritual.\",\"type\":\"boolean\"},\"duration\":{\"description\":\"How long the spell effect lasts.\",\"type\":\"string\"},\"concentration\":{\"description\":\"Determines if a spell needs concentration to persist.\",\"type\":\"boolean\"},\"casting_time\":{\"description\":\"How long it takes for the spell to activate.\",\"type\":\"string\"},\"level\":{\"description\":\"Level of the spell.\",\"type\":\"number\"},\"attack_type\":{\"description\":\"Attack type of the spell.\",\"type\":\"string\"},\"damage\":{\"oneOf\":[{\"description\":\"'Spell Damage'\\n\",\"type\":\"object\",\"properties\":{\"damage_at_character_level\":{\"type\":\"object\",\"additionalProperties\":true},\"damage_type\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}}},{\"description\":\"'Spell Damage'\\n\",\"type\":\"object\",\"properties\":{\"damage_at_slot_level\":{\"type\":\"object\",\"additionalProperties\":true},\"damage_type\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}}}]},\"school\":{\"description\":\"Magic school this spell belongs to.\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}},\"classes\":{\"description\":\"List of classes that are able to learn the spell.\",\"type\":\"array\",\"items\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}},\"subclasses\":{\"description\":\"List of subclasses that have access to the spell.\",\"type\":\"array\",\"items\":{\"description\":\"`APIReference`\\n\",\"type\":\"object\",\"properties\":{\"index\":{\"description\":\"Resource index for shorthand searching.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the referenced resource.\",\"type\":\"string\"},\"url\":{\"description\":\"URL of the referenced resource.\",\"type\":\"string\"}}}}}}]}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/spells/:index - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
                 ]
               }
             }
@@ -4128,7 +4128,7 @@
       "event": []
     },
     {
-      "id": "ce479364-bf11-4dc8-b06a-b9ee39db47bf",
+      "id": "ff059f84-124a-4fbf-a430-52e2d35d6dad",
       "name": "Subclasses",
       "description": {
         "content": "",
@@ -4136,7 +4136,7 @@
       },
       "item": [
         {
-          "id": "17626de7-24d8-4a0b-a536-4934d850e2b7",
+          "id": "85e7c1b8-f9a8-4305-9a3a-f59f02701d14",
           "name": "Get a subclass by index.",
           "request": {
             "name": "Get a subclass by index.",
@@ -4180,7 +4180,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "56777c1f-7a6c-495a-9ed5-06a8939987ec",
+              "id": "cb4666ae-cd3b-46b3-9c3b-cb621898a42a",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -4225,7 +4225,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "2d0cc568-be44-49df-b444-e18f5c29060c",
+                "id": "a07b06f8-38cc-4fd8-94ca-1b5654296a92",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subclasses/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4238,7 +4238,7 @@
           ]
         },
         {
-          "id": "17f03e22-7622-4a58-a77f-c72c5780fcbd",
+          "id": "6ac578e2-b8ef-44ac-922d-55b88736d758",
           "name": "Get features available for a subclass.",
           "request": {
             "name": "Get features available for a subclass.",
@@ -4282,7 +4282,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "2edcb581-3c12-4724-966a-ddfc9bd417e3",
+              "id": "9bd89d4c-de6a-4349-9ae1-b4f94335e9b3",
               "name": "List of features for the subclass.",
               "originalRequest": {
                 "url": {
@@ -4320,7 +4320,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -4328,7 +4328,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "0c763c86-3dbf-4826-8f62-00e1f8f80139",
+                "id": "efa69fc3-11c0-4121-8780-c969cd86cb3b",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subclasses/:index/features - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4341,7 +4341,7 @@
           ]
         },
         {
-          "id": "4ceb369d-df9e-4ee0-a3cb-fe38a2a74cf0",
+          "id": "5163966a-4fce-4cc3-b141-046a8fd210e4",
           "name": "Get all level resources for a subclass.",
           "request": {
             "name": "Get all level resources for a subclass.",
@@ -4385,7 +4385,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "07f3c851-d625-4c3c-a33d-1b61f77872f5",
+              "id": "d5acd506-6d2c-4596-b743-45c2aee9b340",
               "name": "List of level resource for the subclass.",
               "originalRequest": {
                 "url": {
@@ -4423,7 +4423,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"index\": \"commodo proident\",\n    \"url\": \"pariatur eu deserunt ad\",\n    \"level\": -2554714.3610768616,\n    \"features\": [\n      {\n        \"index\": \"proident amet irure Excepteur\",\n        \"name\": \"do\",\n        \"url\": \"consequat reprehenderit incididunt cupidatat\"\n      },\n      {\n        \"index\": \"eu labore\",\n        \"name\": \"in aliqua laborum\",\n        \"url\": \"in consectetur anim Lorem\"\n      }\n    ],\n    \"class\": {\n      \"index\": \"labore id consectetur nostrud\",\n      \"name\": \"sit est Ut\",\n      \"url\": \"sit minim\"\n    },\n    \"subclass\": {\n      \"index\": \"et eu\",\n      \"name\": \"in\",\n      \"url\": \"in ullamco\"\n    }\n  },\n  {\n    \"index\": \"cupidatat est sint eiusmod ea\",\n    \"url\": \"nisi\",\n    \"level\": 48518580.47268355,\n    \"features\": [\n      {\n        \"index\": \"cupidatat eu in\",\n        \"name\": \"ipsum veniam non\",\n        \"url\": \"pariatur proi\"\n      },\n      {\n        \"index\": \"Excepteur volup\",\n        \"name\": \"eu elit\",\n        \"url\": \"do proident repre\"\n      }\n    ],\n    \"class\": {\n      \"index\": \"ex id\",\n      \"name\": \"cupid\",\n      \"url\": \"cill\"\n    },\n    \"subclass\": {\n      \"index\": \"commodo in mollit occaecat anim\",\n      \"name\": \"voluptate dolore et mollit\",\n      \"url\": \"voluptate pariatur\"\n    }\n  }\n]",
+              "body": "[\n  {\n    \"index\": \"Ut sint exercitation\",\n    \"url\": \"incididunt Excepteur\",\n    \"level\": 82016724.57372004,\n    \"features\": [\n      {\n        \"index\": \"nulla reprehenderit adipisicing\",\n        \"name\": \"occaecat pariatur s\",\n        \"url\": \"occaecat enim\"\n      },\n      {\n        \"index\": \"exercitation anim occaecat ex\",\n        \"name\": \"ullamco\",\n        \"url\": \"est pariatur ullamco\"\n      }\n    ],\n    \"class\": {\n      \"index\": \"amet mollit in cillum\",\n      \"name\": \"incididunt pariatur sint occaecat\",\n      \"url\": \"est anim\"\n    },\n    \"subclass\": {\n      \"index\": \"ea adipisicing\",\n      \"name\": \"aliquip cupidatat pariatur fugiat\",\n      \"url\": \"in nulla\"\n    }\n  },\n  {\n    \"index\": \"ex Ut proident ipsum consectetur\",\n    \"url\": \"dolor consequat deserunt sint\",\n    \"level\": 72936885.35194162,\n    \"features\": [\n      {\n        \"index\": \"culpa dolore sint magna\",\n        \"name\": \"aute\",\n        \"url\": \"in dolore\"\n      },\n      {\n        \"index\": \"sint\",\n        \"name\": \"fugiat laborum voluptate in\",\n        \"url\": \"e\"\n      }\n    ],\n    \"class\": {\n      \"index\": \"eu est anim\",\n      \"name\": \"dolor commodo est occaecat\",\n      \"url\": \"dolore sit reprehenderit l\"\n    },\n    \"subclass\": {\n      \"index\": \"adipisici\",\n      \"name\": \"commodo nulla magna mollit\",\n      \"url\": \"voluptate\"\n    }\n  }\n]",
               "cookie": []
             }
           ],
@@ -4431,7 +4431,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "97315540-9a78-49ad-9c54-6d3c997718b6",
+                "id": "3e6e5a3e-eba3-4ef9-91dd-6f2941467d4e",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subclasses/:index/levels - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4444,7 +4444,7 @@
           ]
         },
         {
-          "id": "af2c7210-b805-485c-882f-7cf6f787ba16",
+          "id": "afacf7b2-f360-42db-b795-89fff4cde917",
           "name": "Get level resources for a subclass and level.",
           "request": {
             "name": "Get level resources for a subclass and level.",
@@ -4499,7 +4499,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "79bb81b7-c52f-4566-a3df-e75575b96ee5",
+              "id": "82d2657c-6fcb-4420-9443-8e8dc3fcd00e",
               "name": "Level resource for the subclass and level.",
               "originalRequest": {
                 "url": {
@@ -4556,7 +4556,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "efbcb925-97b2-4f7d-9ee3-531f38b522f4",
+                "id": "9cda50a0-144b-4a57-bd7d-2e33951b84dd",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subclasses/:index/levels/:subclass_level - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4569,7 +4569,7 @@
           ]
         },
         {
-          "id": "e1614aea-70f7-46c2-a3f8-7d2a138efc9c",
+          "id": "432a2543-16d0-4c05-ae77-73bfed30a941",
           "name": "Get features of the requested spell level available to the class.",
           "request": {
             "name": "Get features of the requested spell level available to the class.",
@@ -4625,7 +4625,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "5d470ae0-915f-445b-9d92-153e8e717e43",
+              "id": "cd1e9163-a3a3-4916-b94f-2bcbf5b9b5f2",
               "name": "List of features for the subclass and level.",
               "originalRequest": {
                 "url": {
@@ -4675,7 +4675,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -4683,7 +4683,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d04ed8ab-3804-42c7-9c3f-27e1feb5eab8",
+                "id": "958c544c-e8c1-4a11-846f-0a3c321e6b08",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subclasses/:index/levels/:subclass_level/features - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4699,7 +4699,7 @@
       "event": []
     },
     {
-      "id": "6379920a-f97e-4e09-8596-59b237b81bb2",
+      "id": "e6e65de1-5997-4abd-a8b0-467b0bbb460c",
       "name": "Subraces",
       "description": {
         "content": "",
@@ -4707,7 +4707,7 @@
       },
       "item": [
         {
-          "id": "dba8b104-1eed-41b7-87d8-9947b149556d",
+          "id": "ceb25e9a-15e0-42ed-b644-f85e05c22087",
           "name": "Get a subrace by index.",
           "request": {
             "name": "Get a subrace by index.",
@@ -4751,7 +4751,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "29b911b8-3879-4fb4-abd5-5f3db41c2c4d",
+              "id": "d330461d-09b9-47df-b455-aac28781b0b7",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -4796,7 +4796,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "508b0d9f-a4a5-436f-8b3b-5442f2aacfe2",
+                "id": "4aa31b3d-0a92-46c2-818d-f3bfc8cca821",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subraces/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4809,7 +4809,7 @@
           ]
         },
         {
-          "id": "095805b4-b59f-4681-826b-a61d6b64e858",
+          "id": "5c2b51c1-69e7-420f-864a-5c94f90d3c24",
           "name": "Get proficiences available for a subrace.",
           "request": {
             "name": "Get proficiences available for a subrace.",
@@ -4853,7 +4853,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "f0c39dce-bfb7-4f26-a694-0ff05f85d7ff",
+              "id": "946a4866-0d08-450a-ab78-2365db4e682c",
               "name": "List of proficiences for the subrace.",
               "originalRequest": {
                 "url": {
@@ -4891,7 +4891,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": -43269949.82110883,\n  \"results\": [\n    {\n      \"index\": \"amet voluptate qui in\",\n      \"name\": \"veniam consectetur adipisicing\",\n      \"url\": \"in Lorem est aliquip\"\n    },\n    {\n      \"index\": \"Excepteur magna Lorem et\",\n      \"name\": \"officia velit anim fugi\",\n      \"url\": \"officia et amet\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": -2633214.9129918665,\n  \"results\": [\n    {\n      \"index\": \"officia\",\n      \"name\": \"aute ex\",\n      \"url\": \"aliquip qui sunt velit Excepteur\"\n    },\n    {\n      \"index\": \"laboris dolor\",\n      \"name\": \"adipisicing consectetur es\",\n      \"url\": \"laborum\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -4899,7 +4899,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "c630b701-d147-4f0d-a513-14a023aa0f19",
+                "id": "2ef5a8d6-a7c5-4e93-88dc-8b6d8aa361b1",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subraces/:index/proficiencies - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -4912,7 +4912,7 @@
           ]
         },
         {
-          "id": "2b2ab09a-852a-415d-a4de-f8848027baf8",
+          "id": "079edd43-7364-40c0-8f01-1c02ef5dd99a",
           "name": "Get traits available for a subrace.",
           "request": {
             "name": "Get traits available for a subrace.",
@@ -4956,7 +4956,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "5d6bcf6c-5db7-4c07-acbc-5c9468f9f040",
+              "id": "02627cd1-e5fc-4ed8-a900-491dc241a708",
               "name": "List of traits for the subrace.",
               "originalRequest": {
                 "url": {
@@ -4994,7 +4994,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"count\": 7174529.609803498,\n  \"results\": [\n    {\n      \"index\": \"in tempor lab\",\n      \"name\": \"in fugiat ad quis\",\n      \"url\": \"fugiat veniam anim in\"\n    },\n    {\n      \"index\": \"sunt in do\",\n      \"name\": \"cillum deserunt sint esse\",\n      \"url\": \"voluptate culpa commodo minim\"\n    }\n  ]\n}",
+              "body": "{\n  \"count\": 29779681.928119615,\n  \"results\": [\n    {\n      \"index\": \"sit id ipsum\",\n      \"name\": \"commodo nulla et\",\n      \"url\": \"est reprehenderit dolor fugiat pariatur\"\n    },\n    {\n      \"index\": \"ut ex culpa do exercitation\",\n      \"name\": \"amet ipsum nisi\",\n      \"url\": \"tempor\"\n    }\n  ]\n}",
               "cookie": []
             }
           ],
@@ -5002,7 +5002,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d7efaecb-51df-4278-ac56-dfdd778d90f1",
+                "id": "24b4816a-a22a-4658-b27a-37065d5cb634",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/subraces/:index/traits - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -5018,7 +5018,7 @@
       "event": []
     },
     {
-      "id": "86ed23ea-a9fa-4bf9-9ae7-2a2bfb76d456",
+      "id": "8d4a6433-9151-4a49-89a4-43cff8b100ec",
       "name": "Traits",
       "description": {
         "content": "",
@@ -5026,7 +5026,7 @@
       },
       "item": [
         {
-          "id": "52c7b5c6-f658-4e78-8091-3f5724193978",
+          "id": "1bd54ed8-47e8-4f80-977f-8e1d87baddc5",
           "name": "Get a trait by index.",
           "request": {
             "name": "Get a trait by index.",
@@ -5069,7 +5069,7 @@
               "_": {
                 "postman_previewlanguage": "json"
               },
-              "id": "4117ac02-5e9a-41ba-8acb-47612984ab25",
+              "id": "4e6599a7-4140-4ba8-8117-f19483d1b325",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -5114,7 +5114,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "cd7bca29-0819-45ea-b8bb-c925b5f00e11",
+                "id": "5c7f32f2-a722-4f85-8833-2571323467ed",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/api/traits/:index - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -5139,7 +5139,7 @@
     }
   ],
   "info": {
-    "_postman_id": "304aff23-6274-480b-b64b-92d0eda3363f",
+    "_postman_id": "a6d96046-9f01-4d0f-9904-fdef6516802d",
     "name": "D&D 5e API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
