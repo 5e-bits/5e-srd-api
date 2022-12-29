@@ -50,7 +50,7 @@ const Monster = {
     const resolvedAC = monster.armor_class.map(async ac => {
       const newAC: Record<string, any> = { ...ac };
 
-      if (ac.type === 'armor') {
+      if (ac.type === 'armor' && 'armor' in ac) {
         newAC.armor = await EquipmentModel.find({
           index: { $in: ac.armor?.map(({ index }) => index) ?? [] },
         });

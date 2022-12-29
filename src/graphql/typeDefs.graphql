@@ -654,11 +654,19 @@ type MonsterAction {
   usage: Usage
 }
 
+enum MonsterArmorClassType {
+  dex
+  natural
+  armor
+  spell
+  condition
+}
+
 type MonsterArmorClass {
-  type: String!
+  type: MonsterArmorClassType!
   desc: String
   value: Int!
-  armor: [IEquipment]
+  armor: [Armor]
   spell: Spell
   condition: Condition
 }
@@ -666,7 +674,7 @@ type MonsterArmorClass {
 type Monster {
   index: String!
   name: String!
-  armor_class: MonsterArmorClass!
+  armor_class: [MonsterArmorClass]
   desc: String
   actions: [MonsterAction!]
   challenge_rating: Float!
