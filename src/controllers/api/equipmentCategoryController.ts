@@ -23,13 +23,13 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
         .where('properties')
         .elemMatch({ index: req.query.property });
 
-      const filteredEquipmentArray = requestedEquipmentCategory.equipment.filter(function(
-        weaponApiReference
-      ) {
-        return weaponData.some(function checkforMatch(weaponPropertyApiReference) {
-          return weaponApiReference.index === weaponPropertyApiReference.index;
-        });
-      });
+      const filteredEquipmentArray = requestedEquipmentCategory.equipment.filter(
+        weaponApiReference => {
+          return weaponData.some(weaponPropertyApiReference => {
+            return weaponApiReference.index === weaponPropertyApiReference.index;
+          });
+        }
+      );
       requestedEquipmentCategory.equipment = filteredEquipmentArray as APIReference[];
       return res.status(200).json(requestedEquipmentCategory);
     } else {
