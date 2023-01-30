@@ -1,3 +1,61 @@
+monster-armor-class:
+  description: The armor class of a monster.
+  type: object
+  oneOf:
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [dex]
+        value:
+          type: number
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [natural]
+        value:
+          type: number
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [armor]
+        value:
+          type: number
+        armor:
+          type: array
+          items:
+            $ref: './combined.yml#/APIReference'
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [spell]
+        value:
+          type: number
+        spell:
+          $ref: './combined.yml#/APIReference'
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [condition]
+        value:
+          type: number
+        condition:
+          $ref: './combined.yml#/APIReference'
+        desc:
+          type: string
+
 monster-damage:
   description: Damage type and dice associated with a particular attack.
   type: object
@@ -228,7 +286,9 @@ monster-model:
             - unaligned
         armor_class:
           description: 'The difficulty for a player to successfully deal damage to a monster.'
-          type: number
+          type: array
+          items:
+            $ref: '#/monster-armor-class'
         hit_points:
           description: 'The hit points of a monster determine how much damage it is able to take before it can be defeated.'
           type: number

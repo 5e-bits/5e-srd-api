@@ -29,6 +29,51 @@ type Action = {
   action_options: Choice;
 };
 
+type ArmorClass =
+  | ArmorClassDex
+  | ArmorClassNatural
+  | ArmorClassArmor
+  | ArmorClassSpell
+  | ArmorClassCondition;
+
+type ArmorClassDex = {
+  _id?: boolean;
+  type: 'dex';
+  value: number;
+  desc?: string;
+};
+
+type ArmorClassNatural = {
+  _id?: boolean;
+  type: 'natural';
+  value: number;
+  desc?: string;
+};
+
+type ArmorClassArmor = {
+  _id?: boolean;
+  type: 'armor';
+  value: number;
+  armor?: APIReference[]; // Equipment
+  desc?: string;
+};
+
+type ArmorClassSpell = {
+  _id?: boolean;
+  type: 'spell';
+  value: number;
+  spell: APIReference; // Spell
+  desc?: string;
+};
+
+type ArmorClassCondition = {
+  _id?: boolean;
+  type: 'condition';
+  value: number;
+  condition: APIReference; // Condition
+  desc?: string;
+};
+
 type LegendaryAction = {
   _id?: boolean;
   name: string;
@@ -113,7 +158,7 @@ export type Monster = {
   _id?: mongoose.Types.ObjectId;
   actions?: Action[];
   alignment: string;
-  armor_class: number;
+  armor_class: ArmorClass[];
   challenge_rating: number;
   charisma: number;
   condition_immunities: APIReference[];

@@ -19,15 +19,12 @@ const PrerequisiteSchema = new Schema<Prerequisite>(
 
 PrerequisiteSchema.discriminators = {};
 PrerequisiteSchema.discriminators['level'] = new Schema<LevelPrerequisite>({
-  _id: false,
   level: { type: Number, index: true, required: true },
 });
 PrerequisiteSchema.discriminators['feature'] = new Schema<FeaturePrerequisite>({
-  _id: false,
   feature: { type: String, index: true, required: true },
 });
 PrerequisiteSchema.discriminators['spell'] = new Schema<SpellPrerequisite>({
-  _id: false,
   spell: { type: String, index: true, required: true },
 });
 
