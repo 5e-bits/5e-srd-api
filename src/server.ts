@@ -29,18 +29,6 @@ export default async () => {
     app.use(bugsnagMiddleware.requestHandler);
   }
 
-  app.use(function(request, response, next) {
-    if (
-      process.env.NODE_ENV != 'development' &&
-      process.env.NODE_ENV != 'test' &&
-      !request.secure
-    ) {
-      return response.redirect('https://' + request.headers.host + request.url);
-    }
-
-    next();
-  });
-
   app.use('/swagger', express.static(__dirname + '/swagger'));
   app.use('/js', express.static(__dirname + '/js'));
   app.use('/css', express.static(__dirname + '/css'));
