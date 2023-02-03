@@ -9,7 +9,9 @@ schema:
     - ability-checks
     - ability-scores-and-modifiers
     - actions-in-combat
+    - activating-an-item
     - advantage-and-disadvantage
+    - attunement
     - between-adventures
     - casting-a-spell
     - cover
@@ -35,5 +37,6 @@ schema:
     - traps
     - underwater-combat
     - using-each-ability
+    - wearing-and-wielding-items
     - what-is-a-spell
   example: traps
