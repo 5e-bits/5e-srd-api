@@ -17,6 +17,7 @@ const createApolloMiddleware = async () => {
         calculateHttpHeaders: false,
       }),
     ],
+    introspection: true,
     validationRules: [depthLimit(20)],
   });
   return server;
