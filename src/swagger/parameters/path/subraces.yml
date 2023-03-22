@@ -7,6 +7,7 @@ schema:
   type: string
   enum:
     - high-elf
+    - wood-elf
     - hill-dwarf
     - mountain-dwarf
     - lightfoot-halfling

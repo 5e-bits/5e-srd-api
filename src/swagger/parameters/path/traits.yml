@@ -27,6 +27,7 @@ schema:
     - elf-weapon-training
     - extra-language
     - fey-ancestry
+    - fleet-of-foot
     - gnome-cunning
     - halfling-nimbleness
     - hellish-resistance
@@ -34,6 +35,7 @@ schema:
     - infernal-legacy
     - keen-senses
     - lucky
+    - mask-of-wild
     - menacing
     - naturally-stealthy
     - relentless-endurance
