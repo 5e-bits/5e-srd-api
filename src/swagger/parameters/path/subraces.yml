@@ -8,6 +8,7 @@ schema:
   enum:
     - high-elf
     - hill-dwarf
+    - mountain-dwarf
     - lightfoot-halfling
     - rock-gnome
   example: hill-dwarf
