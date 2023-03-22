@@ -8,6 +8,7 @@ schema:
   enum:
     - high-elf
     - wood-elf
+    - dark-elf
     - hill-dwarf
     - mountain-dwarf
     - lightfoot-halfling

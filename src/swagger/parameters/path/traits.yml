@@ -21,6 +21,7 @@ schema:
     - draconic-ancestry-red
     - draconic-ancestry-silver
     - draconic-ancestry-white
+    - drow-magic
     - dwarven-combat-training
     - dwarven-resilience
     - dwarven-toughness
@@ -42,6 +43,8 @@ schema:
     - savage-attacks
     - skill-versatility
     - stonecunning
+    - sunlight-sensitivity
+    - superior-darkvision
     - tinker
     - tool-proficiency
     - trance

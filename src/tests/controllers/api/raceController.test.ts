@@ -119,6 +119,11 @@ describe('showSubracesForRace', () => {
       name: 'Wood Elf',
       url: '/api/subraces/wood-elf',
     },
+    {
+      index: 'dark-elf',
+      name: 'Dark Elf',
+      url: '/api/subraces/dark-elf',
+    },
   ];
   const showParams = { index: 'dragonborn' };
   const request = createRequest({ params: showParams });

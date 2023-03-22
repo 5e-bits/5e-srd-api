@@ -25,6 +25,11 @@ describe('index', () => {
       url: '/api/subraces/wood-elf',
     },
     {
+      index: 'dark-elf',
+      name: 'Dark Elf',
+      url: '/api/subraces/dark-elf',
+    },
+    {
       index: 'hill-dwarf',
       name: 'Hill Dwarf',
       url: '/api/subraces/hill-dwarf',
