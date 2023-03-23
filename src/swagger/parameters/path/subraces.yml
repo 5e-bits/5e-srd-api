@@ -12,5 +12,6 @@ schema:
     - hill-dwarf
     - mountain-dwarf
     - lightfoot-halfling
+    - stout-halfling
     - rock-gnome
   example: hill-dwarf

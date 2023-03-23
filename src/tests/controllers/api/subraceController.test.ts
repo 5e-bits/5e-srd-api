@@ -45,6 +45,11 @@ describe('index', () => {
       url: '/api/subraces/lightfoot-halfling',
     },
     {
+      index: 'stout-halfling',
+      name: 'Stout Halfling',
+      url: '/api/subraces/stout-halfling',
+    },
+    {
       index: 'rock-gnome',
       name: 'Rock Gnome',
       url: '/api/subraces/rock-gnome',
