@@ -54,6 +54,11 @@ describe('index', () => {
       name: 'Rock Gnome',
       url: '/api/subraces/rock-gnome',
     },
+    {
+      index: 'forest-gnome',
+      name: 'Forest Gnome',
+      url: '/api/subraces/forest-gnome',
+    },
   ];
   const request = createRequest({ query: {} });
 
