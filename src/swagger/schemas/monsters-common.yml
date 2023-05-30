@@ -1,0 +1,231 @@
+monster-attack-model:
+  type: object
+  properties:
+    name:
+      type: string
+    dc:
+      $ref: './combined.yml#/DC'
+    damage:
+      $ref: './combined.yml#/Damage'
+
+monster-ability-model:
+  description: |
+    `Monster Ability`
+  type: object
+  properties:
+    charisma:
+      description: "A monster's ability to charm or intimidate a player."
+      type: number
+    constitution:
+      description: How sturdy a monster is."
+      type: number
+    dexterity:
+      description: "The monster's ability for swift movement or stealth"
+      type: number
+    intelligence:
+      description: "The monster's ability to outsmart a player."
+      type: number
+    strength:
+      description: 'How hard a monster can hit a player.'
+      type: number
+    wisdom:
+      description: "A monster's ability to ascertain the player's plan."
+      type: number
+
+monster-action-model:
+  description: Action available to a `Monster` in addition to the standard creature actions.
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: string
+    action_options:
+      $ref: './combined.yml#/Choice'
+    actions:
+      type: array
+      items:
+        $ref: './combined.yml#/MonsterMultiAttackAction'
+    options:
+      $ref: './combined.yml#/Choice'
+    multiattack_type:
+      type: string
+    attack_bonus:
+      type: number
+    dc:
+      $ref: './combined.yml#/DC'
+    attacks:
+      type: array
+      items:
+        $ref: './combined.yml#/MonsterAttack'
+    damage:
+      type: array
+      items:
+        $ref: './combined.yml#/Damage'
+
+monster-armor-class-model:
+  description: The armor class of a monster.
+  type: object
+  oneOf:
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [dex]
+        value:
+          type: number
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [natural]
+        value:
+          type: number
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [armor]
+        value:
+          type: number
+        armor:
+          type: array
+          items:
+            $ref: './combined.yml#/APIReference'
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [spell]
+        value:
+          type: number
+        spell:
+          $ref: './combined.yml#/APIReference'
+        desc:
+          type: string
+    - type: object
+      properties:
+        type:
+          type: string
+          enum: [condition]
+        value:
+          type: number
+        condition:
+          $ref: './combined.yml#/APIReference'
+        desc:
+          type: string
+
+monster-multi-attack-action-model:
+  type: object
+  properties:
+    action_name:
+      type: string
+    count:
+      type: number
+    type:
+      type: string
+      enum: [melee, ranged, ability, magic]
+
+monster-proficiency-model:
+  type: object
+  properties:
+    value:
+      type: number
+    proficiency:
+      $ref: './combined.yml#/APIReference'
+
+monster-sense-model:
+  type: object
+  properties:
+    passive_perception:
+      description: The monster's passive perception (wisdom) score.
+      type: number
+    blindsight:
+      description: A monster with blindsight can perceive its surroundings without relying on sight, within a specific radius.
+      type: string
+    darkvision:
+      description: A monster with darkvision can see in the dark within a specific radius.
+      type: string
+    tremorsense:
+      description: A monster with tremorsense can detect and pinpoint the origin of vibrations within a specific radius, provided that the monster and the source of the vibrations are in contact with the same ground or substance.
+      type: string
+    truesight:
+      description: A monster with truesight can, out to a specific range, see in normal and magical darkness, see invisible creatures and objects, automatically detect visual illusions and succeed on saving throws against them, and perceive the original form of a shapechanger or a creature that is transformed by magic. Furthermore, the monster can see into the Ethereal Plane within the same range.
+      type: string
+
+monster-special-ability-model:
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: string
+    attack_bonus:
+      type: number
+    damage:
+      $ref: './combined.yml#/Damage'
+    dc:
+      $ref: './combined.yml#/DC'
+    spellcasting:
+      $ref: './combined.yml#/MonsterSpellcasting'
+    usage:
+      $ref: './combined.yml#/MonsterUsage'
+
+monster-spell-model:
+  type: object
+  properties:
+    name:
+      type: string
+    level:
+      type: number
+    url:
+      type: string
+    usage:
+      $ref: './combined.yml#/MonsterUsage'
+
+monster-spellcasting-model:
+  type: object
+  properties:
+    ability:
+      $ref: './combined.yml#/APIReference'
+    dc:
+      type: number
+    modifier:
+      type: number
+    components_required:
+      type: array
+      items:
+        type: string
+    school:
+      type: string
+    slots:
+      type: object
+      additionalProperties:
+        type: number
+    spells:
+      type: array
+      items:
+        $ref: './combined.yml#/MonsterSpell'
+
+monster-usage-model:
+  type: object
+  properties:
+    type:
+      type: string
+      enum:
+        - at will
+        - per day
+        - recharge after rest
+        - recharge on roll
+    rest_types:
+      type: array
+      items:
+        type: string
+    times:
+      type: number

@@ -86,6 +86,28 @@ RuleSection:
   $ref: './rules.yml#/rule-section-model'
 Monster:
   $ref: './monsters.yml#/monster-model'
+MonsterAbility:
+  $ref: './monsters-common.yml#/monster-ability-model'
+MonsterAction:
+  $ref: './monsters-common.yml#/monster-action-model'
+MonsterArmorClass:
+  $ref: './monsters-common.yml#/monster-armor-class-model'
+MonsterAttack:
+  $ref: './monsters-common.yml#/monster-attack-model'
+MonsterMultiAttackAction:
+  $ref: './monsters-common.yml#/monster-multi-attack-action-model'
+MonsterProficiency:
+  $ref: './monsters-common.yml#/monster-proficiency-model'
+MonsterSense:
+  $ref: './monsters-common.yml#/monster-sense-model'
+MonsterSpecialAbility:
+  $ref: './monsters-common.yml#/monster-special-ability-model'
+MonsterSpell:
+  $ref: './monsters-common.yml#/monster-spell-model'
+MonsterSpellcasting:
+  $ref: './monsters-common.yml#/monster-spellcasting-model'
+MonsterUsage:
+  $ref: './monsters-common.yml#/monster-usage-model'
 SpellPrerequisite:
   $ref: './subclass.yml#/spell-prerequisite'
 error-response:
