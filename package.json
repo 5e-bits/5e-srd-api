@@ -42,7 +42,7 @@
     "graphql-compose": "^9.0.7",
     "graphql-compose-mongoose": "^9.7.1",
     "graphql-depth-limit": "^1.1.0",
-    "mongoose": "^6.2.4",
+    "mongoose": "^6.11.3",
     "morgan": "^1.10.0",
     "node-fetch": "^3.1.1",
     "redis": "^4.2.0",
