@@ -674,6 +674,7 @@ type MonsterArmorClass {
 type Monster {
   index: String!
   name: String!
+  alignment: String!
   armor_class: [MonsterArmorClass]
   desc: String
   actions: [MonsterAction!]
