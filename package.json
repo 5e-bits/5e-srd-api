@@ -25,12 +25,12 @@
   "dependencies": {
     "@apideck/portman": "^1.14.2",
     "@apidevtools/swagger-cli": "^4.0.4",
+    "@aws-sdk/client-s3": "^3.377.0",
     "@bugsnag/js": "^7.16.1",
     "@bugsnag/plugin-express": "^7.16.1",
     "@graphql-tools/schema": "^8.3.10",
     "apollo-server-express": "^3.6.3",
     "apollo-server-plugin-response-cache": "^3.7.0",
-    "aws-sdk": "^2.1354.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.3",
     "debug": "^4.3.1",
