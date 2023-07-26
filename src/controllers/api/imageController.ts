@@ -10,12 +10,17 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
       Key: req.url.slice(1),
     };
 
-    const s3Response = await awsS3Client.send(new GetObjectCommand(params));
-    const data = await s3Response.Body?.transformToByteArray();
+    try {
+      const s3Response = await awsS3Client.send(new GetObjectCommand(params));
+      const data = await s3Response.Body?.transformToByteArray();
 
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    res.write(data, 'binary');
-    res.end(null, 'binary');
+      res.writeHead(200, { 'Content-Type': 'image/png' });
+      res.write(data, 'binary');
+      res.end(null, 'binary');
+    } catch (err) {
+      res.status(200);
+      res.end('Error Fetching File');
+    }
   } catch (err) {
     return next(err);
   }
