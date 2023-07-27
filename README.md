@@ -31,11 +31,9 @@ The command above pulls the latest image of the database from ghcr.io, which onl
 ```shell
 cd ../
 git clone https://github.com/5e-bits/5e-database.git
-cd 5e-database
-docker build -t 5e_db:custom .
 ```
 
-Then back over here in the 5e-srd-api repo, in the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `image: 5e_db:custom` (or whatever you named the custom db image).
+Then back over here in the 5e-srd-api repo, in the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `build: ../5e-database` (or whatever you named the custom db image).
 
 ## Making API Requests
 
@@ -95,7 +93,7 @@ Request the image by navigating to an image URL in a browser, or via HTTP reques
 curl http://localhost:3000/api/monsters/aboleth.png --output downloaded-aboleth.png
 ```
 
-When interacting with the image you should see logs in the terminal where you started localstack. You can also use [localstack's webui](https://app.localstack.cloud/dashboard) to view the bucket and 
+When interacting with the image you should see logs in the terminal where you started localstack. You can also use [localstack's webui](https://app.localstack.cloud/dashboard) to view the bucket and
 contents.
 
 ## Data Issues

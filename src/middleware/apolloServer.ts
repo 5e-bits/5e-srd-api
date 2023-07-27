@@ -1,15 +1,12 @@
 import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
 import depthLimit from 'graphql-depth-limit';
-import responseCachePlugin from '@apollo/server-plugin-response-cache';
 import schema from '../graphql/schema.js';
 
 const createApolloMiddleware = async () => {
   const server = new ApolloServer({
     schema,
     plugins: [
-      // The type voodoo is needed because of a bug in apollo-server-plugin-response-cache
-      responseCachePlugin(),
       ApolloServerPluginCacheControl({
         // Cache everything for 1 second by default.
         defaultMaxAge: 3600,
