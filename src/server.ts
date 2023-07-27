@@ -1,7 +1,9 @@
 import apiRoutes from './routes/api.js';
 import bugsnagMiddleware from './middleware/bugsnag.js';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import { createApolloMiddleware } from './middleware/apolloServer.js';
+import { expressMiddleware } from '@apollo/server/express4';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import indexController from './controllers/indexController.js';
@@ -42,7 +44,14 @@ export default async () => {
   console.log('Setting up Apollo GraphQL server');
   const apolloMiddleware = await createApolloMiddleware();
   await apolloMiddleware.start();
-  apolloMiddleware.applyMiddleware({ app });
+  app.use(
+    '/graphql',
+    cors<cors.CorsRequest>(),
+    bodyParser.json(),
+    expressMiddleware(apolloMiddleware, {
+      context: async ({ req }) => ({ token: req.headers.token }),
+    })
+  );
 
   // Register routes
   app.get('/', indexController);
