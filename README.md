@@ -41,6 +41,7 @@ Make API requests by using the root address:
 `http://localhost:3000/api/`
 
 You should get a response with the available endpoints for the root:
+
 ```json
 {
   "ability-scores": "/api/ability-scores",
@@ -79,7 +80,7 @@ The API uses s3 to store image files for monsters. The image files live in a buc
 To test locally, you can [use `localstack` to mock s3](https://docs.localstack.cloud/user-guide/aws/s3/). To do so, you will first need to install `localstack`,
 `awscli`, and `awslocal`. You can then run the following commands to configure and start the localstack container:
 
-```
+```shell
 export AWS_CONFIG_ENV=localstack_dev
 localstack start
 awslocal s3api create-bucket --bucket dnd-5e-api-images
@@ -113,7 +114,7 @@ In order to run integration tests locally you can use the command: `npm run test
 
 ## Documentation
 
-Public facing API documentation lives here: https://www.dnd5eapi.co/docs.
+Public facing API documentation lives [here.](https://www.dnd5eapi.co/docs)
 
 We use [RapiDoc](https://mrin9.github.io/RapiDoc/index.html) to create the documentation UI from a bundled single file OpenAPI definition created as part of the `npm run build` task.
 
