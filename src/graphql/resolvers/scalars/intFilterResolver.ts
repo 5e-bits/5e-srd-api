@@ -8,10 +8,10 @@ type ParseValueReturn = {
 };
 
 type ParseLiteralReturn = {
-  lte?: string;
-  gte?: string;
-  lt?: string;
-  gt?: string;
+  lte?: number;
+  gte?: number;
+  lt?: number;
+  gt?: number;
 };
 
 const IntFilter = new GraphQLScalarType({
@@ -21,7 +21,7 @@ const IntFilter = new GraphQLScalarType({
   serialize(value) {
     return value;
   },
-  parseValue(value) {
+  parseValue(value: any) {
     if (Array.isArray(value)) {
       const filter = [];
       for (const x of value) {
@@ -35,17 +35,17 @@ const IntFilter = new GraphQLScalarType({
       return [value];
     } else if (typeof value === 'object') {
       const returnObject: ParseValueReturn = {};
-      if (Number.isInteger(value.lte)) {
-        returnObject.lte = value.lte;
+      if (Number.isInteger(value?.lte)) {
+        returnObject.lte = value?.lte;
       }
-      if (Number.isInteger(value.gte)) {
-        returnObject.gte = value.gte;
+      if (Number.isInteger(value?.gte)) {
+        returnObject.gte = value?.gte;
       }
-      if (Number.isInteger(value.lt)) {
-        returnObject.lt = value.lt;
+      if (Number.isInteger(value?.lt)) {
+        returnObject.lt = value?.lt;
       }
-      if (Number.isInteger(value.gt)) {
-        returnObject.gt = value.gt;
+      if (Number.isInteger(value?.gt)) {
+        returnObject.gt = value?.gt;
       }
 
       return Object.keys(returnObject).length > 0 ? returnObject : null;
@@ -73,16 +73,16 @@ const IntFilter = new GraphQLScalarType({
       const gt = ast.fields.find(f => f.name.value === 'gt');
 
       if (lte && lte.value.kind === Kind.INT) {
-        returnObject.lte = lte.value.value;
+        returnObject.lte = parseInt(lte.value.value);
       }
       if (gte && gte.value.kind === Kind.INT) {
-        returnObject.gte = gte.value.value;
+        returnObject.gte = parseInt(gte.value.value);
       }
       if (lt && lt.value.kind === Kind.INT) {
-        returnObject.lt = lt.value.value;
+        returnObject.lt = parseInt(lt.value.value);
       }
       if (gt && gt.value.kind === Kind.INT) {
-        returnObject.gt = gt.value.value;
+        returnObject.gt = parseInt(gt.value.value);
       }
 
       return Object.keys(returnObject).length > 0 ? returnObject : null;
