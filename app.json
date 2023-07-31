@@ -14,12 +14,6 @@
     "GRAPHQL_API_KEY": {
       "required": true
     },
-    "HEROKU_REDIS_YELLOW_TLS_URL": {
-      "required": true
-    },
-    "HEROKU_REDIS_YELLOW_URL": {
-      "required": true
-    },
     "MONGODB_URI": {
       "required": true
     },
