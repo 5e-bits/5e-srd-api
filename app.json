@@ -32,7 +32,7 @@
       "quantity": 1
     }
   },
-  "addons": ["bugsnag", "heroku-redis"],
+  "addons": ["bugsnag:tauron", "heroku-redis:mini"],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
