@@ -1,0 +1,42 @@
+{
+  "name": "5e-srd-api",
+  "scripts": {},
+  "env": {
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "BUGSNAG_API_KEY": {
+      "required": true
+    },
+    "GRAPHQL_API_KEY": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "REALM_API_KEY": {
+      "required": true
+    },
+    "REALM_APP_ID": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": ["bugsnag:tauron", "heroku-redis:mini"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "container"
+}
