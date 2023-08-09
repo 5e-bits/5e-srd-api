@@ -4,6 +4,11 @@ import createApp from './server.js';
 import mongoose from 'mongoose';
 
 const start = async () => {
+  console.log('Setting up MongoDB');
+  // Mongoose: the `strictQuery` option will be switched back to `false` by
+  // default in Mongoose 7, when we update to Mongoose 7 we can remove this.
+  mongoose.set('strictQuery', false);
+
   await mongoose.connect(mongodbUri);
   console.log('Database connection ready');
 

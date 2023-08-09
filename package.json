@@ -2,7 +2,7 @@
   "name": "dnd-5e-srd-api",
   "version": "0.0.0",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "type": "module",
   "private": true,
@@ -10,7 +10,7 @@
     "build:ts": "tsc",
     "build": "npm-run-all clean bundle-swagger build:ts copy-assets",
     "clean": "rimraf dist/*",
-    "copy-assets": "ts-node tools/copyAssets",
+    "copy-assets": "ts-node tools/copyAssets.ts",
     "start": "npm run build && node dist/src/start.js",
     "dev": "nodemon npm run start",
     "lint": "eslint . --ext .js",
