@@ -4,6 +4,50 @@ get:
     # Ability Score
 
     Represents one of the six abilities that describes a creature's physical and mental characteristics. The three main rolls of the game - the ability check, the saving throw, and the attack roll - rely on the ability scores. [[SRD p76](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=76)]
+  x-code-samples:
+    - lang: go
+      label: 'Go - net/http'
+      source: |
+        package main
+
+        import (
+          "encoding/json"
+          "log"
+          "net/http"
+          "os"
+        )
+
+        type AbilityScore struct {
+          Index    string   `json:"index"`
+          Name     string   `json:"name"`
+          FullName string   `json:"full_name"`
+          Desc     []string `json:"desc"`
+          Skills   []struct {
+            Name  string `json:"name"`
+            Index string `json:"index"`
+            URL   string `json:"url"`
+          } `json:"skills"`
+          URL string `json:"url"`
+        }
+
+        func main() {
+          // Get the ability score for Charisma
+          resp, err := http.Get("https://www.dnd5eapi.co/api/ability-scores/cha")
+          if err != nil {
+            log.Fatal(err)
+          }
+          defer resp.Body.Close()
+
+          // Decode the response into our ability score struct
+          var abilityScore AbilityScore
+          if err := json.NewDecoder(resp.Body).Decode(&abilityScore); err != nil {
+            log.Fatal(err)
+          }
+
+          // Do something cool with the Ability Score
+          log.Printf("%s: %s", abilityScore.Name, abilityScore.Desc[0])
+        }
+
   tags:
     - Character Data
   parameters:
