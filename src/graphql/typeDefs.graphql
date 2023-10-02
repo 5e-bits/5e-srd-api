@@ -679,6 +679,7 @@ type Monster {
   desc: String
   actions: [MonsterAction!]
   challenge_rating: Float!
+  proficiency_bonus: Int!
   charisma: Int!
   condition_immunities: [Condition!]!
   constitution: Int!
