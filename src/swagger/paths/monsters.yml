@@ -102,6 +102,7 @@ monster-index:
                 - type: natural
                   value: 17
               challenge_rating: 10
+              proficiency_bonus: 4
               charisma: 18
               condition_immunities: []
               constitution: 15

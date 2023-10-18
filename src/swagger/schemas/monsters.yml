@@ -70,6 +70,11 @@ monster-model:
           type: number
           minimum: 0
           maximum: 21
+        proficiency_bonus:
+          description: "A monster's proficiency bonus is the number added to ability checks, saving throws and attack rolls in which the monster is proficient, and is linked to the monster's challenge rating. This bonus has already been included in the monster's stats where applicable."
+          type: number
+          minimum: 2
+          maximum: 9
         condition_immunities:
           description: 'A list of conditions that a monster is immune to.'
           type: array
