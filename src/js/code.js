@@ -17,7 +17,7 @@ function interactive_call() {
     dataType: 'json',
     url: call_url,
     context: document.body,
-    complete: data => {
+    complete: (data) => {
       if (data['status'] == 200) {
         var d = $.parseJSON(data['responseText']);
         $('#interactive_name').html(d['name'] + ':');
