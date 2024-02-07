@@ -4,13 +4,13 @@
   "engines": {
     "node": "18.x"
   },
-  "type": "module",
+  "type":"module",
   "private": true,
   "scripts": {
     "build:ts": "tsc",
     "build": "npm-run-all clean bundle-swagger build:ts copy-assets",
     "clean": "rimraf dist/*",
-    "copy-assets": "ts-node tools/copyAssets.ts",
+    "copy-assets": "node --loader ts-node/esm tools/copyAssets.ts",
     "start": "npm run build && node dist/src/start.js",
     "dev": "nodemon npm run start",
     "lint": "eslint . --ext .js",
