@@ -46,7 +46,7 @@ const resolveExpertiseOption: any = async (option: Option) => {
   }
 
   if (option.option_type === 'choice' && option.choice.from.option_set_type === 'options_array') {
-    const options = option.choice.from.options.map(option => {
+    const options = option.choice.from.options.map((option) => {
       if (option.option_type === 'reference') {
         return {
           ...option,
@@ -78,17 +78,19 @@ const Feature = {
   parent: async (feature: Feature) =>
     feature.parent ? await FeatureModel.findOne({ index: feature.parent.index }).lean() : null,
   prerequisites: async (feature: Feature) =>
-    feature.prerequisites?.map(async prerequisite => {
+    feature.prerequisites?.map(async (prerequisite) => {
       const prerequisiteToReturn = { ...prerequisite };
 
       if ('feature' in prerequisite && 'feature' in prerequisiteToReturn) {
-        prerequisiteToReturn.feature = await FeatureModel.findOne({
-          url: prerequisite.feature,
-        }).lean();
+        prerequisiteToReturn.feature =
+          (await FeatureModel.findOne({
+            url: prerequisite.feature,
+          }).lean()) || '';
       }
 
       if ('spell' in prerequisite && 'spell' in prerequisiteToReturn) {
-        prerequisiteToReturn.spell = await SpellModel.findOne({ url: prerequisite.spell }).lean();
+        prerequisiteToReturn.spell =
+          (await SpellModel.findOne({ url: prerequisite.spell }).lean()) || '';
       }
 
       return prerequisiteToReturn;
@@ -105,7 +107,7 @@ const Feature = {
       feature_specific.subfeature_options &&
       'options' in feature_specific.subfeature_options.from
     ) {
-      const options = feature_specific.subfeature_options.from.options.map(async option => {
+      const options = feature_specific.subfeature_options.from.options.map(async (option) => {
         if (option.option_type === 'reference') {
           return {
             ...option,
@@ -129,7 +131,7 @@ const Feature = {
         feature_specific.expertise_options,
         {
           options: feature_specific.expertise_options.from.options.map(
-            async option => await resolveExpertiseOption(option)
+            async (option) => await resolveExpertiseOption(option)
           ),
         }
       );

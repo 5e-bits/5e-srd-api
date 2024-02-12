@@ -259,7 +259,7 @@ export type ResolvedDC = {
 };
 export const resolveDc = async (dc: DifficultyClass) => {
   const resolvedDc: ResolvedDC = {
-    type: await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean(),
+    type: (await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean()) || '',
     success: dc.success_type.toUpperCase(),
   };
 
