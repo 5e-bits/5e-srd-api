@@ -25,7 +25,7 @@ const Spell = {
   area_of_effect: (spell: Spell) =>
     spell.area_of_effect ? resolveAreaOfEffect(spell.area_of_effect) : null,
   classes: async (spell: Spell, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: spell.classes.map(c => c.index) } }];
+    const filters: any[] = [{ index: { $in: spell.classes.map((c) => c.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -34,7 +34,7 @@ const Spell = {
     return await ClassModel.find(coalesceFilters(filters)).lean();
   },
   subclasses: async (spell: Spell, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: spell.subclasses?.map(s => s.index) } }];
+    const filters: any[] = [{ index: { $in: spell.subclasses?.map((s) => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -46,9 +46,10 @@ const Spell = {
     if (!spell.damage) return null;
     const spellDamage: SpellDamage = {};
     if (spell.damage.damage_type)
-      spellDamage.damage_type = await DamageTypeModel.findOne({
-        index: spell.damage.damage_type.index,
-      }).lean();
+      spellDamage.damage_type =
+        (await DamageTypeModel.findOne({
+          index: spell.damage.damage_type.index,
+        }).lean()) || undefined;
     if (spell.damage.damage_at_slot_level)
       spellDamage.damage_at_slot_level = levelObjectToArray(
         spell.damage.damage_at_slot_level,
