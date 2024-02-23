@@ -127,7 +127,7 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
     const urlString = '/api/classes/' + req.params.index;
 
     const data = await Spell.find({ 'classes.url': urlString })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
+      .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' });
     return res.status(200).json(ResourceList(data));
   } catch (err) {

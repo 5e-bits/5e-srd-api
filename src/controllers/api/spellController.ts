@@ -37,7 +37,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
       res.status(200).json(JSON.parse(data));
     } else {
       const data = await Spell.find(searchQueries)
-        .select({ index: 1, name: 1, url: 1, _id: 0 })
+        .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
         .sort({ index: 'asc' });
       const jsonData = ResourceList(data);
       redisClient.set(redisKey, JSON.stringify(jsonData));
