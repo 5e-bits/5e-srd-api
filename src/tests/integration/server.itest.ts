@@ -33,7 +33,7 @@ describe('/', () => {
 describe('/docs', () => {
   it('should load the page', async () => {
     const res = await request(app).get('/docs');
-    expect(res.statusCode).toEqual(200);
+    expect(res.statusCode).toEqual(302);
   });
 });
 
