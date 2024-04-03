@@ -8,7 +8,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import indexController from './controllers/indexController.js';
 import morgan from 'morgan';
-import openapiDocsController from './controllers/openapiDocsController.js';
+import docsController from './controllers/docsController.js';
 import path from 'path';
 import rateLimit from 'express-rate-limit';
 
@@ -55,10 +55,10 @@ export default async () => {
 
   // Register routes
   app.get('/', indexController);
-  app.get('/docs', openapiDocsController);
+  app.get('/docs', docsController);
   app.use('/api', apiRoutes);
 
-  app.use(function(req: express.Request, res: express.Response) {
+  app.use(function (req: express.Request, res: express.Response) {
     res.status(404);
 
     // TODO: Add a fun 404 page
