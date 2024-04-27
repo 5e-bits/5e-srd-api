@@ -19,8 +19,8 @@ const __dirname = path.dirname(__filename);
 
 const limiter = rateLimit({
   windowMs: 1000, // 1 second
-  max: 1000, // limit each IP to 1000 requests per windowMs
-  message: 'Rate limit of 1000 requests per second exceeded, try again in a second',
+  max: 50, // limit each IP to 50 requests per windowMs
+  message: 'Rate limit of 50 requests per second exceeded, try again in a second',
 });
 
 export default async () => {
