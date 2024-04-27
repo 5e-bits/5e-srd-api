@@ -1,5 +1,6 @@
 import apiRoutes from './routes/api.js';
 import bugsnagMiddleware from './middleware/bugsnag.js';
+import errorHandlerMiddleware from './middleware/errorHandler.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { createApolloMiddleware } from './middleware/apolloServer.js';
@@ -18,7 +19,8 @@ const __dirname = path.dirname(__filename);
 
 const limiter = rateLimit({
   windowMs: 1000, // 1 second
-  max: 10000, // limit each IP to 10000 requests per windowMs
+  max: 1000, // limit each IP to 10000 requests per windowMs
+  message: 'Rate limit of 1000 requests per second exceeded, try again in a second',
 });
 
 export default async () => {
@@ -58,22 +60,12 @@ export default async () => {
   app.get('/docs', docsController);
   app.use('/api', apiRoutes);
 
-  app.use(function (req: express.Request, res: express.Response) {
-    res.status(404);
-
-    // TODO: Add a fun 404 page
-    // // respond with html page
-    // if (req.accepts('html')) {
-    //   res.render('404', { url: req.url });
-    //   return;
-    // }
-
-    // default respond with json
-    return res.send({ error: 'Not found' });
-  });
-
   if (bugsnagMiddleware?.errorHandler) {
     app.use(bugsnagMiddleware.errorHandler);
+  }
+
+  if (errorHandlerMiddleware) {
+    app.use(errorHandlerMiddleware);
   }
   return app;
 };
