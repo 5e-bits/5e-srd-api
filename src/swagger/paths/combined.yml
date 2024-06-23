@@ -1,94 +1,94 @@
 base:
-  $ref: "./common.yml#/api-base"
+  $ref: './common.yml#/api-base'
 list:
-  $ref: "./common.yml#/resource-list"
+  $ref: './common.yml#/resource-list'
 ability-scores:
-  $ref: "./ability-scores.yml"
+  $ref: './ability-scores.yml'
 alignments:
-  $ref: "./alignments.yml"
+  $ref: './alignments.yml'
 backgrounds:
-  $ref: "./backgrounds.yml"
+  $ref: './backgrounds.yml'
 classes:
-  $ref: "./classes.yml#/class-path"
+  $ref: './classes.yml#/class-path'
 class-subclass:
-  $ref: "./classes.yml#/class-subclass-path"
+  $ref: './classes.yml#/class-subclass-path'
 class-spells:
-  $ref: "./classes.yml#/class-spells-path"
+  $ref: './classes.yml#/class-spells-path'
 class-spellcasting:
-  $ref: "./classes.yml#/class-spellcasting-path"
+  $ref: './classes.yml#/class-spellcasting-path'
 class-features:
-  $ref: "./classes.yml#/class-features-path"
+  $ref: './classes.yml#/class-features-path'
 class-proficiencies:
-  $ref: "./classes.yml#/class-proficiencies-path"
+  $ref: './classes.yml#/class-proficiencies-path'
 class-multi-classing:
-  $ref: "./classes.yml#/class-multi-classing-path"
+  $ref: './classes.yml#/class-multi-classing-path'
 class-levels:
-  $ref: "./classes.yml#/class-levels-path"
+  $ref: './classes.yml#/class-levels-path'
 class-level:
-  $ref: "./classes.yml#/class-level-path"
+  $ref: './classes.yml#/class-level-path'
 class-level-features:
-  $ref: "./classes.yml#/class-level-features-path"
+  $ref: './classes.yml#/class-level-features-path'
 class-spell-level-spells:
-  $ref: "./classes.yml#/class-spell-level-spells-path"
+  $ref: './classes.yml#/class-spell-level-spells-path'
 conditions:
-  $ref: "./conditions.yml"
+  $ref: './conditions.yml'
 damage-types:
-  $ref: "./damage-types.yml"
+  $ref: './damage-types.yml'
 equipment:
-  $ref: "./equipment.yml"
+  $ref: './equipment.yml'
 equipment-categories:
-  $ref: "./equipment-categories.yml"
+  $ref: './equipment-categories.yml#/equipment-category-index'
 feats:
-  $ref: "./feats.yml"
+  $ref: './feats.yml'
 features:
-  $ref: "./features.yml"
+  $ref: './features.yml'
 languages:
-  $ref: "./languages.yml"
+  $ref: './languages.yml'
 magic-items:
-  $ref: "./magic-items.yml"
+  $ref: './magic-items.yml'
 magic-schools:
-  $ref: "./magic-schools.yml"
+  $ref: './magic-schools.yml'
 monsters:
-  $ref: "./monsters.yml#/monster-resource-list"
+  $ref: './monsters.yml#/monster-resource-list'
 monster:
-  $ref: "./monsters.yml#/monster-index"
+  $ref: './monsters.yml#/monster-index'
 proficiencies:
-  $ref: "./proficiencies.yml"
+  $ref: './proficiencies.yml'
 races:
-  $ref: "./races.yml#/race-path"
+  $ref: './races.yml#/race-path'
 race-subraces:
-  $ref: "./races.yml#/race-subraces-path"
+  $ref: './races.yml#/race-subraces-path'
 race-proficiencies:
-  $ref: "./races.yml#/race-proficiencies-path"
+  $ref: './races.yml#/race-proficiencies-path'
 race-traits:
-  $ref: "./races.yml#/race-traits-path"
+  $ref: './races.yml#/race-traits-path'
 rule-sections:
-  $ref: "./rule-sections.yml"
+  $ref: './rule-sections.yml'
 rules:
-  $ref: "./rules.yml"
+  $ref: './rules.yml'
 skills:
-  $ref: "./skills.yml"
+  $ref: './skills.yml'
 spells:
-  $ref: "./spells.yml#/spells-resource-list"
+  $ref: './spells.yml#/spells-resource-list'
 spell:
-  $ref: "./spells.yml#/spell-by-index"
+  $ref: './spells.yml#/spell-by-index'
 subclasses:
-  $ref: "./subclasses.yml#/subclass-path"
+  $ref: './subclasses.yml#/subclass-path'
 subclass-features:
-  $ref: "./subclasses.yml#/subclass-features-path"
+  $ref: './subclasses.yml#/subclass-features-path'
 subclass-levels:
-  $ref: "./subclasses.yml#/subclass-levels-path"
+  $ref: './subclasses.yml#/subclass-levels-path'
 subclass-level:
-  $ref: "./subclasses.yml#/subclass-level-path"
+  $ref: './subclasses.yml#/subclass-level-path'
 subclass-level-features:
-  $ref: "./subclasses.yml#/subclass-level-features-path"
+  $ref: './subclasses.yml#/subclass-level-features-path'
 subraces:
-  $ref: "./subraces.yml#/subraces-path"
+  $ref: './subraces.yml#/subraces-path'
 subrace-proficiencies:
-  $ref: "./subraces.yml#/subrace-proficiencies-path"
+  $ref: './subraces.yml#/subrace-proficiencies-path'
 subrace-traits:
-  $ref: "./subraces.yml#/subrace-traits-path"
+  $ref: './subraces.yml#/subrace-traits-path'
 traits:
-  $ref: "./traits.yml"
+  $ref: './traits.yml'
 weapon-properties:
-  $ref: "./weapon-properties.yml"
+  $ref: './weapon-properties.yml'

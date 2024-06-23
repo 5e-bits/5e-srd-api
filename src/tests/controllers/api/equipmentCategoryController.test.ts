@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
 import EquipmentCategory from '../../../models/equipmentCategory/index.js';
-import EquipmentCategoryController from '../../../controllers/api/equipmentCategoryController.js';
+import { index, show } from '../../../controllers/api/equipmentCategoryController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();
@@ -33,7 +33,7 @@ describe('index', () => {
     const response = createResponse();
     mockingoose(EquipmentCategory).toReturn(findDoc, 'find');
 
-    await EquipmentCategoryController.index(request, response, mockNext);
+    await index(request, response, mockNext);
 
     expect(response.statusCode).toBe(200);
   });
@@ -44,7 +44,7 @@ describe('index', () => {
       const error = new Error('Something went wrong');
       mockingoose(EquipmentCategory).toReturn(error, 'find');
 
-      await EquipmentCategoryController.index(request, response, mockNext);
+      await index(request, response, mockNext);
 
       expect(response.statusCode).toBe(200);
       expect(response._getData()).toStrictEqual('');
@@ -67,7 +67,7 @@ describe('show', () => {
     const response = createResponse();
     mockingoose(EquipmentCategory).toReturn(findOneDoc, 'findOne');
 
-    await EquipmentCategoryController.show(request, response, mockNext);
+    await show(request, response, mockNext);
 
     expect(response.statusCode).toBe(200);
     expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams));
@@ -80,7 +80,7 @@ describe('show', () => {
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = createRequest({ params: invalidShowParams });
-      await EquipmentCategoryController.show(invalidRequest, response, mockNext);
+      await show(invalidRequest, response, mockNext);
 
       expect(response.statusCode).toBe(200);
       expect(response._getData()).toStrictEqual('');
@@ -94,7 +94,7 @@ describe('show', () => {
       const error = new Error('Something went wrong');
       mockingoose(EquipmentCategory).toReturn(error, 'findOne');
 
-      await EquipmentCategoryController.show(request, response, mockNext);
+      await show(request, response, mockNext);
 
       expect(response.statusCode).toBe(200);
       expect(response._getData()).toStrictEqual('');
