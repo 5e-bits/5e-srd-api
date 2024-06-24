@@ -26,7 +26,7 @@
     "@apideck/portman": "^1.26.5",
     "@apidevtools/swagger-cli": "^4.0.4",
     "@apollo/server": "^4.10.4",
-    "@aws-sdk/client-s3": "^3.569.0",
+    "@aws-sdk/client-s3": "^3.600.0",
     "@bugsnag/js": "^7.23.0",
     "@bugsnag/plugin-express": "^7.22.7",
     "@graphql-tools/schema": "^10.0.4",
