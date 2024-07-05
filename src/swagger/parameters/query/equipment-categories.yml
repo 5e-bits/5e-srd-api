@@ -1,0 +1,20 @@
+weapon-property-filter:
+  name: property
+  in: query
+  description: |
+    The weapon `property` used to filter equipment category weapon results.
+  schema:
+    type: string
+    enum:
+      - ammunition
+      - finesse
+      - heavy
+      - light
+      - loading
+      - reach
+      - special
+      - thrown
+      - two-handed
+      - versatile
+      - monk
+    example: finesse
