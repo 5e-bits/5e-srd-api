@@ -23,7 +23,7 @@
     "test:integration:local": "docker-compose pull && docker-compose build && docker-compose run --use-aliases api npm run test:integration"
   },
   "dependencies": {
-    "@apideck/portman": "^1.27.0",
+    "@apideck/portman": "^1.28.0",
     "@apidevtools/swagger-cli": "^4.0.4",
     "@apollo/server": "^4.10.5",
     "@aws-sdk/client-s3": "^3.614.0",
