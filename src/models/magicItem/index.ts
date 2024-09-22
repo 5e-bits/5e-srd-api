@@ -11,6 +11,7 @@ const MagicItemSchema = new Schema<MagicItem>({
   _id: { type: String, select: false },
   desc: { type: [String], index: true },
   equipment_category: APIReferenceSchema,
+  image: { type: String, index: true },
   index: { type: String, index: true },
   name: { type: String, index: true },
   rarity: RaritySchema,

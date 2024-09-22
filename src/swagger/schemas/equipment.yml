@@ -62,6 +62,9 @@ magic-item-model:
     - $ref: './combined.yml#/ResourceDescription'
     - type: object
       properties:
+        image:
+          description: 'The image url of the magic item.'
+          type: string
         equipment_category:
           $ref: './combined.yml#/APIReference'
         rarity:
