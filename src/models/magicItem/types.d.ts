@@ -10,6 +10,7 @@ export type MagicItem = {
   _id?: mongoose.Types.ObjectId;
   desc: string[];
   equipment_category: APIReference;
+  image?: string;
   index: string;
   name: string;
   rarity: Rarity;

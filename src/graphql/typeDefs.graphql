@@ -93,6 +93,7 @@ type MagicItem implements IEquipmentBase {
   desc: [String!]!
   rarity: MagicItemRarity!
   equipment_category: EquipmentCategory!
+  image: String
 }
 
 interface IEquipment implements IEquipmentBase {
