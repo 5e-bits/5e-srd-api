@@ -27,7 +27,7 @@
     "@apidevtools/swagger-cli": "^4.0.4",
     "@apollo/server": "^4.11.0",
     "@aws-sdk/client-s3": "^3.629.0",
-    "@bugsnag/js": "^7.25.0",
+    "@bugsnag/js": "^8.0.0",
     "@bugsnag/plugin-express": "^8.0.0",
     "@graphql-tools/schema": "^10.0.6",
     "body-parser": "^1.20.2",
