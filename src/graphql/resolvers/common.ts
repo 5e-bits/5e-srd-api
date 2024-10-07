@@ -3,6 +3,7 @@ import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import { Equipment } from '../../models/equipment/types';
 import { DifficultyClass, AreaOfEffect, Choice } from '../../models/common/types';
 import SpellModel from '../../models/spell/index.js';
+import { AbilityScore } from '../../models/abilityScore/types.js';
 
 export const equipmentBaseFieldResolvers = {
   equipment_category: async (equipment: Equipment) =>
@@ -253,7 +254,7 @@ export const levelObjectToArray = (obj: Record<string, string | number>, fieldNa
   Object.entries(obj).map(([level, value]) => ({ level, [fieldName]: value }));
 
 export type ResolvedDC = {
-  type: string;
+  type: string | AbilityScore;
   success: string;
   value?: number;
 };
