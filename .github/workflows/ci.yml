@@ -50,12 +50,11 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' && github.repository == '5e-bits/5e-srd-api' }}
     steps:
       - uses: actions/checkout@v4
-      - uses: akhileshns/heroku-deploy@v4
+      - uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'dnd-5e-srd-api'
           heroku_email: 'cdurianward@gmail.com'
-          branch: 'main'
   github-release:
     name: Github Release
     runs-on: ubuntu-latest
