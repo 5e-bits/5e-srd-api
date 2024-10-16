@@ -55,6 +55,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'dnd-5e-srd-api'
           heroku_email: 'cdurianward@gmail.com'
+          branch: 'main'
   github-release:
     name: Github Release
     runs-on: ubuntu-latest
