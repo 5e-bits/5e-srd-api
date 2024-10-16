@@ -3,4 +3,8 @@ import { redisUrl } from './environmentVariables.js';
 
 export default createClient({
   url: redisUrl,
+  socket: {
+    tls: redisUrl.match(/rediss:/) != null,
+    rejectUnauthorized: false,
+  },
 });
