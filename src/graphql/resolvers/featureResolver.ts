@@ -82,15 +82,15 @@ const Feature = {
       const prerequisiteToReturn = { ...prerequisite };
 
       if ('feature' in prerequisite && 'feature' in prerequisiteToReturn) {
-        prerequisiteToReturn.feature =
-          (await FeatureModel.findOne({
-            url: prerequisite.feature,
-          }).lean()) || '';
+        const foundFeature = await FeatureModel.findOne({
+          url: prerequisite.feature,
+        }).lean();
+        prerequisiteToReturn.feature = foundFeature?.url || prerequisite.feature;
       }
 
       if ('spell' in prerequisite && 'spell' in prerequisiteToReturn) {
         prerequisiteToReturn.spell =
-          (await SpellModel.findOne({ url: prerequisite.spell }).lean()) || '';
+          (await SpellModel.findOne({ url: prerequisite.spell }).lean())?.url || prerequisite.spell;
       }
 
       return prerequisiteToReturn;

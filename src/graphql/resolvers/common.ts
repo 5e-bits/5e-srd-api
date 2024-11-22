@@ -1,7 +1,7 @@
 import AbilityScoreModel from '../../models/abilityScore/index.js';
-import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
+import { AreaOfEffect, Choice, DifficultyClass } from '../../models/common/types';
 import { Equipment } from '../../models/equipment/types';
-import { DifficultyClass, AreaOfEffect, Choice } from '../../models/common/types';
+import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
 import SpellModel from '../../models/spell/index.js';
 
 export const equipmentBaseFieldResolvers = {
@@ -259,7 +259,7 @@ export type ResolvedDC = {
 };
 export const resolveDc = async (dc: DifficultyClass) => {
   const resolvedDc: ResolvedDC = {
-    type: (await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean()) || '',
+    type: (await AbilityScoreModel.findOne({ index: dc.dc_type.index }).lean())?.name || '',
     success: dc.success_type.toUpperCase(),
   };
 
