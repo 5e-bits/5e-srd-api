@@ -1,10 +1,9 @@
 # 5e-srd-api
 
-![Build Status](https://github.com/bagelbits/5e-srd-api/workflows/5e%20SRD%20API%20CI/badge.svg?branch=main)
-![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fapi%2Fuptime.json)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/5e-bits/5e-srd-api/ci.yml?style=flat&logo=github&logoColor=white)](https://github.com/5e-bits/5e-srd-api/actions/workflows/ci.yml)
+[![Discord](https://img.shields.io/discord/656547667601653787?style=flat&logo=discord&logoColor=white)](https://discord.gg/TQuYTv7)
 ![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fapi%2Fresponse-time.json)
-
-[![Discord](https://img.shields.io/discord/656547667601653787)](https://discord.gg/TQuYTv7)
+![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fapi%2Fuptime.json)
 
 REST API to access [D&amp;D 5th Edition SRD API](https://www.dnd5eapi.co/)
 
@@ -24,9 +23,9 @@ Then run it with docker-compose:
 docker compose up --build
 ```
 
-### M1/M2 Macs
+### M1/M2/M3 Macs
 
-The command above pulls the latest image of the database from ghcr.io, which only targets the amd64 platform. If you are running on a different platform (like an M1/M2 mac), you will need to build the image yourself. See the [5e-database](https://github.com/5e-bits/5e-database#how-to-run) repo for additional details.
+The command above pulls the latest image of the database from ghcr.io, which only targets the amd64 platform. If you are running on a different platform (like a Mac with Apple Silicon), you will need to build the image yourself. See the [5e-database](https://github.com/5e-bits/5e-database#how-to-run) repo for additional details.
 
 ```shell
 cd ../
@@ -99,7 +98,7 @@ contents.
 
 ## Data Issues
 
-If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/bagelbits/5e-database)
+If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/5e-bits/5e-database/)
 
 ## Running Tests
 
@@ -116,9 +115,10 @@ In order to run integration tests locally you can use the command: `npm run test
 
 Public facing API documentation lives [here.](https://www.dnd5eapi.co/docs)
 
-We use [RapiDoc](https://mrin9.github.io/RapiDoc/index.html) to create the documentation UI from a bundled single file OpenAPI definition created as part of the `npm run build` task.
+The [docs repository](https://github.com/5e-bits/docs) contains the source for the public facing API documentation. It uses
+[Docusaurus](https://docusaurus.io/) to generate the site from a bundled OpenAPI spec.
 
-Additional details and information on working with the documentation can be found in the `/swagger` directory's [README](src/swagger/README.md).
+More details on working with the OpenAPI spec can be found in the [`src/swagger`](src/swagger/) directory's [README](src/swagger/README.md).
 
 ## Contributing
 
