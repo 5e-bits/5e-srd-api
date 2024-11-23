@@ -4,29 +4,25 @@ import SubclassModel from '../../models/subclass/index.js';
 import {
   coalesceFilters,
   getMongoSortDirection,
-  resolveContainsStringFilter,
-  SortDirection,
   QueryParams,
+  resolveContainsStringFilter,
+  SortQuery,
 } from './common.js';
 
 import { Level } from '../../models/level/types';
-
-type Sort = {
-  name?: 1 | -1;
-};
 
 const Level = {
   class: async (level: Level) => await ClassModel.findOne({ index: level.class.index }).lean(),
   subclass: async (level: Level) =>
     level.subclass ? await SubclassModel.findOne({ index: level.subclass.index }).lean() : null,
   features: async (level: Level, args: QueryParams) => {
-    const sort: Sort = {};
     const filters: any[] = [{ index: { $in: level.features?.map(f => f.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
     }
 
+    const sort: SortQuery = {};
     if (args.order_direction) {
       sort.name = getMongoSortDirection(args.order_direction);
     }

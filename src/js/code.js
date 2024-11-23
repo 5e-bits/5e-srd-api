@@ -1,4 +1,4 @@
- function update(call) {
+function update(call) {// eslint-disable-line
   $('#interactive').val(call);
   interactive_call();
 }

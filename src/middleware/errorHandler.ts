@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(err.stack);
 
