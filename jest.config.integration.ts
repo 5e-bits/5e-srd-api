@@ -1,6 +1,12 @@
-import config from './jest.config';
+import { Config } from '@jest/types';
+import baseConfig from './jest.config';
 
-config.testRegex = '\\.itest\\.(js|ts)$'; //Overriding testRegex option
+const integrationConfig: Config.InitialOptions = {
+  ...baseConfig,
+  displayName: 'Integration Tests',
+  testRegex: '\\.itest\\.(js|ts)$',
+  silent: true,
+};
+
 console.log('RUNNING INTEGRATION TESTS');
-config.silent = true; //Overriding silent option
-export default config;
+export default integrationConfig;

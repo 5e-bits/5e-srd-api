@@ -1,7 +1,13 @@
-import config from './jest.config';
-config.testRegex = '\\.test\\.(js|ts)$'; //Overriding testRegex option
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-(config.setupFilesAfterEnv = ['./src/tests/support/setupRedisMock.ts']),
-  console.log('RUNNING UNIT TESTS');
-export default config;
+import { Config } from '@jest/types';
+import baseConfig from './jest.config';
+
+const unitConfig: Config.InitialOptions = {
+  ...baseConfig,
+  displayName: 'Unit Tests',
+  testRegex: '\\.test\\.(js|ts)$',
+  setupFilesAfterEnv: ['./src/tests/support/setupRedisMock.ts'],
+  silent: false,
+};
+
+console.log('RUNNING UNIT TESTS');
+export default unitConfig;
