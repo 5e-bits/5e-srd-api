@@ -1,5 +1,6 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-export default {
+import { Config } from '@jest/types';
+
+const baseConfig: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-node',
   collectCoverage: true,
@@ -19,3 +20,5 @@ export default {
   },
   transform: {},
 };
+
+export default baseConfig;

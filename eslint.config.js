@@ -5,15 +5,26 @@ import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default [
   {
+    name: 'base ignore',
     ignores: ['**/coverage/**', '**/dist/**', '**/node_modules/**'],
   },
+  eslint.configs.recommended,
   {
-    extends: [
-      eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-    ],
+    name: 'javascript',
+    files: ['**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.jquery,
+        ...globals.browser,
+      },
+    },
+  },
+  ...tseslint.configs.recommended,
+  {
+    name: 'typescript',
+    files: ['**/*.ts'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -21,30 +32,22 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
       globals: {
-        ...globals.jquery,
-        ...globals.browser,
         ...globals.node,
         ...globals.jest,
       },
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-var-requires': 'warn',
     },
   },
   {
-    // disable type-aware linting on JS files
-    files: ['**/*.js'],
-    ...tseslint.configs.disableTypeChecked
-  },
-  {
-    // enable jest rules on test files
+    name: 'jest',
     files: ['**/*.test.{js,ts}'],
     ...jestPlugin.configs['flat/recommended'],
     rules: {
       '@typescript-eslint/no-unsafe-argument': 'off',
     },
   },
-);
+];

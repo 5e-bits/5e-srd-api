@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { awsS3Client } from '../../util/index.js';
@@ -17,7 +17,7 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
       res.writeHead(200, { 'Content-Type': 'image/png' });
       res.write(data, 'binary');
       res.end(null, 'binary');
-    } catch (err) {
+    } catch {
       res.status(200);
       res.end('Error Fetching File');
     }
