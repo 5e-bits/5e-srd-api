@@ -560,9 +560,11 @@ paths:
                   - index: power-word-kill
                     name: Power Word Kill
                     url: /api/spells/power-word-kill
+                    level: 9
                   - index: true-polymorph
                     name: True Polymorph
                     url: /api/spells/true-polymorph
+                    level: 9
   '/api/classes/{index}/spellcasting':
     get:
       summary: Get spellcasting info for a class.
