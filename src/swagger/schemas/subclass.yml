@@ -36,6 +36,7 @@ subclass-model:
                   $ref: "./combined.yml#/SpellPrerequisite"
               spell:
                 $ref: "./combined.yml#/APIReference"
+
 subclass-level-resource-model:
   type: object
   properties:

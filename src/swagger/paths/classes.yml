@@ -201,7 +201,7 @@ class-spells-path:
         content:
           application/json:
             schema:
-              $ref: '../schemas/combined.yml#/APIReferenceList'
+              $ref: '../schemas/combined.yml#/ClassSpellList'
             example:
               count: 2
               results:

@@ -250,3 +250,26 @@ class-level-model:
         - $ref: '#/cs-sorcerer'
         - $ref: '#/cs-warlock'
         - $ref: '#/cs-wizard'
+class-level-spell-model:
+  description: |
+    `ClassLevelSpell`
+  allOf:
+    - $ref: './combined.yml#/APIReference'
+    - type: object
+      properties:
+        level:
+          type: number
+          description: 'The level of the spell slot used to cast the spell.'
+        
+class-spell-list-model:
+  description: |
+    `ClassSpellList`
+  type: object
+  properties:
+    count:
+      description: 'Total number of resources available.'
+      type: number
+    results:
+      type: array
+      items:
+        $ref: '#/class-level-spell-model'

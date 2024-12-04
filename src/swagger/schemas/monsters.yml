@@ -26,21 +26,9 @@ monster-model:
         subtype:
           description: The sub-category of a monster used for classification of monsters."
           type: string
-        alignments:
+        alignment:
           description: "A creature's general moral and personal attitudes."
           type: string
-          enum:
-            - chaotic neutral
-            - chaotic evil
-            - chaotic good
-            - lawful neutral
-            - lawful evil
-            - lawful good
-            - neutral
-            - neutral evil
-            - neutral good
-            - any alignment
-            - unaligned
         armor_class:
           description: 'The difficulty for a player to successfully deal damage to a monster.'
           type: array
