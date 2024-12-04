@@ -118,3 +118,7 @@ OptionSet:
   $ref: './common.yml#/option-set-model'
 Option:
   $ref: './common.yml#/option-model'
+ClassLevelSpell:
+  $ref: './classes.yml#/class-level-spell-model'
+ClassSpellList:
+  $ref: './classes.yml#/class-spell-list-model'

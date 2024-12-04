@@ -872,7 +872,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/APIReferenceList"
+                  "$ref": "#/components/schemas/ClassSpellList"
                 },
                 "example": {
                   "count": 2,
@@ -6161,6 +6161,39 @@
             }
           }
         ]
+      },
+      "ClassLevelSpell": {
+        "description": "`ClassLevelSpell`\n",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/APIReference"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "level": {
+                "type": "number",
+                "description": "The level of the spell slot used to cast the spell."
+              }
+            }
+          }
+        ]
+      },
+      "ClassSpellList": {
+        "description": "`ClassSpellList`\n",
+        "type": "object",
+        "properties": {
+          "count": {
+            "description": "Total number of resources available.",
+            "type": "number"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassLevelSpell"
+            }
+          }
+        }
       }
     }
   }
