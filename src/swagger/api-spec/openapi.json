@@ -880,12 +880,14 @@
                     {
                       "index": "power-word-kill",
                       "name": "Power Word Kill",
-                      "url": "/api/spells/power-word-kill"
+                      "url": "/api/spells/power-word-kill",
+                      "level": 9
                     },
                     {
                       "index": "true-polymorph",
                       "name": "True Polymorph",
-                      "url": "/api/spells/true-polymorph"
+                      "url": "/api/spells/true-polymorph",
+                      "level": 9
                     }
                   ]
                 }
