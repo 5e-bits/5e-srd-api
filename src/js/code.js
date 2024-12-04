@@ -1,4 +1,5 @@
-function update(call) {// eslint-disable-line
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function update(call) {
   $('#interactive').val(call);
   interactive_call();
 }
