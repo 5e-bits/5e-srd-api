@@ -15,7 +15,7 @@
     "dev": "nodemon npm run start",
     "lint": "eslint . --config eslint.config.js",
     "validate-swagger": "swagger-cli validate src/swagger/swagger.yml",
-    "bundle-swagger": "npm run validate-swagger && swagger-cli bundle --outfile src/swagger/dist/openapi.yml --type yaml src/swagger/swagger.yml && swagger-cli bundle --outfile src/swagger/dist/openapi.json --type json src/swagger/swagger.yml",
+    "bundle-swagger": "npm run validate-swagger && swagger-cli bundle --outfile src/swagger/api-spec/openapi.yml --type yaml src/swagger/swagger.yml && swagger-cli bundle --outfile src/swagger/api-spec/openapi.json --type json src/swagger/swagger.yml",
     "gen-postman": "npm run bundle-swagger && portman --cliOptionsFile portman-cli.json",
     "test": "npm run test:unit && npm run test:integration:local",
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c jest.config.unit.ts",
