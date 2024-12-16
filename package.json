@@ -61,7 +61,7 @@
     "@types/node": "^22.9.3",
     "@types/shelljs": "^0.8.11",
     "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
     "@typescript-eslint/parser": "^8.17.0",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
