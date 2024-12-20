@@ -16,7 +16,10 @@ background-model:
           items:
             $ref: './combined.yml#/APIReference'
         starting_equipment_options:
-          $ref: './combined.yml#/Choice'
+          description: List of choices of starting equipment.
+          type: array
+          items:
+            $ref: './combined.yml#/Choice'
         language_options:
           $ref: './combined.yml#/Choice'
         feature:
