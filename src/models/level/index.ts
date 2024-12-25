@@ -103,4 +103,4 @@ const LevelSchema = new Schema<Level>({
   url: { type: String, index: true },
 });
 
-export default model('Level', LevelSchema, 'levels');
+export default model('Level', LevelSchema, '2014-levels');

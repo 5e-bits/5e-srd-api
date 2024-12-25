@@ -21,4 +21,4 @@ const Subrace = new Schema<Subrace>({
   url: { type: String, index: true },
 });
 
-export default model('Subrace', Subrace, 'subraces');
+export default model('Subrace', Subrace, '2014-subraces');

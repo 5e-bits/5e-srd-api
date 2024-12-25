@@ -10,4 +10,4 @@ const AlignmentSchema = new Schema<Alignment>({
   url: { type: String, index: true },
 });
 
-export default model('Alignment', AlignmentSchema, 'alignments');
+export default model('Alignment', AlignmentSchema, '2014-alignments');

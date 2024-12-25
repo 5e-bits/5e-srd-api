@@ -9,4 +9,4 @@ const ConditionSchema = new Schema<Condition>({
   url: { type: String, index: true },
 });
 
-export default model('Condition', ConditionSchema, 'conditions');
+export default model('Condition', ConditionSchema, '2014-conditions');

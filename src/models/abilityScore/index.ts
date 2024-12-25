@@ -12,4 +12,4 @@ const AbilityScoreSchema = new Schema<AbilityScore>({
   url: { type: String, index: true },
 });
 
-export default model('AbilityScore', AbilityScoreSchema, 'ability-scores');
+export default model('AbilityScore', AbilityScoreSchema, '2014-ability-scores');

@@ -21,4 +21,4 @@ const ProficiencySchema = new Schema<Proficiency>({
   url: { type: String, index: true },
 });
 
-export default model('Proficiency', ProficiencySchema, 'proficiencies');
+export default model('Proficiency', ProficiencySchema, '2014-proficiencies');

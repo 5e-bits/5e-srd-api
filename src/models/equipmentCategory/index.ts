@@ -10,4 +10,4 @@ const EquipmentCategorySchema = new Schema<EquipmentCategory>({
   url: { type: String, index: true },
 });
 
-export default model('EquipmentCategory', EquipmentCategorySchema, 'equipment-categories');
+export default model('EquipmentCategory', EquipmentCategorySchema, '2014-equipment-categories');

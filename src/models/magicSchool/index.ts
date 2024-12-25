@@ -9,4 +9,4 @@ const MagicSchoolSchema = new Schema<MagicSchool>({
   url: { type: String, index: true },
 });
 
-export default model('MagicSchool', MagicSchoolSchema, 'magic-schools');
+export default model('MagicSchool', MagicSchoolSchema, '2014-magic-schools');

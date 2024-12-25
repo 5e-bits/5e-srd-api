@@ -12,4 +12,4 @@ const LanguageSchema = new Schema<Language>({
   url: { type: String, index: true },
 });
 
-export default model('Language', LanguageSchema, 'languages');
+export default model('Language', LanguageSchema, '2014-languages');

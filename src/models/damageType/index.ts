@@ -9,4 +9,4 @@ const DamageTypeSchema = new Schema<DamageType>({
   url: { type: String, index: true },
 });
 
-export default model('DamageType', DamageTypeSchema, 'damage-types');
+export default model('DamageType', DamageTypeSchema, '2014-damage-types');

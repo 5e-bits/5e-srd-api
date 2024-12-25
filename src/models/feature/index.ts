@@ -50,4 +50,4 @@ const FeatureSchema = new Schema<Feature>({
   url: { type: String, index: true },
 });
 
-export default model('Feature', FeatureSchema, 'features');
+export default model('Feature', FeatureSchema, '2014-features');

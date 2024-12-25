@@ -11,4 +11,4 @@ const RuleSchema = new Schema<Rule>({
   url: { type: String, index: true },
 });
 
-export default model('Rule', RuleSchema, 'rules');
+export default model('Rule', RuleSchema, '2014-rules');

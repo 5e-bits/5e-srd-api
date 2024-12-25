@@ -60,4 +60,4 @@ const ClassSchema = new Schema<Class>({
   url: { type: String, index: true },
 });
 
-export default model('Class', ClassSchema, 'classes');
+export default model('Class', ClassSchema, '2014-classes');

@@ -60,4 +60,4 @@ const TraitSchema = new Schema<Trait>({
   url: { type: String, index: true },
 });
 
-export default model('Trait', TraitSchema, 'traits');
+export default model('Trait', TraitSchema, '2014-traits');

@@ -199,4 +199,4 @@ const Monster = new Schema<Monster>({
   xp: { type: Number, index: true },
 });
 
-export default model('Monster', Monster, 'monsters');
+export default model('Monster', Monster, '2014-monsters');

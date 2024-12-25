@@ -9,4 +9,4 @@ const WeaponPropertySchema = new Schema<WeaponProperty>({
   url: { type: String, index: true },
 });
 
-export default model('WeaponProperty', WeaponPropertySchema, 'weapon-properties');
+export default model('WeaponProperty', WeaponPropertySchema, '2014-weapon-properties');

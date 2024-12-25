@@ -20,4 +20,4 @@ const MagicItemSchema = new Schema<MagicItem>({
   variant: Boolean,
 });
 
-export default model('MagicItem', MagicItemSchema, 'magic-items');
+export default model('MagicItem', MagicItemSchema, '2014-magic-items');

@@ -6,4 +6,4 @@ const CollectionSchema = new Schema<Collection>({
   index: { type: String, index: true },
 });
 
-export default model('Collection', CollectionSchema, 'collections');
+export default model('Collection', CollectionSchema, '2014-collections');

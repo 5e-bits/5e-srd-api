@@ -11,4 +11,4 @@ const SkillSchema = new Schema<Skill>({
   url: { type: String, index: true },
 });
 
-export default model('Skill', SkillSchema, 'skills');
+export default model('Skill', SkillSchema, '2014-skills');

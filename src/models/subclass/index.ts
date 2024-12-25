@@ -28,4 +28,4 @@ const SubclassSchema = new Schema<Subclass>({
   url: { type: String, index: true },
 });
 
-export default model('Subclass', SubclassSchema, 'subclasses');
+export default model('Subclass', SubclassSchema, '2014-subclasses');

@@ -44,4 +44,4 @@ const Spell = new Schema({
   url: { type: String, index: true },
 });
 
-export default model('Spell', Spell, 'spells');
+export default model('Spell', Spell, '2014-spells');

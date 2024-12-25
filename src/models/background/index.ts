@@ -30,4 +30,4 @@ const BackgroundSchema = new Schema<Background>({
   flaws: ChoiceSchema,
 });
 
-export default model('Background', BackgroundSchema, 'backgrounds');
+export default model('Background', BackgroundSchema, '2014-backgrounds');

@@ -9,4 +9,4 @@ const RuleSectionSchema = new Schema<RuleSection>({
   url: { type: String, index: true },
 });
 
-export default model('RuleSection', RuleSectionSchema, 'rule-sections');
+export default model('RuleSection', RuleSectionSchema, '2014-rule-sections');

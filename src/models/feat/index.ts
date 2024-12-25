@@ -17,4 +17,4 @@ const FeatSchema = new Schema<Feat>({
   url: { type: String, index: true },
 });
 
-export default model('Feat', FeatSchema, 'feats');
+export default model('Feat', FeatSchema, '2014-feats');

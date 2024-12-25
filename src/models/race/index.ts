@@ -29,4 +29,4 @@ const RaceSchema = new Schema<Race>({
   url: { type: String, index: true },
 });
 
-export default model('Race', RaceSchema, 'races');
+export default model('Race', RaceSchema, '2014-races');

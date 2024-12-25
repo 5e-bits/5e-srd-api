@@ -92,4 +92,4 @@ const EquipmentSchema = new Schema<Equipment>({
   weight: { type: Number, index: true },
 });
 
-export default model('Equipment', EquipmentSchema, 'equipment');
+export default model('Equipment', EquipmentSchema, '2014-equipment');
