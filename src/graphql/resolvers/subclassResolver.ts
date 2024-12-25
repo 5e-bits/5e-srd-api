@@ -1,9 +1,9 @@
-import ClassModel from '../../models/class/index.js';
-import FeatureModel from '../../models/feature/index.js';
-import LevelModel from '../../models/level/index.js';
+import ClassModel from '../../models/2014/class/index.js';
+import FeatureModel from '../../models/2014/feature/index.js';
+import LevelModel from '../../models/2014/level/index.js';
 import { resolveSpells, SpellQuery } from './common.js';
 
-import { Subclass } from '../../models/subclass/types';
+import { Subclass } from '../../models/2014/subclass/types.js';
 
 const Subclass = {
   class: async (subclass: Subclass) =>
@@ -15,18 +15,18 @@ const Subclass = {
 
     const spells = await resolveSpells(args, [
       {
-        index: { $in: subclass.spells.map(s => s.spell.index) },
+        index: { $in: subclass.spells.map((s) => s.spell.index) },
       },
     ]);
 
     const spellsToReturn = [];
     for (const spell of subclass.spells) {
-      const s = spells.find(sp => sp.index === spell.spell.index);
+      const s = spells.find((sp) => sp.index === spell.spell.index);
       if (s) {
         spellsToReturn.push({
           spell: s,
           prerequisites: spell.prerequisites.map(
-            async p =>
+            async (p) =>
               await (p.type == 'level'
                 ? LevelModel.findOne({ index: p.index }).lean()
                 : FeatureModel.findOne({ index: p.index }).lean())

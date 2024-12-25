@@ -2,7 +2,7 @@ import * as RuleSectionController from '../../../controllers/api/ruleSectionCont
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import RuleSection from '../../../models/ruleSection/index.js';
+import RuleSection from '../../../models/2014/ruleSection/index.js';
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 

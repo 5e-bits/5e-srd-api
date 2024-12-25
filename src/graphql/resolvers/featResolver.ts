@@ -1,17 +1,17 @@
-import AbilityScoreModel from '../../models/abilityScore/index.js';
+import AbilityScoreModel from '../../models/2014/abilityScore/index.js';
 
-import { Feat } from '../../models/feat/types';
+import { Feat } from '../../models/2014/feat/types.js';
 
 const Feat = {
   prerequisites: async (feat: Feat) => {
     const prerequisites = feat.prerequisites;
     const abilityScores = await AbilityScoreModel.find({
-      index: { $in: prerequisites.map(p => p.ability_score.index) },
+      index: { $in: prerequisites.map((p) => p.ability_score.index) },
     }).lean();
 
-    return prerequisites.map(async p => ({
+    return prerequisites.map(async (p) => ({
       ...p,
-      ability_score: abilityScores.find(as => as.index === p.ability_score.index),
+      ability_score: abilityScores.find((as) => as.index === p.ability_score.index),
     }));
   },
 };

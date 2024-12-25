@@ -2,7 +2,7 @@ import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
-import DamageType from '../../../models/damageType/index.js';
+import DamageType from '../../../models/2014/damageType/index.js';
 import DamageTypeController from '../../../controllers/api/damageTypeController.js';
 
 beforeEach(() => {

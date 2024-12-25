@@ -2,7 +2,7 @@ import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
-import Language from '../../../models/language/index.js';
+import Language from '../../../models/2014/language/index.js';
 import LanguageController from '../../../controllers/api/languageController.js';
 
 beforeEach(() => {

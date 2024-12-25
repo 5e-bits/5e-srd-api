@@ -1,4 +1,4 @@
-import { Language } from '../../models/language/types';
+import { Language } from '../../models/2014/language/types';
 
 const Language = {
   type: (language: Language) => language.type.toUpperCase(),

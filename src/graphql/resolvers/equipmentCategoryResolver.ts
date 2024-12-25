@@ -1,10 +1,10 @@
-import EquipmentModel from '../../models/equipment/index.js';
-import MagicItemModel from '../../models/magicItem/index.js';
+import EquipmentModel from '../../models/2014/equipment/index.js';
+import MagicItemModel from '../../models/2014/magicItem/index.js';
 import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common.js';
 
-import { EquipmentCategory } from '../../models/equipmentCategory/types';
-import { MagicItem } from '../../models/magicItem/types';
-import { Equipment } from '../../models/equipment/types';
+import { EquipmentCategory } from '../../models/2014/equipmentCategory/types.js';
+import { MagicItem } from '../../models/2014/magicItem/types.js';
+import { Equipment } from '../../models/2014/equipment/types.js';
 import { Order, SortQuery } from './common';
 
 type Args = {
@@ -16,7 +16,7 @@ type Args = {
 
 const EquipmentCategory = {
   equipment: async (equipmentCategory: EquipmentCategory, args: Args) => {
-    const indexes = equipmentCategory.equipment.map(e => e.index);
+    const indexes = equipmentCategory.equipment.map((e) => e.index);
     const filters: any[] = [{ index: { $in: indexes } }];
 
     if (args.name) {
@@ -31,7 +31,7 @@ const EquipmentCategory = {
 
     let sort: SortQuery = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
+      sort = coalesceSort(args.order, (value) => value.toLowerCase(), 2);
     }
 
     if (sort.name) {

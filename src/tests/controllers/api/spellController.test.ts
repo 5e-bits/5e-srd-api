@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 import * as SpellController from '../../../controllers/api/spellController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
-import Spell from '../../../models/spell/index.js';
+import Spell from '../../../models/2014/spell/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

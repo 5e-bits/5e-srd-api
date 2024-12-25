@@ -1,4 +1,4 @@
-import SkillModel from '../../models/skill/index.js';
+import SkillModel from '../../models/2014/skill/index.js';
 import {
   coalesceFilters,
   getMongoSortDirection,
@@ -6,11 +6,11 @@ import {
   SortQuery,
   QueryParams,
 } from './common.js';
-import { AbilityScore } from '../../models/abilityScore/types';
+import { AbilityScore } from '../../models/2014/abilityScore/types.js';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore: AbilityScore, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: abilityScore.skills.map(s => s.index) } }];
+    const filters: any[] = [{ index: { $in: abilityScore.skills.map((s) => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -21,9 +21,7 @@ const AbilityScoreResolver = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SkillModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await SkillModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
 };
 

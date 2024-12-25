@@ -7,16 +7,16 @@ import {
   resolveContainsStringFilter,
 } from './common.js';
 
-import DamageTypeModel from '../../models/damageType/index.js';
-import ProficiencyModel from '../../models/proficiency/index.js';
-import RaceModel from '../../models/race/index.js';
-import SpellModel from '../../models/spell/index.js';
-import SubraceModel from '../../models/subrace/index.js';
-import TraitModel from '../../models/trait/index.js';
-import LanguageModel from '../../models/language/index.js';
+import DamageTypeModel from '../../models/2014/damageType/index.js';
+import ProficiencyModel from '../../models/2014/proficiency/index.js';
+import RaceModel from '../../models/2014/race/index.js';
+import SpellModel from '../../models/2014/spell/index.js';
+import SubraceModel from '../../models/2014/subrace/index.js';
+import TraitModel from '../../models/2014/trait/index.js';
+import LanguageModel from '../../models/2014/language/index.js';
 
 import { ResolvedDC, QueryParams } from './common';
-import { Trait, Usage } from '../../models/trait/types';
+import { Trait, Usage } from '../../models/2014/trait/types.js';
 
 type TraitSpecificClient = {
   breath_weapon?: {
@@ -40,7 +40,7 @@ const Trait = {
   proficiencies: async (trait: Trait, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: trait.proficiencies?.map(p => p.index) },
+        index: { $in: trait.proficiencies?.map((p) => p.index) },
       },
     ];
 
@@ -53,7 +53,7 @@ const Trait = {
   parent: async (trait: Trait) =>
     trait.parent ? await TraitModel.findOne({ index: trait.parent.index }).lean() : null,
   subraces: async (trait: Trait, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: trait.subraces?.map(s => s.index) } }];
+    const filters: any[] = [{ index: { $in: trait.subraces?.map((s) => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -62,7 +62,7 @@ const Trait = {
     return await SubraceModel.find(coalesceFilters(filters)).lean();
   },
   races: async (trait: Trait, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: trait.races?.map(r => r.index) } }];
+    const filters: any[] = [{ index: { $in: trait.races?.map((r) => r.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -74,7 +74,7 @@ const Trait = {
     if (trait.proficiency_choices) {
       const { proficiency_choices } = trait;
       if ('options' in proficiency_choices.from) {
-        const options = proficiency_choices.from.options.map(async option => {
+        const options = proficiency_choices.from.options.map(async (option) => {
           if ('item' in option) {
             return {
               ...option,
@@ -102,7 +102,7 @@ const Trait = {
       traitSpecificToReturn.breath_weapon = {
         ...trait_specific.breath_weapon,
         dc: resolveDc(trait_specific.breath_weapon.dc),
-        damage: trait_specific.breath_weapon.damage.map(async damage => ({
+        damage: trait_specific.breath_weapon.damage.map(async (damage) => ({
           damage_at_character_level: levelObjectToArray(damage.damage_at_character_level, 'damage'),
           damage_type: await DamageTypeModel.findOne({ index: damage.damage_type.index }).lean(),
         })),
@@ -118,7 +118,7 @@ const Trait = {
     }
 
     if (trait_specific.spell_options && 'options' in trait_specific.spell_options.from) {
-      const options = trait_specific.spell_options.from.options.map(async option => {
+      const options = trait_specific.spell_options.from.options.map(async (option) => {
         if ('item' in option) {
           return {
             ...option,
@@ -132,7 +132,7 @@ const Trait = {
     }
 
     if (trait_specific.subtrait_options && 'options' in trait_specific.subtrait_options.from) {
-      const options = trait_specific.subtrait_options.from.options.map(async option => {
+      const options = trait_specific.subtrait_options.from.options.map(async (option) => {
         if ('item' in option) {
           return {
             ...option,
@@ -151,7 +151,7 @@ const Trait = {
     if (trait.language_options) {
       const { language_options } = trait;
       if ('options' in language_options.from) {
-        const options = language_options.from.options.map(async option => {
+        const options = language_options.from.options.map(async (option) => {
           if ('item' in option) {
             return {
               ...option,

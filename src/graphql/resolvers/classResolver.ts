@@ -1,9 +1,9 @@
-import AbilityScoreModel from '../../models/abilityScore/index.js';
-import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
-import EquipmentModel from '../../models/equipment/index.js';
-import LevelModel from '../../models/level/index.js';
-import ProficiencyModel from '../../models/proficiency/index.js';
-import SubclassModel from '../../models/subclass/index.js';
+import AbilityScoreModel from '../../models/2014/abilityScore/index.js';
+import EquipmentCategoryModel from '../../models/2014/equipmentCategory/index.js';
+import EquipmentModel from '../../models/2014/equipment/index.js';
+import LevelModel from '../../models/2014/level/index.js';
+import ProficiencyModel from '../../models/2014/proficiency/index.js';
+import SubclassModel from '../../models/2014/subclass/index.js';
 import {
   coalesceFilters,
   resolveChoice,
@@ -13,15 +13,15 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Class } from '../../models/class/types';
-import { Option } from '../../models/common/types';
+import { Class } from '../../models/2014/class/types.js';
+import { Option } from '../../models/2014/common/types.js';
 
 const resolveEquipmentOption: any = async (option: Option) => {
   if (option.option_type === 'counted_reference') {
     return {
       ...option,
       of: await EquipmentModel.findOne({ index: option.of.index }).lean(),
-      prerequisites: option.prerequisites?.map(async prereq => ({
+      prerequisites: option.prerequisites?.map(async (prereq) => ({
         ...prereq,
         proficiency: await ProficiencyModel.findOne({ index: prereq.proficiency?.index }).lean(),
       })),
@@ -42,7 +42,7 @@ const resolveEquipmentOption: any = async (option: Option) => {
   if ('items' in option) {
     return {
       ...option,
-      items: option.items.map(async item => await resolveEquipmentOption(item)),
+      items: option.items.map(async (item) => await resolveEquipmentOption(item)),
     };
   }
 };
@@ -51,7 +51,7 @@ const Class = {
   proficiencies: async (klass: Class, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: klass.proficiencies.map(p => p.index) },
+        index: { $in: klass.proficiencies.map((p) => p.index) },
       },
     ];
 
@@ -63,7 +63,7 @@ const Class = {
   },
   saving_throws: async (klass: Class) =>
     await AbilityScoreModel.find({
-      index: { $in: klass.saving_throws.map(st => st.index) },
+      index: { $in: klass.saving_throws.map((st) => st.index) },
     }).lean(),
   spellcasting: async (klass: Class) =>
     klass.spellcasting
@@ -79,18 +79,18 @@ const Class = {
   starting_equipment: async (klass: Class) => {
     const starting_equipment = klass.starting_equipment;
     const equipment = await EquipmentModel.find({
-      index: { $in: starting_equipment?.map(se => se.equipment.index) },
+      index: { $in: starting_equipment?.map((se) => se.equipment.index) },
     }).lean();
 
-    return starting_equipment?.map(se => ({
+    return starting_equipment?.map((se) => ({
       ...se,
-      equipment: equipment.find(e => e.index === se.equipment.index),
+      equipment: equipment.find((e) => e.index === se.equipment.index),
     }));
   },
   class_levels: async (klass: Class) =>
     await LevelModel.find({ 'class.index': klass.index }).lean(),
   subclasses: async (klass: Class, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: klass.subclasses.map(s => s.index) } }];
+    const filters: any[] = [{ index: { $in: klass.subclasses.map((s) => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));
@@ -103,12 +103,12 @@ const Class = {
     const { multi_classing } = klass;
 
     multiclassingToReturn.proficiencies = await ProficiencyModel.find({
-      index: { $in: multi_classing.proficiencies?.map(prof => prof.index) },
+      index: { $in: multi_classing.proficiencies?.map((prof) => prof.index) },
     }).lean();
 
     if (multi_classing.prerequisites) {
       multiclassingToReturn.prerequisites = multi_classing.prerequisites.map(
-        async prerequisite => ({
+        async (prerequisite) => ({
           ...prerequisite,
           ability_score: await AbilityScoreModel.findOne({
             index: prerequisite.ability_score.index,
@@ -124,7 +124,7 @@ const Class = {
       multiclassingToReturn.prerequisite_options = resolveChoice(
         multi_classing.prerequisite_options,
         {
-          options: multi_classing.prerequisite_options.from.options.map(async option => {
+          options: multi_classing.prerequisite_options.from.options.map(async (option) => {
             if (option.option_type === 'ability_bonus') {
               return {
                 ...option,
@@ -140,10 +140,10 @@ const Class = {
 
     if (multi_classing.proficiency_choices) {
       multiclassingToReturn.proficiency_choices = multi_classing.proficiency_choices.map(
-        async choice => {
+        async (choice) => {
           if ('options' in choice.from) {
             return resolveChoice(choice, {
-              options: choice.from.options.map(async option => {
+              options: choice.from.options.map(async (option) => {
                 if ('item' in option) {
                   return {
                     ...option,
@@ -160,10 +160,10 @@ const Class = {
     return multiclassingToReturn;
   },
   proficiency_choices: async (klass: Class) =>
-    klass.proficiency_choices.map(async choice => {
+    klass.proficiency_choices.map(async (choice) => {
       if ('options' in choice.from) {
         return resolveChoice(choice, {
-          options: choice.from.options.map(async option => {
+          options: choice.from.options.map(async (option) => {
             if ('item' in option) {
               return {
                 ...option,
@@ -172,7 +172,7 @@ const Class = {
             }
 
             if ('choice' in option && 'options' in option.choice.from) {
-              const options = option.choice.from.options.map(async o => {
+              const options = option.choice.from.options.map(async (o) => {
                 if ('item' in o) {
                   return {
                     ...o,
@@ -192,7 +192,7 @@ const Class = {
       }
     }),
   starting_equipment_options: async (klass: Class) =>
-    klass.starting_equipment_options.map(async se_option => {
+    klass.starting_equipment_options.map(async (se_option) => {
       const optionToReturn: Record<string, any> = { ...se_option };
       const from = se_option.from;
 
@@ -205,7 +205,7 @@ const Class = {
         };
       } else {
         if ('options' in from) {
-          const options = from.options.map(async option => await resolveEquipmentOption(option));
+          const options = from.options.map(async (option) => await resolveEquipmentOption(option));
           optionToReturn.from = {
             ...from,
             options,

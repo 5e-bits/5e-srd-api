@@ -4,9 +4,9 @@ import * as SubclassController from '../../../controllers/api/subclassController
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import Feature from '../../../models/feature/index.js';
-import Level from '../../../models/level/index.js';
-import Subclass from '../../../models/subclass/index.js';
+import Feature from '../../../models/2014/feature/index.js';
+import Level from '../../../models/2014/level/index.js';
+import Subclass from '../../../models/2014/subclass/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

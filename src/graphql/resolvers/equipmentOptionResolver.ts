@@ -1,4 +1,4 @@
-import { Option } from '../../models/common/types';
+import { Option } from '../../models/2014/common/types';
 
 const EquipmentOption = {
   __resolveType(option: Option) {

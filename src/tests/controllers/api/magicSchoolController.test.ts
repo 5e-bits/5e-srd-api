@@ -2,7 +2,7 @@ import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
-import MagicSchool from '../../../models/magicSchool/index.js';
+import MagicSchool from '../../../models/2014/magicSchool/index.js';
 import MagicSchoolController from '../../../controllers/api/magicSchoolController.js';
 
 beforeEach(() => {

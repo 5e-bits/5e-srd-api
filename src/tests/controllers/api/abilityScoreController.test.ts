@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import AbilityScore from '../../../models/abilityScore/index.js';
+import AbilityScore from '../../../models/2014/abilityScore/index.js';
 import AbilityScoreController from '../../../controllers/api/abilityScoreController.js';
 
 beforeEach(() => {

@@ -1,12 +1,12 @@
-import RuleSectionModel from '../../models/ruleSection/index.js';
+import RuleSectionModel from '../../models/2014/ruleSection/index.js';
 import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './common.js';
-import { Rule } from '../../models/rule/types';
+import { Rule } from '../../models/2014/rule/types.js';
 
 const Rule = {
   subsections: async (rule: Rule, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: rule.subsections.map(r => r.index) },
+        index: { $in: rule.subsections.map((r) => r.index) },
       },
     ];
 

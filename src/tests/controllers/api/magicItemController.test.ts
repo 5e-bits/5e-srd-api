@@ -4,7 +4,7 @@ import * as MagicItemController from '../../../controllers/api/magicItemControll
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import MagicItem from '../../../models/magicItem/index.js';
+import MagicItem from '../../../models/2014/magicItem/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

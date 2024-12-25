@@ -1,8 +1,8 @@
-import AbilityScoreModel from '../../models/abilityScore/index.js';
-import LanguageModel from '../../models/language/index.js';
-import ProficiencyModel from '../../models/proficiency/index.js';
-import RaceModel from '../../models/race/index.js';
-import TraitModel from '../../models/trait/index.js';
+import AbilityScoreModel from '../../models/2014/abilityScore/index.js';
+import LanguageModel from '../../models/2014/language/index.js';
+import ProficiencyModel from '../../models/2014/proficiency/index.js';
+import RaceModel from '../../models/2014/race/index.js';
+import TraitModel from '../../models/2014/trait/index.js';
 import {
   coalesceFilters,
   resolveChoice,
@@ -10,25 +10,25 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Subrace } from '../../models/subrace/types';
+import { Subrace } from '../../models/2014/subrace/types.js';
 
 const Subrace = {
   ability_bonuses: async (subrace: Subrace) => {
     const abilityBonuses = subrace.ability_bonuses;
     const abilityScores = await AbilityScoreModel.find({
-      index: { $in: abilityBonuses.map(ab => ab.ability_score.index) },
+      index: { $in: abilityBonuses.map((ab) => ab.ability_score.index) },
     }).lean();
 
-    return abilityBonuses.map(ab => ({
+    return abilityBonuses.map((ab) => ({
       ...ab,
-      ability_score: abilityScores.find(as => as.index === ab.ability_score.index),
+      ability_score: abilityScores.find((as) => as.index === ab.ability_score.index),
     }));
   },
   race: async (subrace: Subrace) => await RaceModel.findOne({ index: subrace.race.index }).lean(),
   racial_traits: async (subrace: Subrace, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: subrace.racial_traits.map(t => t.index) },
+        index: { $in: subrace.racial_traits.map((t) => t.index) },
       },
     ];
 
@@ -41,7 +41,7 @@ const Subrace = {
   starting_proficiencies: async (subrace: Subrace, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: subrace.starting_proficiencies?.map(p => p.index) },
+        index: { $in: subrace.starting_proficiencies?.map((p) => p.index) },
       },
     ];
 
@@ -57,7 +57,7 @@ const Subrace = {
     }
 
     if ('options' in subrace.language_options.from) {
-      const options = subrace.language_options.from.options.map(async option => {
+      const options = subrace.language_options.from.options.map(async (option) => {
         if ('item' in option) {
           return await LanguageModel.findOne({ index: option.item.index }).lean();
         }

@@ -1,4 +1,4 @@
-import { OptionSet } from '../../models/common/types';
+import { OptionSet } from '../../models/2014/common/types';
 
 const StartingEquipmentOptionSet = {
   __resolveType(optionSet: OptionSet) {

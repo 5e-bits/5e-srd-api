@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 
 import * as ApiController from '../../controllers/apiController.js';
 import { mockNext } from '../support/requestHelpers.js';
-import Collection from '../../models/collection/index.js';
+import Collection from '../../models/2014/collection/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

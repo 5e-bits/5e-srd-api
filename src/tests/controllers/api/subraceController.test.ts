@@ -4,9 +4,9 @@ import * as SubraceController from '../../../controllers/api/subraceController.j
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import Proficiency from '../../../models/proficiency/index.js';
-import Subrace from '../../../models/subrace/index.js';
-import Trait from '../../../models/trait/index.js';
+import Proficiency from '../../../models/2014/proficiency/index.js';
+import Subrace from '../../../models/2014/subrace/index.js';
+import Trait from '../../../models/2014/trait/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

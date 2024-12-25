@@ -2,7 +2,7 @@ import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
-import Proficiency from '../../../models/proficiency/index.js';
+import Proficiency from '../../../models/2014/proficiency/index.js';
 import ProficiencyController from '../../../controllers/api/proficiencyController.js';
 
 beforeEach(() => {

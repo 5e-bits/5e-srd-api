@@ -2,7 +2,7 @@ import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
-import WeaponProperty from '../../../models/weaponProperty/index.js';
+import WeaponProperty from '../../../models/2014/weaponProperty/index.js';
 import WeaponPropertyController from '../../../controllers/api/weaponPropertyController.js';
 
 beforeEach(() => {

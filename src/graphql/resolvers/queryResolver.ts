@@ -7,31 +7,31 @@ import {
   resolveSpells,
 } from './common.js';
 
-import AbilityScoreModel from '../../models/abilityScore/index.js';
-import AlignmentModel from '../../models/alignment/index.js';
-import BackgroundModel from '../../models/background/index.js';
-import ClassModel from '../../models/class/index.js';
-import ConditionModel from '../../models/condition/index.js';
-import DamageTypeModel from '../../models/damageType/index.js';
-import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
-import EquipmentModel from '../../models/equipment/index.js';
-import FeatModel from '../../models/feat/index.js';
-import FeatureModel from '../../models/feature/index.js';
-import LanguageModel from '../../models/language/index.js';
-import LevelModel from '../../models/level/index.js';
-import MagicItemModel from '../../models/magicItem/index.js';
-import MagicSchoolModel from '../../models/magicSchool/index.js';
-import MonsterModel from '../../models/monster/index.js';
-import ProficiencyModel from '../../models/proficiency/index.js';
-import RaceModel from '../../models/race/index.js';
-import RuleModel from '../../models/rule/index.js';
-import RuleSectionModel from '../../models/ruleSection/index.js';
-import SkillModel from '../../models/skill/index.js';
-import SpellModel from '../../models/spell/index.js';
-import SubclassModel from '../../models/subclass/index.js';
-import SubraceModel from '../../models/subrace/index.js';
-import TraitModel from '../../models/trait/index.js';
-import WeaponPropertyModel from '../../models/weaponProperty/index.js';
+import AbilityScoreModel from '../../models/2014/abilityScore/index.js';
+import AlignmentModel from '../../models/2014/alignment/index.js';
+import BackgroundModel from '../../models/2014/background/index.js';
+import ClassModel from '../../models/2014/class/index.js';
+import ConditionModel from '../../models/2014/condition/index.js';
+import DamageTypeModel from '../../models/2014/damageType/index.js';
+import EquipmentCategoryModel from '../../models/2014/equipmentCategory/index.js';
+import EquipmentModel from '../../models/2014/equipment/index.js';
+import FeatModel from '../../models/2014/feat/index.js';
+import FeatureModel from '../../models/2014/feature/index.js';
+import LanguageModel from '../../models/2014/language/index.js';
+import LevelModel from '../../models/2014/level/index.js';
+import MagicItemModel from '../../models/2014/magicItem/index.js';
+import MagicSchoolModel from '../../models/2014/magicSchool/index.js';
+import MonsterModel from '../../models/2014/monster/index.js';
+import ProficiencyModel from '../../models/2014/proficiency/index.js';
+import RaceModel from '../../models/2014/race/index.js';
+import RuleModel from '../../models/2014/rule/index.js';
+import RuleSectionModel from '../../models/2014/ruleSection/index.js';
+import SkillModel from '../../models/2014/skill/index.js';
+import SpellModel from '../../models/2014/spell/index.js';
+import SubclassModel from '../../models/2014/subclass/index.js';
+import SubraceModel from '../../models/2014/subrace/index.js';
+import TraitModel from '../../models/2014/trait/index.js';
+import WeaponPropertyModel from '../../models/2014/weaponProperty/index.js';
 
 import { SpellQuery, SortQuery } from './common';
 
@@ -56,9 +56,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await AbilityScoreModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await AbilityScoreModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async alignment(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -76,9 +74,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await AlignmentModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await AlignmentModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async background(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -96,9 +92,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await BackgroundModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await BackgroundModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async class(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -117,11 +111,9 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
+      sort = coalesceSort(args.order, (value) => value.toLowerCase(), 2);
     }
-    return await ClassModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await ClassModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async condition(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -139,9 +131,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return ConditionModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return ConditionModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async damageType(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -159,9 +149,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await DamageTypeModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await DamageTypeModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async equipment(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -182,7 +170,8 @@ const Query = {
     if (args.order) {
       sort = coalesceSort(
         args.order,
-        value => (value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()),
+        (value) =>
+          value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase(),
         3
       );
     }
@@ -214,9 +203,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await EquipmentCategoryModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await EquipmentCategoryModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async feat(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -235,9 +222,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await FeatModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await FeatModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async feature(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -268,7 +253,7 @@ const Query = {
     if (args.order) {
       sort = coalesceSort(
         args.order,
-        value => {
+        (value) => {
           switch (value) {
             case 'CLASS':
               return 'class.name';
@@ -316,12 +301,10 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase(), 3);
+      sort = coalesceSort(args.order, (value) => value.toLowerCase(), 3);
     }
 
-    return await LanguageModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await LanguageModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async level(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -355,7 +338,7 @@ const Query = {
     if (args.order) {
       sort = coalesceSort(
         args.order,
-        value => {
+        (value) => {
           switch (value) {
             case 'CLASS':
               return 'class.name';
@@ -400,7 +383,8 @@ const Query = {
     if (args.order) {
       sort = coalesceSort(
         args.order,
-        value => (value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase()),
+        (value) =>
+          value === 'EQUIPMENT_CATEGORY' ? 'equipment_category.name' : value.toLowerCase(),
         2
       );
     }
@@ -432,9 +416,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await MagicSchoolModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await MagicSchoolModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async monster(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -504,7 +486,7 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase(), 13);
+      sort = coalesceSort(args.order, (value) => value.toLowerCase(), 13);
     }
 
     let skip = 0;
@@ -546,7 +528,7 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase(), 2);
+      sort = coalesceSort(args.order, (value) => value.toLowerCase(), 2);
     }
 
     let skip = 0;
@@ -591,12 +573,10 @@ const Query = {
 
     let sort = {};
     if (args.order) {
-      sort = coalesceSort(args.order, value => value.toLowerCase(), 3);
+      sort = coalesceSort(args.order, (value) => value.toLowerCase(), 3);
     }
 
-    return await RaceModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await RaceModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async rule(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -614,9 +594,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await RuleModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await RuleModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async ruleSection(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -634,9 +612,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await RuleSectionModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await RuleSectionModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async skill(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -657,14 +633,12 @@ const Query = {
     if (args.order) {
       sort = coalesceSort(
         args.order,
-        value => (value === 'ABILITY_SCORE' ? 'ability_score.name' : value.toLowerCase()),
+        (value) => (value === 'ABILITY_SCORE' ? 'ability_score.name' : value.toLowerCase()),
         2
       );
     }
 
-    return await SkillModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await SkillModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async spell(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -689,9 +663,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SubclassModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await SubclassModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async subrace(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -709,9 +681,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await SubraceModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await SubraceModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async trait(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -729,9 +699,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await TraitModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await TraitModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
   async weaponProperty(_: any, args: Record<string, any>) {
     const filter = args.index ? { index: args.index } : {};
@@ -749,9 +717,7 @@ const Query = {
       sort.name = getMongoSortDirection(args.order_direction);
     }
 
-    return await WeaponPropertyModel.find(coalesceFilters(filters))
-      .sort(sort)
-      .lean();
+    return await WeaponPropertyModel.find(coalesceFilters(filters)).sort(sort).lean();
   },
 };
 

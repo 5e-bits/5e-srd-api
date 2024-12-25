@@ -4,7 +4,7 @@ import * as RulesController from '../../../controllers/api/ruleController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import Rule from '../../../models/rule/index.js';
+import Rule from '../../../models/2014/rule/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

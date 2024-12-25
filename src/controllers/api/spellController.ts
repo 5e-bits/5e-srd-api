@@ -7,7 +7,7 @@ interface IndexQuery {
   'school.name'?: { $in: RegExp[] };
 }
 
-import Spell from '../../models/spell/index.js';
+import Spell from '../../models/2014/spell/index.js';
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -23,7 +23,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
     if (req.query.school !== undefined) {
       let schoolRegex;
       if (Array.isArray(req.query.school)) {
-        schoolRegex = req.query.school.map(c => new RegExp(escapeRegExp(c as string), 'i'));
+        schoolRegex = req.query.school.map((c) => new RegExp(escapeRegExp(c as string), 'i'));
       } else {
         schoolRegex = [new RegExp(escapeRegExp(req.query.school as string), 'i')];
       }

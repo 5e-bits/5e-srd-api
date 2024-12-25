@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { ResourceList, escapeRegExp, redisClient } from '../../util/index.js';
 
-import Monster from '../../models/monster/index.js';
+import Monster from '../../models/2014/monster/index.js';
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -22,7 +22,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
 
       const challengeRating = req.query.challenge_rating as string[];
       searchQueries.challenge_rating = {
-        $in: challengeRating.map(Number).filter(item => !isNaN(item)),
+        $in: challengeRating.map(Number).filter((item) => !isNaN(item)),
       };
     }
 

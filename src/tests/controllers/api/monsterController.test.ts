@@ -4,7 +4,7 @@ import * as MonsterController from '../../../controllers/api/monsterController.j
 
 import { mockNext } from '../../support/requestHelpers.js';
 
-import Monster from '../../../models/monster/index.js';
+import Monster from '../../../models/2014/monster/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

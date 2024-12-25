@@ -2,13 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 
 import { ResourceList, escapeRegExp } from '../../util/index.js';
 
-import Class from '../../models/class/index.js';
-import Feature from '../../models/feature/index.js';
-import Level from '../../models/level/index.js';
-import Proficiency from '../../models/proficiency/index.js';
+import Class from '../../models/2014/class/index.js';
+import Feature from '../../models/2014/feature/index.js';
+import Level from '../../models/2014/level/index.js';
+import Proficiency from '../../models/2014/proficiency/index.js';
 import SimpleController from '../simpleController.js';
-import Spell from '../../models/spell/index.js';
-import Subclass from '../../models/subclass/index.js';
+import Spell from '../../models/2014/spell/index.js';
+import Subclass from '../../models/2014/subclass/index.js';
 
 const simpleController = new SimpleController(Class);
 interface ShowLevelsForClassQuery {

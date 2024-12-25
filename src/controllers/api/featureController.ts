@@ -1,4 +1,4 @@
-import Feature from '../../models/feature/index.js';
+import Feature from '../../models/2014/feature/index.js';
 import SimpleController from '../simpleController.js';
 
 export default new SimpleController(Feature);

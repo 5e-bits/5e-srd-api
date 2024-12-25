@@ -1,6 +1,6 @@
-import DamageTypeModel from '../../models/damageType/index.js';
-import EquipmentCategoryModel from '../../models/equipmentCategory/index.js';
-import WeaponPropertyModel from '../../models/weaponProperty/index.js';
+import DamageTypeModel from '../../models/2014/damageType/index.js';
+import EquipmentCategoryModel from '../../models/2014/equipmentCategory/index.js';
+import WeaponPropertyModel from '../../models/2014/weaponProperty/index.js';
 import {
   coalesceFilters,
   equipmentFieldResolvers,
@@ -8,7 +8,7 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Equipment } from '../../models/equipment/types';
+import { Equipment } from '../../models/2014/equipment/types.js';
 
 const Weapon = {
   ...equipmentFieldResolvers,
@@ -28,7 +28,7 @@ const Weapon = {
   properties: async (weapon: Equipment, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: weapon.properties?.map(p => p.index) },
+        index: { $in: weapon.properties?.map((p) => p.index) },
       },
     ];
 
