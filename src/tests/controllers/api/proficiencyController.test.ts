@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
 import Proficiency from '../../../models/2014/proficiency/index.js';
-import ProficiencyController from '../../../controllers/api/proficiencyController.js';
+import ProficiencyController from '../../../controllers/api/2014/proficiencyController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

@@ -1,6 +1,6 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as MagicItemController from '../../../controllers/api/magicItemController.js';
+import * as MagicItemController from '../../../controllers/api/2014/magicItemController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
 

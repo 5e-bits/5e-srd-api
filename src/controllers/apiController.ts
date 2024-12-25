@@ -8,7 +8,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
       .sort({ index: 'asc' })
       .exec();
 
-    const apiIndex: Record<string, string> = {};
+    const apiIndex: Record<string, string> = { '2014': '/api/2014' };
     data.forEach((item) => {
       if (item.index === 'levels') return;
 

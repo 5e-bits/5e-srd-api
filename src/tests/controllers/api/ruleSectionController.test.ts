@@ -1,4 +1,4 @@
-import * as RuleSectionController from '../../../controllers/api/ruleSectionController.js';
+import * as RuleSectionController from '../../../controllers/api/2014/ruleSectionController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
 

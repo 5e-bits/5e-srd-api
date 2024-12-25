@@ -1,6 +1,6 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as RaceController from '../../../controllers/api/raceController.js';
+import * as RaceController from '../../../controllers/api/2014/raceController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
 

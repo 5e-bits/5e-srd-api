@@ -1,6 +1,6 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as ClassController from '../../../controllers/api/classController.js';
+import * as ClassController from '../../../controllers/api/2014/classController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
 

@@ -1,6 +1,6 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as SubraceController from '../../../controllers/api/subraceController.js';
+import * as SubraceController from '../../../controllers/api/2014/subraceController.js';
 
 import { mockNext } from '../../support/requestHelpers.js';
 

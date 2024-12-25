@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
 import Language from '../../../models/2014/language/index.js';
-import LanguageController from '../../../controllers/api/languageController.js';
+import LanguageController from '../../../controllers/api/2014/languageController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

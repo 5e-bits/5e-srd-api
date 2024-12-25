@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '../../support/requestHelpers.js';
 
 import Condition from '../../../models/2014/condition/index.js';
-import ConditionController from '../../../controllers/api/conditionController.js';
+import ConditionController from '../../../controllers/api/2014/conditionController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();
