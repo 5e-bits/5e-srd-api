@@ -36,7 +36,7 @@
     "debug": "^4.3.7",
     "ejs": "^3.1.10",
     "escape-string-regexp": "^5.0.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "express-rate-limit": "^7.4.1",
     "graphql": "^16.9.0",
     "graphql-compose": "^9.0.11",
