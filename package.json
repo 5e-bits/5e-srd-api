@@ -10,7 +10,7 @@
     "build:ts": "tsc",
     "build": "npm-run-all --sequential clean bundle-swagger build:ts copy-assets",
     "clean": "rimraf dist/*",
-    "copy-assets": "node --no-warnings --loader ts-node/esm tools/copyAssets.ts",
+    "copy-assets": "mkdir -p dist && cp -R src/css dist/src && cp -R src/public dist/src && cp -R src/views dist/src && cp -R src/swagger/api-spec dist/src/swagger",
     "start": "npm run build && node dist/src/start.js",
     "dev": "nodemon npm run start",
     "lint": "eslint . --config eslint.config.js",
