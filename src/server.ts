@@ -7,7 +7,6 @@ import { createApolloMiddleware } from './middleware/apolloServer.js';
 import { expressMiddleware } from '@apollo/server/express4';
 import express from 'express';
 import { fileURLToPath } from 'url';
-import indexController from './controllers/indexController.js';
 import morgan from 'morgan';
 import docsController from './controllers/docsController.js';
 import path from 'path';
