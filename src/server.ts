@@ -7,7 +7,6 @@ import { createApolloMiddleware } from './middleware/apolloServer.js';
 import { expressMiddleware } from '@apollo/server/express4';
 import express from 'express';
 import { fileURLToPath } from 'url';
-import indexController from './controllers/indexController.js';
 import morgan from 'morgan';
 import docsController from './controllers/docsController.js';
 import path from 'path';
@@ -27,8 +26,6 @@ export default async () => {
   const app = express();
 
   // Middleware stuff
-  app.set('view engine', 'ejs');
-  app.set('views', __dirname + '/views');
   if (bugsnagMiddleware) {
     app.use(bugsnagMiddleware.requestHandler);
   }
@@ -56,7 +53,9 @@ export default async () => {
   );
 
   // Register routes
-  app.get('/', indexController);
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+  });
   app.get('/docs', docsController);
   app.use('/api', apiRoutes);
 
