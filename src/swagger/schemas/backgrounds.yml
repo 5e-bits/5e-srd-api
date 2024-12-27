@@ -30,9 +30,7 @@ background-model:
               items:
                 type: string
         personality_traits:
-          description: Choice of personality traits for this background.
-          type: object
-
+          $ref: './combined.yml#/Choice'
         ideals:
           $ref: './combined.yml#/Choice'
         bonds:
