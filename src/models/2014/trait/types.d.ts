@@ -8,7 +8,7 @@ type Proficiency = {
   url: string;
 };
 
-type ActionDamage = {
+export type ActionDamage = {
   _id?: boolean;
   damage_type: APIReference;
   damage_at_character_level: Record<string, string>;

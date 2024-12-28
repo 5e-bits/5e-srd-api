@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 
 let app: Application;
+let server: any;
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -16,11 +17,13 @@ beforeAll(async () => {
   await mongoose.connect(mongodbUri);
   await redisClient.connect();
   app = await createApp();
+  server = app.listen(); // Start the server and store the instance
 });
 
 afterAll(async () => {
   await mongoose.disconnect();
   await redisClient.quit();
+  server.close();
 });
 
 describe('/', () => {
@@ -47,6 +50,15 @@ describe('/bad-url', () => {
 describe('/api', () => {
   it('should list the endpoints', async () => {
     const res = await request(app).get('/api');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('ability-scores');
+    expect(res.body).not.toHaveProperty('levels');
+  });
+});
+
+describe('/api/2014', () => {
+  it('should list the endpoints', async () => {
+    const res = await request(app).get('/api/2014');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('ability-scores');
     expect(res.body).not.toHaveProperty('levels');

@@ -22,6 +22,7 @@ describe('index', () => {
     },
   ];
   const expectedResponse = {
+    '2014': '/api/2014',
     a: '/api/a',
     b: '/api/b',
     c: '/api/c',

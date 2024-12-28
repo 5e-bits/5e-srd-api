@@ -54,7 +54,7 @@ export type Equipment = {
   _id?: mongoose.Types.ObjectId;
   armor_category?: string;
   armor_class?: ArmorClass;
-  capacity?: number;
+  capacity?: string;
   category_range?: string;
   contents?: Content[];
   cost: Cost;

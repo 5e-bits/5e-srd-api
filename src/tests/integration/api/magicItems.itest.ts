@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 
 let app: Application;
+let server: any;
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -16,11 +17,13 @@ beforeAll(async () => {
   await mongoose.connect(mongodbUri);
   await redisClient.connect();
   app = await createApp();
+  server = app.listen(); // Start the server and store the instance
 });
 
 afterAll(async () => {
   await mongoose.disconnect();
   await redisClient.quit();
+  server.close();
 });
 
 describe('/api/magic-items', () => {

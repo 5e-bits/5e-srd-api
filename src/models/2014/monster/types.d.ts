@@ -79,7 +79,7 @@ type LegendaryAction = {
   name: string;
   desc: string;
   attack_bonus?: number;
-  damage?: ActionDamage[];
+  damage?: Damage[];
   dc?: DifficultyClass;
 };
 
@@ -138,7 +138,7 @@ type SpecialAbility = {
   name: string;
   desc: string;
   attack_bonus?: number;
-  damage?: ActionDamage[];
+  damage?: Damage[];
   dc?: DifficultyClass;
   spellcasting?: SpecialAbilitySpellcasting;
   usage: SpecialAbilityUsage;
@@ -149,7 +149,7 @@ type Speed = {
   burrow?: string;
   climb?: string;
   fly?: string;
-  hover?: string;
+  hover?: boolean;
   swim?: string;
   walk?: string;
 };
