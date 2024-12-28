@@ -51,6 +51,14 @@ export default async () => {
       context: async ({ req }) => ({ token: req.headers.token }),
     })
   );
+  app.use(
+    '/graphql/2014',
+    cors<cors.CorsRequest>(),
+    bodyParser.json(),
+    expressMiddleware(apolloMiddleware, {
+      context: async ({ req }) => ({ token: req.headers.token }),
+    })
+  );
 
   // Register routes
   app.get('/', (req, res) => {
