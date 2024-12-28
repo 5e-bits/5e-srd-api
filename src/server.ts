@@ -30,8 +30,6 @@ export default async () => {
     app.use(bugsnagMiddleware.requestHandler);
   }
 
-  app.use('/swagger', express.static(__dirname + '/swagger'));
-  app.use('/js', express.static(__dirname + '/js'));
   app.use('/css', express.static(__dirname + '/css'));
   app.use('/public', express.static(__dirname + '/public'));
   app.use(morgan('short'));
