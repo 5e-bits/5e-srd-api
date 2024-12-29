@@ -1,0 +1,37 @@
+get:
+  summary: Get a feature by index.
+  description: |
+    # Feature
+
+    When you gain a new level in a class, you get its features for that level.
+    You don’t, however, receive the class’s starting Equipment, and a few
+    features have additional rules when you’re multiclassing: Channel Divinity,
+    Extra Attack, Unarmored Defense, and Spellcasting.
+  tags:
+    - Features
+  parameters:
+    - $ref: "../../parameters/2014/combined.yml#/feature-index"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/2014/combined.yml#/Feature"
+          example:
+            index: action-surge-1-use
+            name: "Action Surge (1 use)"
+            url: "/api/2014/features/action-surge-1-use"
+            class:
+              index: fighter
+              name: Fighter
+              url: "/api/2014/classes/fighter"
+            desc:
+              - Starting at 2nd level, you can push yourself beyond your normal limits for a moment.
+                On your turn, you can take one additional action on top of your regular action and
+                a possible bonus action.
+              - Once you use this feature, you must finish a short or long rest before you can use
+                it again. Starting at 17th level, you can use it twice before a rest, but only once
+                on the same turn.
+            level: 2
+            prerequisites: []

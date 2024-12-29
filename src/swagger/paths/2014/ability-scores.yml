@@ -1,0 +1,40 @@
+get:
+  summary: Get an ability score by index.
+  description: |
+    # Ability Score
+
+    Represents one of the six abilities that describes a creature's physical and mental characteristics. The three main rolls of the game - the ability check, the saving throw, and the attack roll - rely on the ability scores. [[SRD p76](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=76)]
+  tags:
+    - Character Data
+  parameters:
+    - $ref: "../../parameters/2014/combined.yml#/ability-score-index"
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/2014/combined.yml#/AbilityScore"
+          example:
+            index: "cha"
+            name: "CHA"
+            url: "/api/2014/ability-scores/cha"
+            desc:
+              [
+                "Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.",
+                "A Charisma check might arise when you try to influence or entertain others, when you try to make an impression or tell a convincing lie, or when you are navigating a tricky social situation. The Deception, Intimidation, Performance, and Persuasion skills reflect aptitude in certain kinds of Charisma checks.",
+              ]
+            full_name: "Charisma"
+            skills:
+              - index: "deception"
+                name: "Deception"
+                url: "/api/2014/skills/deception"
+              - index: "intimidation"
+                name: "Intimidation"
+                url: "/api/2014/skills/intimidation"
+              - index: "performance"
+                name: "Performance"
+                url: "/api/2014/skills/performance"
+              - index: "persuasion"
+                name: "Persuasion"
+                url: "/api/2014/skills/persuasion"
