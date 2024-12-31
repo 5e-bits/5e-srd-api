@@ -11,6 +11,7 @@ import morgan from 'morgan';
 import docsController from './controllers/docsController.js';
 import path from 'path';
 import rateLimit from 'express-rate-limit';
+import schema2014 from './graphql/2014/schema.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -41,13 +42,21 @@ export default async () => {
   app.use(limiter);
 
   console.log('Setting up Apollo GraphQL server');
-  const apolloMiddleware = await createApolloMiddleware();
-  await apolloMiddleware.start();
+  const apolloMiddleware2014 = await createApolloMiddleware(schema2014);
+  await apolloMiddleware2014.start();
   app.use(
     '/graphql',
     cors<cors.CorsRequest>(),
     bodyParser.json(),
-    expressMiddleware(apolloMiddleware, {
+    expressMiddleware(apolloMiddleware2014, {
+      context: async ({ req }) => ({ token: req.headers.token }),
+    })
+  );
+  app.use(
+    '/graphql/2014',
+    cors<cors.CorsRequest>(),
+    bodyParser.json(),
+    expressMiddleware(apolloMiddleware2014, {
       context: async ({ req }) => ({ token: req.headers.token }),
     })
   );

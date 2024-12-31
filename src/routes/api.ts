@@ -24,7 +24,8 @@ import {
   SubracesHandler,
   TraitsHandler,
   WeaponPropertiesHandler,
-} from './api/index.js';
+} from './api/2014/index.js';
+import V2014Handler from './api/2014.js';
 
 import express from 'express';
 import { index } from '../controllers/apiController.js';
@@ -32,6 +33,7 @@ import { index } from '../controllers/apiController.js';
 const router = express.Router();
 
 router.get('/', index);
+router.use('/2014', V2014Handler);
 
 router.use('/ability-scores', AbilityScoresHandler);
 router.use('/alignments', AlignmentsHandler);

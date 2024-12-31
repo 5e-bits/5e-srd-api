@@ -37,32 +37,36 @@ Then back over here in the 5e-srd-api repo, in the file `docker-compose.yml`, yo
 ## Making API Requests
 
 Make API requests by using the root address:
-`http://localhost:3000/api/`
+`http://localhost:3000/api/2014`
 
 You should get a response with the available endpoints for the root:
 
 ```json
 {
-  "ability-scores": "/api/ability-scores",
-  "classes": "/api/classes",
-  "conditions": "/api/conditions",
-  "damage-types": "/api/damage-types",
-  "equipment-categories": "/api/equipment-categories",
-  "equipment": "/api/equipment",
-  "features": "/api/features",
-  "languages": "/api/languages",
-  "magic-schools": "/api/magic-schools",
-  "monsters": "/api/monsters",
-  "proficiencies": "/api/proficiencies",
-  "races": "/api/races",
-  "skills": "/api/skills",
-  "spells": "/api/spells",
-  "subclasses": "/api/subclasses",
-  "subraces": "/api/subraces",
-  "traits": "/api/traits",
-  "weapon-properties": "/api/weapon-properties"
+  "ability-scores": "/api/2014/ability-scores",
+  "classes": "/api/2014/classes",
+  "conditions": "/api/2014/conditions",
+  "damage-types": "/api/2014/damage-types",
+  "equipment-categories": "/api/2014/equipment-categories",
+  "equipment": "/api/2014/equipment",
+  "features": "/api/2014/features",
+  "languages": "/api/2014/languages",
+  "magic-schools": "/api/2014/magic-schools",
+  "monsters": "/api/2014/monsters",
+  "proficiencies": "/api/2014/proficiencies",
+  "races": "/api/2014/races",
+  "skills": "/api/2014/skills",
+  "spells": "/api/2014/spells",
+  "subclasses": "/api/2014/subclasses",
+  "subraces": "/api/2014/subraces",
+  "traits": "/api/2014/traits",
+  "weapon-properties": "/api/2014/weapon-properties"
 }
 ```
+
+### Versioning
+
+The API is versioned by release years of the SRD. Currently only `/api/2014` is available. The next version will be `/api/2024`.
 
 ## Working with a local image of 5e Database
 

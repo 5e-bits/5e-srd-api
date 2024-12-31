@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "D&D 5e API",
-    "description": "# Introduction\n\nWelcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API!\nThis documentation should help you familiarize yourself with the resources\navailable and how to consume them with HTTP requests. Read through the getting\nstarted section before you dive in. Most of your problems should be solved\njust by reading through it.\n\n## Getting Started\n\nLet's make our first API request to the D&D 5th Edition API!\n\nOpen up a terminal and use [curl](http://curl.haxx.se/) or [httpie](http://httpie.org/)\nto make an API request for a resource. You can also scroll through the\ndefinitions below and send requests directly from the endpoint documentation!\n\nFor example, if you paste and run this `curl` command:\n```bash\ncurl -X GET \"https://www.dnd5eapi.co/api/ability-scores/cha\" -H \"Accept: application/json\"\n```\n\nWe should see a result containing details about the Charisma ability score:\n```bash\n{\n  \"index\": \"cha\",\n  \"name\": \"CHA\",\n  \"full_name\": \"Charisma\",\n  \"desc\": [\n    \"Charisma measures your ability to interact effectively with others. It\n      includes such factors as confidence and eloquence, and it can represent\n      a charming or commanding personality.\",\n    \"A Charisma check might arise when you try to influence or entertain\n      others, when you try to make an impression or tell a convincing lie,\n      or when you are navigating a tricky social situation. The Deception,\n      Intimidation, Performance, and Persuasion skills reflect aptitude in\n      certain kinds of Charisma checks.\"\n  ],\n  \"skills\": [\n    {\n      \"name\": \"Deception\",\n      \"index\": \"deception\",\n      \"url\": \"/api/skills/deception\"\n    },\n    {\n      \"name\": \"Intimidation\",\n      \"index\": \"intimidation\",\n      \"url\": \"/api/skills/intimidation\"\n    },\n    {\n      \"name\": \"Performance\",\n      \"index\": \"performance\",\n      \"url\": \"/api/skills/performance\"\n    },\n    {\n      \"name\": \"Persuasion\",\n      \"index\": \"persuasion\",\n      \"url\": \"/api/skills/persuasion\"\n    }\n  ],\n  \"url\": \"/api/ability-scores/cha\"\n}\n```\n\n## Authentication\n\nThe dnd5eapi is a completely open API. No authentication is required to query\nand get data. This also means that we've limited what you can do to just\n`GET`-ing the data. If you find a mistake in the data, feel free to\n[message us](https://discord.gg/TQuYTv7).\n\n## GraphQL\n\nThis API supports [GraphQL](https://graphql.org/). The GraphQL URL for this API\nis `https://www.dnd5eapi.co/graphql`. Most of your questions regarding the GraphQL schema can be answered\nby querying the endpoint with the Apollo sandbox explorer.\n\n## Schemas\n\nDefinitions of all schemas will be accessible in a future update. Two of the most common schemas are described here.\n\n### `APIReference`\nRepresents a minimal representation of a resource. The detailed representation of the referenced resource can be retrieved by making a request to the referenced `URL`.\n```\nAPIReference {\n  index     string\n  name      string\n  url       string\n}\n```\n<hr>\n\n### `DC`\nRepresents a difficulty check.\n```\nDC {\n  dc_type       APIReference\n  dc_value      number\n  success_type  \"none\" | \"half\" | \"other\"\n}\n```\n<hr>\n\n### `Damage`\nRepresents damage.\n```\nDamage {\n  damage_type     APIReference\n  damage_dice     string\n}\n```\n<hr>\n\n### `Choice`\nRepresents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states \"Skills: Choose two from\tHistory, Insight, Medicine, Persuasion, and\tReligion\" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))\n```\nChoice {\n  desc      string\n  choose    number\n  type      string\n  from      OptionSet\n}\n```\n<hr>\n\n### `OptionSet`\nThe OptionSet structure provides the options to be chosen from, or sufficient data to fetch and interpret the options. All OptionSets have an `option_set_type` attribute that indicates the structure of the object that contains the options. The possible values are `options_array`, `equipment_category`, and `reference_list`. Other attributes on the OptionSet depend on the value of this attribute.\n- `options_array`\n  - `options` (array): An array of Option objects. Each item in the array represents an option that can be chosen.\n- `equipment_category`\n  - `equipment_category` (APIReference): A reference to an EquipmentCategory. Each item in the EquipmentCategory's `equipment` array represents one option that can be chosen.\n- `resource_list`\n  - `resource_list_url` (string): A reference (by URL) to a collection in the database. The URL may include query parameters. Each item in the resulting ResourceList's `results` array represents one option that can be chosen.\n<hr>\n\n### `Option`\nWhen the options are given in an `options_array`, each item in the array inherits from the Option structure. All Options have an `option_type` attribute that indicates the structure of the option. The value of this attribute indicates how the option should be handled, and each type has different attributes. The possible values and their corresponding attributes are listed below.\n- `reference` - A terminal option. Contains a reference to a Document that can be added to the list of options chosen.\n  - `item` (APIReference): A reference to the chosen item.\n- `action` - A terminal option. Contains information describing an action, for use within Multiattack actions.\n  - `action_name` (string): The name of the action, according to its `name` attribute.\n  - `count` (number | string): The number of times this action can be repeated if this option is chosen.\n  - `type` (string = `\"melee\" | \"ranged\" | \"ability\" | \"magic\"`, optional): For attack actions that can be either melee, ranged, abilities, or magic.\n- `multiple` - When this option is chosen, all of its child options are chosen, and must be resolved the same way as a normal option.\n  - `items` (array): An array of Option objects. All of them must be taken if the option is chosen.\n- `choice` - A nested choice. If this option is chosen, the Choice structure contained within must be resolved like a normal Choice structure, and the results are the chosen options.\n  - `choice` (Choice): The Choice to resolve.\n- `string` - A terminal option. Contains a reference to a string.\n  - `string` (string): The string.\n- `ideal` - A terminal option. Contains information about an ideal.\n  - `desc` (string): A description of the ideal.\n  - `alignments` (ApiReference[]): A list of alignments of those who might follow the ideal.\n- `counted_reference` - A terminal option. Contains a reference to something else in the API along with a count.\n  - `count` (number): Count.\n  - `of` (ApiReference): Thing being referenced.\n- `score_prerequisite` - A terminal option. Contains a reference to an ability score and a minimum score.\n  - `ability_score` (ApiReference): Ability score being referenced.\n  - `minimum_score` (number): The minimum score required to satisfy the prerequisite.\n- `ability_bonus` - A terminal option. Contains a reference to an ability score and a bonus\n  - `ability_score` (ApiReference): Ability score being referenced\n  - `bonus` (number): The bonus being applied to the ability score\n- `breath` - A terminal option: Contains a reference to information about a breath attack.\n  - `name` (string): Name of the breath.\n  - `dc` (DC): Difficulty check of the breath attack.\n  - `damage` ([Damage]): Damage dealt by the breath attack, if any.\n- `damage` - A terminal option. Contains information about damage.\n  - `damage_type` (ApiReference): Reference to type of damage.\n  - `damage_dice` (string): Damage expressed in dice (e.g. \"13d6\").\n  - `notes` (string): Information regarding the damage.\n\n## FAQ\n\n### What is the SRD?\nThe SRD, or Systems Reference Document, contains guidelines for publishing content under the OGL. This allows for some of the data for D&D 5e to be open source. The API only covers data that can be found in the SRD. [Here's a link to the full text of the SRD.](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf)\n\n### What is the OGL?\nThe Open Game License (OGL) is a public copyright license by Wizards of the Coast that may be used by tabletop role-playing game developers to grant permission to modify, copy, and redistribute some of the content designed for their games, notably game mechanics. However, they must share-alike copies and derivative works. [More information about the OGL can be found here.](https://en.wikipedia.org/wiki/Open_Game_License)\n\n### A monster, spell, subclass, etc. is missing from the API / Database. Can I add it?\nPlease check if the data is within the SRD. If it is, feel free to open an issue or PR to add it yourself. Otherwise, due to legal reasons, we cannot add it.\n\n### Can this API be self hosted?\nYes it can! You can also host the data yourself if you don't want to use the API at all. You can also make changes and add extra data if you like. However, it is up to you to merge in new changes to the data and API.\n\n#### Can I publish is on <insert platform>? Is this free use?\nYes, you can. The API itself is under the [MIT license](https://opensource.org/licenses/MIT), and the underlying data accessible via the API is supported under the SRD and OGL.\n\n# Status Page\n\nThe status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/\n\n# Chat\n\nCome hang out with us [on Discord](https://discord.gg/TQuYTv7)!\n\n# Contribute\n\nThis API is built from two repositories.\n  - The repo containing the data lives here: https://github.com/bagelbits/5e-database\n  - The repo with the API implementation lives here: https://github.com/bagelbits/5e-srd-api\n\nThis is a evolving API and having fresh ideas are always welcome! You can\nopen an issue in either repo, open a PR for changes, or just discuss with\nother users in this discord.\n",
+    "description": "# Introduction\n\nWelcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API!\nThis documentation should help you familiarize yourself with the resources\navailable and how to consume them with HTTP requests. Read through the getting\nstarted section before you dive in. Most of your problems should be solved\njust by reading through it.\n\n## Getting Started\n\nLet's make our first API request to the D&D 5th Edition API!\n\nOpen up a terminal and use [curl](http://curl.haxx.se/) or [httpie](http://httpie.org/)\nto make an API request for a resource. You can also scroll through the\ndefinitions below and send requests directly from the endpoint documentation!\n\nFor example, if you paste and run this `curl` command:\n```bash\ncurl -X GET \"https://www.dnd5eapi.co/api/2014/ability-scores/cha\" -H \"Accept: application/json\"\n```\n\nWe should see a result containing details about the Charisma ability score:\n```bash\n{\n  \"index\": \"cha\",\n  \"name\": \"CHA\",\n  \"full_name\": \"Charisma\",\n  \"desc\": [\n    \"Charisma measures your ability to interact effectively with others. It\n      includes such factors as confidence and eloquence, and it can represent\n      a charming or commanding personality.\",\n    \"A Charisma check might arise when you try to influence or entertain\n      others, when you try to make an impression or tell a convincing lie,\n      or when you are navigating a tricky social situation. The Deception,\n      Intimidation, Performance, and Persuasion skills reflect aptitude in\n      certain kinds of Charisma checks.\"\n  ],\n  \"skills\": [\n    {\n      \"name\": \"Deception\",\n      \"index\": \"deception\",\n      \"url\": \"/api/2014/skills/deception\"\n    },\n    {\n      \"name\": \"Intimidation\",\n      \"index\": \"intimidation\",\n      \"url\": \"/api/2014/skills/intimidation\"\n    },\n    {\n      \"name\": \"Performance\",\n      \"index\": \"performance\",\n      \"url\": \"/api/2014/skills/performance\"\n    },\n    {\n      \"name\": \"Persuasion\",\n      \"index\": \"persuasion\",\n      \"url\": \"/api/2014/skills/persuasion\"\n    }\n  ],\n  \"url\": \"/api/2014/ability-scores/cha\"\n}\n```\n\n## Authentication\n\nThe dnd5eapi is a completely open API. No authentication is required to query\nand get data. This also means that we've limited what you can do to just\n`GET`-ing the data. If you find a mistake in the data, feel free to\n[message us](https://discord.gg/TQuYTv7).\n\n## GraphQL\n\nThis API supports [GraphQL](https://graphql.org/). The GraphQL URL for this API\nis `https://www.dnd5eapi.co/graphql`. Most of your questions regarding the GraphQL schema can be answered\nby querying the endpoint with the Apollo sandbox explorer.\n\n## Schemas\n\nDefinitions of all schemas will be accessible in a future update. Two of the most common schemas are described here.\n\n### `APIReference`\nRepresents a minimal representation of a resource. The detailed representation of the referenced resource can be retrieved by making a request to the referenced `URL`.\n```\nAPIReference {\n  index     string\n  name      string\n  url       string\n}\n```\n<hr>\n\n### `DC`\nRepresents a difficulty check.\n```\nDC {\n  dc_type       APIReference\n  dc_value      number\n  success_type  \"none\" | \"half\" | \"other\"\n}\n```\n<hr>\n\n### `Damage`\nRepresents damage.\n```\nDamage {\n  damage_type     APIReference\n  damage_dice     string\n}\n```\n<hr>\n\n### `Choice`\nRepresents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states \"Skills: Choose two from\tHistory, Insight, Medicine, Persuasion, and\tReligion\" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))\n```\nChoice {\n  desc      string\n  choose    number\n  type      string\n  from      OptionSet\n}\n```\n<hr>\n\n### `OptionSet`\nThe OptionSet structure provides the options to be chosen from, or sufficient data to fetch and interpret the options. All OptionSets have an `option_set_type` attribute that indicates the structure of the object that contains the options. The possible values are `options_array`, `equipment_category`, and `reference_list`. Other attributes on the OptionSet depend on the value of this attribute.\n- `options_array`\n  - `options` (array): An array of Option objects. Each item in the array represents an option that can be chosen.\n- `equipment_category`\n  - `equipment_category` (APIReference): A reference to an EquipmentCategory. Each item in the EquipmentCategory's `equipment` array represents one option that can be chosen.\n- `resource_list`\n  - `resource_list_url` (string): A reference (by URL) to a collection in the database. The URL may include query parameters. Each item in the resulting ResourceList's `results` array represents one option that can be chosen.\n<hr>\n\n### `Option`\nWhen the options are given in an `options_array`, each item in the array inherits from the Option structure. All Options have an `option_type` attribute that indicates the structure of the option. The value of this attribute indicates how the option should be handled, and each type has different attributes. The possible values and their corresponding attributes are listed below.\n- `reference` - A terminal option. Contains a reference to a Document that can be added to the list of options chosen.\n  - `item` (APIReference): A reference to the chosen item.\n- `action` - A terminal option. Contains information describing an action, for use within Multiattack actions.\n  - `action_name` (string): The name of the action, according to its `name` attribute.\n  - `count` (number | string): The number of times this action can be repeated if this option is chosen.\n  - `type` (string = `\"melee\" | \"ranged\" | \"ability\" | \"magic\"`, optional): For attack actions that can be either melee, ranged, abilities, or magic.\n- `multiple` - When this option is chosen, all of its child options are chosen, and must be resolved the same way as a normal option.\n  - `items` (array): An array of Option objects. All of them must be taken if the option is chosen.\n- `choice` - A nested choice. If this option is chosen, the Choice structure contained within must be resolved like a normal Choice structure, and the results are the chosen options.\n  - `choice` (Choice): The Choice to resolve.\n- `string` - A terminal option. Contains a reference to a string.\n  - `string` (string): The string.\n- `ideal` - A terminal option. Contains information about an ideal.\n  - `desc` (string): A description of the ideal.\n  - `alignments` (ApiReference[]): A list of alignments of those who might follow the ideal.\n- `counted_reference` - A terminal option. Contains a reference to something else in the API along with a count.\n  - `count` (number): Count.\n  - `of` (ApiReference): Thing being referenced.\n- `score_prerequisite` - A terminal option. Contains a reference to an ability score and a minimum score.\n  - `ability_score` (ApiReference): Ability score being referenced.\n  - `minimum_score` (number): The minimum score required to satisfy the prerequisite.\n- `ability_bonus` - A terminal option. Contains a reference to an ability score and a bonus\n  - `ability_score` (ApiReference): Ability score being referenced\n  - `bonus` (number): The bonus being applied to the ability score\n- `breath` - A terminal option: Contains a reference to information about a breath attack.\n  - `name` (string): Name of the breath.\n  - `dc` (DC): Difficulty check of the breath attack.\n  - `damage` ([Damage]): Damage dealt by the breath attack, if any.\n- `damage` - A terminal option. Contains information about damage.\n  - `damage_type` (ApiReference): Reference to type of damage.\n  - `damage_dice` (string): Damage expressed in dice (e.g. \"13d6\").\n  - `notes` (string): Information regarding the damage.\n\n## FAQ\n\n### What is the SRD?\nThe SRD, or Systems Reference Document, contains guidelines for publishing content under the OGL. This allows for some of the data for D&D 5e to be open source. The API only covers data that can be found in the SRD. [Here's a link to the full text of the SRD.](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf)\n\n### What is the OGL?\nThe Open Game License (OGL) is a public copyright license by Wizards of the Coast that may be used by tabletop role-playing game developers to grant permission to modify, copy, and redistribute some of the content designed for their games, notably game mechanics. However, they must share-alike copies and derivative works. [More information about the OGL can be found here.](https://en.wikipedia.org/wiki/Open_Game_License)\n\n### A monster, spell, subclass, etc. is missing from the API / Database. Can I add it?\nPlease check if the data is within the SRD. If it is, feel free to open an issue or PR to add it yourself. Otherwise, due to legal reasons, we cannot add it.\n\n### Can this API be self hosted?\nYes it can! You can also host the data yourself if you don't want to use the API at all. You can also make changes and add extra data if you like. However, it is up to you to merge in new changes to the data and API.\n\n#### Can I publish is on <insert platform>? Is this free use?\nYes, you can. The API itself is under the [MIT license](https://opensource.org/licenses/MIT), and the underlying data accessible via the API is supported under the SRD and OGL.\n\n# Status Page\n\nThe status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/\n\n# Chat\n\nCome hang out with us [on Discord](https://discord.gg/TQuYTv7)!\n\n# Contribute\n\nThis API is built from two repositories.\n  - The repo containing the data lives here: https://github.com/bagelbits/5e-database\n  - The repo with the API implementation lives here: https://github.com/bagelbits/5e-srd-api\n\nThis is a evolving API and having fresh ideas are always welcome! You can\nopen an issue in either repo, open a PR for changes, or just discuss with\nother users in this discord.\n",
     "version": "0.1",
     "license": {
       "name": "MIT License",
@@ -51,30 +51,30 @@
                   }
                 },
                 "example": {
-                  "ability-scores": "/api/ability-scores",
-                  "alignments": "/api/alignments",
-                  "backgrounds": "/api/backgrounds",
-                  "classes": "/api/classes",
-                  "conditions": "/api/conditions",
-                  "damage-types": "/api/damage-types",
-                  "equipment-categories": "/api/equipment-categories",
-                  "equipment": "/api/equipment",
-                  "feats": "/api/feats",
-                  "features": "/api/features",
-                  "languages": "/api/languages",
-                  "magic-items": "/api/magic-items",
-                  "magic-schools": "/api/magic-schools",
-                  "monsters": "/api/monsters",
-                  "proficiencies": "/api/proficiencies",
-                  "races": "/api/races",
-                  "rules": "/api/rules",
-                  "rule-sections": "/api/rule-sections",
-                  "skills": "/api/skills",
-                  "spells": "/api/spells",
-                  "subclasses": "/api/subclasses",
-                  "subraces": "/api/subraces",
-                  "traits": "/api/traits",
-                  "weapon-properties": "/api/weapon-properties"
+                  "ability-scores": "/api/2014/ability-scores",
+                  "alignments": "/api/2014/alignments",
+                  "backgrounds": "/api/2014/backgrounds",
+                  "classes": "/api/2014/classes",
+                  "conditions": "/api/2014/conditions",
+                  "damage-types": "/api/2014/damage-types",
+                  "equipment-categories": "/api/2014/equipment-categories",
+                  "equipment": "/api/2014/equipment",
+                  "feats": "/api/2014/feats",
+                  "features": "/api/2014/features",
+                  "languages": "/api/2014/languages",
+                  "magic-items": "/api/2014/magic-items",
+                  "magic-schools": "/api/2014/magic-schools",
+                  "monsters": "/api/2014/monsters",
+                  "proficiencies": "/api/2014/proficiencies",
+                  "races": "/api/2014/races",
+                  "rules": "/api/2014/rules",
+                  "rule-sections": "/api/2014/rule-sections",
+                  "skills": "/api/2014/skills",
+                  "spells": "/api/2014/spells",
+                  "subclasses": "/api/2014/subclasses",
+                  "subraces": "/api/2014/subraces",
+                  "traits": "/api/2014/traits",
+                  "weapon-properties": "/api/2014/weapon-properties"
                 }
               }
             }
@@ -82,10 +82,10 @@
         }
       }
     },
-    "/api/{endpoint}": {
+    "/api/2014/{endpoint}": {
       "get": {
         "summary": "Get list of all available resources for an endpoint.",
-        "description": "Currently only the [`/spells`](#get-/api/spells) and [`/monsters`](#get-/api/monsters) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](#tag--Spells) and [Monsters](#tag--Monsters) sections.\n",
+        "description": "Currently only the [`/spells`](#get-/api/2014/spells) and [`/monsters`](#get-/api/2014/monsters) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](#tag--Spells) and [Monsters](#tag--Monsters) sections.\n",
         "tags": [
           "Common"
         ],
@@ -108,7 +108,7 @@
         }
       }
     },
-    "/api/ability-scores/{index}": {
+    "/api/2014/ability-scores/{index}": {
       "get": {
         "summary": "Get an ability score by index.",
         "description": "# Ability Score\n\nRepresents one of the six abilities that describes a creature's physical and mental characteristics. The three main rolls of the game - the ability check, the saving throw, and the attack roll - rely on the ability scores. [[SRD p76](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=76)]\n",
@@ -131,7 +131,7 @@
                 "example": {
                   "index": "cha",
                   "name": "CHA",
-                  "url": "/api/ability-scores/cha",
+                  "url": "/api/2014/ability-scores/cha",
                   "desc": [
                     "Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.",
                     "A Charisma check might arise when you try to influence or entertain others, when you try to make an impression or tell a convincing lie, or when you are navigating a tricky social situation. The Deception, Intimidation, Performance, and Persuasion skills reflect aptitude in certain kinds of Charisma checks."
@@ -141,22 +141,22 @@
                     {
                       "index": "deception",
                       "name": "Deception",
-                      "url": "/api/skills/deception"
+                      "url": "/api/2014/skills/deception"
                     },
                     {
                       "index": "intimidation",
                       "name": "Intimidation",
-                      "url": "/api/skills/intimidation"
+                      "url": "/api/2014/skills/intimidation"
                     },
                     {
                       "index": "performance",
                       "name": "Performance",
-                      "url": "/api/skills/performance"
+                      "url": "/api/2014/skills/performance"
                     },
                     {
                       "index": "persuasion",
                       "name": "Persuasion",
-                      "url": "/api/skills/persuasion"
+                      "url": "/api/2014/skills/persuasion"
                     }
                   ]
                 }
@@ -166,7 +166,7 @@
         }
       }
     },
-    "/api/alignments/{index}": {
+    "/api/2014/alignments/{index}": {
       "get": {
         "summary": "Get an alignment by index.",
         "description": "# Alignment\n\nA typical creature in the game world has an alignment, which broadly describes its moral and personal attitudes. Alignment is a combination of two factors: one identifies morality (good, evil, or neutral), and the other describes attitudes toward society and order (lawful, chaotic, or neutral). Thus, nine distinct alignments define the possible combinations.[[SRD p58](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=58)]\n",
@@ -189,7 +189,7 @@
                 "example": {
                   "index": "chaotic-neutral",
                   "name": "Chaotic Neutral",
-                  "url": "/api/alignments/chaotic-neutral",
+                  "url": "/api/2014/alignments/chaotic-neutral",
                   "desc": "Chaotic neutral (CN) creatures follow their whims, holding their personal freedom above all else. Many barbarians and rogues, and some bards, are chaotic neutral.",
                   "abbreviation": "CN"
                 }
@@ -199,7 +199,7 @@
         }
       }
     },
-    "/api/backgrounds/{index}": {
+    "/api/2014/backgrounds/{index}": {
       "get": {
         "summary": "Get a background by index.",
         "description": "# Background\n\nEvery story has a beginning. Your character's background reveals where you came from, how you became an adventurer, and your place in the world. Choosing a background provides you with important story cues about your character's identity. [[SRD p60](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=60)]\n\n_Note:_ acolyte is the only background included in the SRD.\n",
@@ -226,12 +226,12 @@
                     {
                       "index": "skill-insight",
                       "name": "Skill: Insight",
-                      "url": "/api/proficiencies/skill-insight"
+                      "url": "/api/2014/proficiencies/skill-insight"
                     },
                     {
                       "index": "skill-religion",
                       "name": "Skill: Religion",
-                      "url": "/api/proficiencies/skill-religion"
+                      "url": "/api/2014/proficiencies/skill-religion"
                     }
                   ],
                   "language_options": {
@@ -239,7 +239,7 @@
                     "type": "languages",
                     "from": {
                       "option_set_type": "resource_list",
-                      "resource_list_url": "/api/languages"
+                      "resource_list_url": "/api/2014/languages"
                     }
                   },
                   "starting_equipment": [
@@ -247,7 +247,7 @@
                       "equipment": {
                         "index": "clothes-common",
                         "name": "Clothes, common",
-                        "url": "/api/equipment/clothes-common"
+                        "url": "/api/2014/equipment/clothes-common"
                       },
                       "quantity": 1
                     },
@@ -255,7 +255,7 @@
                       "equipment": {
                         "index": "pouch",
                         "name": "Pouch",
-                        "url": "/api/equipment/pouch"
+                        "url": "/api/2014/equipment/pouch"
                       },
                       "quantity": 1
                     }
@@ -269,7 +269,7 @@
                         "equipment_category": {
                           "index": "holy-symbols",
                           "name": "Holy Symbols",
-                          "url": "/api/equipment-categories/holy-symbols"
+                          "url": "/api/2014/equipment-categories/holy-symbols"
                         }
                       }
                     }
@@ -335,17 +335,17 @@
                             {
                               "index": "lawful-good",
                               "name": "Lawful Good",
-                              "url": "/api/alignments/lawful-good"
+                              "url": "/api/2014/alignments/lawful-good"
                             },
                             {
                               "index": "lawful-neutral",
                               "name": "Lawful Neutral",
-                              "url": "/api/alignments/lawful-neutral"
+                              "url": "/api/2014/alignments/lawful-neutral"
                             },
                             {
                               "index": "lawful-evil",
                               "name": "Lawful Evil",
-                              "url": "/api/alignments/lawful-evil"
+                              "url": "/api/2014/alignments/lawful-evil"
                             }
                           ]
                         },
@@ -356,17 +356,17 @@
                             {
                               "index": "lawful-good",
                               "name": "Lawful Good",
-                              "url": "/api/alignments/lawful-good"
+                              "url": "/api/2014/alignments/lawful-good"
                             },
                             {
                               "index": "neutral-good",
                               "name": "Neutral Good",
-                              "url": "/api/alignments/neutral-good"
+                              "url": "/api/2014/alignments/neutral-good"
                             },
                             {
                               "index": "chaotic-good",
                               "name": "Chaotic Good",
-                              "url": "/api/alignments/chaotic-good"
+                              "url": "/api/2014/alignments/chaotic-good"
                             }
                           ]
                         },
@@ -377,17 +377,17 @@
                             {
                               "index": "chaotic-good",
                               "name": "Chaotic Good",
-                              "url": "/api/alignments/chaotic-good"
+                              "url": "/api/2014/alignments/chaotic-good"
                             },
                             {
                               "index": "chaotic-neutral",
                               "name": "Chaotic Neutral",
-                              "url": "/api/alignments/chaotic-neutral"
+                              "url": "/api/2014/alignments/chaotic-neutral"
                             },
                             {
                               "index": "chaotic-evil",
                               "name": "Chaotic Evil",
-                              "url": "/api/alignments/chaotic-evil"
+                              "url": "/api/2014/alignments/chaotic-evil"
                             }
                           ]
                         },
@@ -398,17 +398,17 @@
                             {
                               "index": "lawful-good",
                               "name": "Lawful Good",
-                              "url": "/api/alignments/lawful-good"
+                              "url": "/api/2014/alignments/lawful-good"
                             },
                             {
                               "index": "lawful-neutral",
                               "name": "Lawful Neutral",
-                              "url": "/api/alignments/lawful-neutral"
+                              "url": "/api/2014/alignments/lawful-neutral"
                             },
                             {
                               "index": "lawful-evil",
                               "name": "Lawful Evil",
-                              "url": "/api/alignments/lawful-evil"
+                              "url": "/api/2014/alignments/lawful-evil"
                             }
                           ]
                         },
@@ -419,17 +419,17 @@
                             {
                               "index": "lawful-good",
                               "name": "Lawful Good",
-                              "url": "/api/alignments/lawful-good"
+                              "url": "/api/2014/alignments/lawful-good"
                             },
                             {
                               "index": "lawful-neutral",
                               "name": "Lawful Neutral",
-                              "url": "/api/alignments/lawful-neutral"
+                              "url": "/api/2014/alignments/lawful-neutral"
                             },
                             {
                               "index": "lawful-evil",
                               "name": "Lawful Evil",
-                              "url": "/api/alignments/lawful-evil"
+                              "url": "/api/2014/alignments/lawful-evil"
                             }
                           ]
                         },
@@ -440,47 +440,47 @@
                             {
                               "index": "lawful-good",
                               "name": "Lawful Good",
-                              "url": "/api/alignments/lawful-good"
+                              "url": "/api/2014/alignments/lawful-good"
                             },
                             {
                               "index": "neutral-good",
                               "name": "Neutral Good",
-                              "url": "/api/alignments/neutral-good"
+                              "url": "/api/2014/alignments/neutral-good"
                             },
                             {
                               "index": "chaotic-good",
                               "name": "Chaotic Good",
-                              "url": "/api/alignments/chaotic-good"
+                              "url": "/api/2014/alignments/chaotic-good"
                             },
                             {
                               "index": "lawful-neutral",
                               "name": "Lawful Neutral",
-                              "url": "/api/alignments/lawful-neutral"
+                              "url": "/api/2014/alignments/lawful-neutral"
                             },
                             {
                               "index": "neutral",
                               "name": "Neutral",
-                              "url": "/api/alignments/neutral"
+                              "url": "/api/2014/alignments/neutral"
                             },
                             {
                               "index": "chaotic-neutral",
                               "name": "Chaotic Neutral",
-                              "url": "/api/alignments/chaotic-neutral"
+                              "url": "/api/2014/alignments/chaotic-neutral"
                             },
                             {
                               "index": "lawful-evil",
                               "name": "Lawful Evil",
-                              "url": "/api/alignments/lawful-evil"
+                              "url": "/api/2014/alignments/lawful-evil"
                             },
                             {
                               "index": "neutral-evil",
                               "name": "Neutral Evil",
-                              "url": "/api/alignments/neutral-evil"
+                              "url": "/api/2014/alignments/neutral-evil"
                             },
                             {
                               "index": "chaotic-evil",
                               "name": "Chaotic Evil",
-                              "url": "/api/alignments/chaotic-evil"
+                              "url": "/api/2014/alignments/chaotic-evil"
                             }
                           ]
                         }
@@ -553,7 +553,7 @@
                       ]
                     }
                   },
-                  "url": "/api/backgrounds/acolyte"
+                  "url": "/api/2014/backgrounds/acolyte"
                 }
               }
             }
@@ -561,7 +561,7 @@
         }
       }
     },
-    "/api/classes/{index}": {
+    "/api/2014/classes/{index}": {
       "get": {
         "summary": "Get a class by index.",
         "description": "# Class\n\nA character class is a fundamental part of the identity and nature of\ncharacters in the Dungeons & Dragons role-playing game. A character's\ncapabilities, strengths, and weaknesses are largely defined by its class.\nA character's class affects a character's available skills and abilities. [[SRD p8-55](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=8)]\n",
@@ -582,7 +582,7 @@
                   "$ref": "#/components/schemas/Class"
                 },
                 "example": {
-                  "class_levels": "/api/classes/barbarian/levels",
+                  "class_levels": "/api/2014/classes/barbarian/levels",
                   "hit_die": 12,
                   "index": "barbarian",
                   "multi_classing": {
@@ -591,7 +591,7 @@
                         "ability_score": {
                           "index": "str",
                           "name": "STR",
-                          "url": "/api/ability-scores/str"
+                          "url": "/api/2014/ability-scores/str"
                         },
                         "minimum_score": 13
                       }
@@ -600,17 +600,17 @@
                       {
                         "index": "shields",
                         "name": "Shields",
-                        "url": "/api/proficiencies/shields"
+                        "url": "/api/2014/proficiencies/shields"
                       },
                       {
                         "index": "simple-weapons",
                         "name": "Simple Weapons",
-                        "url": "/api/proficiencies/simple-weapons"
+                        "url": "/api/2014/proficiencies/simple-weapons"
                       },
                       {
                         "index": "martial-weapons",
                         "name": "Martial Weapons",
-                        "url": "/api/proficiencies/martial-weapons"
+                        "url": "/api/2014/proficiencies/martial-weapons"
                       }
                     ],
                     "proficiency_choices": []
@@ -620,27 +620,27 @@
                     {
                       "index": "light-armor",
                       "name": "Light Armor",
-                      "url": "/api/proficiencies/light-armor"
+                      "url": "/api/2014/proficiencies/light-armor"
                     },
                     {
                       "index": "medium-armor",
                       "name": "Medium Armor",
-                      "url": "/api/proficiencies/medium-armor"
+                      "url": "/api/2014/proficiencies/medium-armor"
                     },
                     {
                       "index": "shields",
                       "name": "Shields",
-                      "url": "/api/proficiencies/shields"
+                      "url": "/api/2014/proficiencies/shields"
                     },
                     {
                       "index": "simple-weapons",
                       "name": "Simple Weapons",
-                      "url": "/api/proficiencies/simple-weapons"
+                      "url": "/api/2014/proficiencies/simple-weapons"
                     },
                     {
                       "index": "martial-weapons",
                       "name": "Martial Weapons",
-                      "url": "/api/proficiencies/martial-weapons"
+                      "url": "/api/2014/proficiencies/martial-weapons"
                     }
                   ],
                   "proficiency_choices": [
@@ -656,7 +656,7 @@
                             "item": {
                               "index": "skill-animal-handling",
                               "name": "Skill: Animal Handling",
-                              "url": "/api/proficiencies/skill-animal-handling"
+                              "url": "/api/2014/proficiencies/skill-animal-handling"
                             }
                           },
                           {
@@ -664,7 +664,7 @@
                             "item": {
                               "index": "skill-athletics",
                               "name": "Skill: Athletics",
-                              "url": "/api/proficiencies/skill-athletics"
+                              "url": "/api/2014/proficiencies/skill-athletics"
                             }
                           },
                           {
@@ -672,7 +672,7 @@
                             "item": {
                               "index": "skill-intimidation",
                               "name": "Skill: Intimidation",
-                              "url": "/api/proficiencies/skill-intimidation"
+                              "url": "/api/2014/proficiencies/skill-intimidation"
                             }
                           },
                           {
@@ -680,7 +680,7 @@
                             "item": {
                               "index": "skill-nature",
                               "name": "Skill: Nature",
-                              "url": "/api/proficiencies/skill-nature"
+                              "url": "/api/2014/proficiencies/skill-nature"
                             }
                           },
                           {
@@ -688,7 +688,7 @@
                             "item": {
                               "index": "skill-perception",
                               "name": "Skill: Perception",
-                              "url": "/api/proficiencies/skill-perception"
+                              "url": "/api/2014/proficiencies/skill-perception"
                             }
                           },
                           {
@@ -696,7 +696,7 @@
                             "item": {
                               "index": "skill-survival",
                               "name": "Skill: Survival",
-                              "url": "/api/proficiencies/skill-survival"
+                              "url": "/api/2014/proficiencies/skill-survival"
                             }
                           }
                         ]
@@ -707,12 +707,12 @@
                     {
                       "index": "str",
                       "name": "STR",
-                      "url": "/api/ability-scores/str"
+                      "url": "/api/2014/ability-scores/str"
                     },
                     {
                       "index": "con",
                       "name": "CON",
-                      "url": "/api/ability-scores/con"
+                      "url": "/api/2014/ability-scores/con"
                     }
                   ],
                   "starting_equipment": [
@@ -720,7 +720,7 @@
                       "equipment": {
                         "index": "explorers-pack",
                         "name": "Explorer's Pack",
-                        "url": "/api/equipment/explorers-pack"
+                        "url": "/api/2014/equipment/explorers-pack"
                       },
                       "quantity": 1
                     },
@@ -728,7 +728,7 @@
                       "equipment": {
                         "index": "javelin",
                         "name": "Javelin",
-                        "url": "/api/equipment/javelin"
+                        "url": "/api/2014/equipment/javelin"
                       },
                       "quantity": 4
                     }
@@ -747,7 +747,7 @@
                             "of": {
                               "index": "greataxe",
                               "name": "Greataxe",
-                              "url": "/api/equipment/greataxe"
+                              "url": "/api/2014/equipment/greataxe"
                             }
                           },
                           {
@@ -761,7 +761,7 @@
                                 "equipment_category": {
                                   "index": "martial-melee-weapons",
                                   "name": "Martial Melee Weapons",
-                                  "url": "/api/equipment-categories/martial-melee-weapons"
+                                  "url": "/api/2014/equipment-categories/martial-melee-weapons"
                                 }
                               }
                             }
@@ -782,7 +782,7 @@
                             "of": {
                               "index": "handaxe",
                               "name": "Handaxe",
-                              "url": "/api/equipment/handaxe"
+                              "url": "/api/2014/equipment/handaxe"
                             }
                           },
                           {
@@ -796,7 +796,7 @@
                                 "equipment_category": {
                                   "index": "simple-weapons",
                                   "name": "Simple Weapons",
-                                  "url": "/api/equipment-categories/simple-weapons"
+                                  "url": "/api/2014/equipment-categories/simple-weapons"
                                 }
                               }
                             }
@@ -809,10 +809,10 @@
                     {
                       "index": "berserker",
                       "name": "Berserker",
-                      "url": "/api/subclasses/berserker"
+                      "url": "/api/2014/subclasses/berserker"
                     }
                   ],
-                  "url": "/api/classes/barbarian"
+                  "url": "/api/2014/classes/barbarian"
                 }
               }
             }
@@ -820,7 +820,7 @@
         }
       }
     },
-    "/api/classes/{index}/subclasses": {
+    "/api/2014/classes/{index}/subclasses": {
       "get": {
         "summary": "Get subclasses available for a class.",
         "tags": [
@@ -845,7 +845,7 @@
                     {
                       "index": "berserker",
                       "name": "Berserker",
-                      "url": "/api/subclasses/berserker"
+                      "url": "/api/2014/subclasses/berserker"
                     }
                   ]
                 }
@@ -855,7 +855,7 @@
         }
       }
     },
-    "/api/classes/{index}/spells": {
+    "/api/2014/classes/{index}/spells": {
       "get": {
         "summary": "Get spells available for a class.",
         "tags": [
@@ -880,13 +880,13 @@
                     {
                       "index": "power-word-kill",
                       "name": "Power Word Kill",
-                      "url": "/api/spells/power-word-kill",
+                      "url": "/api/2014/spells/power-word-kill",
                       "level": 9
                     },
                     {
                       "index": "true-polymorph",
                       "name": "True Polymorph",
-                      "url": "/api/spells/true-polymorph",
+                      "url": "/api/2014/spells/true-polymorph",
                       "level": 9
                     }
                   ]
@@ -897,7 +897,7 @@
         }
       }
     },
-    "/api/classes/{index}/spellcasting": {
+    "/api/2014/classes/{index}/spellcasting": {
       "get": {
         "summary": "Get spellcasting info for a class.",
         "tags": [
@@ -921,7 +921,7 @@
                   "spellcasting_ability": {
                     "index": "cha",
                     "name": "CHA",
-                    "url": "/api/ability-scores/cha"
+                    "url": "/api/2014/ability-scores/cha"
                   },
                   "info": [
                     {
@@ -987,7 +987,7 @@
         }
       }
     },
-    "/api/classes/{index}/features": {
+    "/api/2014/classes/{index}/features": {
       "get": {
         "summary": "Get features available for a class.",
         "tags": [
@@ -1012,7 +1012,7 @@
         }
       }
     },
-    "/api/classes/{index}/proficiencies": {
+    "/api/2014/classes/{index}/proficiencies": {
       "get": {
         "summary": "Get proficiencies available for a class.",
         "tags": [
@@ -1037,7 +1037,7 @@
         }
       }
     },
-    "/api/classes/{index}/multi-classing": {
+    "/api/2014/classes/{index}/multi-classing": {
       "get": {
         "summary": "Get multiclassing resource for a class.",
         "tags": [
@@ -1062,7 +1062,7 @@
                       "ability_score": {
                         "index": "str",
                         "name": "STR",
-                        "url": "/api/ability-scores/str"
+                        "url": "/api/2014/ability-scores/str"
                       },
                       "minimum_score": 13
                     }
@@ -1071,17 +1071,17 @@
                     {
                       "index": "shields",
                       "name": "Shields",
-                      "url": "/api/proficiencies/shields"
+                      "url": "/api/2014/proficiencies/shields"
                     },
                     {
                       "index": "simple-weapons",
                       "name": "Simple Weapons",
-                      "url": "/api/proficiencies/simple-weapons"
+                      "url": "/api/2014/proficiencies/simple-weapons"
                     },
                     {
                       "index": "martial-weapons",
                       "name": "Martial Weapons",
-                      "url": "/api/proficiencies/martial-weapons"
+                      "url": "/api/2014/proficiencies/martial-weapons"
                     }
                   ],
                   "proficiency_choices": []
@@ -1092,7 +1092,7 @@
         }
       }
     },
-    "/api/classes/{index}/levels": {
+    "/api/2014/classes/{index}/levels": {
       "get": {
         "summary": "Get all level resources for a class.",
         "tags": [
@@ -1123,7 +1123,7 @@
         }
       }
     },
-    "/api/classes/{index}/levels/{class_level}": {
+    "/api/2014/classes/{index}/levels/{class_level}": {
       "get": {
         "summary": "Get level resource for a class and level.",
         "tags": [
@@ -1153,12 +1153,12 @@
                     {
                       "index": "rage",
                       "name": "Rage",
-                      "url": "/api/features/rage"
+                      "url": "/api/2014/features/rage"
                     },
                     {
                       "index": "barbarian-unarmored-defense",
                       "name": "Unarmored Defense",
-                      "url": "/api/features/barbarian-unarmored-defense"
+                      "url": "/api/2014/features/barbarian-unarmored-defense"
                     }
                   ],
                   "class_specific": {
@@ -1170,9 +1170,9 @@
                   "class": {
                     "index": "barbarian",
                     "name": "Barbarian",
-                    "url": "/api/classes/barbarian"
+                    "url": "/api/2014/classes/barbarian"
                   },
-                  "url": "/api/classes/barbarian/levels/1"
+                  "url": "/api/2014/classes/barbarian/levels/1"
                 }
               }
             }
@@ -1180,7 +1180,7 @@
         }
       }
     },
-    "/api/classes/{index}/levels/{class_level}/features": {
+    "/api/2014/classes/{index}/levels/{class_level}/features": {
       "get": {
         "summary": "Get features available to a class at the requested level.",
         "tags": [
@@ -1208,12 +1208,12 @@
                     {
                       "index": "barbarian-unarmored-defense",
                       "name": "Unarmored Defense",
-                      "url": "/api/features/barbarian-unarmored-defense"
+                      "url": "/api/2014/features/barbarian-unarmored-defense"
                     },
                     {
                       "index": "rage",
                       "name": "Rage",
-                      "url": "/api/features/rage"
+                      "url": "/api/2014/features/rage"
                     }
                   ]
                 }
@@ -1223,7 +1223,7 @@
         }
       }
     },
-    "/api/classes/{index}/levels/{spell_level}/spells": {
+    "/api/2014/classes/{index}/levels/{spell_level}/spells": {
       "get": {
         "summary": "Get spells of the requested level available to the class.",
         "tags": [
@@ -1251,27 +1251,27 @@
                     {
                       "index": "dominate-monster",
                       "name": "Dominate Monster",
-                      "url": "/api/spells/dominate-monster"
+                      "url": "/api/2014/spells/dominate-monster"
                     },
                     {
                       "index": "earthquake",
                       "name": "Earthquake",
-                      "url": "/api/spells/earthquake"
+                      "url": "/api/2014/spells/earthquake"
                     },
                     {
                       "index": "incendiary-cloud",
                       "name": "Incendiary Cloud",
-                      "url": "/api/spells/incendiary-cloud"
+                      "url": "/api/2014/spells/incendiary-cloud"
                     },
                     {
                       "index": "power-word-stun",
                       "name": "Power Word Stun",
-                      "url": "/api/spells/power-word-stun"
+                      "url": "/api/2014/spells/power-word-stun"
                     },
                     {
                       "index": "sunburst",
                       "name": "Sunburst",
-                      "url": "/api/spells/sunburst"
+                      "url": "/api/2014/spells/sunburst"
                     }
                   ]
                 }
@@ -1281,10 +1281,10 @@
         }
       }
     },
-    "/api/conditions/{index}": {
+    "/api/2014/conditions/{index}": {
       "get": {
         "summary": "Get a condition by index.",
-        "description": "# Condition\n\nA condition alters a creature’s capabilities in a variety of ways and can \narise as a result of a spell, a class feature, a monster’s attack, or other \neffect. Most conditions, such as blinded, are impairments, but a few, such \nas invisible, can be advantageous.\n",
+        "description": "# Condition\n\nA condition alters a creature’s capabilities in a variety of ways and can\narise as a result of a spell, a class feature, a monster’s attack, or other\neffect. Most conditions, such as blinded, are impairments, but a few, such\nas invisible, can be advantageous.\n",
         "tags": [
           "Game Mechanics"
         ],
@@ -1304,7 +1304,7 @@
                 "example": {
                   "index": "blinded",
                   "name": "Blinded",
-                  "url": "/api/conditions/blinded",
+                  "url": "/api/2014/conditions/blinded",
                   "desc": [
                     "- A blinded creature can't see and automatically fails any ability check that requires sight.",
                     "- Attack rolls against the creature have advantage, and the creature's attack rolls have disadvantage."
@@ -1316,10 +1316,10 @@
         }
       }
     },
-    "/api/damage-types/{index}": {
+    "/api/2014/damage-types/{index}": {
       "get": {
         "summary": "Get a damage type by index.",
-        "description": "# Damage type\n\nDifferent attacks, damaging spells, and other harmful effects deal different \ntypes of damage. Damage types have no rules of their own, but other rules, \nsuch as damage resistance, rely on the types.\n",
+        "description": "# Damage type\n\nDifferent attacks, damaging spells, and other harmful effects deal different\ntypes of damage. Damage types have no rules of their own, but other rules,\nsuch as damage resistance, rely on the types.\n",
         "tags": [
           "Game Mechanics"
         ],
@@ -1339,7 +1339,7 @@
                 "example": {
                   "index": "acid",
                   "name": "Acid",
-                  "url": "/api/damage-types/acid",
+                  "url": "/api/2014/damage-types/acid",
                   "desc": [
                     "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage."
                   ]
@@ -1350,10 +1350,10 @@
         }
       }
     },
-    "/api/equipment/{index}": {
+    "/api/2014/equipment/{index}": {
       "get": {
         "summary": "Get an equipment item by index.",
-        "description": "# Equipment\n\nOpportunities abound to find treasure, equipment, weapons, armor, and more \nin the dungeons you explore. Normally, you can sell your treasures and \ntrinkets when you return to a town or other settlement, provided that you \ncan find buyers and merchants interested in your loot.\n",
+        "description": "# Equipment\n\nOpportunities abound to find treasure, equipment, weapons, armor, and more\nin the dungeons you explore. Normally, you can sell your treasures and\ntrinkets when you return to a town or other settlement, provided that you\ncan find buyers and merchants interested in your loot.\n",
         "tags": [
           "Equipment"
         ],
@@ -1382,14 +1382,14 @@
                     "damage_type": {
                       "index": "bludgeoning",
                       "name": "Bludgeoning",
-                      "url": "/api/damage-types/bludgeoning"
+                      "url": "/api/2014/damage-types/bludgeoning"
                     }
                   },
                   "desc": [],
                   "equipment_category": {
                     "index": "weapon",
                     "name": "Weapon",
-                    "url": "/api/equipment-categories/weapon"
+                    "url": "/api/2014/equipment-categories/weapon"
                   },
                   "index": "club",
                   "name": "Club",
@@ -1397,12 +1397,12 @@
                     {
                       "index": "light",
                       "name": "Light",
-                      "url": "/api/weapon-properties/light"
+                      "url": "/api/2014/weapon-properties/light"
                     },
                     {
                       "index": "monk",
                       "name": "Monk",
-                      "url": "/api/weapon-properties/monk"
+                      "url": "/api/2014/weapon-properties/monk"
                     }
                   ],
                   "range": {
@@ -1410,7 +1410,7 @@
                     "normal": 5
                   },
                   "special": [],
-                  "url": "/api/equipment/club",
+                  "url": "/api/2014/equipment/club",
                   "weapon_category": "Simple",
                   "weapon_range": "Melee",
                   "weight": 2
@@ -1421,7 +1421,7 @@
         }
       }
     },
-    "/api/equipment-categories/{index}": {
+    "/api/2014/equipment-categories/{index}": {
       "get": {
         "summary": "Get an equipment category by index.",
         "description": "These are the categories that various equipment fall under.",
@@ -1451,37 +1451,37 @@
                 "example": {
                   "index": "waterborne-vehicles",
                   "name": "Waterborne Vehicles",
-                  "url": "/api/equipment-categories/waterborne-vehicles",
+                  "url": "/api/2014/equipment-categories/waterborne-vehicles",
                   "equipment": [
                     {
                       "index": "galley",
                       "name": "Galley",
-                      "url": "/api/equipment/galley"
+                      "url": "/api/2014/equipment/galley"
                     },
                     {
                       "index": "keelboat",
                       "name": "Keelboat",
-                      "url": "/api/equipment/keelboat"
+                      "url": "/api/2014/equipment/keelboat"
                     },
                     {
                       "index": "longship",
                       "name": "Longship",
-                      "url": "/api/equipment/longship"
+                      "url": "/api/2014/equipment/longship"
                     },
                     {
                       "index": "rowboat",
                       "name": "Rowboat",
-                      "url": "/api/equipment/rowboat"
+                      "url": "/api/2014/equipment/rowboat"
                     },
                     {
                       "index": "sailing-ship",
                       "name": "Sailing ship",
-                      "url": "/api/equipment/sailing-ship"
+                      "url": "/api/2014/equipment/sailing-ship"
                     },
                     {
                       "index": "warship",
                       "name": "Warship",
-                      "url": "/api/equipment/warship"
+                      "url": "/api/2014/equipment/warship"
                     }
                   ]
                 }
@@ -1491,10 +1491,10 @@
         }
       }
     },
-    "/api/feats/{index}": {
+    "/api/2014/feats/{index}": {
       "get": {
         "summary": "Get a feat by index.",
-        "description": "# Feat \n\nA feat is a boon a character can receive at level up instead of an ability score increase.\n",
+        "description": "# Feat\n\nA feat is a boon a character can receive at level up instead of an ability score increase.\n",
         "tags": [
           "Feats"
         ],
@@ -1523,7 +1523,7 @@
                 "example": {
                   "index": "grappler",
                   "name": "Grappler",
-                  "url": "/api/feats/grappler",
+                  "url": "/api/2014/feats/grappler",
                   "desc": [
                     "You’ve developed the Skills necessary to hold your own in close--quarters Grappling. You gain the following benefits:",
                     "- You have advantage on Attack Rolls against a creature you are Grappling.",
@@ -1534,7 +1534,7 @@
                       "ability_score": {
                         "index": "str",
                         "name": "STR",
-                        "url": "/api/ability-scores/str"
+                        "url": "/api/2014/ability-scores/str"
                       },
                       "minimum_score": 13
                     }
@@ -1546,10 +1546,10 @@
         }
       }
     },
-    "/api/features/{index}": {
+    "/api/2014/features/{index}": {
       "get": {
         "summary": "Get a feature by index.",
-        "description": "# Feature \n\nWhen you gain a new level in a class, you get its features for that level. \nYou don’t, however, receive the class’s starting Equipment, and a few \nfeatures have additional rules when you’re multiclassing: Channel Divinity, \nExtra Attack, Unarmored Defense, and Spellcasting.\n",
+        "description": "# Feature\n\nWhen you gain a new level in a class, you get its features for that level.\nYou don’t, however, receive the class’s starting Equipment, and a few\nfeatures have additional rules when you’re multiclassing: Channel Divinity,\nExtra Attack, Unarmored Defense, and Spellcasting.\n",
         "tags": [
           "Features"
         ],
@@ -1569,11 +1569,11 @@
                 "example": {
                   "index": "action-surge-1-use",
                   "name": "Action Surge (1 use)",
-                  "url": "/api/features/action-surge-1-use",
+                  "url": "/api/2014/features/action-surge-1-use",
                   "class": {
                     "index": "fighter",
                     "name": "Fighter",
-                    "url": "/api/classes/fighter"
+                    "url": "/api/2014/classes/fighter"
                   },
                   "desc": [
                     "Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action on top of your regular action and a possible bonus action.",
@@ -1588,7 +1588,7 @@
         }
       }
     },
-    "/api/languages/{index}": {
+    "/api/2014/languages/{index}": {
       "get": {
         "summary": "Get a language by index.",
         "description": "# Language\n\nYour race indicates the languages your character can speak by default, and your background might give you access to one or more additional languages of your choice. [[SRD p59](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=59)]\n",
@@ -1611,7 +1611,7 @@
                 "example": {
                   "index": "elvish",
                   "name": "Elvish",
-                  "url": "/api/languages/elvish",
+                  "url": "/api/2014/languages/elvish",
                   "desc": "Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.",
                   "type": "Standard",
                   "script": "Elvish",
@@ -1625,7 +1625,7 @@
         }
       }
     },
-    "/api/magic-items/{index}": {
+    "/api/2014/magic-items/{index}": {
       "get": {
         "summary": "Get a magic item by index.",
         "description": "These are the various magic items you can find in the game.",
@@ -1655,7 +1655,7 @@
                 "example": {
                   "index": "adamantine-armor",
                   "name": "Adamantine Armor",
-                  "url": "/api/magic-items/adamantine-armor",
+                  "url": "/api/2014/magic-items/adamantine-armor",
                   "desc": [
                     "Armor (medium or heavy, but not hide), uncommon",
                     "This suit of armor is reinforced with adamantine, one of the hardest substances in existence. While you're wearing it, any critical hit against you becomes a normal hit."
@@ -1663,7 +1663,7 @@
                   "equipment_category": {
                     "index": "armor",
                     "name": "Armor",
-                    "url": "/api/equipment-categories/armor"
+                    "url": "/api/2014/equipment-categories/armor"
                   },
                   "rarity": {
                     "name": "Uncommon"
@@ -1677,10 +1677,10 @@
         }
       }
     },
-    "/api/magic-schools/{index}": {
+    "/api/2014/magic-schools/{index}": {
       "get": {
         "summary": "Get a magic school by index.",
-        "description": "# Magic School\n\nAcademies of magic group spells into eight categories called schools of \nmagic. Scholars, particularly wizards, apply these categories to all spells, \nbelieving that all magic functions in essentially the same way, whether it \nderives from rigorous study or is bestowed by a deity.\n",
+        "description": "# Magic School\n\nAcademies of magic group spells into eight categories called schools of\nmagic. Scholars, particularly wizards, apply these categories to all spells,\nbelieving that all magic functions in essentially the same way, whether it\nderives from rigorous study or is bestowed by a deity.\n",
         "tags": [
           "Game Mechanics"
         ],
@@ -1700,7 +1700,7 @@
                 "example": {
                   "index": "conjuration",
                   "name": "Conjuration",
-                  "url": "/api/magic-schools/conjuration",
+                  "url": "/api/2014/magic-schools/conjuration",
                   "desc": "Conjuration spells involve the transportation of objects and creatures from one location to another. Some spells summon creatures or objects to the caster's side, whereas others allow the caster to teleport to another location. Some conjurations create objects or effects out of nothing."
                 }
               }
@@ -1709,7 +1709,7 @@
         }
       }
     },
-    "/api/monsters": {
+    "/api/2014/monsters": {
       "get": {
         "summary": "Get list of monsters with optional filtering",
         "tags": [
@@ -1734,7 +1734,7 @@
         }
       }
     },
-    "/api/monsters/{index}": {
+    "/api/2014/monsters/{index}": {
       "get": {
         "summary": "Get monster by index.",
         "tags": [
@@ -1756,7 +1756,7 @@
                 "example": {
                   "index": "aboleth",
                   "name": "Aboleth",
-                  "url": "/api/monsters/aboleth",
+                  "url": "/api/2014/monsters/aboleth",
                   "actions": [
                     {
                       "attacks": [],
@@ -1781,7 +1781,7 @@
                           "damage_type": {
                             "index": "bludgeoning",
                             "name": "Bludgeoning",
-                            "url": "/api/damage-types/bludgeoning"
+                            "url": "/api/2014/damage-types/bludgeoning"
                           }
                         },
                         {
@@ -1789,7 +1789,7 @@
                           "damage_type": {
                             "index": "acid",
                             "name": "Acid",
-                            "url": "/api/damage-types/acid"
+                            "url": "/api/2014/damage-types/acid"
                           }
                         }
                       ],
@@ -1797,7 +1797,7 @@
                         "dc_type": {
                           "index": "con",
                           "name": "CON",
-                          "url": "/api/ability-scores/con"
+                          "url": "/api/2014/ability-scores/con"
                         },
                         "dc_value": 14,
                         "success_type": "none"
@@ -1814,7 +1814,7 @@
                           "damage_type": {
                             "index": "bludgeoning",
                             "name": "Bludgeoning",
-                            "url": "/api/damage-types/bludgeoning"
+                            "url": "/api/2014/damage-types/bludgeoning"
                           }
                         }
                       ],
@@ -1828,7 +1828,7 @@
                         "dc_type": {
                           "index": "wis",
                           "name": "WIS",
-                          "url": "/api/ability-scores/wis"
+                          "url": "/api/2014/ability-scores/wis"
                         },
                         "dc_value": 14,
                         "success_type": "none"
@@ -1882,7 +1882,7 @@
                           "damage_type": {
                             "index": "psychic",
                             "name": "Psychic",
-                            "url": "/api/damage-types/psychic"
+                            "url": "/api/2014/damage-types/psychic"
                           }
                         }
                       ],
@@ -1895,7 +1895,7 @@
                       "proficiency": {
                         "index": "saving-throw-con",
                         "name": "Saving Throw: CON",
-                        "url": "/api/proficiencies/saving-throw-con"
+                        "url": "/api/2014/proficiencies/saving-throw-con"
                       },
                       "value": 6
                     },
@@ -1903,7 +1903,7 @@
                       "proficiency": {
                         "index": "saving-throw-int",
                         "name": "Saving Throw: INT",
-                        "url": "/api/proficiencies/saving-throw-int"
+                        "url": "/api/2014/proficiencies/saving-throw-int"
                       },
                       "value": 8
                     },
@@ -1911,7 +1911,7 @@
                       "proficiency": {
                         "index": "saving-throw-wis",
                         "name": "Saving Throw: WIS",
-                        "url": "/api/proficiencies/saving-throw-wis"
+                        "url": "/api/2014/proficiencies/saving-throw-wis"
                       },
                       "value": 6
                     },
@@ -1919,7 +1919,7 @@
                       "proficiency": {
                         "index": "skill-history",
                         "name": "Skill: History",
-                        "url": "/api/proficiencies/skill-history"
+                        "url": "/api/2014/proficiencies/skill-history"
                       },
                       "value": 12
                     },
@@ -1927,7 +1927,7 @@
                       "proficiency": {
                         "index": "skill-perception",
                         "name": "Skill: Perception",
-                        "url": "/api/proficiencies/skill-perception"
+                        "url": "/api/2014/proficiencies/skill-perception"
                       },
                       "value": 10
                     }
@@ -1950,7 +1950,7 @@
                         "dc_type": {
                           "index": "con",
                           "name": "CON",
-                          "url": "/api/ability-scores/con"
+                          "url": "/api/2014/ability-scores/con"
                         },
                         "dc_value": 14,
                         "success_type": "none"
@@ -1980,10 +1980,10 @@
         }
       }
     },
-    "/api/proficiencies/{index}": {
+    "/api/2014/proficiencies/{index}": {
       "get": {
         "summary": "Get a proficiency by index.",
-        "description": "# Proficiency \n\nBy virtue of race, class, and background a character is proficient at using certain skills, weapons, and equipment. Characters can also gain additional proficiencies at higher levels or by multiclassing. A characters starting proficiencies are determined during character creation.\n",
+        "description": "# Proficiency\n\nBy virtue of race, class, and background a character is proficient at using certain skills, weapons, and equipment. Characters can also gain additional proficiencies at higher levels or by multiclassing. A characters starting proficiencies are determined during character creation.\n",
         "tags": [
           "Character Data"
         ],
@@ -2003,35 +2003,35 @@
                 "example": {
                   "index": "medium-armor",
                   "name": "Medium Armor",
-                  "url": "/api/proficiencies/medium-armor",
+                  "url": "/api/2014/proficiencies/medium-armor",
                   "type": "Armor",
                   "classes": [
                     {
                       "index": "barbarian",
                       "name": "Barbarian",
-                      "url": "/api/classes/barbarian"
+                      "url": "/api/2014/classes/barbarian"
                     },
                     {
                       "index": "cleric",
                       "name": "Cleric",
-                      "url": "/api/classes/cleric"
+                      "url": "/api/2014/classes/cleric"
                     },
                     {
                       "index": "druid",
                       "name": "Druid",
-                      "url": "/api/classes/druid"
+                      "url": "/api/2014/classes/druid"
                     },
                     {
                       "index": "ranger",
                       "name": "Ranger",
-                      "url": "/api/classes/ranger"
+                      "url": "/api/2014/classes/ranger"
                     }
                   ],
                   "races": [],
                   "reference": {
                     "index": "medium-armor",
                     "name": "Medium Armor",
-                    "url": "/api/equipment-categories/medium-armor"
+                    "url": "/api/2014/equipment-categories/medium-armor"
                   }
                 }
               }
@@ -2040,7 +2040,7 @@
         }
       }
     },
-    "/api/races/{index}": {
+    "/api/2014/races/{index}": {
       "get": {
         "summary": "Get a race by index.",
         "description": "Each race grants your character ability and skill bonuses as well as racial traits.",
@@ -2063,13 +2063,13 @@
                 "example": {
                   "index": "elf",
                   "name": "Elf",
-                  "url": "/api/races/elf",
+                  "url": "/api/2014/races/elf",
                   "ability_bonuses": [
                     {
                       "ability_score": {
                         "index": "dex",
                         "name": "DEX",
-                        "url": "/api/ability-scores/dex"
+                        "url": "/api/2014/ability-scores/dex"
                       },
                       "bonus": 2
                     }
@@ -2081,12 +2081,12 @@
                     {
                       "index": "common",
                       "name": "Common",
-                      "url": "/api/languages/common"
+                      "url": "/api/2014/languages/common"
                     },
                     {
                       "index": "elvish",
                       "name": "Elvish",
-                      "url": "/api/languages/elvish"
+                      "url": "/api/2014/languages/elvish"
                     }
                   ],
                   "size": "Medium",
@@ -2096,31 +2096,31 @@
                     {
                       "index": "skill-perception",
                       "name": "Skill: Perception",
-                      "url": "/api/proficiencies/skill-perception"
+                      "url": "/api/2014/proficiencies/skill-perception"
                     }
                   ],
                   "subraces": [
                     {
                       "index": "high-elf",
                       "name": "High Elf",
-                      "url": "/api/subraces/high-elf"
+                      "url": "/api/2014/subraces/high-elf"
                     }
                   ],
                   "traits": [
                     {
                       "index": "darkvision",
                       "name": "Darkvision",
-                      "url": "/api/traits/darkvision"
+                      "url": "/api/2014/traits/darkvision"
                     },
                     {
                       "index": "fey-ancestry",
                       "name": "Fey Ancestry",
-                      "url": "/api/traits/fey-ancestry"
+                      "url": "/api/2014/traits/fey-ancestry"
                     },
                     {
                       "index": "trance",
                       "name": "Trance",
-                      "url": "/api/traits/trance"
+                      "url": "/api/2014/traits/trance"
                     }
                   ]
                 }
@@ -2130,7 +2130,7 @@
         }
       }
     },
-    "/api/races/{index}/subraces": {
+    "/api/2014/races/{index}/subraces": {
       "get": {
         "summary": "Get subraces available for a race.",
         "tags": [
@@ -2155,7 +2155,7 @@
         }
       }
     },
-    "/api/races/{index}/proficiencies": {
+    "/api/2014/races/{index}/proficiencies": {
       "get": {
         "summary": "Get proficiencies available for a race.",
         "tags": [
@@ -2180,7 +2180,7 @@
         }
       }
     },
-    "/api/races/{index}/traits": {
+    "/api/2014/races/{index}/traits": {
       "get": {
         "summary": "Get traits available for a race.",
         "tags": [
@@ -2205,7 +2205,7 @@
         }
       }
     },
-    "/api/rule-sections/{index}": {
+    "/api/2014/rule-sections/{index}": {
       "get": {
         "summary": "Get a rule section by index.",
         "description": "Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.",
@@ -2228,7 +2228,7 @@
                 "example": {
                   "index": "time",
                   "name": "Time",
-                  "url": "/api/rule-sections/time",
+                  "url": "/api/2014/rule-sections/time",
                   "desc": "## Time\n\nIn situations where keeping track of the passage of time is important, the GM determines the time a task requires. The GM might use a different time scale depending on the context of the situation at hand. In a dungeon environment, the adventurers' movement happens on a scale of **minutes**. It takes them about a minute to creep down a long hallway, another minute to check for traps on the door at the end of the hall, and a good ten minutes to search the chamber beyond for anything interesting or valuable.\n\nIn a city or wilderness, a scale of **hours** is often more appropriate. Adventurers eager to reach the lonely tower at the heart of the forest hurry across those fifteen miles in just under four hours' time.\n\nFor long journeys, a scale of **days** works best.\n\nFollowing the road from Baldur's Gate to Waterdeep, the adventurers spend four uneventful days before a goblin ambush interrupts their journey.\n\nIn combat and other fast-paced situations, the game relies on **rounds**, a 6-second span of time.\n"
                 }
               }
@@ -2237,10 +2237,10 @@
         }
       }
     },
-    "/api/rules/{index}": {
+    "/api/2014/rules/{index}": {
       "get": {
         "summary": "Get a rule by index.",
-        "description": "# Rule \n\nRules are pages in the SRD that document the mechanics of Dungeons and Dragons. \nRules have descriptions which is the text directly underneath the rule heading \nin the SRD. Rules also have subsections for each heading underneath the rule in the SRD.\n",
+        "description": "# Rule\n\nRules are pages in the SRD that document the mechanics of Dungeons and Dragons.\nRules have descriptions which is the text directly underneath the rule heading\nin the SRD. Rules also have subsections for each heading underneath the rule in the SRD.\n",
         "tags": [
           "Rules"
         ],
@@ -2260,38 +2260,38 @@
                 "example": {
                   "index": "using-ability-scores",
                   "name": "Using Ability Scores",
-                  "url": "/api/rules/using-ability-scores",
+                  "url": "/api/2014/rules/using-ability-scores",
                   "desc": "# Using Ability Scores\n\nSix abilities provide a quick description of every creature's physical and mental characteristics:\n- **Strength**, measuring physical power\n- **Dexterity**, measuring agility\n- **Constitution**, measuring endurance\n- **Intelligence**, measuring reasoning and memory\n- **Wisdom**, measuring perception and insight\n- **Charisma**, measuring force of personality\n\nIs a character muscle-bound and insightful? Brilliant and charming? Nimble and hardy? Ability scores define these qualities-a creature's assets as well as weaknesses.\n\nThe three main rolls of the game-the ability check, the saving throw, and the attack roll-rely on the six ability scores. The book's introduction describes the basic rule behind these rolls: roll a d20, add an ability modifier derived from one of the six ability scores, and compare the total to a target number.\n\n**Ability Scores and Modifiers** Each of a creature's abilities has a score, a number that defines the magnitude of that ability. An ability score is not just a measure of innate capabilities, but also encompasses a creature's training and competence in activities related to that ability.\n\nA score of 10 or 11 is the normal human average, but adventurers and many monsters are a cut above average in most abilities. A score of 18 is the highest that a person usually reaches. Adventurers can have scores as high as 20, and monsters and divine beings can have scores as high as 30.\n\nEach ability also has a modifier, derived from the score and ranging from -5 (for an ability score of 1) to +10 (for a score of 30). The Ability Scores and Modifiers table notes the ability modifiers for the range of possible ability scores, from 1 to 30.\n",
                   "subsections": [
                     {
                       "index": "ability-scores-and-modifiers",
                       "name": "Ability Scores and Modifiers",
-                      "url": "/api/rule-sections/ability-scores-and-modifiers"
+                      "url": "/api/2014/rule-sections/ability-scores-and-modifiers"
                     },
                     {
                       "index": "advantage-and-disadvantage",
                       "name": "Advantage and Disadvantage",
-                      "url": "/api/rule-sections/advantage-and-disadvantage"
+                      "url": "/api/2014/rule-sections/advantage-and-disadvantage"
                     },
                     {
                       "index": "proficiency-bonus",
                       "name": "Proficiency Bonus",
-                      "url": "/api/rule-sections/proficiency-bonus"
+                      "url": "/api/2014/rule-sections/proficiency-bonus"
                     },
                     {
                       "index": "ability-checks",
                       "name": "Ability Checks",
-                      "url": "/api/rule-sections/ability-checks"
+                      "url": "/api/2014/rule-sections/ability-checks"
                     },
                     {
                       "index": "using-each-ability",
                       "name": "Using Each Ability",
-                      "url": "/api/rule-sections/using-each-ability"
+                      "url": "/api/2014/rule-sections/using-each-ability"
                     },
                     {
                       "index": "saving-throws",
                       "name": "Saving Throws",
-                      "url": "/api/rule-sections/saving-throws"
+                      "url": "/api/2014/rule-sections/saving-throws"
                     }
                   ]
                 }
@@ -2301,7 +2301,7 @@
         }
       }
     },
-    "/api/skills/{index}": {
+    "/api/2014/skills/{index}": {
       "get": {
         "summary": "Get a skill by index.",
         "description": "# Skill\n\nEach ability covers a broad range of capabilities, including skills that a character or a monster can be proficient in. A skill represents a specific aspect of an ability score, and an individual's proficiency in a skill demonstrates a focus on that aspect. [[SRD p77](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=77)]\n",
@@ -2324,11 +2324,11 @@
                 "example": {
                   "index": "acrobatics",
                   "name": "Acrobatics",
-                  "url": "/api/skills/acrobatics",
+                  "url": "/api/2014/skills/acrobatics",
                   "ability_score": {
                     "index": "dex",
                     "name": "DEX",
-                    "url": "/api/ability-scores/dex"
+                    "url": "/api/2014/ability-scores/dex"
                   },
                   "desc": [
                     "Your Dexterity (Acrobatics) check covers your attempt to stay on your feet in a tricky situation, such as when you're trying to run across a sheet of ice, balance on a tightrope, or stay upright on a rocking ship's deck. The GM might also call for a Dexterity (Acrobatics) check to see if you can perform acrobatic stunts, including dives, rolls, somersaults, and flips."
@@ -2340,7 +2340,7 @@
         }
       }
     },
-    "/api/spells": {
+    "/api/2014/spells": {
       "get": {
         "summary": "Get list of spells with optional filtering.",
         "tags": [
@@ -2368,7 +2368,7 @@
         }
       }
     },
-    "/api/spells/{index}": {
+    "/api/2014/spells/{index}": {
       "get": {
         "summary": "Get a spell by index.",
         "tags": [
@@ -2390,14 +2390,14 @@
                 "example": {
                   "index": "sacred-flame",
                   "name": "Sacred Flame",
-                  "url": "/api/spells/sacred-flame",
+                  "url": "/api/2014/spells/sacred-flame",
                   "attack_type": "ranged",
                   "casting_time": "1 action",
                   "classes": [
                     {
                       "index": "cleric",
                       "name": "Cleric",
-                      "url": "/api/classes/cleric"
+                      "url": "/api/2014/classes/cleric"
                     }
                   ],
                   "components": [
@@ -2415,7 +2415,7 @@
                     "damage_type": {
                       "index": "radiant",
                       "name": "Radiant",
-                      "url": "/api/damage-types/radiant"
+                      "url": "/api/2014/damage-types/radiant"
                     }
                   },
                   "dc": {
@@ -2423,7 +2423,7 @@
                     "dc_type": {
                       "index": "dex",
                       "name": "DEX",
-                      "url": "/api/ability-scores/dex"
+                      "url": "/api/2014/ability-scores/dex"
                     }
                   },
                   "desc": [
@@ -2438,13 +2438,13 @@
                   "school": {
                     "index": "evocation",
                     "name": "Evocation",
-                    "url": "/api/magic-schools/evocation"
+                    "url": "/api/2014/magic-schools/evocation"
                   },
                   "subclasses": [
                     {
                       "index": "lore",
                       "name": "Lore",
-                      "url": "/api/subclasses/lore"
+                      "url": "/api/2014/subclasses/lore"
                     }
                   ]
                 }
@@ -2454,7 +2454,7 @@
         }
       }
     },
-    "/api/subclasses/{index}": {
+    "/api/2014/subclasses/{index}": {
       "get": {
         "summary": "Get a subclass by index.",
         "description": "Subclasses reflect the different paths a class may take as levels are gained.",
@@ -2477,11 +2477,11 @@
                 "example": {
                   "index": "fiend",
                   "name": "Fiend",
-                  "url": "/api/subclasses/fiend",
+                  "url": "/api/2014/subclasses/fiend",
                   "class": {
                     "index": "warlock",
                     "name": "Warlock",
-                    "url": "/api/classes/warlock"
+                    "url": "/api/2014/classes/warlock"
                   },
                   "desc": [
                     "You have made a pact with a fiend from the lower planes of existence, a being whose aims are evil, even if you strive against those aims. Such beings desire the corruption or destruction of all things, ultimately including you. Fiends powerful enough to forge a pact include demon lords such as Demogorgon, Orcus, Fraz'Urb-luu, and Baphomet; archdevils such as Asmodeus, Dispater, Mephistopheles, and Belial; pit fiends and balors that are especially mighty; and ultroloths and other lords of the yugoloths."
@@ -2493,13 +2493,13 @@
                           "index": "warlock-1",
                           "name": "Warlock 1",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/1"
+                          "url": "/api/2014/classes/warlock/levels/1"
                         }
                       ],
                       "spell": {
                         "index": "burning-hands",
                         "name": "Burning Hands",
-                        "url": "/api/spells/burning-hands"
+                        "url": "/api/2014/spells/burning-hands"
                       }
                     },
                     {
@@ -2508,13 +2508,13 @@
                           "index": "warlock-1",
                           "name": "Warlock 1",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/1"
+                          "url": "/api/2014/classes/warlock/levels/1"
                         }
                       ],
                       "spell": {
                         "index": "command",
                         "name": "Command",
-                        "url": "/api/spells/command"
+                        "url": "/api/2014/spells/command"
                       }
                     },
                     {
@@ -2523,13 +2523,13 @@
                           "index": "warlock-3",
                           "name": "Warlock 3",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/3"
+                          "url": "/api/2014/classes/warlock/levels/3"
                         }
                       ],
                       "spell": {
                         "index": "blindness-deafness",
                         "name": "Blindness/Deafness",
-                        "url": "/api/spells/blindness-deafness"
+                        "url": "/api/2014/spells/blindness-deafness"
                       }
                     },
                     {
@@ -2538,13 +2538,13 @@
                           "index": "warlock-3",
                           "name": "Warlock 3",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/3"
+                          "url": "/api/2014/classes/warlock/levels/3"
                         }
                       ],
                       "spell": {
                         "index": "scorching-ray",
                         "name": "Scorching Ray",
-                        "url": "/api/spells/scorching-ray"
+                        "url": "/api/2014/spells/scorching-ray"
                       }
                     },
                     {
@@ -2553,13 +2553,13 @@
                           "index": "warlock-5",
                           "name": "Warlock 5",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/5"
+                          "url": "/api/2014/classes/warlock/levels/5"
                         }
                       ],
                       "spell": {
                         "index": "fireball",
                         "name": "Fireball",
-                        "url": "/api/spells/fireball"
+                        "url": "/api/2014/spells/fireball"
                       }
                     },
                     {
@@ -2568,13 +2568,13 @@
                           "index": "warlock-5",
                           "name": "Warlock 5",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/5"
+                          "url": "/api/2014/classes/warlock/levels/5"
                         }
                       ],
                       "spell": {
                         "index": "stinking-cloud",
                         "name": "Stinking Cloud",
-                        "url": "/api/spells/stinking-cloud"
+                        "url": "/api/2014/spells/stinking-cloud"
                       }
                     },
                     {
@@ -2583,13 +2583,13 @@
                           "index": "warlock-7",
                           "name": "Warlock 7",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/7"
+                          "url": "/api/2014/classes/warlock/levels/7"
                         }
                       ],
                       "spell": {
                         "index": "fire-shield",
                         "name": "Fire Shield",
-                        "url": "/api/spells/fire-shield"
+                        "url": "/api/2014/spells/fire-shield"
                       }
                     },
                     {
@@ -2598,13 +2598,13 @@
                           "index": "warlock-7",
                           "name": "Warlock 7",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/7"
+                          "url": "/api/2014/classes/warlock/levels/7"
                         }
                       ],
                       "spell": {
                         "index": "wall-of-fire",
                         "name": "Wall of Fire",
-                        "url": "/api/spells/wall-of-fire"
+                        "url": "/api/2014/spells/wall-of-fire"
                       }
                     },
                     {
@@ -2613,13 +2613,13 @@
                           "index": "warlock-9",
                           "name": "Warlock 9",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/9"
+                          "url": "/api/2014/classes/warlock/levels/9"
                         }
                       ],
                       "spell": {
                         "index": "flame-strike",
                         "name": "Flame Strike",
-                        "url": "/api/spells/flame-strike"
+                        "url": "/api/2014/spells/flame-strike"
                       }
                     },
                     {
@@ -2628,18 +2628,18 @@
                           "index": "warlock-9",
                           "name": "Warlock 9",
                           "type": "level",
-                          "url": "/api/classes/warlock/levels/9"
+                          "url": "/api/2014/classes/warlock/levels/9"
                         }
                       ],
                       "spell": {
                         "index": "hallow",
                         "name": "Hallow",
-                        "url": "/api/spells/hallow"
+                        "url": "/api/2014/spells/hallow"
                       }
                     }
                   ],
                   "subclass_flavor": "Otherworldly Patron",
-                  "subclass_levels": "/api/subclasses/fiend/levels"
+                  "subclass_levels": "/api/2014/subclasses/fiend/levels"
                 }
               }
             }
@@ -2647,7 +2647,7 @@
         }
       }
     },
-    "/api/subclasses/{index}/features": {
+    "/api/2014/subclasses/{index}/features": {
       "get": {
         "summary": "Get features available for a subclass.",
         "tags": [
@@ -2672,7 +2672,7 @@
         }
       }
     },
-    "/api/subclasses/{index}/levels": {
+    "/api/2014/subclasses/{index}/levels": {
       "get": {
         "summary": "Get all level resources for a subclass.",
         "tags": [
@@ -2700,7 +2700,7 @@
         }
       }
     },
-    "/api/subclasses/{index}/levels/{subclass_level}": {
+    "/api/2014/subclasses/{index}/levels/{subclass_level}": {
       "get": {
         "summary": "Get level resources for a subclass and level.",
         "tags": [
@@ -2732,24 +2732,24 @@
                 },
                 "example": {
                   "index": "devotion-3",
-                  "url": "/api/subclasses/devotion/levels/3",
+                  "url": "/api/2014/subclasses/devotion/levels/3",
                   "class": {
                     "index": "paladin",
                     "name": "Paladin",
-                    "url": "/api/classes/paladin"
+                    "url": "/api/2014/classes/paladin"
                   },
                   "features": [
                     {
                       "index": "channel-divinity",
                       "name": "Channel Divinity",
-                      "url": "/api/features/channel-divinity"
+                      "url": "/api/2014/features/channel-divinity"
                     }
                   ],
                   "level": 3,
                   "subclass": {
                     "index": "devotion",
                     "name": "Devotion",
-                    "url": "/api/subclasses/devotion"
+                    "url": "/api/2014/subclasses/devotion"
                   }
                 }
               }
@@ -2758,7 +2758,7 @@
         }
       }
     },
-    "/api/subclasses/{index}/levels/{subclass_level}/features": {
+    "/api/2014/subclasses/{index}/levels/{subclass_level}/features": {
       "get": {
         "summary": "Get features of the requested spell level available to the class.",
         "tags": [
@@ -2794,7 +2794,7 @@
         }
       }
     },
-    "/api/subraces/{index}": {
+    "/api/2014/subraces/{index}": {
       "get": {
         "summary": "Get a subrace by index.",
         "description": "Subraces reflect the different varieties of a certain parent race.",
@@ -2817,13 +2817,13 @@
                 "example": {
                   "index": "hill-dwarf",
                   "name": "Hill Dwarf",
-                  "url": "/api/subraces/hill-dwarf",
+                  "url": "/api/2014/subraces/hill-dwarf",
                   "ability_bonuses": [
                     {
                       "ability_score": {
                         "index": "wis",
                         "name": "WIS",
-                        "url": "/api/ability-scores/wis"
+                        "url": "/api/2014/ability-scores/wis"
                       },
                       "bonus": 1
                     }
@@ -2833,13 +2833,13 @@
                   "race": {
                     "index": "dwarf",
                     "name": "Dwarf",
-                    "url": "/api/races/dwarf"
+                    "url": "/api/2014/races/dwarf"
                   },
                   "racial_traits": [
                     {
                       "index": "dwarven-toughness",
                       "name": "Dwarven Toughness",
-                      "url": "/api/traits/dwarven-toughness"
+                      "url": "/api/2014/traits/dwarven-toughness"
                     }
                   ],
                   "starting_proficiencies": []
@@ -2850,7 +2850,7 @@
         }
       }
     },
-    "/api/subraces/{index}/proficiencies": {
+    "/api/2014/subraces/{index}/proficiencies": {
       "get": {
         "summary": "Get proficiences available for a subrace.",
         "tags": [
@@ -2875,7 +2875,7 @@
         }
       }
     },
-    "/api/subraces/{index}/traits": {
+    "/api/2014/subraces/{index}/traits": {
       "get": {
         "summary": "Get traits available for a subrace.",
         "tags": [
@@ -2900,7 +2900,7 @@
         }
       }
     },
-    "/api/traits/{index}": {
+    "/api/2014/traits/{index}": {
       "get": {
         "summary": "Get a trait by index.",
         "tags": [
@@ -2922,7 +2922,7 @@
                 "example": {
                   "index": "trance",
                   "name": "Trance",
-                  "url": "/api/traits/trance",
+                  "url": "/api/2014/traits/trance",
                   "desc": [
                     "Elves do not need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is \"trance.\") While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting this way, you gain the same benefit that a human does from 8 hours of sleep."
                   ],
@@ -2931,7 +2931,7 @@
                     {
                       "index": "elf",
                       "name": "Elf",
-                      "url": "/api/races/elf"
+                      "url": "/api/2014/races/elf"
                     }
                   ],
                   "subraces": []
@@ -2942,7 +2942,7 @@
         }
       }
     },
-    "/api/weapon-properties/{index}": {
+    "/api/2014/weapon-properties/{index}": {
       "get": {
         "summary": "Get a weapon property by index.",
         "tags": [
@@ -2964,7 +2964,7 @@
                 "example": {
                   "index": "ammunition",
                   "name": "Ammunition",
-                  "url": "/api/weapon-properties/ammunition",
+                  "url": "/api/2014/weapon-properties/ammunition",
                   "desc": [
                     "You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon).",
                     "At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon (see \"Improvised Weapons\" later in the section). A sling must be loaded to deal any damage when used in this way."
@@ -3050,7 +3050,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the proficiency to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `proficiencies`.\n",
+        "description": "The `index` of the proficiency to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `proficiencies`.\n",
         "schema": {
           "type": "string",
           "example": "medium-armor"
@@ -3244,7 +3244,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the equipment to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `equipment`.\n",
+        "description": "The `index` of the equipment to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `equipment`.\n",
         "schema": {
           "type": "string",
           "example": "club"
@@ -3254,7 +3254,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the feature to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `features`.\n",
+        "description": "The `index` of the feature to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `features`.\n",
         "schema": {
           "type": "string"
         },
@@ -3448,7 +3448,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the `Spell` to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `spells`.\n",
+        "description": "The `index` of the `Spell` to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `spells`.\n",
         "schema": {
           "type": "string",
           "example": "sacred-flame"

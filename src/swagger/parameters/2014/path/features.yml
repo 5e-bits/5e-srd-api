@@ -1,0 +1,10 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the feature to get.
+
+  Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `features`.
+schema:
+  type: string
+example: action-surge-1-use
