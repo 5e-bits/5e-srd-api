@@ -23,12 +23,22 @@ import {
   ResourceListOptionSet,
 } from './types';
 
+/**
+ * API Reference Model
+ * 
+ * @typedef {object} APIReference
+ * @property {string} index - Index of the API reference.
+ * @property {string} name - Name of the referenced entity.
+ * @property {string} url - URL of the referenced entity.
+ */
 export const APIReferenceSchema = new Schema<APIReference>({
   _id: false,
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
 });
+
+
 
 export const AreaOfEffectSchema = new Schema<AreaOfEffect>({
   _id: false,

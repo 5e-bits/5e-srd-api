@@ -32,7 +32,16 @@ import { index } from '../controllers/apiController.js';
 
 const router = express.Router();
 
+/**
+ * GET /
+ * @tags base
+ * 
+ * @summary List available API endpoints
+ * @returns {array<string>} 200 - success response
+ */
 router.get('/', index);
+
+
 router.use('/2014', V2014Handler);
 
 router.use('/ability-scores', AbilityScoresHandler);
