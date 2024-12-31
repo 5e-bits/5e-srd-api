@@ -1,0 +1,345 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "D&D 5e API",
+    "description": "REST API for the 5e SRD",
+    "contact": {
+      "name": "5eBits",
+      "url": "https://github.com/5e-bits",
+      "email": ""
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/5e-bits/5e-srd-api/blob/main/LICENSE.md"
+    },
+    "termsOfService": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://dnd5eapi.co/api/{version}",
+      "description": "Production server",
+      "variables": {
+        "version": {
+          "enum": [
+            "2014",
+            "2024"
+          ],
+          "default": "2014"
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3001/api/{version}",
+      "description": "Local server",
+      "variables": {
+        "version": {
+          "enum": [
+            "2014",
+            "2024"
+          ],
+          "default": "2014"
+        }
+      }
+    }
+  ],
+  "components": {
+    "schemas": {
+      "AbilityScore": {
+        "description": "Ability Score Model",
+        "type": "object",
+        "properties": {
+          "desc": {
+            "description": "Description of the ability score.",
+            "type": "string"
+          },
+          "full_name": {
+            "description": "Full name of the ability score.",
+            "type": "string"
+          },
+          "index": {
+            "description": "Index of the ability score.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the ability score.",
+            "type": "string"
+          },
+          "skills": {
+            "description": "Skills associated with the ability score.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/APIReference"
+            }
+          },
+          "url": {
+            "description": "URL of the ability score.",
+            "type": "string"
+          }
+        }
+      },
+      "Alignment": {
+        "description": "Alignment Model",
+        "type": "object",
+        "properties": {
+          "desc": {
+            "description": "Description of the alignment.",
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "Abbreviation of the alignment.",
+            "type": "string"
+          },
+          "index": {
+            "description": "Index of the alignment.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the alignment.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the alignment.",
+            "type": "string"
+          }
+        }
+      },
+      "APIReference": {
+        "description": "API Reference Model",
+        "type": "object",
+        "properties": {
+          "index": {
+            "description": "Index of the API reference.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the referenced entity.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the referenced entity.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "deprecated": false,
+        "summary": "List available API endpoints",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "tags": [
+          "base"
+        ]
+      }
+    },
+    "/ability-scores": {
+      "get": {
+        "deprecated": false,
+        "summary": "Get all ability scores",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/APIReference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "tags": [
+          "AbilityScore",
+          "ResourceList"
+        ]
+      }
+    },
+    "/ability-scores/{index}": {
+      "get": {
+        "deprecated": false,
+        "summary": "Get a specific ability score",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AbilityScore"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "description": "The index of the ability score",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cha",
+                "con",
+                "dex",
+                "wis",
+                "int",
+                "str"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "AbilityScore"
+        ]
+      }
+    },
+    "/alignments": {
+      "get": {
+        "deprecated": false,
+        "summary": "Get all alignments",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/APIReference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "tags": [
+          "Alignment",
+          "ResourceList"
+        ]
+      }
+    },
+    "/alignments/{index}": {
+      "get": {
+        "deprecated": false,
+        "summary": "Get an alignment by index",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alignment"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "description": "The index of the alignment",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "lawful-good",
+                "neutral-good",
+                "chaotic-good",
+                "lawful-neutral",
+                "true-neutral",
+                "chaotic-neutral",
+                "lawful-evil",
+                "neutral-evil",
+                "chaotic-evil"
+              ]
+            }
+          }
+        ],
+        "tags": [
+          "Alignment"
+        ]
+      }
+    },
+    "/rules": {
+      "get": {
+        "deprecated": false,
+        "summary": "Get all rules",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/APIReference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "tags": [
+          "Rules",
+          "ResourceList"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "AbilityScore",
+      "description": ""
+    },
+    {
+      "name": "Alignment",
+      "description": ""
+    },
+    {
+      "name": "ResourceList",
+      "description": ""
+    },
+    {
+      "name": "Rules",
+      "description": ""
+    },
+    {
+      "name": "base",
+      "description": ""
+    }
+  ]
+}
