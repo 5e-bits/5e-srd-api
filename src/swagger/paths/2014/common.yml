@@ -1,0 +1,56 @@
+api-base:
+  get:
+    summary: Get all resource URLs.
+    description: Making a request to the API's base URL returns an object containing available endpoints.
+    tags:
+      - Common
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+            example:
+              ability-scores: "/api/2014/ability-scores"
+              alignments: "/api/2014/alignments"
+              backgrounds: "/api/2014/backgrounds"
+              classes: "/api/2014/classes"
+              conditions: "/api/2014/conditions"
+              damage-types: "/api/2014/damage-types"
+              equipment-categories: "/api/2014/equipment-categories"
+              equipment: "/api/2014/equipment"
+              feats: "/api/2014/feats"
+              features: "/api/2014/features"
+              languages: "/api/2014/languages"
+              magic-items: "/api/2014/magic-items"
+              magic-schools: "/api/2014/magic-schools"
+              monsters: "/api/2014/monsters"
+              proficiencies: "/api/2014/proficiencies"
+              races: "/api/2014/races"
+              rules: "/api/2014/rules"
+              rule-sections: "/api/2014/rule-sections"
+              skills: "/api/2014/skills"
+              spells: "/api/2014/spells"
+              subclasses: "/api/2014/subclasses"
+              subraces: "/api/2014/subraces"
+              traits: "/api/2014/traits"
+              weapon-properties: "/api/2014/weapon-properties"
+resource-list:
+  get:
+    summary: "Get list of all available resources for an endpoint."
+    description: |
+      Currently only the [`/spells`](#get-/api/2014/spells) and [`/monsters`](#get-/api/2014/monsters) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](#tag--Spells) and [Monsters](#tag--Monsters) sections.
+    tags:
+      - Common
+    parameters:
+      - $ref: "../../parameters/2014/combined.yml#/base-endpoint-index"
+    responses:
+      "200":
+        description: "OK"
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"

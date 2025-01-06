@@ -1,0 +1,116 @@
+# /api/2014/races/{index}
+race-path:
+  get:
+    summary: Get a race by index.
+    description: Each race grants your character ability and skill bonuses as well as racial traits.
+    tags:
+      - Races
+    parameters:
+      - $ref: "../../parameters/2014/combined.yml#/race-index"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/2014/combined.yml#/Race"
+            example:
+              index: elf
+              name: Elf
+              url: "/api/2014/races/elf"
+              ability_bonuses:
+                - ability_score:
+                    index: dex
+                    name: DEX
+                    url: "/api/2014/ability-scores/dex"
+                  bonus: 2
+              age:
+                Although elves reach physical maturity at about the same age as humans, the elven
+                understanding of adulthood goes beyond physical growth to encompass worldly experience.
+                An elf typically claims adulthood and an adult name around the age of 100 and can
+                live to be 750 years old.
+              alignment:
+                Elves love freedom, variety, and self-expression, so they lean strongly
+                toward the gentler aspects of chaos. They value and protect others' freedom as well
+                as their own, and they are more often good than not. The drow are an exception;
+                their exile has made them vicious and dangerous. Drow are more often evil than not.
+              language_desc:
+                You can speak, read, and write Common and Elvish. Elvish is fluid,
+                with subtle intonations and intricate grammar. Elven literature is rich and varied,
+                and their songs and poems are famous among other races. Many bards learn their language
+                so they can add Elvish ballads to their repertoires.
+              languages:
+                - index: common
+                  name: Common
+                  url: "/api/2014/languages/common"
+                - index: elvish
+                  name: Elvish
+                  url: "/api/2014/languages/elvish"
+              size: Medium
+              size_description:
+                Elves range from under 5 to over 6 feet tall and have slender builds.
+                Your size is Medium.
+              speed: 30
+              starting_proficiencies:
+                - index: skill-perception
+                  name: "Skill: Perception"
+                  url: "/api/2014/proficiencies/skill-perception"
+              subraces:
+                - index: high-elf
+                  name: High Elf
+                  url: "/api/2014/subraces/high-elf"
+              traits:
+                - index: darkvision
+                  name: Darkvision
+                  url: "/api/2014/traits/darkvision"
+                - index: fey-ancestry
+                  name: Fey Ancestry
+                  url: "/api/2014/traits/fey-ancestry"
+                - index: trance
+                  name: Trance
+                  url: "/api/2014/traits/trance"
+# /api/2014/races/{index}/subraces:
+race-subraces-path:
+  get:
+    summary: "Get subraces available for a race."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../../parameters/2014/combined.yml#/race-index"
+    responses:
+      "200":
+        description: "List of subraces for the race."
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"
+# /api/2014/races/{index}/proficiencies:
+race-proficiencies-path:
+  get:
+    summary: "Get proficiencies available for a race."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../../parameters/2014/combined.yml#/race-index"
+    responses:
+      "200":
+        description: "List of proficiencies for the race."
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"
+# /api/2014/races/{index}/traits:
+race-traits-path:
+  get:
+    summary: "Get traits available for a race."
+    tags:
+      - Races
+    parameters:
+      - $ref: "../../parameters/2014/combined.yml#/race-index"
+    responses:
+      "200":
+        description: "List of traits for the race."
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"

@@ -1,9 +1,8 @@
 import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
 import depthLimit from 'graphql-depth-limit';
-import schema from '../graphql/schema.js';
 
-const createApolloMiddleware = async () => {
+const createApolloMiddleware = async (schema: any) => {
   const server = new ApolloServer({
     schema,
     plugins: [

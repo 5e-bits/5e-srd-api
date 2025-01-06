@@ -6,6 +6,7 @@ const integrationConfig: Config.InitialOptions = {
   displayName: 'Integration Tests',
   testRegex: '\\.itest\\.(js|ts)$',
   silent: true,
+  maxWorkers: '50%', // Use 50% of available CPUs
 };
 
 console.log('RUNNING INTEGRATION TESTS');

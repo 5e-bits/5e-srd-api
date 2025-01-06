@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: D&D 5e API
-  description: "# Introduction\n\nWelcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API!\nThis documentation should help you familiarize yourself with the resources\navailable and how to consume them with HTTP requests. Read through the getting\nstarted section before you dive in. Most of your problems should be solved\njust by reading through it.\n\n## Getting Started\n\nLet's make our first API request to the D&D 5th Edition API!\n\nOpen up a terminal and use [curl](http://curl.haxx.se/) or [httpie](http://httpie.org/)\nto make an API request for a resource. You can also scroll through the\ndefinitions below and send requests directly from the endpoint documentation!\n\nFor example, if you paste and run this `curl` command:\n```bash\ncurl -X GET \"https://www.dnd5eapi.co/api/ability-scores/cha\" -H \"Accept: application/json\"\n```\n\nWe should see a result containing details about the Charisma ability score:\n```bash\n{\n  \"index\": \"cha\",\n  \"name\": \"CHA\",\n  \"full_name\": \"Charisma\",\n  \"desc\": [\n    \"Charisma measures your ability to interact effectively with others. It\n      includes such factors as confidence and eloquence, and it can represent\n      a charming or commanding personality.\",\n    \"A Charisma check might arise when you try to influence or entertain\n      others, when you try to make an impression or tell a convincing lie,\n      or when you are navigating a tricky social situation. The Deception,\n      Intimidation, Performance, and Persuasion skills reflect aptitude in\n      certain kinds of Charisma checks.\"\n  ],\n  \"skills\": [\n    {\n      \"name\": \"Deception\",\n      \"index\": \"deception\",\n      \"url\": \"/api/skills/deception\"\n    },\n    {\n      \"name\": \"Intimidation\",\n      \"index\": \"intimidation\",\n      \"url\": \"/api/skills/intimidation\"\n    },\n    {\n      \"name\": \"Performance\",\n      \"index\": \"performance\",\n      \"url\": \"/api/skills/performance\"\n    },\n    {\n      \"name\": \"Persuasion\",\n      \"index\": \"persuasion\",\n      \"url\": \"/api/skills/persuasion\"\n    }\n  ],\n  \"url\": \"/api/ability-scores/cha\"\n}\n```\n\n## Authentication\n\nThe dnd5eapi is a completely open API. No authentication is required to query\nand get data. This also means that we've limited what you can do to just\n`GET`-ing the data. If you find a mistake in the data, feel free to\n[message us](https://discord.gg/TQuYTv7).\n\n## GraphQL\n\nThis API supports [GraphQL](https://graphql.org/). The GraphQL URL for this API\nis `https://www.dnd5eapi.co/graphql`. Most of your questions regarding the GraphQL schema can be answered\nby querying the endpoint with the Apollo sandbox explorer.\n\n## Schemas\n\nDefinitions of all schemas will be accessible in a future update. Two of the most common schemas are described here.\n\n### `APIReference`\nRepresents a minimal representation of a resource. The detailed representation of the referenced resource can be retrieved by making a request to the referenced `URL`.\n```\nAPIReference {\n  index     string\n  name      string\n  url       string\n}\n```\n<hr>\n\n### `DC`\nRepresents a difficulty check.\n```\nDC {\n  dc_type       APIReference\n  dc_value      number\n  success_type  \"none\" | \"half\" | \"other\"\n}\n```\n<hr>\n\n### `Damage`\nRepresents damage.\n```\nDamage {\n  damage_type     APIReference\n  damage_dice     string\n}\n```\n<hr>\n\n### `Choice`\nRepresents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states \"Skills: Choose two from\tHistory, Insight, Medicine, Persuasion, and\tReligion\" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))\n```\nChoice {\n  desc      string\n  choose    number\n  type      string\n  from      OptionSet\n}\n```\n<hr>\n\n### `OptionSet`\nThe OptionSet structure provides the options to be chosen from, or sufficient data to fetch and interpret the options. All OptionSets have an `option_set_type` attribute that indicates the structure of the object that contains the options. The possible values are `options_array`, `equipment_category`, and `reference_list`. Other attributes on the OptionSet depend on the value of this attribute.\n- `options_array`\n  - `options` (array): An array of Option objects. Each item in the array represents an option that can be chosen.\n- `equipment_category`\n  - `equipment_category` (APIReference): A reference to an EquipmentCategory. Each item in the EquipmentCategory's `equipment` array represents one option that can be chosen.\n- `resource_list`\n  - `resource_list_url` (string): A reference (by URL) to a collection in the database. The URL may include query parameters. Each item in the resulting ResourceList's `results` array represents one option that can be chosen.\n<hr>\n\n### `Option`\nWhen the options are given in an `options_array`, each item in the array inherits from the Option structure. All Options have an `option_type` attribute that indicates the structure of the option. The value of this attribute indicates how the option should be handled, and each type has different attributes. The possible values and their corresponding attributes are listed below.\n- `reference` - A terminal option. Contains a reference to a Document that can be added to the list of options chosen.\n  - `item` (APIReference): A reference to the chosen item.\n- `action` - A terminal option. Contains information describing an action, for use within Multiattack actions.\n  - `action_name` (string): The name of the action, according to its `name` attribute.\n  - `count` (number | string): The number of times this action can be repeated if this option is chosen.\n  - `type` (string = `\"melee\" | \"ranged\" | \"ability\" | \"magic\"`, optional): For attack actions that can be either melee, ranged, abilities, or magic.\n- `multiple` - When this option is chosen, all of its child options are chosen, and must be resolved the same way as a normal option.\n  - `items` (array): An array of Option objects. All of them must be taken if the option is chosen.\n- `choice` - A nested choice. If this option is chosen, the Choice structure contained within must be resolved like a normal Choice structure, and the results are the chosen options.\n  - `choice` (Choice): The Choice to resolve.\n- `string` - A terminal option. Contains a reference to a string.\n  - `string` (string): The string.\n- `ideal` - A terminal option. Contains information about an ideal.\n  - `desc` (string): A description of the ideal.\n  - `alignments` (ApiReference[]): A list of alignments of those who might follow the ideal.\n- `counted_reference` - A terminal option. Contains a reference to something else in the API along with a count.\n  - `count` (number): Count.\n  - `of` (ApiReference): Thing being referenced.\n- `score_prerequisite` - A terminal option. Contains a reference to an ability score and a minimum score.\n  - `ability_score` (ApiReference): Ability score being referenced.\n  - `minimum_score` (number): The minimum score required to satisfy the prerequisite.\n- `ability_bonus` - A terminal option. Contains a reference to an ability score and a bonus\n  - `ability_score` (ApiReference): Ability score being referenced\n  - `bonus` (number): The bonus being applied to the ability score\n- `breath` - A terminal option: Contains a reference to information about a breath attack.\n  - `name` (string): Name of the breath.\n  - `dc` (DC): Difficulty check of the breath attack.\n  - `damage` ([Damage]): Damage dealt by the breath attack, if any.\n- `damage` - A terminal option. Contains information about damage.\n  - `damage_type` (ApiReference): Reference to type of damage.\n  - `damage_dice` (string): Damage expressed in dice (e.g. \"13d6\").\n  - `notes` (string): Information regarding the damage.\n\n## FAQ\n\n### What is the SRD?\nThe SRD, or Systems Reference Document, contains guidelines for publishing content under the OGL. This allows for some of the data for D&D 5e to be open source. The API only covers data that can be found in the SRD. [Here's a link to the full text of the SRD.](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf)\n\n### What is the OGL?\nThe Open Game License (OGL) is a public copyright license by Wizards of the Coast that may be used by tabletop role-playing game developers to grant permission to modify, copy, and redistribute some of the content designed for their games, notably game mechanics. However, they must share-alike copies and derivative works. [More information about the OGL can be found here.](https://en.wikipedia.org/wiki/Open_Game_License)\n\n### A monster, spell, subclass, etc. is missing from the API / Database. Can I add it?\nPlease check if the data is within the SRD. If it is, feel free to open an issue or PR to add it yourself. Otherwise, due to legal reasons, we cannot add it.\n\n### Can this API be self hosted?\nYes it can! You can also host the data yourself if you don't want to use the API at all. You can also make changes and add extra data if you like. However, it is up to you to merge in new changes to the data and API.\n\n#### Can I publish is on <insert platform>? Is this free use?\nYes, you can. The API itself is under the [MIT license](https://opensource.org/licenses/MIT), and the underlying data accessible via the API is supported under the SRD and OGL.\n\n# Status Page\n\nThe status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/\n\n# Chat\n\nCome hang out with us [on Discord](https://discord.gg/TQuYTv7)!\n\n# Contribute\n\nThis API is built from two repositories.\n  - The repo containing the data lives here: https://github.com/bagelbits/5e-database\n  - The repo with the API implementation lives here: https://github.com/bagelbits/5e-srd-api\n\nThis is a evolving API and having fresh ideas are always welcome! You can\nopen an issue in either repo, open a PR for changes, or just discuss with\nother users in this discord.\n"
+  description: "# Introduction\n\nWelcome to the dnd5eapi, the Dungeons & Dragons 5th Edition API!\nThis documentation should help you familiarize yourself with the resources\navailable and how to consume them with HTTP requests. Read through the getting\nstarted section before you dive in. Most of your problems should be solved\njust by reading through it.\n\n## Getting Started\n\nLet's make our first API request to the D&D 5th Edition API!\n\nOpen up a terminal and use [curl](http://curl.haxx.se/) or [httpie](http://httpie.org/)\nto make an API request for a resource. You can also scroll through the\ndefinitions below and send requests directly from the endpoint documentation!\n\nFor example, if you paste and run this `curl` command:\n```bash\ncurl -X GET \"https://www.dnd5eapi.co/api/2014/ability-scores/cha\" -H \"Accept: application/json\"\n```\n\nWe should see a result containing details about the Charisma ability score:\n```bash\n{\n  \"index\": \"cha\",\n  \"name\": \"CHA\",\n  \"full_name\": \"Charisma\",\n  \"desc\": [\n    \"Charisma measures your ability to interact effectively with others. It\n      includes such factors as confidence and eloquence, and it can represent\n      a charming or commanding personality.\",\n    \"A Charisma check might arise when you try to influence or entertain\n      others, when you try to make an impression or tell a convincing lie,\n      or when you are navigating a tricky social situation. The Deception,\n      Intimidation, Performance, and Persuasion skills reflect aptitude in\n      certain kinds of Charisma checks.\"\n  ],\n  \"skills\": [\n    {\n      \"name\": \"Deception\",\n      \"index\": \"deception\",\n      \"url\": \"/api/2014/skills/deception\"\n    },\n    {\n      \"name\": \"Intimidation\",\n      \"index\": \"intimidation\",\n      \"url\": \"/api/2014/skills/intimidation\"\n    },\n    {\n      \"name\": \"Performance\",\n      \"index\": \"performance\",\n      \"url\": \"/api/2014/skills/performance\"\n    },\n    {\n      \"name\": \"Persuasion\",\n      \"index\": \"persuasion\",\n      \"url\": \"/api/2014/skills/persuasion\"\n    }\n  ],\n  \"url\": \"/api/2014/ability-scores/cha\"\n}\n```\n\n## Authentication\n\nThe dnd5eapi is a completely open API. No authentication is required to query\nand get data. This also means that we've limited what you can do to just\n`GET`-ing the data. If you find a mistake in the data, feel free to\n[message us](https://discord.gg/TQuYTv7).\n\n## GraphQL\n\nThis API supports [GraphQL](https://graphql.org/). The GraphQL URL for this API\nis `https://www.dnd5eapi.co/graphql`. Most of your questions regarding the GraphQL schema can be answered\nby querying the endpoint with the Apollo sandbox explorer.\n\n## Schemas\n\nDefinitions of all schemas will be accessible in a future update. Two of the most common schemas are described here.\n\n### `APIReference`\nRepresents a minimal representation of a resource. The detailed representation of the referenced resource can be retrieved by making a request to the referenced `URL`.\n```\nAPIReference {\n  index     string\n  name      string\n  url       string\n}\n```\n<hr>\n\n### `DC`\nRepresents a difficulty check.\n```\nDC {\n  dc_type       APIReference\n  dc_value      number\n  success_type  \"none\" | \"half\" | \"other\"\n}\n```\n<hr>\n\n### `Damage`\nRepresents damage.\n```\nDamage {\n  damage_type     APIReference\n  damage_dice     string\n}\n```\n<hr>\n\n### `Choice`\nRepresents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states \"Skills: Choose two from\tHistory, Insight, Medicine, Persuasion, and\tReligion\" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))\n```\nChoice {\n  desc      string\n  choose    number\n  type      string\n  from      OptionSet\n}\n```\n<hr>\n\n### `OptionSet`\nThe OptionSet structure provides the options to be chosen from, or sufficient data to fetch and interpret the options. All OptionSets have an `option_set_type` attribute that indicates the structure of the object that contains the options. The possible values are `options_array`, `equipment_category`, and `reference_list`. Other attributes on the OptionSet depend on the value of this attribute.\n- `options_array`\n  - `options` (array): An array of Option objects. Each item in the array represents an option that can be chosen.\n- `equipment_category`\n  - `equipment_category` (APIReference): A reference to an EquipmentCategory. Each item in the EquipmentCategory's `equipment` array represents one option that can be chosen.\n- `resource_list`\n  - `resource_list_url` (string): A reference (by URL) to a collection in the database. The URL may include query parameters. Each item in the resulting ResourceList's `results` array represents one option that can be chosen.\n<hr>\n\n### `Option`\nWhen the options are given in an `options_array`, each item in the array inherits from the Option structure. All Options have an `option_type` attribute that indicates the structure of the option. The value of this attribute indicates how the option should be handled, and each type has different attributes. The possible values and their corresponding attributes are listed below.\n- `reference` - A terminal option. Contains a reference to a Document that can be added to the list of options chosen.\n  - `item` (APIReference): A reference to the chosen item.\n- `action` - A terminal option. Contains information describing an action, for use within Multiattack actions.\n  - `action_name` (string): The name of the action, according to its `name` attribute.\n  - `count` (number | string): The number of times this action can be repeated if this option is chosen.\n  - `type` (string = `\"melee\" | \"ranged\" | \"ability\" | \"magic\"`, optional): For attack actions that can be either melee, ranged, abilities, or magic.\n- `multiple` - When this option is chosen, all of its child options are chosen, and must be resolved the same way as a normal option.\n  - `items` (array): An array of Option objects. All of them must be taken if the option is chosen.\n- `choice` - A nested choice. If this option is chosen, the Choice structure contained within must be resolved like a normal Choice structure, and the results are the chosen options.\n  - `choice` (Choice): The Choice to resolve.\n- `string` - A terminal option. Contains a reference to a string.\n  - `string` (string): The string.\n- `ideal` - A terminal option. Contains information about an ideal.\n  - `desc` (string): A description of the ideal.\n  - `alignments` (ApiReference[]): A list of alignments of those who might follow the ideal.\n- `counted_reference` - A terminal option. Contains a reference to something else in the API along with a count.\n  - `count` (number): Count.\n  - `of` (ApiReference): Thing being referenced.\n- `score_prerequisite` - A terminal option. Contains a reference to an ability score and a minimum score.\n  - `ability_score` (ApiReference): Ability score being referenced.\n  - `minimum_score` (number): The minimum score required to satisfy the prerequisite.\n- `ability_bonus` - A terminal option. Contains a reference to an ability score and a bonus\n  - `ability_score` (ApiReference): Ability score being referenced\n  - `bonus` (number): The bonus being applied to the ability score\n- `breath` - A terminal option: Contains a reference to information about a breath attack.\n  - `name` (string): Name of the breath.\n  - `dc` (DC): Difficulty check of the breath attack.\n  - `damage` ([Damage]): Damage dealt by the breath attack, if any.\n- `damage` - A terminal option. Contains information about damage.\n  - `damage_type` (ApiReference): Reference to type of damage.\n  - `damage_dice` (string): Damage expressed in dice (e.g. \"13d6\").\n  - `notes` (string): Information regarding the damage.\n\n## FAQ\n\n### What is the SRD?\nThe SRD, or Systems Reference Document, contains guidelines for publishing content under the OGL. This allows for some of the data for D&D 5e to be open source. The API only covers data that can be found in the SRD. [Here's a link to the full text of the SRD.](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf)\n\n### What is the OGL?\nThe Open Game License (OGL) is a public copyright license by Wizards of the Coast that may be used by tabletop role-playing game developers to grant permission to modify, copy, and redistribute some of the content designed for their games, notably game mechanics. However, they must share-alike copies and derivative works. [More information about the OGL can be found here.](https://en.wikipedia.org/wiki/Open_Game_License)\n\n### A monster, spell, subclass, etc. is missing from the API / Database. Can I add it?\nPlease check if the data is within the SRD. If it is, feel free to open an issue or PR to add it yourself. Otherwise, due to legal reasons, we cannot add it.\n\n### Can this API be self hosted?\nYes it can! You can also host the data yourself if you don't want to use the API at all. You can also make changes and add extra data if you like. However, it is up to you to merge in new changes to the data and API.\n\n#### Can I publish is on <insert platform>? Is this free use?\nYes, you can. The API itself is under the [MIT license](https://opensource.org/licenses/MIT), and the underlying data accessible via the API is supported under the SRD and OGL.\n\n# Status Page\n\nThe status page for the API can be found here: https://5e-bits.github.io/dnd-uptime/\n\n# Chat\n\nCome hang out with us [on Discord](https://discord.gg/TQuYTv7)!\n\n# Contribute\n\nThis API is built from two repositories.\n  - The repo containing the data lives here: https://github.com/bagelbits/5e-database\n  - The repo with the API implementation lives here: https://github.com/bagelbits/5e-srd-api\n\nThis is a evolving API and having fresh ideas are always welcome! You can\nopen an issue in either repo, open a PR for changes, or just discuss with\nother users in this discord.\n"
   version: '0.1'
   license:
     name: MIT License
@@ -34,35 +34,35 @@ paths:
                 additionalProperties:
                   type: string
               example:
-                ability-scores: /api/ability-scores
-                alignments: /api/alignments
-                backgrounds: /api/backgrounds
-                classes: /api/classes
-                conditions: /api/conditions
-                damage-types: /api/damage-types
-                equipment-categories: /api/equipment-categories
-                equipment: /api/equipment
-                feats: /api/feats
-                features: /api/features
-                languages: /api/languages
-                magic-items: /api/magic-items
-                magic-schools: /api/magic-schools
-                monsters: /api/monsters
-                proficiencies: /api/proficiencies
-                races: /api/races
-                rules: /api/rules
-                rule-sections: /api/rule-sections
-                skills: /api/skills
-                spells: /api/spells
-                subclasses: /api/subclasses
-                subraces: /api/subraces
-                traits: /api/traits
-                weapon-properties: /api/weapon-properties
-  '/api/{endpoint}':
+                ability-scores: /api/2014/ability-scores
+                alignments: /api/2014/alignments
+                backgrounds: /api/2014/backgrounds
+                classes: /api/2014/classes
+                conditions: /api/2014/conditions
+                damage-types: /api/2014/damage-types
+                equipment-categories: /api/2014/equipment-categories
+                equipment: /api/2014/equipment
+                feats: /api/2014/feats
+                features: /api/2014/features
+                languages: /api/2014/languages
+                magic-items: /api/2014/magic-items
+                magic-schools: /api/2014/magic-schools
+                monsters: /api/2014/monsters
+                proficiencies: /api/2014/proficiencies
+                races: /api/2014/races
+                rules: /api/2014/rules
+                rule-sections: /api/2014/rule-sections
+                skills: /api/2014/skills
+                spells: /api/2014/spells
+                subclasses: /api/2014/subclasses
+                subraces: /api/2014/subraces
+                traits: /api/2014/traits
+                weapon-properties: /api/2014/weapon-properties
+  '/api/2014/{endpoint}':
     get:
       summary: Get list of all available resources for an endpoint.
       description: |
-        Currently only the [`/spells`](#get-/api/spells) and [`/monsters`](#get-/api/monsters) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](#tag--Spells) and [Monsters](#tag--Monsters) sections.
+        Currently only the [`/spells`](#get-/api/2014/spells) and [`/monsters`](#get-/api/2014/monsters) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](#tag--Spells) and [Monsters](#tag--Monsters) sections.
       tags:
         - Common
       parameters:
@@ -74,7 +74,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/ability-scores/{index}':
+  '/api/2014/ability-scores/{index}':
     get:
       summary: Get an ability score by index.
       description: |
@@ -95,7 +95,7 @@ paths:
               example:
                 index: cha
                 name: CHA
-                url: /api/ability-scores/cha
+                url: /api/2014/ability-scores/cha
                 desc:
                   - 'Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.'
                   - 'A Charisma check might arise when you try to influence or entertain others, when you try to make an impression or tell a convincing lie, or when you are navigating a tricky social situation. The Deception, Intimidation, Performance, and Persuasion skills reflect aptitude in certain kinds of Charisma checks.'
@@ -103,17 +103,17 @@ paths:
                 skills:
                   - index: deception
                     name: Deception
-                    url: /api/skills/deception
+                    url: /api/2014/skills/deception
                   - index: intimidation
                     name: Intimidation
-                    url: /api/skills/intimidation
+                    url: /api/2014/skills/intimidation
                   - index: performance
                     name: Performance
-                    url: /api/skills/performance
+                    url: /api/2014/skills/performance
                   - index: persuasion
                     name: Persuasion
-                    url: /api/skills/persuasion
-  '/api/alignments/{index}':
+                    url: /api/2014/skills/persuasion
+  '/api/2014/alignments/{index}':
     get:
       summary: Get an alignment by index.
       description: |
@@ -134,10 +134,10 @@ paths:
               example:
                 index: chaotic-neutral
                 name: Chaotic Neutral
-                url: /api/alignments/chaotic-neutral
+                url: /api/2014/alignments/chaotic-neutral
                 desc: 'Chaotic neutral (CN) creatures follow their whims, holding their personal freedom above all else. Many barbarians and rogues, and some bards, are chaotic neutral.'
                 abbreviation: CN
-  '/api/backgrounds/{index}':
+  '/api/2014/backgrounds/{index}':
     get:
       summary: Get a background by index.
       description: |
@@ -163,26 +163,26 @@ paths:
                 starting_proficiencies:
                   - index: skill-insight
                     name: 'Skill: Insight'
-                    url: /api/proficiencies/skill-insight
+                    url: /api/2014/proficiencies/skill-insight
                   - index: skill-religion
                     name: 'Skill: Religion'
-                    url: /api/proficiencies/skill-religion
+                    url: /api/2014/proficiencies/skill-religion
                 language_options:
                   choose: 2
                   type: languages
                   from:
                     option_set_type: resource_list
-                    resource_list_url: /api/languages
+                    resource_list_url: /api/2014/languages
                 starting_equipment:
                   - equipment:
                       index: clothes-common
                       name: 'Clothes, common'
-                      url: /api/equipment/clothes-common
+                      url: /api/2014/equipment/clothes-common
                     quantity: 1
                   - equipment:
                       index: pouch
                       name: Pouch
-                      url: /api/equipment/pouch
+                      url: /api/2014/equipment/pouch
                     quantity: 1
                 starting_equipment_options:
                   - choose: 1
@@ -192,7 +192,7 @@ paths:
                       equipment_category:
                         index: holy-symbols
                         name: Holy Symbols
-                        url: /api/equipment-categories/holy-symbols
+                        url: /api/2014/equipment-categories/holy-symbols
                 feature:
                   name: Shelter of the Faithful
                   desc:
@@ -231,91 +231,91 @@ paths:
                         alignments:
                           - index: lawful-good
                             name: Lawful Good
-                            url: /api/alignments/lawful-good
+                            url: /api/2014/alignments/lawful-good
                           - index: lawful-neutral
                             name: Lawful Neutral
-                            url: /api/alignments/lawful-neutral
+                            url: /api/2014/alignments/lawful-neutral
                           - index: lawful-evil
                             name: Lawful Evil
-                            url: /api/alignments/lawful-evil
+                            url: /api/2014/alignments/lawful-evil
                       - option_type: ideal
                         desc: 'Charity. I always try to help those in need, no matter what the personal cost.'
                         alignments:
                           - index: lawful-good
                             name: Lawful Good
-                            url: /api/alignments/lawful-good
+                            url: /api/2014/alignments/lawful-good
                           - index: neutral-good
                             name: Neutral Good
-                            url: /api/alignments/neutral-good
+                            url: /api/2014/alignments/neutral-good
                           - index: chaotic-good
                             name: Chaotic Good
-                            url: /api/alignments/chaotic-good
+                            url: /api/2014/alignments/chaotic-good
                       - option_type: ideal
                         desc: Change. We must help bring about the changes the gods are constantly working in the world.
                         alignments:
                           - index: chaotic-good
                             name: Chaotic Good
-                            url: /api/alignments/chaotic-good
+                            url: /api/2014/alignments/chaotic-good
                           - index: chaotic-neutral
                             name: Chaotic Neutral
-                            url: /api/alignments/chaotic-neutral
+                            url: /api/2014/alignments/chaotic-neutral
                           - index: chaotic-evil
                             name: Chaotic Evil
-                            url: /api/alignments/chaotic-evil
+                            url: /api/2014/alignments/chaotic-evil
                       - option_type: ideal
                         desc: Power. I hope to one day rise to the top of my faith's religious hierarchy.
                         alignments:
                           - index: lawful-good
                             name: Lawful Good
-                            url: /api/alignments/lawful-good
+                            url: /api/2014/alignments/lawful-good
                           - index: lawful-neutral
                             name: Lawful Neutral
-                            url: /api/alignments/lawful-neutral
+                            url: /api/2014/alignments/lawful-neutral
                           - index: lawful-evil
                             name: Lawful Evil
-                            url: /api/alignments/lawful-evil
+                            url: /api/2014/alignments/lawful-evil
                       - option_type: ideal
                         desc: 'Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well.'
                         alignments:
                           - index: lawful-good
                             name: Lawful Good
-                            url: /api/alignments/lawful-good
+                            url: /api/2014/alignments/lawful-good
                           - index: lawful-neutral
                             name: Lawful Neutral
-                            url: /api/alignments/lawful-neutral
+                            url: /api/2014/alignments/lawful-neutral
                           - index: lawful-evil
                             name: Lawful Evil
-                            url: /api/alignments/lawful-evil
+                            url: /api/2014/alignments/lawful-evil
                       - option_type: ideal
                         desc: Aspiration. I seek to prove myself worthy of my god's favor by matching my actions against his or her teachings.
                         alignments:
                           - index: lawful-good
                             name: Lawful Good
-                            url: /api/alignments/lawful-good
+                            url: /api/2014/alignments/lawful-good
                           - index: neutral-good
                             name: Neutral Good
-                            url: /api/alignments/neutral-good
+                            url: /api/2014/alignments/neutral-good
                           - index: chaotic-good
                             name: Chaotic Good
-                            url: /api/alignments/chaotic-good
+                            url: /api/2014/alignments/chaotic-good
                           - index: lawful-neutral
                             name: Lawful Neutral
-                            url: /api/alignments/lawful-neutral
+                            url: /api/2014/alignments/lawful-neutral
                           - index: neutral
                             name: Neutral
-                            url: /api/alignments/neutral
+                            url: /api/2014/alignments/neutral
                           - index: chaotic-neutral
                             name: Chaotic Neutral
-                            url: /api/alignments/chaotic-neutral
+                            url: /api/2014/alignments/chaotic-neutral
                           - index: lawful-evil
                             name: Lawful Evil
-                            url: /api/alignments/lawful-evil
+                            url: /api/2014/alignments/lawful-evil
                           - index: neutral-evil
                             name: Neutral Evil
-                            url: /api/alignments/neutral-evil
+                            url: /api/2014/alignments/neutral-evil
                           - index: chaotic-evil
                             name: Chaotic Evil
-                            url: /api/alignments/chaotic-evil
+                            url: /api/2014/alignments/chaotic-evil
                 bonds:
                   choose: 1
                   type: bonds
@@ -352,8 +352,8 @@ paths:
                         string: I am suspicious of strangers and expect the worst of them.
                       - option_type: string
                         string: 'Once I pick a goal, I become obsessed with it to the detriment of everything else in my life.'
-                url: /api/backgrounds/acolyte
-  '/api/classes/{index}':
+                url: /api/2014/backgrounds/acolyte
+  '/api/2014/classes/{index}':
     get:
       summary: Get a class by index.
       description: |
@@ -375,7 +375,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Class'
               example:
-                class_levels: /api/classes/barbarian/levels
+                class_levels: /api/2014/classes/barbarian/levels
                 hit_die: 12
                 index: barbarian
                 multi_classing:
@@ -383,36 +383,36 @@ paths:
                     - ability_score:
                         index: str
                         name: STR
-                        url: /api/ability-scores/str
+                        url: /api/2014/ability-scores/str
                       minimum_score: 13
                   proficiencies:
                     - index: shields
                       name: Shields
-                      url: /api/proficiencies/shields
+                      url: /api/2014/proficiencies/shields
                     - index: simple-weapons
                       name: Simple Weapons
-                      url: /api/proficiencies/simple-weapons
+                      url: /api/2014/proficiencies/simple-weapons
                     - index: martial-weapons
                       name: Martial Weapons
-                      url: /api/proficiencies/martial-weapons
+                      url: /api/2014/proficiencies/martial-weapons
                   proficiency_choices: []
                 name: Barbarian
                 proficiencies:
                   - index: light-armor
                     name: Light Armor
-                    url: /api/proficiencies/light-armor
+                    url: /api/2014/proficiencies/light-armor
                   - index: medium-armor
                     name: Medium Armor
-                    url: /api/proficiencies/medium-armor
+                    url: /api/2014/proficiencies/medium-armor
                   - index: shields
                     name: Shields
-                    url: /api/proficiencies/shields
+                    url: /api/2014/proficiencies/shields
                   - index: simple-weapons
                     name: Simple Weapons
-                    url: /api/proficiencies/simple-weapons
+                    url: /api/2014/proficiencies/simple-weapons
                   - index: martial-weapons
                     name: Martial Weapons
-                    url: /api/proficiencies/martial-weapons
+                    url: /api/2014/proficiencies/martial-weapons
                 proficiency_choices:
                   - desc: 'Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival'
                     choose: 2
@@ -424,49 +424,49 @@ paths:
                           item:
                             index: skill-animal-handling
                             name: 'Skill: Animal Handling'
-                            url: /api/proficiencies/skill-animal-handling
+                            url: /api/2014/proficiencies/skill-animal-handling
                         - option_type: reference
                           item:
                             index: skill-athletics
                             name: 'Skill: Athletics'
-                            url: /api/proficiencies/skill-athletics
+                            url: /api/2014/proficiencies/skill-athletics
                         - option_type: reference
                           item:
                             index: skill-intimidation
                             name: 'Skill: Intimidation'
-                            url: /api/proficiencies/skill-intimidation
+                            url: /api/2014/proficiencies/skill-intimidation
                         - option_type: reference
                           item:
                             index: skill-nature
                             name: 'Skill: Nature'
-                            url: /api/proficiencies/skill-nature
+                            url: /api/2014/proficiencies/skill-nature
                         - option_type: reference
                           item:
                             index: skill-perception
                             name: 'Skill: Perception'
-                            url: /api/proficiencies/skill-perception
+                            url: /api/2014/proficiencies/skill-perception
                         - option_type: reference
                           item:
                             index: skill-survival
                             name: 'Skill: Survival'
-                            url: /api/proficiencies/skill-survival
+                            url: /api/2014/proficiencies/skill-survival
                 saving_throws:
                   - index: str
                     name: STR
-                    url: /api/ability-scores/str
+                    url: /api/2014/ability-scores/str
                   - index: con
                     name: CON
-                    url: /api/ability-scores/con
+                    url: /api/2014/ability-scores/con
                 starting_equipment:
                   - equipment:
                       index: explorers-pack
                       name: Explorer's Pack
-                      url: /api/equipment/explorers-pack
+                      url: /api/2014/equipment/explorers-pack
                     quantity: 1
                   - equipment:
                       index: javelin
                       name: Javelin
-                      url: /api/equipment/javelin
+                      url: /api/2014/equipment/javelin
                     quantity: 4
                 starting_equipment_options:
                   - desc: (a) a greataxe or (b) any martial melee weapon
@@ -480,7 +480,7 @@ paths:
                           of:
                             index: greataxe
                             name: Greataxe
-                            url: /api/equipment/greataxe
+                            url: /api/2014/equipment/greataxe
                         - option_type: choice
                           choice:
                             desc: any martial melee weapon
@@ -491,7 +491,7 @@ paths:
                               equipment_category:
                                 index: martial-melee-weapons
                                 name: Martial Melee Weapons
-                                url: /api/equipment-categories/martial-melee-weapons
+                                url: /api/2014/equipment-categories/martial-melee-weapons
                   - desc: (a) two handaxes or (b) any simple weapon
                     choose: 1
                     type: equipment
@@ -503,7 +503,7 @@ paths:
                           of:
                             index: handaxe
                             name: Handaxe
-                            url: /api/equipment/handaxe
+                            url: /api/2014/equipment/handaxe
                         - option_type: choice
                           choice:
                             desc: any simple weapon
@@ -514,13 +514,13 @@ paths:
                               equipment_category:
                                 index: simple-weapons
                                 name: Simple Weapons
-                                url: /api/equipment-categories/simple-weapons
+                                url: /api/2014/equipment-categories/simple-weapons
                 subclasses:
                   - index: berserker
                     name: Berserker
-                    url: /api/subclasses/berserker
-                url: /api/classes/barbarian
-  '/api/classes/{index}/subclasses':
+                    url: /api/2014/subclasses/berserker
+                url: /api/2014/classes/barbarian
+  '/api/2014/classes/{index}/subclasses':
     get:
       summary: Get subclasses available for a class.
       tags:
@@ -539,8 +539,8 @@ paths:
                 results:
                   - index: berserker
                     name: Berserker
-                    url: /api/subclasses/berserker
-  '/api/classes/{index}/spells':
+                    url: /api/2014/subclasses/berserker
+  '/api/2014/classes/{index}/spells':
     get:
       summary: Get spells available for a class.
       tags:
@@ -559,13 +559,13 @@ paths:
                 results:
                   - index: power-word-kill
                     name: Power Word Kill
-                    url: /api/spells/power-word-kill
+                    url: /api/2014/spells/power-word-kill
                     level: 9
                   - index: true-polymorph
                     name: True Polymorph
-                    url: /api/spells/true-polymorph
+                    url: /api/2014/spells/true-polymorph
                     level: 9
-  '/api/classes/{index}/spellcasting':
+  '/api/2014/classes/{index}/spellcasting':
     get:
       summary: Get spellcasting info for a class.
       tags:
@@ -584,7 +584,7 @@ paths:
                 spellcasting_ability:
                   index: cha
                   name: CHA
-                  url: /api/ability-scores/cha
+                  url: /api/2014/ability-scores/cha
                 info:
                   - name: Cantrips
                     desc:
@@ -618,7 +618,7 @@ paths:
                 $ref: '#/components/schemas/error-response'
               example:
                 error: Not found
-  '/api/classes/{index}/features':
+  '/api/2014/classes/{index}/features':
     get:
       summary: Get features available for a class.
       tags:
@@ -632,7 +632,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/classes/{index}/proficiencies':
+  '/api/2014/classes/{index}/proficiencies':
     get:
       summary: Get proficiencies available for a class.
       tags:
@@ -646,7 +646,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/classes/{index}/multi-classing':
+  '/api/2014/classes/{index}/multi-classing':
     get:
       summary: Get multiclassing resource for a class.
       tags:
@@ -665,20 +665,20 @@ paths:
                   - ability_score:
                       index: str
                       name: STR
-                      url: /api/ability-scores/str
+                      url: /api/2014/ability-scores/str
                     minimum_score: 13
                 proficiencies:
                   - index: shields
                     name: Shields
-                    url: /api/proficiencies/shields
+                    url: /api/2014/proficiencies/shields
                   - index: simple-weapons
                     name: Simple Weapons
-                    url: /api/proficiencies/simple-weapons
+                    url: /api/2014/proficiencies/simple-weapons
                   - index: martial-weapons
                     name: Martial Weapons
-                    url: /api/proficiencies/martial-weapons
+                    url: /api/2014/proficiencies/martial-weapons
                 proficiency_choices: []
-  '/api/classes/{index}/levels':
+  '/api/2014/classes/{index}/levels':
     get:
       summary: Get all level resources for a class.
       tags:
@@ -695,7 +695,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ClassLevel'
-  '/api/classes/{index}/levels/{class_level}':
+  '/api/2014/classes/{index}/levels/{class_level}':
     get:
       summary: Get level resource for a class and level.
       tags:
@@ -717,10 +717,10 @@ paths:
                 features:
                   - index: rage
                     name: Rage
-                    url: /api/features/rage
+                    url: /api/2014/features/rage
                   - index: barbarian-unarmored-defense
                     name: Unarmored Defense
-                    url: /api/features/barbarian-unarmored-defense
+                    url: /api/2014/features/barbarian-unarmored-defense
                 class_specific:
                   rage_count: 2
                   rage_damage_bonus: 2
@@ -729,9 +729,9 @@ paths:
                 class:
                   index: barbarian
                   name: Barbarian
-                  url: /api/classes/barbarian
-                url: /api/classes/barbarian/levels/1
-  '/api/classes/{index}/levels/{class_level}/features':
+                  url: /api/2014/classes/barbarian
+                url: /api/2014/classes/barbarian/levels/1
+  '/api/2014/classes/{index}/levels/{class_level}/features':
     get:
       summary: Get features available to a class at the requested level.
       tags:
@@ -751,11 +751,11 @@ paths:
                 results:
                   - index: barbarian-unarmored-defense
                     name: Unarmored Defense
-                    url: /api/features/barbarian-unarmored-defense
+                    url: /api/2014/features/barbarian-unarmored-defense
                   - index: rage
                     name: Rage
-                    url: /api/features/rage
-  '/api/classes/{index}/levels/{spell_level}/spells':
+                    url: /api/2014/features/rage
+  '/api/2014/classes/{index}/levels/{spell_level}/spells':
     get:
       summary: Get spells of the requested level available to the class.
       tags:
@@ -775,28 +775,28 @@ paths:
                 results:
                   - index: dominate-monster
                     name: Dominate Monster
-                    url: /api/spells/dominate-monster
+                    url: /api/2014/spells/dominate-monster
                   - index: earthquake
                     name: Earthquake
-                    url: /api/spells/earthquake
+                    url: /api/2014/spells/earthquake
                   - index: incendiary-cloud
                     name: Incendiary Cloud
-                    url: /api/spells/incendiary-cloud
+                    url: /api/2014/spells/incendiary-cloud
                   - index: power-word-stun
                     name: Power Word Stun
-                    url: /api/spells/power-word-stun
+                    url: /api/2014/spells/power-word-stun
                   - index: sunburst
                     name: Sunburst
-                    url: /api/spells/sunburst
-  '/api/conditions/{index}':
+                    url: /api/2014/spells/sunburst
+  '/api/2014/conditions/{index}':
     get:
       summary: Get a condition by index.
       description: |
         # Condition
 
-        A condition alters a creature’s capabilities in a variety of ways and can 
-        arise as a result of a spell, a class feature, a monster’s attack, or other 
-        effect. Most conditions, such as blinded, are impairments, but a few, such 
+        A condition alters a creature’s capabilities in a variety of ways and can
+        arise as a result of a spell, a class feature, a monster’s attack, or other
+        effect. Most conditions, such as blinded, are impairments, but a few, such
         as invisible, can be advantageous.
       tags:
         - Game Mechanics
@@ -812,18 +812,18 @@ paths:
               example:
                 index: blinded
                 name: Blinded
-                url: /api/conditions/blinded
+                url: /api/2014/conditions/blinded
                 desc:
                   - '- A blinded creature can''t see and automatically fails any ability check that requires sight.'
                   - '- Attack rolls against the creature have advantage, and the creature''s attack rolls have disadvantage.'
-  '/api/damage-types/{index}':
+  '/api/2014/damage-types/{index}':
     get:
       summary: Get a damage type by index.
       description: |
         # Damage type
 
-        Different attacks, damaging spells, and other harmful effects deal different 
-        types of damage. Damage types have no rules of their own, but other rules, 
+        Different attacks, damaging spells, and other harmful effects deal different
+        types of damage. Damage types have no rules of their own, but other rules,
         such as damage resistance, rely on the types.
       tags:
         - Game Mechanics
@@ -839,18 +839,18 @@ paths:
               example:
                 index: acid
                 name: Acid
-                url: /api/damage-types/acid
+                url: /api/2014/damage-types/acid
                 desc:
                   - The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage.
-  '/api/equipment/{index}':
+  '/api/2014/equipment/{index}':
     get:
       summary: Get an equipment item by index.
       description: |
         # Equipment
 
-        Opportunities abound to find treasure, equipment, weapons, armor, and more 
-        in the dungeons you explore. Normally, you can sell your treasures and 
-        trinkets when you return to a town or other settlement, provided that you 
+        Opportunities abound to find treasure, equipment, weapons, armor, and more
+        in the dungeons you explore. Normally, you can sell your treasures and
+        trinkets when you return to a town or other settlement, provided that you
         can find buyers and merchants interested in your loot.
       tags:
         - Equipment
@@ -874,30 +874,30 @@ paths:
                   damage_type:
                     index: bludgeoning
                     name: Bludgeoning
-                    url: /api/damage-types/bludgeoning
+                    url: /api/2014/damage-types/bludgeoning
                 desc: []
                 equipment_category:
                   index: weapon
                   name: Weapon
-                  url: /api/equipment-categories/weapon
+                  url: /api/2014/equipment-categories/weapon
                 index: club
                 name: Club
                 properties:
                   - index: light
                     name: Light
-                    url: /api/weapon-properties/light
+                    url: /api/2014/weapon-properties/light
                   - index: monk
                     name: Monk
-                    url: /api/weapon-properties/monk
+                    url: /api/2014/weapon-properties/monk
                 range:
                   long: null
                   normal: 5
                 special: []
-                url: /api/equipment/club
+                url: /api/2014/equipment/club
                 weapon_category: Simple
                 weapon_range: Melee
                 weight: 2
-  '/api/equipment-categories/{index}':
+  '/api/2014/equipment-categories/{index}':
     get:
       summary: Get an equipment category by index.
       description: These are the categories that various equipment fall under.
@@ -924,31 +924,31 @@ paths:
               example:
                 index: waterborne-vehicles
                 name: Waterborne Vehicles
-                url: /api/equipment-categories/waterborne-vehicles
+                url: /api/2014/equipment-categories/waterborne-vehicles
                 equipment:
                   - index: galley
                     name: Galley
-                    url: /api/equipment/galley
+                    url: /api/2014/equipment/galley
                   - index: keelboat
                     name: Keelboat
-                    url: /api/equipment/keelboat
+                    url: /api/2014/equipment/keelboat
                   - index: longship
                     name: Longship
-                    url: /api/equipment/longship
+                    url: /api/2014/equipment/longship
                   - index: rowboat
                     name: Rowboat
-                    url: /api/equipment/rowboat
+                    url: /api/2014/equipment/rowboat
                   - index: sailing-ship
                     name: Sailing ship
-                    url: /api/equipment/sailing-ship
+                    url: /api/2014/equipment/sailing-ship
                   - index: warship
                     name: Warship
-                    url: /api/equipment/warship
-  '/api/feats/{index}':
+                    url: /api/2014/equipment/warship
+  '/api/2014/feats/{index}':
     get:
       summary: Get a feat by index.
       description: |
-        # Feat 
+        # Feat
 
         A feat is a boon a character can receive at level up instead of an ability score increase.
       tags:
@@ -973,7 +973,7 @@ paths:
               example:
                 index: grappler
                 name: Grappler
-                url: /api/feats/grappler
+                url: /api/2014/feats/grappler
                 desc:
                   - 'You’ve developed the Skills necessary to hold your own in close--quarters Grappling. You gain the following benefits:'
                   - '- You have advantage on Attack Rolls against a creature you are Grappling.'
@@ -982,17 +982,17 @@ paths:
                   - ability_score:
                       index: str
                       name: STR
-                      url: /api/ability-scores/str
+                      url: /api/2014/ability-scores/str
                     minimum_score: 13
-  '/api/features/{index}':
+  '/api/2014/features/{index}':
     get:
       summary: Get a feature by index.
       description: |
-        # Feature 
+        # Feature
 
-        When you gain a new level in a class, you get its features for that level. 
-        You don’t, however, receive the class’s starting Equipment, and a few 
-        features have additional rules when you’re multiclassing: Channel Divinity, 
+        When you gain a new level in a class, you get its features for that level.
+        You don’t, however, receive the class’s starting Equipment, and a few
+        features have additional rules when you’re multiclassing: Channel Divinity,
         Extra Attack, Unarmored Defense, and Spellcasting.
       tags:
         - Features
@@ -1008,17 +1008,17 @@ paths:
               example:
                 index: action-surge-1-use
                 name: Action Surge (1 use)
-                url: /api/features/action-surge-1-use
+                url: /api/2014/features/action-surge-1-use
                 class:
                   index: fighter
                   name: Fighter
-                  url: /api/classes/fighter
+                  url: /api/2014/classes/fighter
                 desc:
                   - 'Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action on top of your regular action and a possible bonus action.'
                   - 'Once you use this feature, you must finish a short or long rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn.'
                 level: 2
                 prerequisites: []
-  '/api/languages/{index}':
+  '/api/2014/languages/{index}':
     get:
       summary: Get a language by index.
       description: |
@@ -1039,13 +1039,13 @@ paths:
               example:
                 index: elvish
                 name: Elvish
-                url: /api/languages/elvish
+                url: /api/2014/languages/elvish
                 desc: 'Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.'
                 type: Standard
                 script: Elvish
                 typical_speakers:
                   - Elves
-  '/api/magic-items/{index}':
+  '/api/2014/magic-items/{index}':
     get:
       summary: Get a magic item by index.
       description: These are the various magic items you can find in the game.
@@ -1072,27 +1072,27 @@ paths:
               example:
                 index: adamantine-armor
                 name: Adamantine Armor
-                url: /api/magic-items/adamantine-armor
+                url: /api/2014/magic-items/adamantine-armor
                 desc:
                   - 'Armor (medium or heavy, but not hide), uncommon'
                   - 'This suit of armor is reinforced with adamantine, one of the hardest substances in existence. While you''re wearing it, any critical hit against you becomes a normal hit.'
                 equipment_category:
                   index: armor
                   name: Armor
-                  url: /api/equipment-categories/armor
+                  url: /api/2014/equipment-categories/armor
                 rarity:
                   name: Uncommon
                 variants: []
                 variant: false
-  '/api/magic-schools/{index}':
+  '/api/2014/magic-schools/{index}':
     get:
       summary: Get a magic school by index.
       description: |
         # Magic School
 
-        Academies of magic group spells into eight categories called schools of 
-        magic. Scholars, particularly wizards, apply these categories to all spells, 
-        believing that all magic functions in essentially the same way, whether it 
+        Academies of magic group spells into eight categories called schools of
+        magic. Scholars, particularly wizards, apply these categories to all spells,
+        believing that all magic functions in essentially the same way, whether it
         derives from rigorous study or is bestowed by a deity.
       tags:
         - Game Mechanics
@@ -1108,9 +1108,9 @@ paths:
               example:
                 index: conjuration
                 name: Conjuration
-                url: /api/magic-schools/conjuration
+                url: /api/2014/magic-schools/conjuration
                 desc: 'Conjuration spells involve the transportation of objects and creatures from one location to another. Some spells summon creatures or objects to the caster''s side, whereas others allow the caster to teleport to another location. Some conjurations create objects or effects out of nothing.'
-  /api/monsters:
+  /api/2014/monsters:
     get:
       summary: Get list of monsters with optional filtering
       tags:
@@ -1124,7 +1124,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/monsters/{index}':
+  '/api/2014/monsters/{index}':
     get:
       summary: Get monster by index.
       tags:
@@ -1141,7 +1141,7 @@ paths:
               example:
                 index: aboleth
                 name: Aboleth
-                url: /api/monsters/aboleth
+                url: /api/2014/monsters/aboleth
                 actions:
                   - attacks: []
                     damage: []
@@ -1159,17 +1159,17 @@ paths:
                         damage_type:
                           index: bludgeoning
                           name: Bludgeoning
-                          url: /api/damage-types/bludgeoning
+                          url: /api/2014/damage-types/bludgeoning
                       - damage_dice: 1d12
                         damage_type:
                           index: acid
                           name: Acid
-                          url: /api/damage-types/acid
+                          url: /api/2014/damage-types/acid
                     dc:
                       dc_type:
                         index: con
                         name: CON
-                        url: /api/ability-scores/con
+                        url: /api/2014/ability-scores/con
                       dc_value: 14
                       success_type: none
                     desc: 'Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a creature, it must succeed on a DC 14 Constitution saving throw or become diseased. The disease has no effect for 1 minute and can be removed by any magic that cures disease. After 1 minute, the diseased creature''s skin becomes translucent and slimy, the creature can''t regain hit points unless it is underwater, and the disease can be removed only by heal or another disease-curing spell of 6th level or higher. When the creature is outside a body of water, it takes 6 (1d12) acid damage every 10 minutes unless moisture is applied to the skin before 10 minutes have passed.'
@@ -1181,7 +1181,7 @@ paths:
                         damage_type:
                           index: bludgeoning
                           name: Bludgeoning
-                          url: /api/damage-types/bludgeoning
+                          url: /api/2014/damage-types/bludgeoning
                     desc: 'Melee Weapon Attack: +9 to hit, reach 10 ft. one target. Hit: 15 (3d6 + 5) bludgeoning damage.'
                     name: Tail
                   - attacks: []
@@ -1190,7 +1190,7 @@ paths:
                       dc_type:
                         index: wis
                         name: WIS
-                        url: /api/ability-scores/wis
+                        url: /api/2014/ability-scores/wis
                       dc_value: 14
                       success_type: none
                     desc: |-
@@ -1232,34 +1232,34 @@ paths:
                         damage_type:
                           index: psychic
                           name: Psychic
-                          url: /api/damage-types/psychic
+                          url: /api/2014/damage-types/psychic
                     desc: 'One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the aboleth regains hit points equal to the damage the creature takes.'
                     name: Psychic Drain (Costs 2 Actions)
                 proficiencies:
                   - proficiency:
                       index: saving-throw-con
                       name: 'Saving Throw: CON'
-                      url: /api/proficiencies/saving-throw-con
+                      url: /api/2014/proficiencies/saving-throw-con
                     value: 6
                   - proficiency:
                       index: saving-throw-int
                       name: 'Saving Throw: INT'
-                      url: /api/proficiencies/saving-throw-int
+                      url: /api/2014/proficiencies/saving-throw-int
                     value: 8
                   - proficiency:
                       index: saving-throw-wis
                       name: 'Saving Throw: WIS'
-                      url: /api/proficiencies/saving-throw-wis
+                      url: /api/2014/proficiencies/saving-throw-wis
                     value: 6
                   - proficiency:
                       index: skill-history
                       name: 'Skill: History'
-                      url: /api/proficiencies/skill-history
+                      url: /api/2014/proficiencies/skill-history
                     value: 12
                   - proficiency:
                       index: skill-perception
                       name: 'Skill: Perception'
-                      url: /api/proficiencies/skill-perception
+                      url: /api/2014/proficiencies/skill-perception
                     value: 10
                 reactions: []
                 senses:
@@ -1275,7 +1275,7 @@ paths:
                       dc_type:
                         index: con
                         name: CON
-                        url: /api/ability-scores/con
+                        url: /api/2014/ability-scores/con
                       dc_value: 14
                       success_type: none
                     desc: 'While underwater, the aboleth is surrounded by transformative mucus. A creature that touches the aboleth or that hits it with a melee attack while within 5 ft. of it must make a DC 14 Constitution saving throw. On a failure, the creature is diseased for 1d4 hours. The diseased creature can breathe only underwater.'
@@ -1291,11 +1291,11 @@ paths:
                 type: aberration
                 wisdom: 15
                 xp: 5900
-  '/api/proficiencies/{index}':
+  '/api/2014/proficiencies/{index}':
     get:
       summary: Get a proficiency by index.
       description: |
-        # Proficiency 
+        # Proficiency
 
         By virtue of race, class, and background a character is proficient at using certain skills, weapons, and equipment. Characters can also gain additional proficiencies at higher levels or by multiclassing. A characters starting proficiencies are determined during character creation.
       tags:
@@ -1312,27 +1312,27 @@ paths:
               example:
                 index: medium-armor
                 name: Medium Armor
-                url: /api/proficiencies/medium-armor
+                url: /api/2014/proficiencies/medium-armor
                 type: Armor
                 classes:
                   - index: barbarian
                     name: Barbarian
-                    url: /api/classes/barbarian
+                    url: /api/2014/classes/barbarian
                   - index: cleric
                     name: Cleric
-                    url: /api/classes/cleric
+                    url: /api/2014/classes/cleric
                   - index: druid
                     name: Druid
-                    url: /api/classes/druid
+                    url: /api/2014/classes/druid
                   - index: ranger
                     name: Ranger
-                    url: /api/classes/ranger
+                    url: /api/2014/classes/ranger
                 races: []
                 reference:
                   index: medium-armor
                   name: Medium Armor
-                  url: /api/equipment-categories/medium-armor
-  '/api/races/{index}':
+                  url: /api/2014/equipment-categories/medium-armor
+  '/api/2014/races/{index}':
     get:
       summary: Get a race by index.
       description: Each race grants your character ability and skill bonuses as well as racial traits.
@@ -1350,12 +1350,12 @@ paths:
               example:
                 index: elf
                 name: Elf
-                url: /api/races/elf
+                url: /api/2014/races/elf
                 ability_bonuses:
                   - ability_score:
                       index: dex
                       name: DEX
-                      url: /api/ability-scores/dex
+                      url: /api/2014/ability-scores/dex
                     bonus: 2
                 age: 'Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old.'
                 alignment: 'Elves love freedom, variety, and self-expression, so they lean strongly toward the gentler aspects of chaos. They value and protect others'' freedom as well as their own, and they are more often good than not. The drow are an exception; their exile has made them vicious and dangerous. Drow are more often evil than not.'
@@ -1363,32 +1363,32 @@ paths:
                 languages:
                   - index: common
                     name: Common
-                    url: /api/languages/common
+                    url: /api/2014/languages/common
                   - index: elvish
                     name: Elvish
-                    url: /api/languages/elvish
+                    url: /api/2014/languages/elvish
                 size: Medium
                 size_description: Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.
                 speed: 30
                 starting_proficiencies:
                   - index: skill-perception
                     name: 'Skill: Perception'
-                    url: /api/proficiencies/skill-perception
+                    url: /api/2014/proficiencies/skill-perception
                 subraces:
                   - index: high-elf
                     name: High Elf
-                    url: /api/subraces/high-elf
+                    url: /api/2014/subraces/high-elf
                 traits:
                   - index: darkvision
                     name: Darkvision
-                    url: /api/traits/darkvision
+                    url: /api/2014/traits/darkvision
                   - index: fey-ancestry
                     name: Fey Ancestry
-                    url: /api/traits/fey-ancestry
+                    url: /api/2014/traits/fey-ancestry
                   - index: trance
                     name: Trance
-                    url: /api/traits/trance
-  '/api/races/{index}/subraces':
+                    url: /api/2014/traits/trance
+  '/api/2014/races/{index}/subraces':
     get:
       summary: Get subraces available for a race.
       tags:
@@ -1402,7 +1402,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/races/{index}/proficiencies':
+  '/api/2014/races/{index}/proficiencies':
     get:
       summary: Get proficiencies available for a race.
       tags:
@@ -1416,7 +1416,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/races/{index}/traits':
+  '/api/2014/races/{index}/traits':
     get:
       summary: Get traits available for a race.
       tags:
@@ -1430,7 +1430,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/rule-sections/{index}':
+  '/api/2014/rule-sections/{index}':
     get:
       summary: Get a rule section by index.
       description: Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.
@@ -1448,7 +1448,7 @@ paths:
               example:
                 index: time
                 name: Time
-                url: /api/rule-sections/time
+                url: /api/2014/rule-sections/time
                 desc: |
                   ## Time
 
@@ -1461,14 +1461,14 @@ paths:
                   Following the road from Baldur's Gate to Waterdeep, the adventurers spend four uneventful days before a goblin ambush interrupts their journey.
 
                   In combat and other fast-paced situations, the game relies on **rounds**, a 6-second span of time.
-  '/api/rules/{index}':
+  '/api/2014/rules/{index}':
     get:
       summary: Get a rule by index.
       description: |
-        # Rule 
+        # Rule
 
-        Rules are pages in the SRD that document the mechanics of Dungeons and Dragons. 
-        Rules have descriptions which is the text directly underneath the rule heading 
+        Rules are pages in the SRD that document the mechanics of Dungeons and Dragons.
+        Rules have descriptions which is the text directly underneath the rule heading
         in the SRD. Rules also have subsections for each heading underneath the rule in the SRD.
       tags:
         - Rules
@@ -1484,7 +1484,7 @@ paths:
               example:
                 index: using-ability-scores
                 name: Using Ability Scores
-                url: /api/rules/using-ability-scores
+                url: /api/2014/rules/using-ability-scores
                 desc: |
                   # Using Ability Scores
 
@@ -1508,23 +1508,23 @@ paths:
                 subsections:
                   - index: ability-scores-and-modifiers
                     name: Ability Scores and Modifiers
-                    url: /api/rule-sections/ability-scores-and-modifiers
+                    url: /api/2014/rule-sections/ability-scores-and-modifiers
                   - index: advantage-and-disadvantage
                     name: Advantage and Disadvantage
-                    url: /api/rule-sections/advantage-and-disadvantage
+                    url: /api/2014/rule-sections/advantage-and-disadvantage
                   - index: proficiency-bonus
                     name: Proficiency Bonus
-                    url: /api/rule-sections/proficiency-bonus
+                    url: /api/2014/rule-sections/proficiency-bonus
                   - index: ability-checks
                     name: Ability Checks
-                    url: /api/rule-sections/ability-checks
+                    url: /api/2014/rule-sections/ability-checks
                   - index: using-each-ability
                     name: Using Each Ability
-                    url: /api/rule-sections/using-each-ability
+                    url: /api/2014/rule-sections/using-each-ability
                   - index: saving-throws
                     name: Saving Throws
-                    url: /api/rule-sections/saving-throws
-  '/api/skills/{index}':
+                    url: /api/2014/rule-sections/saving-throws
+  '/api/2014/skills/{index}':
     get:
       summary: Get a skill by index.
       description: |
@@ -1545,14 +1545,14 @@ paths:
               example:
                 index: acrobatics
                 name: Acrobatics
-                url: /api/skills/acrobatics
+                url: /api/2014/skills/acrobatics
                 ability_score:
                   index: dex
                   name: DEX
-                  url: /api/ability-scores/dex
+                  url: /api/2014/ability-scores/dex
                 desc:
                   - 'Your Dexterity (Acrobatics) check covers your attempt to stay on your feet in a tricky situation, such as when you''re trying to run across a sheet of ice, balance on a tightrope, or stay upright on a rocking ship''s deck. The GM might also call for a Dexterity (Acrobatics) check to see if you can perform acrobatic stunts, including dives, rolls, somersaults, and flips.'
-  /api/spells:
+  /api/2014/spells:
     get:
       summary: Get list of spells with optional filtering.
       tags:
@@ -1567,7 +1567,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/spells/{index}':
+  '/api/2014/spells/{index}':
     get:
       summary: Get a spell by index.
       tags:
@@ -1584,13 +1584,13 @@ paths:
               example:
                 index: sacred-flame
                 name: Sacred Flame
-                url: /api/spells/sacred-flame
+                url: /api/2014/spells/sacred-flame
                 attack_type: ranged
                 casting_time: 1 action
                 classes:
                   - index: cleric
                     name: Cleric
-                    url: /api/classes/cleric
+                    url: /api/2014/classes/cleric
                 components:
                   - V
                   - S
@@ -1604,13 +1604,13 @@ paths:
                   damage_type:
                     index: radiant
                     name: Radiant
-                    url: /api/damage-types/radiant
+                    url: /api/2014/damage-types/radiant
                 dc:
                   dc_success: none
                   dc_type:
                     index: dex
                     name: DEX
-                    url: /api/ability-scores/dex
+                    url: /api/2014/ability-scores/dex
                 desc:
                   - Flame-like radiance descends on a creature that you can see within range. The target must succeed on a dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover for this saving throw.
                   - 'The spell''s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).'
@@ -1622,12 +1622,12 @@ paths:
                 school:
                   index: evocation
                   name: Evocation
-                  url: /api/magic-schools/evocation
+                  url: /api/2014/magic-schools/evocation
                 subclasses:
                   - index: lore
                     name: Lore
-                    url: /api/subclasses/lore
-  '/api/subclasses/{index}':
+                    url: /api/2014/subclasses/lore
+  '/api/2014/subclasses/{index}':
     get:
       summary: Get a subclass by index.
       description: Subclasses reflect the different paths a class may take as levels are gained.
@@ -1645,11 +1645,11 @@ paths:
               example:
                 index: fiend
                 name: Fiend
-                url: /api/subclasses/fiend
+                url: /api/2014/subclasses/fiend
                 class:
                   index: warlock
                   name: Warlock
-                  url: /api/classes/warlock
+                  url: /api/2014/classes/warlock
                 desc:
                   - 'You have made a pact with a fiend from the lower planes of existence, a being whose aims are evil, even if you strive against those aims. Such beings desire the corruption or destruction of all things, ultimately including you. Fiends powerful enough to forge a pact include demon lords such as Demogorgon, Orcus, Fraz''Urb-luu, and Baphomet; archdevils such as Asmodeus, Dispater, Mephistopheles, and Belial; pit fiends and balors that are especially mighty; and ultroloths and other lords of the yugoloths.'
                 spells:
@@ -1657,95 +1657,95 @@ paths:
                       - index: warlock-1
                         name: Warlock 1
                         type: level
-                        url: /api/classes/warlock/levels/1
+                        url: /api/2014/classes/warlock/levels/1
                     spell:
                       index: burning-hands
                       name: Burning Hands
-                      url: /api/spells/burning-hands
+                      url: /api/2014/spells/burning-hands
                   - prerequisites:
                       - index: warlock-1
                         name: Warlock 1
                         type: level
-                        url: /api/classes/warlock/levels/1
+                        url: /api/2014/classes/warlock/levels/1
                     spell:
                       index: command
                       name: Command
-                      url: /api/spells/command
+                      url: /api/2014/spells/command
                   - prerequisites:
                       - index: warlock-3
                         name: Warlock 3
                         type: level
-                        url: /api/classes/warlock/levels/3
+                        url: /api/2014/classes/warlock/levels/3
                     spell:
                       index: blindness-deafness
                       name: Blindness/Deafness
-                      url: /api/spells/blindness-deafness
+                      url: /api/2014/spells/blindness-deafness
                   - prerequisites:
                       - index: warlock-3
                         name: Warlock 3
                         type: level
-                        url: /api/classes/warlock/levels/3
+                        url: /api/2014/classes/warlock/levels/3
                     spell:
                       index: scorching-ray
                       name: Scorching Ray
-                      url: /api/spells/scorching-ray
+                      url: /api/2014/spells/scorching-ray
                   - prerequisites:
                       - index: warlock-5
                         name: Warlock 5
                         type: level
-                        url: /api/classes/warlock/levels/5
+                        url: /api/2014/classes/warlock/levels/5
                     spell:
                       index: fireball
                       name: Fireball
-                      url: /api/spells/fireball
+                      url: /api/2014/spells/fireball
                   - prerequisites:
                       - index: warlock-5
                         name: Warlock 5
                         type: level
-                        url: /api/classes/warlock/levels/5
+                        url: /api/2014/classes/warlock/levels/5
                     spell:
                       index: stinking-cloud
                       name: Stinking Cloud
-                      url: /api/spells/stinking-cloud
+                      url: /api/2014/spells/stinking-cloud
                   - prerequisites:
                       - index: warlock-7
                         name: Warlock 7
                         type: level
-                        url: /api/classes/warlock/levels/7
+                        url: /api/2014/classes/warlock/levels/7
                     spell:
                       index: fire-shield
                       name: Fire Shield
-                      url: /api/spells/fire-shield
+                      url: /api/2014/spells/fire-shield
                   - prerequisites:
                       - index: warlock-7
                         name: Warlock 7
                         type: level
-                        url: /api/classes/warlock/levels/7
+                        url: /api/2014/classes/warlock/levels/7
                     spell:
                       index: wall-of-fire
                       name: Wall of Fire
-                      url: /api/spells/wall-of-fire
+                      url: /api/2014/spells/wall-of-fire
                   - prerequisites:
                       - index: warlock-9
                         name: Warlock 9
                         type: level
-                        url: /api/classes/warlock/levels/9
+                        url: /api/2014/classes/warlock/levels/9
                     spell:
                       index: flame-strike
                       name: Flame Strike
-                      url: /api/spells/flame-strike
+                      url: /api/2014/spells/flame-strike
                   - prerequisites:
                       - index: warlock-9
                         name: Warlock 9
                         type: level
-                        url: /api/classes/warlock/levels/9
+                        url: /api/2014/classes/warlock/levels/9
                     spell:
                       index: hallow
                       name: Hallow
-                      url: /api/spells/hallow
+                      url: /api/2014/spells/hallow
                 subclass_flavor: Otherworldly Patron
-                subclass_levels: /api/subclasses/fiend/levels
-  '/api/subclasses/{index}/features':
+                subclass_levels: /api/2014/subclasses/fiend/levels
+  '/api/2014/subclasses/{index}/features':
     get:
       summary: Get features available for a subclass.
       tags:
@@ -1759,7 +1759,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/subclasses/{index}/levels':
+  '/api/2014/subclasses/{index}/levels':
     get:
       summary: Get all level resources for a subclass.
       tags:
@@ -1775,7 +1775,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SubclassLevelResource'
-  '/api/subclasses/{index}/levels/{subclass_level}':
+  '/api/2014/subclasses/{index}/levels/{subclass_level}':
     get:
       summary: Get level resources for a subclass and level.
       tags:
@@ -1799,21 +1799,21 @@ paths:
                 $ref: '#/components/schemas/SubclassLevel'
               example:
                 index: devotion-3
-                url: /api/subclasses/devotion/levels/3
+                url: /api/2014/subclasses/devotion/levels/3
                 class:
                   index: paladin
                   name: Paladin
-                  url: /api/classes/paladin
+                  url: /api/2014/classes/paladin
                 features:
                   - index: channel-divinity
                     name: Channel Divinity
-                    url: /api/features/channel-divinity
+                    url: /api/2014/features/channel-divinity
                 level: 3
                 subclass:
                   index: devotion
                   name: Devotion
-                  url: /api/subclasses/devotion
-  '/api/subclasses/{index}/levels/{subclass_level}/features':
+                  url: /api/2014/subclasses/devotion
+  '/api/2014/subclasses/{index}/levels/{subclass_level}/features':
     get:
       summary: Get features of the requested spell level available to the class.
       tags:
@@ -1835,7 +1835,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/subraces/{index}':
+  '/api/2014/subraces/{index}':
     get:
       summary: Get a subrace by index.
       description: Subraces reflect the different varieties of a certain parent race.
@@ -1853,25 +1853,25 @@ paths:
               example:
                 index: hill-dwarf
                 name: Hill Dwarf
-                url: /api/subraces/hill-dwarf
+                url: /api/2014/subraces/hill-dwarf
                 ability_bonuses:
                   - ability_score:
                       index: wis
                       name: WIS
-                      url: /api/ability-scores/wis
+                      url: /api/2014/ability-scores/wis
                     bonus: 1
                 desc: 'As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.'
                 languages: []
                 race:
                   index: dwarf
                   name: Dwarf
-                  url: /api/races/dwarf
+                  url: /api/2014/races/dwarf
                 racial_traits:
                   - index: dwarven-toughness
                     name: Dwarven Toughness
-                    url: /api/traits/dwarven-toughness
+                    url: /api/2014/traits/dwarven-toughness
                 starting_proficiencies: []
-  '/api/subraces/{index}/proficiencies':
+  '/api/2014/subraces/{index}/proficiencies':
     get:
       summary: Get proficiences available for a subrace.
       tags:
@@ -1885,7 +1885,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/subraces/{index}/traits':
+  '/api/2014/subraces/{index}/traits':
     get:
       summary: Get traits available for a subrace.
       tags:
@@ -1899,7 +1899,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIReferenceList'
-  '/api/traits/{index}':
+  '/api/2014/traits/{index}':
     get:
       summary: Get a trait by index.
       tags:
@@ -1916,16 +1916,16 @@ paths:
               example:
                 index: trance
                 name: Trance
-                url: /api/traits/trance
+                url: /api/2014/traits/trance
                 desc:
                   - 'Elves do not need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is "trance.") While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting this way, you gain the same benefit that a human does from 8 hours of sleep.'
                 proficiencies: []
                 races:
                   - index: elf
                     name: Elf
-                    url: /api/races/elf
+                    url: /api/2014/races/elf
                 subraces: []
-  '/api/weapon-properties/{index}':
+  '/api/2014/weapon-properties/{index}':
     get:
       summary: Get a weapon property by index.
       tags:
@@ -1942,7 +1942,7 @@ paths:
               example:
                 index: ammunition
                 name: Ammunition
-                url: /api/weapon-properties/ammunition
+                url: /api/2014/weapon-properties/ammunition
                 desc:
                   - 'You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon).'
                   - 'At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon (see "Improvised Weapons" later in the section). A sling must be loaded to deal any damage when used in this way.'
@@ -2016,7 +2016,7 @@ components:
       description: |
         The `index` of the proficiency to get.
 
-        Available values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `proficiencies`.
+        Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `proficiencies`.
       schema:
         type: string
         example: medium-armor
@@ -2193,7 +2193,7 @@ components:
       description: |
         The `index` of the equipment to get.
 
-        Available values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `equipment`.
+        Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `equipment`.
       schema:
         type: string
         example: club
@@ -2204,7 +2204,7 @@ components:
       description: |
         The `index` of the feature to get.
 
-        Available values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `features`.
+        Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `features`.
       schema:
         type: string
       example: action-surge-1-use
@@ -2385,7 +2385,7 @@ components:
       description: |
         The `index` of the `Spell` to get.
 
-        Available values can be found in the [`ResourceList`](#get-/api/-endpoint-) for `spells`.
+        Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `spells`.
       schema:
         type: string
         example: sacred-flame

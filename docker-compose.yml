@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: ghcr.io/5e-bits/5e-database:latest

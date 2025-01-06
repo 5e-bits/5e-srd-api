@@ -1,0 +1,10 @@
+name: index
+in: path
+required: true
+description: |
+  The `index` of the proficiency to get.
+
+  Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `proficiencies`.
+schema:
+  type: string
+  example: medium-armor
