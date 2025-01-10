@@ -38,4 +38,5 @@ export interface Spell {
   school: APIReference;
   subclasses?: APIReference[];
   url: string;
+  updated_at: string;
 }

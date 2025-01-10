@@ -14,4 +14,5 @@ export type Feat = {
   prerequisites: Prerequisite[];
   desc: string[];
   url: string;
+  updated_at: string;
 };

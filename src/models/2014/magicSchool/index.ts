@@ -7,6 +7,7 @@ const MagicSchoolSchema = new Schema<MagicSchool>({
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('MagicSchool', MagicSchoolSchema, '2014-magic-schools');

@@ -90,6 +90,7 @@ const EquipmentSchema = new Schema<Equipment>({
   weapon_category: { type: String, index: true },
   weapon_range: { type: String, index: true },
   weight: { type: Number, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Equipment', EquipmentSchema, '2014-equipment');

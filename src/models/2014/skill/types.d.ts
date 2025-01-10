@@ -8,4 +8,5 @@ export type Skill = {
   index: string;
   name: string;
   url: string;
+  updated_at: string;
 };

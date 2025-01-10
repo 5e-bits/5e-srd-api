@@ -12,6 +12,9 @@ api-ref-model:
     url:
       description: 'URL of the referenced resource.'
       type: string
+    updated_at:
+      description: 'Date and time the resource was last updated.'
+      type: string
 api-ref-list-model:
   description: |
     `APIReferenceList`

@@ -28,6 +28,7 @@ const BackgroundSchema = new Schema<Background>({
   ideals: ChoiceSchema,
   bonds: ChoiceSchema,
   flaws: ChoiceSchema,
+  updated_at: { type: String, index: true },
 });
 
 export default model('Background', BackgroundSchema, '2014-backgrounds');

@@ -27,4 +27,5 @@ export type Background = {
   ideals: Choice;
   bonds: Choice;
   flaws: Choice;
+  updated_at: string;
 };

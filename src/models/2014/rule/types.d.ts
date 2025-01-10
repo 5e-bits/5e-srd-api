@@ -8,4 +8,5 @@ export type Rule = {
   name: string;
   subsections: APIReference[];
   url: string;
+  updated_at: string;
 };

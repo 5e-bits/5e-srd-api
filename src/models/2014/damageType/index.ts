@@ -7,6 +7,7 @@ const DamageTypeSchema = new Schema<DamageType>({
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('DamageType', DamageTypeSchema, '2014-damage-types');

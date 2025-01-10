@@ -58,6 +58,7 @@ const ClassSchema = new Schema<Class>({
   starting_equipment_options: [ChoiceSchema],
   subclasses: [APIReferenceSchema],
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Class', ClassSchema, '2014-classes');

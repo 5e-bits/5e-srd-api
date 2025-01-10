@@ -19,6 +19,7 @@ const ProficiencySchema = new Schema<Proficiency>({
   reference: ReferenceSchema,
   type: { type: String, index: true },
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Proficiency', ProficiencySchema, '2014-proficiencies');

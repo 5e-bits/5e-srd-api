@@ -89,4 +89,5 @@ export type Level = {
   subclass?: APIReference;
   subclass_specific?: SubclassSpecific;
   url: string;
+  updated_at: string;
 };

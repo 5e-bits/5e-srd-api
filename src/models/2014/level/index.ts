@@ -101,6 +101,7 @@ const LevelSchema = new Schema<Level>({
   subclass: APIReferenceSchema,
   subclass_specific: SubclassSpecificSchema,
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Level', LevelSchema, '2014-levels');

@@ -18,4 +18,5 @@ export type Subrace = {
   racial_traits: APIReference[];
   starting_proficiencies?: APIReference[];
   url: string;
+  updated_at: string;
 };

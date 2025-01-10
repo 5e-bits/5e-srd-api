@@ -26,4 +26,5 @@ export type Race = {
   subraces?: APIReference[];
   traits?: APIReference[];
   url: string;
+  updated_at: string;
 };

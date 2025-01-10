@@ -15,6 +15,7 @@ const FeatSchema = new Schema<Feat>({
   prerequisites: [PrerequisiteSchema],
   desc: { type: [String], index: true },
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Feat', FeatSchema, '2014-feats');

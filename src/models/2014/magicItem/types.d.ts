@@ -17,4 +17,5 @@ export type MagicItem = {
   url: string;
   variants: APIReference[];
   variant: boolean;
+  updated_at: string;
 };

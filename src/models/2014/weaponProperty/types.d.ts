@@ -6,4 +6,5 @@ export type WeaponProperty = {
   index: string;
   name: string;
   url: string;
+  updated_at: string;
 };

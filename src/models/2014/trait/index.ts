@@ -58,6 +58,7 @@ const TraitSchema = new Schema<Trait>({
   parent: APIReferenceSchema,
   trait_specific: TraitSpecificSchema,
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Trait', TraitSchema, '2014-traits');

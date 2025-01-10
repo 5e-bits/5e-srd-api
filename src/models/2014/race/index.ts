@@ -27,6 +27,7 @@ const RaceSchema = new Schema<Race>({
   subraces: [APIReferenceSchema],
   traits: [APIReferenceSchema],
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Race', RaceSchema, '2014-races');

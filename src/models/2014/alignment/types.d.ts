@@ -7,4 +7,5 @@ export type Alignment = {
   index: string;
   name: string;
   url: string;
+  updated_at: string;
 };

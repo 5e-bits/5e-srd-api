@@ -18,6 +18,7 @@ const MagicItemSchema = new Schema<MagicItem>({
   url: { type: String, index: true },
   variants: [APIReferenceSchema],
   variant: Boolean,
+  updated_at: { type: String, index: true },
 });
 
 export default model('MagicItem', MagicItemSchema, '2014-magic-items');

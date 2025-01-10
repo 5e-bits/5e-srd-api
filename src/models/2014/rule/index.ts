@@ -9,6 +9,7 @@ const RuleSchema = new Schema<Rule>({
   name: { type: String, index: true },
   subsections: [APIReferenceSchema],
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Rule', RuleSchema, '2014-rules');

@@ -25,4 +25,5 @@ export type Subclass = {
   subclass_flavor: string;
   subclass_levels: string;
   url: string;
+  updated_at: string;
 };

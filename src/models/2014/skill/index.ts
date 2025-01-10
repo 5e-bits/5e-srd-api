@@ -9,6 +9,7 @@ const SkillSchema = new Schema<Skill>({
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Skill', SkillSchema, '2014-skills');
