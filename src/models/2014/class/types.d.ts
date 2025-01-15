@@ -55,4 +55,5 @@ export type Class = {
   starting_equipment_options: Choice[];
   subclasses: APIReference[];
   url: string;
+  updated_at: string;
 };

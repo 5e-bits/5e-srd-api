@@ -9,4 +9,5 @@ export type AbilityScore = {
   name: string;
   skills: APIReference[] | [];
   url: string;
+  updated_at: string;
 };

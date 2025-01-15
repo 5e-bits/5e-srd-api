@@ -41,4 +41,5 @@ export type Feature = {
   subclass?: APIReference;
   feature_specific?: FeatureSpecific;
   url: string;
+  updated_at: string;
 };

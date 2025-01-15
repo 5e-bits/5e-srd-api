@@ -10,6 +10,7 @@ const AbilityScoreSchema = new Schema<AbilityScore>({
   name: { type: String, index: true },
   skills: [APIReferenceSchema],
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('AbilityScore', AbilityScoreSchema, '2014-ability-scores');

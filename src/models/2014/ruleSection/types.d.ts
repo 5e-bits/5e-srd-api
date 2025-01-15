@@ -6,4 +6,5 @@ export type RuleSection = {
   index: string;
   name: string;
   url: string;
+  updated_at: string;
 };

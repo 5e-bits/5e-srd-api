@@ -42,6 +42,7 @@ const Spell = new Schema({
   school: APIReferenceSchema,
   subclasses: [APIReferenceSchema],
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Spell', Spell, '2014-spells');

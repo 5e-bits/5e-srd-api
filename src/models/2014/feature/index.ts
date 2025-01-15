@@ -48,6 +48,7 @@ const FeatureSchema = new Schema<Feature>({
   subclass: APIReferenceSchema,
   feature_specific: FeatureSpecificSchema,
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Feature', FeatureSchema, '2014-features');

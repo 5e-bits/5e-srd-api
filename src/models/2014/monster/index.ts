@@ -197,6 +197,7 @@ const Monster = new Schema<Monster>({
   url: { type: String, index: true },
   wisdom: { type: Number, index: true },
   xp: { type: Number, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Monster', Monster, '2014-monsters');

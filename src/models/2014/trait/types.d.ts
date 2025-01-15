@@ -51,4 +51,5 @@ export type Trait = {
   parent?: APIReference;
   trait_specific?: TraitSpecific;
   url: string;
+  updated_at: string;
 };

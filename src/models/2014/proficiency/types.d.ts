@@ -18,4 +18,5 @@ export type Proficiency = {
   reference: Reference;
   type: string;
   url: string;
+  updated_at: string;
 };

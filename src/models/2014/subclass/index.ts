@@ -26,6 +26,7 @@ const SubclassSchema = new Schema<Subclass>({
   subclass_flavor: { type: String, index: true },
   subclass_levels: { type: String, index: true },
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Subclass', SubclassSchema, '2014-subclasses');

@@ -79,4 +79,5 @@ export type Equipment = {
   weapon_category?: string;
   weapon_range?: string;
   weight?: number;
+  updated_at: string;
 };

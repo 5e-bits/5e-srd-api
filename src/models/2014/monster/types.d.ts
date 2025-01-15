@@ -189,4 +189,5 @@ export type Monster = {
   url: string;
   wisdom: number;
   xp: number;
+  updated_at: string;
 };

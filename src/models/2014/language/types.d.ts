@@ -9,4 +9,5 @@ export type Language = {
   type: string;
   typical_speakers: string[];
   url: string;
+  updated_at: string;
 };

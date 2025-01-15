@@ -19,6 +19,7 @@ const Subrace = new Schema<Subrace>({
   racial_traits: [APIReferenceSchema],
   starting_proficiencies: [APIReferenceSchema],
   url: { type: String, index: true },
+  updated_at: { type: String, index: true },
 });
 
 export default model('Subrace', Subrace, '2014-subraces');
