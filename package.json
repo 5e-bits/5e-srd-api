@@ -28,7 +28,7 @@
     "@apollo/server": "^4.11.3",
     "@aws-sdk/client-s3": "^3.731.1",
     "@bugsnag/js": "^8.0.0",
-    "@bugsnag/plugin-express": "^8.1.1",
+    "@bugsnag/plugin-express": "^8.2.0",
     "@graphql-tools/schema": "^10.0.9",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.7",
