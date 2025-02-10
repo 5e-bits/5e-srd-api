@@ -39,7 +39,7 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "graphql": "^16.10.0",
-    "graphql-compose": "^9.0.11",
+    "graphql-compose": "^9.1.0",
     "graphql-compose-mongoose": "^10.0.0",
     "graphql-depth-limit": "^1.1.0",
     "mongoose": "^8.9.5",
