@@ -1,22 +1,17 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from "express";
 import Collection from '../models/2014/collection/index.js';
 
-export const index = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await Collection.find({})
-      .select({ index: 1, _id: 0 })
-      .sort({ index: 'asc' })
-      .exec();
+export default async (req: Request, res: Response) => {
+  const collections = await Collection.find({});
 
-    const apiIndex: Record<string, string> = { '2014': '/api/2014' };
-    data.forEach((item) => {
-      if (item.index === 'levels') return;
+  const colName = req.path.split("/")[1]
+  const colRequested = collections.find(col => col.index === colName)
 
-      apiIndex[item.index] = `/api/${item.index}`;
-    });
-
-    return res.status(200).json(apiIndex);
-  } catch (err) {
-    next(err);
+  if (colRequested === undefined && colName !== '') {
+    res.sendStatus(404)
+    return;
   }
+
+  const redirectUrl = "/api/2014" + req.path
+  res.redirect(301, redirectUrl)
 };
