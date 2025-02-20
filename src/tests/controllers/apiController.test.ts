@@ -45,6 +45,6 @@ describe('deprecated /api controller', () => {
     await deprecatedApiController(request, response);
 
     expect(response.statusCode).toBe(404);
-    expect(response._getData()).toBe("Not Found");
+    expect(response._getData()).toBe('Not Found');
   });
 });
