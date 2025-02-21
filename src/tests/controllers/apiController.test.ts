@@ -4,6 +4,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 
 import deprecatedApiController from '../../controllers/apiController.js';
 import Collection from '../../models/2014/collection/index.js';
+import { mockNext } from '../support/requestHelpers.js';
 
 describe('deprecated /api controller', () => {
   
@@ -21,7 +22,7 @@ describe('deprecated /api controller', () => {
     const response = createResponse();
     const redirect = jest.spyOn(response, 'redirect');
 
-    await deprecatedApiController(request, response);
+    await deprecatedApiController(request, response, mockNext);
     expect(response.statusCode).toBe(301);
     expect(redirect).toHaveBeenCalledWith(301, '/api/2014/');
     
@@ -32,7 +33,7 @@ describe('deprecated /api controller', () => {
     const response = createResponse();
     const redirect = jest.spyOn(response, 'redirect');
 
-    await deprecatedApiController(request, response);
+    await deprecatedApiController(request, response, mockNext);
 
     expect(response.statusCode).toBe(301);
     expect(redirect).toHaveBeenCalledWith(301, '/api/2014/valid-endpoint');
@@ -42,7 +43,7 @@ describe('deprecated /api controller', () => {
     const request = createRequest({ path: '/invalid-endpoint' });
     const response = createResponse();
 
-    await deprecatedApiController(request, response);
+    await deprecatedApiController(request, response, mockNext);
 
     expect(response.statusCode).toBe(404);
     expect(response._getData()).toBe('Not Found');
