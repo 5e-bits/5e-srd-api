@@ -48,7 +48,7 @@ describe('/api/2014/monsters', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/2014/monsters');
       const name = indexRes.body.results[1].name;
-      const res = await request(app).get(`/api/monsters?name=${name}`);
+      const res = await request(app).get(`/api/2014/monsters?name=${name}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -57,7 +57,7 @@ describe('/api/2014/monsters', () => {
       const indexRes = await request(app).get('/api/2014/monsters');
       const name = indexRes.body.results[1].name;
       const queryName = name.toLowerCase();
-      const res = await request(app).get(`/api/monsters?name=${queryName}`);
+      const res = await request(app).get(`/api/2014/monsters?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -67,13 +67,13 @@ describe('/api/2014/monsters', () => {
     describe('with only one provided challenge rating', () => {
       it('returns expected objects', async () => {
         const expectedCR = 0.25;
-        const res = await request(app).get(`/api/monsters?challenge_rating=${expectedCR}`);
+        const res = await request(app).get(`/api/2014/monsters?challenge_rating=${expectedCR}`);
         expect(res.statusCode).toEqual(200);
 
         const randomIndex = Math.floor(Math.random() * res.body.results.length);
         const randomResult = res.body.results[randomIndex];
 
-        const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+        const indexRes = await request(app).get(`/api/2014/monsters/${randomResult.index}`);
         expect(indexRes.statusCode).toEqual(200);
         expect(indexRes.body.challenge_rating).toEqual(expectedCR);
       });
@@ -82,27 +82,27 @@ describe('/api/2014/monsters', () => {
     describe('with many provided challenge ratings', () => {
       it('returns expected objects', async () => {
         const cr1 = 1;
-        const cr1Res = await request(app).get(`/api/monsters?challenge_rating=${cr1}`);
+        const cr1Res = await request(app).get(`/api/2014/monsters?challenge_rating=${cr1}`);
         expect(cr1Res.statusCode).toEqual(200);
 
         const cr20 = 20;
-        const cr20Res = await request(app).get(`/api/monsters?challenge_rating=${cr20}`);
+        const cr20Res = await request(app).get(`/api/2014/monsters?challenge_rating=${cr20}`);
         expect(cr20Res.statusCode).toEqual(200);
 
         const bothRes = await request(app).get(
-          `/api/monsters?challenge_rating=${cr1}&challenge_rating=${cr20}`
+          `/api/2014/monsters?challenge_rating=${cr1}&challenge_rating=${cr20}`
         );
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
-        const altBothRes = await request(app).get(`/api/monsters?challenge_rating=${cr1},${cr20}`);
+        const altBothRes = await request(app).get(`/api/2014/monsters?challenge_rating=${cr1},${cr20}`);
         expect(altBothRes.statusCode).toEqual(200);
         expect(altBothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
         const randomIndex = Math.floor(Math.random() * bothRes.body.results.length);
         const randomResult = bothRes.body.results[randomIndex];
 
-        const indexRes = await request(app).get(`/api/monsters/${randomResult.index}`);
+        const indexRes = await request(app).get(`/api/2014/monsters/${randomResult.index}`);
         expect(indexRes.statusCode).toEqual(200);
         expect(
           indexRes.body.challenge_rating == cr1 || indexRes.body.challenge_rating == cr20
@@ -115,7 +115,7 @@ describe('/api/2014/monsters', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/2014/monsters');
       const index = indexRes.body.results[0].index;
-      const showRes = await request(app).get(`/api/monsters/${index}`);
+      const showRes = await request(app).get(`/api/2014/monsters/${index}`);
       expect(showRes.statusCode).toEqual(200);
       expect(showRes.body.index).toEqual(index);
     });
@@ -123,7 +123,7 @@ describe('/api/2014/monsters', () => {
     describe('with an invalid index', () => {
       it('should return 404', async () => {
         const invalidIndex = 'invalid-index';
-        const showRes = await request(app).get(`/api/monsters/${invalidIndex}`);
+        const showRes = await request(app).get(`/api/2014/monsters/${invalidIndex}`);
         expect(showRes.statusCode).toEqual(404);
       });
     });
