@@ -48,11 +48,11 @@ describe('/bad-url', () => {
 });
 
 describe('/api', () => {
-  it('should list the endpoints', async () => {
-    const res = await request(app).get('/api');
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('ability-scores');
-    expect(res.body).not.toHaveProperty('levels');
+  it('should redirect to /api/2014', async () => {
+    await request(app)
+      .get('/api')
+      .expect(301)
+      .expect('Location', '/api/2014/');
   });
 });
 

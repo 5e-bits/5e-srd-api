@@ -27,46 +27,26 @@ afterAll(async () => {
 });
 
 describe('/api/proficiencies', () => {
-  it('should list proficiencies', async () => {
-    const res = await request(app).get('/api/proficiencies');
-    expect(res.statusCode).toEqual(200);
-    expect(res.body.results.length).not.toEqual(0);
+  it('redirects to /api/2014/proficiencies', async () => {
+    await request(app)
+      .get('/api/proficiencies')
+      .expect(301)
+      .expect('Location', '/api/2014/proficiencies');
   });
 
-  describe('with name query', () => {
-    it('returns the named object', async () => {
-      const indexRes = await request(app).get('/api/proficiencies');
-      const name = indexRes.body.results[1].name;
-      const res = await request(app).get(`/api/proficiencies?name=${name}`);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].name).toEqual(name);
-    });
-
-    it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/proficiencies');
-      const name = indexRes.body.results[1].name;
-      const queryName = name.toLowerCase();
-      const res = await request(app).get(`/api/proficiencies?name=${queryName}`);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].name).toEqual(name);
-    });
+  it('redirects preserving query parameters', async () => {
+    const name = 'Bagpipes'
+    await request(app)
+      .get(`/api/proficiencies?name=${name}`)
+      .expect(301)
+      .expect('Location', `/api/2014/proficiencies?name=${name}`);
   });
 
-  describe('/api/proficiencies/:index', () => {
-    it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/proficiencies');
-      const index = indexRes.body.results[0].index;
-      const showRes = await request(app).get(`/api/proficiencies/${index}`);
-      expect(showRes.statusCode).toEqual(200);
-      expect(showRes.body.index).toEqual(index);
-    });
-
-    describe('with an invalid index', () => {
-      it('should return 404', async () => {
-        const invalidIndex = 'invalid-index';
-        const showRes = await request(app).get(`/api/proficiencies/${invalidIndex}`);
-        expect(showRes.statusCode).toEqual(404);
-      });
-    });
+  it('redirects to /api/2014/proficiencies/{index}', async () => {
+    const index = 'blowguns'
+    await request(app)
+      .get(`/api/proficiencies/${index}`)
+      .expect(301)
+      .expect('Location', `/api/2014/proficiencies/${index}`);
   });
 });
