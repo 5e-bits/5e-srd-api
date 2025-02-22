@@ -27,46 +27,26 @@ afterAll(async () => {
 });
 
 describe('/api/features', () => {
-  it('should list features', async () => {
-    const res = await request(app).get('/api/features');
-    expect(res.statusCode).toEqual(200);
-    expect(res.body.results.length).not.toEqual(0);
+  it('redirects to /api/2014/features', async () => {
+    await request(app)
+      .get('/api/features')
+      .expect(301)
+      .expect('Location', '/api/2014/features');
   });
 
-  describe('with name query', () => {
-    it('returns the named object', async () => {
-      const indexRes = await request(app).get('/api/features');
-      const name = indexRes.body.results[1].name;
-      const res = await request(app).get(`/api/features?name=${name}`);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].name).toEqual(name);
-    });
-
-    it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/features');
-      const name = indexRes.body.results[1].name;
-      const queryName = name.toLowerCase();
-      const res = await request(app).get(`/api/features?name=${queryName}`);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].name).toEqual(name);
-    });
+  it('redirects preserving query parameters', async () => {
+    const name = 'Action%20Surge'
+    await request(app)
+      .get(`/api/features?name=${name}`)
+      .expect(301)
+      .expect('Location', `/api/2014/features?name=${name}`);
   });
 
-  describe('/api/features/:index', () => {
-    it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/features');
-      const index = indexRes.body.results[0].index;
-      const showRes = await request(app).get(`/api/features/${index}`);
-      expect(showRes.statusCode).toEqual(200);
-      expect(showRes.body.index).toEqual(index);
-    });
-
-    describe('with an invalid index', () => {
-      it('should return 404', async () => {
-        const invalidIndex = 'invalid-index';
-        const showRes = await request(app).get(`/api/features/${invalidIndex}`);
-        expect(showRes.statusCode).toEqual(404);
-      });
-    });
+  it('redirects to /api/2014/features/{index}', async () => {
+    const index = 'arcane-recovery'
+    await request(app)
+      .get(`/api/features/${index}`)
+      .expect(301)
+      .expect('Location', `/api/2014/features/${index}`);
   });
 });

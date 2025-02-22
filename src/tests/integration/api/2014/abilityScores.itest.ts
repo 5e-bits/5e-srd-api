@@ -38,7 +38,7 @@ describe('/api/2014/ability-scores', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/2014/ability-scores');
       const name = indexRes.body.results[1].name;
-      const res = await request(app).get(`/api/ability-scores?name=${name}`);
+      const res = await request(app).get(`/api/2014/ability-scores?name=${name}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -47,7 +47,7 @@ describe('/api/2014/ability-scores', () => {
       const indexRes = await request(app).get('/api/2014/ability-scores');
       const name = indexRes.body.results[1].name;
       const queryName = name.toLowerCase();
-      const res = await request(app).get(`/api/ability-scores?name=${queryName}`);
+      const res = await request(app).get(`/api/2014/ability-scores?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -57,7 +57,7 @@ describe('/api/2014/ability-scores', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/2014/ability-scores');
       const index = indexRes.body.results[0].index;
-      const showRes = await request(app).get(`/api/ability-scores/${index}`);
+      const showRes = await request(app).get(`/api/2014/ability-scores/${index}`);
       expect(showRes.statusCode).toEqual(200);
       expect(showRes.body.index).toEqual(index);
     });
@@ -65,7 +65,7 @@ describe('/api/2014/ability-scores', () => {
     describe('with an invalid index', () => {
       it('should return 404', async () => {
         const invalidIndex = 'invalid-index';
-        const showRes = await request(app).get(`/api/ability-scores/${invalidIndex}`);
+        const showRes = await request(app).get(`/api/2014/ability-scores/${invalidIndex}`);
         expect(showRes.statusCode).toEqual(404);
       });
     });

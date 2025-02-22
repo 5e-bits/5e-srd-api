@@ -222,7 +222,7 @@ tags:
   - name: Character Data
 
 paths:
-  /api:
+  /api/2014:
     $ref: './paths/2014/combined.yml#/base'
   /api/2014/{endpoint}:
     $ref: './paths/2014/combined.yml#/list'

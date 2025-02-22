@@ -38,7 +38,7 @@ describe('/api/2014/subclasses', () => {
     it('returns the named object', async () => {
       const indexRes = await request(app).get('/api/2014/subclasses');
       const name = indexRes.body.results[1].name;
-      const res = await request(app).get(`/api/subclasses?name=${name}`);
+      const res = await request(app).get(`/api/2014/subclasses?name=${name}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -47,7 +47,7 @@ describe('/api/2014/subclasses', () => {
       const indexRes = await request(app).get('/api/2014/subclasses');
       const name = indexRes.body.results[1].name;
       const queryName = name.toLowerCase();
-      const res = await request(app).get(`/api/subclasses?name=${queryName}`);
+      const res = await request(app).get(`/api/2014/subclasses?name=${queryName}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.results[0].name).toEqual(name);
     });
@@ -57,7 +57,7 @@ describe('/api/2014/subclasses', () => {
     it('should return one object', async () => {
       const indexRes = await request(app).get('/api/2014/subclasses');
       const index = indexRes.body.results[0].index;
-      const showRes = await request(app).get(`/api/subclasses/${index}`);
+      const showRes = await request(app).get(`/api/2014/subclasses/${index}`);
       expect(showRes.statusCode).toEqual(200);
       expect(showRes.body.index).toEqual(index);
     });
@@ -65,7 +65,7 @@ describe('/api/2014/subclasses', () => {
     describe('with an invalid index', () => {
       it('should return 404', async () => {
         const invalidIndex = 'invalid-index';
-        const showRes = await request(app).get(`/api/subclasses/${invalidIndex}`);
+        const showRes = await request(app).get(`/api/2014/subclasses/${invalidIndex}`);
         expect(showRes.statusCode).toEqual(404);
       });
     });
@@ -73,7 +73,7 @@ describe('/api/2014/subclasses', () => {
     describe('/api/2014/subclasses/:index/levels', () => {
       it('returns objects', async () => {
         const index = 'berserker';
-        const res = await request(app).get(`/api/subclasses/${index}/levels`);
+        const res = await request(app).get(`/api/2014/subclasses/${index}/levels`);
         expect(res.statusCode).toEqual(200);
         expect(res.body.length).not.toEqual(0);
       });
@@ -82,7 +82,7 @@ describe('/api/2014/subclasses', () => {
         it('returns objects', async () => {
           const index = 'berserker';
           const level = 3;
-          const res = await request(app).get(`/api/subclasses/${index}/levels/${level}`);
+          const res = await request(app).get(`/api/2014/subclasses/${index}/levels/${level}`);
           expect(res.statusCode).toEqual(200);
           expect(res.body.level).toEqual(level);
         });
@@ -91,7 +91,7 @@ describe('/api/2014/subclasses', () => {
           it('returns objects', async () => {
             const index = 'berserker';
             const level = 3;
-            const res = await request(app).get(`/api/subclasses/${index}/levels/${level}/features`);
+            const res = await request(app).get(`/api/2014/subclasses/${index}/levels/${level}/features`);
             expect(res.statusCode).toEqual(200);
             expect(res.body.results.length).not.toEqual(0);
           });

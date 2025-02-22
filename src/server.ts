@@ -44,14 +44,7 @@ export default async () => {
   console.log('Setting up Apollo GraphQL server');
   const apolloMiddleware2014 = await createApolloMiddleware(schema2014);
   await apolloMiddleware2014.start();
-  app.use(
-    '/graphql',
-    cors<cors.CorsRequest>(),
-    bodyParser.json(),
-    expressMiddleware(apolloMiddleware2014, {
-      context: async ({ req }) => ({ token: req.headers.token }),
-    })
-  );
+  app.all('/graphql', (_req, res) => res.redirect(301, '/graphql/2014'));
   app.use(
     '/graphql/2014',
     cors<cors.CorsRequest>(),

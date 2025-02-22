@@ -27,46 +27,26 @@ afterAll(async () => {
 });
 
 describe('/api/magic-schools', () => {
-  it('should list magic items', async () => {
-    const res = await request(app).get('/api/magic-schools');
-    expect(res.statusCode).toEqual(200);
-    expect(res.body.results.length).not.toEqual(0);
+  it('redirects to /api/2014/magic-schools', async () => {
+    await request(app)
+      .get('/api/magic-schools')
+      .expect(301)
+      .expect('Location', '/api/2014/magic-schools');
   });
 
-  describe('with name query', () => {
-    it('returns the named object', async () => {
-      const indexRes = await request(app).get('/api/magic-schools');
-      const name = indexRes.body.results[1].name;
-      const res = await request(app).get(`/api/magic-schools?name=${name}`);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].name).toEqual(name);
-    });
-
-    it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/magic-schools');
-      const name = indexRes.body.results[1].name;
-      const queryName = name.toLowerCase();
-      const res = await request(app).get(`/api/magic-schools?name=${queryName}`);
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.results[0].name).toEqual(name);
-    });
+  it('redirects preserving query parameters', async () => {
+    const name = 'Abjuration'
+    await request(app)
+      .get(`/api/magic-schools?name=${name}`)
+      .expect(301)
+      .expect('Location', `/api/2014/magic-schools?name=${name}`);
   });
 
-  describe('/api/magic-schools/:index', () => {
-    it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/magic-schools');
-      const index = indexRes.body.results[0].index;
-      const showRes = await request(app).get(`/api/magic-schools/${index}`);
-      expect(showRes.statusCode).toEqual(200);
-      expect(showRes.body.index).toEqual(index);
-    });
-
-    describe('with an invalid index', () => {
-      it('should return 404', async () => {
-        const invalidIndex = 'invalid-index';
-        const showRes = await request(app).get(`/api/magic-schools/${invalidIndex}`);
-        expect(showRes.statusCode).toEqual(404);
-      });
-    });
+  it('redirects to /api/2014/magic-schools/{index}', async () => {
+    const index = 'conjuration'
+    await request(app)
+      .get(`/api/magic-schools/${index}`)
+      .expect(301)
+      .expect('Location', `/api/2014/magic-schools/${index}`);
   });
 });

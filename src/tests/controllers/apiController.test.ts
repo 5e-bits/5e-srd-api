@@ -1,41 +1,51 @@
+import { jest } from '@jest/globals';
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 
-import * as ApiController from '../../controllers/apiController.js';
-import { mockNext } from '../support/requestHelpers.js';
+import deprecatedApiController from '../../controllers/apiController.js';
 import Collection from '../../models/2014/collection/index.js';
+import { mockNext } from '../support/requestHelpers.js';
 
-beforeEach(() => {
-  mockingoose.resetAll();
-});
+describe('deprecated /api controller', () => {
+  
+  beforeEach(() => {
+    mockingoose.resetAll();
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'a',
-    },
-    {
-      index: 'b',
-    },
-    {
-      index: 'c',
-    },
-  ];
-  const expectedResponse = {
-    '2014': '/api/2014',
-    a: '/api/a',
-    b: '/api/b',
-    c: '/api/c',
-  };
-  const request = createRequest();
-
-  it('returns the routes', async () => {
-    const response = createResponse();
+    const findDoc = [
+      { index: 'valid-endpoint' }
+    ];
     mockingoose(Collection).toReturn(findDoc, 'find');
+  })
 
-    await ApiController.index(request, response, mockNext);
+  it('redirects to /api/2014', async () => {
+    const request = createRequest({ path: '/' });
+    const response = createResponse();
+    const redirect = jest.spyOn(response, 'redirect');
 
-    expect(response.statusCode).toBe(200);
-    expect(JSON.parse(response._getData())).toStrictEqual(expectedResponse);
+    await deprecatedApiController(request, response, mockNext);
+    expect(response.statusCode).toBe(301);
+    expect(redirect).toHaveBeenCalledWith(301, '/api/2014/');
+    
+  });
+
+  it('redirects nested endpoint to 2014 equivalent', async () => {
+    const request = createRequest({ path: '/valid-endpoint' });
+    const response = createResponse();
+    const redirect = jest.spyOn(response, 'redirect');
+
+    await deprecatedApiController(request, response, mockNext);
+
+    expect(response.statusCode).toBe(301);
+    expect(redirect).toHaveBeenCalledWith(301, '/api/2014/valid-endpoint');
+  });
+
+  it('responds with 404 for invalid sub-routes', async () => {
+    const request = createRequest({ path: '/invalid-endpoint' });
+    const response = createResponse();
+
+    await deprecatedApiController(request, response, mockNext);
+
+    expect(response.statusCode).toBe(404);
+    expect(response._getData()).toBe('Not Found');
   });
 });
