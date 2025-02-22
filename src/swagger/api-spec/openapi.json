@@ -32,7 +32,7 @@
     }
   ],
   "paths": {
-    "/api": {
+    "/api/2014": {
       "get": {
         "summary": "Get all resource URLs.",
         "description": "Making a request to the API's base URL returns an object containing available endpoints.",
@@ -3608,6 +3608,10 @@
           },
           "url": {
             "description": "URL of the referenced resource.",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Date and time the resource was last updated.",
             "type": "string"
           }
         }
