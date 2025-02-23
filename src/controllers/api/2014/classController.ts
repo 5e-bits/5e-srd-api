@@ -24,7 +24,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 export const showLevelsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const searchQueries: ShowLevelsForClassQuery = {
-      'class.url': '/api/classes/' + req.params.index,
+      'class.url': '/api/2014/classes/' + req.params.index,
       $or: [{ subclass: null }],
     };
 
@@ -51,7 +51,7 @@ export const showLevelForClass = async (req: Request, res: Response, next: NextF
       return res.status(404).json({ error: 'Not found' });
     }
 
-    const urlString = '/api/classes/' + req.params.index + '/levels/' + req.params.level;
+    const urlString = '/api/2014/classes/' + req.params.index + '/levels/' + req.params.level;
 
     const data = await Level.findOne({ url: urlString });
     if (!data) return next();
@@ -67,7 +67,7 @@ export const showMulticlassingForClass = async (
   next: NextFunction
 ) => {
   try {
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Class.findOne({ url: urlString });
     return res.status(200).json(data?.multi_classing);
@@ -78,7 +78,7 @@ export const showMulticlassingForClass = async (
 
 export const showSubclassesForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Subclass.find({ 'class.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
@@ -124,7 +124,7 @@ export const showSpellcastingForClass = async (req: Request, res: Response, next
 
 export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Spell.find({ 'classes.url': urlString })
       .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
@@ -145,7 +145,7 @@ export const showSpellsForClassAndLevel = async (
       return res.status(404).json({ error: 'Not found' });
     }
 
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Spell.find({
       'classes.url': urlString,
@@ -161,7 +161,7 @@ export const showSpellsForClassAndLevel = async (
 
 export const showFeaturesForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Feature.find({
       'class.url': urlString,
@@ -184,7 +184,7 @@ export const showFeaturesForClassAndLevel = async (
       return res.status(404).json({ error: 'Not found' });
     }
 
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Feature.find({
       'class.url': urlString,
@@ -204,7 +204,7 @@ export const showProficienciesForClass = async (
   next: NextFunction
 ) => {
   try {
-    const urlString = '/api/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + req.params.index;
 
     const data = await Proficiency.find({ 'classes.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })

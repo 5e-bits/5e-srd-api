@@ -16,23 +16,23 @@ const prewarmCache = async () => {
   const toPrewarm: PrewarmData[] = [
     {
       Schema: MagicItem,
-      endpoint: '/api/magic-items',
+      endpoint: '/api/2014/magic-items',
     },
     {
       Schema: Spell,
-      endpoint: '/api/spells',
+      endpoint: '/api/2014/spells',
     },
     {
       Schema: Monster,
-      endpoint: '/api/monsters',
+      endpoint: '/api/2014/monsters',
     },
     {
       Schema: Rule,
-      endpoint: '/api/rules',
+      endpoint: '/api/2014/rules',
     },
     {
       Schema: RuleSection,
-      endpoint: '/api/rule-sections',
+      endpoint: '/api/2014/rule-sections',
     },
   ];
   for (const element of toPrewarm) {

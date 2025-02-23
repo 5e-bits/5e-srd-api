@@ -94,7 +94,7 @@ npm run dev
 Request the image by navigating to an image URL in a browser, or via HTTP request:
 
 ```shell
-curl http://localhost:3000/api/monsters/aboleth.png --output downloaded-aboleth.png
+curl http://localhost:3000/api/2014/monsters/aboleth.png --output downloaded-aboleth.png
 ```
 
 When interacting with the image you should see logs in the terminal where you started localstack. You can also use [localstack's webui](https://app.localstack.cloud/dashboard) to view the bucket and
