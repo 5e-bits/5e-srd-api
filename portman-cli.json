@@ -1,6 +1,6 @@
 {
-  "local": "src/swagger/dist/openapi.yml",
-  "output": "collection.postman.json",
+  "local": "dist/openapi.yml",
+  "output": "dist/collection.postman.json",
   "ignoreCircularRefs": true,
   "includeTests": true,
   "syncPostman": false,
