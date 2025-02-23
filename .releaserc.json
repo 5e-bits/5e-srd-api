@@ -6,9 +6,9 @@
       "@semantic-release/github",
       {
         "assets": [
-          { "path": "/dist/openapi.yml", "label": "OpenAPI Spec" },
-          { "path": "/dist/openapi.json", "label": "OpenAPI Spec" },
-          { "path": "/dist/collection.postman.json", "label": "Postman Collection" }
+          { "path": "dist/openapi.yml", "label": "OpenAPI Spec (YAML)" },
+          { "path": "dist/openapi.json", "label": "OpenAPI Spec (JSON)" },
+          { "path": "dist/collection.postman.json", "label": "Postman Collection (JSON)" }
         ]
       }
     ]
