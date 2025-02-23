@@ -2,7 +2,16 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    "@semantic-release/github"
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          { "path": "/dist/openapi.yml", "label": "OpenAPI Spec" },
+          { "path": "/dist/openapi.json", "label": "OpenAPI Spec" },
+          { "path": "/dist/collection.postman.json", "label": "Postman Collection" }
+        ]
+      }
+    ]
   ],
   "branches": ["main"]
 }
