@@ -5,11 +5,6 @@ name: 5e SRD API CI/CD
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  repository_dispatch:
-    types: [build_application]
 
 env:
   REGISTRY: ghcr.io
@@ -46,26 +41,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm run test:integration:local
-  deploy:
-    name: Trigger Heroku Deploy
-    runs-on: ubuntu-latest
-    needs: [unit, integration, lint]
-    if: ${{ github.ref == 'refs/heads/main' && github.repository == '5e-bits/5e-srd-api' }}
-    steps:
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-      - uses: actions/checkout@v4
-      - uses: akhileshns/heroku-deploy@v3.13.15
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: 'dnd-5e-srd-api'
-          heroku_email: 'cdurianward@gmail.com'
+  # deploy:
+  #   name: Trigger Heroku Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: [unit, integration, lint]
+  #   if: ${{ github.ref == 'refs/heads/main' && github.repository == '5e-bits/5e-srd-api' }}
+  #   steps:
+  #     - name: Install Heroku CLI
+  #       run: |
+  #         curl https://cli-assets.heroku.com/install.sh | sh
+  #     - uses: actions/checkout@v4
+  #     - uses: akhileshns/heroku-deploy@v3.13.15
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: 'dnd-5e-srd-api'
+  #         heroku_email: 'cdurianward@gmail.com'
   github-release:
     name: Github Release
     runs-on: ubuntu-latest
-    needs: [deploy]
-    if: ${{ github.event_name == 'push' && github.repository == '5e-bits/5e-srd-api' }}
     outputs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published}}
       version: ${{ steps.semantic.outputs.new_release_version }}
@@ -83,30 +76,30 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  container-release:
-    name: Container Release
-    runs-on: ubuntu-latest
-    needs: [github-release]
-    if: ${{needs.github-release.outputs.new_release_published == 'true' && github.repository == '5e-bits/5e-srd-api'}}
-    env:
-      REGISTRY: ghcr.io
-      IMAGE_NAME: ${{ github.repository }}
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.github-release.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          labels: version=${{ needs.github-release.outputs.version }}
+  # container-release:
+  #   name: Container Release
+  #   runs-on: ubuntu-latest
+  #   needs: [github-release]
+  #   if: ${{needs.github-release.outputs.new_release_published == 'true' && github.repository == '5e-bits/5e-srd-api'}}
+  #   env:
+  #     REGISTRY: ghcr.io
+  #     IMAGE_NAME: ${{ github.repository }}
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #     - name: Log in to the Container registry
+  #       uses: docker/login-action@v3
+  #       with:
+  #         registry: ${{ env.REGISTRY }}
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Build and push Docker image
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         context: .
+  #         push: ${{ github.event_name != 'pull_request' }}
+  #         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.github-release.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+  #         labels: version=${{ needs.github-release.outputs.version }}
