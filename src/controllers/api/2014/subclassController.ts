@@ -14,7 +14,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showLevelsForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/subclasses/' + req.params.index;
+    const urlString = '/api/2014/subclasses/' + req.params.index;
 
     const data = await Level.find({ 'subclass.url': urlString }).sort({ level: 'asc' });
     return res.status(200).json(data);
@@ -29,7 +29,7 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: Ne
       return res.status(404).json({ error: 'Not found' });
     }
 
-    const urlString = '/api/subclasses/' + req.params.index + '/levels/' + req.params.level;
+    const urlString = '/api/2014/subclasses/' + req.params.index + '/levels/' + req.params.level;
 
     const data = await Level.findOne({ url: urlString });
     if (!data) return next();
@@ -41,7 +41,7 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: Ne
 
 export const showFeaturesForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/subclasses/' + req.params.index;
+    const urlString = '/api/2014/subclasses/' + req.params.index;
 
     const data = await Feature.find({
       'subclass.url': urlString,
@@ -64,7 +64,7 @@ export const showFeaturesForSubclassAndLevel = async (
       return res.status(404).json({ error: 'Not found' });
     }
 
-    const urlString = '/api/subclasses/' + req.params.index;
+    const urlString = '/api/2014/subclasses/' + req.params.index;
 
     const data = await Feature.find({
       level: parseInt(req.params.level),

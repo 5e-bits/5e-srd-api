@@ -16,7 +16,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showSubracesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/races/' + req.params.index;
+    const urlString = '/api/2014/races/' + req.params.index;
 
     const data = await Subrace.find({ 'race.url': urlString }).select({
       index: 1,
@@ -32,7 +32,7 @@ export const showSubracesForRace = async (req: Request, res: Response, next: Nex
 
 export const showTraitsForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/races/' + req.params.index;
+    const urlString = '/api/2014/races/' + req.params.index;
 
     const data = await Trait.find({ 'races.url': urlString }).select({
       index: 1,
@@ -48,7 +48,7 @@ export const showTraitsForRace = async (req: Request, res: Response, next: NextF
 
 export const showProficienciesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/races/' + req.params.index;
+    const urlString = '/api/2014/races/' + req.params.index;
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
