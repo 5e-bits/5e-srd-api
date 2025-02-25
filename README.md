@@ -122,7 +122,9 @@ Public facing API documentation lives [here.](https://www.dnd5eapi.co/docs)
 The [docs repository](https://github.com/5e-bits/docs) contains the source for the public facing API documentation. It uses
 [Docusaurus](https://docusaurus.io/) to generate the site from a bundled OpenAPI spec.
 
-More details on working with the OpenAPI spec can be found in the [`src/swagger`](src/swagger/) directory's [README](src/swagger/README.md).
+More details on working with the OpenAPI spec can be found in the [`src/swagger`](src/swagger/) directory's [README](src/swagger/README.md). The most up-to-date bundled OpenAPI specs themselves are included in [the latest release](https://github.com/5e-bits/5e-srd-api/releases/latest) in both [JSON](https://github.com/5e-bits/5e-srd-api/releases/latest/download/openapi.json) and [YAML](https://github.com/5e-bits/5e-srd-api/releases/latest/download/openapi.yml) formats, which can be used to generate your own documentation, clients, etc.
+
+A [Postman collection](https://github.com/5e-bits/5e-srd-api/releases/latest/download/collection.postman.json) can also be found in the latest release. This can be imported into [the Postman HTTP client](https://www.postman.com/) to execute test requests against production & local deployments of the API.
 
 ## Contributing
 
