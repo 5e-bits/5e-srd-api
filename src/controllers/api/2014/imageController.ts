@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-
 import { GetObjectCommand } from '@aws-sdk/client-s3';
+
 import { awsS3Client } from '../../../util/index.js';
 
 const show = async (req: Request, res: Response, next: NextFunction) => {
@@ -10,19 +10,18 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
       Key: req.url.slice(1),
     };
 
-    try {
-      const s3Response = await awsS3Client.send(new GetObjectCommand(params));
-      const data = await s3Response.Body?.transformToByteArray();
+    const s3Response = await awsS3Client.send(new GetObjectCommand(params));
+    const data = await s3Response.Body?.transformToByteArray();
 
-      res.writeHead(200, { 'Content-Type': 'image/png' });
-      res.write(data, 'binary');
-      res.end(null, 'binary');
-    } catch {
-      res.status(200);
-      res.end('Error Fetching File');
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.write(data, 'binary');
+    res.end(null, 'binary');
+  } catch (err: any) {
+    if (err.name === 'NoSuchKey') {
+      res.status(404).end('File Not Found');
+    } else {
+      res.status(500).end(`Error Fetching File: ${err.message}`);
     }
-  } catch (err) {
-    return next(err);
   }
 };
 
