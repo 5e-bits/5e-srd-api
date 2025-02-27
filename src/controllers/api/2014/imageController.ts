@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { NextFunction, Request, Response } from 'express';
 
 import { awsS3Client } from '../../../util/index.js';
 
