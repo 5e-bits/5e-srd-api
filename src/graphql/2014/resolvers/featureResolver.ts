@@ -34,6 +34,30 @@ type FeatureSpecific = {
       }[];
     };
   };
+  terrain_type_options?: {
+    desc?: string;
+    choose: number;
+    type: string;
+    from: {
+      option_set_type: 'options_array';
+      options: {
+        option_type: 'string';
+        string: string;
+      }[];
+    };
+  };
+  enemy_type_options?: {
+    desc?: string;
+    choose: number;
+    type: string;
+    from: {
+      option_set_type: 'options_array';
+      options: {
+        option_type: 'string';
+        string: string;
+      }[];
+    };
+  };
   invocations?: Feature[];
 };
 
@@ -133,6 +157,30 @@ const Feature = {
           options: feature_specific.expertise_options.from.options.map(
             async (option) => await resolveExpertiseOption(option)
           ),
+        }
+      );
+    }
+
+    if (
+      feature_specific.terrain_type_options &&
+      'options' in feature_specific.terrain_type_options.from
+    ) {
+      featureSpecificToReturn.terrain_type_options = resolveChoice(
+        feature_specific.terrain_type_options,
+        {
+          options: feature_specific.terrain_type_options.from.options,
+        }
+      );
+    }
+
+    if (
+      feature_specific.enemy_type_options &&
+      'options' in feature_specific.enemy_type_options.from
+    ) {
+      featureSpecificToReturn.enemy_type_options = resolveChoice(
+        feature_specific.enemy_type_options,
+        {
+          options: feature_specific.enemy_type_options.from.options,
         }
       );
     }

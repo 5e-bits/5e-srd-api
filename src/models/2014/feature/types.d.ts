@@ -25,6 +25,8 @@ type FeatureSpecific = {
   _id?: boolean;
   subfeature_options?: Choice;
   expertise_options?: Choice;
+  terrain_type_options?: Choice;
+  enemy_type_options?: Choice;
   invocations?: APIReference[];
 };
 

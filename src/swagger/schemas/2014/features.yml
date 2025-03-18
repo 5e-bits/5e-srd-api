@@ -46,4 +46,18 @@ allOf:
             spell: "shield"
       feature_specific:
         description: "Information specific to this feature."
+        type: object
+        properties:
+          subfeature_options:
+            $ref: "./combined.yml#/Choice"
+          expertise_options:
+            $ref: "./combined.yml#/Choice"
+          terrain_type_options:
+            $ref: "./combined.yml#/Choice"
+          enemy_type_options:
+            $ref: "./combined.yml#/Choice"
+          invocations:
+            type: array
+            items:
+              $ref: "./combined.yml#/APIReference"
         additionalProperties: true
