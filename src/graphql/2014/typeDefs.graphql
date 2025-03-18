@@ -1081,6 +1081,8 @@ type ExpertiseChoice {
 type FeatureSpecific {
   expertise_options: ExpertiseChoice
   subfeature_options: FeatureChoice
+  terrain_type_options: StringChoice
+  enemy_type_options: StringChoice
   invocations: [Feature!]
 }
 

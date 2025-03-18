@@ -32,6 +32,8 @@ const FeatureSpecificSchema = new Schema<FeatureSpecific>({
   _id: false,
   subfeature_options: ChoiceSchema,
   expertise_options: ChoiceSchema,
+  terrain_type_options: ChoiceSchema,
+  enemy_type_options: ChoiceSchema,
   invocations: [APIReferenceSchema],
 });
 
