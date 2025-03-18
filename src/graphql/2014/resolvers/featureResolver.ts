@@ -165,10 +165,21 @@ const Feature = {
       feature_specific.terrain_type_options &&
       'options' in feature_specific.terrain_type_options.from
     ) {
+      // Convert string values to proper StringOption objects
+      const processedOptions = feature_specific.terrain_type_options.from.options.map(option => {
+        if (typeof option === 'string') {
+          return {
+            option_type: 'string',
+            string: option
+          };
+        }
+        return option;
+      });
+      
       featureSpecificToReturn.terrain_type_options = resolveChoice(
         feature_specific.terrain_type_options,
         {
-          options: feature_specific.terrain_type_options.from.options,
+          options: processedOptions,
         }
       );
     }
@@ -177,10 +188,21 @@ const Feature = {
       feature_specific.enemy_type_options &&
       'options' in feature_specific.enemy_type_options.from
     ) {
+      // Convert string values to proper StringOption objects
+      const processedOptions = feature_specific.enemy_type_options.from.options.map(option => {
+        if (typeof option === 'string') {
+          return {
+            option_type: 'string',
+            string: option
+          };
+        }
+        return option;
+      });
+      
       featureSpecificToReturn.enemy_type_options = resolveChoice(
         feature_specific.enemy_type_options,
         {
-          options: feature_specific.enemy_type_options.from.options,
+          options: processedOptions,
         }
       );
     }
