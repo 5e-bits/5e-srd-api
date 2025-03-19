@@ -3,7 +3,7 @@ import FeatureModel from '@/models/2014/feature/index.js';
 import ProficiencyModel from '@/models/2014/proficiency/index.js';
 import SpellModel from '@/models/2014/spell/index.js';
 import SubclassModel from '@/models/2014/subclass/index.js';
-import { resolveChoice } from './common.js';
+import { resolveChoice, processStringOptions } from './common.js';
 
 import { Feature } from '@/models/2014/feature/types.js';
 import { Proficiency } from '@/models/2014/proficiency/types.js';
@@ -164,22 +164,11 @@ const Feature = {
     if (
       feature_specific.terrain_type_options &&
       'options' in feature_specific.terrain_type_options.from
-    ) {
-      // Convert string values to proper StringOption objects
-      const processedOptions = feature_specific.terrain_type_options.from.options.map(option => {
-        if (typeof option === 'string') {
-          return {
-            option_type: 'string',
-            string: option
-          };
-        }
-        return option;
-      });
-      
+    ) {      
       featureSpecificToReturn.terrain_type_options = resolveChoice(
         feature_specific.terrain_type_options,
         {
-          options: processedOptions,
+          options: processStringOptions(feature_specific.terrain_type_options.from.options),
         }
       );
     }
@@ -187,22 +176,11 @@ const Feature = {
     if (
       feature_specific.enemy_type_options &&
       'options' in feature_specific.enemy_type_options.from
-    ) {
-      // Convert string values to proper StringOption objects
-      const processedOptions = feature_specific.enemy_type_options.from.options.map(option => {
-        if (typeof option === 'string') {
-          return {
-            option_type: 'string',
-            string: option
-          };
-        }
-        return option;
-      });
-      
+    ) {      
       featureSpecificToReturn.enemy_type_options = resolveChoice(
         feature_specific.enemy_type_options,
         {
-          options: processedOptions,
+          options: processStringOptions(feature_specific.enemy_type_options.from.options),
         }
       );
     }
