@@ -1,7 +1,7 @@
-import { mongodbUri, redisClient } from '../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
-import createApp from '../../../server';
+import createApp from '@/server';
 import { jest } from '@jest/globals';
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -35,7 +35,7 @@ describe('/api/rule-sections', () => {
   });
 
   it('redirects preserving query parameters', async () => {
-    const name = 'Ability%20Checks'
+    const name = 'Ability%20Checks';
     await request(app)
       .get(`/api/rule-sections?name=${name}`)
       .expect(301)
@@ -43,7 +43,7 @@ describe('/api/rule-sections', () => {
   });
 
   it('redirects to /api/2014/rule-sections/{index}', async () => {
-    const index = 'actions-in-combat'
+    const index = 'actions-in-combat';
     await request(app)
       .get(`/api/rule-sections/${index}`)
       .expect(301)

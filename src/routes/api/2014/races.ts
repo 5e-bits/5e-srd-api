@@ -1,4 +1,4 @@
-import * as RaceController from '../../../controllers/api/2014/raceController.js';
+import * as RaceController from '@/controllers/api/2014/raceController.js';
 import * as express from 'express';
 
 const router = express.Router();

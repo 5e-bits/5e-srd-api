@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import SkillController from '../../../controllers/api/2014/skillController.js';
+import SkillController from '@/controllers/api/2014/skillController.js';
 
 const router = express.Router();
 

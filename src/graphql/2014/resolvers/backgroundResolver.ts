@@ -1,8 +1,8 @@
-import AlignmentModel from '../../../models/2014/alignment/index.js';
-import EquipmentCategoryModel from '../../../models/2014/equipmentCategory/index.js';
-import EquipmentModel from '../../../models/2014/equipment/index.js';
-import LanguageModel from '../../../models/2014/language/index.js';
-import ProficiencyModel from '../../../models/2014/proficiency/index.js';
+import AlignmentModel from '@/models/2014/alignment/index.js';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import LanguageModel from '@/models/2014/language/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
 import {
   coalesceFilters,
   resolveChoice,
@@ -10,7 +10,7 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Background } from '../../../models/2014/background/types.js';
+import { Background } from '@/models/2014/background/types.js';
 
 const Background = {
   starting_equipment: async (background: Background, args: QueryParams) => {

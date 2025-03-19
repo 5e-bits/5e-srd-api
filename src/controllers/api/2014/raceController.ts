@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 
-import Proficiency from '../../../models/2014/proficiency/index.js';
-import Race from '../../../models/2014/race/index.js';
-import { ResourceList } from '../../../util/data.js';
-import SimpleController from '../../simpleController.js';
-import Subrace from '../../../models/2014/subrace/index.js';
-import Trait from '../../../models/2014/trait/index.js';
+import Proficiency from '@/models/2014/proficiency/index.js';
+import Race from '@/models/2014/race/index.js';
+import { ResourceList } from '@/util/data.js';
+import SimpleController from '@/controllers/simpleController.js';
+import Subrace from '@/models/2014/subrace/index.js';
+import Trait from '@/models/2014/trait/index.js';
 
 const simpleController = new SimpleController(Race);
 

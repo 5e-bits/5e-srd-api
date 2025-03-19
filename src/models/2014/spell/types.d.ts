@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, AreaOfEffect } from '../common/types';
+import { APIReference, AreaOfEffect } from '@/models/2014/common/types';
 
 interface Damage {
   _id?: boolean;

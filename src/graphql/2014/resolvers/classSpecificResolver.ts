@@ -1,4 +1,4 @@
-import { ClassSpecific as ClassSpecificType } from '../../../models/2014/level/types';
+import { ClassSpecific as ClassSpecificType } from '@/models/2014/level/types';
 
 const ClassSpecific = {
   __resolveType(specific: ClassSpecificType) {

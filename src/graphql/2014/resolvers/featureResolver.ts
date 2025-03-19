@@ -1,13 +1,13 @@
-import ClassModel from '../../../models/2014/class/index.js';
-import FeatureModel from '../../../models/2014/feature/index.js';
-import ProficiencyModel from '../../../models/2014/proficiency/index.js';
-import SpellModel from '../../../models/2014/spell/index.js';
-import SubclassModel from '../../../models/2014/subclass/index.js';
+import ClassModel from '@/models/2014/class/index.js';
+import FeatureModel from '@/models/2014/feature/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import SpellModel from '@/models/2014/spell/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
 import { resolveChoice } from './common.js';
 
-import { Feature } from '../../../models/2014/feature/types.js';
-import { Proficiency } from '../../../models/2014/proficiency/types.js';
-import { Option } from '../../../models/2014/common/types.js';
+import { Feature } from '@/models/2014/feature/types.js';
+import { Proficiency } from '@/models/2014/proficiency/types.js';
+import { Option } from '@/models/2014/common/types.js';
 
 type FeatureSpecific = {
   subfeature_options?: {

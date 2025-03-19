@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import EquipmentCategoryController from '../../../controllers/api/2014/equipmentCategoryController.js';
+import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController.js';
 
 const router = express.Router();
 

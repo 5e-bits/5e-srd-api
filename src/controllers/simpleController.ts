@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { Model } from 'mongoose';
 
-import { ResourceList } from '../util/data.js';
-import { escapeRegExp } from '../util/regex.js';
+import { ResourceList } from '@/util/data.js';
+import { escapeRegExp } from '@/util/regex.js';
 
 interface IndexQuery {
   name?: { $regex: RegExp };

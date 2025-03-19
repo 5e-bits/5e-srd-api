@@ -2,20 +2,17 @@ import { jest } from '@jest/globals';
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 
-import deprecatedApiController from '../../controllers/apiController.js';
-import Collection from '../../models/2014/collection/index.js';
-import { mockNext } from '../support/requestHelpers.js';
+import deprecatedApiController from '@/controllers/apiController.js';
+import Collection from '@/models/2014/collection/index.js';
+import { mockNext } from '@/tests/support/requestHelpers.js';
 
 describe('deprecated /api controller', () => {
-  
   beforeEach(() => {
     mockingoose.resetAll();
 
-    const findDoc = [
-      { index: 'valid-endpoint' }
-    ];
+    const findDoc = [{ index: 'valid-endpoint' }];
     mockingoose(Collection).toReturn(findDoc, 'find');
-  })
+  });
 
   it('redirects to /api/2014', async () => {
     const request = createRequest({ path: '/' });
@@ -25,7 +22,6 @@ describe('deprecated /api controller', () => {
     await deprecatedApiController(request, response, mockNext);
     expect(response.statusCode).toBe(301);
     expect(redirect).toHaveBeenCalledWith(301, '/api/2014/');
-    
   });
 
   it('redirects nested endpoint to 2014 equivalent', async () => {

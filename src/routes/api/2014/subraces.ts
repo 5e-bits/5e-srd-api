@@ -1,4 +1,4 @@
-import * as SubraceController from '../../../controllers/api/2014/subraceController.js';
+import * as SubraceController from '@/controllers/api/2014/subraceController.js';
 import * as express from 'express';
 
 const router = express.Router();

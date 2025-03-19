@@ -1,7 +1,7 @@
-import { mongodbUri, redisClient } from '../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
-import createApp from '../../../server';
+import createApp from '@/server';
 import { jest } from '@jest/globals';
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -28,14 +28,11 @@ afterAll(async () => {
 
 describe('/api/subraces', () => {
   it('redirects to /api/2014/subraces', async () => {
-    await request(app)
-      .get('/api/subraces')
-      .expect(301)
-      .expect('Location', '/api/2014/subraces');
+    await request(app).get('/api/subraces').expect(301).expect('Location', '/api/2014/subraces');
   });
 
   it('redirects preserving query parameters', async () => {
-    const name = 'High%20Elf'
+    const name = 'High%20Elf';
     await request(app)
       .get(`/api/subraces?name=${name}`)
       .expect(301)
@@ -43,7 +40,7 @@ describe('/api/subraces', () => {
   });
 
   it('redirects to /api/2014/subraces/{index}', async () => {
-    const index = 'hill-dwarf'
+    const index = 'hill-dwarf';
     await request(app)
       .get(`/api/subraces/${index}`)
       .expect(301)

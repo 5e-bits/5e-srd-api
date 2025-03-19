@@ -1,5 +1,5 @@
 import express from 'express';
-import deprecatedApiController from '../controllers/apiController.js'
+import deprecatedApiController from '@/controllers/apiController.js';
 import v2014Handler from './api/2014.js';
 
 const router = express.Router();

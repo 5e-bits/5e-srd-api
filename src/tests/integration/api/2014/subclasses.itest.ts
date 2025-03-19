@@ -1,8 +1,8 @@
-import { mongodbUri, redisClient } from '../../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
 import { jest } from '@jest/globals';
-import createApp from '../../../../server';
+import createApp from '@/server';
 
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -91,7 +91,9 @@ describe('/api/2014/subclasses', () => {
           it('returns objects', async () => {
             const index = 'berserker';
             const level = 3;
-            const res = await request(app).get(`/api/2014/subclasses/${index}/levels/${level}/features`);
+            const res = await request(app).get(
+              `/api/2014/subclasses/${index}/levels/${level}/features`
+            );
             expect(res.statusCode).toEqual(200);
             expect(res.body.results.length).not.toEqual(0);
           });

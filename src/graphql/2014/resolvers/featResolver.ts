@@ -1,6 +1,6 @@
-import AbilityScoreModel from '../../../models/2014/abilityScore/index.js';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
 
-import { Feat } from '../../../models/2014/feat/types.js';
+import { Feat } from '@/models/2014/feat/types.js';
 
 const Feat = {
   prerequisites: async (feat: Feat) => {

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '../common/index.js';
+import { APIReferenceSchema } from '@/models/2014/common/index.js';
 import { Rule } from './types.js';
 
 const RuleSchema = new Schema<Rule>({

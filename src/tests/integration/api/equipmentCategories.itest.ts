@@ -1,7 +1,7 @@
-import { mongodbUri, redisClient } from '../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
-import createApp from '../../../server';
+import createApp from '@/server';
 import { jest } from '@jest/globals';
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -35,7 +35,7 @@ describe('/api/equipment-categories', () => {
   });
 
   it('redirects preserving query parameters', async () => {
-    const name = 'Adventuring%20Gear'
+    const name = 'Adventuring%20Gear';
     await request(app)
       .get(`/api/equipment-categories?name=${name}`)
       .expect(301)
@@ -43,7 +43,7 @@ describe('/api/equipment-categories', () => {
   });
 
   it('redirects to /api/2014/equipment-categories/{index}', async () => {
-    const index = 'ammunition'
+    const index = 'ammunition';
     await request(app)
       .get(`/api/equipment-categories/${index}`)
       .expect(301)
