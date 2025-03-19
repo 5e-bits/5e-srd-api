@@ -32,7 +32,6 @@ npm install type-graphql @typegoose/typegoose class-validator class-transformer
 
 ### Phase 1: Setup and Infrastructure
 
-- [ ] Create new directory structure for TypeGraphQL models
 - [ ] Set up TypeGraphQL base configuration
 - [ ] Create shared decorators and utilities
 - [ ] Update build and test configurations
