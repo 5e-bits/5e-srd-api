@@ -84,7 +84,7 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.11",
     "typedoc": "^0.26.11",
-    "typescript": "^4.9.3",
+    "typescript": "^5.8.2",
     "typescript-eslint": "^8.23.0"
   }
 }
