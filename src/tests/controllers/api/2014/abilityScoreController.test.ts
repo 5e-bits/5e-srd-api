@@ -1,10 +1,10 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 
-import { mockNext } from '../../../support/requestHelpers.js';
+import { mockNext } from '@/tests/support/index.js';
 
-import AbilityScore from '../../../../models/2014/abilityScore/index.js';
-import AbilityScoreController from '../../../../controllers/api/2014/abilityScoreController.js';
+import AbilityScore from '@/models/2014/abilityScore/index.js';
+import AbilityScoreController from '@/controllers/api/2014/abilityScoreController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

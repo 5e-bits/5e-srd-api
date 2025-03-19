@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema } from '../common/index.js';
+import { APIReferenceSchema, ChoiceSchema } from '@/models/2014/common/index.js';
 import { Background, Feature, Equipment } from './types.js';
 
 const EquipmentSchema = new Schema<Equipment>({

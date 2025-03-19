@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '../common/types';
+import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '@/models/2014/common/types';
 
 type Proficiency = {
   _id?: boolean;

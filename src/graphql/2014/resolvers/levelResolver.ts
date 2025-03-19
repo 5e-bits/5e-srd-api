@@ -1,6 +1,6 @@
-import ClassModel from '../../../models/2014/class/index.js';
-import FeatureModel from '../../../models/2014/feature/index.js';
-import SubclassModel from '../../../models/2014/subclass/index.js';
+import ClassModel from '@/models/2014/class/index.js';
+import FeatureModel from '@/models/2014/feature/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
 import {
   coalesceFilters,
   getMongoSortDirection,
@@ -9,7 +9,7 @@ import {
   SortQuery,
 } from './common.js';
 
-import { Level } from '../../../models/2014/level/types.js';
+import { Level } from '@/models/2014/level/types.js';
 
 const Level = {
   class: async (level: Level) => await ClassModel.findOne({ index: level.class.index }).lean(),

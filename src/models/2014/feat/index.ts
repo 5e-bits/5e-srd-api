@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '../common/index.js';
+import { APIReferenceSchema } from '@/models/2014/common/index.js';
 import { Prerequisite, Feat } from './types.js';
 
 const PrerequisiteSchema = new Schema<Prerequisite>({

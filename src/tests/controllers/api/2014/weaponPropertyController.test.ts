@@ -1,9 +1,9 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import { mockNext } from '../../../support/requestHelpers.js';
+import { mockNext } from '@/tests/support/requestHelpers.js';
 
-import WeaponProperty from '../../../../models/2014/weaponProperty/index.js';
-import WeaponPropertyController from '../../../../controllers/api/2014/weaponPropertyController.js';
+import WeaponProperty from '@/models/2014/weaponProperty/index.js';
+import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

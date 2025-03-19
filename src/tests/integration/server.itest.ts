@@ -1,7 +1,7 @@
-import { mongodbUri, redisClient } from '../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
-import createApp from '../../server';
+import createApp from '@/server';
 import { jest } from '@jest/globals';
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -49,10 +49,7 @@ describe('/bad-url', () => {
 
 describe('/api', () => {
   it('should redirect to /api/2014', async () => {
-    await request(app)
-      .get('/api')
-      .expect(301)
-      .expect('Location', '/api/2014/');
+    await request(app).get('/api').expect(301).expect('Location', '/api/2014/');
   });
 });
 

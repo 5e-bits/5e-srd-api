@@ -1,5 +1,5 @@
-import AbilityScoreModel from '../../../models/2014/abilityScore/index.js';
-import { Skill } from '../../../models/2014/skill/types.js';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import { Skill } from '@/models/2014/skill/types.js';
 
 const SkillResolver = {
   ability_score: async (skill: Skill) =>

@@ -1,8 +1,8 @@
-import { mongodbUri, redisClient } from '../../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
 import { jest } from '@jest/globals';
-import createApp from '../../../../server';
+import createApp from '@/server';
 
 import mongoose from 'mongoose';
 import request from 'supertest';

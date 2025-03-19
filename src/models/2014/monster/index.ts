@@ -4,7 +4,7 @@ import {
   ChoiceSchema,
   DifficultyClassSchema,
   DamageSchema,
-} from '../common/index.js';
+} from '@/models/2014/common/index.js';
 import {
   Action,
   ActionOption,

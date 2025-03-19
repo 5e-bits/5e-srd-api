@@ -1,10 +1,10 @@
-import EquipmentModel from '../../../models/2014/equipment/index.js';
-import MagicItemModel from '../../../models/2014/magicItem/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import MagicItemModel from '@/models/2014/magicItem/index.js';
 import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common.js';
 
-import { EquipmentCategory } from '../../../models/2014/equipmentCategory/types.js';
-import { MagicItem } from '../../../models/2014/magicItem/types.js';
-import { Equipment } from '../../../models/2014/equipment/types.js';
+import { EquipmentCategory } from '@/models/2014/equipmentCategory/types.js';
+import { MagicItem } from '@/models/2014/magicItem/types.js';
+import { Equipment } from '@/models/2014/equipment/types.js';
 import { Order, SortQuery } from './common.js';
 
 type Args = {

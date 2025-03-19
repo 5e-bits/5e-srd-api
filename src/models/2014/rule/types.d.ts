@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference } from '../common/types';
+import { APIReference } from '@/models/2014/common/types';
 
 export type Rule = {
   _id?: mongoose.Types.ObjectId;

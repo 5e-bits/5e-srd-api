@@ -1,7 +1,7 @@
-import { mongodbUri, redisClient } from '../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
-import createApp from '../../../server';
+import createApp from '@/server';
 import { jest } from '@jest/globals';
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -28,14 +28,11 @@ afterAll(async () => {
 
 describe('/api/languages', () => {
   it('redirects to /api/2014/languages', async () => {
-    await request(app)
-      .get('/api/languages')
-      .expect(301)
-      .expect('Location', '/api/2014/languages');
+    await request(app).get('/api/languages').expect(301).expect('Location', '/api/2014/languages');
   });
 
   it('redirects preserving query parameters', async () => {
-    const name = 'Abyssal'
+    const name = 'Abyssal';
     await request(app)
       .get(`/api/languages?name=${name}`)
       .expect(301)
@@ -43,7 +40,7 @@ describe('/api/languages', () => {
   });
 
   it('redirects to /api/2014/languages/{index}', async () => {
-    const index = 'celestial'
+    const index = 'celestial';
     await request(app)
       .get(`/api/languages/${index}`)
       .expect(301)

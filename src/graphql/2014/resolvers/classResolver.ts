@@ -1,9 +1,9 @@
-import AbilityScoreModel from '../../../models/2014/abilityScore/index.js';
-import EquipmentCategoryModel from '../../../models/2014/equipmentCategory/index.js';
-import EquipmentModel from '../../../models/2014/equipment/index.js';
-import LevelModel from '../../../models/2014/level/index.js';
-import ProficiencyModel from '../../../models/2014/proficiency/index.js';
-import SubclassModel from '../../../models/2014/subclass/index.js';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import LevelModel from '@/models/2014/level/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
 import {
   coalesceFilters,
   resolveChoice,
@@ -13,8 +13,8 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Class } from '../../../models/2014/class/types.js';
-import { Option } from '../../../models/2014/common/types.js';
+import { Class } from '@/models/2014/class/types.js';
+import { Option } from '@/models/2014/common/types.js';
 
 const resolveEquipmentOption: any = async (option: Option) => {
   if (option.option_type === 'counted_reference') {

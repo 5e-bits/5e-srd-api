@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice, DifficultyClass, Damage } from '../common/types';
+import { APIReference, Choice, DifficultyClass, Damage } from '@/models/2014/common/types';
 
 type ActionOption = {
   _id?: boolean;

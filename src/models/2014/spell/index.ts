@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, AreaOfEffectSchema } from '../common/index.js';
+import { APIReferenceSchema, AreaOfEffectSchema } from '@/models/2014/common/index.js';
 import { Damage, DC } from './types.js';
 
 const DamageSchema = new Schema<Damage>({
