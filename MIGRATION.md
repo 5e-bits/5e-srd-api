@@ -1,24 +1,21 @@
-# Migration to TypeGraphQL
-
-This document tracks the migration of the 5e SRD API from separate Mongoose models, TypeScript types, and GraphQL resolvers to a unified TypeGraphQL implementation.
+# Migration Plan: Mongoose + GraphQL → TypeGraphQL + Typegoose
 
 ## Overview
 
-The current codebase maintains three separate definitions for each entity:
-1. Mongoose models (`src/models/2014/*/index.ts`)
-2. TypeScript types (`src/models/2014/*/types.d.ts`)
-3. GraphQL resolvers (`src/graphql/2014/resolvers/*.ts`)
-
-This migration will consolidate these into a single source of truth using TypeGraphQL decorators.
+This document outlines the plan to migrate the 5e-srd-api from its current Mongoose + GraphQL implementation to TypeGraphQL + Typegoose. This migration will help reduce boilerplate code, improve type safety, and make the codebase more maintainable.
 
 ## Prerequisites
 
-1. Install required packages:
+### Dependencies to Add
+
 ```bash
-npm install type-graphql @typegoose/typegoose class-validator class-transformer
+npm install --save type-graphql @typegoose/typegoose class-validator reflect-metadata
 ```
 
-2. Update `tsconfig.json`:
+### TypeScript Configuration
+
+Ensure `tsconfig.json` has the following options enabled:
+
 ```json
 {
   "compilerOptions": {
@@ -30,219 +27,251 @@ npm install type-graphql @typegoose/typegoose class-validator class-transformer
 
 ## Migration Phases
 
-### Phase 1: Setup and Infrastructure
+### Phase 1: Setup and Infrastructure (1-2 days)
 
-- [ ] Set up TypeGraphQL base configuration
-- [ ] Create shared decorators and utilities
-- [ ] Update build and test configurations
+1. Create new directory structure:
 
-### Phase 2: Model Migration
+   ```plaintext
+   src/
+   ├── models/           # Typegoose models with TypeGraphQL decorators
+   │   └── 2014/        # Keep existing version organization
+   └── graphql/         # TypeGraphQL resolvers, inputs, and scalars
+       └── 2014/       # Keep existing version organization
+   ```
 
-Models will be migrated in order of complexity and dependencies:
+2. Set up base configuration files:
+   - Create TypeGraphQL schema builder in `src/graphql/schema.ts`:
 
-1. Simple Models (no nested objects):
-   - [ ] MagicSchool
-   - [ ] Alignment
-   - [ ] DamageType
-   - [ ] Condition
-   - [ ] Language
-   - [ ] WeaponProperty
-   - [ ] AbilityScore
-   - [ ] Skill
-   - [ ] RuleSection
-   - [ ] Collection
+     ```typescript
+     import { buildSchema } from 'type-graphql';
+     import { resolvers } from './2014/resolvers';
 
-2. Models with Basic References:
-   - [ ] EquipmentCategory
-   - [ ] Proficiency
-   - [ ] Feature
-   - [ ] Background
-   - [ ] Feat
-   - [ ] Rule
-   - [ ] MagicItem
-   - [ ] Level
-   - [ ] Trait
+     export const createSchema = async () => {
+       return buildSchema({
+         resolvers,
+         validate: true,
+         dateScalarMode: 'timestamp',
+         // Register custom scalars
+         scalarsMap: [
+           // ... your existing scalar mappings
+         ],
+       });
+     };
+     ```
 
-3. Equipment Models:
-   - [ ] Equipment (base)
-   - [ ] Weapon
-   - [ ] Armor
-   - [ ] Gear
-   - [ ] Tool
-   - [ ] Pack
-   - [ ] Ammunition
-   - [ ] Vehicle
+   - Set up Typegoose connection
+   - Configure dependency injection if needed
 
-4. Complex Models:
-   - [ ] Class
-   - [ ] ClassSpecific
-   - [ ] Subclass
-   - [ ] SubclassSpecific
-   - [ ] Race
-   - [ ] Subrace
-   - [ ] Spell
-   - [ ] Monster
-   - [ ] StartingEquipment
+### Phase 2: Core Type Migration (2-3 days)
 
-### Phase 3: Resolver Migration
+1. Migrate common types and enums:
+   - Move from `src/models/2014/common/types.ts` to new structure
+   - Convert to TypeGraphQL decorators
+   - Create shared interfaces and types
 
-1. Base Resolvers:
-   - [ ] Create base resolver class
-   - [ ] IEquipmentBase resolver
-   - [ ] IEquipment resolver
-   - [ ] IGear resolver
-   - [ ] Common resolvers
+2. Create base interfaces/abstract classes:
+   - Equipment interfaces:
+     - `IEquipmentBase` (base interface with index, name, desc, url)
+     - `IEquipment` (extends IEquipmentBase, adds cost, category, weight)
+     - `IGear` (extends IEquipment, for gear-specific properties)
 
-2. Simple Model Resolvers:
-   - [ ] MagicSchoolResolver
-   - [ ] LanguageResolver
-   - [ ] AbilityScoreResolver
-   - [ ] SkillResolver
-   - [ ] RuleResolver
-   - [ ] WeaponPropertyResolver
+   - Common types and interfaces:
+     - `APIReference` (index, name, url pattern)
+     - `AreaOfEffect` (type and size for spells)
+     - `Choice` (choose, from, type pattern)
+     - `Cost` (quantity and unit)
+     - `DC` (difficulty class with type, value, success)
+     - `Damage` (damage type and dice values)
+     - `DamageAtLevel` (level-based damage scaling)
+     - `Usage` (times, type, dice values for features)
+     - `Prerequisite` (base for all prerequisites)
+     - `SpellPrerequisite` (for spell requirements)
+     - `LevelPrerequisite` (for level requirements)
+     - `ProficiencyPrerequisite` (for proficiency requirements)
+     - `AbilityScorePrerequisite` (for ability score requirements)
 
-3. Equipment Resolvers:
-   - [ ] EquipmentCategoryResolver
-   - [ ] EquipmentMultipleItemResolver
-   - [ ] EquipmentOptionResolver
-   - [ ] WeaponResolver
-   - [ ] ArmorResolver
-   - [ ] GearResolver
-   - [ ] ToolResolver
-   - [ ] PackResolver
-   - [ ] AmmunitionResolver
-   - [ ] VehicleResolver
+### Phase 3: Model Migration (4-5 days)
 
-4. Complex Model Resolvers:
-   - [ ] ClassResolver
-   - [ ] ClassSpecificResolver
-   - [ ] SubclassResolver
-   - [ ] SubclassSpecificResolver
-   - [ ] RaceResolver
-   - [ ] SubraceResolver
-   - [ ] SpellResolver
-   - [ ] SpellPrerequisiteResolver
-   - [ ] MonsterResolver
-   - [ ] MonsterActionOptionResolver
-   - [ ] BackgroundResolver
-   - [ ] FeatureResolver
-   - [ ] FeatResolver
-   - [ ] TraitResolver
-   - [ ] ProficiencyResolver
-   - [ ] ProficiencyOptionResolver
-   - [ ] ProficiencyRaceResolver
-   - [ ] ProficiencyReferenceResolver
-   - [ ] ExpertiseOptionResolver
-   - [ ] StartingEquipmentOptionSetResolver
+1. Start with independent models (no relations):
+   - AbilityScore
+   - DamageType
+   - MagicSchool
+   - Language
+   - Condition
+   - Alignment
+   - WeaponProperty
+   - RuleSection
+   - Rule
+   - Collection
 
-5. Root Resolvers:
-   - [ ] QueryResolver
-   - [ ] RootResolvers
+2. Move to models with simple relations:
+   - Equipment
+   - EquipmentCategory
+   - Proficiency
+   - Skill
+   - MagicItem
+   - Background
 
-6. Custom Scalar Resolvers:
-   - [ ] Migrate all custom scalar types
+3. Complex models with nested relations:
+   - Spell
+   - Class
+   - Subclass
+   - Race
+   - Subrace
+   - Monster
+   - Feature
+   - Feat
+   - Trait
+   - Level
 
-### Phase 4: Schema and Type Updates
+For each model:
 
-- [ ] Update GraphQL schema generation
-- [ ] Remove old type definitions
-- [ ] Update import paths across the codebase
+1. Create entity class with `@ObjectType()` and `@prop()`
+2. Move validation logic to class-validator decorators
+3. Define relations using Typegoose references
+4. Add TypeGraphQL field resolvers where needed
 
-## Migration Steps for Each Model
+Example model migration:
 
-For each model, follow these steps:
-
-1. Create new TypeGraphQL model:
 ```typescript
+// Before (Mongoose)
+const Spell = new Schema({
+  index: { type: String, index: true },
+  name: { type: String, index: true },
+  desc: { type: [String], index: true },
+  // ...
+});
+
+// After (Typegoose + TypeGraphQL)
 @ObjectType()
-export class ModelName {
-  @Field(() => ID)
-  @Property({ required: true })
-  _id: string;
+@modelOptions({ schemaOptions: { collection: '2014-spells' } })
+export class Spell {
+  @Field()
+  @prop({ index: true })
+  index: string;
 
-  // ... other fields
+  @Field()
+  @prop({ index: true })
+  name: string;
+
+  @Field(() => [String])
+  @prop({ index: true })
+  desc: string[];
+  // ...
 }
 ```
 
-2. Create resolver:
+### Phase 4: Resolver Migration (3-4 days)
+
+1. Create base resolver classes for common operations
+2. Migrate resolvers in parallel with models:
+   - Convert to TypeGraphQL decorators
+   - Use dependency injection for services
+   - Implement field resolvers using new entity classes
+
+Example resolver migration:
+
 ```typescript
-@Resolver(ModelName)
-export class ModelNameResolver {
-  @Query(() => ModelName)
-  async modelName(@Arg('index') index: string) {
-    return await ModelNameModel.findOne({ index });
+// Before
+const Spell = {
+  attack_type: (spell) => spell.attack_type?.toUpperCase() || null,
+  // ...
+};
+
+// After
+@Resolver(() => Spell)
+export class SpellResolver {
+  @FieldResolver(() => SpellAttackType, { nullable: true })
+  attackType(@Root() spell: Spell): SpellAttackType | null {
+    return spell.attackType?.toUpperCase() || null;
   }
+  // ...
 }
 ```
 
-3. Update imports and references
-4. Remove old files:
-   - `src/models/2014/modelName/index.ts`
-   - `src/models/2014/modelName/types.d.ts`
-   - `src/graphql/2014/resolvers/modelNameResolver.ts`
+### Phase 5: Query Migration (2-3 days)
 
-## Breaking Changes
+1. Convert existing query resolvers to TypeGraphQL
+2. Implement proper input types for filters
+3. Migrate sorting and pagination logic
+4. Add proper return types and nullability
 
-1. GraphQL Schema Changes:
-   - Field names may change to match TypeScript naming conventions
-   - Some type definitions may be simplified
-   - Input types will be generated automatically
+### Phase 6: Testing and Validation (2-3 days)
 
-2. API Changes:
-   - Query/mutation names may change
-   - Response structure may be modified
-   - Filter types will be updated
+1. Update existing tests to work with new structure
+2. Add new tests for TypeGraphQL-specific features
+3. Verify all queries work as expected
+4. Test performance and optimize if needed
 
-## Testing Strategy
+### Phase 7: Cleanup (1-2 days)
 
-1. Unit Tests:
-   - Test each model's decorators
-   - Test resolver methods
-   - Test validation rules
-
-2. Integration Tests:
-   - Test GraphQL queries
-   - Test database operations
-   - Test type generation
-
-3. End-to-End Tests:
-   - Test complete API flows
-   - Test client integrations
-
-## Rollback Plan
-
-1. Keep old files with `.old` extension during migration
-2. Maintain separate git branch for migration
-3. Document all changes in commits
-4. Create database backup before deployment
+1. Remove old Mongoose schemas
+2. Remove old GraphQL type definitions
+3. Remove old resolvers
+4. Update documentation
+5. Clean up dependencies
 
 ## Timeline
 
-- Phase 1: 1 week
-- Phase 2: 2-3 weeks
-- Phase 3: 1-2 weeks
-- Phase 4: 1 week
+Estimated total time: 15-22 days
 
-Total estimated time: 5-7 weeks
+## Risks and Mitigation
 
-## Dependencies
+### Risks
 
-- TypeGraphQL
-- TypeGoose
-- class-validator
-- class-transformer
-- GraphQL
-- Mongoose
+1. Breaking changes in API responses
+2. Performance impact during transition
+3. Complex circular dependencies
+4. Data migration needs
 
-## Notes
+### Mitigation Strategies
 
-- Keep old implementation until all models are migrated
-- Test each model migration thoroughly
-- Update documentation as models are migrated
-- Consider performance implications of decorators
+1. Run old and new implementations in parallel
+2. Comprehensive testing before each phase
+3. Clear separation of concerns in new architecture
+4. Careful handling of backwards compatibility
 
-## Resources
+## Benefits
 
-- [TypeGraphQL Documentation](https://typegraphql.com/)
-- [TypeGoose Documentation](https://typegoose.github.io/typegoose/)
-- [GraphQL Schema Design](https://graphql.org/learn/schema/)
+1. **Type Safety**
+   - Full end-to-end type safety
+   - Better IDE support
+   - Catch errors at compile time
+
+2. **Code Reduction**
+   - Eliminate duplicate type definitions
+   - Reduce boilerplate code
+   - Single source of truth for types
+
+3. **Maintainability**
+   - Clear separation of concerns
+   - Better code organization
+   - Easier to add new features
+
+4. **Developer Experience**
+   - Better autocomplete
+   - Easier debugging
+   - More intuitive API design
+
+## Rollback Plan
+
+1. Keep old implementation files until fully tested
+2. Maintain database compatibility
+3. Document all changes for potential rollback
+
+## Post-Migration Tasks
+
+1. Update API documentation
+2. Performance monitoring
+3. Developer training
+4. Clean up deprecated code
+5. Update deployment scripts
+
+## Success Criteria
+
+1. All existing functionality works as expected
+2. No regression in performance
+3. Reduced codebase size
+4. Improved type safety
+5. All tests passing
+6. Documentation updated
