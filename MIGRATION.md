@@ -48,25 +48,100 @@ Models will be migrated in order of complexity and dependencies:
    - [ ] Condition
    - [ ] Language
    - [ ] WeaponProperty
+   - [ ] AbilityScore
+   - [ ] Skill
+   - [ ] RuleSection
+   - [ ] Collection
 
 2. Models with Basic References:
    - [ ] EquipmentCategory
    - [ ] Proficiency
    - [ ] Feature
    - [ ] Background
+   - [ ] Feat
+   - [ ] Rule
+   - [ ] MagicItem
+   - [ ] Level
+   - [ ] Trait
 
-3. Complex Models:
+3. Equipment Models:
+   - [ ] Equipment (base)
+   - [ ] Weapon
+   - [ ] Armor
+   - [ ] Gear
+   - [ ] Tool
+   - [ ] Pack
+   - [ ] Ammunition
+   - [ ] Vehicle
+
+4. Complex Models:
    - [ ] Class
+   - [ ] ClassSpecific
+   - [ ] Subclass
+   - [ ] SubclassSpecific
+   - [ ] Race
+   - [ ] Subrace
    - [ ] Spell
    - [ ] Monster
-   - [ ] Equipment
+   - [ ] StartingEquipment
 
 ### Phase 3: Resolver Migration
 
-- [ ] Create base resolver class
-- [ ] Migrate query resolvers
-- [ ] Migrate mutation resolvers (if any)
-- [ ] Update root resolvers
+1. Base Resolvers:
+   - [ ] Create base resolver class
+   - [ ] IEquipmentBase resolver
+   - [ ] IEquipment resolver
+   - [ ] IGear resolver
+   - [ ] Common resolvers
+
+2. Simple Model Resolvers:
+   - [ ] MagicSchoolResolver
+   - [ ] LanguageResolver
+   - [ ] AbilityScoreResolver
+   - [ ] SkillResolver
+   - [ ] RuleResolver
+   - [ ] WeaponPropertyResolver
+
+3. Equipment Resolvers:
+   - [ ] EquipmentCategoryResolver
+   - [ ] EquipmentMultipleItemResolver
+   - [ ] EquipmentOptionResolver
+   - [ ] WeaponResolver
+   - [ ] ArmorResolver
+   - [ ] GearResolver
+   - [ ] ToolResolver
+   - [ ] PackResolver
+   - [ ] AmmunitionResolver
+   - [ ] VehicleResolver
+
+4. Complex Model Resolvers:
+   - [ ] ClassResolver
+   - [ ] ClassSpecificResolver
+   - [ ] SubclassResolver
+   - [ ] SubclassSpecificResolver
+   - [ ] RaceResolver
+   - [ ] SubraceResolver
+   - [ ] SpellResolver
+   - [ ] SpellPrerequisiteResolver
+   - [ ] MonsterResolver
+   - [ ] MonsterActionOptionResolver
+   - [ ] BackgroundResolver
+   - [ ] FeatureResolver
+   - [ ] FeatResolver
+   - [ ] TraitResolver
+   - [ ] ProficiencyResolver
+   - [ ] ProficiencyOptionResolver
+   - [ ] ProficiencyRaceResolver
+   - [ ] ProficiencyReferenceResolver
+   - [ ] ExpertiseOptionResolver
+   - [ ] StartingEquipmentOptionSetResolver
+
+5. Root Resolvers:
+   - [ ] QueryResolver
+   - [ ] RootResolvers
+
+6. Custom Scalar Resolvers:
+   - [ ] Migrate all custom scalar types
 
 ### Phase 4: Schema and Type Updates
 
