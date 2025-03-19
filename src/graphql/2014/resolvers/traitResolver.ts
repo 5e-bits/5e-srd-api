@@ -7,16 +7,16 @@ import {
   resolveContainsStringFilter,
 } from './common.js';
 
-import DamageTypeModel from '../../../models/2014/damageType/index.js';
-import ProficiencyModel from '../../../models/2014/proficiency/index.js';
-import RaceModel from '../../../models/2014/race/index.js';
-import SpellModel from '../../../models/2014/spell/index.js';
-import SubraceModel from '../../../models/2014/subrace/index.js';
-import TraitModel from '../../../models/2014/trait/index.js';
-import LanguageModel from '../../../models/2014/language/index.js';
+import DamageTypeModel from '@/models/2014/damageType/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import RaceModel from '@/models/2014/race/index.js';
+import SpellModel from '@/models/2014/spell/index.js';
+import SubraceModel from '@/models/2014/subrace/index.js';
+import TraitModel from '@/models/2014/trait/index.js';
+import LanguageModel from '@/models/2014/language/index.js';
 
 import { ResolvedDC, QueryParams } from './common.js';
-import { Trait, Usage } from '../../../models/2014/trait/types.js';
+import { Trait, Usage } from '@/models/2014/trait/types.js';
 
 type TraitSpecificClient = {
   breath_weapon?: {

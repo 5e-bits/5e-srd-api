@@ -17,8 +17,17 @@ const baseConfig: Config.InitialOptions = {
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@/(.*)\\.(js|ts)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
-  transform: {},
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
 };
 
 export default baseConfig;

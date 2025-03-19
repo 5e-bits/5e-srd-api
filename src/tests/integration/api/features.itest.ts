@@ -1,7 +1,7 @@
-import { mongodbUri, redisClient } from '../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
-import createApp from '../../../server';
+import createApp from '@/server';
 import { jest } from '@jest/globals';
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -28,14 +28,11 @@ afterAll(async () => {
 
 describe('/api/features', () => {
   it('redirects to /api/2014/features', async () => {
-    await request(app)
-      .get('/api/features')
-      .expect(301)
-      .expect('Location', '/api/2014/features');
+    await request(app).get('/api/features').expect(301).expect('Location', '/api/2014/features');
   });
 
   it('redirects preserving query parameters', async () => {
-    const name = 'Action%20Surge'
+    const name = 'Action%20Surge';
     await request(app)
       .get(`/api/features?name=${name}`)
       .expect(301)
@@ -43,7 +40,7 @@ describe('/api/features', () => {
   });
 
   it('redirects to /api/2014/features/{index}', async () => {
-    const index = 'arcane-recovery'
+    const index = 'arcane-recovery';
     await request(app)
       .get(`/api/features/${index}`)
       .expect(301)

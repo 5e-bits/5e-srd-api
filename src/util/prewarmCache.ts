@@ -1,9 +1,9 @@
-import MagicItem from '../models/2014/magicItem/index.js';
-import Monster from '../models/2014/monster/index.js';
+import MagicItem from '@/models/2014/magicItem/index.js';
+import Monster from '@/models/2014/monster/index.js';
 import { ResourceList } from './data.js';
-import Rule from '../models/2014/rule/index.js';
-import RuleSection from '../models/2014/ruleSection/index.js';
-import Spell from '../models/2014/spell/index.js';
+import Rule from '@/models/2014/rule/index.js';
+import RuleSection from '@/models/2014/ruleSection/index.js';
+import Spell from '@/models/2014/spell/index.js';
 import mongoose from 'mongoose';
 import redisClient from './RedisClient.js';
 

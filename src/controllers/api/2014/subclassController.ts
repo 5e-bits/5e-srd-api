@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import Feature from '../../../models/2014/feature/index.js';
-import Level from '../../../models/2014/level/index.js';
-import { ResourceList } from '../../../util/data.js';
-import SimpleController from '../../simpleController.js';
-import Subclass from '../../../models/2014/subclass/index.js';
+import Feature from '@/models/2014/feature/index.js';
+import Level from '@/models/2014/level/index.js';
+import { ResourceList } from '@/util/data.js';
+import SimpleController from '@/controllers/simpleController.js';
+import Subclass from '@/models/2014/subclass/index.js';
 
 const simpleController = new SimpleController(Subclass);
 

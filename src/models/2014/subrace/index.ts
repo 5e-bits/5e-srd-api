@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema } from '../common/index.js';
+import { APIReferenceSchema, ChoiceSchema } from '@/models/2014/common/index.js';
 import { AbilityBonus, Subrace } from './types.js';
 
 const AbilityBonus = new Schema<AbilityBonus>({

@@ -1,5 +1,5 @@
-import { Level } from '../../../models/2014/level/types';
-import { Feature } from '../../../models/2014/feature/types';
+import { Level } from '@/models/2014/level/types';
+import { Feature } from '@/models/2014/feature/types';
 
 const SpellPrerequisite = {
   __resolveType(prerequisite: Level | Feature) {

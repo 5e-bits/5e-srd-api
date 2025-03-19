@@ -1,4 +1,4 @@
-import { SubclassSpecific as SubclassSpecificType } from '../../../models/2014/level/types';
+import { SubclassSpecific as SubclassSpecificType } from '@/models/2014/level/types';
 
 const SubclassSpecific = {
   __resolveType(specific: SubclassSpecificType) {

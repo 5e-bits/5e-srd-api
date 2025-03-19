@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import TraitController from '../../../controllers/api/2014/traitController.js';
+import TraitController from '@/controllers/api/2014/traitController.js';
 
 const router = express.Router();
 

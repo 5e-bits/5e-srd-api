@@ -4,7 +4,7 @@ import {
   ChoiceSchema,
   AreaOfEffectSchema,
   DifficultyClassSchema,
-} from '../common/index.js';
+} from '@/models/2014/common/index.js';
 import { Proficiency, ActionDamage, Usage, Action, TraitSpecific, Trait } from './types.js';
 
 const ProficiencySchema = new Schema<Proficiency>({

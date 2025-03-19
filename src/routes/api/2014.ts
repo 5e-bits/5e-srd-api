@@ -27,7 +27,7 @@ import {
 } from './2014/index.js';
 
 import express from 'express';
-import { index } from '../../controllers/api/v2014Controller.js';
+import { index } from '@/controllers/api/v2014Controller.js';
 
 const router = express.Router();
 

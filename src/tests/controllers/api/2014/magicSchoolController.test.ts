@@ -1,9 +1,9 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import { mockNext } from '../../../support/requestHelpers.js';
+import { mockNext } from '@/tests/support/requestHelpers.js';
 
-import MagicSchool from '../../../../models/2014/magicSchool/index.js';
-import MagicSchoolController from '../../../../controllers/api/2014/magicSchoolController.js';
+import MagicSchool from '@/models/2014/magicSchool/index.js';
+import MagicSchoolController from '@/controllers/api/2014/magicSchoolController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

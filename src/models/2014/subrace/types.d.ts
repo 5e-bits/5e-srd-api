@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { APIReference, Choice } from '../common/types';
+import { APIReference, Choice } from '@/models/2014/common/types';
 
 type AbilityBonus = {
   _id?: boolean;

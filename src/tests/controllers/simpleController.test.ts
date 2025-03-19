@@ -1,9 +1,9 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 
-import { mockNext } from '../support/requestHelpers.js';
-import AbilityScore from '../../models/2014/abilityScore/index.js';
-import SimpleController from '../../controllers/simpleController.js';
+import { mockNext } from '@/tests/support/requestHelpers.js';
+import AbilityScore from '@/models/2014/abilityScore/index.js';
+import SimpleController from '@/controllers/simpleController.js';
 
 let simpleController: SimpleController;
 beforeEach(() => {

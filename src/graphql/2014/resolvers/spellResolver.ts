@@ -1,8 +1,8 @@
-import AbilityScoreModel from '../../../models/2014/abilityScore/index.js';
-import ClassModel from '../../../models/2014/class/index.js';
-import DamageTypeModel from '../../../models/2014/damageType/index.js';
-import MagicSchoolModel from '../../../models/2014/magicSchool/index.js';
-import SubclassModel from '../../../models/2014/subclass/index.js';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import ClassModel from '@/models/2014/class/index.js';
+import DamageTypeModel from '@/models/2014/damageType/index.js';
+import MagicSchoolModel from '@/models/2014/magicSchool/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
 import {
   coalesceFilters,
   levelObjectToArray,
@@ -11,8 +11,8 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Spell } from '../../../models/2014/spell/types.js';
-import { DamageType } from '../../../models/2014/damageType/types.js';
+import { Spell } from '@/models/2014/spell/types.js';
+import { DamageType } from '@/models/2014/damageType/types.js';
 
 type SpellDamage = {
   damage_type?: DamageType;

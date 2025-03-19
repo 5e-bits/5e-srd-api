@@ -1,4 +1,4 @@
-import * as MonsterController from '../../../controllers/api/2014/monsterController.js';
+import * as MonsterController from '@/controllers/api/2014/monsterController.js';
 import * as express from 'express';
 
 const router = express.Router();

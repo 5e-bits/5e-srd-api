@@ -1,9 +1,9 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as SpellController from '../../../../controllers/api/2014/spellController.js';
+import * as SpellController from '@/controllers/api/2014/spellController.js';
 
-import { mockNext } from '../../../support/requestHelpers.js';
-import Spell from '../../../../models/2014/spell/index.js';
+import { mockNext } from '@/tests/support/index.js';
+import Spell from '@/models/2014/spell/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

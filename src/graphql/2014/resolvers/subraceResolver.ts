@@ -1,8 +1,8 @@
-import AbilityScoreModel from '../../../models/2014/abilityScore/index.js';
-import LanguageModel from '../../../models/2014/language/index.js';
-import ProficiencyModel from '../../../models/2014/proficiency/index.js';
-import RaceModel from '../../../models/2014/race/index.js';
-import TraitModel from '../../../models/2014/trait/index.js';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import LanguageModel from '@/models/2014/language/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import RaceModel from '@/models/2014/race/index.js';
+import TraitModel from '@/models/2014/trait/index.js';
 import {
   coalesceFilters,
   resolveChoice,
@@ -10,7 +10,7 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Subrace } from '../../../models/2014/subrace/types.js';
+import { Subrace } from '@/models/2014/subrace/types.js';
 
 const Subrace = {
   ability_bonuses: async (subrace: Subrace) => {

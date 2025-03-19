@@ -1,8 +1,8 @@
-import { mongodbUri, redisClient } from '../../../../util';
+import { mongodbUri, redisClient } from '@/util';
 
 import { Application } from 'express';
 import { jest } from '@jest/globals';
-import createApp from '../../../../server';
+import createApp from '@/server';
 
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -95,7 +95,9 @@ describe('/api/2014/monsters', () => {
         expect(bothRes.statusCode).toEqual(200);
         expect(bothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
-        const altBothRes = await request(app).get(`/api/2014/monsters?challenge_rating=${cr1},${cr20}`);
+        const altBothRes = await request(app).get(
+          `/api/2014/monsters?challenge_rating=${cr1},${cr20}`
+        );
         expect(altBothRes.statusCode).toEqual(200);
         expect(altBothRes.body.count).toEqual(cr1Res.body.count + cr20Res.body.count);
 
