@@ -283,6 +283,18 @@ export const resolveAreaOfEffect = (areaOfEffect: AreaOfEffect) => ({
   type: areaOfEffect.type.toUpperCase(),
 });
 
+export const processStringOptions = (options: any[]) => {
+  return options.map(option => {
+    if (typeof option === 'string') {
+      return {
+        option_type: 'string',
+        string: option
+      };
+    }
+    return option;
+  });
+};
+
 export const resolveContainsStringFilter = (val: string, prop = 'name') => ({
   [prop]: new RegExp(val, 'i'),
 });
