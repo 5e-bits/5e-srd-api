@@ -123,6 +123,12 @@ Current implementation includes custom scalar resolvers for:
 
 ## Migration Steps
 
+### ✅ Pre-Migration Cleanup
+1. Remove deprecated GraphQL Compose dependencies
+   - Removed `graphql-compose` and `graphql-compose-mongoose` as they are no longer used
+   - Codebase already using custom resolvers without these packages
+   - Using `@apollo/server` and `@graphql-tools/schema` for GraphQL implementation
+
 ### 1. Initial Setup (Week 1)
 1. Add TypeGraphQL and Typegoose dependencies
 2. Configure TypeGraphQL with Express
@@ -137,16 +143,16 @@ Current implementation includes custom scalar resolvers for:
 
 ### 2. Simple Model Migration (Weeks 2-3)
 Start with simple models in this order:
-1. AbilityScore (foundation for many other models)
-2. Alignment (basic enumeration)
-3. Condition (basic properties)
-4. DamageType (basic properties)
-5. Language (basic properties)
-6. MagicSchool (basic properties)
-7. RuleSection (basic documentation)
-8. WeaponProperty (basic properties)
-9. Collection (basic organization)
-10. EquipmentCategory (basic categorization)
+1. Alignment (basic enumeration)
+2. Condition (basic properties)
+3. DamageType (basic properties)
+4. Language (basic properties)
+5. MagicSchool (basic properties)
+6. RuleSection (basic documentation)
+7. WeaponProperty (basic properties)
+8. Collection (basic organization)
+9. EquipmentCategory (basic categorization)
+10. AbilityScore (foundation for many other models)
 11. Skill (basic properties with ability score reference)
 
 For each model:
