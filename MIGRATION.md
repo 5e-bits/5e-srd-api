@@ -1,277 +1,259 @@
-# Migration Plan: Mongoose + GraphQL → TypeGraphQL + Typegoose
+# Migration to TypeGraphQL + Typegoose
 
-## Overview
+## Current Architecture
+- Backend Stack: Express, Mongoose, TypeScript, GraphQL + GraphQL Compose
+- Database: MongoDB
+- Existing GraphQL implementation using GraphQL Compose
+- 26 models in the current codebase
+- Single developer team
+- Currently running on Node.js 20.x
+- 100% test coverage (except GraphQL resolvers)
+- Both unit tests and integration tests present
 
-This document outlines the plan to migrate the 5e-srd-api from its current Mongoose + GraphQL implementation to TypeGraphQL + Typegoose. This migration will help reduce boilerplate code, improve type safety, and make the codebase more maintainable.
+### Infrastructure Components
+- Redis caching layer with pre-warming
+- Apollo Server with cache control
+- GraphQL depth limiting
+- Express rate limiting
+- Bugsnag error tracking
+- CORS support
 
-## Prerequisites
+### Model Complexity Analysis
+#### Simple Models (Good Starting Points)
+- Alignment (simple enumeration)
+- Condition (basic properties)
+- DamageType (basic properties)
+- Language (basic properties)
+- MagicSchool (basic properties)
+- RuleSection (basic documentation)
+- WeaponProperty (basic properties)
+- AbilityScore (simple schema with basic fields)
+- Collection (basic organization)
+- EquipmentCategory (basic categorization)
+- Skill (basic properties with ability score reference)
 
-### Dependencies to Add
+#### Moderate Complexity Models (Second Phase)
+- Background (references and choices)
+- Feat (features and prerequisites)
+- Rule (documentation and references)
+- Trait (race-specific features)
+- MagicItem (equipment with magical properties)
+- Subrace (race inheritance)
 
-```bash
-npm install --save type-graphql @typegoose/typegoose class-validator reflect-metadata
-```
+#### Complex Models (Final Phase)
+- Class (complex relationships, spellcasting, multi-classing)
+- Monster (extensive schema with nested types)
+- Race (ability bonuses, proficiencies, traits)
+- Spell (complex damage calculations, slot levels)
+- Subclass (deep relationships)
+- Feature (prerequisites, specific features)
+- Level (class-specific features, spellcasting)
+- Proficiency (multiple references and types)
+- Equipment (various types and properties)
 
-### TypeScript Configuration
+### Custom Scalars
+Current implementation includes custom scalar resolvers for:
+- Monster Type/Subtype Filters
+- Proficiency Type Filters
+- Size Filters
+- Spell Attack Type Filters
+- String Filters
+- Action Count
+- Area of Effect Type
+- Enum Filters
+- Float/Int Filters
+- Language Script Filters
 
-Ensure `tsconfig.json` has the following options enabled:
+### Code Organization
+- Models and types located in `src/models/2014`
+- Resolvers located in `src/graphql/2014/resolvers`
+- Custom written resolvers (not using graphql-compose package)
+- Uses custom scalars and directives
+- Uses graphql-depth-limit middleware
 
-```json
-{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  }
-}
-```
+## Migration Goals
+- Migrate from GraphQL Compose to TypeGraphQL
+- Migrate from Mongoose to Typegoose
+- Consolidate model, type, and resolver files into single files for better cohesion
+- Maintain existing TypeScript types/interfaces
+- Preserve current functionality and test coverage
+- No changes to existing schemas, types, or API endpoints
+- Preserve caching and middleware functionality
 
-## Migration Phases
+## Implementation Details
 
-### Phase 1: Setup and Infrastructure (1-2 days)
+### Development Environment
+- Using existing Docker Compose setup with:
+  - MongoDB (5e-database)
+  - Redis cache
+  - API service
+- Maintaining existing test infrastructure:
+  - Separate unit and integration test configurations
+  - Jest as testing framework
+  - Redis mock for unit tests
+  - Existing test coverage requirements
 
-1. Create new directory structure:
+### Code Organization
+- Main code location: `src/models/2014`
+- Resolvers (if needed separately): `src/graphql/2014/resolvers`
+- Tests remain in separate files
+- Goal: Combine model, type, and resolver files where possible
 
-   ```plaintext
-   src/
-   ├── models/           # Typegoose models with TypeGraphQL decorators
-   │   └── 2014/        # Keep existing version organization
-   └── graphql/         # TypeGraphQL resolvers, inputs, and scalars
-       └── 2014/       # Keep existing version organization
-   ```
+### Dependency Management
+- Update existing package.json
+- Add latest compatible versions of:
+  - TypeGraphQL
+  - Typegoose
+  - Required peer dependencies
+- Maintain Node.js 20.x compatibility
+- Preserve existing middleware dependencies
 
-2. Set up base configuration files:
-   - Create TypeGraphQL schema builder in `src/graphql/schema.ts`:
+### Infrastructure Preservation
+- Redis caching:
+  - Maintain current caching strategy
+  - Preserve pre-warming functionality
+  - Update cache integration tests
+- Apollo Server:
+  - Migrate cache control plugin
+  - Preserve depth limiting
+- Express middleware:
+  - Maintain rate limiting
+  - Preserve error tracking
+  - Keep CORS configuration
 
-     ```typescript
-     import { buildSchema } from 'type-graphql';
-     import { resolvers } from './2014/resolvers';
+## Migration Steps
 
-     export const createSchema = async () => {
-       return buildSchema({
-         resolvers,
-         validate: true,
-         dateScalarMode: 'timestamp',
-         // Register custom scalars
-         scalarsMap: [
-           // ... your existing scalar mappings
-         ],
-       });
-     };
-     ```
+### 1. Initial Setup (Week 1)
+1. Add TypeGraphQL and Typegoose dependencies
+2. Configure TypeGraphQL with Express
+3. Set up basic TypeGraphQL schema structure
+4. Create test migration template
+5. Configure middleware integration:
+   - Apollo Server setup
+   - Cache control plugin
+   - Depth limiting
+   - Rate limiting
+   - Error tracking
 
-   - Set up Typegoose connection
-   - Configure dependency injection if needed
-
-### Phase 2: Core Type Migration (2-3 days)
-
-1. Migrate common types and enums:
-   - Move from `src/models/2014/common/types.ts` to new structure
-   - Convert to TypeGraphQL decorators
-   - Create shared interfaces and types
-
-2. Create base interfaces/abstract classes:
-   - Equipment interfaces:
-     - `IEquipmentBase` (base interface with index, name, desc, url)
-     - `IEquipment` (extends IEquipmentBase, adds cost, category, weight)
-     - `IGear` (extends IEquipment, for gear-specific properties)
-
-   - Common types and interfaces:
-     - `APIReference` (index, name, url pattern)
-     - `AreaOfEffect` (type and size for spells)
-     - `Choice` (choose, from, type pattern)
-     - `Cost` (quantity and unit)
-     - `DC` (difficulty class with type, value, success)
-     - `Damage` (damage type and dice values)
-     - `DamageAtLevel` (level-based damage scaling)
-     - `Usage` (times, type, dice values for features)
-     - `Prerequisite` (base for all prerequisites)
-     - `SpellPrerequisite` (for spell requirements)
-     - `LevelPrerequisite` (for level requirements)
-     - `ProficiencyPrerequisite` (for proficiency requirements)
-     - `AbilityScorePrerequisite` (for ability score requirements)
-
-### Phase 3: Model Migration (4-5 days)
-
-1. Start with independent models (no relations):
-   - AbilityScore
-   - DamageType
-   - MagicSchool
-   - Language
-   - Condition
-   - Alignment
-   - WeaponProperty
-   - RuleSection
-   - Rule
-   - Collection
-
-2. Move to models with simple relations:
-   - Equipment
-   - EquipmentCategory
-   - Proficiency
-   - Skill
-   - MagicItem
-   - Background
-
-3. Complex models with nested relations:
-   - Spell
-   - Class
-   - Subclass
-   - Race
-   - Subrace
-   - Monster
-   - Feature
-   - Feat
-   - Trait
-   - Level
+### 2. Simple Model Migration (Weeks 2-3)
+Start with simple models in this order:
+1. AbilityScore (foundation for many other models)
+2. Alignment (basic enumeration)
+3. Condition (basic properties)
+4. DamageType (basic properties)
+5. Language (basic properties)
+6. MagicSchool (basic properties)
+7. RuleSection (basic documentation)
+8. WeaponProperty (basic properties)
+9. Collection (basic organization)
+10. EquipmentCategory (basic categorization)
+11. Skill (basic properties with ability score reference)
 
 For each model:
+1. Create new TypeGraphQL + Typegoose implementation
+2. Update/migrate existing tests
+3. Direct replacement of old implementation
+4. Verify functionality
+5. Deploy to production
 
-1. Create entity class with `@ObjectType()` and `@prop()`
-2. Move validation logic to class-validator decorators
-3. Define relations using Typegoose references
-4. Add TypeGraphQL field resolvers where needed
+### 3. Moderate Complexity Migration (Weeks 4-5)
+Handle models with moderate complexity:
+1. Background (references and choices)
+2. Feat (features and prerequisites)
+3. Rule (documentation and references)
+4. Trait (race-specific features)
+5. MagicItem (equipment with magical properties)
+6. Subrace (race inheritance)
 
-Example model migration:
+For each model:
+1. Analyze references and dependencies
+2. Create new implementation
+3. Migrate tests
+4. Verify functionality with related models
+5. Deploy to production
 
-```typescript
-// Before (Mongoose)
-const Spell = new Schema({
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  desc: { type: [String], index: true },
-  // ...
-});
+### 4. Complex Model Migration (Weeks 6-8)
+Handle complex models in this order:
+1. Equipment (foundation for items and weapons)
+2. Proficiency (references to other models)
+3. Feature (prerequisites)
+4. Race (ability bonuses)
+5. Spell (damage calculations)
+6. Level (class features)
+7. Class (spellcasting)
+8. Subclass (relationships)
+9. Monster (comprehensive schema)
 
-// After (Typegoose + TypeGraphQL)
-@ObjectType()
-@modelOptions({ schemaOptions: { collection: '2014-spells' } })
-export class Spell {
-  @Field()
-  @prop({ index: true })
-  index: string;
+For each model:
+1. Analyze dependencies
+2. Create new implementation
+3. Migrate tests
+4. Verify relationships with other models
+5. Deploy to production
 
-  @Field()
-  @prop({ index: true })
-  name: string;
+### 5. Infrastructure Migration (Week 9)
+1. Port custom scalars to TypeGraphQL
+2. Update Redis caching implementation
+3. Migrate Apollo Server configuration
+4. Update middleware setup
+5. Verify all infrastructure components
 
-  @Field(() => [String])
-  @prop({ index: true })
-  desc: string[];
-  // ...
-}
-```
+### 6. Final Steps (Week 10)
+1. Remove old dependencies
+2. Clean up unused code
+3. Update documentation
+4. Final testing pass
+5. Production deployment
 
-### Phase 4: Resolver Migration (3-4 days)
+## Risks and Mitigations
 
-1. Create base resolver classes for common operations
-2. Migrate resolvers in parallel with models:
-   - Convert to TypeGraphQL decorators
-   - Use dependency injection for services
-   - Implement field resolvers using new entity classes
+### 1. Data Integrity
+- Risk: Schema changes affecting existing data
+- Mitigation:
+  - Maintain schema compatibility
+  - Thorough testing with production data
+  - Direct replacement strategy
 
-Example resolver migration:
+### 2. Performance
+- Risk: New implementation affecting query performance
+- Mitigation:
+  - Performance testing before deployment
+  - Maintain existing Redis cache
+  - Monitor query execution times
 
-```typescript
-// Before
-const Spell = {
-  attack_type: (spell) => spell.attack_type?.toUpperCase() || null,
-  // ...
-};
+### 3. Service Availability
+- Risk: Migration affecting production service
+- Mitigation:
+  - One model at a time migration
+  - Immediate rollback capability
+  - Comprehensive testing before deployment
 
-// After
-@Resolver(() => Spell)
-export class SpellResolver {
-  @FieldResolver(() => SpellAttackType, { nullable: true })
-  attackType(@Root() spell: Spell): SpellAttackType | null {
-    return spell.attackType?.toUpperCase() || null;
-  }
-  // ...
-}
-```
+### 4. Testing Coverage
+- Risk: Missing edge cases during migration
+- Mitigation:
+  - Maintain separate test files
+  - Keep existing test infrastructure
+  - Verify coverage for each migration
 
-### Phase 5: Query Migration (2-3 days)
+### 5. Caching and Performance
+- Risk: Cache invalidation issues during migration
+- Mitigation:
+  - Maintain existing cache keys
+  - Verify cache behavior for each model
+  - Comprehensive cache integration tests
 
-1. Convert existing query resolvers to TypeGraphQL
-2. Implement proper input types for filters
-3. Migrate sorting and pagination logic
-4. Add proper return types and nullability
-
-### Phase 6: Testing and Validation (2-3 days)
-
-1. Update existing tests to work with new structure
-2. Add new tests for TypeGraphQL-specific features
-3. Verify all queries work as expected
-4. Test performance and optimize if needed
-
-### Phase 7: Cleanup (1-2 days)
-
-1. Remove old Mongoose schemas
-2. Remove old GraphQL type definitions
-3. Remove old resolvers
-4. Update documentation
-5. Clean up dependencies
-
-## Timeline
-
-Estimated total time: 15-22 days
-
-## Risks and Mitigation
-
-### Risks
-
-1. Breaking changes in API responses
-2. Performance impact during transition
-3. Complex circular dependencies
-4. Data migration needs
-
-### Mitigation Strategies
-
-1. Run old and new implementations in parallel
-2. Comprehensive testing before each phase
-3. Clear separation of concerns in new architecture
-4. Careful handling of backwards compatibility
-
-## Benefits
-
-1. **Type Safety**
-   - Full end-to-end type safety
-   - Better IDE support
-   - Catch errors at compile time
-
-2. **Code Reduction**
-   - Eliminate duplicate type definitions
-   - Reduce boilerplate code
-   - Single source of truth for types
-
-3. **Maintainability**
-   - Clear separation of concerns
-   - Better code organization
-   - Easier to add new features
-
-4. **Developer Experience**
-   - Better autocomplete
-   - Easier debugging
-   - More intuitive API design
-
-## Rollback Plan
-
-1. Keep old implementation files until fully tested
-2. Maintain database compatibility
-3. Document all changes for potential rollback
-
-## Post-Migration Tasks
-
-1. Update API documentation
-2. Performance monitoring
-3. Developer training
-4. Clean up deprecated code
-5. Update deployment scripts
+### 6. Middleware Integration
+- Risk: Middleware incompatibilities with new setup
+- Mitigation:
+  - Test middleware in isolation
+  - Verify rate limiting effectiveness
+  - Maintain error tracking coverage
 
 ## Success Criteria
-
-1. All existing functionality works as expected
-2. No regression in performance
-3. Reduced codebase size
-4. Improved type safety
-5. All tests passing
-6. Documentation updated
+1. All models migrated to TypeGraphQL + Typegoose
+2. All tests passing with existing coverage
+3. No regression in API functionality
+4. Maintained performance metrics
+5. Clean, consolidated codebase
+6. Fully functional caching layer
+7. All middleware operating correctly
