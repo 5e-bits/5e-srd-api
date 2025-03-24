@@ -68,7 +68,7 @@
     "eslint-plugin-ejs": "^0.0.2",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.3.0",
     "globals": "^15.15.0",
     "jest": "^27.5.1",
     "mockingoose": "^2.15.2",
