@@ -1,9 +1,9 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import { awsS3Client } from '@/util/index.js';
 
-const show = async (req: Request, res: Response) => {
+const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const params = {
       Bucket: 'dnd-5e-api-images',
@@ -20,7 +20,7 @@ const show = async (req: Request, res: Response) => {
     if (err.name === 'NoSuchKey') {
       res.status(404).end('File Not Found');
     } else {
-      res.status(500).end(`Error Fetching File: ${err.message}`);
+      next(err);
     }
   }
 };
