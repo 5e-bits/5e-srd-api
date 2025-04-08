@@ -1,4 +1,4 @@
-import { Level } from '@/models/2014/level/types';
+import { Level } from '@/models/2014/level/index.js';
 import { Feature } from '@/models/2014/feature/types';
 
 const spellPrerequisiteResolver = {
