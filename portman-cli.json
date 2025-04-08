@@ -1,8 +1,0 @@
-{
-  "local": "dist/openapi.yml",
-  "output": "dist/collection.postman.json",
-  "ignoreCircularRefs": true,
-  "includeTests": true,
-  "syncPostman": false,
-  "runNewman": false
-}
