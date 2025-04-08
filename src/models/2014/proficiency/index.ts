@@ -1,25 +1,50 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { Reference, Proficiency } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const ReferenceSchema = new Schema<Reference>({
-  _id: false,
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  type: { type: String, index: true },
-  url: { type: String, index: true },
+class Reference {
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public type!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+}
+
+export class Proficiency {
+  @prop({ type: () => [APIReference] })
+  public classes?: APIReference[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => [APIReference] })
+  public races?: APIReference[];
+
+  @prop({ type: () => Reference })
+  public reference!: Reference;
+
+  @prop({ required: true, index: true })
+  public type!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type ProficiencyDocument = DocumentType<Proficiency>;
+const ProficiencyModel = getModelForClass(Proficiency, {
+  schemaOptions: { collection: '2014-proficiencies' },
 });
 
-const ProficiencySchema = new Schema<Proficiency>({
-  _id: { type: String, select: false },
-  classes: [APIReferenceSchema],
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  races: [APIReferenceSchema],
-  reference: ReferenceSchema,
-  type: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Proficiency', ProficiencySchema, '2014-proficiencies');
+export default ProficiencyModel;

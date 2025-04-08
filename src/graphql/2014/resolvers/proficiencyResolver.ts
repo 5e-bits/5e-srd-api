@@ -7,7 +7,7 @@ import SkillModel from '@/models/2014/skill/index.js';
 import SubraceModel from '@/models/2014/subrace/index.js';
 import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './common.js';
 
-import { Proficiency } from '@/models/2014/proficiency/types.js';
+import { Proficiency } from '@/models/2014/proficiency/index.js';
 
 const ProficiencyResolver = {
   classes: async (proficiency: Proficiency, args: QueryParams) => {

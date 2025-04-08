@@ -6,7 +6,7 @@ import SubclassModel from '@/models/2014/subclass/index.js';
 import { resolveChoice, processStringOptions } from './common.js';
 
 import { Feature } from '@/models/2014/feature/types.js';
-import { Proficiency } from '@/models/2014/proficiency/types.js';
+import { Proficiency } from '@/models/2014/proficiency/index.js';
 import { Option } from '@/models/2014/common/types.js';
 
 type FeatureSpecific = {
