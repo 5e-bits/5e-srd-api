@@ -1,13 +1,26 @@
-import { Schema, model } from 'mongoose';
-import { RuleSection } from './types';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
 
-const RuleSectionSchema = new Schema<RuleSection>({
-  _id: { type: String, select: false },
-  desc: { type: String, index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class RuleSection {
+  @prop({ required: true, index: true })
+  public desc!: string;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type RuleSectionDocument = DocumentType<RuleSection>;
+const RuleSectionModel = getModelForClass(RuleSection, {
+  schemaOptions: { collection: '2014-rule-sections' },
 });
 
-export default model('RuleSection', RuleSectionSchema, '2014-rule-sections');
+export default RuleSectionModel;

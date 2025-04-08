@@ -1,15 +1,30 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { Rule } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const RuleSchema = new Schema<Rule>({
-  _id: { type: String, select: false },
-  desc: { type: String, index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  subsections: [APIReferenceSchema],
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class Rule {
+  @prop({ required: true, index: true })
+  public desc!: string;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => [APIReference], index: true })
+  public subsections!: APIReference[];
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type RuleDocument = DocumentType<Rule>;
+const RuleModel = getModelForClass(Rule, {
+  schemaOptions: { collection: '2014-rules' },
 });
 
-export default model('Rule', RuleSchema, '2014-rules');
+export default RuleModel;
