@@ -2,7 +2,7 @@ import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice } from '../common/index.js';
 
-class Equipment {
+export class EquipmentRef {
   @prop({ type: () => APIReference })
   public equipment!: APIReference;
 
@@ -34,8 +34,8 @@ export class Background {
   @prop({ required: true, index: true })
   public url!: string;
 
-  @prop({ type: () => Equipment })
-  public starting_equipment!: Equipment[];
+  @prop({ type: () => EquipmentRef })
+  public starting_equipment!: EquipmentRef[];
 
   @prop({ type: () => [Choice], index: true })
   public starting_equipment_options!: Choice[];
