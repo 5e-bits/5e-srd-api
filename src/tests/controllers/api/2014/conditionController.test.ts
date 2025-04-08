@@ -2,7 +2,7 @@ import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 import { mockNext } from '@/tests/support/index.js';
 
-import Condition from '@/models/2014/condition/index.js';
+import { ConditionModel } from '@/models/2014/condition/index.js';
 import ConditionController from '@/controllers/api/2014/conditionController.js';
 
 beforeEach(() => {
@@ -31,7 +31,7 @@ describe('index', () => {
 
   it('returns a list of objects', async () => {
     const response = createResponse();
-    mockingoose(Condition).toReturn(findDoc, 'find');
+    mockingoose(ConditionModel).toReturn(findDoc, 'find');
 
     await ConditionController.index(request, response, mockNext);
 
@@ -42,7 +42,7 @@ describe('index', () => {
     it('handles the error', async () => {
       const response = createResponse();
       const error = new Error('Something went wrong');
-      mockingoose(Condition).toReturn(error, 'find');
+      mockingoose(ConditionModel).toReturn(error, 'find');
 
       await ConditionController.index(request, response, mockNext);
 
@@ -65,7 +65,7 @@ describe('show', () => {
 
   it('returns an object', async () => {
     const response = createResponse();
-    mockingoose(Condition).toReturn(findOneDoc, 'findOne');
+    mockingoose(ConditionModel).toReturn(findOneDoc, 'findOne');
 
     await ConditionController.show(request, response, mockNext);
 
@@ -76,7 +76,7 @@ describe('show', () => {
   describe('when the record does not exist', () => {
     it('404s', async () => {
       const response = createResponse();
-      mockingoose(Condition).toReturn(null, 'findOne');
+      mockingoose(ConditionModel).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = createRequest({ params: invalidShowParams });
@@ -92,7 +92,7 @@ describe('show', () => {
     it('is handled', async () => {
       const response = createResponse();
       const error = new Error('Something went wrong');
-      mockingoose(Condition).toReturn(error, 'findOne');
+      mockingoose(ConditionModel).toReturn(error, 'findOne');
 
       await ConditionController.show(request, response, mockNext);
 

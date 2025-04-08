@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { Model } from 'mongoose';
+import { ReturnModelType } from '@typegoose/typegoose';
 
 import { ResourceList } from '@/util/data.js';
 import { escapeRegExp } from '@/util/regex.js';
@@ -9,9 +9,9 @@ interface IndexQuery {
 }
 
 class SimpleController {
-  Schema: Model<any>;
+  Schema: ReturnModelType<any>;
 
-  constructor(Schema: Model<any>) {
+  constructor(Schema: ReturnModelType<any>) {
     this.Schema = Schema;
   }
 

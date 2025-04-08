@@ -1,13 +1,24 @@
-import { Schema, model } from 'mongoose';
-import { Condition } from './types';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
 
-const ConditionSchema = new Schema<Condition>({
-  _id: { type: String, select: false },
-  desc: { type: [String], index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class Condition {
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type ConditionDocument = DocumentType<Condition>;
+export const ConditionModel = getModelForClass(Condition, {
+  schemaOptions: { collection: '2014-conditions' },
 });
-
-export default model('Condition', ConditionSchema, '2014-conditions');
