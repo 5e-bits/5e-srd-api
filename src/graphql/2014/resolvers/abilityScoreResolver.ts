@@ -6,11 +6,11 @@ import {
   SortQuery,
   QueryParams,
 } from './common.js';
-import { AbilityScore } from '@/models/2014/abilityScore/types.js';
+import { AbilityScore } from '@/models/2014/abilityScore/index.js';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore: AbilityScore, args: QueryParams) => {
-    const filters: any[] = [{ index: { $in: abilityScore.skills.map((s) => s.index) } }];
+    const filters: any[] = [{ index: { $in: abilityScore.skills.map((s: any) => s.index) } }];
 
     if (args.name) {
       filters.push(resolveContainsStringFilter(args.name));

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import {
   APIReference as APIReferenceType,
-  Choice,
+  Choice as ChoiceType,
   AreaOfEffect,
   DifficultyClass,
   Damage,
@@ -33,6 +33,20 @@ export class APIReference {
 
   @prop({ required: true })
   public url!: string;
+}
+
+export class Choice {
+  @prop()
+  public desc?: string;
+
+  @prop({ required: true })
+  public choose!: number;
+
+  @prop({ required: true })
+  public type!: string;
+
+  @prop({ required: true })
+  public from!: any; // TODO: Create proper OptionSet class
 }
 
 export const APIReferenceSchema = new Schema<APIReferenceType>({
@@ -172,7 +186,7 @@ OptionSetSchema.discriminators['options_array'] = new Schema<OptionsArrayOptionS
   options: { type: [Option], index: true, required: true },
 });
 
-export const ChoiceSchema = new Schema<Choice>({
+export const ChoiceSchema = new Schema<ChoiceType>({
   _id: false,
   desc: { type: String, index: true },
   choose: { type: Number, index: true, required: true },
