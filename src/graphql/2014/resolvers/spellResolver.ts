@@ -12,7 +12,7 @@ import {
 } from './common.js';
 
 import { Spell } from '@/models/2014/spell/types.js';
-import { DamageType } from '@/models/2014/damageType/types.js';
+import { DamageType } from '@/models/2014/damageType/index.js';
 
 type SpellDamage = {
   damage_type?: DamageType;

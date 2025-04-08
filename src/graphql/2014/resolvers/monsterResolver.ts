@@ -8,7 +8,7 @@ import ProficiencyModel from '@/models/2014/proficiency/index.js';
 import SpellModel from '@/models/2014/spell/index.js';
 
 import { Monster, ActionUsage, SpecialAbilityUsage } from '@/models/2014/monster/types.js';
-import { DamageType } from '@/models/2014/damageType/types.js';
+import { DamageType } from '@/models/2014/damageType/index.js';
 import { Damage } from '@/models/2014/common/types.js';
 
 const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
