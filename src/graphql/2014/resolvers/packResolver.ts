@@ -2,7 +2,7 @@ import EquipmentModel from '@/models/2014/equipment/index.js';
 import { gearFieldResolvers } from './common.js';
 import { Equipment } from '@/models/2014/equipment/types.js';
 
-const Pack = {
+const PackResolver = {
   ...gearFieldResolvers,
   contents: async (pack: Equipment) => {
     const contents = pack.contents;
@@ -17,4 +17,4 @@ const Pack = {
   },
 };
 
-export default Pack;
+export default PackResolver;

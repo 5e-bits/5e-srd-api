@@ -45,7 +45,7 @@ const resolveDamage = async (damage: Damage[]) => {
   });
 };
 
-const Monster = {
+const MonsterResolver = {
   armor_class: async (monster: Monster) => {
     const resolvedAC = monster.armor_class.map(async (ac) => {
       const newAC: Record<string, any> = { ...ac };
@@ -209,4 +209,4 @@ const Monster = {
   },
 };
 
-export default Monster;
+export default MonsterResolver;

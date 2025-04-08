@@ -11,7 +11,7 @@ import {
 
 import { Level } from '@/models/2014/level/types.js';
 
-const Level = {
+const LevelResolver = {
   class: async (level: Level) => await ClassModel.findOne({ index: level.class.index }).lean(),
   subclass: async (level: Level) =>
     level.subclass ? await SubclassModel.findOne({ index: level.subclass.index }).lean() : null,
@@ -31,4 +31,4 @@ const Level = {
   },
 };
 
-export default Level;
+export default LevelResolver;

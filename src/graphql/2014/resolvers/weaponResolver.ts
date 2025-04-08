@@ -10,7 +10,7 @@ import {
 
 import { Equipment } from '@/models/2014/equipment/types.js';
 
-const Weapon = {
+const WeaponResolver = {
   ...equipmentFieldResolvers,
   category_range: async (weapon: Equipment) => {
     const indexStart = weapon.category_range?.replace(/\s+/g, '-').toLowerCase();
@@ -45,4 +45,4 @@ const Weapon = {
   weapon_range: (weapon: Equipment) => weapon.weapon_range?.toUpperCase(),
 };
 
-export default Weapon;
+export default WeaponResolver;

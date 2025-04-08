@@ -94,7 +94,7 @@ const resolveExpertiseOption: any = async (option: Option) => {
   }
 };
 
-const Feature = {
+const FeatureResolver = {
   class: async (feature: Feature) =>
     await ClassModel.findOne({ index: feature.class.index }).lean(),
   subclass: async (feature: Feature) =>
@@ -164,7 +164,7 @@ const Feature = {
     if (
       feature_specific.terrain_type_options &&
       'options' in feature_specific.terrain_type_options.from
-    ) {      
+    ) {
       featureSpecificToReturn.terrain_type_options = resolveChoice(
         feature_specific.terrain_type_options,
         {
@@ -176,7 +176,7 @@ const Feature = {
     if (
       feature_specific.enemy_type_options &&
       'options' in feature_specific.enemy_type_options.from
-    ) {      
+    ) {
       featureSpecificToReturn.enemy_type_options = resolveChoice(
         feature_specific.enemy_type_options,
         {
@@ -195,4 +195,4 @@ const Feature = {
   },
 };
 
-export default Feature;
+export default FeatureResolver;

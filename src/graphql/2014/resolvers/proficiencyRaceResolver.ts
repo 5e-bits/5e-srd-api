@@ -1,7 +1,7 @@
 import { Race } from '@/models/2014/race/types';
 import { Subrace } from '@/models/2014/subrace/types';
 
-const ProficiencyRace = {
+const ProficiencyRaceResolver = {
   __resolveType(proficiencyRace: Race | Subrace) {
     if (proficiencyRace.url.includes('subrace')) {
       return 'Subrace';
@@ -14,4 +14,4 @@ const ProficiencyRace = {
   },
 };
 
-export default ProficiencyRace;
+export default ProficiencyRaceResolver;

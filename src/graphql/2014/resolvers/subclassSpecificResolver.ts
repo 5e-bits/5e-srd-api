@@ -1,6 +1,6 @@
 import { SubclassSpecific as SubclassSpecificType } from '@/models/2014/level/types';
 
-const SubclassSpecific = {
+const SubclassSpecificResolver = {
   __resolveType(specific: SubclassSpecificType) {
     if (specific.aura_range !== undefined) return 'DevotionSpecific';
     if (specific.additional_magical_secrets_max_lvl !== undefined) return 'LoreSpecific';
@@ -9,4 +9,4 @@ const SubclassSpecific = {
   },
 };
 
-export default SubclassSpecific;
+export default SubclassSpecificResolver;

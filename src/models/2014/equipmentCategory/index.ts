@@ -1,14 +1,27 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { EquipmentCategory } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const EquipmentCategorySchema = new Schema<EquipmentCategory>({
-  _id: { type: String, select: false },
-  equipment: [APIReferenceSchema],
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class EquipmentCategory {
+  @prop({ type: () => [APIReference], index: true })
+  public equipment!: APIReference[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type EquipmentCategoryDocument = DocumentType<EquipmentCategory>;
+const EquipmentCategoryModel = getModelForClass(EquipmentCategory, {
+  schemaOptions: { collection: '2014-equipment-categories' },
 });
 
-export default model('EquipmentCategory', EquipmentCategorySchema, '2014-equipment-categories');
+export default EquipmentCategoryModel;

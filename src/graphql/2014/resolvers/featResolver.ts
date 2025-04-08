@@ -2,7 +2,7 @@ import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
 
 import { Feat } from '@/models/2014/feat/types.js';
 
-const Feat = {
+const FeatResolver = {
   prerequisites: async (feat: Feat) => {
     const prerequisites = feat.prerequisites;
     const abilityScores = await AbilityScoreModel.find({
@@ -16,4 +16,4 @@ const Feat = {
   },
 };
 
-export default Feat;
+export default FeatResolver;

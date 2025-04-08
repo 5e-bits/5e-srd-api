@@ -36,7 +36,7 @@ const resolveUsage = (usage: Usage) => {
   return resolvedUsage;
 };
 
-const Trait = {
+const TraitResolver = {
   proficiencies: async (trait: Trait, args: QueryParams) => {
     const filters: any[] = [
       {
@@ -169,4 +169,4 @@ const Trait = {
   },
 };
 
-export default Trait;
+export default TraitResolver;

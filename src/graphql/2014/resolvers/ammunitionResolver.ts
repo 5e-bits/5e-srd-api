@@ -1,7 +1,7 @@
 import { gearFieldResolvers } from './common.js';
 
-const Ammunition = {
+const AmmunitionResolver = {
   ...gearFieldResolvers,
 };
 
-export default Ammunition;
+export default AmmunitionResolver;

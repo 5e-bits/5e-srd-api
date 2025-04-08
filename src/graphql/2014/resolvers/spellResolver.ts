@@ -20,7 +20,7 @@ type SpellDamage = {
   damage_at_character_level?: Record<string, string | number>[];
 };
 
-const Spell = {
+const SpellResolver = {
   attack_type: (spell: Spell) => (spell.attack_type ? spell.attack_type.toUpperCase() : null),
   area_of_effect: (spell: Spell) =>
     spell.area_of_effect ? resolveAreaOfEffect(spell.area_of_effect) : null,
@@ -77,4 +77,4 @@ const Spell = {
     await MagicSchoolModel.findOne({ index: spell.school.index }).lean(),
 };
 
-export default Spell;
+export default SpellResolver;

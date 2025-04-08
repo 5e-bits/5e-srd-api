@@ -1,6 +1,6 @@
 import { ClassSpecific as ClassSpecificType } from '@/models/2014/level/types';
 
-const ClassSpecific = {
+const ClassSpecificResolver = {
   __resolveType(specific: ClassSpecificType) {
     if (specific.rage_count !== undefined) return 'BarbarianSpecific';
     if (specific.bardic_inspiration_die !== undefined) return 'BardSpecific';
@@ -19,4 +19,4 @@ const ClassSpecific = {
   },
 };
 
-export default ClassSpecific;
+export default ClassSpecificResolver;

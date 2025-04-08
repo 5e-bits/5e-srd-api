@@ -3,7 +3,7 @@ import { equipmentFieldResolvers } from './common.js';
 
 import { Equipment } from '@/models/2014/equipment/types.js';
 
-const Tool = {
+const ToolResolver = {
   ...equipmentFieldResolvers,
   tool_category: async (tool: Equipment) => {
     let index = tool.tool_category?.replace(/\s+/g, '-').replace(/'/g, '').toLowerCase();
@@ -12,4 +12,4 @@ const Tool = {
   },
 };
 
-export default Tool;
+export default ToolResolver;

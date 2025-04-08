@@ -12,7 +12,7 @@ import {
 
 import { Race } from '@/models/2014/race/types.js';
 
-const Race = {
+const RaceResolver = {
   ability_bonuses: async (race: Race) => {
     const abilityBonuses = race.ability_bonuses;
     const abilityScores = await AbilityScoreModel.find({
@@ -125,4 +125,4 @@ const Race = {
   },
 };
 
-export default Race;
+export default RaceResolver;

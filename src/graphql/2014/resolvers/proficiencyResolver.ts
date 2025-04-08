@@ -9,7 +9,7 @@ import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './com
 
 import { Proficiency } from '@/models/2014/proficiency/types.js';
 
-const Proficiency = {
+const ProficiencyResolver = {
   classes: async (proficiency: Proficiency, args: QueryParams) => {
     const filters: any[] = [{ index: { $in: proficiency.classes?.map((c) => c.index) } }];
 
@@ -50,4 +50,4 @@ const Proficiency = {
     proficiency.type.toUpperCase().replace(/'/g, '').replace(/\s+/g, '_'),
 };
 
-export default Proficiency;
+export default ProficiencyResolver;

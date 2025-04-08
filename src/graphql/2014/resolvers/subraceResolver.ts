@@ -12,7 +12,7 @@ import {
 
 import { Subrace } from '@/models/2014/subrace/types.js';
 
-const Subrace = {
+const SubraceResolver = {
   ability_bonuses: async (subrace: Subrace) => {
     const abilityBonuses = subrace.ability_bonuses;
     const abilityScores = await AbilityScoreModel.find({
@@ -69,4 +69,4 @@ const Subrace = {
   },
 };
 
-export default Subrace;
+export default SubraceResolver;

@@ -1,7 +1,7 @@
 import { resolveEquipmentType } from './common.js';
 import { Equipment } from '@/models/2014/equipment/types.js';
 
-const IEquipmentBase = {
+const IEquipmentBaseResolver = {
   __resolveType(equipment: Equipment) {
     if (equipment.cost) return resolveEquipmentType(equipment);
     if (equipment.index) return 'MagicItem';
@@ -9,4 +9,4 @@ const IEquipmentBase = {
   },
 };
 
-export default IEquipmentBase;
+export default IEquipmentBaseResolver;
