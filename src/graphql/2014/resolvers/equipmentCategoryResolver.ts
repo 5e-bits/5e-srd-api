@@ -4,7 +4,7 @@ import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './co
 
 import { EquipmentCategory } from '@/models/2014/equipmentCategory/index.js';
 import { MagicItem } from '@/models/2014/magicItem/index.js';
-import { Equipment } from '@/models/2014/equipment/types.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
 import { Order, SortQuery } from './common.js';
 
 type Args = {

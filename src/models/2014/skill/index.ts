@@ -1,15 +1,30 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { Skill } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const SkillSchema = new Schema<Skill>({
-  _id: { type: String, select: false },
-  ability_score: APIReferenceSchema,
-  desc: { type: [String], index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class Skill {
+  @prop({ type: () => APIReference })
+  public ability_score!: APIReference;
+
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type SkillDocument = DocumentType<Skill>;
+const SkillModel = getModelForClass(Skill, {
+  schemaOptions: { collection: '2014-skills' },
 });
 
-export default model('Skill', SkillSchema, '2014-skills');
+export default SkillModel;

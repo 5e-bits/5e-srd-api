@@ -1,7 +1,7 @@
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
 import { equipmentFieldResolvers } from './common.js';
 
-import { Equipment } from '@/models/2014/equipment/types.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
 
 const ToolResolver = {
   ...equipmentFieldResolvers,
