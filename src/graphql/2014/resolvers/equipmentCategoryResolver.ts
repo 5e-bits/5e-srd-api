@@ -3,7 +3,7 @@ import MagicItemModel from '@/models/2014/magicItem/index.js';
 import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common.js';
 
 import { EquipmentCategory } from '@/models/2014/equipmentCategory/index.js';
-import { MagicItem } from '@/models/2014/magicItem/types.js';
+import { MagicItem } from '@/models/2014/magicItem/index.js';
 import { Equipment } from '@/models/2014/equipment/types.js';
 import { Order, SortQuery } from './common.js';
 
