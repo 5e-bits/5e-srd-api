@@ -1,4 +1,4 @@
-import AbilityScore from '@/models/2014/abilityScore/index.js';
+import { AbilityScoreModel } from '@/models/2014/abilityScore/index.js';
 import SimpleController from '@/controllers/simpleController.js';
 
-export default new SimpleController(AbilityScore);
+export default new SimpleController(AbilityScoreModel);

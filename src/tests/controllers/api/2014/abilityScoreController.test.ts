@@ -3,7 +3,7 @@ import { createRequest, createResponse } from 'node-mocks-http';
 
 import { mockNext } from '@/tests/support/index.js';
 
-import AbilityScore from '@/models/2014/abilityScore/index.js';
+import { AbilityScoreModel } from '@/models/2014/abilityScore/index.js';
 import AbilityScoreController from '@/controllers/api/2014/abilityScoreController.js';
 
 beforeEach(() => {
@@ -32,7 +32,7 @@ describe('index', () => {
 
   it('returns a list of objects', async () => {
     const response = createResponse();
-    mockingoose(AbilityScore).toReturn(findDoc, 'find');
+    mockingoose(AbilityScoreModel).toReturn(findDoc, 'find');
 
     await AbilityScoreController.index(request, response, mockNext);
 
@@ -43,7 +43,7 @@ describe('index', () => {
     it('handles the error', async () => {
       const response = createResponse();
       const error = new Error('Something went wrong');
-      mockingoose(AbilityScore).toReturn(error, 'find');
+      mockingoose(AbilityScoreModel).toReturn(error, 'find');
 
       await AbilityScoreController.index(request, response, mockNext);
 
@@ -66,7 +66,7 @@ describe('show', () => {
 
   it('returns an object', async () => {
     const response = createResponse();
-    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne');
+    mockingoose(AbilityScoreModel).toReturn(findOneDoc, 'findOne');
 
     await AbilityScoreController.show(request, response, mockNext);
 
@@ -77,7 +77,7 @@ describe('show', () => {
   describe('when the record does not exist', () => {
     it('404s', async () => {
       const response = createResponse();
-      mockingoose(AbilityScore).toReturn(null, 'findOne');
+      mockingoose(AbilityScoreModel).toReturn(null, 'findOne');
 
       const invalidShowParams = { index: 'abcd' };
       const invalidRequest = createRequest({ params: invalidShowParams });
@@ -93,7 +93,7 @@ describe('show', () => {
     it('is handled', async () => {
       const response = createResponse();
       const error = new Error('Something went wrong');
-      mockingoose(AbilityScore).toReturn(error, 'findOne');
+      mockingoose(AbilityScoreModel).toReturn(error, 'findOne');
 
       await AbilityScoreController.show(request, response, mockNext);
 

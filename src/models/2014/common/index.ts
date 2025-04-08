@@ -1,6 +1,6 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import {
-  APIReference,
+  APIReference as APIReferenceType,
   Choice,
   AreaOfEffect,
   DifficultyClass,
@@ -22,13 +22,27 @@ import {
   EquipmentCategoryOptionSet,
   ResourceListOptionSet,
 } from './types';
+import { prop } from '@typegoose/typegoose';
 
-export const APIReferenceSchema = new Schema<APIReference>({
-  _id: false,
+export class APIReference {
+  @prop({ required: true })
+  public index!: string;
+
+  @prop({ required: true })
+  public name!: string;
+
+  @prop({ required: true })
+  public url!: string;
+}
+
+export const APIReferenceSchema = new Schema<APIReferenceType>({
+  _id: { type: String, select: false },
   index: { type: String, index: true },
   name: { type: String, index: true },
   url: { type: String, index: true },
 });
+
+export default model('APIReference', APIReferenceSchema, '2014-api-references');
 
 export const AreaOfEffectSchema = new Schema<AreaOfEffect>({
   _id: false,
