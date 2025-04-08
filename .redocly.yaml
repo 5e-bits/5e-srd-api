@@ -1,0 +1,7 @@
+extends:
+  - recommended
+
+rules:
+  operation-operationId: off
+  operation-4xx-response: off
+  # no-invalid-media-type-examples: off

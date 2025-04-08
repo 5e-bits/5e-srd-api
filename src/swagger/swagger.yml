@@ -215,11 +215,13 @@ info:
 servers:
   - url: https://www.dnd5eapi.co
     description: Production
-  - url: http://localhost:3000
+  - url: http://127.0.0.1:3000
     description: Local Development
 tags:
   - name: Common
+    description: General API endpoints and utilities
   - name: Character Data
+    description: Endpoints related to character creation and management data
 
 paths:
   /api/2014:
@@ -323,3 +325,7 @@ components:
 
   schemas:
     $ref: './schemas/2014/combined.yml'
+
+# Add security definitions
+security:
+  - {}  # Empty security requirement means no authentication required

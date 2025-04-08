@@ -1,0 +1,8 @@
+{
+  "folderStrategy": "Tags",
+  "includeAuthInfoInExample": true,
+  "optimizeConversion": true,
+  "stackLimit": 50,
+  "requestParametersResolution": "Example",
+  "exampleParametersResolution": "Example"
+}
