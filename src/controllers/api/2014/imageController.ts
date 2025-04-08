@@ -20,7 +20,7 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
     if (err.name === 'NoSuchKey') {
       res.status(404).end('File Not Found');
     } else {
-      res.status(500).end(`Error Fetching File: ${err.message}`);
+      next(err);
     }
   }
 };
