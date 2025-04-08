@@ -7,11 +7,11 @@ import {
   resolveSpells,
 } from './common.js';
 
-import { AbilityScoreModel } from '@/models/2014/abilityScore/index.js';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
 import AlignmentModel from '@/models/2014/alignment/index.js';
 import BackgroundModel from '@/models/2014/background/index.js';
 import ClassModel from '@/models/2014/class/index.js';
-import { ConditionModel } from '@/models/2014/condition/index.js';
+import ConditionModel from '@/models/2014/condition/index.js';
 import DamageTypeModel from '@/models/2014/damageType/index.js';
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
 import EquipmentModel from '@/models/2014/equipment/index.js';

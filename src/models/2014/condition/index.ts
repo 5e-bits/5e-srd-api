@@ -19,6 +19,8 @@ export class Condition {
 }
 
 export type ConditionDocument = DocumentType<Condition>;
-export const ConditionModel = getModelForClass(Condition, {
+const ConditionModel = getModelForClass(Condition, {
   schemaOptions: { collection: '2014-conditions' },
 });
+
+export default ConditionModel;

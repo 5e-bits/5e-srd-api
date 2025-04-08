@@ -26,6 +26,8 @@ export class AbilityScore {
 }
 
 export type AbilityScoreDocument = DocumentType<AbilityScore>;
-export const AbilityScoreModel = getModelForClass(AbilityScore, {
+const AbilityScoreModel = getModelForClass(AbilityScore, {
   schemaOptions: { collection: '2014-ability-scores' },
 });
+
+export default AbilityScoreModel;

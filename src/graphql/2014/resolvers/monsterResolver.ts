@@ -1,6 +1,6 @@
 import { levelObjectToArray, resolveChoice, resolveDc } from './common.js';
 
-import { ConditionModel } from '@/models/2014/condition/index.js';
+import ConditionModel from '@/models/2014/condition/index.js';
 import DamageTypeModel from '@/models/2014/damageType/index.js';
 import EquipmentModel from '@/models/2014/equipment/index.js';
 import MonsterModel from '@/models/2014/monster/index.js';
