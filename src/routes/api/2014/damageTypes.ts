@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import DamageTypeController from '@/controllers/api/2014/damageTypeController.js';
+import DamageTypeController from '@/controllers/api/2014/damageTypeController';
 
 const router = express.Router();
 

@@ -1,9 +1,9 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import { mockNext } from '@/tests/support/requestHelpers.js';
+import { mockNext } from '@/tests/support/requestHelpers';
 
-import EquipmentCategory from '@/models/2014/equipmentCategory/index.js';
-import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController.js';
+import EquipmentCategory from '@/models/2014/equipmentCategory';
+import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController';
 
 beforeEach(() => {
   mockingoose.resetAll();

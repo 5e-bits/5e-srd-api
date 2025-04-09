@@ -1,7 +1,7 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import path from 'path';
 import { readFileSync } from 'fs';
-import resolvers from './resolvers/rootResolvers.js';
+import resolvers from './resolvers/rootResolvers';
 
 const typeDefs = readFileSync(
   path.resolve(process.cwd(), 'src', 'graphql', '2014', 'typeDefs.graphql'),

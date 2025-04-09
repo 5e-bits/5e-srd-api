@@ -1,13 +1,13 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as RaceController from '@/controllers/api/2014/raceController.js';
+import * as RaceController from '@/controllers/api/2014/raceController';
 
-import { mockNext } from '@/tests/support/index.js';
+import { mockNext } from '@/tests/support';
 
-import Proficiency from '@/models/2014/proficiency/index.js';
-import Race from '@/models/2014/race/index.js';
-import Subrace from '@/models/2014/subrace/index.js';
-import Trait from '@/models/2014/trait/index.js';
+import Proficiency from '@/models/2014/proficiency';
+import Race from '@/models/2014/race';
+import Subrace from '@/models/2014/subrace';
+import Trait from '@/models/2014/trait';
 
 beforeEach(() => {
   mockingoose.resetAll();

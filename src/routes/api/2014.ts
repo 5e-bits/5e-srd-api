@@ -1,33 +1,31 @@
-import {
-  AbilityScoresHandler,
-  AlignmentsHandler,
-  BackgroundsHandler,
-  ClassesHandler,
-  ConditionsHandler,
-  DamageTypesHandler,
-  EquipmentCategoriesHandler,
-  EquipmentHandler,
-  FeatsHandler,
-  FeaturesHandler,
-  ImageHandler,
-  LanguagesHandler,
-  MagicItemsHandler,
-  MagicSchoolsHandler,
-  MonstersHandler,
-  ProficienciesHandler,
-  RacesHandler,
-  RuleSectionsHandler,
-  RulesHandler,
-  SkillsHandler,
-  SpellsHandler,
-  SubclassesHandler,
-  SubracesHandler,
-  TraitsHandler,
-  WeaponPropertiesHandler,
-} from './2014/index.js';
+import AbilityScoresHandler from './2014/abilityScores';
+import AlignmentsHandler from './2014/alignments';
+import BackgroundsHandler from './2014/backgrounds';
+import ClassesHandler from './2014/classes';
+import ConditionsHandler from './2014/conditions';
+import DamageTypesHandler from './2014/damageTypes';
+import EquipmentCategoriesHandler from './2014/equipmentCategories';
+import EquipmentHandler from './2014/equipment';
+import FeatsHandler from './2014/feats';
+import FeaturesHandler from './2014/features';
+import ImageHandler from './2014/images';
+import LanguagesHandler from './2014/languages';
+import MagicItemsHandler from './2014/magicItems';
+import MagicSchoolsHandler from './2014/magicSchools';
+import MonstersHandler from './2014/monsters';
+import ProficienciesHandler from './2014/proficiencies';
+import RacesHandler from './2014/races';
+import RuleSectionsHandler from './2014/rule-sections';
+import RulesHandler from './2014/rules';
+import SkillsHandler from './2014/skills';
+import SpellsHandler from './2014/spells';
+import SubclassesHandler from './2014/subclasses';
+import SubracesHandler from './2014/subraces';
+import TraitsHandler from './2014/traits';
+import WeaponPropertiesHandler from './2014/weaponProperties';
 
 import express from 'express';
-import { index } from '@/controllers/api/v2014Controller.js';
+import { index } from '@/controllers/api/v2014Controller';
 
 const router = express.Router();
 

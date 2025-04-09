@@ -1,1 +1,1 @@
-export { mockNext } from './requestHelpers.js';
+export { mockNext } from './requestHelpers';

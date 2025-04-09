@@ -1,10 +1,10 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as MagicItemController from '@/controllers/api/2014/magicItemController.js';
+import * as MagicItemController from '@/controllers/api/2014/magicItemController';
 
-import { mockNext } from '@/tests/support/requestHelpers.js';
+import { mockNext } from '@/tests/support/requestHelpers';
 
-import MagicItem from '@/models/2014/magicItem/index.js';
+import MagicItem from '@/models/2014/magicItem';
 
 beforeEach(() => {
   mockingoose.resetAll();
