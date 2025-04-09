@@ -1,24 +1,47 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { Rarity, MagicItem } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '../common/index.js';
 
-const RaritySchema = new Schema<Rarity>({
-  _id: false,
-  name: { type: String, index: true },
+class Rarity {
+  @prop({ required: true, index: true })
+  public name!: string;
+}
+
+export class MagicItem {
+  @prop({ type: () => [String], index: true })
+  public desc!: string[];
+
+  @prop({ type: () => APIReference, index: true })
+  public equipment_category!: APIReference;
+
+  @prop({ type: () => String, index: true })
+  public image!: string;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public rarity!: Rarity;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ type: () => [APIReference], index: true })
+  public variants!: APIReference[];
+
+  @prop({ required: true, index: true })
+  public variant!: boolean;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type MagicItemDocument = DocumentType<MagicItem>;
+const MagicItemModel = getModelForClass(MagicItem, {
+  schemaOptions: { collection: '2014-magic-items' },
 });
 
-const MagicItemSchema = new Schema<MagicItem>({
-  _id: { type: String, select: false },
-  desc: { type: [String], index: true },
-  equipment_category: APIReferenceSchema,
-  image: { type: String, index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  rarity: RaritySchema,
-  url: { type: String, index: true },
-  variants: [APIReferenceSchema],
-  variant: Boolean,
-  updated_at: { type: String, index: true },
-});
-
-export default model('MagicItem', MagicItemSchema, '2014-magic-items');
+export default MagicItemModel;

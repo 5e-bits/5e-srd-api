@@ -1,33 +1,74 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema } from '@/models/2014/common/index.js';
-import { RaceAbilityBonus, Race } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference, Choice } from '@/models/2014/common/index.js';
 
-const RaceAbilityBonusSchema = new Schema<RaceAbilityBonus>({
-  _id: false,
-  ability_score: APIReferenceSchema,
-  bonus: { type: Number, index: true },
+class RaceAbilityBonus {
+  @prop({ type: () => APIReference, required: true })
+  public ability_score!: APIReference;
+
+  @prop({ required: true, index: true })
+  public bonus!: number;
+}
+
+export class Race {
+  @prop({ type: () => Choice })
+  public ability_bonus_options?: Choice;
+
+  @prop({ type: () => [RaceAbilityBonus], required: true })
+  public ability_bonuses!: RaceAbilityBonus[];
+
+  @prop({ required: true, index: true })
+  public age!: string;
+
+  @prop({ required: true, index: true })
+  public alignment!: string;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public language_desc!: string;
+
+  @prop({ type: () => Choice, required: true })
+  public language_options!: Choice;
+
+  @prop({ type: () => [APIReference], required: true })
+  public languages!: APIReference[];
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public size!: string;
+
+  @prop({ required: true, index: true })
+  public size_description!: string;
+
+  @prop({ required: true, index: true })
+  public speed!: number;
+
+  @prop({ type: () => [APIReference] })
+  public starting_proficiencies?: APIReference[];
+
+  @prop({ type: () => Choice })
+  public starting_proficiency_options?: Choice;
+
+  @prop({ type: () => [APIReference] })
+  public subraces?: APIReference[];
+
+  @prop({ type: () => [APIReference] })
+  public traits?: APIReference[];
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type RaceDocument = DocumentType<Race>;
+const RaceModel = getModelForClass(Race, {
+  schemaOptions: { collection: '2014-races' },
 });
 
-const RaceSchema = new Schema<Race>({
-  _id: { type: String, select: false },
-  ability_bonus_options: ChoiceSchema,
-  ability_bonuses: [RaceAbilityBonusSchema],
-  age: { type: String, index: true },
-  alignment: { type: String, index: true },
-  index: { type: String, index: true },
-  language_desc: { type: String, index: true },
-  language_options: ChoiceSchema,
-  languages: [APIReferenceSchema],
-  name: { type: String, index: true },
-  size: { type: String, index: true },
-  size_description: { type: String, index: true },
-  speed: { type: Number, index: true },
-  starting_proficiencies: [APIReferenceSchema],
-  starting_proficiency_options: ChoiceSchema,
-  subraces: [APIReferenceSchema],
-  traits: [APIReferenceSchema],
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Race', RaceSchema, '2014-races');
+export default RaceModel;

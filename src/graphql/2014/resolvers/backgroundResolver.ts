@@ -10,14 +10,20 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Background } from '@/models/2014/background/types.js';
+import { Background, EquipmentRef } from '@/models/2014/background/index.js';
+import {
+  APIReference,
+  EquipmentCategoryOptionSet,
+  OptionsArrayOptionSet,
+} from '@/models/2014/common/index.js';
+import { Choice, Option } from '@/models/2014/common/index.js';
 
-const Background = {
+const BackgroundResolver = {
   starting_equipment: async (background: Background, args: QueryParams) => {
     const starting_equipment = background.starting_equipment;
     const filters: any[] = [
       {
-        index: { $in: starting_equipment.map((se) => se.equipment.index) },
+        index: { $in: starting_equipment.map((se: EquipmentRef) => se.equipment.index) },
       },
     ];
 
@@ -27,15 +33,15 @@ const Background = {
 
     const equipment = await EquipmentModel.find(coalesceFilters(filters)).lean();
 
-    return starting_equipment.map((se) => ({
+    return starting_equipment.map((se: EquipmentRef) => ({
       ...se,
-      equipment: equipment.find((e) => e.index === se.equipment.index),
+      equipment: equipment.find((e: APIReference) => e.index === se.equipment.index),
     }));
   },
   starting_proficiencies: async (background: Background, args: QueryParams) => {
     const filters: any[] = [
       {
-        index: { $in: background.starting_proficiencies.map((sp) => sp.index) },
+        index: { $in: background.starting_proficiencies.map((sp: APIReference) => sp.index) },
       },
     ];
 
@@ -50,7 +56,7 @@ const Background = {
       background.language_options,
       {
         option_set_type: 'options_array',
-        options: (await LanguageModel.find().lean()).map((language) => ({
+        options: (await LanguageModel.find().lean()).map((language: APIReference) => ({
           option_type: 'reference',
           item: language,
         })),
@@ -58,27 +64,31 @@ const Background = {
       true
     ),
   starting_equipment_options: async (background: Background) =>
-    background.starting_equipment_options.map(async (option) => {
+    background.starting_equipment_options.map(async (option: Choice) => {
       if ('equipment_category' in option.from) {
         return resolveChoice(option, {
           equipment_category: await EquipmentCategoryModel.findOne({
-            index: option.from.equipment_category.index,
+            index: (option.from as EquipmentCategoryOptionSet).equipment_category.index,
           }).lean(),
         });
       }
     }),
   ideals: async (background: Background) => {
     if ('options' in background.ideals.from) {
-      const options = background.ideals.from.options.map(async (option) => {
-        if ('alignments' in option) {
-          return {
-            ...option,
-            alignments: await AlignmentModel.find({
-              index: { $in: option.alignments.map((a) => a.index) },
-            }).lean(),
-          };
+      const options = (background.ideals.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('alignments' in option) {
+            return {
+              ...option,
+              alignments: await AlignmentModel.find({
+                index: {
+                  $in: (option.alignments as APIReference[]).map((a: APIReference) => a.index),
+                },
+              }).lean(),
+            };
+          }
         }
-      });
+      );
       return resolveChoice(background.ideals, {
         options,
       });
@@ -86,4 +96,4 @@ const Background = {
   },
 };
 
-export default Background;
+export default BackgroundResolver;

@@ -1,21 +1,38 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { Prerequisite, Feat } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const PrerequisiteSchema = new Schema<Prerequisite>({
-  _id: false,
-  ability_score: APIReferenceSchema,
-  minimum_score: { type: Number, index: true },
+export class Prerequisite {
+  @prop({ type: () => APIReference })
+  public ability_score!: APIReference;
+
+  @prop({ required: true, index: true })
+  public minimum_score!: number;
+}
+
+export class Feat {
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => [Prerequisite] })
+  public prerequisites!: Prerequisite[];
+
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type FeatDocument = DocumentType<Feat>;
+const FeatModel = getModelForClass(Feat, {
+  schemaOptions: { collection: '2014-feats' },
 });
 
-const FeatSchema = new Schema<Feat>({
-  _id: { type: String, select: false },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  prerequisites: [PrerequisiteSchema],
-  desc: { type: [String], index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Feat', FeatSchema, '2014-feats');
+export default FeatModel;

@@ -1,96 +1,163 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import {
-  ArmorClass,
-  Content,
-  Cost,
-  Damage,
-  Range,
-  Speed,
-  ThrowRange,
-  TwoHandedDamage,
-  Equipment,
-} from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const ArmorClassSchema = new Schema<ArmorClass>({
-  _id: false,
-  base: { type: Number, index: true },
-  dex_bonus: { type: Boolean, index: true },
-  max_bonus: { type: Number, index: true },
+class ArmorClass {
+  @prop({ required: true, index: true })
+  public base!: number;
+
+  @prop({ required: true, index: true })
+  public dex_bonus!: boolean;
+
+  @prop({ index: true })
+  public max_bonus?: number;
+}
+
+class Content {
+  @prop({ type: () => APIReference })
+  public item!: APIReference;
+
+  @prop({ required: true, index: true })
+  public quantity!: number;
+}
+
+class Cost {
+  @prop({ required: true, index: true })
+  public quantity!: number;
+
+  @prop({ required: true, index: true })
+  public unit!: string;
+}
+
+class Damage {
+  @prop({ required: true, index: true })
+  public damage_dice!: string;
+
+  @prop({ type: () => APIReference })
+  public damage_type!: APIReference;
+}
+
+class Range {
+  @prop({ index: true })
+  public long?: number;
+
+  @prop({ required: true, index: true })
+  public normal!: number;
+}
+
+class Speed {
+  @prop({ required: true, index: true })
+  public quantity!: number;
+
+  @prop({ required: true, index: true })
+  public unit!: string;
+}
+
+class ThrowRange {
+  @prop({ required: true, index: true })
+  public long!: number;
+
+  @prop({ required: true, index: true })
+  public normal!: number;
+}
+
+class TwoHandedDamage {
+  @prop({ required: true, index: true })
+  public damage_dice!: string;
+
+  @prop({ type: () => APIReference })
+  public damage_type!: APIReference;
+}
+
+export class Equipment {
+  @prop({ index: true })
+  public armor_category?: string;
+
+  @prop({ type: () => ArmorClass })
+  public armor_class?: ArmorClass;
+
+  @prop({ index: true })
+  public capacity?: string;
+
+  @prop({ index: true })
+  public category_range?: string;
+
+  @prop({ type: () => [Content] })
+  public contents?: Content[];
+
+  @prop({ type: () => Cost })
+  public cost!: Cost;
+
+  @prop({ type: () => Damage })
+  public damage?: Damage;
+
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ type: () => APIReference })
+  public equipment_category!: APIReference;
+
+  @prop({ type: () => APIReference })
+  public gear_category?: APIReference;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => [APIReference] })
+  public properties?: APIReference[];
+
+  @prop({ index: true })
+  public quantity?: number;
+
+  @prop({ type: () => Range })
+  public range?: Range;
+
+  @prop({ index: true })
+  public special?: string[];
+
+  @prop({ type: () => Speed })
+  public speed?: Speed;
+
+  @prop({ index: true })
+  public stealth_disadvantage?: boolean;
+
+  @prop({ index: true })
+  public str_minimum?: number;
+
+  @prop({ type: () => ThrowRange })
+  public throw_range?: ThrowRange;
+
+  @prop({ index: true })
+  public tool_category?: string;
+
+  @prop({ type: () => TwoHandedDamage })
+  public two_handed_damage?: TwoHandedDamage;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ index: true })
+  public vehicle_category?: string;
+
+  @prop({ index: true })
+  public weapon_category?: string;
+
+  @prop({ index: true })
+  public weapon_range?: string;
+
+  @prop({ index: true })
+  public weight?: number;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type EquipmentDocument = DocumentType<Equipment>;
+const EquipmentModel = getModelForClass(Equipment, {
+  schemaOptions: { collection: '2014-equipment' },
 });
 
-const ContentSchema = new Schema<Content>({
-  _id: false,
-  item: APIReferenceSchema,
-  quantity: { type: Number, index: true },
-});
-
-const CostSchema = new Schema<Cost>({
-  _id: false,
-  quantity: { type: Number, index: true },
-  unit: { type: String, index: true },
-});
-
-const DamageSchema = new Schema<Damage>({
-  _id: false,
-  damage_dice: { type: String, index: true },
-  damage_type: APIReferenceSchema,
-});
-
-const RangeSchema = new Schema<Range>({
-  _id: false,
-  long: { type: Number, index: true },
-  normal: { type: Number, index: true },
-});
-
-const SpeedSchema = new Schema<Speed>({
-  _id: false,
-  quantity: { type: Number, index: true },
-  unit: { type: String, index: true },
-});
-
-const ThrowRangeSchema = new Schema<ThrowRange>({
-  _id: false,
-  long: { type: Number, index: true },
-  normal: { type: Number, index: true },
-});
-
-const TwoHandedDamageSchema = new Schema<TwoHandedDamage>({
-  _id: false,
-  damage_dice: { type: String, index: true },
-  damage_type: APIReferenceSchema,
-});
-
-const EquipmentSchema = new Schema<Equipment>({
-  _id: { type: String, select: false },
-  armor_category: { type: String, index: true },
-  armor_class: ArmorClassSchema,
-  capacity: { type: String, index: true },
-  category_range: { type: String, index: true },
-  contents: [ContentSchema],
-  cost: CostSchema,
-  damage: DamageSchema,
-  desc: { type: [String], index: true },
-  equipment_category: APIReferenceSchema,
-  gear_category: APIReferenceSchema,
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  properties: [APIReferenceSchema],
-  quantity: { type: Number, index: true },
-  range: RangeSchema,
-  special: { type: [String], index: true },
-  speed: SpeedSchema,
-  stealth_disadvantage: { type: Boolean, index: true },
-  str_minimum: { type: Number, index: true },
-  throw_range: ThrowRangeSchema,
-  tool_category: { type: String, index: true },
-  two_handed_damage: TwoHandedDamageSchema,
-  url: { type: String, index: true },
-  vehicle_category: { type: String, index: true },
-  weapon_category: { type: String, index: true },
-  weapon_range: { type: String, index: true },
-  weight: { type: Number, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Equipment', EquipmentSchema, '2014-equipment');
+export default EquipmentModel;

@@ -1,9 +1,9 @@
 import { resolveGearType } from './common.js';
-import { Equipment } from '@/models/2014/equipment/types.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
 
-const IGear = {
+const IGearResolver = {
   __resolveType(gear: Equipment) {
     return resolveGearType(gear);
   },
 };
-export default IGear;
+export default IGearResolver;

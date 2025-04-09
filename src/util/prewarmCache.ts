@@ -4,11 +4,11 @@ import { ResourceList } from './data.js';
 import Rule from '@/models/2014/rule/index.js';
 import RuleSection from '@/models/2014/ruleSection/index.js';
 import Spell from '@/models/2014/spell/index.js';
-import mongoose from 'mongoose';
+import { getModelForClass } from '@typegoose/typegoose';
 import redisClient from './RedisClient.js';
 
 type PrewarmData = {
-  Schema: mongoose.Model<any, any>;
+  Schema: ReturnType<typeof getModelForClass>;
   endpoint: string;
 };
 

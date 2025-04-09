@@ -1,7 +1,7 @@
-import { Level } from '@/models/2014/level/types';
-import { Feature } from '@/models/2014/feature/types';
+import { Level } from '@/models/2014/level/index.js';
+import { Feature } from '@/models/2014/feature/index.js';
 
-const SpellPrerequisite = {
+const spellPrerequisiteResolver = {
   __resolveType(prerequisite: Level | Feature) {
     if ('features' in prerequisite) return 'Level';
     if ('prerequisites' in prerequisite) return 'Feature';
@@ -10,4 +10,4 @@ const SpellPrerequisite = {
   },
 };
 
-export default SpellPrerequisite;
+export default spellPrerequisiteResolver;

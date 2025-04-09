@@ -1,8 +1,8 @@
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
-import { Equipment } from '@/models/2014/equipment/types.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
 import { equipmentFieldResolvers } from './common.js';
 
-const Armor = {
+const ArmorResolver = {
   ...equipmentFieldResolvers,
   armor_category: async (armor: Equipment) => {
     let index = armor.armor_category?.toLowerCase();
@@ -11,4 +11,4 @@ const Armor = {
   },
 };
 
-export default Armor;
+export default ArmorResolver;

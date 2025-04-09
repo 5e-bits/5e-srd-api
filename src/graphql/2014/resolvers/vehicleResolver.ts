@@ -1,9 +1,9 @@
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
 import { equipmentFieldResolvers } from './common.js';
 
-import { Equipment } from '@/models/2014/equipment/types.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
 
-const Vehicle = {
+const VehicleResolver = {
   ...equipmentFieldResolvers,
   vehicle_category: async (vehicle: Equipment) => {
     const index = vehicle.vehicle_category?.toLowerCase().replace(/\s+/g, '-').replace(/,/g, '');
@@ -11,4 +11,4 @@ const Vehicle = {
   },
 };
 
-export default Vehicle;
+export default VehicleResolver;

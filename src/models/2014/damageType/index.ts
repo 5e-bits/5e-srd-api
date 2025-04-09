@@ -1,13 +1,26 @@
-import { Schema, model } from 'mongoose';
-import { DamageType } from './types';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
 
-const DamageTypeSchema = new Schema<DamageType>({
-  _id: { type: String, select: false },
-  desc: { type: [String], index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class DamageType {
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type DamageTypeDocument = DocumentType<DamageType>;
+const DamageTypeModel = getModelForClass(DamageType, {
+  schemaOptions: { collection: '2014-damage-types' },
 });
 
-export default model('DamageType', DamageTypeSchema, '2014-damage-types');
+export default DamageTypeModel;

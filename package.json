@@ -23,12 +23,13 @@
     "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api npm run test:integration"
   },
   "dependencies": {
-    "@redocly/cli": "^1.0.0-beta.142",
     "@apollo/server": "^4.11.3",
     "@aws-sdk/client-s3": "^3.758.0",
     "@bugsnag/js": "^8.0.0",
     "@bugsnag/plugin-express": "^8.2.0",
     "@graphql-tools/schema": "^10.0.20",
+    "@redocly/cli": "^1.0.0-beta.142",
+    "@typegoose/typegoose": "^12.14.0",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.3",
@@ -38,8 +39,6 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "graphql": "^16.10.0",
-    "graphql-compose": "^9.1.0",
-    "graphql-compose-mongoose": "^10.0.0",
     "graphql-depth-limit": "^1.1.0",
     "mongoose": "^8.10.1",
     "morgan": "^1.10.0",

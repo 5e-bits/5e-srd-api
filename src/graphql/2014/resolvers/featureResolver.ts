@@ -1,13 +1,20 @@
 import ClassModel from '@/models/2014/class/index.js';
-import FeatureModel from '@/models/2014/feature/index.js';
+import FeatureModel, { FeatureDocument } from '@/models/2014/feature/index.js';
 import ProficiencyModel from '@/models/2014/proficiency/index.js';
 import SpellModel from '@/models/2014/spell/index.js';
 import SubclassModel from '@/models/2014/subclass/index.js';
 import { resolveChoice, processStringOptions } from './common.js';
 
-import { Feature } from '@/models/2014/feature/types.js';
-import { Proficiency } from '@/models/2014/proficiency/types.js';
-import { Option } from '@/models/2014/common/types.js';
+import { Feature } from '@/models/2014/feature/index.js';
+import { Proficiency } from '@/models/2014/proficiency/index.js';
+import {
+  ChoiceOption,
+  Option,
+  OptionsArrayOptionSet,
+  ReferenceOption,
+  StringOption,
+  MultipleOption,
+} from '@/models/2014/common/index.js';
 
 type FeatureSpecific = {
   subfeature_options?: {
@@ -61,40 +68,71 @@ type FeatureSpecific = {
   invocations?: Feature[];
 };
 
-const resolveExpertiseOption: any = async (option: Option) => {
+type FeatureWithSpecific = Feature & {
+  feature_specific?: FeatureSpecific;
+};
+
+const resolveExpertiseOption = async (option: Option): Promise<Option> => {
   if (option.option_type === 'reference') {
-    return {
-      ...option,
-      item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
+    const referenceOption = option as ReferenceOption;
+    const proficiency = await ProficiencyModel.findOne({
+      index: referenceOption.item.index,
+    }).lean();
+    if (!proficiency) {
+      return referenceOption;
+    }
+    const resolvedOption: ReferenceOption = {
+      ...referenceOption,
+      item: proficiency,
     };
+    return resolvedOption;
   }
 
-  if (option.option_type === 'choice' && option.choice.from.option_set_type === 'options_array') {
-    const options = option.choice.from.options.map((option) => {
-      if (option.option_type === 'reference') {
-        return {
-          ...option,
-          item: ProficiencyModel.findOne({ index: option.item.index }).lean(),
-        };
-      }
-    });
-    return {
-      ...option,
-      choice: resolveChoice(option.choice, {
-        options,
-      }),
-    };
+  if (option.option_type === 'choice') {
+    const choiceOption = option as ChoiceOption;
+    if ('options' in choiceOption.choice.from) {
+      const options = await Promise.all(
+        (choiceOption.choice.from as OptionsArrayOptionSet).options.map(async (opt: Option) => {
+          if (opt.option_type === 'reference') {
+            const refOpt = opt as ReferenceOption;
+            const proficiency = await ProficiencyModel.findOne({ index: refOpt.item.index }).lean();
+            if (!proficiency) {
+              return refOpt;
+            }
+            const resolvedOpt: ReferenceOption = {
+              ...refOpt,
+              item: proficiency,
+            };
+            return resolvedOpt;
+          }
+          return opt;
+        })
+      );
+      const resolvedOption: ChoiceOption = {
+        ...choiceOption,
+        choice: resolveChoice(choiceOption.choice, {
+          options,
+        }),
+      };
+      return resolvedOption;
+    }
   }
 
   if (option.option_type === 'multiple') {
-    return {
-      ...option,
-      items: option.items.map(async (item: Option) => await resolveExpertiseOption(item)),
+    const multipleOption = option as MultipleOption;
+    const resolvedOption: MultipleOption = {
+      ...multipleOption,
+      items: await Promise.all(
+        multipleOption.items.map(async (item: Option) => await resolveExpertiseOption(item))
+      ),
     };
+    return resolvedOption;
   }
+
+  return option;
 };
 
-const Feature = {
+const FeatureResolver = {
   class: async (feature: Feature) =>
     await ClassModel.findOne({ index: feature.class.index }).lean(),
   subclass: async (feature: Feature) =>
@@ -119,80 +157,78 @@ const Feature = {
 
       return prerequisiteToReturn;
     }),
-  feature_specific: async (feature: Feature) => {
+  feature_specific: async (feature: FeatureWithSpecific): Promise<FeatureSpecific | null> => {
     const { feature_specific } = feature;
-    if (!feature_specific) {
-      return null;
-    }
+    if (!feature_specific) return null;
 
-    const featureSpecificToReturn: FeatureSpecific = {};
+    const resolvedFeatureSpecific: FeatureSpecific = {};
 
-    if (
-      feature_specific.subfeature_options &&
-      'options' in feature_specific.subfeature_options.from
-    ) {
-      const options = feature_specific.subfeature_options.from.options.map(async (option) => {
-        if (option.option_type === 'reference') {
-          return {
-            ...option,
-            item: await FeatureModel.findOne({ index: option.item.index }).lean(),
-          };
-        }
-      });
-      featureSpecificToReturn.subfeature_options = resolveChoice(
+    if (feature_specific.subfeature_options) {
+      resolvedFeatureSpecific.subfeature_options = resolveChoice(
         feature_specific.subfeature_options,
         {
-          options,
+          options: feature_specific.subfeature_options.from.options.map(async (option: Option) => {
+            if ('item' in option) {
+              return {
+                ...option,
+                item: await FeatureModel.findOne({
+                  index: (option as ReferenceOption).item.index,
+                }).lean(),
+              };
+            }
+            return option;
+          }),
         }
       );
     }
 
-    if (
-      feature_specific.expertise_options &&
-      'options' in feature_specific.expertise_options.from
-    ) {
-      featureSpecificToReturn.expertise_options = resolveChoice(
+    if (feature_specific.expertise_options) {
+      resolvedFeatureSpecific.expertise_options = resolveChoice(
         feature_specific.expertise_options,
         {
           options: feature_specific.expertise_options.from.options.map(
-            async (option) => await resolveExpertiseOption(option)
+            async (option: Option) => await resolveExpertiseOption(option)
           ),
         }
       );
     }
 
-    if (
-      feature_specific.terrain_type_options &&
-      'options' in feature_specific.terrain_type_options.from
-    ) {      
-      featureSpecificToReturn.terrain_type_options = resolveChoice(
+    if (feature_specific.terrain_type_options) {
+      resolvedFeatureSpecific.terrain_type_options = resolveChoice(
         feature_specific.terrain_type_options,
         {
-          options: processStringOptions(feature_specific.terrain_type_options.from.options),
+          options: processStringOptions(
+            feature_specific.terrain_type_options.from.options as StringOption[]
+          ),
         }
       );
     }
 
-    if (
-      feature_specific.enemy_type_options &&
-      'options' in feature_specific.enemy_type_options.from
-    ) {      
-      featureSpecificToReturn.enemy_type_options = resolveChoice(
+    if (feature_specific.enemy_type_options) {
+      resolvedFeatureSpecific.enemy_type_options = resolveChoice(
         feature_specific.enemy_type_options,
         {
-          options: processStringOptions(feature_specific.enemy_type_options.from.options),
+          options: processStringOptions(
+            feature_specific.enemy_type_options.from.options as StringOption[]
+          ),
         }
       );
     }
 
     if (feature_specific.invocations) {
-      featureSpecificToReturn.invocations = await FeatureModel.find({
-        index: { $in: feature_specific.invocations.map(({ index }) => index) },
-      }).lean();
+      const invocations = await Promise.all(
+        feature_specific.invocations.map(async (invocation) => {
+          const feature = await FeatureModel.findOne({ index: invocation.index }).lean();
+          return feature as FeatureDocument | null;
+        })
+      );
+      resolvedFeatureSpecific.invocations = invocations.filter(
+        (f): f is FeatureDocument => f !== null
+      );
     }
 
-    return featureSpecificToReturn;
+    return resolvedFeatureSpecific;
   },
 };
 
-export default Feature;
+export default FeatureResolver;

@@ -1,6 +1,6 @@
-import { Option } from '@/models/2014/common/types';
+import { Option } from '@/models/2014/common/index.js';
 
-const MonsterActionOption = {
+const MonsterActionOptionResolver = {
   __resolveType(option: Option) {
     if (option.option_type === 'action') {
       return 'ActionOption';
@@ -14,4 +14,4 @@ const MonsterActionOption = {
   },
 };
 
-export default MonsterActionOption;
+export default MonsterActionOptionResolver;

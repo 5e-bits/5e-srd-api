@@ -1,16 +1,35 @@
-import { Schema, model } from 'mongoose';
-import { Language } from './types';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
 
-const LanguageSchema = new Schema<Language>({
-  _id: { type: String, select: false },
-  desc: { type: String, index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  script: { type: String, index: true },
-  type: { type: String, index: true },
-  typical_speakers: { type: [String], index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
+export class Language {
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public script!: string;
+
+  @prop({ required: true, index: true })
+  public type!: string;
+
+  @prop({ type: () => [String], index: true })
+  public typical_speakers!: string[];
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type LanguageDocument = DocumentType<Language>;
+const LanguageModel = getModelForClass(Language, {
+  schemaOptions: { collection: '2014-languages' },
 });
 
-export default model('Language', LanguageSchema, '2014-languages');
+export default LanguageModel;

@@ -3,9 +3,9 @@ import FeatureModel from '@/models/2014/feature/index.js';
 import LevelModel from '@/models/2014/level/index.js';
 import { resolveSpells, SpellQuery } from './common.js';
 
-import { Subclass } from '@/models/2014/subclass/types.js';
+import { Subclass } from '@/models/2014/subclass/index.js';
 
-const Subclass = {
+const SubclassResolver = {
   class: async (subclass: Subclass) =>
     await ClassModel.findOne({ index: subclass.class.index }).lean(),
   subclass_levels: async (subclass: Subclass) =>
@@ -39,4 +39,4 @@ const Subclass = {
   },
 };
 
-export default Subclass;
+export default SubclassResolver;

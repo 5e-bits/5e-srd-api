@@ -1,9 +1,14 @@
-import { Schema, model } from 'mongoose';
-import { Collection } from './types';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
 
-const CollectionSchema = new Schema<Collection>({
-  _id: { type: String, select: false },
-  index: { type: String, index: true },
+export class Collection {
+  @prop({ required: true, index: true })
+  public index!: string;
+}
+
+export type CollectionDocument = DocumentType<Collection>;
+const CollectionModel = getModelForClass(Collection, {
+  schemaOptions: { collection: '2014-collections' },
 });
 
-export default model('Collection', CollectionSchema, '2014-collections');
+export default CollectionModel;

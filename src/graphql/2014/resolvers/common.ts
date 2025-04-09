@@ -1,6 +1,6 @@
 import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
-import { AreaOfEffect, Choice, DifficultyClass } from '@/models/2014/common/types.js';
-import { Equipment } from '@/models/2014/equipment/types.js';
+import { AreaOfEffect, Choice, DifficultyClass } from '@/models/2014/common/index.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
 import SpellModel from '@/models/2014/spell/index.js';
 
@@ -284,11 +284,11 @@ export const resolveAreaOfEffect = (areaOfEffect: AreaOfEffect) => ({
 });
 
 export const processStringOptions = (options: any[]) => {
-  return options.map(option => {
+  return options.map((option) => {
     if (typeof option === 'string') {
       return {
         option_type: 'string',
-        string: option
+        string: option,
       };
     }
     return option;
