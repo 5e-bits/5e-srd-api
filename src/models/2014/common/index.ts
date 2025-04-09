@@ -4,7 +4,7 @@ import {
   Choice as ChoiceType,
   AreaOfEffect as AreaOfEffectType,
   DifficultyClass as DifficultyClassType,
-  Damage,
+  Damage as DamageType,
   Option,
   ReferenceOption,
   ActionOption,
@@ -68,6 +68,14 @@ export class DifficultyClass {
   public success_type!: 'none' | 'half' | 'other';
 }
 
+export class Damage {
+  @prop({ type: () => APIReference })
+  public damage_type!: APIReference;
+
+  @prop({ required: true, index: true })
+  public damage_dice!: string;
+}
+
 export const APIReferenceSchema = new Schema<APIReferenceType>({
   _id: { type: String, select: false },
   index: { type: String, index: true },
@@ -88,7 +96,7 @@ export const DifficultyClassSchema = new Schema<DifficultyClassType>({
   success_type: { type: String, index: true, enum: ['none', 'half', 'other'] },
 });
 
-export const DamageSchema = new Schema<Damage>({
+export const DamageSchema = new Schema<DamageType>({
   _id: false,
   damage_type: { type: APIReferenceSchema, index: true },
   damage_dice: { type: String, index: true },

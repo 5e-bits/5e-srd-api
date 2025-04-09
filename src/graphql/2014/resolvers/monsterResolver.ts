@@ -7,9 +7,9 @@ import MonsterModel from '@/models/2014/monster/index.js';
 import ProficiencyModel from '@/models/2014/proficiency/index.js';
 import SpellModel from '@/models/2014/spell/index.js';
 
-import { Monster, ActionUsage, SpecialAbilityUsage } from '@/models/2014/monster/types.js';
+import { Monster, ActionUsage, SpecialAbilityUsage } from '@/models/2014/monster/index.js';
 import { DamageType } from '@/models/2014/damageType/index.js';
-import { Damage } from '@/models/2014/common/types.js';
+import { Damage, Option } from '@/models/2014/common/types.js';
 
 const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
   const resolvedUsage: Record<string, any> = {
@@ -184,7 +184,7 @@ const MonsterResolver = {
 
       if (action.options && 'options' in action.options.from) {
         actionToAdd.options = resolveChoice(action.options, {
-          options: action.options.from.options.map(async (option) => {
+          options: action.options.from.options.map(async (option: Option) => {
             if (option.option_type === 'breath') {
               const newOption: Record<string, any> = { ...option, dc: await resolveDc(option.dc) };
 
