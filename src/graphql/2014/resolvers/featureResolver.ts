@@ -8,9 +8,8 @@ import { resolveChoice, processStringOptions } from './common.js';
 import { Feature } from '@/models/2014/feature/index.js';
 import { Proficiency } from '@/models/2014/proficiency/index.js';
 import {
-  APIReference,
-  Option,
   ChoiceOption,
+  Option,
   OptionsArrayOptionSet,
   ReferenceOption,
   StringOption,

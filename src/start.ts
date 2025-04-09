@@ -12,7 +12,7 @@ const start = async () => {
   await mongoose.connect(mongodbUri);
   console.log('Database connection ready');
 
-  redisClient.on('error', err => console.log('Redis Client Error', err));
+  redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
   await redisClient.connect();
   console.log('Redis connection ready');
@@ -33,7 +33,7 @@ const start = async () => {
   });
 };
 
-start().catch(err => {
+start().catch((err) => {
   console.error(err);
   process.exit(1);
 });
