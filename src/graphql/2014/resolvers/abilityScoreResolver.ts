@@ -1,12 +1,12 @@
-import SkillModel from '@/models/2014/skill';
+import SkillModel from '@/models/2014/skill/index.js';
 import {
   coalesceFilters,
   getMongoSortDirection,
   resolveContainsStringFilter,
   SortQuery,
   QueryParams,
-} from './common';
-import { AbilityScore } from '@/models/2014/abilityScore';
+} from './common.js';
+import { AbilityScore } from '@/models/2014/abilityScore/index.js';
 
 const AbilityScoreResolver = {
   skills: async (abilityScore: AbilityScore, args: QueryParams) => {

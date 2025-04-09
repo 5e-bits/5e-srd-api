@@ -1,4 +1,4 @@
-import { OptionSet } from '@/models/2014/common';
+import { OptionSet } from '@/models/2014/common/index.js';
 
 const StartingEquipmentOptionSetResolver = {
   __resolveType(optionSet: OptionSet) {

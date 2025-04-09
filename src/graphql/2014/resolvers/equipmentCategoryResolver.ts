@@ -1,11 +1,11 @@
-import EquipmentModel from '@/models/2014/equipment';
-import MagicItemModel from '@/models/2014/magicItem';
-import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import MagicItemModel from '@/models/2014/magicItem/index.js';
+import { coalesceFilters, coalesceSort, resolveContainsStringFilter } from './common.js';
 
-import { EquipmentCategory } from '@/models/2014/equipmentCategory';
-import { MagicItem } from '@/models/2014/magicItem';
-import { Equipment } from '@/models/2014/equipment';
-import { Order, SortQuery } from './common';
+import { EquipmentCategory } from '@/models/2014/equipmentCategory/index.js';
+import { MagicItem } from '@/models/2014/magicItem/index.js';
+import { Equipment } from '@/models/2014/equipment/index.js';
+import { Order, SortQuery } from './common.js';
 
 type Args = {
   name?: string;

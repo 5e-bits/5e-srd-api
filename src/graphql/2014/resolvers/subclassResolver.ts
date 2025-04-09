@@ -1,9 +1,9 @@
-import ClassModel from '@/models/2014/class';
-import FeatureModel from '@/models/2014/feature';
-import LevelModel from '@/models/2014/level';
-import { resolveSpells, SpellQuery } from './common';
+import ClassModel from '@/models/2014/class/index.js';
+import FeatureModel from '@/models/2014/feature/index.js';
+import LevelModel from '@/models/2014/level/index.js';
+import { resolveSpells, SpellQuery } from './common.js';
 
-import { Subclass } from '@/models/2014/subclass';
+import { Subclass } from '@/models/2014/subclass/index.js';
 
 const SubclassResolver = {
   class: async (subclass: Subclass) =>

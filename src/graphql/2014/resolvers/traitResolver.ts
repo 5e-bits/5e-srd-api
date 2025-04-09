@@ -5,19 +5,19 @@ import {
   resolveChoice,
   resolveDc,
   resolveContainsStringFilter,
-} from './common';
+} from './common.js';
 
-import DamageTypeModel from '@/models/2014/damageType';
-import ProficiencyModel from '@/models/2014/proficiency';
-import RaceModel from '@/models/2014/race';
-import SpellModel from '@/models/2014/spell';
-import SubraceModel from '@/models/2014/subrace';
-import TraitModel from '@/models/2014/trait';
-import LanguageModel from '@/models/2014/language';
+import DamageTypeModel from '@/models/2014/damageType/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import RaceModel from '@/models/2014/race/index.js';
+import SpellModel from '@/models/2014/spell/index.js';
+import SubraceModel from '@/models/2014/subrace/index.js';
+import TraitModel from '@/models/2014/trait/index.js';
+import LanguageModel from '@/models/2014/language/index.js';
 
-import { ResolvedDC, QueryParams } from './common';
-import { Trait, Usage } from '@/models/2014/trait';
-import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/common';
+import { ResolvedDC, QueryParams } from './common.js';
+import { Trait, Usage } from '@/models/2014/trait/index.js';
+import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/common/index.js';
 
 type TraitSpecificClient = {
   breath_weapon?: {

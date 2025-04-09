@@ -1,5 +1,5 @@
-import { Race } from '@/models/2014/race';
-import { Subrace } from '@/models/2014/subrace';
+import { Race } from '@/models/2014/race/index.js';
+import { Subrace } from '@/models/2014/subrace/index.js';
 
 const ProficiencyRaceResolver = {
   __resolveType(proficiencyRace: Race | Subrace) {

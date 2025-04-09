@@ -1,10 +1,10 @@
-import { ClassAPIResource, ResourceList } from './data';
-import { bugsnagApiKey, mongodbUri } from './environmentVariables';
+import { ClassAPIResource, ResourceList } from './data.js';
+import { bugsnagApiKey, mongodbUri } from './environmentVariables.js';
 
-import { escapeRegExp } from './regex';
-import prewarmCache from './prewarmCache';
-import redisClient from './RedisClient';
-import awsS3Client from './awsS3Client';
+import { escapeRegExp } from './regex.js';
+import prewarmCache from './prewarmCache.js';
+import redisClient from './RedisClient.js';
+import awsS3Client from './awsS3Client.js';
 
 export {
   bugsnagApiKey,

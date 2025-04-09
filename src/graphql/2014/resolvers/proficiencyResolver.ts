@@ -1,13 +1,13 @@
-import AbilityScoreModel from '@/models/2014/abilityScore';
-import ClassModel from '@/models/2014/class';
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
-import EquipmentModel from '@/models/2014/equipment';
-import RaceModel from '@/models/2014/race';
-import SkillModel from '@/models/2014/skill';
-import SubraceModel from '@/models/2014/subrace';
-import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './common';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import ClassModel from '@/models/2014/class/index.js';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import RaceModel from '@/models/2014/race/index.js';
+import SkillModel from '@/models/2014/skill/index.js';
+import SubraceModel from '@/models/2014/subrace/index.js';
+import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './common.js';
 
-import { Proficiency } from '@/models/2014/proficiency';
+import { Proficiency } from '@/models/2014/proficiency/index.js';
 
 const ProficiencyResolver = {
   classes: async (proficiency: Proficiency, args: QueryParams) => {

@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from '@/models/2014/common';
+import { APIReference } from '@/models/2014/common/index.js';
 
 export class EquipmentCategory {
   @prop({ type: () => [APIReference], index: true })

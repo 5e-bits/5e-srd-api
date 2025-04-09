@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import LanguageController from '@/controllers/api/2014/languageController';
+import LanguageController from '@/controllers/api/2014/languageController.js';
 
 const router = express.Router();
 

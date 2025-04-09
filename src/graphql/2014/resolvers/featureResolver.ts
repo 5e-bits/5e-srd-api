@@ -1,12 +1,12 @@
-import ClassModel from '@/models/2014/class';
-import FeatureModel, { FeatureDocument } from '@/models/2014/feature';
-import ProficiencyModel from '@/models/2014/proficiency';
-import SpellModel from '@/models/2014/spell';
-import SubclassModel from '@/models/2014/subclass';
-import { resolveChoice, processStringOptions } from './common';
+import ClassModel from '@/models/2014/class/index.js';
+import FeatureModel, { FeatureDocument } from '@/models/2014/feature/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import SpellModel from '@/models/2014/spell/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
+import { resolveChoice, processStringOptions } from './common.js';
 
-import { Feature } from '@/models/2014/feature';
-import { Proficiency } from '@/models/2014/proficiency';
+import { Feature } from '@/models/2014/feature/index.js';
+import { Proficiency } from '@/models/2014/proficiency/index.js';
 import {
   ChoiceOption,
   Option,
@@ -14,7 +14,7 @@ import {
   ReferenceOption,
   StringOption,
   MultipleOption,
-} from '@/models/2014/common';
+} from '@/models/2014/common/index.js';
 
 type FeatureSpecific = {
   subfeature_options?: {

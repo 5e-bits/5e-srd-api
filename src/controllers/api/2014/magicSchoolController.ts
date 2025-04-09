@@ -1,4 +1,4 @@
-import MagicSchool from '@/models/2014/magicSchool';
-import SimpleController from '@/controllers/simpleController';
+import MagicSchool from '@/models/2014/magicSchool/index.js';
+import SimpleController from '@/controllers/simpleController.js';
 
 export default new SimpleController(MagicSchool);

@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import ProficiencyController from '@/controllers/api/2014/proficiencyController';
+import ProficiencyController from '@/controllers/api/2014/proficiencyController.js';
 
 const router = express.Router();
 

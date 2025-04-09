@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ResourceList, escapeRegExp, redisClient } from '@/util';
+import { ResourceList, escapeRegExp, redisClient } from '@/util/index.js';
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -7,7 +7,7 @@ interface IndexQuery {
   'school.name'?: { $in: RegExp[] };
 }
 
-import Spell from '@/models/2014/spell';
+import Spell from '@/models/2014/spell/index.js';
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {

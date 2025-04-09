@@ -1,17 +1,17 @@
-import apiRoutes from './routes/api';
-import bugsnagMiddleware from './middleware/bugsnag';
-import errorHandlerMiddleware from './middleware/errorHandler';
+import apiRoutes from './routes/api.js';
+import bugsnagMiddleware from './middleware/bugsnag.js';
+import errorHandlerMiddleware from './middleware/errorHandler.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { createApolloMiddleware } from './middleware/apolloServer';
+import { createApolloMiddleware } from './middleware/apolloServer.js';
 import { expressMiddleware } from '@apollo/server/express4';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
-import docsController from './controllers/docsController';
+import docsController from './controllers/docsController.js';
 import path from 'path';
 import rateLimit from 'express-rate-limit';
-import schema2014 from './graphql/2014/schema';
+import schema2014 from './graphql/2014/schema.js';
 
 const __filename = fileURLToPath(import.meta.url);
 

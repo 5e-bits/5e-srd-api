@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference, Choice } from './common';
+import { APIReference, Choice } from '../common/index.js';
 
 class Equipment {
   @prop({ type: () => APIReference })

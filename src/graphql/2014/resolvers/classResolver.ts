@@ -1,9 +1,9 @@
-import AbilityScoreModel from '@/models/2014/abilityScore';
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
-import EquipmentModel from '@/models/2014/equipment';
-import LevelModel from '@/models/2014/level';
-import ProficiencyModel from '@/models/2014/proficiency';
-import SubclassModel from '@/models/2014/subclass';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import LevelModel from '@/models/2014/level/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
 import {
   coalesceFilters,
   resolveChoice,
@@ -11,9 +11,9 @@ import {
   resolveSpells,
   SpellQuery,
   QueryParams,
-} from './common';
+} from './common.js';
 
-import { ClassDocument } from '@/models/2014/class';
+import { ClassDocument } from '@/models/2014/class/index.js';
 import {
   CountedReferenceOption,
   ChoiceOption,
@@ -23,7 +23,7 @@ import {
   ReferenceOption,
   EquipmentCategoryOptionSet,
   AbilityBonusOption,
-} from '@/models/2014/common';
+} from '@/models/2014/common/index.js';
 
 const resolveEquipmentOption: any = async (option: Option) => {
   if (option.option_type === 'counted_reference') {

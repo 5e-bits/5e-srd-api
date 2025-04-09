@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import BackgroundController from '@/controllers/api/2014/backgroundController';
+import BackgroundController from '@/controllers/api/2014/backgroundController.js';
 
 const router = express.Router();
 

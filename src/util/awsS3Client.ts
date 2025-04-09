@@ -3,7 +3,7 @@ import {
   awsRegion,
   awsAccessKeyId,
   awsSecretAccessKey,
-} from '@/util/environmentVariables';
+} from '@/util/environmentVariables.js';
 
 import { S3Client, S3ClientConfig } from '@aws-sdk/client-s3';
 

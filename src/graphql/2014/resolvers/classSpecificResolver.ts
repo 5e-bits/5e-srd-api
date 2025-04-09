@@ -1,4 +1,4 @@
-import { ClassSpecific } from '@/models/2014/level';
+import { ClassSpecific } from '@/models/2014/level/index.js';
 
 const ClassSpecificResolver = {
   __resolveType(specific: ClassSpecific) {

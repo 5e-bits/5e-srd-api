@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from './common';
+import { APIReference } from '../common/index.js';
 
 export class AbilityScore {
   @prop({ required: true, index: true })

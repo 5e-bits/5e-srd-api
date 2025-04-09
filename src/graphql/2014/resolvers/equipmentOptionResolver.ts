@@ -1,4 +1,4 @@
-import { Option } from '@/models/2014/common';
+import { Option } from '@/models/2014/common/index.js';
 
 const EquipmentOptionResolver = {
   __resolveType(option: Option) {

@@ -1,4 +1,4 @@
-import { ClassAPIResource, ResourceList } from '@/util/data';
+import { ClassAPIResource, ResourceList } from '@/util/data.js';
 
 describe('ClassAPIResource', () => {
   it('returns a constructed hash from list', () => {

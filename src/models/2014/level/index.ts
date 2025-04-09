@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from '@/models/2014/common';
+import { APIReference } from '@/models/2014/common/index.js';
 
 class ClassSpecificCreatingSpellSlot {
   @prop({ required: true, index: true })

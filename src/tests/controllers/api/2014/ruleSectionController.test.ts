@@ -1,8 +1,8 @@
-import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController';
+import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController.js';
 
-import { mockNext } from '@/tests/support/requestHelpers';
+import { mockNext } from '@/tests/support/requestHelpers.js';
 
-import RuleSection from '@/models/2014/ruleSection';
+import RuleSection from '@/models/2014/ruleSection/index.js';
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 

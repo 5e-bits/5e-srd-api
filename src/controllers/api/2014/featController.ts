@@ -1,4 +1,4 @@
-import Feat from '@/models/2014/feat';
-import SimpleController from '@/controllers/simpleController';
+import Feat from '@/models/2014/feat/index.js';
+import SimpleController from '@/controllers/simpleController.js';
 
 export default new SimpleController(Feat);

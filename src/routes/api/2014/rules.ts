@@ -1,4 +1,4 @@
-import * as RuleController from '@/controllers/api/2014/ruleController';
+import * as RuleController from '@/controllers/api/2014/ruleController.js';
 import * as express from 'express';
 
 const router = express.Router();

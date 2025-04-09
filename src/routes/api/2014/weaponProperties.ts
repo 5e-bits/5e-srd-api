@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController';
+import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController.js';
 
 const router = express.Router();
 

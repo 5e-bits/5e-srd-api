@@ -1,4 +1,4 @@
-import * as SubclassController from '@/controllers/api/2014/subclassController';
+import * as SubclassController from '@/controllers/api/2014/subclassController.js';
 import * as express from 'express';
 
 const router = express.Router();

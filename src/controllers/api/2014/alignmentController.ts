@@ -1,4 +1,4 @@
-import AlignmentModel from '@/models/2014/alignment';
-import SimpleController from '@/controllers/simpleController';
+import AlignmentModel from '@/models/2014/alignment/index.js';
+import SimpleController from '@/controllers/simpleController.js';
 
 export default new SimpleController(AlignmentModel);

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { ResourceList, escapeRegExp, redisClient } from '@/util';
-import MagicItem from '@/models/2014/magicItem';
+import { ResourceList, escapeRegExp, redisClient } from '@/util/index.js';
+import MagicItem from '@/models/2014/magicItem/index.js';
 
 interface IndexQuery {
   name?: { $regex: RegExp };

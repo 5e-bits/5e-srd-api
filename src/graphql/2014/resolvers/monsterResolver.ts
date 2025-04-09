@@ -1,15 +1,15 @@
-import { levelObjectToArray, resolveChoice, resolveDc } from './common';
+import { levelObjectToArray, resolveChoice, resolveDc } from './common.js';
 
-import ConditionModel from '@/models/2014/condition';
-import DamageTypeModel from '@/models/2014/damageType';
-import EquipmentModel from '@/models/2014/equipment';
-import MonsterModel from '@/models/2014/monster';
-import ProficiencyModel from '@/models/2014/proficiency';
-import SpellModel from '@/models/2014/spell';
+import ConditionModel from '@/models/2014/condition/index.js';
+import DamageTypeModel from '@/models/2014/damageType/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import MonsterModel from '@/models/2014/monster/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import SpellModel from '@/models/2014/spell/index.js';
 
-import { Monster, ActionUsage, SpecialAbilityUsage } from '@/models/2014/monster';
-import { DamageType } from '@/models/2014/damageType';
-import { BreathOption, Damage, Option, OptionsArrayOptionSet } from '@/models/2014/common';
+import { Monster, ActionUsage, SpecialAbilityUsage } from '@/models/2014/monster/index.js';
+import { DamageType } from '@/models/2014/damageType/index.js';
+import { BreathOption, Damage, Option, OptionsArrayOptionSet } from '@/models/2014/common/index.js';
 
 const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
   const resolvedUsage: Record<string, any> = {

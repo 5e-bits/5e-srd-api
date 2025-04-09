@@ -1,6 +1,6 @@
-import { mongodbUri, prewarmCache, redisClient } from './util';
+import { mongodbUri, prewarmCache, redisClient } from './util/index.js';
 
-import createApp from './server';
+import createApp from './server.js';
 import mongoose from 'mongoose';
 
 const start = async () => {

@@ -1,4 +1,4 @@
-import { SubclassSpecific } from '@/models/2014/level';
+import { SubclassSpecific } from '@/models/2014/level/index.js';
 
 const SubclassSpecificResolver = {
   __resolveType(specific: SubclassSpecific) {

@@ -1,7 +1,7 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { NextFunction, Request, Response } from 'express';
 
-import { awsS3Client } from '@/util';
+import { awsS3Client } from '@/util/index.js';
 
 const show = async (req: Request, res: Response, next: NextFunction) => {
   try {

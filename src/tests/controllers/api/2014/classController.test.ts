@@ -1,15 +1,15 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as ClassController from '@/controllers/api/2014/classController';
+import * as ClassController from '@/controllers/api/2014/classController.js';
 
-import { mockNext } from '@/tests/support';
+import { mockNext } from '@/tests/support/index.js';
 
-import Class from '@/models/2014/class';
-import Feature from '@/models/2014/feature';
-import Level from '@/models/2014/level';
-import Proficiency from '@/models/2014/proficiency';
-import Spell from '@/models/2014/spell';
-import Subclass from '@/models/2014/subclass';
+import Class from '@/models/2014/class/index.js';
+import Feature from '@/models/2014/feature/index.js';
+import Level from '@/models/2014/level/index.js';
+import Proficiency from '@/models/2014/proficiency/index.js';
+import Spell from '@/models/2014/spell/index.js';
+import Subclass from '@/models/2014/subclass/index.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

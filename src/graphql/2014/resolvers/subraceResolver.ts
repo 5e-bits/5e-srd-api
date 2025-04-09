@@ -1,12 +1,17 @@
-import AbilityScoreModel from '@/models/2014/abilityScore';
-import LanguageModel from '@/models/2014/language';
-import ProficiencyModel from '@/models/2014/proficiency';
-import RaceModel from '@/models/2014/race';
-import TraitModel from '@/models/2014/trait';
-import { coalesceFilters, resolveChoice, resolveContainsStringFilter, QueryParams } from './common';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import LanguageModel from '@/models/2014/language/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import RaceModel from '@/models/2014/race/index.js';
+import TraitModel from '@/models/2014/trait/index.js';
+import {
+  coalesceFilters,
+  resolveChoice,
+  resolveContainsStringFilter,
+  QueryParams,
+} from './common.js';
 
-import { Subrace } from '@/models/2014/subrace';
-import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/common';
+import { Subrace } from '@/models/2014/subrace/index.js';
+import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/common/index.js';
 
 const SubraceResolver = {
   ability_bonuses: async (subrace: Subrace) => {

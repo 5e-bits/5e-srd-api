@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import FeatController from '@/controllers/api/2014/featController';
+import FeatController from '@/controllers/api/2014/featController.js';
 
 const router = express.Router();
 

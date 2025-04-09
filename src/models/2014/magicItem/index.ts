@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from './common';
+import { APIReference } from '../common/index.js';
 
 class Rarity {
   @prop({ required: true, index: true })

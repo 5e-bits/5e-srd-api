@@ -1,9 +1,9 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import { mockNext } from '@/tests/support/requestHelpers';
+import { mockNext } from '@/tests/support/requestHelpers.js';
 
-import Trait from '@/models/2014/trait';
-import TraitController from '@/controllers/api/2014/traitController';
+import Trait from '@/models/2014/trait/index.js';
+import TraitController from '@/controllers/api/2014/traitController.js';
 
 beforeEach(() => {
   mockingoose.resetAll();

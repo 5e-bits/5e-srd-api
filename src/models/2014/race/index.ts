@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference, Choice } from '@/models/2014/common';
+import { APIReference, Choice } from '@/models/2014/common/index.js';
 
 class RaceAbilityBonus {
   @prop({ type: () => APIReference, required: true })

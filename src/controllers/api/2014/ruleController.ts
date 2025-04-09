@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { ResourceList, escapeRegExp, redisClient } from '@/util';
+import { ResourceList, escapeRegExp, redisClient } from '@/util/index.js';
 
-import Rule from '@/models/2014/rule';
+import Rule from '@/models/2014/rule/index.js';
 
 interface IndexQuery {
   name?: { $regex: RegExp };

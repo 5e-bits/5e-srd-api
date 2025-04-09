@@ -5,35 +5,35 @@ import {
   resolveContainsStringFilter,
   resolveNumberFilter,
   resolveSpells,
-} from './common';
+} from './common.js';
 
-import AbilityScoreModel from '@/models/2014/abilityScore';
-import AlignmentModel from '@/models/2014/alignment';
-import BackgroundModel from '@/models/2014/background';
-import ClassModel from '@/models/2014/class';
-import ConditionModel from '@/models/2014/condition';
-import DamageTypeModel from '@/models/2014/damageType';
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
-import EquipmentModel from '@/models/2014/equipment';
-import FeatModel from '@/models/2014/feat';
-import FeatureModel from '@/models/2014/feature';
-import LanguageModel from '@/models/2014/language';
-import LevelModel from '@/models/2014/level';
-import MagicItemModel from '@/models/2014/magicItem';
-import MagicSchoolModel from '@/models/2014/magicSchool';
-import MonsterModel from '@/models/2014/monster';
-import ProficiencyModel from '@/models/2014/proficiency';
-import RaceModel from '@/models/2014/race';
-import RuleModel from '@/models/2014/rule';
-import RuleSectionModel from '@/models/2014/ruleSection';
-import SkillModel from '@/models/2014/skill';
-import SpellModel from '@/models/2014/spell';
-import SubclassModel from '@/models/2014/subclass';
-import SubraceModel from '@/models/2014/subrace';
-import TraitModel from '@/models/2014/trait';
-import WeaponPropertyModel from '@/models/2014/weaponProperty';
+import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
+import AlignmentModel from '@/models/2014/alignment/index.js';
+import BackgroundModel from '@/models/2014/background/index.js';
+import ClassModel from '@/models/2014/class/index.js';
+import ConditionModel from '@/models/2014/condition/index.js';
+import DamageTypeModel from '@/models/2014/damageType/index.js';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
+import EquipmentModel from '@/models/2014/equipment/index.js';
+import FeatModel from '@/models/2014/feat/index.js';
+import FeatureModel from '@/models/2014/feature/index.js';
+import LanguageModel from '@/models/2014/language/index.js';
+import LevelModel from '@/models/2014/level/index.js';
+import MagicItemModel from '@/models/2014/magicItem/index.js';
+import MagicSchoolModel from '@/models/2014/magicSchool/index.js';
+import MonsterModel from '@/models/2014/monster/index.js';
+import ProficiencyModel from '@/models/2014/proficiency/index.js';
+import RaceModel from '@/models/2014/race/index.js';
+import RuleModel from '@/models/2014/rule/index.js';
+import RuleSectionModel from '@/models/2014/ruleSection/index.js';
+import SkillModel from '@/models/2014/skill/index.js';
+import SpellModel from '@/models/2014/spell/index.js';
+import SubclassModel from '@/models/2014/subclass/index.js';
+import SubraceModel from '@/models/2014/subrace/index.js';
+import TraitModel from '@/models/2014/trait/index.js';
+import WeaponPropertyModel from '@/models/2014/weaponProperty/index.js';
 
-import { SpellQuery, SortQuery } from './common';
+import { SpellQuery, SortQuery } from './common.js';
 
 const Query = {
   async abilityScore(_: any, args: Record<string, any>) {

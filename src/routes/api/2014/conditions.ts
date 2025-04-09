@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import ConditionController from '@/controllers/api/2014/conditionController';
+import ConditionController from '@/controllers/api/2014/conditionController.js';
 
 const router = express.Router();
 

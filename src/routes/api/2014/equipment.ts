@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import EquipmentController from '@/controllers/api/2014/equipmentController';
+import EquipmentController from '@/controllers/api/2014/equipmentController.js';
 
 const router = express.Router();
 
