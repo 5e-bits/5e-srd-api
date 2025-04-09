@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference, Choice, DifficultyClass, Damage } from '../common/index.js';
+import { APIReference, Choice, DifficultyClass, Damage } from '../common';
 
 class ActionOption {
   @prop({ required: true, index: true })

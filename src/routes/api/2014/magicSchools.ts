@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import MagicSchoolController from '@/controllers/api/2014/magicSchoolController.js';
+import MagicSchoolController from '@/controllers/api/2014/magicSchoolController';
 
 const router = express.Router();
 

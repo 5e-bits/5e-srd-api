@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '../common/index.js';
+import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '../common';
 
 class Proficiency {
   @prop({ required: true, index: true })

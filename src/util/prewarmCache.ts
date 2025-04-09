@@ -1,11 +1,11 @@
-import MagicItem from '@/models/2014/magicItem/index.js';
-import Monster from '@/models/2014/monster/index.js';
-import { ResourceList } from './data.js';
-import Rule from '@/models/2014/rule/index.js';
-import RuleSection from '@/models/2014/ruleSection/index.js';
-import Spell from '@/models/2014/spell/index.js';
+import MagicItem from '@/models/2014/magicItem';
+import Monster from '@/models/2014/monster';
+import { ResourceList } from './data';
+import Rule from '@/models/2014/rule';
+import RuleSection from '@/models/2014/ruleSection';
+import Spell from '@/models/2014/spell';
 import { getModelForClass } from '@typegoose/typegoose';
-import redisClient from './RedisClient.js';
+import redisClient from './RedisClient';
 
 type PrewarmData = {
   Schema: ReturnType<typeof getModelForClass>;

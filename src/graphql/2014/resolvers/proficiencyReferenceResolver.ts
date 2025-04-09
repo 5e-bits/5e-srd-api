@@ -1,9 +1,9 @@
-import { resolveEquipmentType } from './common.js';
+import { resolveEquipmentType } from './common';
 
-import { Equipment } from '@/models/2014/equipment/index.js';
-import { EquipmentCategory } from '@/models/2014/equipmentCategory/index.js';
-import { AbilityScore } from '@/models/2014/abilityScore/index.js';
-import { Skill } from '@/models/2014/skill/index.js';
+import { Equipment } from '@/models/2014/equipment';
+import { EquipmentCategory } from '@/models/2014/equipmentCategory';
+import { AbilityScore } from '@/models/2014/abilityScore';
+import { Skill } from '@/models/2014/skill';
 
 const ProficiencyReferenceResolver = {
   __resolveType(reference: Equipment | EquipmentCategory | AbilityScore | Skill) {

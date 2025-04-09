@@ -1,4 +1,4 @@
-import { createEnumScalarType } from './enumFilterResolver.js';
+import { createEnumScalarType } from './enumFilterResolver';
 
 const types = [
   'WEAPONS',

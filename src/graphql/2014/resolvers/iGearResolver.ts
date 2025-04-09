@@ -1,5 +1,5 @@
-import { resolveGearType } from './common.js';
-import { Equipment } from '@/models/2014/equipment/index.js';
+import { resolveGearType } from './common';
+import { Equipment } from '@/models/2014/equipment';
 
 const IGearResolver = {
   __resolveType(gear: Equipment) {
