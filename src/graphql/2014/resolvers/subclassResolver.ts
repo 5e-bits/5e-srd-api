@@ -3,7 +3,7 @@ import FeatureModel from '@/models/2014/feature/index.js';
 import LevelModel from '@/models/2014/level/index.js';
 import { resolveSpells, SpellQuery } from './common.js';
 
-import { Subclass } from '@/models/2014/subclass/types.js';
+import { Subclass } from '@/models/2014/subclass/index.js';
 
 const SubclassResolver = {
   class: async (subclass: Subclass) =>

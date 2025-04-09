@@ -10,7 +10,8 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Race } from '@/models/2014/race/types.js';
+import { Race } from '@/models/2014/race/index.js';
+import { Option } from '@/models/2014/common/types.js';
 
 const RaceResolver = {
   ability_bonuses: async (race: Race) => {
@@ -71,7 +72,7 @@ const RaceResolver = {
     }
 
     if ('options' in race.ability_bonus_options.from) {
-      const options = race.ability_bonus_options.from.options.map(async (option) => {
+      const options = race.ability_bonus_options.from.options.map(async (option: Option) => {
         if ('ability_score' in option) {
           return {
             ...option,
@@ -91,7 +92,7 @@ const RaceResolver = {
     }
 
     if ('options' in race.language_options.from) {
-      const options = race.language_options.from.options.map(async (option) => {
+      const options = race.language_options.from.options.map(async (option: Option) => {
         if ('item' in option) {
           return {
             ...option,
@@ -110,7 +111,7 @@ const RaceResolver = {
     }
 
     if ('options' in race.starting_proficiency_options.from) {
-      const options = race.starting_proficiency_options.from.options.map(async (option) => {
+      const options = race.starting_proficiency_options.from.options.map(async (option: Option) => {
         if ('item' in option) {
           return {
             ...option,

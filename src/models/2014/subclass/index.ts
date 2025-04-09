@@ -1,32 +1,61 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema } from '@/models/2014/common/index.js';
-import { SpellPrerequisite, Spell, Subclass } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference } from '@/models/2014/common/index.js';
 
-const SpellPrerequisiteSchema = new Schema<SpellPrerequisite>({
-  _id: false,
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  type: { type: String, index: true },
-  url: { type: String, index: true },
+class SpellPrerequisite {
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ required: true, index: true })
+  public type!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+}
+
+class Spell {
+  @prop({ type: () => [SpellPrerequisite] })
+  public prerequisites!: SpellPrerequisite[];
+
+  @prop({ type: () => APIReference })
+  public spell!: APIReference;
+}
+
+export class Subclass {
+  @prop({ type: () => APIReference })
+  public class!: APIReference;
+
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => [Spell] })
+  public spells?: Spell[];
+
+  @prop({ required: true, index: true })
+  public subclass_flavor!: string;
+
+  @prop({ required: true, index: true })
+  public subclass_levels!: string;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type SubclassDocument = DocumentType<Subclass>;
+const SubclassModel = getModelForClass(Subclass, {
+  schemaOptions: { collection: '2014-subclasses' },
 });
 
-const SpellSchema = new Schema<Spell>({
-  _id: false,
-  prerequisites: [SpellPrerequisiteSchema],
-  spell: APIReferenceSchema,
-});
-
-const SubclassSchema = new Schema<Subclass>({
-  _id: { type: String, select: false },
-  class: APIReferenceSchema,
-  desc: { type: [String], index: true },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  spells: [SpellSchema],
-  subclass_flavor: { type: String, index: true },
-  subclass_levels: { type: String, index: true },
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Subclass', SubclassSchema, '2014-subclasses');
+export default SubclassModel;
