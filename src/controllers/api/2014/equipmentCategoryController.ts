@@ -1,4 +1,4 @@
-import EquipmentCategory from '@/models/2014/equipmentCategory/index.js';
-import SimpleController from '@/controllers/simpleController.js';
+import EquipmentCategory from '@/models/2014/equipmentCategory';
+import SimpleController from '@/controllers/simpleController';
 
 export default new SimpleController(EquipmentCategory);

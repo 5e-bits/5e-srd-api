@@ -1,4 +1,4 @@
-import { Language } from '@/models/2014/language/index.js';
+import { Language } from '@/models/2014/language';
 
 const LanguageResolver = {
   type: (language: Language) => language.type.toUpperCase(),

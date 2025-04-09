@@ -1,4 +1,4 @@
-import { gearFieldResolvers } from './common.js';
+import { gearFieldResolvers } from './common';
 
 const AmmunitionResolver = {
   ...gearFieldResolvers,

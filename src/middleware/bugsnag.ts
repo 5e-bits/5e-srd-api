@@ -1,5 +1,5 @@
 import bugsnag from '@bugsnag/js';
-import { bugsnagApiKey } from '@/util/index.js';
+import { bugsnagApiKey } from '@/util';
 import bugsnagExpress from '@bugsnag/plugin-express';
 
 const createBugsnagMiddleware = () => {

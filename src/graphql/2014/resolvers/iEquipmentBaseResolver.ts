@@ -1,5 +1,5 @@
-import { resolveEquipmentType } from './common.js';
-import { Equipment } from '@/models/2014/equipment/index.js';
+import { resolveEquipmentType } from './common';
+import { Equipment } from '@/models/2014/equipment';
 
 const IEquipmentBaseResolver = {
   __resolveType(equipment: Equipment) {

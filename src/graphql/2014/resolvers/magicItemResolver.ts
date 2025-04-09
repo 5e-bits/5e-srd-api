@@ -1,5 +1,5 @@
-import { equipmentBaseFieldResolvers } from './common.js';
-import { MagicItem } from '@/models/2014/magicItem/index.js';
+import { equipmentBaseFieldResolvers } from './common';
+import { MagicItem } from '@/models/2014/magicItem';
 
 const MagicItemResolver = {
   ...equipmentBaseFieldResolvers,

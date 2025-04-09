@@ -2,9 +2,9 @@ import { jest } from '@jest/globals';
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
 
-import deprecatedApiController from '@/controllers/apiController.js';
-import Collection from '@/models/2014/collection/index.js';
-import { mockNext } from '@/tests/support/requestHelpers.js';
+import deprecatedApiController from '@/controllers/apiController';
+import Collection from '@/models/2014/collection';
+import { mockNext } from '@/tests/support/requestHelpers';
 
 describe('deprecated /api controller', () => {
   beforeEach(() => {

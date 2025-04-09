@@ -1,4 +1,4 @@
-import { createEnumScalarType } from './enumFilterResolver.js';
+import { createEnumScalarType } from './enumFilterResolver';
 
 const subtypes = [
   'ANY_RACE',

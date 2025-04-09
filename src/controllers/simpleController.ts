@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { ReturnModelType } from '@typegoose/typegoose';
 
-import { ResourceList } from '@/util/data.js';
-import { escapeRegExp } from '@/util/regex.js';
+import { ResourceList } from '@/util/data';
+import { escapeRegExp } from '@/util/regex';
 
 interface IndexQuery {
   name?: { $regex: RegExp };
