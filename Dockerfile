@@ -18,27 +18,33 @@ RUN npm run build
 # ---- Final Stage ----
 FROM node:20-alpine
 
-# Set environment to production
-ENV NODE_ENV=production
-
 WORKDIR /app
 
 # Copy package files needed for production install
 COPY package*.json ./
 
-# Install only production dependencies
+# Install ALL dependencies (dev included)
 RUN npm install --ignore-scripts
+
+# Set environment to production AFTER install for runtime
+ENV NODE_ENV=production
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy required non-code assets from the builder stage's source
-# to match the paths expected by the code reading from src/
-# Specifically, copy the graphql directory containing typeDefs.graphql
-COPY --from=builder /app/src/graphql /app/src/graphql
+# Copy entire source tree (needed for tests and potentially other runtime file access)
+COPY --from=builder /app/src /app/src
+
+# Copy config files needed for tests/runtime
+COPY --from=builder /app/jest.config*.ts ./
+COPY --from=builder /app/tsconfig.json ./
 
 # Add non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Change ownership of app directory to the non-root user AFTER user creation
+RUN chown -R appuser:appgroup /app
+
 USER appuser
 
 # Expose port (replace 3000 if different)
