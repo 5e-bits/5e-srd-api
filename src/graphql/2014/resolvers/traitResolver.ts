@@ -16,7 +16,8 @@ import TraitModel from '@/models/2014/trait/index.js';
 import LanguageModel from '@/models/2014/language/index.js';
 
 import { ResolvedDC, QueryParams } from './common.js';
-import { Trait, Usage } from '@/models/2014/trait/types.js';
+import { Trait, Usage } from '@/models/2014/trait/index.js';
+import { Option } from '@/models/2014/common/types.js';
 
 type TraitSpecificClient = {
   breath_weapon?: {
@@ -74,7 +75,7 @@ const TraitResolver = {
     if (trait.proficiency_choices) {
       const { proficiency_choices } = trait;
       if ('options' in proficiency_choices.from) {
-        const options = proficiency_choices.from.options.map(async (option) => {
+        const options = proficiency_choices.from.options.map(async (option: Option) => {
           if ('item' in option) {
             return {
               ...option,
@@ -118,7 +119,7 @@ const TraitResolver = {
     }
 
     if (trait_specific.spell_options && 'options' in trait_specific.spell_options.from) {
-      const options = trait_specific.spell_options.from.options.map(async (option) => {
+      const options = trait_specific.spell_options.from.options.map(async (option: Option) => {
         if ('item' in option) {
           return {
             ...option,
@@ -132,7 +133,7 @@ const TraitResolver = {
     }
 
     if (trait_specific.subtrait_options && 'options' in trait_specific.subtrait_options.from) {
-      const options = trait_specific.subtrait_options.from.options.map(async (option) => {
+      const options = trait_specific.subtrait_options.from.options.map(async (option: Option) => {
         if ('item' in option) {
           return {
             ...option,
@@ -151,7 +152,7 @@ const TraitResolver = {
     if (trait.language_options) {
       const { language_options } = trait;
       if ('options' in language_options.from) {
-        const options = language_options.from.options.map(async (option) => {
+        const options = language_options.from.options.map(async (option: Option) => {
           if ('item' in option) {
             return {
               ...option,

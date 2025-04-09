@@ -11,7 +11,7 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Spell } from '@/models/2014/spell/types.js';
+import { Spell } from '@/models/2014/spell/index.js';
 import { DamageType } from '@/models/2014/damageType/index.js';
 
 type SpellDamage = {

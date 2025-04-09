@@ -3,7 +3,7 @@ import {
   APIReference as APIReferenceType,
   Choice as ChoiceType,
   AreaOfEffect as AreaOfEffectType,
-  DifficultyClass,
+  DifficultyClass as DifficultyClassType,
   Damage,
   Option,
   ReferenceOption,
@@ -57,6 +57,17 @@ export class AreaOfEffect {
   public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone';
 }
 
+export class DifficultyClass {
+  @prop({ type: () => APIReference })
+  public dc_type!: APIReference;
+
+  @prop({ required: true, index: true })
+  public dc_value!: number;
+
+  @prop({ required: true, index: true })
+  public success_type!: 'none' | 'half' | 'other';
+}
+
 export const APIReferenceSchema = new Schema<APIReferenceType>({
   _id: { type: String, select: false },
   index: { type: String, index: true },
@@ -70,7 +81,7 @@ export const AreaOfEffectSchema = new Schema<AreaOfEffectType>({
   type: { type: String, index: true, enum: ['sphere', 'cube', 'cylinder', 'line', 'cone'] },
 });
 
-export const DifficultyClassSchema = new Schema<DifficultyClass>({
+export const DifficultyClassSchema = new Schema<DifficultyClassType>({
   _id: false,
   dc_type: { type: APIReferenceSchema, index: true },
   dc_value: { type: Number, index: true },
