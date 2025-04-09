@@ -106,7 +106,9 @@ const RaceResolver = {
           if ('item' in option) {
             return {
               ...option,
-              item: await LanguageModel.findOne({ index: (option as ReferenceOption).item.index }),
+              item: await LanguageModel.findOne({
+                index: (option as ReferenceOption).item.index,
+              }).lean(),
             };
           }
         }
@@ -129,7 +131,7 @@ const RaceResolver = {
               ...option,
               item: await ProficiencyModel.findOne({
                 index: (option as ReferenceOption).item.index,
-              }),
+              }).lean(),
             };
           }
         }

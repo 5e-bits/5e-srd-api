@@ -144,7 +144,9 @@ const TraitResolver = {
           if ('item' in option) {
             return {
               ...option,
-              item: await TraitModel.findOne({ index: (option as ReferenceOption).item.index }),
+              item: await TraitModel.findOne({
+                index: (option as ReferenceOption).item.index,
+              }).lean(),
             };
           }
         }
