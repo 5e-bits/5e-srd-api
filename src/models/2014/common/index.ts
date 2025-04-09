@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 import {
   APIReference as APIReferenceType,
   Choice as ChoiceType,
-  AreaOfEffect,
+  AreaOfEffect as AreaOfEffectType,
   DifficultyClass,
   Damage,
   Option,
@@ -49,6 +49,14 @@ export class Choice {
   public from!: any; // TODO: Create proper OptionSet class
 }
 
+export class AreaOfEffect {
+  @prop({ required: true })
+  public size!: number;
+
+  @prop({ required: true, index: true })
+  public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone';
+}
+
 export const APIReferenceSchema = new Schema<APIReferenceType>({
   _id: { type: String, select: false },
   index: { type: String, index: true },
@@ -56,9 +64,7 @@ export const APIReferenceSchema = new Schema<APIReferenceType>({
   url: { type: String, index: true },
 });
 
-export default model('APIReference', APIReferenceSchema, '2014-api-references');
-
-export const AreaOfEffectSchema = new Schema<AreaOfEffect>({
+export const AreaOfEffectSchema = new Schema<AreaOfEffectType>({
   _id: false,
   size: { type: Number, required: true },
   type: { type: String, index: true, enum: ['sphere', 'cube', 'cylinder', 'line', 'cone'] },
