@@ -1,25 +1,50 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema } from '@/models/2014/common/index.js';
-import { AbilityBonus, Subrace } from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference, Choice } from '@/models/2014/common/index.js';
 
-const AbilityBonus = new Schema<AbilityBonus>({
-  _id: false,
-  ability_score: APIReferenceSchema,
-  bonus: { type: Number, index: true },
+class AbilityBonus {
+  @prop({ type: () => APIReference })
+  public ability_score!: APIReference;
+
+  @prop({ required: true, index: true })
+  public bonus!: number;
+}
+
+export class Subrace {
+  @prop({ type: () => [AbilityBonus] })
+  public ability_bonuses!: AbilityBonus[];
+
+  @prop({ required: true, index: true })
+  public desc!: string;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ type: () => Choice })
+  public language_options?: Choice;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => APIReference })
+  public race!: APIReference;
+
+  @prop({ type: () => [APIReference] })
+  public racial_traits!: APIReference[];
+
+  @prop({ type: () => [APIReference] })
+  public starting_proficiencies?: APIReference[];
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type SubraceDocument = DocumentType<Subrace>;
+const SubraceModel = getModelForClass(Subrace, {
+  schemaOptions: { collection: '2014-subraces' },
 });
 
-const Subrace = new Schema<Subrace>({
-  _id: { type: String, select: false },
-  ability_bonuses: [AbilityBonus],
-  desc: { type: String, index: true },
-  index: { type: String, index: true },
-  language_options: ChoiceSchema,
-  name: { type: String, index: true },
-  race: APIReferenceSchema,
-  racial_traits: [APIReferenceSchema],
-  starting_proficiencies: [APIReferenceSchema],
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Subrace', Subrace, '2014-subraces');
+export default SubraceModel;

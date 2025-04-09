@@ -10,7 +10,8 @@ import {
   QueryParams,
 } from './common.js';
 
-import { Subrace } from '@/models/2014/subrace/types.js';
+import { Subrace } from '@/models/2014/subrace/index.js';
+import { Option } from '@/models/2014/common/types.js';
 
 const SubraceResolver = {
   ability_bonuses: async (subrace: Subrace) => {
@@ -57,7 +58,7 @@ const SubraceResolver = {
     }
 
     if ('options' in subrace.language_options.from) {
-      const options = subrace.language_options.from.options.map(async (option) => {
+      const options = subrace.language_options.from.options.map(async (option: Option) => {
         if ('item' in option) {
           return await LanguageModel.findOne({ index: option.item.index }).lean();
         }

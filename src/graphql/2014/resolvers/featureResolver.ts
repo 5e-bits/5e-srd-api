@@ -5,9 +5,9 @@ import SpellModel from '@/models/2014/spell/index.js';
 import SubclassModel from '@/models/2014/subclass/index.js';
 import { resolveChoice, processStringOptions } from './common.js';
 
-import { Feature } from '@/models/2014/feature/types.js';
+import { Feature } from '@/models/2014/feature/index.js';
 import { Proficiency } from '@/models/2014/proficiency/index.js';
-import { Option } from '@/models/2014/common/types.js';
+import { APIReference, Option } from '@/models/2014/common/types.js';
 
 type FeatureSpecific = {
   subfeature_options?: {
@@ -131,14 +131,16 @@ const FeatureResolver = {
       feature_specific.subfeature_options &&
       'options' in feature_specific.subfeature_options.from
     ) {
-      const options = feature_specific.subfeature_options.from.options.map(async (option) => {
-        if (option.option_type === 'reference') {
-          return {
-            ...option,
-            item: await FeatureModel.findOne({ index: option.item.index }).lean(),
-          };
+      const options = feature_specific.subfeature_options.from.options.map(
+        async (option: Option) => {
+          if (option.option_type === 'reference') {
+            return {
+              ...option,
+              item: await FeatureModel.findOne({ index: option.item.index }).lean(),
+            };
+          }
         }
-      });
+      );
       featureSpecificToReturn.subfeature_options = resolveChoice(
         feature_specific.subfeature_options,
         {
@@ -155,7 +157,7 @@ const FeatureResolver = {
         feature_specific.expertise_options,
         {
           options: feature_specific.expertise_options.from.options.map(
-            async (option) => await resolveExpertiseOption(option)
+            async (option: Option) => await resolveExpertiseOption(option)
           ),
         }
       );
@@ -187,7 +189,7 @@ const FeatureResolver = {
 
     if (feature_specific.invocations) {
       featureSpecificToReturn.invocations = await FeatureModel.find({
-        index: { $in: feature_specific.invocations.map(({ index }) => index) },
+        index: { $in: feature_specific.invocations.map(({ index }: APIReference) => index) },
       }).lean();
     }
 

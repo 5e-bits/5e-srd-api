@@ -1,56 +1,89 @@
-import { Schema, model } from 'mongoose';
-import { APIReferenceSchema, ChoiceSchema } from '@/models/2014/common/index.js';
-import {
-  Prerequisite,
-  LevelPrerequisite,
-  FeaturePrerequisite,
-  SpellPrerequisite,
-  FeatureSpecific,
-  Feature,
-} from './types.js';
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { APIReference, Choice } from '@/models/2014/common/index.js';
 
-const PrerequisiteSchema = new Schema<Prerequisite>(
-  {
-    _id: false,
-    type: { type: String, index: true, required: true, enum: ['level', 'feature', 'spell'] },
-  },
-  { discriminatorKey: 'type', _id: false }
-);
+class LevelPrerequisite {
+  @prop({ required: true, index: true })
+  public type!: string;
 
-PrerequisiteSchema.discriminators = {};
-PrerequisiteSchema.discriminators['level'] = new Schema<LevelPrerequisite>({
-  level: { type: Number, index: true, required: true },
-});
-PrerequisiteSchema.discriminators['feature'] = new Schema<FeaturePrerequisite>({
-  feature: { type: String, index: true, required: true },
-});
-PrerequisiteSchema.discriminators['spell'] = new Schema<SpellPrerequisite>({
-  spell: { type: String, index: true, required: true },
+  @prop({ required: true, index: true })
+  public level!: number;
+}
+
+class FeaturePrerequisite {
+  @prop({ required: true, index: true })
+  public type!: string;
+
+  @prop({ required: true, index: true })
+  public feature!: string;
+}
+
+class SpellPrerequisite {
+  @prop({ required: true, index: true })
+  public type!: string;
+
+  @prop({ required: true, index: true })
+  public spell!: string;
+}
+
+class FeatureSpecific {
+  @prop({ type: () => Choice })
+  public subfeature_options?: Choice;
+
+  @prop({ type: () => Choice })
+  public expertise_options?: Choice;
+
+  @prop({ type: () => Choice })
+  public terrain_type_options?: Choice;
+
+  @prop({ type: () => Choice })
+  public enemy_type_options?: Choice;
+
+  @prop({ type: () => [APIReference] })
+  public invocations?: APIReference[];
+}
+
+export class Feature {
+  @prop({ type: () => APIReference })
+  public class!: APIReference;
+
+  @prop({ required: true, index: true })
+  public desc!: string[];
+
+  @prop({ type: () => APIReference })
+  public parent?: APIReference;
+
+  @prop({ required: true, index: true })
+  public index!: string;
+
+  @prop({ required: true, index: true })
+  public level!: number;
+
+  @prop({ required: true, index: true })
+  public name!: string;
+
+  @prop({ type: () => [LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite] })
+  public prerequisites?: (LevelPrerequisite | FeaturePrerequisite | SpellPrerequisite)[];
+
+  @prop({ index: true })
+  public reference?: string;
+
+  @prop({ type: () => APIReference })
+  public subclass?: APIReference;
+
+  @prop({ type: () => FeatureSpecific })
+  public feature_specific?: FeatureSpecific;
+
+  @prop({ required: true, index: true })
+  public url!: string;
+
+  @prop({ required: true, index: true })
+  public updated_at!: string;
+}
+
+export type FeatureDocument = DocumentType<Feature>;
+const FeatureModel = getModelForClass(Feature, {
+  schemaOptions: { collection: '2014-features' },
 });
 
-const FeatureSpecificSchema = new Schema<FeatureSpecific>({
-  _id: false,
-  subfeature_options: ChoiceSchema,
-  expertise_options: ChoiceSchema,
-  terrain_type_options: ChoiceSchema,
-  enemy_type_options: ChoiceSchema,
-  invocations: [APIReferenceSchema],
-});
-
-const FeatureSchema = new Schema<Feature>({
-  _id: { type: String, select: false },
-  class: APIReferenceSchema,
-  desc: { type: [String], index: true },
-  parent: APIReferenceSchema,
-  index: { type: String, index: true },
-  level: { type: Number, index: true },
-  name: { type: String, index: true },
-  prerequisites: [PrerequisiteSchema],
-  reference: { type: String, index: true },
-  subclass: APIReferenceSchema,
-  feature_specific: FeatureSpecificSchema,
-  url: { type: String, index: true },
-  updated_at: { type: String, index: true },
-});
-
-export default model('Feature', FeatureSchema, '2014-features');
+export default FeatureModel;
