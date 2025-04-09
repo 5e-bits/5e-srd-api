@@ -163,23 +163,23 @@ export class DamageOption extends Option {
   public notes?: string;
 }
 
+export class Choice {
+  @prop({ type: String, required: true })
+  public desc!: string;
+
+  @prop({ type: Number, required: true })
+  public choose!: number;
+
+  @prop({ type: String, required: true })
+  public type!: string;
+
+  @prop({ type: () => OptionSet, required: true })
+  public from!: OptionSet;
+}
+
 export class ChoiceOption extends Option {
   @prop({ type: () => Choice, required: true, index: true })
   public choice!: Choice;
-}
-
-export class Choice {
-  @prop()
-  public desc?: string;
-
-  @prop({ required: true, index: true })
-  public choose!: number;
-
-  @prop({ required: true, index: true })
-  public type!: string;
-
-  @prop({ type: () => OptionSet, required: true, index: true })
-  public from!: OptionSet;
 }
 
 // Export models
