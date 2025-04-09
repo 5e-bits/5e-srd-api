@@ -14,26 +14,41 @@ import {
 } from './common.js';
 
 import { ClassDocument } from '@/models/2014/class/index.js';
-import { Option } from '@/models/2014/common/types.js';
+import {
+  CountedReferenceOption,
+  ChoiceOption,
+  MultipleOption,
+  Option,
+  OptionsArrayOptionSet,
+  ReferenceOption,
+  EquipmentCategoryOptionSet,
+  AbilityBonusOption,
+} from '@/models/2014/common/index.js';
 
 const resolveEquipmentOption: any = async (option: Option) => {
   if (option.option_type === 'counted_reference') {
     return {
       ...option,
-      of: await EquipmentModel.findOne({ index: option.of.index }).lean(),
-      prerequisites: option.prerequisites?.map(async (prereq) => ({
+      of: await EquipmentModel.findOne({
+        index: (option as CountedReferenceOption).of.index,
+      }).lean(),
+      prerequisites: (option as CountedReferenceOption).prerequisites?.map(async (prereq) => ({
         ...prereq,
         proficiency: await ProficiencyModel.findOne({ index: prereq.proficiency?.index }).lean(),
       })),
     };
   }
 
-  if (option.option_type === 'choice' && 'equipment_category' in option.choice.from) {
+  if (
+    option.option_type === 'choice' &&
+    'equipment_category' in (option as ChoiceOption).choice.from
+  ) {
+    const choiceOption = option as ChoiceOption;
     return {
       ...option,
-      choice: resolveChoice(option.choice, {
+      choice: resolveChoice(choiceOption.choice, {
         equipment_category: await EquipmentCategoryModel.findOne({
-          index: option.choice.from.equipment_category.index,
+          index: (choiceOption.choice.from as EquipmentCategoryOptionSet).equipment_category.index,
         }).lean(),
       }),
     };
@@ -42,7 +57,9 @@ const resolveEquipmentOption: any = async (option: Option) => {
   if ('items' in option) {
     return {
       ...option,
-      items: option.items.map(async (item) => await resolveEquipmentOption(item)),
+      items: (option as MultipleOption).items.map(
+        async (item) => await resolveEquipmentOption(item)
+      ),
     };
   }
 };
@@ -124,16 +141,18 @@ const ClassResolver = {
       multiclassingToReturn.prerequisite_options = resolveChoice(
         multi_classing.prerequisite_options,
         {
-          options: multi_classing.prerequisite_options.from.options.map(async (option: Option) => {
-            if (option.option_type === 'ability_bonus') {
-              return {
-                ...option,
-                ability_score: await AbilityScoreModel.findOne({
-                  index: option.ability_score.index,
-                }).lean(),
-              };
+          options: (multi_classing.prerequisite_options.from as OptionsArrayOptionSet).options.map(
+            async (option: Option) => {
+              if (option.option_type === 'ability_bonus') {
+                return {
+                  ...option,
+                  ability_score: await AbilityScoreModel.findOne({
+                    index: (option as AbilityBonusOption).ability_score.index,
+                  }).lean(),
+                };
+              }
             }
-          }),
+          ),
         }
       );
     }
@@ -143,14 +162,18 @@ const ClassResolver = {
         async (choice) => {
           if ('options' in choice.from) {
             return resolveChoice(choice, {
-              options: choice.from.options.map(async (option: Option) => {
-                if ('item' in option) {
-                  return {
-                    ...option,
-                    item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
-                  };
+              options: (choice.from as OptionsArrayOptionSet).options.map(
+                async (option: Option) => {
+                  if ('item' in option) {
+                    return {
+                      ...option,
+                      item: await ProficiencyModel.findOne({
+                        index: (option as ReferenceOption).item.index,
+                      }).lean(),
+                    };
+                  }
                 }
-              }),
+              ),
             });
           }
         }
@@ -163,26 +186,33 @@ const ClassResolver = {
     klass.proficiency_choices.map(async (choice) => {
       if ('options' in choice.from) {
         return resolveChoice(choice, {
-          options: choice.from.options.map(async (option: Option) => {
+          options: (choice.from as OptionsArrayOptionSet).options.map(async (option: Option) => {
             if ('item' in option) {
               return {
                 ...option,
-                item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
+                item: await ProficiencyModel.findOne({
+                  index: (option as ReferenceOption).item.index,
+                }).lean(),
               };
             }
 
-            if ('choice' in option && 'options' in option.choice.from) {
-              const options = option.choice.from.options.map(async (o: Option) => {
-                if ('item' in o) {
-                  return {
-                    ...o,
-                    item: await ProficiencyModel.findOne({ index: o.item.index }).lean(),
-                  };
+            if ('choice' in option && 'options' in (option as ChoiceOption).choice.from) {
+              const choiceOption = option as ChoiceOption;
+              const options = (choiceOption.choice.from as OptionsArrayOptionSet).options.map(
+                async (o: Option) => {
+                  if ('item' in o) {
+                    return {
+                      ...o,
+                      item: await ProficiencyModel.findOne({
+                        index: (o as ReferenceOption).item.index,
+                      }).lean(),
+                    };
+                  }
                 }
-              });
+              );
               return {
                 ...option,
-                choice: resolveChoice(option.choice, {
+                choice: resolveChoice(choiceOption.choice, {
                   options,
                 }),
               };
@@ -200,12 +230,12 @@ const ClassResolver = {
         optionToReturn.from = {
           ...from,
           equipment_category: await EquipmentCategoryModel.findOne({
-            index: from.equipment_category.index,
+            index: (from as EquipmentCategoryOptionSet).equipment_category.index,
           }).lean(),
         };
       } else {
         if ('options' in from) {
-          const options = from.options.map(
+          const options = (from as OptionsArrayOptionSet).options.map(
             async (option: Option) => await resolveEquipmentOption(option)
           );
           optionToReturn.from = {

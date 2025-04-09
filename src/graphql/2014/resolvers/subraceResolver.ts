@@ -11,7 +11,7 @@ import {
 } from './common.js';
 
 import { Subrace } from '@/models/2014/subrace/index.js';
-import { Option } from '@/models/2014/common/types.js';
+import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/common/index.js';
 
 const SubraceResolver = {
   ability_bonuses: async (subrace: Subrace) => {
@@ -58,11 +58,15 @@ const SubraceResolver = {
     }
 
     if ('options' in subrace.language_options.from) {
-      const options = subrace.language_options.from.options.map(async (option: Option) => {
-        if ('item' in option) {
-          return await LanguageModel.findOne({ index: option.item.index }).lean();
+      const options = (subrace.language_options.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('item' in option) {
+            return await LanguageModel.findOne({
+              index: (option as ReferenceOption).item.index,
+            }).lean();
+          }
         }
-      });
+      );
       return resolveChoice(subrace.language_options, {
         options,
       });

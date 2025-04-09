@@ -9,7 +9,7 @@ import SpellModel from '@/models/2014/spell/index.js';
 
 import { Monster, ActionUsage, SpecialAbilityUsage } from '@/models/2014/monster/index.js';
 import { DamageType } from '@/models/2014/damageType/index.js';
-import { Damage, Option } from '@/models/2014/common/types.js';
+import { BreathOption, Damage, Option, OptionsArrayOptionSet } from '@/models/2014/common/index.js';
 
 const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
   const resolvedUsage: Record<string, any> = {
@@ -184,17 +184,22 @@ const MonsterResolver = {
 
       if (action.options && 'options' in action.options.from) {
         actionToAdd.options = resolveChoice(action.options, {
-          options: action.options.from.options.map(async (option: Option) => {
-            if (option.option_type === 'breath') {
-              const newOption: Record<string, any> = { ...option, dc: await resolveDc(option.dc) };
+          options: (action.options.from as OptionsArrayOptionSet).options.map(
+            async (option: Option) => {
+              if (option.option_type === 'breath') {
+                const newOption: Record<string, any> = {
+                  ...option,
+                  dc: await resolveDc((option as BreathOption).dc),
+                };
 
-              if (option.damage) {
-                newOption.damage = await resolveDamage(option.damage);
+                if ((option as BreathOption).damage) {
+                  newOption.damage = await resolveDamage((option as BreathOption).damage || []);
+                }
+
+                return newOption;
               }
-
-              return newOption;
             }
-          }),
+          ),
         });
       }
 

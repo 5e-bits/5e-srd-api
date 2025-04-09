@@ -11,8 +11,12 @@ import {
 } from './common.js';
 
 import { Background, EquipmentRef } from '@/models/2014/background/index.js';
-import { APIReference } from '@/models/2014/common/index.js';
-import { Choice } from '@/models/2014/common/index.js';
+import {
+  APIReference,
+  EquipmentCategoryOptionSet,
+  OptionsArrayOptionSet,
+} from '@/models/2014/common/index.js';
+import { Choice, Option } from '@/models/2014/common/index.js';
 
 const BackgroundResolver = {
   starting_equipment: async (background: Background, args: QueryParams) => {
@@ -64,25 +68,27 @@ const BackgroundResolver = {
       if ('equipment_category' in option.from) {
         return resolveChoice(option, {
           equipment_category: await EquipmentCategoryModel.findOne({
-            index: option.from.equipment_category.index,
+            index: (option.from as EquipmentCategoryOptionSet).equipment_category.index,
           }).lean(),
         });
       }
     }),
   ideals: async (background: Background) => {
     if ('options' in background.ideals.from) {
-      const options = background.ideals.from.options.map(async (option: Choice) => {
-        if ('alignments' in option) {
-          return {
-            ...option,
-            alignments: await AlignmentModel.find({
-              index: {
-                $in: (option.alignments as APIReference[]).map((a: APIReference) => a.index),
-              },
-            }).lean(),
-          };
+      const options = (background.ideals.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('alignments' in option) {
+            return {
+              ...option,
+              alignments: await AlignmentModel.find({
+                index: {
+                  $in: (option.alignments as APIReference[]).map((a: APIReference) => a.index),
+                },
+              }).lean(),
+            };
+          }
         }
-      });
+      );
       return resolveChoice(background.ideals, {
         options,
       });

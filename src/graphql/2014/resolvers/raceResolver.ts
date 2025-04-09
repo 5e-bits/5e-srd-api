@@ -11,7 +11,12 @@ import {
 } from './common.js';
 
 import { Race } from '@/models/2014/race/index.js';
-import { Option } from '@/models/2014/common/types.js';
+import {
+  AbilityBonusOption,
+  Option,
+  OptionsArrayOptionSet,
+  ReferenceOption,
+} from '@/models/2014/common/index.js';
 
 const RaceResolver = {
   ability_bonuses: async (race: Race) => {
@@ -72,14 +77,18 @@ const RaceResolver = {
     }
 
     if ('options' in race.ability_bonus_options.from) {
-      const options = race.ability_bonus_options.from.options.map(async (option: Option) => {
-        if ('ability_score' in option) {
-          return {
-            ...option,
-            ability_score: await AbilityScoreModel.findOne({ index: option.ability_score.index }),
-          };
+      const options = (race.ability_bonus_options.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('ability_score' in option) {
+            return {
+              ...option,
+              ability_score: await AbilityScoreModel.findOne({
+                index: (option as AbilityBonusOption).ability_score.index,
+              }),
+            };
+          }
         }
-      });
+      );
 
       return resolveChoice(race.ability_bonus_options, {
         options,
@@ -92,14 +101,16 @@ const RaceResolver = {
     }
 
     if ('options' in race.language_options.from) {
-      const options = race.language_options.from.options.map(async (option: Option) => {
-        if ('item' in option) {
-          return {
-            ...option,
-            item: await LanguageModel.findOne({ index: option.item.index }).lean(),
-          };
+      const options = (race.language_options.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('item' in option) {
+            return {
+              ...option,
+              item: await LanguageModel.findOne({ index: (option as ReferenceOption).item.index }),
+            };
+          }
         }
-      });
+      );
       return resolveChoice(race.language_options, {
         options,
       });
@@ -111,14 +122,18 @@ const RaceResolver = {
     }
 
     if ('options' in race.starting_proficiency_options.from) {
-      const options = race.starting_proficiency_options.from.options.map(async (option: Option) => {
-        if ('item' in option) {
-          return {
-            ...option,
-            item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
-          };
+      const options = (race.starting_proficiency_options.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('item' in option) {
+            return {
+              ...option,
+              item: await ProficiencyModel.findOne({
+                index: (option as ReferenceOption).item.index,
+              }),
+            };
+          }
         }
-      });
+      );
       return resolveChoice(race.starting_proficiency_options, {
         options,
       });

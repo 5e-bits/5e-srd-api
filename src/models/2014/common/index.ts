@@ -1,52 +1,15 @@
-import { Schema } from 'mongoose';
-import {
-  APIReference as APIReferenceType,
-  Choice as ChoiceType,
-  AreaOfEffect as AreaOfEffectType,
-  DifficultyClass as DifficultyClassType,
-  Damage as DamageType,
-  Option,
-  ReferenceOption,
-  ActionOption,
-  MultipleOption,
-  StringOption,
-  IdealOption,
-  CountedReferenceOption,
-  ScorePrerequisiteOption,
-  AbilityBonusOption,
-  BreathOption,
-  DamageOption,
-  ChoiceOption,
-  OptionSet,
-  OptionsArrayOptionSet,
-  EquipmentCategoryOptionSet,
-  ResourceListOptionSet,
-} from './types';
-import { prop } from '@typegoose/typegoose';
+import { prop, getModelForClass } from '@typegoose/typegoose';
 
+// Base classes
 export class APIReference {
-  @prop({ required: true })
+  @prop({ required: true, index: true })
   public index!: string;
 
-  @prop({ required: true })
+  @prop({ required: true, index: true })
   public name!: string;
 
-  @prop({ required: true })
+  @prop({ required: true, index: true })
   public url!: string;
-}
-
-export class Choice {
-  @prop()
-  public desc?: string;
-
-  @prop({ required: true })
-  public choose!: number;
-
-  @prop({ required: true })
-  public type!: string;
-
-  @prop({ required: true })
-  public from!: any; // TODO: Create proper OptionSet class
 }
 
 export class AreaOfEffect {
@@ -76,149 +39,151 @@ export class Damage {
   public damage_dice!: string;
 }
 
-export const APIReferenceSchema = new Schema<APIReferenceType>({
-  _id: { type: String, select: false },
-  index: { type: String, index: true },
-  name: { type: String, index: true },
-  url: { type: String, index: true },
-});
+// Option Set Classes
+export class OptionSet {
+  @prop({ required: true, index: true })
+  public option_set_type!: 'equipment_category' | 'resource_list' | 'options_array';
+}
 
-export const AreaOfEffectSchema = new Schema<AreaOfEffectType>({
-  _id: false,
-  size: { type: Number, required: true },
-  type: { type: String, index: true, enum: ['sphere', 'cube', 'cylinder', 'line', 'cone'] },
-});
+export class EquipmentCategoryOptionSet extends OptionSet {
+  @prop({ type: () => APIReference, required: true, index: true })
+  public equipment_category!: APIReference;
+}
 
-export const DifficultyClassSchema = new Schema<DifficultyClassType>({
-  _id: false,
-  dc_type: { type: APIReferenceSchema, index: true },
-  dc_value: { type: Number, index: true },
-  success_type: { type: String, index: true, enum: ['none', 'half', 'other'] },
-});
+export class ResourceListOptionSet extends OptionSet {
+  @prop({ required: true, index: true })
+  public resource_list_url!: string;
+}
 
-export const DamageSchema = new Schema<DamageType>({
-  _id: false,
-  damage_type: { type: APIReferenceSchema, index: true },
-  damage_dice: { type: String, index: true },
-});
+export class OptionsArrayOptionSet extends OptionSet {
+  @prop({ type: () => [Option], required: true, index: true })
+  public options!: Option[];
+}
 
-const Option = new Schema<Option>(
-  {
-    _id: false,
-    option_type: {
-      type: String,
-      index: true,
-      required: true,
-      enum: [
-        'reference',
-        'action',
-        'multiple',
-        'string',
-        'ideal',
-        'counted_reference',
-        'score_prerequisite',
-        'ability_bonus',
-        'breath',
-        'damage',
-      ],
-    },
-  },
-  { discriminatorKey: 'option_type', _id: false }
-);
+// Option Classes
+export class Option {
+  @prop({ required: true, index: true })
+  public option_type!: string;
+}
 
-Option.discriminators = {};
+export class ReferenceOption extends Option {
+  @prop({ type: () => APIReference, required: true, index: true })
+  public item!: APIReference;
+}
 
-Option.discriminators['reference'] = new Schema<ReferenceOption>({
-  item: { type: APIReferenceSchema, index: true, required: true },
-});
+export class ActionOption extends Option {
+  @prop({ required: true, index: true })
+  public action_name!: string;
 
-Option.discriminators['action'] = new Schema<ActionOption>({
-  action_name: { type: String, index: true, required: true },
-  count: { type: Schema.Types.Mixed, index: true, required: true },
-  type: {
-    type: String,
+  @prop({ required: true, index: true })
+  public count!: number | string;
+
+  @prop({ required: true, index: true })
+  public type!: 'melee' | 'ranged' | 'ability' | 'magic';
+
+  @prop({ index: true })
+  public notes?: string;
+}
+
+export class MultipleOption extends Option {
+  @prop({ type: () => [Option], required: true, index: true })
+  public items!: Option[];
+}
+
+export class StringOption extends Option {
+  @prop({ required: true, index: true })
+  public string!: string;
+}
+
+export class IdealOption extends Option {
+  @prop({ required: true, index: true })
+  public desc!: string;
+
+  @prop({ type: () => [APIReference], required: true, index: true })
+  public alignments!: APIReference[];
+}
+
+export class CountedReferenceOption extends Option {
+  @prop({ required: true, index: true })
+  public count!: number;
+
+  @prop({ type: () => APIReference, required: true, index: true })
+  public of!: APIReference;
+
+  @prop({
+    type: () => [
+      {
+        type: { type: String, required: true },
+        proficiency: { type: () => APIReference },
+      },
+    ],
     index: true,
-    enum: ['melee', 'ranged', 'ability', 'magic'],
-    required: true,
-  },
-  notes: { type: String, index: true },
-});
+  })
+  public prerequisites?: {
+    type: 'proficiency';
+    proficiency?: APIReference;
+  }[];
+}
 
-Option.discriminators['multiple'] = new Schema<MultipleOption>({
-  items: { type: [Option], index: true, required: true },
-});
+export class ScorePrerequisiteOption extends Option {
+  @prop({ type: () => APIReference, required: true, index: true })
+  public ability_score!: APIReference;
 
-Option.discriminators['string'] = new Schema<StringOption>({
-  string: { type: String, index: true, required: true },
-});
+  @prop({ required: true, index: true })
+  public minimum_score!: number;
+}
 
-Option.discriminators['ideal'] = new Schema<IdealOption>({
-  desc: { type: String, index: true, required: true },
-  alignments: { type: [APIReferenceSchema], index: true, required: true },
-});
+export class AbilityBonusOption extends Option {
+  @prop({ type: () => APIReference, required: true, index: true })
+  public ability_score!: APIReference;
 
-Option.discriminators['counted_reference'] = new Schema<CountedReferenceOption>({
-  count: { type: Number, index: true, required: true },
-  of: { type: APIReferenceSchema, index: true, required: true },
-});
+  @prop({ required: true, index: true })
+  public bonus!: number;
+}
 
-Option.discriminators['score_prerequisite'] = new Schema<ScorePrerequisiteOption>({
-  ability_score: { type: APIReferenceSchema, index: true, required: true },
-  minimum_score: { type: Number, index: true, required: true },
-});
+export class BreathOption extends Option {
+  @prop({ required: true, index: true })
+  public name!: string;
 
-Option.discriminators['ability_bonus'] = new Schema<AbilityBonusOption>({
-  ability_score: { type: APIReferenceSchema, index: true, required: true },
-  bonus: { type: Number, index: true, required: true },
-});
+  @prop({ type: () => DifficultyClass, required: true, index: true })
+  public dc!: DifficultyClass;
 
-Option.discriminators['breath'] = new Schema<BreathOption>({
-  name: { type: String, index: true, required: true },
-  dc: { type: DifficultyClassSchema, index: true, required: true },
-  damage: { type: [DamageSchema], index: true },
-});
+  @prop({ type: () => [Damage], index: true })
+  public damage?: Damage[];
+}
 
-Option.discriminators['damage'] = new Schema<DamageOption>({
-  damage_type: { type: APIReferenceSchema, index: true, required: true },
-  damage_dice: { type: String, index: true, required: true },
-  notes: { type: String, index: true },
-});
+export class DamageOption extends Option {
+  @prop({ type: () => APIReference, required: true, index: true })
+  public damage_type!: APIReference;
 
-const OptionSetSchema = new Schema<OptionSet>(
-  {
-    _id: false,
-    option_set_type: {
-      type: String,
-      index: true,
-      required: true,
-      enum: ['equipment_category', 'resource_list', 'options_array'],
-    },
-  },
-  { discriminatorKey: 'option_set_type', _id: false }
-);
+  @prop({ required: true, index: true })
+  public damage_dice!: string;
 
-OptionSetSchema.discriminators = {};
+  @prop({ index: true })
+  public notes?: string;
+}
 
-OptionSetSchema.discriminators['equipment_category'] = new Schema<EquipmentCategoryOptionSet>({
-  equipment_category: { type: APIReferenceSchema, index: true, required: true },
-});
+export class ChoiceOption extends Option {
+  @prop({ type: () => Choice, required: true, index: true })
+  public choice!: Choice;
+}
 
-OptionSetSchema.discriminators['resource_list'] = new Schema<ResourceListOptionSet>({
-  resource_list_url: { type: String, index: true, required: true },
-});
+export class Choice {
+  @prop()
+  public desc?: string;
 
-OptionSetSchema.discriminators['options_array'] = new Schema<OptionsArrayOptionSet>({
-  options: { type: [Option], index: true, required: true },
-});
+  @prop({ required: true, index: true })
+  public choose!: number;
 
-export const ChoiceSchema = new Schema<ChoiceType>({
-  _id: false,
-  desc: { type: String, index: true },
-  choose: { type: Number, index: true, required: true },
-  type: { type: String, index: true, required: true },
-  from: { type: OptionSetSchema, index: true, required: true },
-});
+  @prop({ required: true, index: true })
+  public type!: string;
 
-Option.discriminators['choice'] = new Schema<ChoiceOption>({
-  choice: { type: ChoiceSchema, index: true, required: true },
-});
+  @prop({ type: () => OptionSet, required: true, index: true })
+  public from!: OptionSet;
+}
+
+// Export models
+export const APIReferenceModel = getModelForClass(APIReference);
+export const OptionSetModel = getModelForClass(OptionSet);
+export const OptionModel = getModelForClass(Option);
+export const ChoiceModel = getModelForClass(Choice);

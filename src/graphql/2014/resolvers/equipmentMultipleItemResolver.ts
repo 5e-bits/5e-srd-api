@@ -1,4 +1,4 @@
-import { Option } from '@/models/2014/common/types';
+import { Option } from '@/models/2014/common/index.js';
 
 const EquipmentMultipleItemResolver = {
   __resolveType(option: Option) {

@@ -17,7 +17,7 @@ import LanguageModel from '@/models/2014/language/index.js';
 
 import { ResolvedDC, QueryParams } from './common.js';
 import { Trait, Usage } from '@/models/2014/trait/index.js';
-import { Option } from '@/models/2014/common/types.js';
+import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/common/index.js';
 
 type TraitSpecificClient = {
   breath_weapon?: {
@@ -75,14 +75,18 @@ const TraitResolver = {
     if (trait.proficiency_choices) {
       const { proficiency_choices } = trait;
       if ('options' in proficiency_choices.from) {
-        const options = proficiency_choices.from.options.map(async (option: Option) => {
-          if ('item' in option) {
-            return {
-              ...option,
-              item: await ProficiencyModel.findOne({ index: option.item.index }).lean(),
-            };
+        const options = (proficiency_choices.from as OptionsArrayOptionSet).options.map(
+          async (option: Option) => {
+            if ('item' in option) {
+              return {
+                ...option,
+                item: await ProficiencyModel.findOne({
+                  index: (option as ReferenceOption).item.index,
+                }).lean(),
+              };
+            }
           }
-        });
+        );
         return resolveChoice(proficiency_choices, {
           options,
         });
@@ -119,28 +123,32 @@ const TraitResolver = {
     }
 
     if (trait_specific.spell_options && 'options' in trait_specific.spell_options.from) {
-      const options = trait_specific.spell_options.from.options.map(async (option: Option) => {
-        if ('item' in option) {
-          return {
-            ...option,
-            item: await SpellModel.findOne({ index: option.item.index }),
-          };
+      const options = (trait_specific.spell_options.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('item' in option) {
+            return {
+              ...option,
+              item: await SpellModel.findOne({ index: (option as ReferenceOption).item.index }),
+            };
+          }
         }
-      });
+      );
       traitSpecificToReturn.spell_options = resolveChoice(trait_specific.spell_options, {
         options,
       });
     }
 
     if (trait_specific.subtrait_options && 'options' in trait_specific.subtrait_options.from) {
-      const options = trait_specific.subtrait_options.from.options.map(async (option: Option) => {
-        if ('item' in option) {
-          return {
-            ...option,
-            item: await TraitModel.findOne({ index: option.item.index }).lean(),
-          };
+      const options = (trait_specific.subtrait_options.from as OptionsArrayOptionSet).options.map(
+        async (option: Option) => {
+          if ('item' in option) {
+            return {
+              ...option,
+              item: await TraitModel.findOne({ index: (option as ReferenceOption).item.index }),
+            };
+          }
         }
-      });
+      );
       traitSpecificToReturn.subtrait_options = resolveChoice(trait_specific.subtrait_options, {
         options,
       });
@@ -152,14 +160,18 @@ const TraitResolver = {
     if (trait.language_options) {
       const { language_options } = trait;
       if ('options' in language_options.from) {
-        const options = language_options.from.options.map(async (option: Option) => {
-          if ('item' in option) {
-            return {
-              ...option,
-              item: await LanguageModel.findOne({ index: option.item.index }).lean(),
-            };
+        const options = (language_options.from as OptionsArrayOptionSet).options.map(
+          async (option: Option) => {
+            if ('item' in option) {
+              return {
+                ...option,
+                item: await LanguageModel.findOne({
+                  index: (option as ReferenceOption).item.index,
+                }).lean(),
+              };
+            }
           }
-        });
+        );
         return resolveChoice(language_options, {
           options,
         });
