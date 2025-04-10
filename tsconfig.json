@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
@@ -37,5 +37,8 @@
   "typedocOptions": {
     "entryPoints": ["src/models/index.ts"],
     "out": "docs"
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true
   }
 }

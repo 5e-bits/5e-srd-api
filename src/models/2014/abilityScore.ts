@@ -1,19 +1,22 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from '@/models/2014/common/index.js';
+import { APIReference } from './common';
 
-export class Skill {
-  @prop({ type: () => APIReference })
-  public ability_score!: APIReference;
-
+export class AbilityScore {
   @prop({ required: true, index: true })
   public desc!: string[];
+
+  @prop({ required: true, index: true })
+  public full_name!: string;
 
   @prop({ required: true, index: true })
   public index!: string;
 
   @prop({ required: true, index: true })
   public name!: string;
+
+  @prop({ type: () => APIReference })
+  public skills!: APIReference[];
 
   @prop({ required: true, index: true })
   public url!: string;
@@ -22,9 +25,9 @@ export class Skill {
   public updated_at!: string;
 }
 
-export type SkillDocument = DocumentType<Skill>;
-const SkillModel = getModelForClass(Skill, {
-  schemaOptions: { collection: '2014-skills' },
+export type AbilityScoreDocument = DocumentType<AbilityScore>;
+const AbilityScoreModel = getModelForClass(AbilityScore, {
+  schemaOptions: { collection: '2014-ability-scores' },
 });
 
-export default SkillModel;
+export default AbilityScoreModel;

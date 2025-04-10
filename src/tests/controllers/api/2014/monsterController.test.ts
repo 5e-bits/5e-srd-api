@@ -1,10 +1,10 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as MonsterController from '@/controllers/api/2014/monsterController.js';
+import * as MonsterController from '@/controllers/api/2014/monsterController';
 
-import { mockNext } from '@/tests/support/index.js';
+import { mockNext } from '@/tests/support';
 
-import Monster from '@/models/2014/monster/index.js';
+import Monster from '@/models/2014/monster';
 
 beforeEach(() => {
   mockingoose.resetAll();

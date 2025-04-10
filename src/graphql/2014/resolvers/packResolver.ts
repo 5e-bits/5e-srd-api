@@ -1,6 +1,6 @@
-import EquipmentModel from '@/models/2014/equipment/index.js';
-import { gearFieldResolvers } from './common.js';
-import { Equipment } from '@/models/2014/equipment/index.js';
+import EquipmentModel from '@/models/2014/equipment';
+import { gearFieldResolvers } from './common';
+import { Equipment } from '@/models/2014/equipment';
 
 const PackResolver = {
   ...gearFieldResolvers,

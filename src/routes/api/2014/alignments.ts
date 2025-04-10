@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import AlignmentController from '@/controllers/api/2014/alignmentController.js';
+import AlignmentController from '@/controllers/api/2014/alignmentController';
 
 const router = express.Router();
 

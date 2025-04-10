@@ -1,22 +1,17 @@
-import AlignmentModel from '@/models/2014/alignment/index.js';
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
-import EquipmentModel from '@/models/2014/equipment/index.js';
-import LanguageModel from '@/models/2014/language/index.js';
-import ProficiencyModel from '@/models/2014/proficiency/index.js';
-import {
-  coalesceFilters,
-  resolveChoice,
-  resolveContainsStringFilter,
-  QueryParams,
-} from './common.js';
+import AlignmentModel from '@/models/2014/alignment';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
+import EquipmentModel from '@/models/2014/equipment';
+import LanguageModel from '@/models/2014/language';
+import ProficiencyModel from '@/models/2014/proficiency';
+import { coalesceFilters, resolveChoice, resolveContainsStringFilter, QueryParams } from './common';
 
-import { Background, EquipmentRef } from '@/models/2014/background/index.js';
+import { Background, EquipmentRef } from '@/models/2014/background';
 import {
   APIReference,
   EquipmentCategoryOptionSet,
   OptionsArrayOptionSet,
-} from '@/models/2014/common/index.js';
-import { Choice, Option } from '@/models/2014/common/index.js';
+} from '@/models/2014/common';
+import { Choice, Option } from '@/models/2014/common';
 
 const BackgroundResolver = {
   starting_equipment: async (background: Background, args: QueryParams) => {

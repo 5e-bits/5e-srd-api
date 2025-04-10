@@ -1,4 +1,4 @@
-import * as MagicItemController from '@/controllers/api/2014/magicItemController.js';
+import * as MagicItemController from '@/controllers/api/2014/magicItemController';
 import * as express from 'express';
 
 const router = express.Router();

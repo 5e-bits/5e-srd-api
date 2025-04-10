@@ -1,10 +1,10 @@
 import mockingoose from 'mockingoose';
 import { createRequest, createResponse } from 'node-mocks-http';
-import * as RulesController from '@/controllers/api/2014/ruleController.js';
+import * as RulesController from '@/controllers/api/2014/ruleController';
 
-import { mockNext } from '@/tests/support/requestHelpers.js';
+import { mockNext } from '@/tests/support/requestHelpers';
 
-import Rule from '@/models/2014/rule/index.js';
+import Rule from '@/models/2014/rule';
 
 beforeEach(() => {
   mockingoose.resetAll();

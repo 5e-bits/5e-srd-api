@@ -1,4 +1,4 @@
-import { Option } from '@/models/2014/common/index.js';
+import { Option } from '@/models/2014/common';
 
 const ExpertiseOptionResolver = {
   __resolveType(option: Option) {

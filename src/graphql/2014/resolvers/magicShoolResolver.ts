@@ -1,5 +1,5 @@
-import { resolveSpells, SpellQuery } from './common.js';
-import { MagicSchool } from '@/models/2014/magicSchool/index.js';
+import { resolveSpells, SpellQuery } from './common';
+import { MagicSchool } from '@/models/2014/magicSchool';
 
 const MagicSchoolResolver = {
   spells: async (school: MagicSchool, args: SpellQuery) =>

@@ -1,14 +1,14 @@
-import DamageTypeModel from '@/models/2014/damageType/index.js';
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
-import WeaponPropertyModel from '@/models/2014/weaponProperty/index.js';
+import DamageTypeModel from '@/models/2014/damageType';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
+import WeaponPropertyModel from '@/models/2014/weaponProperty';
 import {
   coalesceFilters,
   equipmentFieldResolvers,
   resolveContainsStringFilter,
   QueryParams,
-} from './common.js';
+} from './common';
 
-import { Equipment } from '@/models/2014/equipment/index.js';
+import { Equipment } from '@/models/2014/equipment';
 
 const WeaponResolver = {
   ...equipmentFieldResolvers,

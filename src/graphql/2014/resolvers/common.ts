@@ -1,8 +1,8 @@
-import AbilityScoreModel from '@/models/2014/abilityScore/index.js';
-import { AreaOfEffect, Choice, DifficultyClass } from '@/models/2014/common/index.js';
-import { Equipment } from '@/models/2014/equipment/index.js';
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
-import SpellModel from '@/models/2014/spell/index.js';
+import AbilityScoreModel from '@/models/2014/abilityScore';
+import { AreaOfEffect, Choice, DifficultyClass } from '@/models/2014/common';
+import { Equipment } from '@/models/2014/equipment';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
+import SpellModel from '@/models/2014/spell';
 
 export const equipmentBaseFieldResolvers = {
   equipment_category: async (equipment: Equipment) =>

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Collection from '@/models/2014/collection/index.js';
+import Collection from '@/models/2014/collection';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {

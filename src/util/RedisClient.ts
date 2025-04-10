@@ -1,5 +1,5 @@
 import { createClient } from 'redis';
-import { redisUrl } from './environmentVariables.js';
+import { redisUrl } from './environmentVariables';
 
 export default createClient({
   url: redisUrl,

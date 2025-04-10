@@ -1,2 +1,18 @@
 /node_modules/
 dist
+
+# Git / VCS
+.git/
+
+# Editor / IDE
+.vscode/
+
+# Environment / Secrets
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS generated files
+.DS_Store

@@ -1,6 +1,6 @@
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory/index.js';
-import { Equipment } from '@/models/2014/equipment/index.js';
-import { equipmentFieldResolvers } from './common.js';
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory';
+import { Equipment } from '@/models/2014/equipment';
+import { equipmentFieldResolvers } from './common';
 
 const ArmorResolver = {
   ...equipmentFieldResolvers,
