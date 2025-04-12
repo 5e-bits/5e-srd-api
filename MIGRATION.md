@@ -213,9 +213,10 @@ For each model:
 1. Create new TypeGraphQL + Typegoose implementation
    *(See Appendix A: Example Simple Model Migration for a template)*
 2. Update/migrate existing tests
-3. Direct replacement of old implementation
-4. Verify functionality
-5. Deploy to production
+3. Direct replacement of old implementation (including deleting old files if separate)
+4. Update external imports: Check controllers, services, or other files that imported the old Mongoose model's default export. Update them to import the named `ModelName` class and use `ModelName.model` where the Typegoose model is needed.
+5. Verify functionality
+6. Deploy to production
 
 ### 3. Moderate Complexity Migration (Weeks 4-5)
 
@@ -233,8 +234,9 @@ For each model:
 1. Analyze references and dependencies
 2. Create new implementation
 3. Migrate tests
-4. Verify functionality with related models
-5. Deploy to production
+4. Update external imports: Check controllers, services, or other files that imported the old Mongoose model's default export. Update them to import the named `ModelName` class and use `ModelName.model` where the Typegoose model is needed.
+5. Verify functionality with related models
+6. Deploy to production
 
 ### 4. Complex Model Migration (Weeks 6-8)
 
@@ -255,8 +257,9 @@ For each model:
 1. Analyze dependencies
 2. Create new implementation
 3. Migrate tests
-4. Verify relationships with other models
-5. Deploy to production
+4. Update external imports: Check controllers, services, or other files that imported the old Mongoose model's default export. Update them to import the named `ModelName` class and use `ModelName.model` where the Typegoose model is needed.
+5. Verify relationships with other models
+6. Deploy to production
 
 ### 5. Infrastructure Migration (Week 9)
 
