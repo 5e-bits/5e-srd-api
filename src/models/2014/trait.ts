@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice, AreaOfEffect, DifficultyClass } from './common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class Proficiency {
   @prop({ required: true, index: true })
   public index!: string;
@@ -63,6 +63,7 @@ class TraitSpecific {
   public breath_weapon?: Action;
 }
 
+@srdModelOptions('2014-traits')
 export class Trait {
   @prop({ type: () => [String], required: true, index: true })
   public desc!: string[];
@@ -102,8 +103,6 @@ export class Trait {
 }
 
 export type TraitDocument = DocumentType<Trait>;
-const TraitModel = getModelForClass(Trait, {
-  schemaOptions: { collection: '2014-traits' },
-});
+const TraitModel = getModelForClass(Trait);
 
 export default TraitModel;

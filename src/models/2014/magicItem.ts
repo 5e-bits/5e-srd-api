@@ -1,12 +1,13 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from './common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class Rarity {
   @prop({ required: true, index: true })
   public name!: string;
 }
 
+@srdModelOptions('2014-magic-items')
 export class MagicItem {
   @prop({ type: () => [String], index: true })
   public desc!: string[];
@@ -40,8 +41,6 @@ export class MagicItem {
 }
 
 export type MagicItemDocument = DocumentType<MagicItem>;
-const MagicItemModel = getModelForClass(MagicItem, {
-  schemaOptions: { collection: '2014-magic-items' },
-});
+const MagicItemModel = getModelForClass(MagicItem);
 
 export default MagicItemModel;

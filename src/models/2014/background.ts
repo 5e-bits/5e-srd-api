@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice } from './common';
+import { srdModelOptions } from '@/util/modelOptions';
 
 export class EquipmentRef {
   @prop({ type: () => APIReference })
@@ -18,6 +19,7 @@ class Feature {
   public desc!: string[];
 }
 
+@srdModelOptions('2014-backgrounds')
 export class Background {
   @prop({ required: true, index: true })
   public index!: string;
@@ -60,8 +62,6 @@ export class Background {
 }
 
 export type BackgroundDocument = DocumentType<Background>;
-const BackgroundModel = getModelForClass(Background, {
-  schemaOptions: { collection: '2014-backgrounds' },
-});
+const BackgroundModel = getModelForClass(Background);
 
 export default BackgroundModel;

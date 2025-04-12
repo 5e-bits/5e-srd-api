@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from '@/models/2014/common';
+import { srdModelOptions } from '@/util/modelOptions';
 
 export class Prerequisite {
   @prop({ type: () => APIReference })
@@ -10,6 +11,7 @@ export class Prerequisite {
   public minimum_score!: number;
 }
 
+@srdModelOptions('2014-feats')
 export class Feat {
   @prop({ required: true, index: true })
   public index!: string;
@@ -31,8 +33,6 @@ export class Feat {
 }
 
 export type FeatDocument = DocumentType<Feat>;
-const FeatModel = getModelForClass(Feat, {
-  schemaOptions: { collection: '2014-feats' },
-});
+const FeatModel = getModelForClass(Feat);
 
 export default FeatModel;

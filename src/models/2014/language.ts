@@ -1,6 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-languages')
 export class Language {
   @prop({ required: true, index: true })
   public desc!: string[];
@@ -28,8 +30,6 @@ export class Language {
 }
 
 export type LanguageDocument = DocumentType<Language>;
-const LanguageModel = getModelForClass(Language, {
-  schemaOptions: { collection: '2014-languages' },
-});
+const LanguageModel = getModelForClass(Language);
 
 export default LanguageModel;

@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, AreaOfEffect } from '@/models/2014/common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class Damage {
   @prop({ type: Object })
   public damage_at_slot_level?: Record<number, string>;
@@ -24,6 +24,7 @@ class DC {
   public desc?: string;
 }
 
+@srdModelOptions('2014-spells')
 export class Spell {
   @prop({ type: () => AreaOfEffect })
   public area_of_effect?: AreaOfEffect;
@@ -93,8 +94,6 @@ export class Spell {
 }
 
 export type SpellDocument = DocumentType<Spell>;
-const SpellModel = getModelForClass(Spell, {
-  schemaOptions: { collection: '2014-spells' },
-});
+const SpellModel = getModelForClass(Spell);
 
 export default SpellModel;

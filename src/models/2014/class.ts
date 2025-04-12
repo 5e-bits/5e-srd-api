@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice } from './common';
+import { srdModelOptions } from '@/util/modelOptions';
 
 class Equipment {
   @prop({ type: () => APIReference })
@@ -51,6 +52,7 @@ class MultiClassing {
   public proficiency_choices?: Choice[];
 }
 
+@srdModelOptions('2014-classes')
 class Class {
   @prop({ required: true, index: true })
   public class_levels!: string;
@@ -99,7 +101,5 @@ class Class {
 }
 
 export type ClassDocument = DocumentType<Class>;
-const ClassModel = getModelForClass(Class, {
-  schemaOptions: { collection: '2014-classes' },
-});
+const ClassModel = getModelForClass(Class);
 export default ClassModel;

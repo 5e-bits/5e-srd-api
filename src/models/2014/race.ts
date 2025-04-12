@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice } from '@/models/2014/common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class RaceAbilityBonus {
   @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference;
@@ -10,6 +10,7 @@ class RaceAbilityBonus {
   public bonus!: number;
 }
 
+@srdModelOptions('2014-races')
 export class Race {
   @prop({ type: () => Choice })
   public ability_bonus_options?: Choice;
@@ -67,8 +68,6 @@ export class Race {
 }
 
 export type RaceDocument = DocumentType<Race>;
-const RaceModel = getModelForClass(Race, {
-  schemaOptions: { collection: '2014-races' },
-});
+const RaceModel = getModelForClass(Race);
 
 export default RaceModel;

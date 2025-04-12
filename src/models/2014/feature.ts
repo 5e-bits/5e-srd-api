@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice } from '@/models/2014/common';
+import { srdModelOptions } from '@/util/modelOptions';
 
 class LevelPrerequisite {
   @prop({ required: true, index: true })
@@ -43,6 +44,7 @@ class FeatureSpecific {
   public invocations?: APIReference[];
 }
 
+@srdModelOptions('2014-features')
 export class Feature {
   @prop({ type: () => APIReference })
   public class!: APIReference;
@@ -82,8 +84,6 @@ export class Feature {
 }
 
 export type FeatureDocument = DocumentType<Feature>;
-const FeatureModel = getModelForClass(Feature, {
-  schemaOptions: { collection: '2014-features' },
-});
+const FeatureModel = getModelForClass(Feature);
 
 export default FeatureModel;

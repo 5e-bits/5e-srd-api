@@ -1,6 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-conditions')
 export class Condition {
   @prop({ required: true, index: true })
   public desc!: string[];
@@ -19,8 +21,6 @@ export class Condition {
 }
 
 export type ConditionDocument = DocumentType<Condition>;
-const ConditionModel = getModelForClass(Condition, {
-  schemaOptions: { collection: '2014-conditions' },
-});
+const ConditionModel = getModelForClass(Condition);
 
 export default ConditionModel;

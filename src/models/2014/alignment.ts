@@ -1,6 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-alignments')
 export class Alignment {
   @prop({ required: true, index: true })
   public desc!: string[];
@@ -22,8 +24,6 @@ export class Alignment {
 }
 
 export type AlignmentDocument = DocumentType<Alignment>;
-const AlignmentModel = getModelForClass(Alignment, {
-  schemaOptions: { collection: '2014-alignments' },
-});
+const AlignmentModel = getModelForClass(Alignment);
 
 export default AlignmentModel;

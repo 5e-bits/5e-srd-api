@@ -1,6 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-damage-types')
 export class DamageType {
   @prop({ required: true, index: true })
   public desc!: string[];
@@ -19,8 +21,6 @@ export class DamageType {
 }
 
 export type DamageTypeDocument = DocumentType<DamageType>;
-const DamageTypeModel = getModelForClass(DamageType, {
-  schemaOptions: { collection: '2014-damage-types' },
-});
+const DamageTypeModel = getModelForClass(DamageType);
 
 export default DamageTypeModel;
