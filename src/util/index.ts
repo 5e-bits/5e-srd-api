@@ -1,4 +1,4 @@
-import { ClassAPIResource, ResourceList } from './data';
+import { ResourceList } from './data';
 import { bugsnagApiKey, mongodbUri } from './environmentVariables';
 
 import { escapeRegExp } from './regex';
@@ -13,6 +13,5 @@ export {
   prewarmCache,
   escapeRegExp,
   ResourceList,
-  ClassAPIResource,
   awsS3Client,
 };

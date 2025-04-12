@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from '@/models/2014/common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class SpellPrerequisite {
   @prop({ required: true, index: true })
   public index!: string;
@@ -24,6 +24,7 @@ class Spell {
   public spell!: APIReference;
 }
 
+@srdModelOptions('2014-subclasses')
 export class Subclass {
   @prop({ type: () => APIReference })
   public class!: APIReference;
@@ -54,8 +55,6 @@ export class Subclass {
 }
 
 export type SubclassDocument = DocumentType<Subclass>;
-const SubclassModel = getModelForClass(Subclass, {
-  schemaOptions: { collection: '2014-subclasses' },
-});
+const SubclassModel = getModelForClass(Subclass);
 
 export default SubclassModel;

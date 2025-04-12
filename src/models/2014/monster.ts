@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference, Choice, DifficultyClass, Damage } from './common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class ActionOption {
   @prop({ required: true, index: true })
   public action_name!: string;
@@ -270,6 +270,7 @@ class Speed {
   public walk?: string;
 }
 
+@srdModelOptions('2014-monsters')
 export class Monster {
   @prop({ type: () => [Action] })
   public actions?: Action[];
@@ -381,8 +382,6 @@ export class Monster {
 }
 
 export type MonsterDocument = DocumentType<Monster>;
-const MonsterModel = getModelForClass(Monster, {
-  schemaOptions: { collection: '2014-monsters' },
-});
+const MonsterModel = getModelForClass(Monster);
 
 export default MonsterModel;

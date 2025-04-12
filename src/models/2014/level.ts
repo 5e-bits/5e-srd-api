@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from '@/models/2014/common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class ClassSpecificCreatingSpellSlot {
   @prop({ required: true, index: true })
   public sorcery_point_cost!: number;
@@ -167,6 +167,7 @@ export class SubclassSpecific {
   public aura_range?: number;
 }
 
+@srdModelOptions('2014-levels')
 export class Level {
   @prop({ index: true })
   public ability_score_bonuses?: number;
@@ -206,8 +207,6 @@ export class Level {
 }
 
 export type LevelDocument = DocumentType<Level>;
-const LevelModel = getModelForClass(Level, {
-  schemaOptions: { collection: '2014-levels' },
-});
+const LevelModel = getModelForClass(Level);
 
 export default LevelModel;

@@ -1,7 +1,9 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from '@/models/2014/common';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-skills')
 export class Skill {
   @prop({ type: () => APIReference })
   public ability_score!: APIReference;
@@ -23,8 +25,6 @@ export class Skill {
 }
 
 export type SkillDocument = DocumentType<Skill>;
-const SkillModel = getModelForClass(Skill, {
-  schemaOptions: { collection: '2014-skills' },
-});
+const SkillModel = getModelForClass(Skill);
 
 export default SkillModel;

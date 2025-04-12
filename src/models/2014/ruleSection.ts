@@ -1,6 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-rule-sections')
 export class RuleSection {
   @prop({ required: true, index: true })
   public desc!: string;
@@ -19,8 +21,6 @@ export class RuleSection {
 }
 
 export type RuleSectionDocument = DocumentType<RuleSection>;
-const RuleSectionModel = getModelForClass(RuleSection, {
-  schemaOptions: { collection: '2014-rule-sections' },
-});
+const RuleSectionModel = getModelForClass(RuleSection);
 
 export default RuleSectionModel;

@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from '@/models/2014/common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class ArmorClass {
   @prop({ required: true, index: true })
   public base!: number;
@@ -69,6 +69,7 @@ class TwoHandedDamage {
   public damage_type!: APIReference;
 }
 
+@srdModelOptions('2014-equipment')
 export class Equipment {
   @prop({ index: true })
   public armor_category?: string;
@@ -156,8 +157,6 @@ export class Equipment {
 }
 
 export type EquipmentDocument = DocumentType<Equipment>;
-const EquipmentModel = getModelForClass(Equipment, {
-  schemaOptions: { collection: '2014-equipment' },
-});
+const EquipmentModel = getModelForClass(Equipment);
 
 export default EquipmentModel;

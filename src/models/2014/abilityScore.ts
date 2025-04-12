@@ -1,7 +1,9 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from './common';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-ability-scores')
 export class AbilityScore {
   @prop({ required: true, index: true })
   public desc!: string[];
@@ -26,8 +28,6 @@ export class AbilityScore {
 }
 
 export type AbilityScoreDocument = DocumentType<AbilityScore>;
-const AbilityScoreModel = getModelForClass(AbilityScore, {
-  schemaOptions: { collection: '2014-ability-scores' },
-});
+const AbilityScoreModel = getModelForClass(AbilityScore);
 
 export default AbilityScoreModel;

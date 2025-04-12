@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
 import { APIReference } from '@/models/2014/common';
-
+import { srdModelOptions } from '@/util/modelOptions';
 class Reference {
   @prop({ required: true, index: true })
   public index!: string;
@@ -16,6 +16,7 @@ class Reference {
   public url!: string;
 }
 
+@srdModelOptions('2014-proficiencies')
 export class Proficiency {
   @prop({ type: () => [APIReference] })
   public classes?: APIReference[];
@@ -43,8 +44,6 @@ export class Proficiency {
 }
 
 export type ProficiencyDocument = DocumentType<Proficiency>;
-const ProficiencyModel = getModelForClass(Proficiency, {
-  schemaOptions: { collection: '2014-proficiencies' },
-});
+const ProficiencyModel = getModelForClass(Proficiency);
 
 export default ProficiencyModel;

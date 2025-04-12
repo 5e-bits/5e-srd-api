@@ -1,6 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { srdModelOptions } from '@/util/modelOptions';
 
+@srdModelOptions('2014-magic-schools')
 export class MagicSchool {
   @prop({ type: () => [String], index: true })
   public desc!: string[];
@@ -19,8 +21,6 @@ export class MagicSchool {
 }
 
 export type MagicSchoolDocument = DocumentType<MagicSchool>;
-const MagicSchoolModel = getModelForClass(MagicSchool, {
-  schemaOptions: { collection: '2014-magic-schools' },
-});
+const MagicSchoolModel = getModelForClass(MagicSchool);
 
 export default MagicSchoolModel;
