@@ -73,7 +73,7 @@
     "node-mocks-http": "^1.16.2",
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
-    "openapi-to-postmanv2": "^4.19.0",
+    "openapi-to-postmanv2": "^5.0.0",
     "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "semantic-release": "^24.2.3",
