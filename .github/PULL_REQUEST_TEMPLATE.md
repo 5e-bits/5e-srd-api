@@ -11,4 +11,4 @@
 \<It's not clear if I don't update this text with relevant info\>
 
 ## Here's a fun image for your troubles
-![random photo - update me](https://picsum.photos/200)
+\<Add a fun image here\>
