@@ -8,7 +8,13 @@ import { z } from 'zod';
  * If the input is nullish, undefined is returned.
  */
 const ensureArrayOrUndefined = <T>(val: T | T[] | undefined): T[] | undefined => {
-  return val ? (Array.isArray(val) ? val : [val]) : undefined;
+  if (val === undefined || val === null) {
+    return undefined;
+  }
+  if (Array.isArray(val)) {
+    return val;
+  }
+  return [val];
 };
 
 // --- Base Schemas ---
