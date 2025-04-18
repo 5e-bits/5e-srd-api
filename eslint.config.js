@@ -4,6 +4,7 @@ import eslint from '@eslint/js';
 import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import stylistic from '@stylistic/eslint-plugin-ts';
 
 export default [
   {
@@ -11,6 +12,7 @@ export default [
     ignores: ['**/coverage/**', '**/dist/**', '**/node_modules/**'],
   },
   eslint.configs.recommended,
+  stylistic.configs.all,
   {
     name: 'javascript',
     files: ['**/*.js'],
@@ -25,6 +27,9 @@ export default [
   {
     name: 'typescript',
     files: ['**/*.ts'],
+    plugins: {
+      '@stylistic/ts': stylistic,
+    },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -40,6 +45,9 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
+      // '@stylistic/ts/comma-dangle': ['error', 'never'],
+      // '@stylistic/ts/no-extra-semi': 'error',
+      // '@stylistic/ts/no-extra-parens': 'error',
     },
   },
   {
