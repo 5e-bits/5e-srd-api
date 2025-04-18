@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { ShowParamsSchema } from '@/schemas/schemas';
 import Proficiency from '@/models/2014/proficiency';
 import { ResourceList } from '@/util/data';
 import SimpleController from '@/controllers/simpleController';
@@ -14,7 +15,16 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showTraitsForSubrace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/subraces/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/subraces/' + index;
     const data = await Trait.find({ 'subraces.url': urlString }).select({
       index: 1,
       name: 1,
@@ -34,7 +44,16 @@ export const showProficienciesForSubrace = async (
   next: NextFunction
 ) => {
   try {
-    const urlString = '/api/2014/subraces/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/subraces/' + index;
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })

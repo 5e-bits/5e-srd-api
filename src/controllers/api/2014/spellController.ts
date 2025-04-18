@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { SpellIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
 import { ResourceList, escapeRegExp, redisClient } from '@/util';
 
 interface IndexQuery {
@@ -11,22 +12,25 @@ import Spell from '@/models/2014/spell';
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const validatedQuery = SpellIndexQuerySchema.safeParse(req.query);
+    if (!validatedQuery.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues });
+    }
+    const { name, level, school } = validatedQuery.data;
+
     const searchQueries: IndexQuery = {};
-    if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name as string), 'i') };
+    if (name !== undefined) {
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(name), 'i') };
     }
 
-    if (req.query.level !== undefined) {
-      searchQueries.level = { $in: req.query.level as string[] };
+    if (level !== undefined) {
+      searchQueries.level = { $in: level };
     }
 
-    if (req.query.school !== undefined) {
-      let schoolRegex;
-      if (Array.isArray(req.query.school)) {
-        schoolRegex = req.query.school.map((c) => new RegExp(escapeRegExp(c as string), 'i'));
-      } else {
-        schoolRegex = [new RegExp(escapeRegExp(req.query.school as string), 'i')];
-      }
+    if (school !== undefined) {
+      const schoolRegex = school.map((s) => new RegExp(escapeRegExp(s), 'i'));
       searchQueries['school.name'] = { $in: schoolRegex };
     }
 
@@ -50,7 +54,15 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
 
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await Spell.findOne({ index: req.params.index });
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const data = await Spell.findOne({ index: index });
     if (!data) return next();
     return res.status(200).json(data);
   } catch (err) {
