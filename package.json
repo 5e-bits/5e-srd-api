@@ -14,6 +14,7 @@
     "start": "npm run build && node dist/src/start.js",
     "dev": "nodemon npm run start",
     "lint": "eslint . --config eslint.config.js",
+    "lint:fix": "eslint . --config eslint.config.js --fix",
     "validate-swagger": "redocly lint src/swagger/swagger.yml",
     "bundle-swagger": "npm run validate-swagger && redocly bundle --output dist/openapi.yml src/swagger/swagger.yml && redocly bundle --output dist/openapi.json src/swagger/swagger.yml",
     "gen-postman": "npm run bundle-swagger && openapi2postmanv2 -s dist/openapi.yml -o dist/collection.postman.json -c openapi-to-postman.json",
