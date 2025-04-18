@@ -201,31 +201,30 @@ describe('showLevelForClass', () => {
   });
 
   describe('with an invalid level', () => {
-    it('404s', async () => {
+    it('400s', async () => {
       const response = createResponse();
-      mockingoose(Level).toReturn(findOneDoc, 'findOne');
-
       const invalidShowParams = { index: 'barbarian', level: 'a' };
       const invalidRequest = createRequest({ params: invalidShowParams });
       await ClassController.showLevelForClass(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(404);
-      expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' });
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 
   describe('with an out of bounds level', () => {
-    it('404s', async () => {
+    it('400s', async () => {
       const response = createResponse();
-      mockingoose(Level).toReturn(null, 'findOne');
-
-      const invalidShowParams = { index: 'barbarian', level: '-1' };
+      const invalidShowParams = { index: 'barbarian', level: '30' };
       const invalidRequest = createRequest({ params: invalidShowParams });
       await ClassController.showLevelForClass(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(200);
-      expect(response._getData()).toStrictEqual('');
-      expect(mockNext).toHaveBeenCalledWith();
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 });
@@ -518,16 +517,16 @@ describe('showSpellsForClassAndLevel', () => {
   });
 
   describe('when an invalid level is given', () => {
-    it('404s', async () => {
+    it('400s', async () => {
       const response = createResponse();
-      mockingoose(Spell).toReturn(null, 'findOne');
-
       const invalidShowParams = { index: 'wizard', level: 'abcd' };
       const invalidRequest = createRequest({ params: invalidShowParams });
       await ClassController.showSpellsForClassAndLevel(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(404);
-      expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' });
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 
@@ -618,16 +617,16 @@ describe('showFeaturesForClassAndLevel', () => {
   });
 
   describe('when an invalid level is given', () => {
-    it('404s', async () => {
+    it('400s', async () => {
       const response = createResponse();
-      mockingoose(Feature).toReturn(null, 'findOne');
-
       const invalidShowParams = { index: 'wizard', level: 'abcd' };
       const invalidRequest = createRequest({ params: invalidShowParams });
       await ClassController.showFeaturesForClassAndLevel(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(404);
-      expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' });
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 

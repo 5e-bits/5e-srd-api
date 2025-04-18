@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
 
 import Proficiency from '@/models/2014/proficiency';
 import Race from '@/models/2014/race';
@@ -6,6 +7,12 @@ import { ResourceList } from '@/util/data';
 import SimpleController from '@/controllers/simpleController';
 import Subrace from '@/models/2014/subrace';
 import Trait from '@/models/2014/trait';
+
+// --- Zod Schema ---
+const ParamsSchema = z.object({
+  index: z.string().min(1),
+});
+// --- End Zod Schema ---
 
 const simpleController = new SimpleController(Race);
 
@@ -16,7 +23,16 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showSubracesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/races/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/races/' + index;
 
     const data = await Subrace.find({ 'race.url': urlString }).select({
       index: 1,
@@ -32,7 +48,16 @@ export const showSubracesForRace = async (req: Request, res: Response, next: Nex
 
 export const showTraitsForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/races/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/races/' + index;
 
     const data = await Trait.find({ 'races.url': urlString }).select({
       index: 1,
@@ -48,7 +73,16 @@ export const showTraitsForRace = async (req: Request, res: Response, next: NextF
 
 export const showProficienciesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/races/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/races/' + index;
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })

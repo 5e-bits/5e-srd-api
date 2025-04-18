@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
 
 import { ResourceList, escapeRegExp } from '@/util';
 
@@ -9,6 +10,21 @@ import Proficiency from '@/models/2014/proficiency';
 import SimpleController from '@/controllers/simpleController';
 import Spell from '@/models/2014/spell';
 import Subclass from '@/models/2014/subclass';
+
+// --- Zod Schemas ---
+const ParamsSchema = z.object({
+  index: z.string().min(1),
+});
+
+const LevelParamsSchema = z.object({
+  index: z.string().min(1),
+  level: z.coerce.number().int().min(1).max(20),
+});
+
+const LevelsQuerySchema = z.object({
+  subclass: z.string().min(1).optional(),
+});
+// --- End Zod Schemas ---
 
 const simpleController = new SimpleController(Class);
 interface ShowLevelsForClassQuery {
@@ -23,14 +39,32 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showLevelsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // Validate path and query parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedQuery = LevelsQuerySchema.safeParse(req.query);
+
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    if (!validatedQuery.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues });
+    }
+
+    const { index } = validatedParams.data;
+    const { subclass } = validatedQuery.data;
+
     const searchQueries: ShowLevelsForClassQuery = {
-      'class.url': '/api/2014/classes/' + req.params.index,
+      'class.url': '/api/2014/classes/' + index,
       $or: [{ subclass: null }],
     };
 
-    if (req.query.subclass !== undefined) {
+    if (subclass !== undefined) {
       searchQueries.$or.push({
-        'subclass.url': { $regex: new RegExp(escapeRegExp(req.query.subclass as string), 'i') },
+        'subclass.url': { $regex: new RegExp(escapeRegExp(subclass), 'i') },
       });
     }
 
@@ -47,11 +81,16 @@ export const showLevelsForClass = async (req: Request, res: Response, next: Next
 
 export const showLevelForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!Number.isInteger(parseInt(req.params.level))) {
-      return res.status(404).json({ error: 'Not found' });
+    // Validate path parameters
+    const validatedParams = LevelParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
     }
+    const { index, level } = validatedParams.data;
 
-    const urlString = '/api/2014/classes/' + req.params.index + '/levels/' + req.params.level;
+    const urlString = '/api/2014/classes/' + index + '/levels/' + level;
 
     const data = await Level.findOne({ url: urlString });
     if (!data) return next();
@@ -78,7 +117,16 @@ export const showMulticlassingForClass = async (
 
 export const showSubclassesForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/classes/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/classes/' + index;
 
     const data = await Subclass.find({ 'class.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
@@ -111,7 +159,16 @@ export const showStartingEquipmentForClass = async (
 
 export const showSpellcastingForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await Class.findOne({ index: req.params.index });
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const data = await Class.findOne({ index: index });
     if (data && data.spellcasting) {
       return res.status(200).json(data.spellcasting);
     } else {
@@ -124,7 +181,16 @@ export const showSpellcastingForClass = async (req: Request, res: Response, next
 
 export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/classes/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/classes/' + index;
 
     const data = await Spell.find({ 'classes.url': urlString })
       .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
@@ -141,15 +207,20 @@ export const showSpellsForClassAndLevel = async (
   next: NextFunction
 ) => {
   try {
-    if (!Number.isInteger(parseInt(req.params.level))) {
-      return res.status(404).json({ error: 'Not found' });
+    // Validate path parameters
+    const validatedParams = LevelParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
     }
+    const { index, level } = validatedParams.data;
 
-    const urlString = '/api/2014/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + index;
 
     const data = await Spell.find({
       'classes.url': urlString,
-      level: parseInt(req.params.level),
+      level: level,
     })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' });
@@ -161,7 +232,16 @@ export const showSpellsForClassAndLevel = async (
 
 export const showFeaturesForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/classes/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/classes/' + index;
 
     const data = await Feature.find({
       'class.url': urlString,
@@ -180,15 +260,20 @@ export const showFeaturesForClassAndLevel = async (
   next: NextFunction
 ) => {
   try {
-    if (!Number.isInteger(parseInt(req.params.level))) {
-      return res.status(404).json({ error: 'Not found' });
+    // Validate path parameters
+    const validatedParams = LevelParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
     }
+    const { index, level } = validatedParams.data;
 
-    const urlString = '/api/2014/classes/' + req.params.index;
+    const urlString = '/api/2014/classes/' + index;
 
     const data = await Feature.find({
       'class.url': urlString,
-      level: parseInt(req.params.level),
+      level: level,
     })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' });
@@ -204,7 +289,16 @@ export const showProficienciesForClass = async (
   next: NextFunction
 ) => {
   try {
-    const urlString = '/api/2014/classes/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/classes/' + index;
 
     const data = await Proficiency.find({ 'classes.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })

@@ -1,7 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
 
 import { ResourceList, escapeRegExp, redisClient } from '@/util';
 import MagicItem from '@/models/2014/magicItem';
+
+// --- Zod Schemas ---
+const IndexQuerySchema = z.object({
+  name: z.string().optional(),
+});
+
+const ShowParamsSchema = z.object({
+  index: z.string().min(1),
+});
+// --- End Zod Schemas ---
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -9,9 +20,18 @@ interface IndexQuery {
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // Validate query parameters
+    const validatedQuery = IndexQuerySchema.safeParse(req.query);
+    if (!validatedQuery.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues });
+    }
+    const { name } = validatedQuery.data;
+
     const searchQueries: IndexQuery = {};
-    if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name as string), 'i') };
+    if (name !== undefined) {
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(name), 'i') };
     }
 
     const redisKey = req.originalUrl;
@@ -34,7 +54,16 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
 
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await MagicItem.findOne({ index: req.params.index });
+    // Validate path parameters
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const data = await MagicItem.findOne({ index: index });
     if (!data) return next();
     return res.status(200).json(data);
   } catch (err) {

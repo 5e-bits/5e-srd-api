@@ -1,9 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
 import Proficiency from '@/models/2014/proficiency';
 import { ResourceList } from '@/util/data';
 import SimpleController from '@/controllers/simpleController';
 import Subrace from '@/models/2014/subrace';
 import Trait from '@/models/2014/trait';
+
+// --- Zod Schema ---
+const ParamsSchema = z.object({
+  index: z.string().min(1),
+});
+// --- End Zod Schema ---
 
 const simpleController = new SimpleController(Subrace);
 
@@ -14,7 +21,16 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showTraitsForSubrace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const urlString = '/api/2014/subraces/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/subraces/' + index;
     const data = await Trait.find({ 'subraces.url': urlString }).select({
       index: 1,
       name: 1,
@@ -34,7 +50,16 @@ export const showProficienciesForSubrace = async (
   next: NextFunction
 ) => {
   try {
-    const urlString = '/api/2014/subraces/' + req.params.index;
+    // Validate path parameters
+    const validatedParams = ParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const urlString = '/api/2014/subraces/' + index;
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
