@@ -1,36 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
+import { MonsterIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
 
 import { ResourceList, escapeRegExp, redisClient } from '@/util';
 
 import Monster from '@/models/2014/monster';
-
-// --- Helper Transformation ---
-const transformChallengeRating = (val: string | string[] | undefined) => {
-  if (!val) return undefined;
-  // Ensure it's an array, handling both single string and array inputs
-  const arr = Array.isArray(val) ? val : [val];
-  // Flatten in case of comma-separated strings inside the array, then split
-  const flattened = arr.flatMap((item) => item.split(','));
-  // Convert to numbers and filter out NaNs
-  const numbers = flattened.map(Number).filter((item) => !isNaN(item));
-  // Return undefined if no valid numbers result, otherwise return the array
-  return numbers.length > 0 ? numbers : undefined;
-};
-
-// --- Zod Schemas ---
-const IndexQuerySchema = z.object({
-  name: z.string().optional(),
-  challenge_rating: z
-    .union([z.string(), z.array(z.string())]) // Accept string or array
-    .optional()
-    .transform(transformChallengeRating), // Use helper transformation
-});
-
-const ShowParamsSchema = z.object({
-  index: z.string().min(1),
-});
-// --- End Zod Schemas ---
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -40,7 +13,7 @@ interface IndexQuery {
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate query parameters
-    const validatedQuery = IndexQuerySchema.safeParse(req.query);
+    const validatedQuery = MonsterIndexQuerySchema.safeParse(req.query);
     if (!validatedQuery.success) {
       return res
         .status(400)

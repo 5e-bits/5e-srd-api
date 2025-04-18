@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
+import { ShowParamsSchema, LevelParamsSchema, ClassLevelsQuerySchema } from '@/schemas/schemas';
 
 import { ResourceList, escapeRegExp } from '@/util';
 
@@ -10,21 +10,6 @@ import Proficiency from '@/models/2014/proficiency';
 import SimpleController from '@/controllers/simpleController';
 import Spell from '@/models/2014/spell';
 import Subclass from '@/models/2014/subclass';
-
-// --- Zod Schemas ---
-const ParamsSchema = z.object({
-  index: z.string().min(1),
-});
-
-const LevelParamsSchema = z.object({
-  index: z.string().min(1),
-  level: z.coerce.number().int().min(1).max(20),
-});
-
-const LevelsQuerySchema = z.object({
-  subclass: z.string().min(1).optional(),
-});
-// --- End Zod Schemas ---
 
 const simpleController = new SimpleController(Class);
 interface ShowLevelsForClassQuery {
@@ -40,8 +25,8 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 export const showLevelsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path and query parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
-    const validatedQuery = LevelsQuerySchema.safeParse(req.query);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    const validatedQuery = ClassLevelsQuerySchema.safeParse(req.query);
 
     if (!validatedParams.success) {
       return res
@@ -118,7 +103,7 @@ export const showMulticlassingForClass = async (
 export const showSubclassesForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -160,7 +145,7 @@ export const showStartingEquipmentForClass = async (
 export const showSpellcastingForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -182,7 +167,7 @@ export const showSpellcastingForClass = async (req: Request, res: Response, next
 export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -233,7 +218,7 @@ export const showSpellsForClassAndLevel = async (
 export const showFeaturesForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -290,7 +275,7 @@ export const showProficienciesForClass = async (
 ) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)

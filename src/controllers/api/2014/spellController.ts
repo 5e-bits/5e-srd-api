@@ -1,24 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
+import { SpellIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
 import { ResourceList, escapeRegExp, redisClient } from '@/util';
-
-// --- Zod Schemas ---
-const IndexQuerySchema = z.object({
-  name: z.string().optional(),
-  level: z
-    .union([z.string().regex(/^\d+$/), z.array(z.string().regex(/^\d+$/))])
-    .optional()
-    .transform((val) => (val ? (Array.isArray(val) ? val : [val]) : undefined)),
-  school: z
-    .union([z.string(), z.array(z.string())])
-    .optional()
-    .transform((val) => (val ? (Array.isArray(val) ? val : [val]) : undefined)),
-});
-
-const ShowParamsSchema = z.object({
-  index: z.string().min(1),
-});
-// --- End Zod Schemas ---
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -30,7 +12,7 @@ import Spell from '@/models/2014/spell';
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedQuery = IndexQuerySchema.safeParse(req.query);
+    const validatedQuery = SpellIndexQuerySchema.safeParse(req.query);
     if (!validatedQuery.success) {
       return res
         .status(400)

@@ -1,20 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { ReturnModelType } from '@typegoose/typegoose';
-import { z } from 'zod';
+import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
 
 import { ResourceList } from '@/util/data';
 import { escapeRegExp } from '@/util/regex';
-
-// Define schema for index query parameters
-const IndexQuerySchema = z.object({
-  name: z.string().optional(),
-  // Add other query parameters here if needed
-});
-
-// Define schema for show path parameters
-const ShowParamsSchema = z.object({
-  index: z.string().min(1), // Ensure index is a non-empty string
-});
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -30,7 +19,7 @@ class SimpleController {
   async index(req: Request, res: Response, next: NextFunction) {
     try {
       // Validate query parameters
-      const validatedQuery = IndexQuerySchema.safeParse(req.query);
+      const validatedQuery = NameQuerySchema.safeParse(req.query);
 
       if (!validatedQuery.success) {
         // Handle validation errors - customize error response as needed

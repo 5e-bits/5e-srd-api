@@ -1,21 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
+import { ShowParamsSchema, LevelParamsSchema } from '@/schemas/schemas';
 import Feature from '@/models/2014/feature';
 import Level from '@/models/2014/level';
 import { ResourceList } from '@/util/data';
 import SimpleController from '@/controllers/simpleController';
 import Subclass from '@/models/2014/subclass';
-
-// --- Zod Schemas ---
-const ParamsSchema = z.object({
-  index: z.string().min(1),
-});
-
-const LevelParamsSchema = z.object({
-  index: z.string().min(1),
-  level: z.coerce.number().int().min(1).max(20),
-});
-// --- End Zod Schemas ---
 
 const simpleController = new SimpleController(Subclass);
 
@@ -26,7 +15,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showLevelsForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -65,7 +54,7 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: Ne
 
 export const showFeaturesForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)

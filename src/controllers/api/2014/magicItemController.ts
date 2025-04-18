@@ -1,18 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
+import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
 
 import { ResourceList, escapeRegExp, redisClient } from '@/util';
 import MagicItem from '@/models/2014/magicItem';
-
-// --- Zod Schemas ---
-const IndexQuerySchema = z.object({
-  name: z.string().optional(),
-});
-
-const ShowParamsSchema = z.object({
-  index: z.string().min(1),
-});
-// --- End Zod Schemas ---
 
 interface IndexQuery {
   name?: { $regex: RegExp };
@@ -21,7 +11,7 @@ interface IndexQuery {
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate query parameters
-    const validatedQuery = IndexQuerySchema.safeParse(req.query);
+    const validatedQuery = NameQuerySchema.safeParse(req.query);
     if (!validatedQuery.success) {
       return res
         .status(400)

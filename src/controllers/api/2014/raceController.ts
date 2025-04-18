@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
+import { ShowParamsSchema } from '@/schemas/schemas';
 
 import Proficiency from '@/models/2014/proficiency';
 import Race from '@/models/2014/race';
@@ -7,12 +7,6 @@ import { ResourceList } from '@/util/data';
 import SimpleController from '@/controllers/simpleController';
 import Subrace from '@/models/2014/subrace';
 import Trait from '@/models/2014/trait';
-
-// --- Zod Schema ---
-const ParamsSchema = z.object({
-  index: z.string().min(1),
-});
-// --- End Zod Schema ---
 
 const simpleController = new SimpleController(Race);
 
@@ -24,7 +18,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 export const showSubracesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -49,7 +43,7 @@ export const showSubracesForRace = async (req: Request, res: Response, next: Nex
 export const showTraitsForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
@@ -74,7 +68,7 @@ export const showTraitsForRace = async (req: Request, res: Response, next: NextF
 export const showProficienciesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
     if (!validatedParams.success) {
       return res
         .status(400)
