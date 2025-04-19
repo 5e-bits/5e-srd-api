@@ -1,162 +1,162 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
-import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from '@/models/2014/common';
-import { srdModelOptions } from '@/util/modelOptions';
+import { getModelForClass, prop } from '@typegoose/typegoose'
+import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { APIReference } from '@/models/2014/common'
+import { srdModelOptions } from '@/util/modelOptions'
 class ArmorClass {
   @prop({ required: true, index: true })
-  public base!: number;
+  public base!: number
 
   @prop({ required: true, index: true })
-  public dex_bonus!: boolean;
+  public dex_bonus!: boolean
 
   @prop({ index: true })
-  public max_bonus?: number;
+  public max_bonus?: number
 }
 
 class Content {
   @prop({ type: () => APIReference })
-  public item!: APIReference;
+  public item!: APIReference
 
   @prop({ required: true, index: true })
-  public quantity!: number;
+  public quantity!: number
 }
 
 class Cost {
   @prop({ required: true, index: true })
-  public quantity!: number;
+  public quantity!: number
 
   @prop({ required: true, index: true })
-  public unit!: string;
+  public unit!: string
 }
 
 class Damage {
   @prop({ required: true, index: true })
-  public damage_dice!: string;
+  public damage_dice!: string
 
   @prop({ type: () => APIReference })
-  public damage_type!: APIReference;
+  public damage_type!: APIReference
 }
 
 class Range {
   @prop({ index: true })
-  public long?: number;
+  public long?: number
 
   @prop({ required: true, index: true })
-  public normal!: number;
+  public normal!: number
 }
 
 class Speed {
   @prop({ required: true, index: true })
-  public quantity!: number;
+  public quantity!: number
 
   @prop({ required: true, index: true })
-  public unit!: string;
+  public unit!: string
 }
 
 class ThrowRange {
   @prop({ required: true, index: true })
-  public long!: number;
+  public long!: number
 
   @prop({ required: true, index: true })
-  public normal!: number;
+  public normal!: number
 }
 
 class TwoHandedDamage {
   @prop({ required: true, index: true })
-  public damage_dice!: string;
+  public damage_dice!: string
 
   @prop({ type: () => APIReference })
-  public damage_type!: APIReference;
+  public damage_type!: APIReference
 }
 
 @srdModelOptions('2014-equipment')
 export class Equipment {
   @prop({ index: true })
-  public armor_category?: string;
+  public armor_category?: string
 
   @prop({ type: () => ArmorClass })
-  public armor_class?: ArmorClass;
+  public armor_class?: ArmorClass
 
   @prop({ index: true })
-  public capacity?: string;
+  public capacity?: string
 
   @prop({ index: true })
-  public category_range?: string;
+  public category_range?: string
 
   @prop({ type: () => [Content] })
-  public contents?: Content[];
+  public contents?: Content[]
 
   @prop({ type: () => Cost })
-  public cost!: Cost;
+  public cost!: Cost
 
   @prop({ type: () => Damage })
-  public damage?: Damage;
+  public damage?: Damage
 
   @prop({ required: true, index: true })
-  public desc!: string[];
+  public desc!: string[]
 
   @prop({ type: () => APIReference })
-  public equipment_category!: APIReference;
+  public equipment_category!: APIReference
 
   @prop({ type: () => APIReference })
-  public gear_category?: APIReference;
+  public gear_category?: APIReference
 
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ type: () => [APIReference] })
-  public properties?: APIReference[];
+  public properties?: APIReference[]
 
   @prop({ index: true })
-  public quantity?: number;
+  public quantity?: number
 
   @prop({ type: () => Range })
-  public range?: Range;
+  public range?: Range
 
   @prop({ index: true })
-  public special?: string[];
+  public special?: string[]
 
   @prop({ type: () => Speed })
-  public speed?: Speed;
+  public speed?: Speed
 
   @prop({ index: true })
-  public stealth_disadvantage?: boolean;
+  public stealth_disadvantage?: boolean
 
   @prop({ index: true })
-  public str_minimum?: number;
+  public str_minimum?: number
 
   @prop({ type: () => ThrowRange })
-  public throw_range?: ThrowRange;
+  public throw_range?: ThrowRange
 
   @prop({ index: true })
-  public tool_category?: string;
+  public tool_category?: string
 
   @prop({ type: () => TwoHandedDamage })
-  public two_handed_damage?: TwoHandedDamage;
+  public two_handed_damage?: TwoHandedDamage
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 
   @prop({ index: true })
-  public vehicle_category?: string;
+  public vehicle_category?: string
 
   @prop({ index: true })
-  public weapon_category?: string;
+  public weapon_category?: string
 
   @prop({ index: true })
-  public weapon_range?: string;
+  public weapon_range?: string
 
   @prop({ index: true })
-  public weight?: number;
+  public weight?: number
 
   @prop({ required: true, index: true })
-  public updated_at!: string;
+  public updated_at!: string
 }
 
-export type EquipmentDocument = DocumentType<Equipment>;
-const EquipmentModel = getModelForClass(Equipment);
+export type EquipmentDocument = DocumentType<Equipment>
+const EquipmentModel = getModelForClass(Equipment)
 
-export default EquipmentModel;
+export default EquipmentModel

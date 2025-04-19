@@ -1,7 +1,7 @@
-import { gearFieldResolvers } from './common';
+import { gearFieldResolvers } from './common'
 
 const GearResolver = {
-  ...gearFieldResolvers,
-};
+  ...gearFieldResolvers
+}
 
-export default GearResolver;
+export default GearResolver

@@ -1,189 +1,189 @@
-import { prop, getModelForClass } from '@typegoose/typegoose';
+import { prop, getModelForClass } from '@typegoose/typegoose'
 
 // Base classes
 export class APIReference {
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 }
 
 export class AreaOfEffect {
   @prop({ required: true })
-  public size!: number;
+  public size!: number
 
   @prop({ required: true, index: true })
-  public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone';
+  public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone'
 }
 
 export class DifficultyClass {
   @prop({ type: () => APIReference })
-  public dc_type!: APIReference;
+  public dc_type!: APIReference
 
   @prop({ required: true, index: true })
-  public dc_value!: number;
+  public dc_value!: number
 
   @prop({ required: true, index: true })
-  public success_type!: 'none' | 'half' | 'other';
+  public success_type!: 'none' | 'half' | 'other'
 }
 
 export class Damage {
   @prop({ type: () => APIReference })
-  public damage_type!: APIReference;
+  public damage_type!: APIReference
 
   @prop({ required: true, index: true })
-  public damage_dice!: string;
+  public damage_dice!: string
 }
 
 // Option Set Classes
 export class OptionSet {
   @prop({ required: true, index: true })
-  public option_set_type!: 'equipment_category' | 'resource_list' | 'options_array';
+  public option_set_type!: 'equipment_category' | 'resource_list' | 'options_array'
 }
 
 export class EquipmentCategoryOptionSet extends OptionSet {
   @prop({ type: () => APIReference, required: true, index: true })
-  public equipment_category!: APIReference;
+  public equipment_category!: APIReference
 }
 
 export class ResourceListOptionSet extends OptionSet {
   @prop({ required: true, index: true })
-  public resource_list_url!: string;
+  public resource_list_url!: string
 }
 
 export class OptionsArrayOptionSet extends OptionSet {
   @prop({ type: () => [Option], required: true, index: true })
-  public options!: Option[];
+  public options!: Option[]
 }
 
 // Option Classes
 export class Option {
   @prop({ required: true, index: true })
-  public option_type!: string;
+  public option_type!: string
 }
 
 export class ReferenceOption extends Option {
   @prop({ type: () => APIReference, required: true, index: true })
-  public item!: APIReference;
+  public item!: APIReference
 }
 
 export class ActionOption extends Option {
   @prop({ required: true, index: true })
-  public action_name!: string;
+  public action_name!: string
 
   @prop({ required: true, index: true })
-  public count!: number | string;
+  public count!: number | string
 
   @prop({ required: true, index: true })
-  public type!: 'melee' | 'ranged' | 'ability' | 'magic';
+  public type!: 'melee' | 'ranged' | 'ability' | 'magic'
 
   @prop({ index: true })
-  public notes?: string;
+  public notes?: string
 }
 
 export class MultipleOption extends Option {
   @prop({ type: () => [Option], required: true, index: true })
-  public items!: Option[];
+  public items!: Option[]
 }
 
 export class StringOption extends Option {
   @prop({ required: true, index: true })
-  public string!: string;
+  public string!: string
 }
 
 export class IdealOption extends Option {
   @prop({ required: true, index: true })
-  public desc!: string;
+  public desc!: string
 
   @prop({ type: () => [APIReference], required: true, index: true })
-  public alignments!: APIReference[];
+  public alignments!: APIReference[]
 }
 
 export class CountedReferenceOption extends Option {
   @prop({ required: true, index: true })
-  public count!: number;
+  public count!: number
 
   @prop({ type: () => APIReference, required: true, index: true })
-  public of!: APIReference;
+  public of!: APIReference
 
   @prop({
     type: () => [
       {
         type: { type: String, required: true },
-        proficiency: { type: () => APIReference },
-      },
+        proficiency: { type: () => APIReference }
+      }
     ],
-    index: true,
+    index: true
   })
   public prerequisites?: {
     type: 'proficiency';
     proficiency?: APIReference;
-  }[];
+  }[]
 }
 
 export class ScorePrerequisiteOption extends Option {
   @prop({ type: () => APIReference, required: true, index: true })
-  public ability_score!: APIReference;
+  public ability_score!: APIReference
 
   @prop({ required: true, index: true })
-  public minimum_score!: number;
+  public minimum_score!: number
 }
 
 export class AbilityBonusOption extends Option {
   @prop({ type: () => APIReference, required: true, index: true })
-  public ability_score!: APIReference;
+  public ability_score!: APIReference
 
   @prop({ required: true, index: true })
-  public bonus!: number;
+  public bonus!: number
 }
 
 export class BreathOption extends Option {
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ type: () => DifficultyClass, required: true, index: true })
-  public dc!: DifficultyClass;
+  public dc!: DifficultyClass
 
   @prop({ type: () => [Damage], index: true })
-  public damage?: Damage[];
+  public damage?: Damage[]
 }
 
 export class DamageOption extends Option {
   @prop({ type: () => APIReference, required: true, index: true })
-  public damage_type!: APIReference;
+  public damage_type!: APIReference
 
   @prop({ required: true, index: true })
-  public damage_dice!: string;
+  public damage_dice!: string
 
   @prop({ index: true })
-  public notes?: string;
+  public notes?: string
 }
 
 export class Choice {
   @prop({ type: String, required: true })
-  public desc!: string;
+  public desc!: string
 
   @prop({ type: Number, required: true })
-  public choose!: number;
+  public choose!: number
 
   @prop({ type: String, required: true })
-  public type!: string;
+  public type!: string
 
   @prop({ type: () => OptionSet, required: true })
-  public from!: OptionSet;
+  public from!: OptionSet
 }
 
 export class ChoiceOption extends Option {
   @prop({ type: () => Choice, required: true, index: true })
-  public choice!: Choice;
+  public choice!: Choice
 }
 
 // Export models
-export const APIReferenceModel = getModelForClass(APIReference);
-export const OptionSetModel = getModelForClass(OptionSet);
-export const OptionModel = getModelForClass(Option);
-export const ChoiceModel = getModelForClass(Choice);
+export const APIReferenceModel = getModelForClass(APIReference)
+export const OptionSetModel = getModelForClass(OptionSet)
+export const OptionModel = getModelForClass(Option)
+export const ChoiceModel = getModelForClass(Choice)

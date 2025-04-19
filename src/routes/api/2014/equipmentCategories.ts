@@ -1,15 +1,15 @@
-import * as express from 'express';
+import * as express from 'express'
 
-import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController';
+import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController'
 
-const router = express.Router();
+const router = express.Router()
 
 router.get('/', function (req, res, next) {
-  EquipmentCategoryController.index(req, res, next);
-});
+  EquipmentCategoryController.index(req, res, next)
+})
 
 router.get('/:index', function (req, res, next) {
-  EquipmentCategoryController.show(req, res, next);
-});
+  EquipmentCategoryController.show(req, res, next)
+})
 
-export default router;
+export default router

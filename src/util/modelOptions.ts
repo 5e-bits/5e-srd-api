@@ -1,4 +1,4 @@
-import { modelOptions, Severity } from '@typegoose/typegoose';
+import { modelOptions, Severity } from '@typegoose/typegoose'
 
 /**
  * Helper function to recursively remove _id and __v fields.
@@ -6,21 +6,21 @@ import { modelOptions, Severity } from '@typegoose/typegoose';
  */
 function removeInternalFields(obj: any): any {
   if (Array.isArray(obj)) {
-    return obj.map(removeInternalFields);
+    return obj.map(removeInternalFields)
   } else if (obj !== null && typeof obj === 'object') {
     // Mongoose documents might have a toObject method, use it if available
-    const plainObject = typeof obj.toObject === 'function' ? obj.toObject() : obj;
+    const plainObject = typeof obj.toObject === 'function' ? obj.toObject() : obj
 
     // Create a new object to avoid modifying the original Mongoose document directly if necessary
-    const newObj: any = {};
+    const newObj: any = {}
     for (const key in plainObject) {
       if (key !== '_id' && key !== '__v' && key !== 'id') {
-        newObj[key] = removeInternalFields(plainObject[key]);
+        newObj[key] = removeInternalFields(plainObject[key])
       }
     }
-    return newObj;
+    return newObj
   }
-  return obj; // Return primitives/unhandled types as is
+  return obj // Return primitives/unhandled types as is
 }
 
 /**
@@ -47,16 +47,16 @@ export function srdModelOptions(collectionName: string): ClassDecorator {
       toJSON: {
         virtuals: true, // Ensure virtuals are included if you add any
         transform: (doc, ret) => {
-          return removeInternalFields(ret);
-        },
+          return removeInternalFields(ret)
+        }
       },
       // Also apply the same transform when converting to a plain object
       toObject: {
         virtuals: true,
         transform: (doc, ret) => {
-          return removeInternalFields(ret);
-        },
-      },
-    },
-  });
+          return removeInternalFields(ret)
+        }
+      }
+    }
+  })
 }

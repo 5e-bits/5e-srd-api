@@ -1,14 +1,14 @@
-import mockingoose from 'mockingoose';
-import { createRequest, createResponse } from 'node-mocks-http';
-import * as RulesController from '@/controllers/api/2014/ruleController';
+import mockingoose from 'mockingoose'
+import { createRequest, createResponse } from 'node-mocks-http'
+import * as RulesController from '@/controllers/api/2014/ruleController'
 
-import { mockNext } from '@/tests/support/requestHelpers';
+import { mockNext } from '@/tests/support/requestHelpers'
 
-import Rule from '@/models/2014/rule';
+import Rule from '@/models/2014/rule'
 
 beforeEach(() => {
-  mockingoose.resetAll();
-});
+  mockingoose.resetAll()
+})
 
 describe('index', () => {
   const findDoc = [
@@ -19,14 +19,14 @@ describe('index', () => {
       subsections: [
         {
           name: 'The Order of Combat',
-          desc: 'description',
+          desc: 'description'
         },
         {
           name: 'Movement and Position',
-          desc: 'description',
-        },
+          desc: 'description'
+        }
       ],
-      url: '/api/rules/combat',
+      url: '/api/rules/combat'
     },
     {
       name: 'Using Ability Scores',
@@ -35,29 +35,29 @@ describe('index', () => {
       subsections: [
         {
           name: 'Ability Scores and Modifiers',
-          desc: 'description',
+          desc: 'description'
         },
         {
           name: 'Advantage and Disadvantage',
-          desc: 'description',
+          desc: 'description'
         },
         {
           name: 'Proficiency Bonus',
-          desc: 'description',
+          desc: 'description'
         },
         {
           name: 'Ability Checks',
-          desc: 'description',
-        },
+          desc: 'description'
+        }
       ],
-      url: '/api/rules/using-ability-scores',
+      url: '/api/rules/using-ability-scores'
     },
     {
       name: 'Adventuring',
       index: 'adventuring',
       desc: 'description',
       subsections: [],
-      url: '/api/rules/adventuring',
+      url: '/api/rules/adventuring'
     },
     {
       name: 'Spellcasting',
@@ -66,37 +66,37 @@ describe('index', () => {
       subsections: [
         {
           name: 'What Is a Spell?',
-          desc: 'description',
-        },
+          desc: 'description'
+        }
       ],
-      url: '/api/rules/spellcasting',
-    },
-  ];
-  const request = createRequest({ query: {} });
+      url: '/api/rules/spellcasting'
+    }
+  ]
+  const request = createRequest({ query: {} })
 
   it('returns a list of objects', async () => {
-    const response = createResponse();
-    mockingoose(Rule).toReturn(findDoc, 'find');
+    const response = createResponse()
+    mockingoose(Rule).toReturn(findDoc, 'find')
 
-    await RulesController.index(request, response, mockNext);
+    await RulesController.index(request, response, mockNext)
 
-    expect(response.statusCode).toBe(200);
-  });
+    expect(response.statusCode).toBe(200)
+  })
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
-      const response = createResponse();
-      const error = new Error('Something went wrong');
-      mockingoose(Rule).toReturn(error, 'find');
+      const response = createResponse()
+      const error = new Error('Something went wrong')
+      mockingoose(Rule).toReturn(error, 'find')
 
-      await RulesController.index(request, response, mockNext);
+      await RulesController.index(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200);
-      expect(response._getData()).toStrictEqual('');
-      expect(mockNext).toHaveBeenCalledWith(error);
-    });
-  });
-});
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toStrictEqual('')
+      expect(mockNext).toHaveBeenCalledWith(error)
+    })
+  })
+})
 
 describe('show', () => {
   const findOneDoc = {
@@ -106,51 +106,51 @@ describe('show', () => {
     subsections: [
       {
         name: 'What Is a Spell?',
-        desc: 'description',
-      },
+        desc: 'description'
+      }
     ],
-    url: '/api/rules/spellcasting',
-  };
+    url: '/api/rules/spellcasting'
+  }
 
-  const showParams = { index: 'spellcasting' };
-  const request = createRequest({ params: showParams });
+  const showParams = { index: 'spellcasting' }
+  const request = createRequest({ params: showParams })
 
   it('returns an object', async () => {
-    const response = createResponse();
-    mockingoose(Rule).toReturn(findOneDoc, 'findOne');
+    const response = createResponse()
+    mockingoose(Rule).toReturn(findOneDoc, 'findOne')
 
-    await RulesController.show(request, response, mockNext);
+    await RulesController.show(request, response, mockNext)
 
-    expect(response.statusCode).toBe(200);
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams));
-  });
+    expect(response.statusCode).toBe(200)
+    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
+  })
 
   describe('when the record does not exist', () => {
     it('404s', async () => {
-      const response = createResponse();
-      mockingoose(Rule).toReturn(null, 'findOne');
+      const response = createResponse()
+      mockingoose(Rule).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' };
-      const invalidRequest = createRequest({ params: invalidShowParams });
-      await RulesController.show(invalidRequest, response, mockNext);
+      const invalidShowParams = { index: 'abcd' }
+      const invalidRequest = createRequest({ params: invalidShowParams })
+      await RulesController.show(invalidRequest, response, mockNext)
 
-      expect(response.statusCode).toBe(200);
-      expect(response._getData()).toStrictEqual('');
-      expect(mockNext).toHaveBeenCalledWith();
-    });
-  });
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toStrictEqual('')
+      expect(mockNext).toHaveBeenCalledWith()
+    })
+  })
 
   describe('when something goes wrong', () => {
     it('is handled', async () => {
-      const response = createResponse();
-      const error = new Error('Something went wrong');
-      mockingoose(Rule).toReturn(error, 'findOne');
+      const response = createResponse()
+      const error = new Error('Something went wrong')
+      mockingoose(Rule).toReturn(error, 'findOne')
 
-      await RulesController.show(request, response, mockNext);
+      await RulesController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200);
-      expect(response._getData()).toStrictEqual('');
-      expect(mockNext).toHaveBeenCalledWith(error);
-    });
-  });
-});
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toStrictEqual('')
+      expect(mockNext).toHaveBeenCalledWith(error)
+    })
+  })
+})

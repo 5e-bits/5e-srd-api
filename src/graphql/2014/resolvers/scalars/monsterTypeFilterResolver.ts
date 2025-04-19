@@ -1,4 +1,4 @@
-import { createEnumScalarType } from './enumFilterResolver';
+import { createEnumScalarType } from './enumFilterResolver'
 
 const types = [
   'BEAST',
@@ -15,22 +15,22 @@ const types = [
   'ABERRATION',
   'OOZE',
   'SWARM',
-  'PLANT',
-];
+  'PLANT'
+]
 
 const getType = (type: string) => {
   if (type === 'SWARM') {
-    return 'swarm of Tiny beasts';
+    return 'swarm of Tiny beasts'
   } else {
-    return type.toLowerCase();
+    return type.toLowerCase()
   }
-};
+}
 
 const MonsterTypeFilter = createEnumScalarType(
   'MonsterTypeFilter',
   'MonsterTypes ("BEAST", "MONSTROSITY", "DRAGON", "HUMANOID", "UNDEAD", "FIEND", "CELESTIAL", "CONSTRUCT", "GIANT", "ELEMENTAL", "FEY", "ABERRATION", "OOZE", "SWARM", "PLANT") or list of MonsterTypes',
   types,
   getType
-);
+)
 
-export default MonsterTypeFilter;
+export default MonsterTypeFilter

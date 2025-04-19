@@ -1,15 +1,15 @@
-import * as express from 'express';
+import * as express from 'express'
 
-import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController';
+import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController'
 
-const router = express.Router();
+const router = express.Router()
 
 router.get('/', function (req, res, next) {
-  WeaponPropertyController.index(req, res, next);
-});
+  WeaponPropertyController.index(req, res, next)
+})
 
 router.get('/:index', function (req, res, next) {
-  WeaponPropertyController.show(req, res, next);
-});
+  WeaponPropertyController.show(req, res, next)
+})
 
-export default router;
+export default router

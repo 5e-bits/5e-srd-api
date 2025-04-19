@@ -1,8 +1,8 @@
-import { jest } from '@jest/globals';
+import { jest } from '@jest/globals'
 
 jest.mock('redis', () => ({
   createClient: jest.fn().mockImplementation(() => ({
     set: () => Promise.resolve(),
-    get: () => Promise.resolve(null),
-  })),
-}));
+    get: () => Promise.resolve(null)
+  }))
+}))

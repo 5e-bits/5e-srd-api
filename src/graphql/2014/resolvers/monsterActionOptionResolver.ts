@@ -1,17 +1,17 @@
-import { Option } from '@/models/2014/common';
+import { Option } from '@/models/2014/common'
 
 const MonsterActionOptionResolver = {
   __resolveType(option: Option) {
     if (option.option_type === 'action') {
-      return 'ActionOption';
+      return 'ActionOption'
     }
 
     if (option.option_type === 'multiple') {
-      return 'MultipleActionOption';
+      return 'MultipleActionOption'
     }
 
-    return null;
-  },
-};
+    return null
+  }
+}
 
-export default MonsterActionOptionResolver;
+export default MonsterActionOptionResolver

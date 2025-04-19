@@ -1,71 +1,71 @@
-import { Request, Response, NextFunction } from 'express';
-import { SpellIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
-import { ResourceList, escapeRegExp, redisClient } from '@/util';
+import { Request, Response, NextFunction } from 'express'
+import { SpellIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
+import { ResourceList, escapeRegExp, redisClient } from '@/util'
 
 interface IndexQuery {
-  name?: { $regex: RegExp };
-  level?: { $in: string[] };
+  'name'?: { $regex: RegExp };
+  'level'?: { $in: string[] };
   'school.name'?: { $in: RegExp[] };
 }
 
-import Spell from '@/models/2014/spell';
+import Spell from '@/models/2014/spell'
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedQuery = SpellIndexQuerySchema.safeParse(req.query);
+    const validatedQuery = SpellIndexQuerySchema.safeParse(req.query)
     if (!validatedQuery.success) {
       return res
         .status(400)
-        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues });
+        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
     }
-    const { name, level, school } = validatedQuery.data;
+    const { name, level, school } = validatedQuery.data
 
-    const searchQueries: IndexQuery = {};
+    const searchQueries: IndexQuery = {}
     if (name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(name), 'i') };
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(name), 'i') }
     }
 
     if (level !== undefined) {
-      searchQueries.level = { $in: level };
+      searchQueries.level = { $in: level }
     }
 
     if (school !== undefined) {
-      const schoolRegex = school.map((s) => new RegExp(escapeRegExp(s), 'i'));
-      searchQueries['school.name'] = { $in: schoolRegex };
+      const schoolRegex = school.map((s) => new RegExp(escapeRegExp(s), 'i'))
+      searchQueries['school.name'] = { $in: schoolRegex }
     }
 
-    const redisKey = req.originalUrl;
-    const data = await redisClient.get(redisKey);
+    const redisKey = req.originalUrl
+    const data = await redisClient.get(redisKey)
 
     if (data) {
-      res.status(200).json(JSON.parse(data));
+      res.status(200).json(JSON.parse(data))
     } else {
       const data = await Spell.find(searchQueries)
         .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
-        .sort({ index: 'asc' });
-      const jsonData = ResourceList(data);
-      redisClient.set(redisKey, JSON.stringify(jsonData));
-      return res.status(200).json(jsonData);
+        .sort({ index: 'asc' })
+      const jsonData = ResourceList(data)
+      redisClient.set(redisKey, JSON.stringify(jsonData))
+      return res.status(200).json(jsonData)
     }
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
         .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
-    const { index } = validatedParams.data;
+    const { index } = validatedParams.data
 
-    const data = await Spell.findOne({ index: index });
-    if (!data) return next();
-    return res.status(200).json(data);
+    const data = await Spell.findOne({ index: index })
+    if (!data) return next()
+    return res.status(200).json(data)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}

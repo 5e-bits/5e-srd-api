@@ -1,105 +1,105 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
-import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference, Choice } from './common';
-import { srdModelOptions } from '@/util/modelOptions';
+import { getModelForClass, prop } from '@typegoose/typegoose'
+import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { APIReference, Choice } from './common'
+import { srdModelOptions } from '@/util/modelOptions'
 
 class Equipment {
   @prop({ type: () => APIReference })
-  public equipment!: APIReference;
+  public equipment!: APIReference
 
   @prop({ required: true, index: true })
-  public quantity!: number;
+  public quantity!: number
 }
 
 class SpellcastingInfo {
   @prop({ required: true, index: true })
-  public desc!: string[];
+  public desc!: string[]
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 }
 
 class Spellcasting {
   @prop({ type: () => [SpellcastingInfo] })
-  public info!: SpellcastingInfo[];
+  public info!: SpellcastingInfo[]
 
   @prop({ required: true, index: true })
-  public level!: number;
+  public level!: number
 
   @prop({ type: () => APIReference })
-  public spellcasting_ability!: APIReference;
+  public spellcasting_ability!: APIReference
 }
 
 class MultiClassingPrereq {
   @prop({ type: () => APIReference })
-  public ability_score!: APIReference;
+  public ability_score!: APIReference
 
   @prop({ required: true, index: true })
-  public minimum_score!: number;
+  public minimum_score!: number
 }
 
 class MultiClassing {
   @prop({ type: () => [MultiClassingPrereq], default: undefined })
-  public prerequisites?: MultiClassingPrereq[];
+  public prerequisites?: MultiClassingPrereq[]
 
   @prop({ type: () => Choice, default: undefined })
-  public prerequisite_options?: Choice;
+  public prerequisite_options?: Choice
 
   @prop({ type: () => [APIReference], default: undefined })
-  public proficiencies?: APIReference[];
+  public proficiencies?: APIReference[]
 
   @prop({ type: () => [Choice], default: undefined })
-  public proficiency_choices?: Choice[];
+  public proficiency_choices?: Choice[]
 }
 
 @srdModelOptions('2014-classes')
 class Class {
   @prop({ required: true, index: true })
-  public class_levels!: string;
+  public class_levels!: string
 
   @prop({ type: () => MultiClassing })
-  public multi_classing!: MultiClassing;
+  public multi_classing!: MultiClassing
 
   @prop({ required: true, index: true })
-  public hit_die!: number;
+  public hit_die!: number
 
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ type: () => [APIReference] })
-  public proficiencies!: APIReference[];
+  public proficiencies!: APIReference[]
 
   @prop({ type: () => [Choice] })
-  public proficiency_choices!: Choice[];
+  public proficiency_choices!: Choice[]
 
   @prop({ type: () => [APIReference] })
-  public saving_throws!: APIReference[];
+  public saving_throws!: APIReference[]
 
   @prop({ type: () => Spellcasting })
-  public spellcasting?: Spellcasting;
+  public spellcasting?: Spellcasting
 
   @prop({ required: true, index: true })
-  public spells!: string;
+  public spells!: string
 
   @prop({ type: () => [Equipment] })
-  public starting_equipment!: Equipment[];
+  public starting_equipment!: Equipment[]
 
   @prop({ type: () => [Choice] })
-  public starting_equipment_options!: Choice[];
+  public starting_equipment_options!: Choice[]
 
   @prop({ type: () => [APIReference] })
-  public subclasses!: APIReference[];
+  public subclasses!: APIReference[]
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 
   @prop({ required: true, index: true })
-  public updated_at!: string;
+  public updated_at!: string
 }
 
-export type ClassDocument = DocumentType<Class>;
-const ClassModel = getModelForClass(Class);
-export default ClassModel;
+export type ClassDocument = DocumentType<Class>
+const ClassModel = getModelForClass(Class)
+export default ClassModel
