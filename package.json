@@ -20,7 +20,7 @@
     "gen-postman": "npm run bundle-swagger && openapi2postmanv2 -s dist/openapi.yml -o dist/collection.postman.json -c openapi-to-postman.json",
     "test": "npm run test:unit && npm run test:integration:local",
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c jest.config.unit.ts",
-    "test:integration": "node --max-old-space-size=4096 --experimental-vm-modules node_modules/jest/bin/jest.js -c jest.config.integration.ts --detectOpenHandles --forceExit --runInBand",
+    "test:integration": "node --max-old-space-size=4096 --experimental-vm-modules node_modules/jest/bin/jest.js -c jest.config.integration.ts --detectOpenHandles --forceExit",
     "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api npm run test:integration"
   },
   "dependencies": {
