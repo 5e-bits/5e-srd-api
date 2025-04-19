@@ -54,9 +54,10 @@ jobs:
         run: |
           # Pull latest base images
           docker compose pull
-          # Build the service image, using GHA cache
+          # Build the service image using buildx bake for better cache control
+          # --load makes the image available locally for the next step
           # mode=max ensures both cache metadata and layers are written
-          docker compose build --builder default --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from type=gha --cache-to type=gha,mode=max
+          docker buildx bake --load --cache-from type=gha --cache-to type=gha,mode=max
           # Run the integration tests inside the container
           docker compose run --use-aliases api npm run test:integration
 
