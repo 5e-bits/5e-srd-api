@@ -46,20 +46,47 @@ jobs:
     name: Run Integration tests
     runs-on: ubuntu-latest
     needs: [lint, unit]
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
+      API_IMAGE_TAG: ${{ github.sha }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # @v4.2.2
-      - env:
-          # Ensure BuildKit is enabled for cache features
-          DOCKER_BUILDKIT: 1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3 # Use the latest version
+
+      - name: Pull dependency images
+        run: docker compose pull db cache
+
+      - name: Build and Load API image with Cache
+        uses: docker/build-push-action@v6 # Use the latest version
+        with:
+          context: .
+          load: true
+          push: false
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}_api:${{ env.API_IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Start dependency services
+        run: docker compose up -d db cache
+
+      # Need to figure out the network name docker compose creates.
+      # Usually it's <directory_name>_default. Assuming 'app_default' for now.
+      # Also pass necessary env vars.
+      - name: Run integration tests
         run: |
-          # Pull latest base images
-          docker compose pull
-          # Build the service image using buildx bake for better cache control
-          # --load makes the image available locally for the next step
-          # mode=max ensures both cache metadata and layers are written
-          docker buildx bake --load --cache-from type=gha --cache-to type=gha,mode=max
-          # Run the integration tests inside the container
-          docker compose run --use-aliases api npm run test:integration
+          docker run --rm \
+            --network=${GITHUB_WORKSPACE##*/}_default \
+            -e MONGODB_URI=mongodb://db/5e-database \
+            -e REDIS_URL=redis://cache:6379 \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}_api:${{ env.API_IMAGE_TAG }} \
+            npm run test:integration
+
+      - name: Stop dependency services
+        if: always() # Ensure cleanup even if tests fail
+        run: docker compose down
 
   deploy:
     name: Trigger Heroku Deploy
