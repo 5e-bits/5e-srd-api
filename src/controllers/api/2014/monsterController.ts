@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { MonsterIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas';
 
 import { ResourceList, escapeRegExp, redisClient } from '@/util';
 
@@ -6,24 +7,26 @@ import Monster from '@/models/2014/monster';
 
 interface IndexQuery {
   name?: { $regex: RegExp };
-  challenge_rating?: { $in: string[] | number[] };
+  challenge_rating?: { $in: number[] };
 }
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const searchQueries: IndexQuery = {};
-    if (req.query.name !== undefined) {
-      searchQueries.name = { $regex: new RegExp(escapeRegExp(req.query.name as string), 'i') };
+    // Validate query parameters
+    const validatedQuery = MonsterIndexQuerySchema.safeParse(req.query);
+    if (!validatedQuery.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues });
     }
-    if (req.query.challenge_rating !== undefined) {
-      if (typeof req.query.challenge_rating === 'string') {
-        req.query.challenge_rating = req.query.challenge_rating.split(',');
-      }
+    const { name, challenge_rating } = validatedQuery.data;
 
-      const challengeRating = req.query.challenge_rating as string[];
-      searchQueries.challenge_rating = {
-        $in: challengeRating.map(Number).filter((item) => !isNaN(item)),
-      };
+    const searchQueries: IndexQuery = {};
+    if (name !== undefined) {
+      searchQueries.name = { $regex: new RegExp(escapeRegExp(name), 'i') };
+    }
+    if (challenge_rating !== undefined && challenge_rating.length > 0) {
+      searchQueries.challenge_rating = { $in: challenge_rating };
     }
 
     const redisKey = req.originalUrl;
@@ -46,7 +49,16 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
 
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await Monster.findOne({ index: req.params.index });
+    // Validate path parameters
+    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    if (!validatedParams.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+    }
+    const { index } = validatedParams.data;
+
+    const data = await Monster.findOne({ index: index });
     if (!data) return next();
     return res.status(200).json(data);
   } catch (err) {

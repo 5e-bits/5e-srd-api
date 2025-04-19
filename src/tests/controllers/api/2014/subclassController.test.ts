@@ -196,31 +196,44 @@ describe('showLevelForSubclass', () => {
   });
 
   describe('with an invalid level', () => {
-    it('404s', async () => {
-      const response = createResponse();
-      mockingoose(Level).toReturn(findOneDoc, 'findOne');
+    const invalidRequest = createRequest({
+      method: 'GET',
+      url: '/api/2014/subclasses/berserker/levels/invalid',
+      params: {
+        index: 'berserker',
+        level: 'invalid',
+      },
+    });
 
-      const invalidShowParams = { index: 'barbarian', level: 'a' };
-      const invalidRequest = createRequest({ params: invalidShowParams });
+    it('400s', async () => {
+      const response = createResponse();
       await SubclassController.showLevelForSubclass(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(404);
-      expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' });
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 
   describe('with an out of bounds level', () => {
-    it('404s', async () => {
-      const response = createResponse();
-      mockingoose(Level).toReturn(null, 'findOne');
+    const invalidRequest = createRequest({
+      method: 'GET',
+      url: '/api/2014/subclasses/berserker/levels/0',
+      params: {
+        index: 'berserker',
+        level: '0',
+      },
+    });
 
-      const invalidShowParams = { index: 'barbarian', level: '30' };
-      const invalidRequest = createRequest({ params: invalidShowParams });
+    it('400s', async () => {
+      const response = createResponse();
       await SubclassController.showLevelForSubclass(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(200);
-      expect(response._getData()).toStrictEqual('');
-      expect(mockNext).toHaveBeenCalledWith();
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 });
@@ -297,16 +310,23 @@ describe('showFeaturesForSubclassAndLevel', () => {
   });
 
   describe('when an invalid level is given', () => {
-    it('404s', async () => {
-      const response = createResponse();
-      mockingoose(Feature).toReturn(null, 'findOne');
+    const invalidRequest = createRequest({
+      method: 'GET',
+      url: '/api/2014/subclasses/berserker/levels/invalid/features',
+      params: {
+        index: 'berserker',
+        level: 'invalid',
+      },
+    });
 
-      const invalidShowParams = { index: 'wizard', level: 'abcd' };
-      const invalidRequest = createRequest({ params: invalidShowParams });
+    it('400s', async () => {
+      const response = createResponse();
       await SubclassController.showFeaturesForSubclassAndLevel(invalidRequest, response, mockNext);
 
-      expect(response.statusCode).toBe(404);
-      expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' });
+      expect(response.statusCode).toBe(400);
+      const responseData = JSON.parse(response._getData());
+      expect(responseData.error).toEqual('Invalid path parameters');
+      expect(responseData.details).toEqual(expect.any(Array));
     });
   });
 
