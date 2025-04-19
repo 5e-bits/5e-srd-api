@@ -1,4 +1,4 @@
-import { Config } from '@jest/types';
+import { Config } from '@jest/types'
 
 const baseConfig: Config.InitialOptions = {
   preset: 'ts-jest',
@@ -12,22 +12,22 @@ const baseConfig: Config.InitialOptions = {
   globals: {
     'ts-jest': {
       useESM: true,
-      tsconfig: '<rootDir>/tsconfig.json',
-    },
+      tsconfig: '<rootDir>/tsconfig.json'
+    }
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
     '^@/(.*)\\.(js|ts)$': '<rootDir>/src/$1',
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/src/$1'
   },
   transform: {
     '^.+\\.ts$': [
       'ts-jest',
       {
-        useESM: true,
-      },
-    ],
-  },
-};
+        useESM: true
+      }
+    ]
+  }
+}
 
-export default baseConfig;
+export default baseConfig

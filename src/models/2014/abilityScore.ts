@@ -1,33 +1,33 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
-import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from './common';
-import { srdModelOptions } from '@/util/modelOptions';
+import { getModelForClass, prop } from '@typegoose/typegoose'
+import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { APIReference } from './common'
+import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-ability-scores')
 export class AbilityScore {
   @prop({ required: true, index: true })
-  public desc!: string[];
+  public desc!: string[]
 
   @prop({ required: true, index: true })
-  public full_name!: string;
+  public full_name!: string
 
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ type: () => APIReference })
-  public skills!: APIReference[];
+  public skills!: APIReference[]
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 
   @prop({ required: true, index: true })
-  public updated_at!: string;
+  public updated_at!: string
 }
 
-export type AbilityScoreDocument = DocumentType<AbilityScore>;
-const AbilityScoreModel = getModelForClass(AbilityScore);
+export type AbilityScoreDocument = DocumentType<AbilityScore>
+const AbilityScoreModel = getModelForClass(AbilityScore)
 
-export default AbilityScoreModel;
+export default AbilityScoreModel

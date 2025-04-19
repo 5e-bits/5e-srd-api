@@ -1,6 +1,6 @@
-import { GraphQLScalarType, Kind } from 'graphql';
+import { GraphQLScalarType, Kind } from 'graphql'
 
-type GetValueCallback = (_: string) => string;
+type GetValueCallback = (_: string) => string
 
 export const createEnumScalarType = (
   name: string,
@@ -12,38 +12,38 @@ export const createEnumScalarType = (
     name,
     description,
     serialize(value) {
-      return value;
+      return value
     },
     parseValue(value) {
       if (Array.isArray(value)) {
-        const filter = [];
+        const filter = []
         for (const x of value) {
           if (typeof x === 'string' && values.includes(x)) {
-            filter.push(getValue(x));
+            filter.push(getValue(x))
           }
         }
 
-        return filter.length > 0 ? filter : null;
+        return filter.length > 0 ? filter : null
       } else if (typeof value === 'string' && values.includes(value)) {
-        return [getValue(value)];
+        return [getValue(value)]
       } else {
-        return null;
+        return null
       }
     },
     parseLiteral(ast) {
       if (ast.kind === Kind.LIST) {
-        const filter = [];
+        const filter = []
         for (const x of ast.values) {
           if (x.kind === Kind.ENUM && values.includes(x.value)) {
-            filter.push(getValue(x.value));
+            filter.push(getValue(x.value))
           }
         }
 
-        return filter.length > 0 ? filter : null;
+        return filter.length > 0 ? filter : null
       } else if (ast.kind === Kind.ENUM && values.includes(ast.value)) {
-        return [getValue(ast.value)];
+        return [getValue(ast.value)]
       } else {
-        return null;
+        return null
       }
-    },
-  });
+    }
+  })

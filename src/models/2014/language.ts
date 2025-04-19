@@ -1,35 +1,35 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
-import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { srdModelOptions } from '@/util/modelOptions';
+import { getModelForClass, prop } from '@typegoose/typegoose'
+import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-languages')
 export class Language {
   @prop({ required: true, index: true })
-  public desc!: string[];
+  public desc!: string[]
 
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ required: true, index: true })
-  public script!: string;
+  public script!: string
 
   @prop({ required: true, index: true })
-  public type!: string;
+  public type!: string
 
   @prop({ type: () => [String], index: true })
-  public typical_speakers!: string[];
+  public typical_speakers!: string[]
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 
   @prop({ required: true, index: true })
-  public updated_at!: string;
+  public updated_at!: string
 }
 
-export type LanguageDocument = DocumentType<Language>;
-const LanguageModel = getModelForClass(Language);
+export type LanguageDocument = DocumentType<Language>
+const LanguageModel = getModelForClass(Language)
 
-export default LanguageModel;
+export default LanguageModel

@@ -1,42 +1,42 @@
-import { Request, Response, NextFunction } from 'express';
-import { ShowParamsSchema } from '@/schemas/schemas';
-import Proficiency from '@/models/2014/proficiency';
-import { ResourceList } from '@/util/data';
-import SimpleController from '@/controllers/simpleController';
-import Subrace from '@/models/2014/subrace';
-import Trait from '@/models/2014/trait';
+import { Request, Response, NextFunction } from 'express'
+import { ShowParamsSchema } from '@/schemas/schemas'
+import Proficiency from '@/models/2014/proficiency'
+import { ResourceList } from '@/util/data'
+import SimpleController from '@/controllers/simpleController'
+import Subrace from '@/models/2014/subrace'
+import Trait from '@/models/2014/trait'
 
-const simpleController = new SimpleController(Subrace);
+const simpleController = new SimpleController(Subrace)
 
 export const index = async (req: Request, res: Response, next: NextFunction) =>
-  simpleController.index(req, res, next);
+  simpleController.index(req, res, next)
 export const show = async (req: Request, res: Response, next: NextFunction) =>
-  simpleController.show(req, res, next);
+  simpleController.show(req, res, next)
 
 export const showTraitsForSubrace = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Validate path parameters
-    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
         .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
-    const { index } = validatedParams.data;
+    const { index } = validatedParams.data
 
-    const urlString = '/api/2014/subraces/' + index;
+    const urlString = '/api/2014/subraces/' + index
     const data = await Trait.find({ 'subraces.url': urlString }).select({
       index: 1,
       name: 1,
       url: 1,
-      _id: 0,
-    });
+      _id: 0
+    })
 
-    return res.status(200).json(ResourceList(data));
+    return res.status(200).json(ResourceList(data))
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 export const showProficienciesForSubrace = async (
   req: Request,
@@ -45,21 +45,21 @@ export const showProficienciesForSubrace = async (
 ) => {
   try {
     // Validate path parameters
-    const validatedParams = ShowParamsSchema.safeParse(req.params);
+    const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
         .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues });
+        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
-    const { index } = validatedParams.data;
+    const { index } = validatedParams.data
 
-    const urlString = '/api/2014/subraces/' + index;
+    const urlString = '/api/2014/subraces/' + index
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ index: 'asc' });
-    return res.status(200).json(ResourceList(data));
+      .sort({ index: 'asc' })
+    return res.status(200).json(ResourceList(data))
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}

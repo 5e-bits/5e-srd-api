@@ -1,60 +1,60 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
-import { DocumentType } from '@typegoose/typegoose/lib/types';
-import { APIReference } from '@/models/2014/common';
-import { srdModelOptions } from '@/util/modelOptions';
+import { getModelForClass, prop } from '@typegoose/typegoose'
+import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { APIReference } from '@/models/2014/common'
+import { srdModelOptions } from '@/util/modelOptions'
 class SpellPrerequisite {
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ required: true, index: true })
-  public type!: string;
+  public type!: string
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 }
 
 class Spell {
   @prop({ type: () => [SpellPrerequisite] })
-  public prerequisites!: SpellPrerequisite[];
+  public prerequisites!: SpellPrerequisite[]
 
   @prop({ type: () => APIReference })
-  public spell!: APIReference;
+  public spell!: APIReference
 }
 
 @srdModelOptions('2014-subclasses')
 export class Subclass {
   @prop({ type: () => APIReference })
-  public class!: APIReference;
+  public class!: APIReference
 
   @prop({ required: true, index: true })
-  public desc!: string[];
+  public desc!: string[]
 
   @prop({ required: true, index: true })
-  public index!: string;
+  public index!: string
 
   @prop({ required: true, index: true })
-  public name!: string;
+  public name!: string
 
   @prop({ type: () => [Spell] })
-  public spells?: Spell[];
+  public spells?: Spell[]
 
   @prop({ required: true, index: true })
-  public subclass_flavor!: string;
+  public subclass_flavor!: string
 
   @prop({ required: true, index: true })
-  public subclass_levels!: string;
+  public subclass_levels!: string
 
   @prop({ required: true, index: true })
-  public url!: string;
+  public url!: string
 
   @prop({ required: true, index: true })
-  public updated_at!: string;
+  public updated_at!: string
 }
 
-export type SubclassDocument = DocumentType<Subclass>;
-const SubclassModel = getModelForClass(Subclass);
+export type SubclassDocument = DocumentType<Subclass>
+const SubclassModel = getModelForClass(Subclass)
 
-export default SubclassModel;
+export default SubclassModel

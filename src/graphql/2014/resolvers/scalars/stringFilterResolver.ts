@@ -1,43 +1,43 @@
-import { GraphQLScalarType, Kind } from 'graphql';
+import { GraphQLScalarType, Kind } from 'graphql'
 
 const StringFilter = new GraphQLScalarType({
   name: 'StringFilter',
   description: 'String or list of strings',
   serialize(value) {
-    return value;
+    return value
   },
   parseValue(value) {
     if (Array.isArray(value)) {
-      const filter = [];
+      const filter = []
       for (const x of value) {
         if (typeof x === 'string') {
-          filter.push(x);
+          filter.push(x)
         }
       }
 
-      return filter.length > 0 ? filter : null;
+      return filter.length > 0 ? filter : null
     } else if (typeof value === 'string') {
-      return [value];
+      return [value]
     } else {
-      return null;
+      return null
     }
   },
   parseLiteral(ast) {
     if (ast.kind === Kind.LIST) {
-      const filter = [];
+      const filter = []
       for (const x of ast.values) {
         if (x.kind === Kind.STRING) {
-          filter.push(x.value);
+          filter.push(x.value)
         }
       }
 
-      return filter.length > 0 ? filter : null;
+      return filter.length > 0 ? filter : null
     } else if (ast.kind === Kind.STRING) {
-      return [ast.value];
+      return [ast.value]
     } else {
-      return null;
+      return null
     }
-  },
-});
+  }
+})
 
-export default StringFilter;
+export default StringFilter

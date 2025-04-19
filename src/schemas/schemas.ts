@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 // --- Helper Functions ---
 /**
@@ -9,31 +9,31 @@ import { z } from 'zod';
  */
 const ensureArrayOrUndefined = <T>(val: T | T[] | undefined): T[] | undefined => {
   if (val === undefined || val === null) {
-    return undefined;
+    return undefined
   }
   if (Array.isArray(val)) {
-    return val;
+    return val
   }
-  return [val];
-};
+  return [val]
+}
 
 // --- Base Schemas ---
 export const ShowParamsSchema = z.object({
-  index: z.string().min(1),
-});
+  index: z.string().min(1)
+})
 
 export const NameQuerySchema = z.object({
-  name: z.string().optional(),
-});
+  name: z.string().optional()
+})
 
 // --- Derived Generic Schemas ---
 export const NameDescQuerySchema = NameQuerySchema.extend({
-  desc: z.string().optional(),
-});
+  desc: z.string().optional()
+})
 
 export const LevelParamsSchema = ShowParamsSchema.extend({
-  level: z.coerce.number().int().min(1).max(20),
-});
+  level: z.coerce.number().int().min(1).max(20)
+})
 
 // --- Specific Controller Schemas ---
 
@@ -45,32 +45,32 @@ export const SpellIndexQuerySchema = NameQuerySchema.extend({
     .or(z.array(z.string().regex(/^\d+$/)))
     .optional()
     .transform(ensureArrayOrUndefined),
-  school: z.string().or(z.array(z.string())).optional().transform(ensureArrayOrUndefined),
-});
+  school: z.string().or(z.array(z.string())).optional().transform(ensureArrayOrUndefined)
+})
 
 // Schemas from api/2014/classController.ts
 export const ClassLevelsQuerySchema = z.object({
-  subclass: z.string().min(1).optional(),
-});
+  subclass: z.string().min(1).optional()
+})
 
 // Schemas from api/2014/monsterController.ts
 // --- Helper Transformation (for MonsterIndexQuerySchema) ---
 const transformChallengeRating = (val: string | string[] | undefined) => {
-  if (!val) return undefined;
+  if (!val) return undefined
   // Ensure it's an array, handling both single string and array inputs
-  const arr = Array.isArray(val) ? val : [val];
+  const arr = Array.isArray(val) ? val : [val]
   // Flatten in case of comma-separated strings inside the array, then split
-  const flattened = arr.flatMap((item) => item.split(','));
+  const flattened = arr.flatMap((item) => item.split(','))
   // Convert to numbers and filter out NaNs
-  const numbers = flattened.map(Number).filter((item) => !isNaN(item));
+  const numbers = flattened.map(Number).filter((item) => !isNaN(item))
   // Return undefined if no valid numbers result, otherwise return the array
-  return numbers.length > 0 ? numbers : undefined;
-};
+  return numbers.length > 0 ? numbers : undefined
+}
 
 export const MonsterIndexQuerySchema = NameQuerySchema.extend({
   challenge_rating: z
     .string()
     .or(z.string().array())
     .optional()
-    .transform(transformChallengeRating),
-});
+    .transform(transformChallengeRating)
+})

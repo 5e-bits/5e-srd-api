@@ -1,14 +1,14 @@
-import { createEnumScalarType } from './enumFilterResolver';
+import { createEnumScalarType } from './enumFilterResolver'
 
-const types = ['SPHERE', 'CUBE', 'CYLINDER', 'LINE', 'CONE'];
+const types = ['SPHERE', 'CUBE', 'CYLINDER', 'LINE', 'CONE']
 
-const getType = (type: string) => type.toLowerCase();
+const getType = (type: string) => type.toLowerCase()
 
 const AreaOfEffectTypeFilter = createEnumScalarType(
   'AreaOfEffectTypeFilter',
   'AreaOfEffectType ("SPHERE", "CUBE", "CYLINDER", "LINE", "CONE") or list of AreaOfEffectTypes',
   types,
   getType
-);
+)
 
-export default AreaOfEffectTypeFilter;
+export default AreaOfEffectTypeFilter
