@@ -3,42 +3,43 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
 
-class Equipment {
+// EXPORT local classes/types needed by factories
+export class Equipment {
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => Number })
   public quantity!: number
 }
 
-class SpellcastingInfo {
-  @prop({ required: true, index: true })
+export class SpellcastingInfo {
+  @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 }
 
-class Spellcasting {
+export class Spellcasting {
   @prop({ type: () => [SpellcastingInfo] })
   public info!: SpellcastingInfo[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
   @prop({ type: () => APIReference })
   public spellcasting_ability!: APIReference
 }
 
-class MultiClassingPrereq {
+export class MultiClassingPrereq {
   @prop({ type: () => APIReference })
   public ability_score!: APIReference
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => Number })
   public minimum_score!: number
 }
 
-class MultiClassing {
+export class MultiClassing {
   @prop({ type: () => [MultiClassingPrereq], default: undefined })
   public prerequisites?: MultiClassingPrereq[]
 
@@ -53,20 +54,20 @@ class MultiClassing {
 }
 
 @srdModelOptions('2014-classes')
-class Class {
-  @prop({ required: true, index: true })
+export class Class {
+  @prop({ required: true, index: true, type: () => String })
   public class_levels!: string
 
   @prop({ type: () => MultiClassing })
   public multi_classing!: MultiClassing
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => Number })
   public hit_die!: number
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
   @prop({ type: () => [APIReference] })
@@ -81,7 +82,7 @@ class Class {
   @prop({ type: () => Spellcasting })
   public spellcasting?: Spellcasting
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public spells!: string
 
   @prop({ type: () => [Equipment] })
@@ -93,10 +94,10 @@ class Class {
   @prop({ type: () => [APIReference] })
   public subclasses!: APIReference[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public url!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
 

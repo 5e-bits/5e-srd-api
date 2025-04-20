@@ -4,7 +4,7 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-collections')
 export class Collection {
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public index!: string
 }
 

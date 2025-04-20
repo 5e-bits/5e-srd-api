@@ -2,26 +2,32 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, AreaOfEffect } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
-class Damage {
-  @prop({ type: Object })
-  public damage_at_slot_level?: Record<number, string>
 
-  @prop({ type: Object })
-  public damage_at_character_level?: Record<number, string>
-
+export class SpellDamage {
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
+
+  @prop({ mapProp: true, type: () => String, default: undefined })
+  public damage_at_slot_level?: Map<string, string>
+
+  @prop({ mapProp: true, type: () => String, default: undefined })
+  public damage_at_character_level?: Map<string, string>
 }
 
-class DC {
-  @prop({ required: true, index: true })
-  public dc_success!: string
-
+export class SpellDC {
   @prop({ type: () => APIReference, required: true })
   public dc_type!: APIReference
 
-  @prop({ index: true })
+  @prop({ required: true, index: true, type: () => String })
+  public dc_success!: string
+
+  @prop({ index: true, type: () => String })
   public desc?: string
+}
+
+export class SpellHealAtSlotLevel {
+  @prop({ mapProp: true, type: () => String, required: true })
+  public heal_at_slot_level!: Map<string, string>
 }
 
 @srdModelOptions('2014-spells')
@@ -29,67 +35,64 @@ export class Spell {
   @prop({ type: () => AreaOfEffect })
   public area_of_effect?: AreaOfEffect
 
-  @prop({ index: true })
-  public attack_type?: string
+  @prop({ index: true, type: () => Boolean })
+  public attack_type?: boolean
 
-  @prop({ required: true, index: true })
-  public casting_time!: string
+  @prop({ required: true, index: true, type: () => Boolean })
+  public ritual!: boolean
 
   @prop({ type: () => [APIReference], required: true })
   public classes!: APIReference[]
 
-  @prop({ type: [String], required: true, index: true })
+  @prop({ type: () => [String], required: true })
   public components!: string[]
 
-  @prop({ required: true, index: true })
+  @prop({ index: true, type: () => Boolean })
   public concentration!: boolean
 
-  @prop({ type: () => Damage })
-  public damage?: Damage
+  @prop({ type: () => SpellDamage })
+  public damage?: SpellDamage
 
-  @prop({ type: () => DC })
-  public dc?: DC
+  @prop({ type: () => SpellDC })
+  public dc?: SpellDC
 
-  @prop({ type: [String], required: true, index: true })
+  @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public duration!: string
 
-  @prop({ type: Object })
-  public heal_at_slot_level?: Record<number, string>
+  @prop({ type: () => SpellHealAtSlotLevel })
+  public heal_at_slot_level?: SpellHealAtSlotLevel
 
-  @prop({ type: [String], index: true })
+  @prop({ type: () => [String] })
   public higher_level?: string[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ required: true })
+  @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
-  @prop({ index: true })
+  @prop({ index: true, type: () => String })
   public material?: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public range!: string
-
-  @prop({ required: true, index: true })
-  public ritual!: boolean
 
   @prop({ type: () => APIReference, required: true })
   public school!: APIReference
 
-  @prop({ type: () => [APIReference] })
-  public subclasses?: APIReference[]
+  @prop({ type: () => [APIReference], required: true })
+  public subclasses!: APIReference[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public url!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
 
