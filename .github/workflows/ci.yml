@@ -82,7 +82,7 @@ jobs:
             -e MONGODB_URI=mongodb://db/5e-database \
             -e REDIS_URL=redis://cache:6379 \
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}_api:${{ env.API_IMAGE_TAG }} \
-            npm run test:integration
+            npm run test:integration -- --verbose
 
       - name: Stop dependency services
         if: always() # Ensure cleanup even if tests fail
