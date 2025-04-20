@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support' // Assuming suppor
 
 import MagicSchoolModel from '@/models/2014/magicSchool' // Use Model suffix
 import MagicSchoolController from '@/controllers/api/2014/magicSchoolController'
-import { magicSchoolFactory } from '@/test/factories/2014/magicSchool.factory' // Import the new factory
+import { magicSchoolFactory } from '@/tests/factories/2014/magicSchool.factory' // Updated path
 
 const mockNext = vi.fn(defaultMockNext)
 

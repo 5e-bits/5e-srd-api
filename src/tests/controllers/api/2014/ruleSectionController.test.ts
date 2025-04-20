@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support' // Assuming suppor
 
 import RuleSectionModel from '@/models/2014/ruleSection' // Use Model suffix
 import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
-import { ruleSectionFactory } from '@/test/factories/2014/ruleSection.factory' // Import the new factory
+import { ruleSectionFactory } from '@/tests/factories/2014/ruleSection.factory' // Updated path
 
 const mockNext = vi.fn(defaultMockNext)
 

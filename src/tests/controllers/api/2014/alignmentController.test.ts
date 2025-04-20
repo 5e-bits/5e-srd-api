@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support' // Assuming suppor
 
 import AlignmentModel from '@/models/2014/alignment'
 import AlignmentController from '@/controllers/api/2014/alignmentController'
-import { alignmentFactory } from '@/test/factories/2014/alignment.factory'
+import { alignmentFactory } from '@/tests/factories/2014/alignment.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 

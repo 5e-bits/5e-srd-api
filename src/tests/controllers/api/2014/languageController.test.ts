@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support'
 
 import LanguageModel from '@/models/2014/language'
 import LanguageController from '@/controllers/api/2014/languageController'
-import { languageFactory } from '@/test/factories/2014/language.factory'
+import { languageFactory } from '@/tests/factories/2014/language.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 

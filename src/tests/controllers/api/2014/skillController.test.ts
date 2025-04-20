@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support' // Assuming suppor
 
 import SkillModel from '@/models/2014/skill' // Use Model suffix
 import SkillController from '@/controllers/api/2014/skillController'
-import { skillFactory } from '@/test/factories/2014/skill.factory' // Import the new factory
+import { skillFactory } from '@/tests/factories/2014/skill.factory' // Updated path
 
 const mockNext = vi.fn(defaultMockNext)
 

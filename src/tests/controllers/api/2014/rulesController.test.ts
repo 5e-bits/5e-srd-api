@@ -6,7 +6,7 @@ import { mockNext as defaultMockNext } from '@/tests/support'
 import RuleModel from '@/models/2014/rule' // Use Model suffix
 // Import specific functions from the correct controller file
 import * as RuleController from '@/controllers/api/2014/ruleController'
-import { ruleFactory } from '@/test/factories/2014/rule.factory' // Import the new factory
+import { ruleFactory } from '@/tests/factories/2014/rule.factory' // Updated path
 
 const mockNext = vi.fn(defaultMockNext)
 

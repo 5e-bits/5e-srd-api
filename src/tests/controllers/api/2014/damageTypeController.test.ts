@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support/requestHelpers'
 
 import DamageTypeModel from '@/models/2014/damageType'
 import DamageTypeController from '@/controllers/api/2014/damageTypeController'
-import { damageTypeFactory } from '@/test/factories/2014/damageType.factory'
+import { damageTypeFactory } from '@/tests/factories/2014/damageType.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 

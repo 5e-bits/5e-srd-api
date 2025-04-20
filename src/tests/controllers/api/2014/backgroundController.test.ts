@@ -5,7 +5,7 @@ import { mockNext as defaultMockNext } from '@/tests/support'
 
 import BackgroundModel from '@/models/2014/background'
 import BackgroundController from '@/controllers/api/2014/backgroundController'
-import { backgroundFactory } from '@/test/factories/2014/background.factory'
+import { backgroundFactory } from '@/tests/factories/2014/background.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
