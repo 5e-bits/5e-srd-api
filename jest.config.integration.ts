@@ -5,8 +5,7 @@ const integrationConfig: Config.InitialOptions = {
   ...baseConfig,
   displayName: 'Integration Tests',
   testRegex: '\\.itest\\.(js|ts)$',
-  silent: true,
-  maxWorkers: 1 // Use 1 worker to run tests sequentially
+  silent: true
 }
 
 console.log('RUNNING INTEGRATION TESTS')
