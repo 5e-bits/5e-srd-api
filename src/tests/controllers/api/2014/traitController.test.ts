@@ -1,104 +1,100 @@
-import mockingoose from 'mockingoose'
+import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
+import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import Trait from '@/models/2014/trait'
+import TraitModel from '@/models/2014/trait'
 import TraitController from '@/controllers/api/2014/traitController'
+import { traitFactory } from '@/test/factories/2014/trait.factory'
 
-beforeEach(() => {
-  mockingoose.resetAll()
+const mockNext = vi.fn(defaultMockNext)
+
+beforeAll(async () => {
+  const mongoUri = process.env.TEST_MONGODB_URI
+  if (!mongoUri) {
+    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  }
+  await mongoose.connect(mongoUri)
 })
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'artificers-lore',
-      name: 'Artificer\'s Lore',
-      url: '/api/traits/artificers-lore'
-    },
-    {
-      index: 'brave',
-      name: 'Brave',
-      url: '/api/traits/brave'
-    },
-    {
-      index: 'breath-weapon',
-      name: 'Breath Weapon',
-      url: '/api/traits/breath-weapon'
-    }
-  ]
-  const request = createRequest({ query: {} })
+afterAll(async () => {
+  await mongoose.disconnect()
+})
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Trait).toReturn(findDoc, 'find')
+beforeEach(async () => {
+  vi.clearAllMocks()
+  await TraitModel.deleteMany({})
+})
 
-    await TraitController.index(request, response, mockNext)
+describe('TraitController', () => {
+  describe('index', () => {
+    it('returns a list of traits', async () => {
+      const traitsData = traitFactory.buildList(3)
+      const traitDocs = traitsData.map((data) => new TraitModel(data))
+      await TraitModel.insertMany(traitDocs)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Trait).toReturn(error, 'find')
 
       await TraitController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: traitsData[0].index, name: traitsData[0].name }),
+          expect.objectContaining({ index: traitsData[1].index, name: traitsData[1].name }),
+          expect.objectContaining({ index: traitsData[2].index, name: traitsData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'abyssal',
-    name: 'Abyssal',
-    url: '/api/traits/abyssal'
-  }
-
-  const showParams = { index: 'abyssal' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Trait).toReturn(findOneDoc, 'findOne')
-
-    await TraitController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no traits exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(Trait).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await TraitController.show(invalidRequest, response, mockNext)
+      await TraitController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single trait when found', async () => {
+      const traitData = traitFactory.build({ index: 'darkvision', name: 'Darkvision' })
+      await TraitModel.insertMany([traitData])
+
+      const request = createRequest({ params: { index: 'darkvision' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Trait).toReturn(error, 'findOne')
 
       await TraitController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('darkvision')
+      expect(responseData.name).toBe('Darkvision')
+      expect(responseData.desc).toEqual(traitData.desc)
+      expect(responseData.races).toHaveLength(traitData.races?.length ?? 0)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the trait is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      await TraitController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })
