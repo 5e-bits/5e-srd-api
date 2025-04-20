@@ -1,11 +1,11 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
-import DamageTypeModel from '@/models/2014/damageType'
-import DamageTypeController from '@/controllers/api/2014/damageTypeController'
-import { damageTypeFactory } from '@/test/factories/2014/damageType.factory'
+import AlignmentModel from '@/models/2014/alignment'
+import AlignmentController from '@/controllers/api/2014/alignmentController'
+import { alignmentFactory } from '@/test/factories/2014/alignment.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
@@ -23,20 +23,20 @@ afterAll(async () => {
 
 beforeEach(async () => {
   vi.clearAllMocks()
-  await DamageTypeModel.deleteMany({})
+  await AlignmentModel.deleteMany({})
 })
 
-describe('DamageTypeController', () => {
+describe('AlignmentController', () => {
   describe('index', () => {
-    it('returns a list of damage types', async () => {
-      const damageTypesData = damageTypeFactory.buildList(3)
-      const damageTypeDocs = damageTypesData.map((data) => new DamageTypeModel(data))
-      await DamageTypeModel.insertMany(damageTypeDocs)
+    it('returns a list of alignments', async () => {
+      const alignmentsData = alignmentFactory.buildList(3)
+      const alignmentDocs = alignmentsData.map((data) => new AlignmentModel(data))
+      await AlignmentModel.insertMany(alignmentDocs)
 
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      await DamageTypeController.index(request, response, mockNext)
+      await AlignmentController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
@@ -44,28 +44,19 @@ describe('DamageTypeController', () => {
       expect(responseData.results).toHaveLength(3)
       expect(responseData.results).toEqual(
         expect.arrayContaining([
-          expect.objectContaining({
-            index: damageTypesData[0].index,
-            name: damageTypesData[0].name
-          }),
-          expect.objectContaining({
-            index: damageTypesData[1].index,
-            name: damageTypesData[1].name
-          }),
-          expect.objectContaining({
-            index: damageTypesData[2].index,
-            name: damageTypesData[2].name
-          })
+          expect.objectContaining({ index: alignmentsData[0].index, name: alignmentsData[0].name }),
+          expect.objectContaining({ index: alignmentsData[1].index, name: alignmentsData[1].name }),
+          expect.objectContaining({ index: alignmentsData[2].index, name: alignmentsData[2].name })
         ])
       )
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns an empty list when no damage types exist', async () => {
+    it('returns an empty list when no alignments exist', async () => {
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      await DamageTypeController.index(request, response, mockNext)
+      await AlignmentController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
@@ -76,28 +67,28 @@ describe('DamageTypeController', () => {
   })
 
   describe('show', () => {
-    it('returns a single damage type when found', async () => {
-      const damageTypeData = damageTypeFactory.build({ index: 'acid', name: 'Acid' })
-      await DamageTypeModel.insertMany([damageTypeData])
+    it('returns a single alignment when found', async () => {
+      const alignmentData = alignmentFactory.build({ index: 'lg', name: 'Lawful Good' })
+      await AlignmentModel.insertMany([alignmentData])
 
-      const request = createRequest({ params: { index: 'acid' } })
+      const request = createRequest({ params: { index: 'lg' } })
       const response = createResponse()
 
-      await DamageTypeController.show(request, response, mockNext)
+      await AlignmentController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.index).toBe('acid')
-      expect(responseData.name).toBe('Acid')
-      expect(responseData.desc).toEqual(damageTypeData.desc)
+      expect(responseData.index).toBe('lg')
+      expect(responseData.name).toBe('Lawful Good')
+      expect(responseData.desc).toEqual(alignmentData.desc)
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('calls next() when the damage type is not found', async () => {
+    it('calls next() when the alignment is not found', async () => {
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
 
-      await DamageTypeController.show(request, response, mockNext)
+      await AlignmentController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       expect(response._getData()).toBe('')

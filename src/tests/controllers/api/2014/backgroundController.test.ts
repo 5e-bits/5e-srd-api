@@ -1,11 +1,11 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import DamageTypeModel from '@/models/2014/damageType'
-import DamageTypeController from '@/controllers/api/2014/damageTypeController'
-import { damageTypeFactory } from '@/test/factories/2014/damageType.factory'
+import BackgroundModel from '@/models/2014/background'
+import BackgroundController from '@/controllers/api/2014/backgroundController'
+import { backgroundFactory } from '@/test/factories/2014/background.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
@@ -23,20 +23,20 @@ afterAll(async () => {
 
 beforeEach(async () => {
   vi.clearAllMocks()
-  await DamageTypeModel.deleteMany({})
+  await BackgroundModel.deleteMany({})
 })
 
-describe('DamageTypeController', () => {
+describe('BackgroundController', () => {
   describe('index', () => {
-    it('returns a list of damage types', async () => {
-      const damageTypesData = damageTypeFactory.buildList(3)
-      const damageTypeDocs = damageTypesData.map((data) => new DamageTypeModel(data))
-      await DamageTypeModel.insertMany(damageTypeDocs)
+    it('returns a list of backgrounds', async () => {
+      const backgroundsData = backgroundFactory.buildList(3)
+      const backgroundDocs = backgroundsData.map((data) => new BackgroundModel(data))
+      await BackgroundModel.insertMany(backgroundDocs)
 
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      await DamageTypeController.index(request, response, mockNext)
+      await BackgroundController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
@@ -45,27 +45,27 @@ describe('DamageTypeController', () => {
       expect(responseData.results).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            index: damageTypesData[0].index,
-            name: damageTypesData[0].name
+            index: backgroundsData[0].index,
+            name: backgroundsData[0].name
           }),
           expect.objectContaining({
-            index: damageTypesData[1].index,
-            name: damageTypesData[1].name
+            index: backgroundsData[1].index,
+            name: backgroundsData[1].name
           }),
           expect.objectContaining({
-            index: damageTypesData[2].index,
-            name: damageTypesData[2].name
+            index: backgroundsData[2].index,
+            name: backgroundsData[2].name
           })
         ])
       )
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns an empty list when no damage types exist', async () => {
+    it('returns an empty list when no backgrounds exist', async () => {
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      await DamageTypeController.index(request, response, mockNext)
+      await BackgroundController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
@@ -76,28 +76,29 @@ describe('DamageTypeController', () => {
   })
 
   describe('show', () => {
-    it('returns a single damage type when found', async () => {
-      const damageTypeData = damageTypeFactory.build({ index: 'acid', name: 'Acid' })
-      await DamageTypeModel.insertMany([damageTypeData])
+    it('returns a single background when found', async () => {
+      const backgroundData = backgroundFactory.build({ index: 'acolyte', name: 'Acolyte' })
+      await BackgroundModel.insertMany([backgroundData])
 
-      const request = createRequest({ params: { index: 'acid' } })
+      const request = createRequest({ params: { index: 'acolyte' } })
       const response = createResponse()
 
-      await DamageTypeController.show(request, response, mockNext)
+      await BackgroundController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.index).toBe('acid')
-      expect(responseData.name).toBe('Acid')
-      expect(responseData.desc).toEqual(damageTypeData.desc)
+      expect(responseData.index).toBe('acolyte')
+      expect(responseData.name).toBe('Acolyte')
+      // Add more specific checks if needed, e.g., for nested properties
+      expect(responseData.feature.name).toEqual(backgroundData.feature.name)
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('calls next() when the damage type is not found', async () => {
+    it('calls next() when the background is not found', async () => {
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
 
-      await DamageTypeController.show(request, response, mockNext)
+      await BackgroundController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       expect(response._getData()).toBe('')

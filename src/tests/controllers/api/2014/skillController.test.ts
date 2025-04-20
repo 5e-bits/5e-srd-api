@@ -1,104 +1,113 @@
-import { mockNext } from '@/tests/support/requestHelpers'
-
-import mockingoose from 'mockingoose'
+import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
+import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
-import skill from '@/models/2014/skill'
-import skillController from '@/controllers/api/2014/skillController'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+import SkillModel from '@/models/2014/skill' // Use Model suffix
+import SkillController from '@/controllers/api/2014/skillController'
+import { skillFactory } from '@/test/factories/2014/skill.factory' // Import the new factory
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'acrobatics',
-      name: 'Acrobatics',
-      url: '/api/skills/acrobatics'
-    },
-    {
-      index: 'animal-handling',
-      name: 'Animal Handling',
-      url: '/api/skills/animal-handling'
-    },
-    {
-      index: 'arcana',
-      name: 'Arcana',
-      url: '/api/skills/arcana'
-    }
-  ]
-  const request = createRequest({ query: {} })
+const mockNext = vi.fn(defaultMockNext)
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(skill).toReturn(findDoc, 'find')
-
-    await skillController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(skill).toReturn(error, 'find')
-
-      await skillController.index(request, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
-    })
-  })
-})
-
-describe('show', () => {
-  const findOneDoc = {
-    index: 'acrobatics',
-    name: 'Acrobatics',
-    url: '/api/skills/acrobatics'
+beforeAll(async () => {
+  const mongoUri = process.env.TEST_MONGODB_URI
+  if (!mongoUri) {
+    throw new Error('TEST_MONGODB_URI environment variable not set.')
   }
+  await mongoose.connect(mongoUri)
+})
 
-  const showParams = { index: 'acrobatics' }
-  const request = createRequest({ params: showParams })
+afterAll(async () => {
+  await mongoose.disconnect()
+})
 
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(skill).toReturn(findOneDoc, 'findOne')
+beforeEach(async () => {
+  vi.clearAllMocks()
+  await SkillModel.deleteMany({})
+})
 
-    await skillController.show(request, response, mockNext)
+describe('SkillController', () => {
+  describe('index', () => {
+    it('returns a list of skills', async () => {
+      // Arrange
+      const skillsData = skillFactory.buildList(3)
+      const skillDocs = skillsData.map((data) => new SkillModel(data))
+      await SkillModel.insertMany(skillDocs)
 
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(skill).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await skillController.show(invalidRequest, response, mockNext)
+      // Act
+      await SkillController.index(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: skillsData[0].index, name: skillsData[0].name }),
+          expect.objectContaining({ index: skillsData[1].index, name: skillsData[1].name }),
+          expect.objectContaining({ index: skillsData[2].index, name: skillsData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns an empty list when no skills exist', async () => {
+      // Arrange
+      const request = createRequest({ query: {} })
+      const response = createResponse()
+
+      // Act
+      await SkillController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single skill when found', async () => {
+      // Arrange
+      const skillData = skillFactory.build({ index: 'athletics', name: 'Athletics' })
+      await SkillModel.insertMany([skillData]) // Use insertMany workaround
+
+      const request = createRequest({ params: { index: 'athletics' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(skill).toReturn(error, 'findOne')
 
-      await skillController.show(request, response, mockNext)
+      // Act
+      await SkillController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('athletics')
+      expect(responseData.name).toBe('Athletics')
+      expect(responseData.desc).toEqual(skillData.desc)
+      // Check nested object
+      expect(responseData.ability_score.index).toEqual(skillData.ability_score.index)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the skill is not found', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      // Act
+      await SkillController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })
