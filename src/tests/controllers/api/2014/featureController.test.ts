@@ -1,104 +1,101 @@
-import mockingoose from 'mockingoose'
+import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
+import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import Feature from '@/models/2014/feature'
+import FeatureModel from '@/models/2014/feature'
 import FeatureController from '@/controllers/api/2014/featureController'
+import { featureFactory } from '@/tests/factories/2014/feature.factory'
 
-beforeEach(() => {
-  mockingoose.resetAll()
+const mockNext = vi.fn(defaultMockNext)
+
+beforeAll(async () => {
+  const mongoUri = process.env.TEST_MONGODB_URI
+  if (!mongoUri) {
+    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  }
+  await mongoose.connect(mongoUri)
 })
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'action-surge-1-use',
-      name: 'Action Surge (1 use)',
-      url: '/api/features/action-surge-1-use'
-    },
-    {
-      index: 'action-surge-2-uses',
-      name: 'Action Surge (2 uses)',
-      url: '/api/features/action-surge-2-uses'
-    },
-    {
-      index: 'additional-magical-secrets',
-      name: 'Additional Magical Secrets',
-      url: '/api/features/additional-magical-secrets'
-    }
-  ]
-  const request = createRequest({ query: {} })
+afterAll(async () => {
+  await mongoose.disconnect()
+})
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Feature).toReturn(findDoc, 'find')
+beforeEach(async () => {
+  vi.clearAllMocks()
+  await FeatureModel.deleteMany({})
+})
 
-    await FeatureController.index(request, response, mockNext)
+describe('FeatureController', () => {
+  describe('index', () => {
+    it('returns a list of features', async () => {
+      const featuresData = featureFactory.buildList(3)
+      const featureDocs = featuresData.map((data) => new FeatureModel(data))
+      await FeatureModel.insertMany(featureDocs)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Feature).toReturn(error, 'find')
 
       await FeatureController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: featuresData[0].index, name: featuresData[0].name }),
+          expect.objectContaining({ index: featuresData[1].index, name: featuresData[1].name }),
+          expect.objectContaining({ index: featuresData[2].index, name: featuresData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'action-surge-1-use',
-    name: 'Action Surge (1 use)',
-    url: '/api/features/action-surge-1-use'
-  }
-
-  const showParams = { index: 'action-surge-1-use' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Feature).toReturn(findOneDoc, 'findOne')
-
-    await FeatureController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no features exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(Feature).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await FeatureController.show(invalidRequest, response, mockNext)
+      await FeatureController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single feature when found', async () => {
+      const featureData = featureFactory.build({ index: 'action-surge', name: 'Action Surge' })
+      await FeatureModel.insertMany([featureData])
+
+      const request = createRequest({ params: { index: 'action-surge' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Feature).toReturn(error, 'findOne')
 
       await FeatureController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('action-surge')
+      expect(responseData.name).toBe('Action Surge')
+      expect(responseData.desc).toEqual(featureData.desc)
+      expect(responseData.level).toEqual(featureData.level)
+      expect(responseData.class.index).toEqual(featureData.class.index)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the feature is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      await FeatureController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })
