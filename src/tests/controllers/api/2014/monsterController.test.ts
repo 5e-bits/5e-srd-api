@@ -1,47 +1,70 @@
-import mockingoose from 'mockingoose'
+import { vi, describe, it, expect, afterEach } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { jest } from '@jest/globals'
 import * as MonsterController from '@/controllers/api/2014/monsterController'
-
 import { mockNext } from '@/tests/support'
-
 import Monster from '@/models/2014/monster'
+import { monsterFactory } from '@/tests/factories/2014/monster.factory'
 
-// Keep track of spies to restore them
-let findSpy: ReturnType<typeof jest.spyOn>
+// Mock the redisClient methods used in the controller
+vi.mock('@/util', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@/util')>()
+  return {
+    ...original, // Keep other exports from the module
+    redisClient: {
+      get: vi.fn().mockResolvedValue(null), // Keep simple default
+      set: vi.fn().mockResolvedValue('OK')
+    }
+  }
+})
 
 afterEach(() => {
-  // Restore any spies created
-  if (findSpy) {
-    findSpy.mockRestore()
-  }
-  mockingoose.resetAll()
+  vi.restoreAllMocks()
 })
 
 describe('index', () => {
-  const baseFindDoc = [
-    {
-      index: 'aboleth',
-      name: 'Aboleth',
-      url: '/api/monsters/aboleth'
-    }
-  ]
+  const mockMonstersSummary = monsterFactory
+    .buildList(2)
+    .map((m) => ({ index: m.index, name: m.name, url: m.url }))
 
-  // Test cases for default behavior (no specific query params)
+  // Helper to create the mock query object
+  const createMockQuery = (resolveValue: any, shouldReject = false, rejectValue?: Error) => {
+    const mockQuery = {
+      select: vi.fn().mockReturnThis(),
+      sort: vi.fn().mockReturnThis(),
+      // Make it thenable to simulate await
+      then: (resolve: (value: any) => void, reject?: (reason?: any) => void) => {
+        if (shouldReject && reject) {
+          return Promise.resolve().then(() => reject(rejectValue))
+        } else {
+          return Promise.resolve().then(() => resolve(resolveValue))
+        }
+      }
+      // Optionally mock exec() if needed: exec: vi.fn().mockResolvedValue(resolveValue)
+    }
+    return mockQuery
+  }
+
   it('returns a list of objects with default query', async () => {
     const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
     const response = createResponse()
-    // Mock the find method using mockingoose for this simple case
-    mockingoose(Monster).toReturn(baseFindDoc, 'find')
+
+    const mockQuery = createMockQuery(mockMonstersSummary)
+    const findSpy = vi.spyOn(Monster, 'find').mockReturnValue(mockQuery as any)
 
     await MonsterController.index(request, response, mockNext)
 
     expect(response.statusCode).toBe(200)
-    // Add check for returned data structure if needed
+    expect(findSpy).toHaveBeenCalledWith({}) // Check find query
+    expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 }) // Check select fields
+    expect(mockQuery.sort).toHaveBeenCalledWith({ index: 'asc' }) // Check sort
+    // Check the final data sent (assuming ResourceList doesn't modify it much)
+    expect(JSON.parse(response._getData())).toEqual({
+      count: mockMonstersSummary.length,
+      results: mockMonstersSummary
+    })
   })
 
   describe('with challenge_rating query', () => {
-    // Define test cases for challenge_rating
     const crTestCases = [
       {
         description: 'handles a single number string',
@@ -71,80 +94,110 @@ describe('index', () => {
       {
         description: 'handles only invalid values, resulting in no CR filter',
         query: { challenge_rating: 'invalid, nope' },
-        expectedMongoQuery: {} // Empty query expected
+        expectedMongoQuery: {}
       },
       {
         description: 'handles an empty string, resulting in no CR filter',
         query: { challenge_rating: '' },
-        expectedMongoQuery: {} // Empty query expected
+        expectedMongoQuery: {}
       }
     ]
 
-    // Use it.each to run the same test logic for each case
-    it.each(crTestCases)(
-      '$description', // Use the description field from the test case object
-      async ({ query, expectedMongoQuery }) => {
-        const request = createRequest({ query })
-        const response = createResponse()
+    it.each(crTestCases)('$description', async ({ query, expectedMongoQuery }) => {
+      const request = createRequest({ query, originalUrl: '/api/monsters' })
+      const response = createResponse()
+      const mockQuery = createMockQuery(mockMonstersSummary)
+      const findSpy = vi.spyOn(Monster, 'find').mockReturnValue(mockQuery as any)
 
-        // Spy on Monster.find and mock its resolution
-        findSpy = jest.spyOn(Monster, 'find').mockResolvedValue(baseFindDoc as any)
+      await MonsterController.index(request, response, mockNext)
 
-        await MonsterController.index(request, response, mockNext)
-
-        expect(response.statusCode).toBe(200)
-        expect(findSpy).toHaveBeenCalledWith(expectedMongoQuery) // Verify the query passed to find
-      }
-    )
+      expect(response.statusCode).toBe(200)
+      expect(findSpy).toHaveBeenCalledWith(expectedMongoQuery)
+      expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 })
+      expect(mockQuery.sort).toHaveBeenCalledWith({ index: 'asc' })
+      expect(JSON.parse(response._getData())).toEqual({
+        count: mockMonstersSummary.length,
+        results: mockMonstersSummary
+      })
+    })
   })
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const response = createResponse()
-      const error = new Error('Something went wrong')
+      const error = new Error('Database error')
       const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
-      mockingoose(Monster).toReturn(error, 'find')
+      // Mock find to return a query that rejects
+      const mockQuery = createMockQuery(null, true, error)
+      vi.spyOn(Monster, 'find').mockReturnValue(mockQuery as any)
 
       await MonsterController.index(request, response, mockNext)
 
-      expect(mockNext).toHaveBeenCalledWith(error)
-      expect(response._getData()).toStrictEqual('')
+      expect(mockNext).toHaveBeenCalledWith(error) // Should now be called with the correct error
+      expect(response._getData()).toBe('')
+    })
+  })
+
+  describe('when data is in Redis cache', () => {
+    it('returns cached data and does not call Monster.find', async () => {
+      const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
+      const response = createResponse()
+      const cachedData = {
+        count: 1,
+        results: [
+          { index: 'cached-monster', name: 'Cached Monster', url: '/api/monsters/cached-monster' }
+        ]
+      }
+
+      // Import the mocked redisClient
+      const { redisClient } = await import('@/util')
+
+      // Override the mock for this specific test case
+      // Use @ts-expect-error to bypass persistent type inference issue
+      // @ts-expect-error Vitest mock override type mismatch
+      vi.mocked(redisClient.get).mockResolvedValueOnce(JSON.stringify(cachedData))
+
+      const findSpy = vi.spyOn(Monster, 'find')
+
+      await MonsterController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(JSON.parse(response._getData())).toEqual(cachedData)
+      expect(findSpy).not.toHaveBeenCalled()
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 })
 
 describe('show', () => {
-  const findOneDoc = {
-    index: 'aboleth',
-    name: 'Aboleth',
-    url: '/api/monsters/aboleth'
-  }
+  const mockMonster = monsterFactory.build({ index: 'test-monster', name: 'Test Monster' })
 
-  const showParams = { index: 'aboleth' }
-  const request = createRequest({ params: showParams })
+  const request = createRequest({ params: { index: mockMonster.index } })
 
   it('returns an object', async () => {
     const response = createResponse()
-    mockingoose(Monster).toReturn(findOneDoc, 'findOne')
+    // findOne doesn't need complex chaining mock in this controller
+    vi.spyOn(Monster, 'findOne').mockResolvedValue(mockMonster as any)
 
     await MonsterController.show(request, response, mockNext)
 
     expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
+    expect(Monster.findOne).toHaveBeenCalledWith({ index: mockMonster.index })
+    // Controller returns the full object from findOne
+    expect(JSON.parse(response._getData())).toEqual(mockMonster)
   })
 
   describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('calls next() without error (delegates to 404 handling)', async () => {
       const response = createResponse()
-      mockingoose(Monster).toReturn(null, 'findOne')
+      vi.spyOn(Monster, 'findOne').mockResolvedValue(null)
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
+      const invalidRequest = createRequest({ params: { index: 'non-existent' } })
       await MonsterController.show(invalidRequest, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
       expect(mockNext).toHaveBeenCalledWith()
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
     })
   })
 
@@ -152,13 +205,12 @@ describe('show', () => {
     it('is handled', async () => {
       const response = createResponse()
       const error = new Error('Something went wrong')
-      mockingoose(Monster).toReturn(error, 'findOne')
+      vi.spyOn(Monster, 'findOne').mockRejectedValue(error)
 
       await MonsterController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
       expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response._getData()).toBe('')
     })
   })
 })
