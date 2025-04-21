@@ -1,98 +1,116 @@
-import mockingoose from 'mockingoose'
+import { vi, describe, it, expect, afterEach } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import * as SubraceController from '@/controllers/api/2014/subraceController'
-
 import { mockNext } from '@/tests/support/requestHelpers'
-
 import Proficiency from '@/models/2014/proficiency'
 import Subrace from '@/models/2014/subrace'
 import Trait from '@/models/2014/trait'
+import { subraceFactory } from '@/tests/factories/2014/subrace.factory'
+import { traitFactory } from '@/tests/factories/2014/trait.factory'
+import { proficiencyFactory } from '@/tests/factories/2014/proficiency.factory'
+import { Subrace as SubraceModel } from '@/models/2014/subrace'
 
-beforeEach(() => {
-  mockingoose.resetAll()
+afterEach(() => {
+  vi.restoreAllMocks()
 })
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'high-elf',
-      name: 'High Elf',
-      url: '/api/subraces/high-elf'
-    },
-    {
-      index: 'hill-dwarf',
-      name: 'Hill Dwarf',
-      url: '/api/subraces/hill-dwarf'
-    },
-    {
-      index: 'lightfoot-halfling',
-      name: 'Lightfoot Halfling',
-      url: '/api/subraces/lightfoot-halfling'
-    },
-    {
-      index: 'rock-gnome',
-      name: 'Rock Gnome',
-      url: '/api/subraces/rock-gnome'
+// Helper to create the mock query object
+const createMockQuery = (
+  resolveValue: any,
+  shouldReject = false,
+  rejectValue?: Error,
+  chainMethods = ['select', 'sort'] // Default to select().sort()
+) => {
+  const mockQuery: { [key: string]: any } = {}
+
+  chainMethods.forEach((method) => {
+    mockQuery[method] = vi.fn().mockReturnThis()
+  })
+
+  const promiseResult = () => {
+    if (shouldReject && rejectValue) {
+      return Promise.reject(rejectValue)
+    } else {
+      return Promise.resolve(resolveValue)
     }
-  ]
+  }
+
+  // Make it thenable to simulate await
+  mockQuery.then = (resolve: (value: any) => void, reject?: (reason?: any) => void) => {
+    return promiseResult().then(resolve, reject)
+  }
+
+  // Add exec method
+  mockQuery.exec = vi.fn().mockImplementation(promiseResult)
+
+  return mockQuery
+}
+
+describe('index', () => {
+  const mockSubracesSummary = subraceFactory
+    .buildList(3)
+    .map((s: SubraceModel) => ({ index: s.index, name: s.name, url: s.url }))
   const request = createRequest({ query: {} })
 
   it('returns a list of objects', async () => {
     const response = createResponse()
-    mockingoose(Subrace).toReturn(findDoc, 'find')
+    const mockQuery = createMockQuery(mockSubracesSummary)
+    const findSpy = vi.spyOn(Subrace, 'find').mockReturnValue(mockQuery as any)
 
     await SubraceController.index(request, response, mockNext)
 
     expect(response.statusCode).toBe(200)
+    expect(findSpy).toHaveBeenCalledWith({}) // Assuming SimpleController uses empty query
+    // Assuming SimpleController uses .select().sort()
+    expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 })
+    expect(mockQuery.sort).toHaveBeenCalledWith({ index: 'asc' })
+    expect(JSON.parse(response._getData())).toEqual({
+      count: mockSubracesSummary.length,
+      results: mockSubracesSummary
+    })
   })
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const response = createResponse()
       const error = new Error('Something went wrong')
-      mockingoose(Subrace).toReturn(error, 'find')
+      const mockQuery = createMockQuery(null, true, error)
+      vi.spyOn(Subrace, 'find').mockReturnValue(mockQuery as any)
 
       await SubraceController.index(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
       expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response._getData()).toBe('')
     })
   })
 })
 
 describe('show', () => {
-  const findOneDoc = {
-    index: 'high-elf',
-    name: 'High Elf',
-    url: '/api/subraces/high-elf'
-  }
-
-  const showParams = { index: 'high-elf' }
-  const request = createRequest({ params: showParams })
+  const mockSubrace = subraceFactory.build()
+  const request = createRequest({ params: { index: mockSubrace.index } })
 
   it('returns an object', async () => {
     const response = createResponse()
-    mockingoose(Subrace).toReturn(findOneDoc, 'findOne')
+    // Assuming SimpleController.show uses findOne without chaining
+    const findOneSpy = vi.spyOn(Subrace, 'findOne').mockResolvedValue(mockSubrace as any)
 
     await SubraceController.show(request, response, mockNext)
 
     expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
+    expect(findOneSpy).toHaveBeenCalledWith({ index: mockSubrace.index })
+    expect(JSON.parse(response._getData())).toEqual(mockSubrace)
   })
 
   describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('calls next() without error', async () => {
       const response = createResponse()
-      mockingoose(Subrace).toReturn(null, 'findOne')
+      vi.spyOn(Subrace, 'findOne').mockResolvedValue(null)
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
+      const invalidRequest = createRequest({ params: { index: 'non-existent' } })
       await SubraceController.show(invalidRequest, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      expect(mockNext).toHaveBeenCalledWith()
+      expect(response._getData()).toBe('')
     })
   })
 
@@ -100,101 +118,95 @@ describe('show', () => {
     it('is handled', async () => {
       const response = createResponse()
       const error = new Error('Something went wrong')
-      mockingoose(Subrace).toReturn(error, 'findOne')
+      vi.spyOn(Subrace, 'findOne').mockRejectedValue(error)
 
       await SubraceController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
       expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response._getData()).toBe('')
     })
   })
 })
 
 describe('showTraitsForSubrace', () => {
-  const findDoc = [
-    {
-      index: 'darkvision',
-      name: 'Darkvision',
-      url: '/api/traits/darkvision'
-    },
-    {
-      index: 'elf-weapon-training',
-      name: 'Elf Weapon Training',
-      url: '/api/traits/elf-weapon-training'
-    },
-    {
-      index: 'extra-language',
-      name: 'Extra Language',
-      url: '/api/traits/extra-language'
-    }
-  ]
-  const showParams = { index: 'elf' }
-  const request = createRequest({ params: showParams })
+  const subraceIndex = 'test-subrace'
+  const mockTraitsSummary = traitFactory
+    .buildList(2)
+    .map((t) => ({ index: t.index, name: t.name, url: t.url }))
+  const request = createRequest({ params: { index: subraceIndex } })
 
-  it('returns a list of objects', async () => {
+  it('returns a list of traits for the subrace', async () => {
     const response = createResponse()
-    mockingoose(Trait).toReturn(findDoc, 'find')
+    // Controller uses .select() but not .sort()
+    const mockQuery = createMockQuery(mockTraitsSummary, false, undefined, ['select'])
+    const findSpy = vi.spyOn(Trait, 'find').mockReturnValue(mockQuery as any)
 
     await SubraceController.showTraitsForSubrace(request, response, mockNext)
 
     expect(response.statusCode).toBe(200)
+    expect(findSpy).toHaveBeenCalledWith({ 'subraces.url': `/api/2014/subraces/${subraceIndex}` })
+    expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 })
+    expect(mockQuery.sort).toBeUndefined() // Ensure sort wasn't created/called
+    expect(JSON.parse(response._getData())).toEqual({
+      count: mockTraitsSummary.length,
+      results: mockTraitsSummary
+    })
   })
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const response = createResponse()
       const error = new Error('Something went wrong')
-      mockingoose(Trait).toReturn(error, 'find')
+      const mockQuery = createMockQuery(null, true, error, ['select'])
+      vi.spyOn(Trait, 'find').mockReturnValue(mockQuery as any)
 
       await SubraceController.showTraitsForSubrace(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
       expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response._getData()).toBe('')
     })
   })
 })
 
 describe('showProficienciesForSubrace', () => {
-  const findDoc = [
-    {
-      index: 'daggers',
-      name: 'Daggers',
-      url: '/api/proficiencies/daggers'
-    },
-    {
-      index: 'darts',
-      name: 'Darts',
-      url: '/api/proficiencies/darts'
-    },
-    {
-      index: 'quarterstaffs',
-      name: 'Quarterstaffs',
-      url: '/api/proficiencies/quarterstaffs'
-    }
-  ]
-  const request = createRequest({ params: { index: 'high-elf' } })
+  const subraceIndex = 'test-subrace'
+  const mockProficienciesSummary = proficiencyFactory
+    .buildList(3)
+    .map((p) => ({ index: p.index, name: p.name, url: p.url }))
+  const request = createRequest({ params: { index: subraceIndex } })
 
-  it('returns a list of objects', async () => {
+  it('returns a list of proficiencies for the subrace', async () => {
     const response = createResponse()
-    mockingoose(Proficiency).toReturn(findDoc, 'find')
+    // Controller uses .select().sort()
+    const mockQuery = createMockQuery(mockProficienciesSummary, false, undefined, [
+      'select',
+      'sort'
+    ])
+    const findSpy = vi.spyOn(Proficiency, 'find').mockReturnValue(mockQuery as any)
 
     await SubraceController.showProficienciesForSubrace(request, response, mockNext)
+
     expect(response.statusCode).toBe(200)
+    expect(findSpy).toHaveBeenCalledWith({ 'races.url': `/api/2014/subraces/${subraceIndex}` })
+    expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 })
+    expect(mockQuery.sort).toHaveBeenCalledWith({ index: 'asc' })
+    expect(JSON.parse(response._getData())).toEqual({
+      count: mockProficienciesSummary.length,
+      results: mockProficienciesSummary
+    })
   })
 
   describe('when something goes wrong', () => {
     it('handles the error', async () => {
       const response = createResponse()
       const error = new Error('Something went wrong')
-      mockingoose(Proficiency).toReturn(error, 'find')
+      const mockQuery = createMockQuery(null, true, error, ['select', 'sort'])
+      vi.spyOn(Proficiency, 'find').mockReturnValue(mockQuery as any)
 
       await SubraceController.showProficienciesForSubrace(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
       expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response._getData()).toBe('')
     })
   })
 })
