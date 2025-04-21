@@ -8,7 +8,7 @@ export default defineConfig({
     globalSetup: ['./src/tests/controllers/globalSetup.ts'], // Path to the global setup file
     // maxConcurrency: 1, // Removed - Use DB isolation for parallelism
     // Optional: Increase timeouts if global setup takes longer
-    // setupFiles: [], // If you have per-file setup needed
+    setupFiles: ['./src/tests/vitest.setup.ts'],
     // testTimeout: 30000,
     // hookTimeout: 30000,
     deps: {
