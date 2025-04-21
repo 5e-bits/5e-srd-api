@@ -1,7 +1,6 @@
 // @ts-check
 
 import eslint from '@eslint/js'
-import jestPlugin from 'eslint-plugin-jest'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 import stylistic from '@stylistic/eslint-plugin-ts'
@@ -37,8 +36,7 @@ export default [
         tsconfigRootDir: import.meta.dirname
       },
       globals: {
-        ...globals.node,
-        ...globals.jest
+        ...globals.node
       }
     },
     rules: {
@@ -46,14 +44,6 @@ export default [
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'warn'
-    }
-  },
-  {
-    name: 'jest',
-    files: ['**/*.test.{js,ts}'],
-    ...jestPlugin.configs['flat/recommended'],
-    rules: {
-      '@typescript-eslint/no-unsafe-argument': 'off'
     }
   },
   eslintConfigPrettier
