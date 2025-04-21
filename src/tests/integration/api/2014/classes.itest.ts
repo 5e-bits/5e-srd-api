@@ -1,34 +1,13 @@
-import { mongodbUri, redisClient } from '@/util'
-
-import { Application } from 'express'
-import { jest } from '@jest/globals'
-import createApp from '@/server'
-
-import mongoose from 'mongoose'
+import { describe, it, expect, afterEach, vi } from 'vitest'
 import request from 'supertest'
-
-let app: Application
-let server: any
+import { app } from '../../globalSetup' // Adjusted path for subdirectory
 
 afterEach(() => {
-  jest.clearAllMocks()
-})
-
-beforeAll(async () => {
-  await mongoose.connect(mongodbUri)
-  await redisClient.connect()
-  app = await createApp()
-  server = app.listen() // Start the server and store the instance
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-  await redisClient.quit()
-  server.close()
+  vi.clearAllMocks()
 })
 
 describe('/api/2014/classes', () => {
-  it('should list classes', async () => {
+  it('should return a list', async () => {
     const res = await request(app).get('/api/2014/classes')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
@@ -55,11 +34,10 @@ describe('/api/2014/classes', () => {
 
   describe('/api/2014/classes/:index', () => {
     it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/2014/classes')
-      const index = indexRes.body.results[0].index
-      const showRes = await request(app).get(`/api/2014/classes/${index}`)
-      expect(showRes.statusCode).toEqual(200)
-      expect(showRes.body.index).toEqual(index)
+      const index = 'barbarian'
+      const res = await request(app).get(`/api/2014/classes/${index}`)
+      expect(res.statusCode).toEqual(200)
+      expect(res.body.index).toEqual(index)
     })
 
     describe('with an invalid index', () => {
@@ -150,9 +128,7 @@ describe('/api/2014/classes', () => {
         const index = indexRes.body.results[1].index
         const classRes = await request(app).get(`/api/2014/classes/${index}`)
         const subclass = classRes.body.subclasses[0].index
-        const res = await request(app).get(
-          `/api/2014/classes/${index}/levels?subclass=${subclass}`
-        )
+        const res = await request(app).get(`/api/2014/classes/${index}/levels?subclass=${subclass}`)
         expect(res.statusCode).toEqual(200)
         expect(res.body.length).not.toEqual(0)
         expect(res.body.length).toBeGreaterThan(20)

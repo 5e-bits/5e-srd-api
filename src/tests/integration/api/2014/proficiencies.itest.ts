@@ -1,34 +1,13 @@
-import { mongodbUri, redisClient } from '@/util'
-
-import { Application } from 'express'
-import { jest } from '@jest/globals'
-import createApp from '@/server'
-
-import mongoose from 'mongoose'
+import { describe, it, expect, afterEach, vi } from 'vitest'
 import request from 'supertest'
-
-let app: Application
-let server: any
+import { app } from '../../globalSetup' // Adjusted path for subdirectory
 
 afterEach(() => {
-  jest.clearAllMocks()
-})
-
-beforeAll(async () => {
-  await mongoose.connect(mongodbUri)
-  await redisClient.connect()
-  app = await createApp()
-  server = app.listen() // Start the server and store the instance
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-  await redisClient.quit()
-  server.close()
+  vi.clearAllMocks()
 })
 
 describe('/api/2014/proficiencies', () => {
-  it('should list proficiencies', async () => {
+  it('should return a list', async () => {
     const res = await request(app).get('/api/2014/proficiencies')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
@@ -52,22 +31,21 @@ describe('/api/2014/proficiencies', () => {
       expect(res.body.results[0].name).toEqual(name)
     })
   })
+})
 
-  describe('/api/2014/proficiencies/:index', () => {
-    it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/2014/proficiencies')
-      const index = indexRes.body.results[0].index
-      const showRes = await request(app).get(`/api/2014/proficiencies/${index}`)
-      expect(showRes.statusCode).toEqual(200)
-      expect(showRes.body.index).toEqual(index)
-    })
+describe('/api/2014/proficiencies/:index', () => {
+  it('should return one object', async () => {
+    const index = 'alchemists-supplies'
+    const res = await request(app).get(`/api/2014/proficiencies/${index}`)
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.index).toEqual(index)
+  })
 
-    describe('with an invalid index', () => {
-      it('should return 404', async () => {
-        const invalidIndex = 'invalid-index'
-        const showRes = await request(app).get(`/api/2014/proficiencies/${invalidIndex}`)
-        expect(showRes.statusCode).toEqual(404)
-      })
+  describe('with an invalid index', () => {
+    it('should return 404', async () => {
+      const invalidIndex = 'invalid-index'
+      const res = await request(app).get(`/api/2014/proficiencies/${invalidIndex}`)
+      expect(res.statusCode).toEqual(404)
     })
   })
 })

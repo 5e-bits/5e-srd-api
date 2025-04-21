@@ -1,34 +1,13 @@
-import { mongodbUri, redisClient } from '@/util'
-
-import { Application } from 'express'
-import { jest } from '@jest/globals'
-import createApp from '@/server'
-
-import mongoose from 'mongoose'
+import { describe, it, expect, afterEach, vi } from 'vitest'
 import request from 'supertest'
-
-let app: Application
-let server: any
+import { app } from '../../globalSetup' // Adjusted path for subdirectory
 
 afterEach(() => {
-  jest.clearAllMocks()
-})
-
-beforeAll(async () => {
-  await mongoose.connect(mongodbUri)
-  await redisClient.connect()
-  app = await createApp()
-  server = app.listen() // Start the server and store the instance
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-  await redisClient.quit()
-  server.close()
+  vi.clearAllMocks()
 })
 
 describe('/api/2014/subraces', () => {
-  it('should list subraces', async () => {
+  it('should return a list', async () => {
     const res = await request(app).get('/api/2014/subraces')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
@@ -52,40 +31,39 @@ describe('/api/2014/subraces', () => {
       expect(res.body.results[0].name).toEqual(name)
     })
   })
+})
 
-  describe('/api/2014/subraces/:index', () => {
-    it('should return one object', async () => {
+describe('/api/2014/subraces/:index', () => {
+  it('should return one object', async () => {
+    const index = 'high-elf'
+    const res = await request(app).get(`/api/2014/subraces/${index}`)
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.index).toEqual(index)
+  })
+
+  describe('with an invalid index', () => {
+    it('should return 404', async () => {
+      const invalidIndex = 'invalid-index'
+      const showRes = await request(app).get(`/api/2014/subraces/${invalidIndex}`)
+      expect(showRes.statusCode).toEqual(404)
+    })
+  })
+
+  describe('/api/2014/subraces/:index/traits', () => {
+    it('returns objects', async () => {
       const indexRes = await request(app).get('/api/2014/subraces')
-      const index = indexRes.body.results[0].index
-      const showRes = await request(app).get(`/api/2014/subraces/${index}`)
-      expect(showRes.statusCode).toEqual(200)
-      expect(showRes.body.index).toEqual(index)
+      const index = indexRes.body.results[1].index
+      const res = await request(app).get(`/api/2014/subraces/${index}/traits`)
+      expect(res.statusCode).toEqual(200)
+      expect(res.body.results.length).not.toEqual(0)
     })
+  })
 
-    describe('with an invalid index', () => {
-      it('should return 404', async () => {
-        const invalidIndex = 'invalid-index'
-        const showRes = await request(app).get(`/api/2014/subraces/${invalidIndex}`)
-        expect(showRes.statusCode).toEqual(404)
-      })
-    })
-
-    describe('/api/2014/subraces/:index/traits', () => {
-      it('returns objects', async () => {
-        const indexRes = await request(app).get('/api/2014/subraces')
-        const index = indexRes.body.results[1].index
-        const res = await request(app).get(`/api/2014/subraces/${index}/traits`)
-        expect(res.statusCode).toEqual(200)
-        expect(res.body.results.length).not.toEqual(0)
-      })
-    })
-
-    describe('/api/2014/subraces/:index/proficiencies', () => {
-      it('returns objects', async () => {
-        const res = await request(app).get('/api/2014/subraces/high-elf/proficiencies')
-        expect(res.statusCode).toEqual(200)
-        expect(res.body.results.length).not.toEqual(0)
-      })
+  describe('/api/2014/subraces/:index/proficiencies', () => {
+    it('returns objects', async () => {
+      const res = await request(app).get('/api/2014/subraces/high-elf/proficiencies')
+      expect(res.statusCode).toEqual(200)
+      expect(res.body.results.length).not.toEqual(0)
     })
   })
 })

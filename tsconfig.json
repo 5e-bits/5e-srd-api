@@ -24,7 +24,8 @@
     "jest.config.integration.ts",
     "jest.config.unit.ts",
     "jest.config.ts",
-    "vitest.config.ts"
+    "vitest.config.ts",
+    "vitest.config.integration.ts"
   ],
   "exclude": ["node_modules"],
   "ts-node": {

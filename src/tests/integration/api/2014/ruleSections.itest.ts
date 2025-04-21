@@ -1,30 +1,10 @@
-import { mongodbUri, redisClient } from '@/util'
-
-import { Application } from 'express'
-import { jest } from '@jest/globals'
-import createApp from '@/server'
-
-import mongoose from 'mongoose'
+import { describe, it, expect, afterEach, vi } from 'vitest'
 import request from 'supertest'
-
-let app: Application
-let server: any
+import { app } from '../../globalSetup' // Adjusted path for subdirectory
+import { redisClient } from '@/util' // Restored redisClient import
 
 afterEach(() => {
-  jest.clearAllMocks()
-})
-
-beforeAll(async () => {
-  await mongoose.connect(mongodbUri)
-  await redisClient.connect()
-  app = await createApp()
-  server = app.listen() // Start the server and store the instance
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-  await redisClient.quit()
-  server.close()
+  vi.clearAllMocks()
 })
 
 describe('/api/2014/rule-sections', () => {
@@ -35,8 +15,8 @@ describe('/api/2014/rule-sections', () => {
   })
 
   it('should hit the cache', async () => {
-    await redisClient.del('/api/2014/rule-sections')
-    const clientSet = jest.spyOn(redisClient, 'set')
+    await (redisClient as any).del('/api/2014/rule-sections')
+    const clientSet = vi.spyOn(redisClient, 'set')
     let res = await request(app).get('/api/2014/rule-sections')
     res = await request(app).get('/api/2014/rule-sections')
     expect(res.statusCode).toEqual(200)
@@ -88,11 +68,10 @@ describe('/api/2014/rule-sections', () => {
 
 describe('/api/2014/rule-sections/:index', () => {
   it('should return one object', async () => {
-    const indexRes = await request(app).get('/api/2014/rule-sections')
-    const index = indexRes.body.results[0].index
-    const showRes = await request(app).get(`/api/2014/rule-sections/${index}`)
-    expect(showRes.statusCode).toEqual(200)
-    expect(showRes.body.index).toEqual(index)
+    const index = 'adventuring'
+    const res = await request(app).get(`/api/2014/rule-sections/${index}`)
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.index).toEqual(index)
   })
 
   describe('with an invalid index', () => {
