@@ -7,11 +7,11 @@ export class SpellDamage {
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
-  @prop({ mapProp: true, type: () => String, default: undefined })
-  public damage_at_slot_level?: Map<string, string>
+  @prop({ mapProp: true, type: () => Object, default: undefined })
+  public damage_at_slot_level?: Record<number, string>
 
-  @prop({ mapProp: true, type: () => String, default: undefined })
-  public damage_at_character_level?: Map<string, string>
+  @prop({ mapProp: true, type: () => Object, default: undefined })
+  public damage_at_character_level?: Record<number, string>
 }
 
 export class SpellDC {
@@ -25,18 +25,13 @@ export class SpellDC {
   public desc?: string
 }
 
-export class SpellHealAtSlotLevel {
-  @prop({ mapProp: true, type: () => String, required: true })
-  public heal_at_slot_level!: Map<string, string>
-}
-
 @srdModelOptions('2014-spells')
 export class Spell {
   @prop({ type: () => AreaOfEffect })
   public area_of_effect?: AreaOfEffect
 
-  @prop({ index: true, type: () => Boolean })
-  public attack_type?: boolean
+  @prop({ index: true, type: () => String })
+  public attack_type?: string
 
   @prop({ required: true, index: true, type: () => Boolean })
   public ritual!: boolean
@@ -62,8 +57,8 @@ export class Spell {
   @prop({ required: true, index: true, type: () => String })
   public duration!: string
 
-  @prop({ type: () => SpellHealAtSlotLevel })
-  public heal_at_slot_level?: SpellHealAtSlotLevel
+  @prop({ type: () => Object })
+  public heal_at_slot_level?: Record<number, string>
 
   @prop({ type: () => [String] })
   public higher_level?: string[]

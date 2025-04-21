@@ -35,7 +35,7 @@ export class Subrace {
   public race!: APIReference
 
   @prop({ type: () => [APIReference] })
-  public racial_traits?: APIReference[]
+  public racial_traits!: APIReference[]
 
   @prop({ type: () => [APIReference] })
   public starting_proficiencies?: APIReference[]

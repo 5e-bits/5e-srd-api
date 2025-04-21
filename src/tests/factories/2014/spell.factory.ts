@@ -1,6 +1,6 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import { Spell, SpellDamage, SpellDC, SpellHealAtSlotLevel } from '@/models/2014/spell'
+import { Spell, SpellDamage, SpellDC } from '@/models/2014/spell'
 import { apiReferenceFactory, areaOfEffectFactory, difficultyClassFactory } from './common.factory'
 
 // --- Sub-factories (Placeholders/Simple Defaults) ---
@@ -17,11 +17,6 @@ const spellDcFactory = Factory.define<SpellDC>(() => ({
   desc: undefined // Optional
 }))
 
-const spellHealAtSlotLevelFactory = Factory.define<SpellHealAtSlotLevel>(() => ({
-  // Requires a map, provide a simple default.
-  heal_at_slot_level: new Map([['1', '1d4']])
-}))
-
 // --- Main Spell Factory ---
 export const spellFactory = Factory.define<Spell>(({ sequence }) => {
   const name = `Spell ${sequence} - ${faker.lorem.words(2)}`
@@ -36,7 +31,9 @@ export const spellFactory = Factory.define<Spell>(({ sequence }) => {
     name: name,
     desc: [faker.lorem.paragraph()],
     level: level,
-    attack_type: faker.datatype.boolean(),
+    attack_type: faker.datatype.boolean(0.5)
+      ? faker.helpers.arrayElement(['melee', 'ranged'])
+      : undefined,
     ritual: faker.datatype.boolean(),
     duration: faker.helpers.arrayElement(['Instantaneous', '1 round', '1 minute']),
     concentration: faker.datatype.boolean(),
@@ -54,7 +51,7 @@ export const spellFactory = Factory.define<Spell>(({ sequence }) => {
     material: undefined,
     damage: undefined, // spellDamageFactory.build(),
     dc: undefined, // spellDcFactory.build(),
-    heal_at_slot_level: undefined, // spellHealAtSlotLevelFactory.build(),
+    heal_at_slot_level: undefined,
     area_of_effect: undefined // areaOfEffectFactory.build(),
   }
 })
