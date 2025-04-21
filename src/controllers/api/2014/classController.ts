@@ -13,8 +13,8 @@ import Subclass from '@/models/2014/subclass'
 
 const simpleController = new SimpleController(Class)
 interface ShowLevelsForClassQuery {
-  'class.url': string;
-  '$or': Record<string, null | Record<string, RegExp>>[];
+  'class.url': string
+  $or: Record<string, null | Record<string, RegExp>>[]
 }
 
 export const index = async (req: Request, res: Response, next: NextFunction) =>
@@ -44,7 +44,7 @@ export const showLevelsForClass = async (req: Request, res: Response, next: Next
 
     const searchQueries: ShowLevelsForClassQuery = {
       'class.url': '/api/2014/classes/' + index,
-      '$or': [{ subclass: null }]
+      $or: [{ subclass: null }]
     }
 
     if (subclass !== undefined) {
@@ -180,6 +180,12 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
     }
     const { index } = validatedParams.data
 
+    // Check if class exists first
+    const classExists = await Class.findOne({ index }).lean()
+    if (!classExists) {
+      return res.status(404).json({ error: 'Not found' })
+    }
+
     const urlString = '/api/2014/classes/' + index
 
     const data = await Spell.find({ 'classes.url': urlString })
@@ -210,7 +216,7 @@ export const showSpellsForClassAndLevel = async (
 
     const data = await Spell.find({
       'classes.url': urlString,
-      'level': level
+      level
     })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
@@ -230,6 +236,12 @@ export const showFeaturesForClass = async (req: Request, res: Response, next: Ne
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+
+    // Check if class exists first
+    const classExists = await Class.findOne({ index }).lean()
+    if (!classExists) {
+      return res.status(404).json({ error: 'Not found' })
+    }
 
     const urlString = '/api/2014/classes/' + index
 
@@ -263,7 +275,7 @@ export const showFeaturesForClassAndLevel = async (
 
     const data = await Feature.find({
       'class.url': urlString,
-      'level': level
+      level
     })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' })
@@ -287,6 +299,12 @@ export const showProficienciesForClass = async (
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+
+    // Check if class exists first
+    const classExists = await Class.findOne({ index }).lean()
+    if (!classExists) {
+      return res.status(404).json({ error: 'Not found' })
+    }
 
     const urlString = '/api/2014/classes/' + index
 

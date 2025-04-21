@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
@@ -9,20 +10,35 @@ import { collectionFactory } from '@/tests/factories/2014/collection.factory' //
 
 const mockNext = vi.fn(defaultMockNext)
 
+// Hold the unique connection details for this test file
+let fileUniqueDbUri: string | undefined
+
 beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  const baseUri = process.env.TEST_MONGODB_URI_BASE
+  if (!baseUri) {
+    throw new Error('TEST_MONGODB_URI_BASE environment variable not set. Ensure globalSetup ran.')
   }
-  await mongoose.connect(mongoUri)
+  const dbName = `test_v2014_${crypto.randomBytes(4).toString('hex')}`
+  fileUniqueDbUri = baseUri + dbName
+  await mongoose.connect(fileUniqueDbUri)
 })
 
 afterAll(async () => {
-  await mongoose.disconnect()
+  if (mongoose.connection.readyState === 1) {
+    try {
+      if (mongoose.connection.db) {
+        await mongoose.connection.db.dropDatabase()
+      }
+    } catch (err) {
+      console.error(`Error dropping database ${mongoose.connection.name}:`, err)
+    }
+    await mongoose.disconnect()
+  }
 })
 
 beforeEach(async () => {
   vi.clearAllMocks()
+  // Clear only collections relevant to this test file
   await CollectionModel.deleteMany({})
   // Seed using the factory
   const collectionsData = collectionFactory.buildList(3)
@@ -49,8 +65,9 @@ describe('v2014 API Controller', () => {
       await ApiController.index(request, response, mockNext)
 
       // Assert
+      const actualResponse = JSON.parse(response._getData())
       expect(response.statusCode).toBe(200)
-      expect(JSON.parse(response._getData())).toEqual(expectedResponse)
+      expect(actualResponse).toEqual(expectedResponse)
       expect(mockNext).not.toHaveBeenCalled()
     })
 

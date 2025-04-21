@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
@@ -8,26 +9,29 @@ import CollectionModel from '@/models/2014/collection' // Use Model suffix conve
 
 const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await CollectionModel.deleteMany({})
-  // Seed data needed for one of the test cases
-  await CollectionModel.insertMany([{ index: 'valid-endpoint' }])
-})
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_apicontroller_${crypto.randomBytes(4).toString('hex')}`
 
 describe('deprecated /api controller', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await CollectionModel.deleteMany({})
+  })
+
   it('redirects /api/ to /api/2014/', async () => {
     const request = createRequest({ path: '/' }) // Path relative to where the controller is mounted
     const response = createResponse()
@@ -41,7 +45,8 @@ describe('deprecated /api controller', () => {
   })
 
   it('redirects /api/<valid-endpoint> to /api/2014/<valid-endpoint>', async () => {
-    const request = createRequest({ path: '/valid-endpoint' })
+    await CollectionModel.insertMany([{ index: 'valid-endpoint' }])
+    const request = createRequest({ method: 'GET', path: '/valid-endpoint' })
     const response = createResponse()
     const redirectSpy = vi.spyOn(response, 'redirect')
 

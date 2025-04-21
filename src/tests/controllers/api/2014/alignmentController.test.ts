@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
@@ -9,24 +10,25 @@ import { alignmentFactory } from '@/tests/factories/2014/alignment.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await AlignmentModel.deleteMany({})
-})
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_alignment_${crypto.randomBytes(4).toString('hex')}`
 
 describe('AlignmentController', () => {
+  beforeAll(async () => {
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    await AlignmentModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of alignments', async () => {
       const alignmentsData = alignmentFactory.buildList(3)

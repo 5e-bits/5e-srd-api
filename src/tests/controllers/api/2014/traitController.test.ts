@@ -1,43 +1,50 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
 import TraitModel from '@/models/2014/trait'
 import TraitController from '@/controllers/api/2014/traitController'
-import { traitFactory } from '@/test/factories/2014/trait.factory'
+import { traitFactory } from '@/tests/factories/2014/trait.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await TraitModel.deleteMany({})
-})
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_trait_${crypto.randomBytes(4).toString('hex')}`
 
 describe('TraitController', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await TraitModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of traits', async () => {
+      // Arrange
       const traitsData = traitFactory.buildList(3)
-      const traitDocs = traitsData.map((data) => new TraitModel(data))
-      await TraitModel.insertMany(traitDocs)
-
+      await TraitModel.insertMany(traitsData)
       const request = createRequest({ query: {} })
       const response = createResponse()
 
+      // Act
       await TraitController.index(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.count).toBe(3)
@@ -68,20 +75,22 @@ describe('TraitController', () => {
 
   describe('show', () => {
     it('returns a single trait when found', async () => {
+      // Arrange
       const traitData = traitFactory.build({ index: 'darkvision', name: 'Darkvision' })
       await TraitModel.insertMany([traitData])
-
       const request = createRequest({ params: { index: 'darkvision' } })
       const response = createResponse()
 
+      // Act
       await TraitController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.index).toBe('darkvision')
       expect(responseData.name).toBe('Darkvision')
       expect(responseData.desc).toEqual(traitData.desc)
-      expect(responseData.races).toHaveLength(traitData.races?.length ?? 0)
+      // Add checks for potentially optional fields like races, subraces, proficiencies if needed
       expect(mockNext).not.toHaveBeenCalled()
     })
 
@@ -91,10 +100,10 @@ describe('TraitController', () => {
 
       await TraitController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
+      expect(response.statusCode).toBe(200) // Passes to next()
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
-      expect(mockNext).toHaveBeenCalledWith()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
   })
 })

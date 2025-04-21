@@ -1,29 +1,59 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto' // For generating unique DB names
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
 import SpellModel from '@/models/2014/spell' // Use Model suffix
+// Remove imports for models not cleaned here
+// import ClassModel from '@/models/2014/class'
+// import FeatureModel from '@/models/2014/feature'
+// import LevelModel from '@/models/2014/level'
+// import ProficiencyModel from '@/models/2014/proficiency'
+// import SubclassModel from '@/models/2014/subclass'
 // Import specific functions from the controller
 import * as SpellController from '@/controllers/api/2014/spellController'
 import { spellFactory } from '@/tests/factories/2014/spell.factory' // Updated path
 
 const mockNext = vi.fn(defaultMockNext)
 
+// Hold the unique connection details for this test file
+let fileUniqueDbUri: string | undefined
+
 beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  const baseUri = process.env.TEST_MONGODB_URI_BASE
+  if (!baseUri) {
+    throw new Error('TEST_MONGODB_URI_BASE environment variable not set. Ensure globalSetup ran.')
   }
-  await mongoose.connect(mongoUri)
+  // Create a unique DB name for this file
+  const dbName = `test_spell_${crypto.randomBytes(4).toString('hex')}`
+  fileUniqueDbUri = baseUri + dbName
+
+  // Connect mongoose to the unique DB for this file
+  await mongoose.connect(fileUniqueDbUri)
+  // console.log(`[${dbName}] Connected to unique DB: ${fileUniqueDbUri}`);
 })
 
 afterAll(async () => {
-  await mongoose.disconnect()
+  if (mongoose.connection.readyState === 1) {
+    // Drop the unique database for this file
+    try {
+      if (mongoose.connection.db) {
+        await mongoose.connection.db.dropDatabase()
+        // console.log(`[${mongoose.connection.name}] Dropped unique DB.`);
+      }
+    } catch (err) {
+      console.error(`Error dropping database ${mongoose.connection.name}:`, err)
+    }
+    // Disconnect the connection specific to this file
+    await mongoose.disconnect()
+    // console.log(`[${mongoose.connection.name}] Disconnected.`);
+  }
 })
 
 beforeEach(async () => {
   vi.clearAllMocks()
+  // Clear SpellModel before each test within this file's unique DB
   await SpellModel.deleteMany({})
 })
 

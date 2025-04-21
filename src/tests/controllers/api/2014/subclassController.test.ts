@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
@@ -15,21 +16,38 @@ import { apiReferenceFactory } from '@/tests/factories/2014/common.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
+// Hold the unique connection details for this test file
+let fileUniqueDbUri: string | undefined
+
 beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  const baseUri = process.env.TEST_MONGODB_URI_BASE
+  if (!baseUri) {
+    throw new Error('TEST_MONGODB_URI_BASE environment variable not set. Ensure globalSetup ran.')
   }
-  await mongoose.connect(mongoUri)
+  // Create a unique DB name for this file
+  const dbName = `test_subclass_${crypto.randomBytes(4).toString('hex')}`
+  fileUniqueDbUri = baseUri + dbName
+
+  // Connect mongoose to the unique DB for this file
+  await mongoose.connect(fileUniqueDbUri)
 })
 
 afterAll(async () => {
-  await mongoose.disconnect()
+  if (mongoose.connection.readyState === 1) {
+    try {
+      if (mongoose.connection.db) {
+        await mongoose.connection.db.dropDatabase()
+      }
+    } catch (err) {
+      console.error(`Error dropping database ${mongoose.connection.name}:`, err)
+    }
+    await mongoose.disconnect()
+  }
 })
 
 beforeEach(async () => {
   vi.clearAllMocks()
-  // Clear all related collections
+  // Clear collections used by this controller before each test
   await SubclassModel.deleteMany({})
   await LevelModel.deleteMany({})
   await FeatureModel.deleteMany({})

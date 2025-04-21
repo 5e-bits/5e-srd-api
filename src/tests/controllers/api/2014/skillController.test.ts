@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
@@ -9,31 +10,34 @@ import { skillFactory } from '@/tests/factories/2014/skill.factory' // Updated p
 
 const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await SkillModel.deleteMany({})
-})
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_skill_${crypto.randomBytes(4).toString('hex')}`
 
 describe('SkillController', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await SkillModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of skills', async () => {
       // Arrange
       const skillsData = skillFactory.buildList(3)
-      const skillDocs = skillsData.map((data) => new SkillModel(data))
-      await SkillModel.insertMany(skillDocs)
-
+      await SkillModel.insertMany(skillsData)
       const request = createRequest({ query: {} })
       const response = createResponse()
 
@@ -56,14 +60,11 @@ describe('SkillController', () => {
     })
 
     it('returns an empty list when no skills exist', async () => {
-      // Arrange
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      // Act
       await SkillController.index(request, response, mockNext)
 
-      // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.count).toBe(0)
@@ -76,8 +77,7 @@ describe('SkillController', () => {
     it('returns a single skill when found', async () => {
       // Arrange
       const skillData = skillFactory.build({ index: 'athletics', name: 'Athletics' })
-      await SkillModel.insertMany([skillData]) // Use insertMany workaround
-
+      await SkillModel.insertMany([skillData])
       const request = createRequest({ params: { index: 'athletics' } })
       const response = createResponse()
 
@@ -96,18 +96,15 @@ describe('SkillController', () => {
     })
 
     it('calls next() when the skill is not found', async () => {
-      // Arrange
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
 
-      // Act
       await SkillController.show(request, response, mockNext)
 
-      // Assert
-      expect(response.statusCode).toBe(200)
+      expect(response.statusCode).toBe(200) // Passes to next()
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
-      expect(mockNext).toHaveBeenCalledWith()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
   })
 })

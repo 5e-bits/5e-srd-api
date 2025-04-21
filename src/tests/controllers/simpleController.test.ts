@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
+import mongoose, { type Model } from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
@@ -9,28 +10,34 @@ import SimpleController from '@/controllers/simpleController'
 
 const mockNext = vi.fn(defaultMockNext)
 
-let simpleController: SimpleController
-
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await AbilityScoreModel.deleteMany({})
-  // Instantiate controller with the actual model
-  simpleController = new SimpleController(AbilityScoreModel)
-})
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_simple_${crypto.randomBytes(4).toString('hex')}`
+let abilityScoreController: SimpleController // Keep declaration
 
 describe('SimpleController (with AbilityScore)', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+    // Initialize controller after connection
+    abilityScoreController = new SimpleController(AbilityScoreModel as Model<any>)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await AbilityScoreModel.deleteMany({})
+    // Re-initialize controller? Not strictly necessary if model is static, but safer if controller caches data.
+    // Let's keep the original logic of initializing only in beforeAll unless issues arise.
+  })
+
   describe('index', () => {
     it('returns a list of documents', async () => {
       // Arrange
@@ -40,7 +47,7 @@ describe('SimpleController (with AbilityScore)', () => {
       const response = createResponse()
 
       // Act
-      await simpleController.index(request, response, mockNext)
+      await abilityScoreController.index(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)
@@ -85,7 +92,7 @@ describe('SimpleController (with AbilityScore)', () => {
       })
 
       // Act
-      await simpleController.index(request, response, mockNext)
+      await abilityScoreController.index(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)
@@ -97,7 +104,7 @@ describe('SimpleController (with AbilityScore)', () => {
     it('returns an empty list when no documents exist', async () => {
       const request = createRequest()
       const response = createResponse()
-      await simpleController.index(request, response, mockNext)
+      await abilityScoreController.index(request, response, mockNext)
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.count).toBe(0)
@@ -115,7 +122,7 @@ describe('SimpleController (with AbilityScore)', () => {
       const response = createResponse()
 
       // Act
-      await simpleController.show(request, response, mockNext)
+      await abilityScoreController.show(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)
@@ -137,7 +144,7 @@ describe('SimpleController (with AbilityScore)', () => {
       const response = createResponse()
 
       // Act
-      await simpleController.show(request, response, mockNext)
+      await abilityScoreController.show(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)
@@ -154,7 +161,7 @@ describe('SimpleController (with AbilityScore)', () => {
       vi.spyOn(AbilityScoreModel, 'findOne').mockRejectedValueOnce(error)
 
       // Act
-      await simpleController.show(request, response, mockNext)
+      await abilityScoreController.show(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)

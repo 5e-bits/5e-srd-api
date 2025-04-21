@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
@@ -9,35 +10,41 @@ import { proficiencyFactory } from '@/tests/factories/2014/proficiency.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await ProficiencyModel.deleteMany({})
-})
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_proficiency_${crypto.randomBytes(4).toString('hex')}`
 
 describe('ProficiencyController', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await ProficiencyModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of proficiencies', async () => {
+      // Arrange
       const proficienciesData = proficiencyFactory.buildList(3)
-      const proficiencyDocs = proficienciesData.map((data) => new ProficiencyModel(data))
-      await ProficiencyModel.insertMany(proficiencyDocs)
-
+      await ProficiencyModel.insertMany(proficienciesData)
       const request = createRequest({ query: {} })
       const response = createResponse()
 
+      // Act
       await ProficiencyController.index(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.count).toBe(3)
@@ -77,22 +84,44 @@ describe('ProficiencyController', () => {
 
   describe('show', () => {
     it('returns a single proficiency when found', async () => {
+      // Arrange
       const proficiencyData = proficiencyFactory.build({
-        index: 'skill-stealth',
-        name: 'Skill: Stealth'
+        index: 'saving-throw-str',
+        name: 'Saving Throw: STR'
       })
       await ProficiencyModel.insertMany([proficiencyData])
-
-      const request = createRequest({ params: { index: 'skill-stealth' } })
+      const request = createRequest({ params: { index: 'saving-throw-str' } })
       const response = createResponse()
 
+      // Act
       await ProficiencyController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.index).toBe('skill-stealth')
-      expect(responseData.name).toBe('Skill: Stealth')
+      expect(responseData.index).toBe('saving-throw-str')
+      expect(responseData.name).toBe('Saving Throw: STR')
+      // Add more specific assertions based on the model structure
       expect(responseData.type).toEqual(proficiencyData.type)
+      // Check optional fields only if they exist on the source data
+      if (proficiencyData.classes) {
+        expect(responseData.classes).toEqual(
+          expect.arrayContaining(
+            proficiencyData.classes.map((c) => expect.objectContaining({ index: c.index }))
+          )
+        )
+      } else {
+        expect(responseData.classes).toEqual([]) // Or appropriate default
+      }
+      if (proficiencyData.races) {
+        expect(responseData.races).toEqual(
+          expect.arrayContaining(
+            proficiencyData.races.map((r) => expect.objectContaining({ index: r.index }))
+          )
+        )
+      } else {
+        expect(responseData.races).toEqual([]) // Or appropriate default
+      }
       expect(responseData.reference.index).toEqual(proficiencyData.reference.index)
       expect(mockNext).not.toHaveBeenCalled()
     })
@@ -103,10 +132,10 @@ describe('ProficiencyController', () => {
 
       await ProficiencyController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
+      expect(response.statusCode).toBe(200) // Passes to next()
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
-      expect(mockNext).toHaveBeenCalledWith()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
   })
 })

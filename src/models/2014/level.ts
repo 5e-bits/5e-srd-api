@@ -126,7 +126,6 @@ export class ClassSpecific {
   public wild_shape_swim?: boolean
 }
 
-// Note: Renaming this nested class to avoid conflict with the main Level class
 export class LevelSpellcasting {
   @prop({ index: true, type: () => Number })
   public cantrips_known?: number

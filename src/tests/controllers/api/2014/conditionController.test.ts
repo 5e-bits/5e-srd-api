@@ -1,36 +1,34 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
 import ConditionModel from '@/models/2014/condition'
 import ConditionController from '@/controllers/api/2014/conditionController'
-import { conditionFactory } from '@/test/factories/2014/condition.factory'
+import { conditionFactory } from '@/tests/factories/2014/condition.factory'
 
-const mockNextFn = vi.fn(mockNext)
+const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  try {
-    await ConditionModel.deleteMany({})
-  } catch (error) {
-    console.warn('Error clearing conditions collection:', error)
-  }
-})
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_condition_${crypto.randomBytes(4).toString('hex')}`
 
 describe('ConditionController', () => {
+  beforeAll(async () => {
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    await ConditionModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of conditions', async () => {
       const conditionsData = conditionFactory.buildList(3)
@@ -39,7 +37,7 @@ describe('ConditionController', () => {
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      await ConditionController.index(request, response, mockNextFn)
+      await ConditionController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
@@ -52,20 +50,20 @@ describe('ConditionController', () => {
           expect.objectContaining({ index: conditionsData[2].index, name: conditionsData[2].name })
         ])
       )
-      expect(mockNextFn).not.toHaveBeenCalled()
+      expect(mockNext).not.toHaveBeenCalled()
     })
 
     it('returns an empty list when no conditions exist', async () => {
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      await ConditionController.index(request, response, mockNextFn)
+      await ConditionController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.count).toBe(0)
       expect(responseData.results).toEqual([])
-      expect(mockNextFn).not.toHaveBeenCalled()
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
@@ -76,26 +74,26 @@ describe('ConditionController', () => {
       const request = createRequest({ params: { index: 'blinded' } })
       const response = createResponse()
 
-      await ConditionController.show(request, response, mockNextFn)
+      await ConditionController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.index).toBe('blinded')
       expect(responseData.name).toBe('Blinded')
       expect(responseData.desc).toEqual(conditionData.desc)
-      expect(mockNextFn).not.toHaveBeenCalled()
+      expect(mockNext).not.toHaveBeenCalled()
     })
 
     it('calls next() when the condition is not found', async () => {
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
 
-      await ConditionController.show(request, response, mockNextFn)
+      await ConditionController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
       expect(response._getData()).toBe('')
-      expect(mockNextFn).toHaveBeenCalledOnce()
-      expect(mockNextFn).toHaveBeenCalledWith()
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })

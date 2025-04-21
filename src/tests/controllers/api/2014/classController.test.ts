@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
@@ -21,34 +22,41 @@ import { apiReferenceFactory } from '@/tests/factories/2014/common.factory'
 
 const mockNext = vi.fn(defaultMockNext)
 
+let fileUniqueDbUri: string | undefined
+
 beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  const baseUri = process.env.TEST_MONGODB_URI_BASE
+  if (!baseUri) {
+    throw new Error('TEST_MONGODB_URI_BASE environment variable not set. Ensure globalSetup ran.')
   }
-  await mongoose.connect(mongoUri)
+  const dbName = `test_class_${crypto.randomBytes(4).toString('hex')}`
+  fileUniqueDbUri = baseUri + dbName
+
+  await mongoose.connect(fileUniqueDbUri, {})
 })
 
 afterAll(async () => {
-  await mongoose.disconnect()
+  if (mongoose.connection.readyState === 1) {
+    try {
+      if (mongoose.connection.db) {
+        await mongoose.connection.db.dropDatabase()
+      }
+    } catch (err) {
+      console.error(`Error dropping database ${mongoose.connection.name}:`, err)
+    }
+    await mongoose.disconnect()
+  }
 })
 
 beforeEach(async () => {
   vi.clearAllMocks()
-  // Clear all relevant collections and verify
+  // Clear collections before each test within this file's unique DB
   await ClassModel.deleteMany({})
   await LevelModel.deleteMany({})
   await SubclassModel.deleteMany({})
   await SpellModel.deleteMany({})
   await FeatureModel.deleteMany({})
   await ProficiencyModel.deleteMany({})
-
-  expect(await ClassModel.countDocuments()).toBe(0)
-  expect(await LevelModel.countDocuments()).toBe(0)
-  expect(await SubclassModel.countDocuments()).toBe(0)
-  expect(await SpellModel.countDocuments()).toBe(0)
-  expect(await FeatureModel.countDocuments()).toBe(0)
-  expect(await ProficiencyModel.countDocuments()).toBe(0)
 })
 
 describe('ClassController', () => {
@@ -95,10 +103,9 @@ describe('ClassController', () => {
       vi.spyOn(ClassModel, 'find').mockImplementationOnce(
         () =>
           ({
-            // Mock find
             select: vi.fn().mockReturnThis(),
             sort: vi.fn().mockReturnThis(),
-            exec: vi.fn().mockRejectedValueOnce(error) // Ensure exec rejects
+            exec: vi.fn().mockRejectedValueOnce(error)
           }) as any
       )
       await ClassController.index(request, response, mockNext)
@@ -160,12 +167,11 @@ describe('ClassController', () => {
     it('returns levels for a specific class', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
-      // Seed levels linked by class.url
       const levelsData = levelFactory.buildList(5, {
         class: { index: classIndex, name: classData.name, url: classUrl }
       })
       await LevelModel.insertMany(levelsData)
-      await LevelModel.insertMany(levelFactory.buildList(2)) // Unrelated
+      await LevelModel.insertMany(levelFactory.buildList(2))
 
       const request = createRequest({ query: {}, params: { index: classIndex } })
       const response = createResponse()
@@ -181,8 +187,7 @@ describe('ClassController', () => {
 
     it('returns 404 if class has no levels', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
-      await ClassModel.insertMany([classData]) // Class exists
-      // No levels inserted
+      await ClassModel.insertMany([classData])
       const request = createRequest({ query: {}, params: { index: classIndex } })
       const response = createResponse()
       await ClassController.showLevelsForClass(request, response, mockNext)
@@ -191,12 +196,10 @@ describe('ClassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    // This test might be different from original mock - controller checks Class first
     it('returns 404 if class index is invalid', async () => {
       const request = createRequest({ query: {}, params: { index: 'nonexistent' } })
       const response = createResponse()
       await ClassController.showLevelsForClass(request, response, mockNext)
-      // Expect 404 to be sent by the controller directly
       expect(response.statusCode).toBe(404)
       expect(JSON.parse(response._getData())).toEqual({ error: 'Not found' })
       expect(mockNext).not.toHaveBeenCalled()
@@ -208,11 +211,10 @@ describe('ClassController', () => {
       const request = createRequest({ query: {}, params: { index: classIndex } })
       const response = createResponse()
       const error = new Error('Level find failed')
-      // Mock Level.find to reject
       vi.spyOn(LevelModel, 'find').mockImplementationOnce(
         () =>
           ({
-            sort: vi.fn().mockRejectedValueOnce(error) // Controller awaits find().sort()
+            sort: vi.fn().mockRejectedValueOnce(error)
           }) as any
       )
       await ClassController.showLevelsForClass(request, response, mockNext)
@@ -232,7 +234,7 @@ describe('ClassController', () => {
       const levelData = levelFactory.build({
         level: targetLevel,
         class: { index: classIndex, name: classData.name, url: `/api/2014/classes/${classIndex}` },
-        url: levelUrl // Ensure this exact URL is seeded
+        url: levelUrl
       })
       await LevelModel.insertMany([levelData])
 
@@ -248,10 +250,10 @@ describe('ClassController', () => {
     })
 
     it('calls next() when the specific level is not found', async () => {
-      const request = createRequest({ params: { index: classIndex, level: '10' } }) // Use valid level not seeded
+      const request = createRequest({ params: { index: classIndex, level: '10' } })
       const response = createResponse()
       await ClassController.showLevelForClass(request, response, mockNext)
-      expect(mockNext).toHaveBeenCalledWith() // Should call next for not found
+      expect(mockNext).toHaveBeenCalledWith()
     })
 
     it('handles level findOne database errors', async () => {
@@ -287,12 +289,11 @@ describe('ClassController', () => {
     it('returns subclasses for a specific class', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
-      // Seed subclasses linked by class.url
       const subclassesData = subclassFactory.buildList(2, {
         class: { index: classIndex, name: classData.name, url: classUrl }
       })
       await SubclassModel.insertMany(subclassesData)
-      await SubclassModel.insertMany(subclassFactory.buildList(1)) // Unrelated
+      await SubclassModel.insertMany(subclassFactory.buildList(1))
 
       const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
@@ -340,12 +341,11 @@ describe('ClassController', () => {
     it('returns spells for a specific class', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
-      // Seed spells linked by classes.url
       const spellsData = spellFactory.buildList(3, {
         classes: [{ index: classIndex, name: classData.name, url: classUrl }]
       })
       await SpellModel.insertMany(spellsData)
-      await SpellModel.insertMany(spellFactory.buildList(2)) // Unrelated
+      await SpellModel.insertMany(spellFactory.buildList(2))
 
       const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
@@ -359,12 +359,12 @@ describe('ClassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns empty list if class index is invalid', async () => {
+    it('returns 404 if class index is invalid', async () => {
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
       await ClassController.showSpellsForClass(request, response, mockNext)
-      expect(response.statusCode).toBe(200)
-      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(response.statusCode).toBe(404)
+      expect(JSON.parse(response._getData())).toEqual({ error: 'Not found' })
       expect(mockNext).not.toHaveBeenCalled()
     })
 
@@ -393,12 +393,11 @@ describe('ClassController', () => {
     it('returns features for a specific class', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
-      // Seed features linked by class.url
       const featuresData = featureFactory.buildList(4, {
         class: { index: classIndex, name: classData.name, url: classUrl }
       })
       await FeatureModel.insertMany(featuresData)
-      await FeatureModel.insertMany(featureFactory.buildList(2)) // Unrelated
+      await FeatureModel.insertMany(featureFactory.buildList(2))
 
       const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
@@ -412,12 +411,12 @@ describe('ClassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns empty list if class index is invalid', async () => {
+    it('returns 404 if class index is invalid', async () => {
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
       await ClassController.showFeaturesForClass(request, response, mockNext)
-      expect(response.statusCode).toBe(200)
-      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(response.statusCode).toBe(404)
+      expect(JSON.parse(response._getData())).toEqual({ error: 'Not found' })
       expect(mockNext).not.toHaveBeenCalled()
     })
 
@@ -446,12 +445,11 @@ describe('ClassController', () => {
     it('returns proficiencies for a specific class', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
-      // Seed proficiencies linked by classes.url
       const profsData = proficiencyFactory.buildList(5, {
         classes: [{ index: classIndex, name: classData.name, url: classUrl }]
       })
       await ProficiencyModel.insertMany(profsData)
-      await ProficiencyModel.insertMany(proficiencyFactory.buildList(2)) // Unrelated
+      await ProficiencyModel.insertMany(proficiencyFactory.buildList(2))
 
       const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
@@ -465,12 +463,12 @@ describe('ClassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns empty list if class index is invalid', async () => {
+    it('returns 404 if class index is invalid', async () => {
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
       await ClassController.showProficienciesForClass(request, response, mockNext)
-      expect(response.statusCode).toBe(200)
-      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(response.statusCode).toBe(404)
+      expect(JSON.parse(response._getData())).toEqual({ error: 'Not found' })
       expect(mockNext).not.toHaveBeenCalled()
     })
 
@@ -491,4 +489,4 @@ describe('ClassController', () => {
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
-}) // End of ClassController describe
+})

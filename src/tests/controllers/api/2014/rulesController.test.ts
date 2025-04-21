@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
@@ -10,15 +11,18 @@ import { ruleFactory } from '@/tests/factories/2014/rule.factory' // Updated pat
 
 const mockNext = vi.fn(defaultMockNext)
 
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_rule_${crypto.randomBytes(4).toString('hex')}`
+
 beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
+  // Connect to isolated DB
+  await mongoose.connect(fileUniqueDbUri)
 })
 
 afterAll(async () => {
+  // Drop and disconnect isolated DB
+  if (mongoose.connection.db) {
+    await mongoose.connection.db.dropDatabase()
+  }
   await mongoose.disconnect()
 })
 

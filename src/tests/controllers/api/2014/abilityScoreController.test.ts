@@ -1,38 +1,38 @@
-import { beforeAll, afterAll, beforeEach, afterEach, vi, expect } from 'vitest'
+import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
-
-import { mockNext } from '@/tests/support'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import AbilityScoreController from '@/controllers/api/2014/abilityScoreController'
-import { abilityScoreFactory } from '@/test/factories/2014/abilityScore.factory'
+import { abilityScoreFactory } from '@/tests/factories/2014/abilityScore.factory'
 
-// Database connection setup
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI not set. Make sure globalSetup ran.')
-  }
-  await mongoose.connect(mongoUri)
-})
+const mockNext = vi.fn(defaultMockNext)
 
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-// Clean database between tests
-afterEach(async () => {
-  await AbilityScoreModel.deleteMany({})
-  vi.clearAllMocks() // Clear Vitest mocks if mockNext is a spy
-})
-
-// Keep mockNext compatible with Vitest if it's a Jest mock
-// If mockNext relies on Jest specifics, it might need adjustments
-// For now, assume it works or wrap it: const mockNextFn = vi.fn(mockNext);
-const mockNextFn = vi.fn(mockNext)
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_abilityscore_${crypto.randomBytes(4).toString('hex')}`
 
 describe('AbilityScoreController', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await AbilityScoreModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of ability scores', async () => {
       // Arrange: Seed the database
@@ -43,7 +43,7 @@ describe('AbilityScoreController', () => {
       const response = createResponse()
 
       // Act
-      await AbilityScoreController.index(request, response, mockNextFn)
+      await AbilityScoreController.index(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)
@@ -67,7 +67,7 @@ describe('AbilityScoreController', () => {
           })
         ])
       )
-      expect(mockNextFn).not.toHaveBeenCalled()
+      expect(mockNext).not.toHaveBeenCalled()
     })
 
     // Note: Testing the actual error handling path might require
@@ -88,14 +88,14 @@ describe('AbilityScoreController', () => {
       const response = createResponse()
 
       // Act
-      await AbilityScoreController.show(request, response, mockNextFn)
+      await AbilityScoreController.show(request, response, mockNext)
 
       // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.index).toBe('cha')
       expect(responseData.name).toBe('CHA')
-      expect(mockNextFn).not.toHaveBeenCalled()
+      expect(mockNext).not.toHaveBeenCalled()
     })
 
     it('calls next with an error if the ability score is not found', async () => {
@@ -104,7 +104,7 @@ describe('AbilityScoreController', () => {
       const response = createResponse()
 
       // Act
-      await AbilityScoreController.show(request, response, mockNextFn)
+      await AbilityScoreController.show(request, response, mockNext)
 
       // Assert
       // Controller likely calls next() with an error
@@ -112,11 +112,11 @@ describe('AbilityScoreController', () => {
       // We primarily check that 'next' was called, indicating an error was passed on.
       expect(response.statusCode).toBe(200) // Default node-mocks-http status
       expect(response._getData()).toBe('') // No data written before error
-      expect(mockNextFn).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledOnce()
       // Adjust assertion: Expect next() to be called without arguments
-      expect(mockNextFn).toHaveBeenCalledWith()
+      expect(mockNext).toHaveBeenCalledWith()
       // Optionally check the error message if it's specific
-      // expect(mockNextFn).toHaveBeenCalledWith(expect.objectContaining({ message: 'Not found' }));
+      // expect(mockNext).toHaveBeenCalledWith(expect.objectContaining({ message: 'Not found' }));
     })
 
     // Skipping the explicit 'findOne error' mock test for similar reasons as above.

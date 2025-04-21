@@ -1,5 +1,6 @@
 import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
@@ -9,31 +10,34 @@ import { ruleSectionFactory } from '@/tests/factories/2014/ruleSection.factory' 
 
 const mockNext = vi.fn(defaultMockNext)
 
-beforeAll(async () => {
-  const mongoUri = process.env.TEST_MONGODB_URI
-  if (!mongoUri) {
-    throw new Error('TEST_MONGODB_URI environment variable not set.')
-  }
-  await mongoose.connect(mongoUri)
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await RuleSectionModel.deleteMany({})
-})
+// Apply DB isolation pattern
+const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_rulesection_${crypto.randomBytes(4).toString('hex')}`
 
 describe('RuleSectionController', () => {
+  beforeAll(async () => {
+    // Connect to isolated DB
+    await mongoose.connect(fileUniqueDbUri)
+  })
+
+  afterAll(async () => {
+    // Drop and disconnect isolated DB
+    if (mongoose.connection.db) {
+      await mongoose.connection.db.dropDatabase()
+    }
+    await mongoose.disconnect()
+  })
+
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    // Clean the relevant model before each test
+    await RuleSectionModel.deleteMany({})
+  })
+
   describe('index', () => {
     it('returns a list of rule sections', async () => {
       // Arrange
       const ruleSectionsData = ruleSectionFactory.buildList(3)
-      const ruleSectionDocs = ruleSectionsData.map((data) => new RuleSectionModel(data))
-      await RuleSectionModel.insertMany(ruleSectionDocs)
-
+      await RuleSectionModel.insertMany(ruleSectionsData)
       const request = createRequest({ query: {} })
       const response = createResponse()
 
@@ -65,14 +69,11 @@ describe('RuleSectionController', () => {
     })
 
     it('returns an empty list when no rule sections exist', async () => {
-      // Arrange
       const request = createRequest({ query: {} })
       const response = createResponse()
 
-      // Act
       await RuleSectionController.index(request, response, mockNext)
 
-      // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
       expect(responseData.count).toBe(0)
@@ -84,10 +85,12 @@ describe('RuleSectionController', () => {
   describe('show', () => {
     it('returns a single rule section when found', async () => {
       // Arrange
-      const ruleSectionData = ruleSectionFactory.build({ index: 'cover', name: 'Cover' })
-      await RuleSectionModel.insertMany([ruleSectionData]) // Use insertMany workaround
-
-      const request = createRequest({ params: { index: 'cover' } })
+      const ruleSectionData = ruleSectionFactory.build({
+        index: 'adventuring',
+        name: 'Adventuring'
+      })
+      await RuleSectionModel.insertMany([ruleSectionData])
+      const request = createRequest({ params: { index: 'adventuring' } })
       const response = createResponse()
 
       // Act
@@ -96,25 +99,22 @@ describe('RuleSectionController', () => {
       // Assert
       expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.index).toBe('cover')
-      expect(responseData.name).toBe('Cover')
+      expect(responseData.index).toBe('adventuring')
+      expect(responseData.name).toBe('Adventuring')
       expect(responseData.desc).toEqual(ruleSectionData.desc)
       expect(mockNext).not.toHaveBeenCalled()
     })
 
     it('calls next() when the rule section is not found', async () => {
-      // Arrange
       const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
 
-      // Act
       await RuleSectionController.show(request, response, mockNext)
 
-      // Assert
-      expect(response.statusCode).toBe(200)
+      expect(response.statusCode).toBe(200) // Passes to next()
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
-      expect(mockNext).toHaveBeenCalledWith()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
   })
 })

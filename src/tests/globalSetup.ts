@@ -59,10 +59,14 @@ export async function setup(): Promise<() => Promise<void>> {
   try {
     console.log('[Global Setup] Starting MongoMemoryServer...')
     const mongod = await MongoMemoryServer.create()
-    const mongoUri = mongod.getUri()
-    process.env.TEST_MONGODB_URI = mongoUri // Set env var for tests
+    // Get the URI without a default database name
+    const baseMongoUri = mongod.getUri().split('?')[0] // Get URI part before query params
+    // Ensure it ends with a slash if it doesn't already, for easy concatenation
+    const serverUri = baseMongoUri.endsWith('/') ? baseMongoUri : baseMongoUri + '/'
+
+    process.env.TEST_MONGODB_URI_BASE = serverUri // Set env var for tests
     globalThis.__MONGOD__ = mongod // Store instance globally
-    console.log(`[Global Setup] MongoMemoryServer started at: ${mongoUri}`)
+    console.log(`[Global Setup] MongoMemoryServer started at base URI: ${serverUri}`)
   } catch (error) {
     console.error('[Global Setup] Failed to start MongoMemoryServer:', error)
     // Attempt to clean up Redis if Mongo fails
