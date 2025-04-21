@@ -36,7 +36,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src /app/src
 
 # Copy config files needed for tests/runtime
-COPY --from=builder /app/jest.config*.ts ./
+COPY --from=builder /app/vitest.config*.ts ./
 COPY --from=builder /app/tsconfig.json ./
 
 # Add non-root user for security
