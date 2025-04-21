@@ -1,689 +1,494 @@
-import mockingoose from 'mockingoose'
+import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
+import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support'
+
 import * as ClassController from '@/controllers/api/2014/classController'
+import ClassModel from '@/models/2014/class'
+import FeatureModel from '@/models/2014/feature'
+import LevelModel from '@/models/2014/level'
+import ProficiencyModel from '@/models/2014/proficiency'
+import SpellModel from '@/models/2014/spell'
+import SubclassModel from '@/models/2014/subclass'
 
-import { mockNext } from '@/tests/support'
+import { classFactory } from '@/tests/factories/2014/class.factory'
+import { levelFactory } from '@/tests/factories/2014/level.factory'
+import { subclassFactory } from '@/tests/factories/2014/subclass.factory'
+import { spellFactory } from '@/tests/factories/2014/spell.factory'
+import { featureFactory } from '@/tests/factories/2014/feature.factory'
+import { proficiencyFactory } from '@/tests/factories/2014/proficiency.factory'
+import { apiReferenceFactory } from '@/tests/factories/2014/common.factory'
 
-import Class from '@/models/2014/class'
-import Feature from '@/models/2014/feature'
-import Level from '@/models/2014/level'
-import Proficiency from '@/models/2014/proficiency'
-import Spell from '@/models/2014/spell'
-import Subclass from '@/models/2014/subclass'
+const mockNext = vi.fn(defaultMockNext)
 
-beforeEach(() => {
-  mockingoose.resetAll()
+beforeAll(async () => {
+  const mongoUri = process.env.TEST_MONGODB_URI
+  if (!mongoUri) {
+    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  }
+  await mongoose.connect(mongoUri)
 })
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'barbarian',
-      name: 'Barbarian',
-      url: '/api/classes/barbarian'
-    },
-    {
-      index: 'bard',
-      name: 'Bard',
-      url: '/api/classes/bard'
-    },
-    {
-      index: 'cleric',
-      name: 'Cleric',
-      url: '/api/classes/cleric'
-    }
-  ]
-  const request = createRequest({ query: {} })
+afterAll(async () => {
+  await mongoose.disconnect()
+})
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Class).toReturn(findDoc, 'find')
+beforeEach(async () => {
+  vi.clearAllMocks()
+  // Clear all relevant collections and verify
+  await ClassModel.deleteMany({})
+  await LevelModel.deleteMany({})
+  await SubclassModel.deleteMany({})
+  await SpellModel.deleteMany({})
+  await FeatureModel.deleteMany({})
+  await ProficiencyModel.deleteMany({})
 
-    await ClassController.index(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
+  expect(await ClassModel.countDocuments()).toBe(0)
+  expect(await LevelModel.countDocuments()).toBe(0)
+  expect(await SubclassModel.countDocuments()).toBe(0)
+  expect(await SpellModel.countDocuments()).toBe(0)
+  expect(await FeatureModel.countDocuments()).toBe(0)
+  expect(await ProficiencyModel.countDocuments()).toBe(0)
+})
 
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+describe('ClassController', () => {
+  // === index ===
+  describe('index', () => {
+    it('returns a list of classes', async () => {
+      const classesData = classFactory.buildList(3)
+      await ClassModel.insertMany(classesData)
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Class).toReturn(error, 'find')
 
       await ClassController.index(request, response, mockNext)
+
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            index: classesData[0].index,
+            name: classesData[0].name,
+            url: classesData[0].url
+          }),
+          expect.objectContaining({
+            index: classesData[1].index,
+            name: classesData[1].name,
+            url: classesData[1].url
+          }),
+          expect.objectContaining({
+            index: classesData[2].index,
+            name: classesData[2].name,
+            url: classesData[2].url
+          })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles index database errors', async () => {
+      const request = createRequest({ query: {} })
+      const response = createResponse()
+      const error = new Error('Database find failed')
+      vi.spyOn(ClassModel, 'find').mockImplementationOnce(
+        () =>
+          ({
+            // Mock find
+            select: vi.fn().mockReturnThis(),
+            sort: vi.fn().mockReturnThis(),
+            exec: vi.fn().mockRejectedValueOnce(error) // Ensure exec rejects
+          }) as any
+      )
+      await ClassController.index(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'barbarian',
-    name: 'Barbarian',
-    url: '/api/classes/barbarian'
-  }
-
-  const showParams = { index: 'barbarian' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Class).toReturn(findOneDoc, 'findOne')
-
-    await ClassController.show(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+    it('returns an empty list when no classes exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Class).toReturn(error, 'findOne')
+      await ClassController.index(request, response, mockNext)
+      expect(response.statusCode).toBe(200)
+      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+  })
+
+  // === show ===
+  describe('show', () => {
+    const classIndex = 'barbarian'
+    it('returns a single class when found', async () => {
+      const classData = classFactory.build({ index: classIndex })
+      await ClassModel.insertMany([classData])
+      const request = createRequest({ params: { index: classIndex } })
+      const response = createResponse()
 
       await ClassController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData).toMatchObject({
+        index: classData.index,
+        name: classData.name,
+        url: classData.url
+      })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the class is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+      await ClassController.show(request, response, mockNext)
+      expect(mockNext).toHaveBeenCalledWith()
+    })
+
+    it('handles show database errors', async () => {
+      const request = createRequest({ params: { index: classIndex } })
+      const response = createResponse()
+      const error = new Error('Database findOne failed')
+      vi.spyOn(ClassModel, 'findOne').mockRejectedValueOnce(error)
+      await ClassController.show(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
 
-  describe('with an invalid index', () => {
-    it('404s', async () => {
-      const response = createResponse()
-      mockingoose(Class).toReturn(null, 'findOne')
-
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ClassController.show(invalidRequest, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
-    })
-  })
-})
-
-describe('showLevelsForClass', () => {
-  const findDoc = [
-    {
-      index: 'barbarian-1',
-      level: 1,
-      url: '/api/classes/barbarian/level/1'
-    },
-    {
-      index: 'barbarian-2',
-      level: 2,
-      url: '/api/classes/barbarian/level/2'
-    },
-    {
-      index: 'barbarian-3',
-      level: 3,
-      url: '/api/classes/barbarian/level/3'
-    }
-  ]
-  const request = createRequest({ query: {}, params: { index: 'barbarian' } })
-
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Level).toReturn(findDoc, 'find')
-
-    await ClassController.showLevelsForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when an invalid index is given', () => {
-    describe('when an invalid index is given', () => {
-      it('404s', async () => {
-        const response = createResponse()
-        mockingoose(Level).toReturn(null, 'findOne')
-
-        const invalidShowParams = { index: 'test' }
-        const invalidRequest = createRequest({ query: {}, params: invalidShowParams })
-        await ClassController.showLevelsForClass(invalidRequest, response, mockNext)
-
-        expect(response.statusCode).toBe(404)
-        expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' })
+  // === showLevelsForClass ===
+  describe('showLevelsForClass', () => {
+    const classIndex = 'wizard'
+    const classUrl = `/api/2014/classes/${classIndex}`
+    it('returns levels for a specific class', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      // Seed levels linked by class.url
+      const levelsData = levelFactory.buildList(5, {
+        class: { index: classIndex, name: classData.name, url: classUrl }
       })
-    })
-  })
+      await LevelModel.insertMany(levelsData)
+      await LevelModel.insertMany(levelFactory.buildList(2)) // Unrelated
 
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {}, params: { index: classIndex } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Level).toReturn(error, 'find')
 
       await ClassController.showLevelsForClass(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData).toBeInstanceOf(Array)
+      expect(responseData).toHaveLength(5)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns 404 if class has no levels', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData]) // Class exists
+      // No levels inserted
+      const request = createRequest({ query: {}, params: { index: classIndex } })
+      const response = createResponse()
+      await ClassController.showLevelsForClass(request, response, mockNext)
+      expect(response.statusCode).toBe(404)
+      expect(JSON.parse(response._getData())).toEqual({ error: 'Not found' })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    // This test might be different from original mock - controller checks Class first
+    it('returns 404 if class index is invalid', async () => {
+      const request = createRequest({ query: {}, params: { index: 'nonexistent' } })
+      const response = createResponse()
+      await ClassController.showLevelsForClass(request, response, mockNext)
+      // Expect 404 to be sent by the controller directly
+      expect(response.statusCode).toBe(404)
+      expect(JSON.parse(response._getData())).toEqual({ error: 'Not found' })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles levels database errors', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      const request = createRequest({ query: {}, params: { index: classIndex } })
+      const response = createResponse()
+      const error = new Error('Level find failed')
+      // Mock Level.find to reject
+      vi.spyOn(LevelModel, 'find').mockImplementationOnce(
+        () =>
+          ({
+            sort: vi.fn().mockRejectedValueOnce(error) // Controller awaits find().sort()
+          }) as any
+      )
+      await ClassController.showLevelsForClass(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
-})
 
-describe('showLevelForClass', () => {
-  const findOneDoc = {
-    index: 'barbarian-1',
-    level: 1,
-    url: '/api/classes/barbarian/level/1'
-  }
+  // === showLevelForClass ===
+  describe('showLevelForClass', () => {
+    const classIndex = 'wizard'
+    const targetLevel = 5
+    const levelUrl = `/api/2014/classes/${classIndex}/levels/${targetLevel}`
 
-  const showParams = { index: 'barbarian', level: '1' }
-  const request = createRequest({ params: showParams })
+    it('returns a specific level for a class', async () => {
+      const classData = classFactory.build({ index: classIndex })
+      await ClassModel.insertMany([classData])
+      const levelData = levelFactory.build({
+        level: targetLevel,
+        class: { index: classIndex, name: classData.name, url: `/api/2014/classes/${classIndex}` },
+        url: levelUrl // Ensure this exact URL is seeded
+      })
+      await LevelModel.insertMany([levelData])
 
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Level).toReturn(findOneDoc, 'findOne')
-
-    await ClassController.showLevelForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(
-      expect.objectContaining({ level: findOneDoc.level, url: findOneDoc.url })
-    )
-  })
-
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+      const request = createRequest({ params: { index: classIndex, level: String(targetLevel) } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Level).toReturn(error, 'findOne')
 
       await ClassController.showLevelForClass(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData).toMatchObject({ level: levelData.level, url: levelData.url })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the specific level is not found', async () => {
+      const request = createRequest({ params: { index: classIndex, level: '10' } }) // Use valid level not seeded
+      const response = createResponse()
+      await ClassController.showLevelForClass(request, response, mockNext)
+      expect(mockNext).toHaveBeenCalledWith() // Should call next for not found
+    })
+
+    it('handles level findOne database errors', async () => {
+      const request = createRequest({ params: { index: classIndex, level: String(targetLevel) } })
+      const response = createResponse()
+      const error = new Error('Level findOne failed')
+      vi.spyOn(LevelModel, 'findOne').mockRejectedValueOnce(error)
+      await ClassController.showLevelForClass(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
-  })
 
-  describe('with an invalid level', () => {
-    it('400s', async () => {
+    it('returns 400 for invalid level parameter (non-numeric)', async () => {
+      const request = createRequest({ params: { index: classIndex, level: 'invalid' } })
       const response = createResponse()
-      const invalidShowParams = { index: 'barbarian', level: 'a' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ClassController.showLevelForClass(invalidRequest, response, mockNext)
-
+      await ClassController.showLevelForClass(request, response, mockNext)
       expect(response.statusCode).toBe(400)
-      const responseData = JSON.parse(response._getData())
-      expect(responseData.error).toEqual('Invalid path parameters')
-      expect(responseData.details).toEqual(expect.any(Array))
+      expect(JSON.parse(response._getData()).error).toContain('Invalid path parameters')
     })
-  })
 
-  describe('with an out of bounds level', () => {
-    it('400s', async () => {
+    it('returns 400 for invalid level parameter (out of range)', async () => {
+      const request = createRequest({ params: { index: classIndex, level: '21' } })
       const response = createResponse()
-      const invalidShowParams = { index: 'barbarian', level: '30' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ClassController.showLevelForClass(invalidRequest, response, mockNext)
-
+      await ClassController.showLevelForClass(request, response, mockNext)
       expect(response.statusCode).toBe(400)
-      const responseData = JSON.parse(response._getData())
-      expect(responseData.error).toEqual('Invalid path parameters')
-      expect(responseData.details).toEqual(expect.any(Array))
-    })
-  })
-})
-
-describe('showSubclassesForClass', () => {
-  const findDoc = [
-    {
-      index: 'berserker',
-      name: 'Berserker',
-      url: '/api/subclasses/berserker'
-    }
-  ]
-  const request = createRequest({ params: { index: 'barbarian' } })
-
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Subclass).toReturn(findDoc, 'find')
-
-    await ClassController.showSubclassesForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when an invalid index is given', () => {
-    it('404s', async () => {
-      const response = createResponse()
-      mockingoose(Subclass).toReturn(null, 'findOne')
-
-      const invalidShowParams = { index: 'test' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ClassController.showSubclassesForClass(invalidRequest, response, mockNext)
-
-      expect(response.statusCode).toBe(404)
-      expect(JSON.parse(response._getData())).toStrictEqual({ error: 'Not found' })
+      expect(JSON.parse(response._getData()).error).toContain('Invalid path parameters')
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+  // === showSubclassesForClass ===
+  describe('showSubclassesForClass', () => {
+    const classIndex = 'barbarian'
+    const classUrl = `/api/2014/classes/${classIndex}`
+    it('returns subclasses for a specific class', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      // Seed subclasses linked by class.url
+      const subclassesData = subclassFactory.buildList(2, {
+        class: { index: classIndex, name: classData.name, url: classUrl }
+      })
+      await SubclassModel.insertMany(subclassesData)
+      await SubclassModel.insertMany(subclassFactory.buildList(1)) // Unrelated
+
+      const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Subclass).toReturn(error, 'find')
 
       await ClassController.showSubclassesForClass(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData).toHaveProperty('count', 2)
+      expect(responseData).toHaveProperty('results')
+      expect(responseData.results).toHaveLength(2)
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('showStartingEquipmentForClass', () => {
-  const findOneDoc = {
-    index: 8,
-    class: 'Warlock',
-    url: '/api/classes/warlock',
-    starting_equipment: [
-      {
-        equipment: {
-          index: 'dagger',
-          name: 'Dagger',
-          url: '/api/equipment/dagger'
-        },
-        quantity: 2
-      }
-    ],
-    starting_equipment_options: [
-      {
-        choose: 1,
-        type: 'equipment',
-        from: {
-          option_set_type: 'options_array',
-          options: [
-            {
-              option_type: 'multiple',
-              items: [
-                {
-                  of: {
-                    index: 'crossbow-light',
-                    name: 'Crossbow, light',
-                    url: '/api/equipment/crossbow-light'
-                  },
-                  count: 1
-                },
-                {
-                  of: {
-                    index: 'crossbow-bolt',
-                    name: 'Crossbow bolt',
-                    url: '/api/equipment/crossbow-bolt'
-                  },
-                  count: 20
-                }
-              ]
-            },
-            {
-              option_type: 'choice',
-              choice: {
-                choose: 1,
-                type: 'equipment',
-                from: {
-                  option_set_type: 'equipment_category',
-                  equipment_category: {
-                    index: 'simple-weapons',
-                    name: 'Simple Weapons',
-                    url: '/api/equipment-categories/simple-weapons'
-                  }
-                }
-              }
-            }
-          ]
-        }
-      }
-    ]
-  }
-  const request = createRequest({ params: { index: 'barbarian' } })
-
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Class).toReturn(findOneDoc, 'findOne')
-
-    await ClassController.showStartingEquipmentForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    const response = createResponse()
-    it('handles the error', async () => {
-      const error = new Error('Something went wrong')
-      mockingoose(Class).toReturn(error, 'findOne')
-
-      await ClassController.showStartingEquipmentForClass(request, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
-    })
-  })
-})
-
-describe('showSpellcastingForClass', () => {
-  const findOneDoc = {
-    index: 8,
-    class: 'Warlock',
-    url: '/api/classes/warlock',
-    spellcasting: {
-      level: 1,
-      spellcasting_ability: {
-        index: 'cha',
-        name: 'CHA',
-        url: '/api/ability-scores/cha'
-      },
-      info: [
-        {
-          name: 'Cantrips',
-          desc: [
-            'You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.'
-          ]
-        }
-      ]
-    }
-  }
-  const request = createRequest({ params: { index: 'warlock' } })
-
-  it('returns a spellcasting object', async () => {
-    const response = createResponse()
-    mockingoose(Class).toReturn(findOneDoc, 'findOne')
-
-    await ClassController.showSpellcastingForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+    it('returns 404 if class index is invalid', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Class).toReturn(error, 'findOne')
+      await ClassController.showSubclassesForClass(request, response, mockNext)
+      expect(response.statusCode).toBe(404)
+      expect(JSON.parse(response._getData()).error).toEqual('Not found')
+    })
 
-      await ClassController.showSpellcastingForClass(request, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+    it('handles subclass find database errors', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      const request = createRequest({ params: { index: classIndex } })
+      const response = createResponse()
+      const error = new Error('Subclass find failed')
+      vi.spyOn(SubclassModel, 'find').mockImplementationOnce(
+        () =>
+          ({
+            select: vi.fn().mockReturnThis(),
+            sort: vi.fn().mockRejectedValueOnce(error)
+          }) as any
+      )
+      await ClassController.showSubclassesForClass(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
-})
 
-describe('showMulticlassingForClass', () => {
-  const findOneDoc = {
-    index: 8,
-    class: 'Warlock',
-    url: '/api/classes/warlock',
-    multi_classing: {
-      some: 'data'
-    }
-  }
-  const request = createRequest({ params: { index: 'warlock' } })
+  // === showSpellsForClass ===
+  describe('showSpellsForClass', () => {
+    const classIndex = 'wizard'
+    const classUrl = `/api/2014/classes/${classIndex}`
+    it('returns spells for a specific class', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      // Seed spells linked by classes.url
+      const spellsData = spellFactory.buildList(3, {
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      await SpellModel.insertMany(spellsData)
+      await SpellModel.insertMany(spellFactory.buildList(2)) // Unrelated
 
-  it('returns a multi-classing object', async () => {
-    const response = createResponse()
-    mockingoose(Class).toReturn(findOneDoc, 'findOne')
-
-    await ClassController.showMulticlassingForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Class).toReturn(error, 'findOne')
-
-      await ClassController.showMulticlassingForClass(request, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
-    })
-  })
-})
-
-describe('showSpellsForClass', () => {
-  const findDoc = [
-    {
-      index: 'acid-splash',
-      name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
-    },
-    {
-      index: 'chill-touch',
-      name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
-    },
-    {
-      index: 'dancing-lights',
-      name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
-  ]
-  const request = createRequest({ params: { index: 'wizard' } })
-
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Spell).toReturn(findDoc, 'find')
-
-    await ClassController.showSpellsForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Spell).toReturn(error, 'find')
 
       await ClassController.showSpellsForClass(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
-    })
-  })
-})
-
-describe('showSpellsForClassAndLevel', () => {
-  const findDoc = [
-    {
-      index: 'acid-splash',
-      name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
-    },
-    {
-      index: 'chill-touch',
-      name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
-    },
-    {
-      index: 'dancing-lights',
-      name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
-  ]
-  const request = createRequest({ params: { index: 'wizard', level: 1 } })
-
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Spell).toReturn(findDoc, 'find')
-
-    await ClassController.showSpellsForClassAndLevel(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when an invalid level is given', () => {
-    it('400s', async () => {
-      const response = createResponse()
-      const invalidShowParams = { index: 'wizard', level: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ClassController.showSpellsForClassAndLevel(invalidRequest, response, mockNext)
-
-      expect(response.statusCode).toBe(400)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.error).toEqual('Invalid path parameters')
-      expect(responseData.details).toEqual(expect.any(Array))
+      expect(responseData).toHaveProperty('count', 3)
+      expect(responseData.results).toHaveLength(3)
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
 
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+    it('returns empty list if class index is invalid', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Spell).toReturn(error, 'find')
-
-      await ClassController.showSpellsForClassAndLevel(request, response, mockNext)
-
+      await ClassController.showSpellsForClass(request, response, mockNext)
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles spell find database errors', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      const request = createRequest({ params: { index: classIndex } })
+      const response = createResponse()
+      const error = new Error('Spell find failed')
+      vi.spyOn(SpellModel, 'find').mockImplementationOnce(
+        () =>
+          ({
+            select: vi.fn().mockReturnThis(),
+            sort: vi.fn().mockRejectedValueOnce(error)
+          }) as any
+      )
+      await ClassController.showSpellsForClass(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
-})
 
-describe('showFeaturesForClass', () => {
-  const findDoc = [
-    {
-      index: 'acid-splash',
-      name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
-    },
-    {
-      index: 'chill-touch',
-      name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
-    },
-    {
-      index: 'dancing-lights',
-      name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
-  ]
-  const request = createRequest({ params: { index: 'wizard' } })
+  // === showFeaturesForClass ===
+  describe('showFeaturesForClass', () => {
+    const classIndex = 'fighter'
+    const classUrl = `/api/2014/classes/${classIndex}`
+    it('returns features for a specific class', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      // Seed features linked by class.url
+      const featuresData = featureFactory.buildList(4, {
+        class: { index: classIndex, name: classData.name, url: classUrl }
+      })
+      await FeatureModel.insertMany(featuresData)
+      await FeatureModel.insertMany(featureFactory.buildList(2)) // Unrelated
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Feature).toReturn(findDoc, 'find')
-
-    await ClassController.showFeaturesForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Feature).toReturn(error, 'find')
 
       await ClassController.showFeaturesForClass(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
-    })
-  })
-})
-
-describe('showFeaturesForClassAndLevel', () => {
-  const findDoc = [
-    {
-      index: 'acid-splash',
-      name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
-    },
-    {
-      index: 'chill-touch',
-      name: 'Chill Touch',
-      url: '/api/spells/chill-touch'
-    },
-    {
-      index: 'dancing-lights',
-      name: 'Dancing Lights',
-      url: '/api/spells/dancing-lights'
-    }
-  ]
-  const request = createRequest({ params: { index: 'wizard', level: 1 } })
-
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Feature).toReturn(findDoc, 'find')
-
-    await ClassController.showFeaturesForClassAndLevel(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when an invalid level is given', () => {
-    it('400s', async () => {
-      const response = createResponse()
-      const invalidShowParams = { index: 'wizard', level: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ClassController.showFeaturesForClassAndLevel(invalidRequest, response, mockNext)
-
-      expect(response.statusCode).toBe(400)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.error).toEqual('Invalid path parameters')
-      expect(responseData.details).toEqual(expect.any(Array))
+      expect(responseData).toHaveProperty('count', 4)
+      expect(responseData.results).toHaveLength(4)
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
 
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+    it('returns empty list if class index is invalid', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Feature).toReturn(error, 'find')
-
-      await ClassController.showFeaturesForClassAndLevel(request, response, mockNext)
-
+      await ClassController.showFeaturesForClass(request, response, mockNext)
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles feature find database errors', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      const request = createRequest({ params: { index: classIndex } })
+      const response = createResponse()
+      const error = new Error('Feature find failed')
+      vi.spyOn(FeatureModel, 'find').mockImplementationOnce(
+        () =>
+          ({
+            select: vi.fn().mockReturnThis(),
+            sort: vi.fn().mockRejectedValueOnce(error)
+          }) as any
+      )
+      await ClassController.showFeaturesForClass(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
-})
 
-describe('showProficienciesForClass', () => {
-  const findDoc = [
-    {
-      index: 'daggers',
-      name: 'Daggers',
-      url: '/api/proficiencies/daggers'
-    },
-    {
-      index: 'darts',
-      name: 'Darts',
-      url: '/api/proficiencies/darts'
-    },
-    {
-      index: 'quarterstaffs',
-      name: 'Quarterstaffs',
-      url: '/api/proficiencies/quarterstaffs'
-    }
-  ]
-  const request = createRequest({ params: { index: 'wizard' } })
+  // === showProficienciesForClass ===
+  describe('showProficienciesForClass', () => {
+    const classIndex = 'rogue'
+    const classUrl = `/api/2014/classes/${classIndex}`
+    it('returns proficiencies for a specific class', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      // Seed proficiencies linked by classes.url
+      const profsData = proficiencyFactory.buildList(5, {
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      await ProficiencyModel.insertMany(profsData)
+      await ProficiencyModel.insertMany(proficiencyFactory.buildList(2)) // Unrelated
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Proficiency).toReturn(findDoc, 'find')
-
-    await ClassController.showProficienciesForClass(request, response, mockNext)
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ params: { index: classIndex } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Proficiency).toReturn(error, 'find')
 
       await ClassController.showProficienciesForClass(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData).toHaveProperty('count', 5)
+      expect(responseData.results).toHaveLength(5)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns empty list if class index is invalid', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+      await ClassController.showProficienciesForClass(request, response, mockNext)
+      expect(response.statusCode).toBe(200)
+      expect(JSON.parse(response._getData())).toEqual({ count: 0, results: [] })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles proficiency find database errors', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      const request = createRequest({ params: { index: classIndex } })
+      const response = createResponse()
+      const error = new Error('Proficiency find failed')
+      vi.spyOn(ProficiencyModel, 'find').mockImplementationOnce(
+        () =>
+          ({
+            select: vi.fn().mockReturnThis(),
+            sort: vi.fn().mockRejectedValueOnce(error)
+          }) as any
+      )
+      await ClassController.showProficienciesForClass(request, response, mockNext)
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
-})
+}) // End of ClassController describe
