@@ -1,40 +1,96 @@
-import mockingoose from 'mockingoose'
+import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
+import mongoose from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
 import * as ApiController from '@/controllers/api/v2014Controller'
-import { mockNext } from '@/tests/support'
-import Collection from '@/models/2014/collection'
+import CollectionModel from '@/models/2014/collection' // Use Model suffix convention
+import { collectionFactory } from '@/tests/factories/2014/collection.factory' // Import the factory
 
-beforeEach(() => {
-  mockingoose.resetAll()
+const mockNext = vi.fn(defaultMockNext)
+
+beforeAll(async () => {
+  const mongoUri = process.env.TEST_MONGODB_URI
+  if (!mongoUri) {
+    throw new Error('TEST_MONGODB_URI environment variable not set.')
+  }
+  await mongoose.connect(mongoUri)
 })
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'a'
-    },
-    {
-      index: 'b'
-    },
-    {
-      index: 'c'
-    }
-  ]
-  const expectedResponse = {
-    a: '/api/2014/a',
-    b: '/api/2014/b',
-    c: '/api/2014/c'
-  }
-  const request = createRequest()
+afterAll(async () => {
+  await mongoose.disconnect()
+})
 
-  it('returns the routes', async () => {
-    const response = createResponse()
-    mockingoose(Collection).toReturn(findDoc, 'find')
+beforeEach(async () => {
+  vi.clearAllMocks()
+  await CollectionModel.deleteMany({})
+  // Seed using the factory
+  const collectionsData = collectionFactory.buildList(3)
+  await CollectionModel.insertMany(collectionsData)
+})
 
-    await ApiController.index(request, response, mockNext)
+describe('v2014 API Controller', () => {
+  describe('index', () => {
+    it('returns the map of available API routes', async () => {
+      // Arrange
+      const request = createRequest()
+      const response = createResponse()
+      // Re-fetch the inserted data to build the expected response accurately
+      const insertedCollections = await CollectionModel.find({}).lean()
+      const expectedResponse = insertedCollections.reduce(
+        (acc, col) => {
+          acc[col.index] = `/api/2014/${col.index}`
+          return acc
+        },
+        {} as Record<string, string>
+      )
 
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expectedResponse)
+      // Act
+      await ApiController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(JSON.parse(response._getData())).toEqual(expectedResponse)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles database errors during find', async () => {
+      // Arrange
+      const request = createRequest()
+      const response = createResponse()
+      const error = new Error('Database find failed')
+      vi.spyOn(CollectionModel, 'find').mockImplementationOnce(() => {
+        const query = {
+          select: vi.fn().mockReturnThis(),
+          sort: vi.fn().mockReturnThis(),
+          exec: vi.fn().mockRejectedValueOnce(error)
+        } as any
+        return query
+      })
+
+      // Act
+      await ApiController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200) // Controller passes error to next()
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith(error)
+    })
+
+    it('returns an empty object when no collections exist', async () => {
+      // Arrange
+      await CollectionModel.deleteMany({}) // Ensure collection is empty
+      const request = createRequest()
+      const response = createResponse()
+
+      // Act
+      await ApiController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(JSON.parse(response._getData())).toEqual({})
+      expect(mockNext).not.toHaveBeenCalled()
+    })
   })
 })
