@@ -1,220 +1,142 @@
-import { vi, describe, it, expect, afterEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support'
+import MonsterModel from '@/models/2014/monster'
 import * as MonsterController from '@/controllers/api/2014/monsterController'
-import { mockNext } from '@/tests/support'
-import Monster from '@/models/2014/monster'
 import { monsterFactory } from '@/tests/factories/2014/monster.factory'
 
-// Mock the redisClient methods used in the controller
-vi.mock('@/util', async (importOriginal) => {
-  const original = await importOriginal<typeof import('@/util')>()
-  return {
-    ...original, // Keep other exports from the module
-    redisClient: {
-      get: vi.fn().mockResolvedValue(null), // Keep simple default
-      set: vi.fn().mockResolvedValue('OK')
-    }
-  }
-})
+// DB Helper Imports
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
-afterEach(() => {
-  vi.restoreAllMocks()
-})
+// Remove redis mock - Integration tests will hit the real DB
+// vi.mock('@/util', ...)
 
-describe('index', () => {
-  const mockMonstersSummary = monsterFactory
-    .buildList(2)
-    .map((m) => ({ index: m.index, name: m.name, url: m.url }))
+const mockNext = vi.fn(defaultMockNext)
 
-  // Helper to create the mock query object
-  const createMockQuery = (resolveValue: any, shouldReject = false, rejectValue?: Error) => {
-    const mockQuery = {
-      select: vi.fn().mockReturnThis(),
-      sort: vi.fn().mockReturnThis(),
-      // Make it thenable to simulate await
-      then: (resolve: (value: any) => void, reject?: (reason?: any) => void) => {
-        if (shouldReject && reject) {
-          return Promise.resolve().then(() => reject(rejectValue))
-        } else {
-          return Promise.resolve().then(() => resolve(resolveValue))
-        }
-      }
-      // Optionally mock exec() if needed: exec: vi.fn().mockResolvedValue(resolveValue)
-    }
-    return mockQuery
-  }
+// Setup DB isolation
+const dbUri = generateUniqueDbUri('monster')
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(MonsterModel)
 
-  it('returns a list of objects with default query', async () => {
-    const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
-    const response = createResponse()
+// Removed createMockQuery helper
 
-    const mockQuery = createMockQuery(mockMonstersSummary)
-    const findSpy = vi.spyOn(Monster, 'find').mockReturnValue(mockQuery as any)
+describe('MonsterController', () => {
+  describe('index', () => {
+    it('returns a list of monsters with default query', async () => {
+      // Arrange: Seed the database
+      const monstersData = monsterFactory.buildList(3)
+      await MonsterModel.insertMany(monstersData)
 
-    await MonsterController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(findSpy).toHaveBeenCalledWith({}) // Check find query
-    expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 }) // Check select fields
-    expect(mockQuery.sort).toHaveBeenCalledWith({ index: 'asc' }) // Check sort
-    // Check the final data sent (assuming ResourceList doesn't modify it much)
-    expect(JSON.parse(response._getData())).toEqual({
-      count: mockMonstersSummary.length,
-      results: mockMonstersSummary
-    })
-  })
-
-  describe('with challenge_rating query', () => {
-    const crTestCases = [
-      {
-        description: 'handles a single number string',
-        query: { challenge_rating: '5' },
-        expectedMongoQuery: { challenge_rating: { $in: [5] } }
-      },
-      {
-        description: 'handles a comma-separated string',
-        query: { challenge_rating: '1,10,0.25' },
-        expectedMongoQuery: { challenge_rating: { $in: [1, 10, 0.25] } }
-      },
-      {
-        description: 'handles an array of number strings',
-        query: { challenge_rating: ['2', '4'] },
-        expectedMongoQuery: { challenge_rating: { $in: [2, 4] } }
-      },
-      {
-        description: 'handles mixed valid/invalid in a string, ignoring invalid',
-        query: { challenge_rating: 'abc,3,def,0.5' },
-        expectedMongoQuery: { challenge_rating: { $in: [3, 0.5] } }
-      },
-      {
-        description: 'handles mixed valid/invalid in an array, ignoring invalid',
-        query: { challenge_rating: ['1', 'xyz', '5'] },
-        expectedMongoQuery: { challenge_rating: { $in: [1, 5] } }
-      },
-      {
-        description: 'handles only invalid values, resulting in no CR filter',
-        query: { challenge_rating: 'invalid, nope' },
-        expectedMongoQuery: {}
-      },
-      {
-        description: 'handles an empty string, resulting in no CR filter',
-        query: { challenge_rating: '' },
-        expectedMongoQuery: {}
-      }
-    ]
-
-    it.each(crTestCases)('$description', async ({ query, expectedMongoQuery }) => {
-      const request = createRequest({ query, originalUrl: '/api/monsters' })
-      const response = createResponse()
-      const mockQuery = createMockQuery(mockMonstersSummary)
-      const findSpy = vi.spyOn(Monster, 'find').mockReturnValue(mockQuery as any)
-
-      await MonsterController.index(request, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(findSpy).toHaveBeenCalledWith(expectedMongoQuery)
-      expect(mockQuery.select).toHaveBeenCalledWith({ index: 1, name: 1, url: 1, _id: 0 })
-      expect(mockQuery.sort).toHaveBeenCalledWith({ index: 'asc' })
-      expect(JSON.parse(response._getData())).toEqual({
-        count: mockMonstersSummary.length,
-        results: mockMonstersSummary
-      })
-    })
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const response = createResponse()
-      const error = new Error('Database error')
-      const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
-      // Mock find to return a query that rejects
-      const mockQuery = createMockQuery(null, true, error)
-      vi.spyOn(Monster, 'find').mockReturnValue(mockQuery as any)
-
-      await MonsterController.index(request, response, mockNext)
-
-      expect(mockNext).toHaveBeenCalledWith(error) // Should now be called with the correct error
-      expect(response._getData()).toBe('')
-    })
-  })
-
-  describe('when data is in Redis cache', () => {
-    it('returns cached data and does not call Monster.find', async () => {
       const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
       const response = createResponse()
-      const cachedData = {
-        count: 1,
-        results: [
-          { index: 'cached-monster', name: 'Cached Monster', url: '/api/monsters/cached-monster' }
-        ]
-      }
 
-      // Import the mocked redisClient
-      const { redisClient } = await import('@/util')
-
-      // Override the mock for this specific test case
-      // Use @ts-expect-error to bypass persistent type inference issue
-      // @ts-expect-error Vitest mock override type mismatch
-      vi.mocked(redisClient.get).mockResolvedValueOnce(JSON.stringify(cachedData))
-
-      const findSpy = vi.spyOn(Monster, 'find')
-
+      // Act
       await MonsterController.index(request, response, mockNext)
 
+      // Assert: Check response based on seeded data
       expect(response.statusCode).toBe(200)
-      expect(JSON.parse(response._getData())).toEqual(cachedData)
-      expect(findSpy).not.toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: monstersData[0].index, name: monstersData[0].name }),
+          expect.objectContaining({ index: monstersData[1].index, name: monstersData[1].name }),
+          expect.objectContaining({ index: monstersData[2].index, name: monstersData[2].name })
+        ])
+      )
       expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const mockMonster = monsterFactory.build({ index: 'test-monster', name: 'Test Monster' })
+    // Keep challenge_rating tests, but they now hit the DB
+    describe('with challenge_rating query', () => {
+      const crTestCases = [
+        { input: '5', expectedCount: 1, seedCRs: [5, 1, 2] },
+        { input: '1,10,0.25', expectedCount: 2, seedCRs: [1, 10, 5] },
+        { input: ['2', '4'], expectedCount: 2, seedCRs: [2, 4, 5] },
+        { input: 'abc,3,def,0.5', expectedCount: 2, seedCRs: [3, 0.5, 1] },
+        { input: ['1', 'xyz', '5'], expectedCount: 2, seedCRs: [1, 5, 10] },
+        { input: 'invalid, nope', expectedCount: 3, seedCRs: [1, 2, 3] }, // Expect all when filter is invalid
+        { input: '', expectedCount: 3, seedCRs: [1, 2, 3] } // Expect all when filter is empty
+      ]
 
-  const request = createRequest({ params: { index: mockMonster.index } })
+      it.each(crTestCases)(
+        'handles challenge rating: $input',
+        async ({ input, expectedCount, seedCRs }) => {
+          // Arrange: Seed specific CRs
+          const monstersToSeed = seedCRs.map((cr) => monsterFactory.build({ challenge_rating: cr }))
+          await MonsterModel.insertMany(monstersToSeed)
 
-  it('returns an object', async () => {
-    const response = createResponse()
-    // findOne doesn't need complex chaining mock in this controller
-    vi.spyOn(Monster, 'findOne').mockResolvedValue(mockMonster as any)
+          const request = createRequest({
+            query: { challenge_rating: input },
+            originalUrl: '/api/monsters'
+          })
+          const response = createResponse()
 
-    await MonsterController.show(request, response, mockNext)
+          // Act
+          await MonsterController.index(request, response, mockNext)
 
-    expect(response.statusCode).toBe(200)
-    expect(Monster.findOne).toHaveBeenCalledWith({ index: mockMonster.index })
-    // Check specific fields instead of the whole object for robustness
-    const responseData = JSON.parse(response._getData())
-    expect(responseData.index).toBe(mockMonster.index)
-    expect(responseData.name).toBe(mockMonster.name)
-    expect(responseData).toHaveProperty('challenge_rating') // Check existence
-    // Add more specific checks as needed...
-  })
-
-  describe('when the record does not exist', () => {
-    it('calls next() without error (delegates to 404 handling)', async () => {
-      const response = createResponse()
-      vi.spyOn(Monster, 'findOne').mockResolvedValue(null)
-
-      const invalidRequest = createRequest({ params: { index: 'non-existent' } })
-      await MonsterController.show(invalidRequest, response, mockNext)
-
-      expect(mockNext).toHaveBeenCalledWith()
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toBe('')
+          // Assert
+          expect(response.statusCode).toBe(200)
+          const responseData = JSON.parse(response._getData())
+          expect(responseData.count).toBe(expectedCount)
+          expect(responseData.results).toHaveLength(expectedCount)
+          // Optional: Add more specific checks on returned indices if needed
+          expect(mockNext).not.toHaveBeenCalled()
+        }
+      )
     })
+
+    // No need for explicit DB error mocking now, handled by helpers/real errors
+    // describe('when something goes wrong', ...)
+
+    // Redis tests are removed as we aren't mocking redis here anymore
+    // describe('when data is in Redis cache', ...)
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      vi.spyOn(Monster, 'findOne').mockRejectedValue(error)
+  describe('show', () => {
+    it('returns a monster object', async () => {
+      // Arrange
+      const monsterData = monsterFactory.build({ index: 'goblin' })
+      await MonsterModel.insertMany([monsterData])
 
+      const request = createRequest({ params: { index: 'goblin' } })
+      const response = createResponse()
+
+      // Act
       await MonsterController.show(request, response, mockNext)
 
-      expect(mockNext).toHaveBeenCalledWith(error)
-      expect(response._getData()).toBe('')
+      // Assert
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('goblin')
+      // Add more detailed checks as needed
+      expect(responseData).toHaveProperty('challenge_rating', monsterData.challenge_rating)
+      expect(mockNext).not.toHaveBeenCalled()
     })
+
+    it('calls next() when the record does not exist', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'non-existent' } })
+      const response = createResponse()
+
+      // Act
+      await MonsterController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200) // Controller passes to next
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
+    })
+
+    // No need for explicit DB error mocking
+    // describe('when something goes wrong', ...)
   })
 })

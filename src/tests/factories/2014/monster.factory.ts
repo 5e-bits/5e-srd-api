@@ -44,18 +44,8 @@ const actionOptionFactory = Factory.define<ActionOption>(() => ({
 // Factory for Action
 const actionFactory = Factory.define<
   Action,
-  {
-    has_damage: boolean
-    has_dc: boolean
-    has_attack_bonus: boolean
-    has_usage: boolean
-  },
-  {
-    damage?: Damage[]
-    dc?: DifficultyClass
-    options?: Choice
-    usage?: ActionUsage
-  }
+  { has_damage?: boolean; has_dc?: boolean; has_attack_bonus?: boolean; has_usage?: boolean },
+  Action
 >(({ transientParams, associations }) => {
   const generated_multiattack_type = faker.helpers.arrayElement(['actions', 'action_options'])
 
@@ -217,12 +207,16 @@ const specialAbilitySpellFactory = Factory.define<SpecialAbilitySpell>(({ associ
 // Factory for SpecialAbilitySpellcasting
 const specialAbilitySpellcastingFactory = Factory.define<SpecialAbilitySpellcasting>(
   ({ associations }) => {
-    const slotsMap = new Map<string, number>()
+    // Generate key-value pairs first
+    const slotEntries: [string, number][] = []
     for (let i = 1; i <= 9; i++) {
       if (faker.datatype.boolean()) {
-        slotsMap.set(i.toString(), faker.number.int({ min: 1, max: 4 }))
+        slotEntries.push([i.toString(), faker.number.int({ min: 1, max: 4 })])
       }
     }
+    // Create a plain object from the entries, matching the new schema type
+    const slotsObject = slotEntries.length > 0 ? Object.fromEntries(slotEntries) : undefined
+
     return {
       level: faker.datatype.boolean() ? faker.number.int({ min: 1, max: 20 }) : undefined,
       ability: associations.ability
@@ -235,7 +229,8 @@ const specialAbilitySpellcastingFactory = Factory.define<SpecialAbilitySpellcast
         faker.number.int({ min: 1, max: 3 })
       ),
       school: faker.datatype.boolean() ? faker.lorem.word() : undefined,
-      slots: slotsMap.size > 0 ? slotsMap : undefined,
+      // Assign the plain object
+      slots: slotsObject,
       spells: specialAbilitySpellFactory.buildList(faker.number.int({ min: 1, max: 5 }))
     }
   }
@@ -282,141 +277,99 @@ const speedFactory = Factory.define<Speed>(() => {
   return speeds as Speed // Cast needed because we build it partially
 })
 
-// Factory for Monster
-export const monsterFactory = Factory.define<Monster>(
+// Factory for Monster - Define return type explicitly as Monster
+const monsterFactory = Factory.define<Monster, any, Monster>(
   ({ sequence, associations, transientParams }) => {
-    const name = transientParams?.name ?? `Monster ${sequence}`
-    const index = name.toLowerCase().replace(/ /g, '-')
-    const proficientSkills = proficiencyFactory.buildList(faker.number.int({ min: 0, max: 4 }))
-    const proficientSaves = proficiencyFactory.buildList(faker.number.int({ min: 0, max: 3 }))
+    const size = faker.helpers.arrayElement([
+      'Tiny',
+      'Small',
+      'Medium',
+      'Large',
+      'Huge',
+      'Gargantuan'
+    ])
+    const type = faker.lorem.word() // Consider using helpers.arrayElement for specific types if needed
+    const subtype = faker.datatype.boolean() ? faker.lorem.word() : undefined
+    const alignment = faker.helpers.arrayElement([
+      'chaotic neutral',
+      'chaotic evil',
+      'chaotic good',
+      'lawful neutral',
+      'lawful evil',
+      'lawful good',
+      'neutral',
+      'neutral evil',
+      'neutral good',
+      'any alignment',
+      'unaligned'
+    ])
+    const slug = transientParams?.index ?? faker.lorem.slug() // Use transient index if provided
 
-    // Ensure at least one armor class entry
-    const armor_class =
-      associations.armor_class ?? armorClassFactory.buildList(faker.number.int({ min: 1, max: 3 }))
-    if (armor_class.length === 0) {
-      armor_class.push(armorClassFactory.build())
-    }
-
+    // Return a plain object matching the Monster interface
     return {
-      index,
-      name,
+      index: slug,
+      name: transientParams?.name ?? faker.person.firstName(), // Use transient name if provided
       desc: faker.lorem.paragraph(),
-      size: faker.helpers.arrayElement(['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']),
-      type: faker.helpers.arrayElement([
-        'aberration',
-        'beast',
-        'celestial',
-        'construct',
-        'dragon',
-        'elemental',
-        'fey',
-        'fiend',
-        'giant',
-        'humanoid',
-        'monstrosity',
-        'ooze',
-        'plant',
-        'undead'
-      ]),
-      subtype: faker.datatype.boolean() ? faker.lorem.word() : undefined,
-      alignment: faker.helpers.arrayElement([
-        'lawful good',
-        'neutral good',
-        'chaotic good',
-        'lawful neutral',
-        'neutral',
-        'chaotic neutral',
-        'lawful evil',
-        'neutral evil',
-        'chaotic evil',
-        'unaligned'
-      ]),
-      armor_class: armor_class,
-      hit_points: faker.number.int({ min: 1, max: 500 }),
-      hit_dice: `${faker.number.int({ min: 1, max: 50 })}d${faker.helpers.arrayElement([4, 6, 8, 10, 12, 20])}`,
-      hit_points_roll: `${faker.number.int({ min: 1, max: 50 })}d${faker.helpers.arrayElement([4, 6, 8, 10, 12, 20])} + ${faker.number.int({ min: 0, max: 100 })}`,
+      size: size,
+      type: type,
+      subtype: subtype,
+      alignment: alignment,
+      armor_class:
+        associations.armor_class ??
+        armorClassFactory.buildList(faker.number.int({ min: 1, max: 2 })),
+      hit_points: faker.number.int({ min: 10, max: 300 }),
+      hit_dice: `${faker.number.int({ min: 1, max: 20 })}d${faker.number.int({ min: 4, max: 12 })}`,
+      hit_points_roll: `${faker.number.int({ min: 1, max: 20 })}d${faker.number.int({ min: 4, max: 12 })} + ${faker.number.int({ min: 0, max: 50 })}`,
       speed: associations.speed ?? speedFactory.build(),
-      strength: faker.number.int({ min: 1, max: 30 }),
-      dexterity: faker.number.int({ min: 1, max: 30 }),
-      constitution: faker.number.int({ min: 1, max: 30 }),
-      intelligence: faker.number.int({ min: 1, max: 30 }),
-      wisdom: faker.number.int({ min: 1, max: 30 }),
-      charisma: faker.number.int({ min: 1, max: 30 }),
-      proficiencies: proficientSkills,
-      damage_vulnerabilities: faker.helpers.arrayElements(
-        ['fire', 'cold', 'lightning', 'acid', 'poison', 'bludgeoning', 'piercing', 'slashing'],
-        faker.number.int({ min: 0, max: 2 })
+      strength: faker.number.int({ min: 3, max: 30 }),
+      dexterity: faker.number.int({ min: 3, max: 30 }),
+      constitution: faker.number.int({ min: 3, max: 30 }),
+      intelligence: faker.number.int({ min: 3, max: 30 }),
+      wisdom: faker.number.int({ min: 3, max: 30 }),
+      charisma: faker.number.int({ min: 3, max: 30 }),
+      proficiencies:
+        associations.proficiencies ??
+        proficiencyFactory.buildList(faker.number.int({ min: 0, max: 5 })),
+      damage_vulnerabilities: Array.from({ length: faker.number.int({ min: 0, max: 2 }) }, () =>
+        faker.lorem.word()
       ),
-      damage_resistances: faker.helpers.arrayElements(
-        [
-          'fire',
-          'cold',
-          'lightning',
-          'acid',
-          'poison',
-          'bludgeoning',
-          'piercing',
-          'slashing',
-          'necrotic',
-          'radiant',
-          'psychic'
-        ],
-        faker.number.int({ min: 0, max: 3 })
+      damage_resistances: Array.from({ length: faker.number.int({ min: 0, max: 3 }) }, () =>
+        faker.lorem.word()
       ),
-      damage_immunities: faker.helpers.arrayElements(
-        [
-          'fire',
-          'cold',
-          'lightning',
-          'acid',
-          'poison',
-          'bludgeoning',
-          'piercing',
-          'slashing',
-          'necrotic',
-          'radiant',
-          'psychic'
-        ],
-        faker.number.int({ min: 0, max: 3 })
+      damage_immunities: Array.from({ length: faker.number.int({ min: 0, max: 3 }) }, () =>
+        faker.lorem.word()
       ),
       condition_immunities:
         associations.condition_immunities ??
-        apiReferenceFactory.buildList(
-          faker.number.int({ min: 0, max: 4 }),
-          {},
-          { transient: { indexPrefix: 'conditions/' } }
-        ),
+        apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 3 })),
       senses: associations.senses ?? senseFactory.build(),
-      languages: faker.lorem.words(faker.number.int({ min: 0, max: 4 })),
-      challenge_rating: faker.number.float({ min: 0.125, max: 30, multipleOf: 0.125 }),
-      xp: faker.number.int({ min: 0, max: 155000 }),
+      languages: transientParams?.languages ?? 'Common', // Add languages field - defaulting to "Common", allow override
+      challenge_rating:
+        transientParams?.challenge_rating ??
+        faker.helpers.arrayElement([
+          0, 0.125, 0.25, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+          20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+        ]),
+      proficiency_bonus: faker.number.int({ min: 2, max: 9 }),
+      xp: faker.number.int({ min: 10, max: 155000 }),
       special_abilities:
         associations.special_abilities ??
-        specialAbilityFactory.buildList(faker.number.int({ min: 0, max: 3 })),
+        specialAbilityFactory.buildList(faker.number.int({ min: 0, max: 4 })),
       actions:
         associations.actions ??
-        (actionFactory.buildList(faker.number.int({ min: 1, max: 4 })) as Action[]),
+        actionFactory.buildList(
+          faker.number.int({ min: 1, max: 5 }),
+          {},
+          { transient: { has_damage: true } }
+        ),
       legendary_actions:
         associations.legendary_actions ??
-        (faker.datatype.boolean()
-          ? legendaryActionFactory.buildList(faker.number.int({ min: 1, max: 4 }))
-          : undefined),
-      image: faker.datatype.boolean() ? `/api/images/monsters/${index}.png` : undefined,
-      reactions:
-        associations.reactions ??
-        (faker.datatype.boolean()
-          ? reactionFactory.buildList(faker.number.int({ min: 1, max: 2 }))
-          : undefined),
-      forms:
-        associations.forms ??
-        (faker.datatype.boolean()
-          ? apiReferenceFactory.buildList(
-              faker.number.int({ min: 1, max: 2 }),
-              {},
-              { transient: { indexPrefix: 'monsters/' } }
-            )
-          : undefined),
-      url: `/api/monsters/${index}`,
+        legendaryActionFactory.buildList(faker.number.int({ min: 0, max: 3 })),
+      image: faker.datatype.boolean() ? `/api/images/monsters/${slug}.png` : undefined,
+      reactions: transientParams?.has_reactions
+        ? reactionFactory.buildList(faker.number.int({ min: 1, max: 2 }))
+        : undefined,
+      url: `/api/monsters/${slug}`,
       updated_at: faker.date.recent().toISOString()
     }
   }
@@ -434,3 +387,5 @@ export const monsterModelFactory = Factory.define<MonsterDocument>(
     return doc
   }
 )
+
+export { monsterFactory }

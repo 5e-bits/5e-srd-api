@@ -229,8 +229,8 @@ export class SpecialAbilitySpellcasting {
   @prop({ index: true, type: () => String })
   public school?: string
 
-  @prop({ mapProp: true, type: () => Number, default: undefined })
-  public slots?: Map<string, number>
+  @prop({ type: () => Object, default: undefined })
+  public slots?: Record<string, number>
 
   @prop({ type: () => [SpecialAbilitySpell] })
   public spells!: SpecialAbilitySpell[]
