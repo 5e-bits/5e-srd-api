@@ -17,7 +17,6 @@ const mockNext = vi.fn(defaultMockNext)
 // Generate URI for this test file
 const dbUri = generateUniqueDbUri('alignment')
 
-// Setup hooks using helpers
 setupIsolatedDatabase(dbUri)
 teardownIsolatedDatabase()
 setupModelCleanup(AlignmentModel)

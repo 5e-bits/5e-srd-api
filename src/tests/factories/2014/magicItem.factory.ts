@@ -1,15 +1,7 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import type { MagicItem, Rarity } from '@/models/2014/magicItem'
-import { apiReferenceFactory } from './common.factory'
-
-// Helper function (can be moved to common if used elsewhere)
-const createIndex = (name: string): string =>
-  name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-const createUrl = (resource: string, index: string): string => `/api/${resource}/${index}` // Helper for URL
+import { apiReferenceFactory, createIndex, createUrl } from './common.factory'
 
 // --- Rarity Factory ---
 const rarityFactory = Factory.define<Rarity>(() => ({
@@ -19,9 +11,7 @@ const rarityFactory = Factory.define<Rarity>(() => ({
 // --- MagicItem Factory ---
 export const magicItemFactory = Factory.define<Omit<MagicItem, '_id' | 'collectionName'>>(
   ({ sequence, params }) => {
-    const name =
-      params.name ??
-      `${faker.commerce.productAdjective()} ${faker.commerce.productMaterial()} Item ${sequence}`
+    const name = params.name ?? `Magic Item ${sequence}`
     const index = params.index ?? createIndex(name)
 
     // Build dependencies first to ensure complete objects
@@ -31,7 +21,7 @@ export const magicItemFactory = Factory.define<Omit<MagicItem, '_id' | 'collecti
     return {
       index,
       name,
-      desc: params.desc ?? [faker.lorem.paragraph(), faker.lorem.paragraph()],
+      desc: params.desc ?? [faker.lorem.paragraph()],
       equipment_category: {
         index: builtEquipmentCategory.index,
         name: builtEquipmentCategory.name,

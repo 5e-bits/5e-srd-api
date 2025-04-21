@@ -1,15 +1,7 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import type { Feat, Prerequisite } from '@/models/2014/feat'
-import { apiReferenceFactory } from './common.factory' // Import common factory for APIReference
-
-// Helper function (can be moved to common if used elsewhere)
-const createIndex = (name: string): string =>
-  name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-const createUrl = (index: string): string => `/api/feats/${index}`
+import { apiReferenceFactory, createIndex, createUrl } from './common.factory' // Import common factory for APIReference and choiceFactory
 
 // --- Prerequisite Factory ---
 const prerequisiteFactory = Factory.define<Prerequisite>(({ params }) => {
@@ -45,7 +37,7 @@ export const featFactory = Factory.define<Omit<Feat, '_id' | 'collectionName'>>(
         minimum_score: p.minimum_score
       })),
       desc: params.desc ?? [faker.lorem.paragraph()],
-      url: params.url ?? createUrl(index),
+      url: params.url ?? createUrl('feats', index),
       updated_at: params.updated_at ?? faker.date.past().toISOString()
     }
   }

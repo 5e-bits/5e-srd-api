@@ -59,11 +59,6 @@ describe('AbilityScoreController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    // Note: Testing the actual error handling path might require
-    // more complex setup like mocking the mongoose connection itself,
-    // which goes against the principle of using a real DB connection.
-    // Consider if this specific error test is still valuable or if
-    // integration tests cover DB connection failures better.
     // Skipping the explicit 'find error' mock test for now.
   })
 

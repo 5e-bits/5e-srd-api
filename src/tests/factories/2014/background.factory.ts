@@ -3,20 +3,20 @@ import { faker } from '@faker-js/faker'
 import { Background, EquipmentRef } from '@/models/2014/background'
 import { apiReferenceFactory, choiceFactory } from './common.factory'
 
-// EquipmentRef factory - NO SPREAD
+// EquipmentRef factory
 const equipmentRefFactory = Factory.define<EquipmentRef>(() => ({
   equipment: apiReferenceFactory.build(),
   quantity: faker.number.int({ min: 1, max: 5 })
 }))
 
-// Feature factory - NO SPREAD
+// Feature factory
 // Cannot name this Feature due to conflict with built-in Feature type
 const backgroundFeatureFactory = Factory.define<Background['feature']>(() => ({
   name: faker.lorem.words(3),
   desc: [faker.lorem.paragraph()]
 }))
 
-// Main Background factory - NO SPREAD & USING COMMON FACTORIES
+// Main Background factory - USING COMMON FACTORIES
 export const backgroundFactory = Factory.define<Background>(({ sequence, params }) => {
   const name = params.name ?? `Background ${sequence}`
   const index = params.index ?? name.toLowerCase().replace(/\s+/g, '-')

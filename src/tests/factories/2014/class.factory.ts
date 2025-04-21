@@ -8,14 +8,7 @@ import type {
   MultiClassing,
   MultiClassingPrereq
 } from '@/models/2014/class'
-import { apiReferenceFactory, choiceFactory } from './common.factory' // Import common factories
-
-const createIndex = (name: string): string =>
-  name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-const createUrl = (index: string): string => `/api/classes/${index}`
+import { apiReferenceFactory, choiceFactory, createIndex, createUrl } from './common.factory'
 
 // --- Nested Factories --- //
 
@@ -100,7 +93,7 @@ export const classFactory = Factory.define<Omit<Class, '_id' | 'collectionName'>
   ({ sequence, params }) => {
     const name = params.name ?? `Class ${sequence}`
     const index = params.index ?? createIndex(name)
-    const url = params.url ?? createUrl(index)
+    const url = params.url ?? createUrl('classes', index)
 
     // Build dependencies
     const builtProfs =

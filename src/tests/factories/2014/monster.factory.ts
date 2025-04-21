@@ -24,8 +24,6 @@ import {
   damageFactory,
   difficultyClassFactory
 } from './common.factory'
-import type { APIReference, Damage, DifficultyClass, Choice } from '@/models/2014/common'
-import { vi } from 'vitest'
 
 // Factory for ActionUsage
 const actionUsageFactory = Factory.define<ActionUsage>(() => ({
@@ -147,7 +145,7 @@ const legendaryActionFactory = Factory.define<LegendaryAction>(({ associations }
 
 // Factory for Proficiency
 const proficiencyFactory = Factory.define<Proficiency>(({ associations }) => ({
-  proficiency: associations.proficiency ? associations.proficiency : apiReferenceFactory.build(),
+  proficiency: apiReferenceFactory.build(associations.proficiency),
   value: faker.number.int({ min: 1, max: 10 })
 }))
 
@@ -219,9 +217,9 @@ const specialAbilitySpellcastingFactory = Factory.define<SpecialAbilitySpellcast
 
     return {
       level: faker.datatype.boolean() ? faker.number.int({ min: 1, max: 20 }) : undefined,
-      ability: associations.ability
-        ? associations.ability
-        : apiReferenceFactory.build({ index: faker.helpers.arrayElement(['int', 'wis', 'cha']) }),
+      ability: apiReferenceFactory.build(
+        associations.ability ?? { index: faker.helpers.arrayElement(['int', 'wis', 'cha']) }
+      ),
       dc: faker.datatype.boolean() ? faker.number.int({ min: 10, max: 20 }) : undefined,
       modifier: faker.datatype.boolean() ? faker.number.int({ min: 0, max: 5 }) : undefined,
       components_required: faker.helpers.arrayElements(
@@ -339,9 +337,10 @@ const monsterFactory = Factory.define<Monster, any, Monster>(
       damage_immunities: Array.from({ length: faker.number.int({ min: 0, max: 3 }) }, () =>
         faker.lorem.word()
       ),
-      condition_immunities:
-        associations.condition_immunities ??
-        apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 3 })),
+      condition_immunities: apiReferenceFactory.buildList(
+        associations.condition_immunities?.length ?? faker.number.int({ min: 0, max: 3 }),
+        associations.condition_immunities?.[0] // Pass potential overrides
+      ),
       senses: associations.senses ?? senseFactory.build(),
       languages: transientParams?.languages ?? 'Common', // Add languages field - defaulting to "Common", allow override
       challenge_rating:

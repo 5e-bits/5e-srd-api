@@ -12,14 +12,25 @@ import {
   StringOption // Using one simple Option subtype for arrays
 } from '@/models/2014/common'
 
+// --- Helper Functions ---
+export const createIndex = (name: string): string =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+
+export const createUrl = (resource: string, index: string): string => `/api/${resource}/${index}`
+
 // --- APIReference ---
-export const apiReferenceFactory = Factory.define<APIReference>(({ sequence }) => {
-  const name = `Reference ${sequence}`
-  const index = name.toLowerCase().replace(/ /g, '-')
+export const apiReferenceFactory = Factory.define<APIReference>(({ sequence, params }) => {
+  const name = params?.name ?? `Reference ${sequence}`
+  const index = params?.index ?? createIndex(name)
+  // Default to a generic 'testing' resource if not provided
+  const resource = params?.url?.split('/')[2] ?? 'testing'
   return {
     index: index,
     name: name,
-    url: `/api/testing/${index}`
+    url: params?.url ?? createUrl(resource, index)
   }
 })
 

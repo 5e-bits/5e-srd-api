@@ -3,9 +3,23 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 
+export class Prerequisite {
+  @prop({ required: true, index: true, type: () => String })
+  public index!: string
+
+  @prop({ required: true, type: () => String })
+  public name!: string
+
+  @prop({ required: true, type: () => String })
+  public type!: string
+
+  @prop({ required: true, type: () => String })
+  public url!: string
+}
+
 export class SubclassSpell {
-  @prop({ type: () => [APIReference], required: true })
-  public prerequisites!: APIReference[]
+  @prop({ type: () => [Prerequisite], required: true })
+  public prerequisites!: Prerequisite[]
 
   @prop({ type: () => APIReference, required: true })
   public spell!: APIReference
@@ -28,8 +42,8 @@ export class Subclass {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => Number })
-  public subclass_levels!: number
+  @prop({ required: true, index: true, type: () => String })
+  public subclass_levels!: string
 
   @prop({ type: () => [SubclassSpell] })
   public spells?: SubclassSpell[]

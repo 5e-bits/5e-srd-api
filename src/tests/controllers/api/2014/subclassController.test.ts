@@ -214,8 +214,6 @@ describe('SubclassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    // Note: Controller doesn't check if subclass exists before querying levels
-    // It will return empty array if subclass index leads to no level matches
     it('returns an empty array for a non-existent subclass index', async () => {
       const request = createRequest({ params: { index: 'nonexistent-subclass' } })
       const response = createResponse()
