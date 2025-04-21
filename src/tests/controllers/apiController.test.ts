@@ -1,37 +1,27 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
 import deprecatedApiController from '@/controllers/apiController'
 import CollectionModel from '@/models/2014/collection' // Use Model suffix convention
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-// Apply DB isolation pattern
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_apicontroller_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('api')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(CollectionModel)
 
 describe('deprecated /api controller', () => {
-  beforeAll(async () => {
-    // Connect to isolated DB
-    await mongoose.connect(fileUniqueDbUri)
-  })
-
-  afterAll(async () => {
-    // Drop and disconnect isolated DB
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    // Clean the relevant model before each test
-    await CollectionModel.deleteMany({})
-  })
-
   it('redirects /api/ to /api/2014/', async () => {
     const request = createRequest({ path: '/' }) // Path relative to where the controller is mounted
     const response = createResponse()

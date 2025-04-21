@@ -1,41 +1,34 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose, { type Model } from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
+import { type Model } from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
 import AbilityScoreModel from '@/models/2014/abilityScore' // Use Model suffix convention
 import { abilityScoreFactory } from '@/tests/factories/2014/abilityScore.factory' // Import factory
 import SimpleController from '@/controllers/simpleController'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-// Apply DB isolation pattern
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_simple_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('simple')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(AbilityScoreModel)
+
 let abilityScoreController: SimpleController // Keep declaration
 
 describe('SimpleController (with AbilityScore)', () => {
   beforeAll(async () => {
-    // Connect to isolated DB
-    await mongoose.connect(fileUniqueDbUri)
     // Initialize controller after connection
     abilityScoreController = new SimpleController(AbilityScoreModel as Model<any>)
-  })
-
-  afterAll(async () => {
-    // Drop and disconnect isolated DB
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    // Clean the relevant model before each test
-    await AbilityScoreModel.deleteMany({})
-    // Re-initialize controller? Not strictly necessary if model is static, but safer if controller caches data.
-    // Let's keep the original logic of initializing only in beforeAll unless issues arise.
   })
 
   describe('index', () => {

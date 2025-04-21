@@ -1,38 +1,28 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
 import SkillModel from '@/models/2014/skill' // Use Model suffix
 import SkillController from '@/controllers/api/2014/skillController'
 import { skillFactory } from '@/tests/factories/2014/skill.factory' // Updated path
+import {
+  generateUniqueDbUri,
+  setupModelCleanup,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-// Apply DB isolation pattern
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_skill_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('skill')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(SkillModel)
 
 describe('SkillController', () => {
-  beforeAll(async () => {
-    // Connect to isolated DB
-    await mongoose.connect(fileUniqueDbUri)
-  })
-
-  afterAll(async () => {
-    // Drop and disconnect isolated DB
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    // Clean the relevant model before each test
-    await SkillModel.deleteMany({})
-  })
-
   describe('index', () => {
     it('returns a list of skills', async () => {
       // Arrange

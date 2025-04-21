@@ -1,59 +1,36 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
-
+import { mockNext as defaultMockNext } from '@/tests/support'
 import * as ApiController from '@/controllers/api/v2014Controller'
-import CollectionModel from '@/models/2014/collection' // Use Model suffix convention
-import { collectionFactory } from '@/tests/factories/2014/collection.factory' // Import the factory
+import CollectionModel from '@/models/2014/collection'
+import { collectionFactory } from '@/tests/factories/2014/collection.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-// Hold the unique connection details for this test file
-let fileUniqueDbUri: string | undefined
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('v2014')
 
-beforeAll(async () => {
-  const baseUri = process.env.TEST_MONGODB_URI_BASE
-  if (!baseUri) {
-    throw new Error('TEST_MONGODB_URI_BASE environment variable not set. Ensure globalSetup ran.')
-  }
-  const dbName = `test_v2014_${crypto.randomBytes(4).toString('hex')}`
-  fileUniqueDbUri = baseUri + dbName
-  await mongoose.connect(fileUniqueDbUri)
-})
-
-afterAll(async () => {
-  if (mongoose.connection.readyState === 1) {
-    try {
-      if (mongoose.connection.db) {
-        await mongoose.connection.db.dropDatabase()
-      }
-    } catch (err) {
-      console.error(`Error dropping database ${mongoose.connection.name}:`, err)
-    }
-    await mongoose.disconnect()
-  }
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  // Clear only collections relevant to this test file
-  await CollectionModel.deleteMany({})
-  // Seed using the factory
-  const collectionsData = collectionFactory.buildList(3)
-  await CollectionModel.insertMany(collectionsData)
-})
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(CollectionModel)
 
 describe('v2014 API Controller', () => {
   describe('index', () => {
     it('returns the map of available API routes', async () => {
-      // Arrange
+      // Arrange: Seed data within the test
+      const collectionsData = collectionFactory.buildList(3)
+      await CollectionModel.insertMany(collectionsData)
+
       const request = createRequest()
       const response = createResponse()
-      // Re-fetch the inserted data to build the expected response accurately
-      const insertedCollections = await CollectionModel.find({}).lean()
-      const expectedResponse = insertedCollections.reduce(
+      const expectedResponse = collectionsData.reduce(
         (acc, col) => {
           acc[col.index] = `/api/2014/${col.index}`
           return acc
@@ -89,15 +66,14 @@ describe('v2014 API Controller', () => {
       await ApiController.index(request, response, mockNext)
 
       // Assert
-      expect(response.statusCode).toBe(200) // Controller passes error to next()
+      expect(response.statusCode).toBe(200)
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith(error)
     })
 
     it('returns an empty object when no collections exist', async () => {
-      // Arrange
-      await CollectionModel.deleteMany({}) // Ensure collection is empty
+      // Arrange: Cleanup is handled by setupModelCleanup
       const request = createRequest()
       const response = createResponse()
 

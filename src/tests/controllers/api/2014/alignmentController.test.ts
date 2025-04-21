@@ -1,34 +1,28 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
 import AlignmentModel from '@/models/2014/alignment'
 import AlignmentController from '@/controllers/api/2014/alignmentController'
 import { alignmentFactory } from '@/tests/factories/2014/alignment.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_alignment_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('alignment')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(AlignmentModel)
 
 describe('AlignmentController', () => {
-  beforeAll(async () => {
-    await mongoose.connect(fileUniqueDbUri)
-  })
-
-  afterAll(async () => {
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    await AlignmentModel.deleteMany({})
-  })
-
   describe('index', () => {
     it('returns a list of alignments', async () => {
       const alignmentsData = alignmentFactory.buildList(3)

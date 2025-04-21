@@ -1,38 +1,28 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
 import RuleSectionModel from '@/models/2014/ruleSection' // Use Model suffix
 import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
 import { ruleSectionFactory } from '@/tests/factories/2014/ruleSection.factory' // Updated path
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-// Apply DB isolation pattern
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_rulesection_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('rulesection')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(RuleSectionModel)
 
 describe('RuleSectionController', () => {
-  beforeAll(async () => {
-    // Connect to isolated DB
-    await mongoose.connect(fileUniqueDbUri)
-  })
-
-  afterAll(async () => {
-    // Drop and disconnect isolated DB
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    // Clean the relevant model before each test
-    await RuleSectionModel.deleteMany({})
-  })
-
   describe('index', () => {
     it('returns a list of rule sections', async () => {
       // Arrange

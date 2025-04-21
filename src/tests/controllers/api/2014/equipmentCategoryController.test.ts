@@ -1,34 +1,28 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController'
 import { equipmentCategoryFactory } from '@/tests/factories/2014/equipmentCategory.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  setupModelCleanup,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_equipment_category_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('equipmentcategory')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(EquipmentCategoryModel)
 
 describe('EquipmentCategoryController', () => {
-  beforeAll(async () => {
-    await mongoose.connect(fileUniqueDbUri)
-  })
-
-  afterAll(async () => {
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    await EquipmentCategoryModel.deleteMany({})
-  })
-
   describe('index', () => {
     it('returns a list of equipment categories', async () => {
       const categoriesData = equipmentCategoryFactory.buildList(3)

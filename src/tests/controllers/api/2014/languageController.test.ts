@@ -1,38 +1,28 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
 import LanguageModel from '@/models/2014/language'
 import LanguageController from '@/controllers/api/2014/languageController'
 import { languageFactory } from '@/tests/factories/2014/language.factory'
+import {
+  generateUniqueDbUri,
+  setupModelCleanup,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-// Apply DB isolation pattern
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_language_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('language')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(LanguageModel)
 
 describe('LanguageController', () => {
-  beforeAll(async () => {
-    // Connect to isolated DB
-    await mongoose.connect(fileUniqueDbUri)
-  })
-
-  afterAll(async () => {
-    // Drop and disconnect isolated DB
-    if (mongoose.connection.db) {
-      await mongoose.connection.db.dropDatabase()
-    }
-    await mongoose.disconnect()
-  })
-
-  beforeEach(async () => {
-    vi.clearAllMocks()
-    // Clean the relevant model before each test
-    await LanguageModel.deleteMany({})
-  })
-
   describe('index', () => {
     it('returns a list of languages', async () => {
       const languagesData = languageFactory.buildList(3)

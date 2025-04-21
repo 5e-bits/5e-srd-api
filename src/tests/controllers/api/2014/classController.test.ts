@@ -1,6 +1,4 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
@@ -18,49 +16,28 @@ import { subclassFactory } from '@/tests/factories/2014/subclass.factory'
 import { spellFactory } from '@/tests/factories/2014/spell.factory'
 import { featureFactory } from '@/tests/factories/2014/feature.factory'
 import { proficiencyFactory } from '@/tests/factories/2014/proficiency.factory'
-import { apiReferenceFactory } from '@/tests/factories/2014/common.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-let fileUniqueDbUri: string | undefined
+const dbUri = generateUniqueDbUri('class')
 
-beforeAll(async () => {
-  const baseUri = process.env.TEST_MONGODB_URI_BASE
-  if (!baseUri) {
-    throw new Error('TEST_MONGODB_URI_BASE environment variable not set. Ensure globalSetup ran.')
-  }
-  const dbName = `test_class_${crypto.randomBytes(4).toString('hex')}`
-  fileUniqueDbUri = baseUri + dbName
-
-  await mongoose.connect(fileUniqueDbUri, {})
-})
-
-afterAll(async () => {
-  if (mongoose.connection.readyState === 1) {
-    try {
-      if (mongoose.connection.db) {
-        await mongoose.connection.db.dropDatabase()
-      }
-    } catch (err) {
-      console.error(`Error dropping database ${mongoose.connection.name}:`, err)
-    }
-    await mongoose.disconnect()
-  }
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  // Clear collections before each test within this file's unique DB
-  await ClassModel.deleteMany({})
-  await LevelModel.deleteMany({})
-  await SubclassModel.deleteMany({})
-  await SpellModel.deleteMany({})
-  await FeatureModel.deleteMany({})
-  await ProficiencyModel.deleteMany({})
-})
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(ClassModel)
+setupModelCleanup(LevelModel)
+setupModelCleanup(SubclassModel)
+setupModelCleanup(SpellModel)
+setupModelCleanup(FeatureModel)
+setupModelCleanup(ProficiencyModel)
 
 describe('ClassController', () => {
-  // === index ===
   describe('index', () => {
     it('returns a list of classes', async () => {
       const classesData = classFactory.buildList(3)

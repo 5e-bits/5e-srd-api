@@ -1,6 +1,4 @@
-import { beforeEach, describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import mongoose from 'mongoose'
-import crypto from 'crypto'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
 
@@ -8,28 +6,22 @@ import RuleModel from '@/models/2014/rule' // Use Model suffix
 // Import specific functions from the correct controller file
 import * as RuleController from '@/controllers/api/2014/ruleController'
 import { ruleFactory } from '@/tests/factories/2014/rule.factory' // Updated path
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  setupModelCleanup,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 
-const fileUniqueDbUri = `${process.env.TEST_MONGODB_URI_BASE}test_rule_${crypto.randomBytes(4).toString('hex')}`
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('rule')
 
-beforeAll(async () => {
-  // Connect to isolated DB
-  await mongoose.connect(fileUniqueDbUri)
-})
-
-afterAll(async () => {
-  // Drop and disconnect isolated DB
-  if (mongoose.connection.db) {
-    await mongoose.connection.db.dropDatabase()
-  }
-  await mongoose.disconnect()
-})
-
-beforeEach(async () => {
-  vi.clearAllMocks()
-  await RuleModel.deleteMany({})
-})
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(RuleModel)
 
 describe('RuleController', () => {
   // Updated describe block name
