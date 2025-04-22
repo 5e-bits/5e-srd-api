@@ -34,6 +34,7 @@ export const spellFactory = Factory.define<Spell>(({ sequence }) => {
     attack_type: faker.datatype.boolean(0.5)
       ? faker.helpers.arrayElement(['melee', 'ranged'])
       : undefined,
+    casting_time: faker.word.noun(),
     ritual: faker.datatype.boolean(),
     duration: faker.helpers.arrayElement(['Instantaneous', '1 round', '1 minute']),
     concentration: faker.datatype.boolean(),

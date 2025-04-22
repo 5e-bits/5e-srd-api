@@ -33,8 +33,8 @@ export class Spell {
   @prop({ index: true, type: () => String })
   public attack_type?: string
 
-  @prop({ required: true, index: true, type: () => Boolean })
-  public ritual!: boolean
+  @prop({ required: true, index: true, type: () => String })
+  public casting_time!: string
 
   @prop({ type: () => [APIReference], required: true })
   public classes!: APIReference[]
@@ -78,11 +78,14 @@ export class Spell {
   @prop({ required: true, index: true, type: () => String })
   public range!: string
 
+  @prop({ required: true, index: true, type: () => Boolean })
+  public ritual!: boolean
+
   @prop({ type: () => APIReference, required: true })
   public school!: APIReference
 
   @prop({ type: () => [APIReference], required: true })
-  public subclasses!: APIReference[]
+  public subclasses?: APIReference[]
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
