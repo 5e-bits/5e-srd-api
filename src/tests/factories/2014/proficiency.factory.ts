@@ -41,10 +41,7 @@ export const proficiencyFactory = Factory.define<Proficiency>(({ sequence }) => 
     reference: referenceFactory.build(),
     url: `/api/proficiencies/${index}`,
     updated_at: faker.date.recent().toISOString(),
-    // Optional fields - provide empty arrays as default
-    classes: [],
-    races: []
-    // classes: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 2 })), // Alt: generate some
-    // races: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 }))
+    classes: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 2 })),
+    races: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 }))
   }
 })

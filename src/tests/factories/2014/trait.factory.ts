@@ -1,7 +1,7 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import { Trait } from '@/models/2014/trait'
-import { apiReferenceFactory } from './common.factory'
+import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 export const traitFactory = Factory.define<Trait>(({ sequence }) => {
   const name = `Trait ${sequence} - ${faker.lorem.words(2)}`
@@ -23,9 +23,9 @@ export const traitFactory = Factory.define<Trait>(({ sequence }) => {
     // Tests needing specific values should override or build manually
     languages: [],
     proficiencies: [],
-    // language_options: undefined, // Or choiceFactory.build()
-    // proficiency_choices: undefined, // Or choiceFactory.build()
-    parent: apiReferenceFactory.build()
-    // trait_specific: undefined // Or traitSpecificFactory.build()
+    language_options: choiceFactory.build(),
+    proficiency_choices: choiceFactory.build(),
+    parent: apiReferenceFactory.build(),
+    trait_specific: undefined
   }
 })

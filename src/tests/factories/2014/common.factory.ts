@@ -5,11 +5,9 @@ import {
   AreaOfEffect,
   DifficultyClass,
   Damage,
-  OptionSet,
-  OptionsArrayOptionSet, // Using one subtype for OptionSet 'from'
-  Option,
+  OptionsArrayOptionSet,
   Choice,
-  StringOption // Using one simple Option subtype for arrays
+  StringOption
 } from '@/models/2014/common'
 
 // --- Helper Functions ---

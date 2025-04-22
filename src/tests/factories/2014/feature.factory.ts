@@ -28,9 +28,9 @@ const spellPrerequisiteFactory = Factory.define<SpellPrerequisite>(() => ({
 
 // Basic placeholder for FeatureSpecific - tests needing details should build manually
 const featureSpecificFactory = Factory.define<FeatureSpecific>(() => ({
-  // subfeature_options: choiceFactory.build(),
-  // expertise_options: choiceFactory.build(),
-  // invocations: apiReferenceFactory.buildList(1)
+  subfeature_options: choiceFactory.build(),
+  expertise_options: choiceFactory.build(),
+  invocations: apiReferenceFactory.buildList(1)
 }))
 
 // --- Main Feature Factory ---
@@ -52,10 +52,14 @@ export const featureFactory = Factory.define<Feature>(({ sequence }) => {
     updated_at: faker.date.recent().toISOString(),
 
     // Optional fields defaulted to undefined
-    prerequisites: [], // Default to no prerequisites
+    prerequisites: [
+      levelPrerequisiteFactory.build(),
+      featurePrerequisiteFactory.build(),
+      spellPrerequisiteFactory.build()
+    ], // Default to no prerequisites
     parent: undefined,
     subclass: undefined,
-    feature_specific: undefined,
+    feature_specific: featureSpecificFactory.build(),
     reference: undefined
   }
 })

@@ -1,7 +1,7 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import { Spell, SpellDamage, SpellDC } from '@/models/2014/spell'
-import { apiReferenceFactory, areaOfEffectFactory, difficultyClassFactory } from './common.factory'
+import { apiReferenceFactory, areaOfEffectFactory } from './common.factory'
 
 // --- Sub-factories (Placeholders/Simple Defaults) ---
 const spellDamageFactory = Factory.define<SpellDamage>(() => ({
@@ -50,9 +50,9 @@ export const spellFactory = Factory.define<Spell>(({ sequence }) => {
     // Tests needing specific values must override.
     higher_level: undefined,
     material: undefined,
-    damage: undefined, // spellDamageFactory.build(),
-    dc: undefined, // spellDcFactory.build(),
+    damage: spellDamageFactory.build(),
+    dc: spellDcFactory.build(),
     heal_at_slot_level: undefined,
-    area_of_effect: undefined // areaOfEffectFactory.build(),
+    area_of_effect: areaOfEffectFactory.build()
   }
 })

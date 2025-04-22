@@ -1,9 +1,7 @@
 import { Factory } from 'fishery'
-import { faker } from '@faker-js/faker' // Using faker for more realistic data
+import { faker } from '@faker-js/faker'
 import { AbilityScore } from '@/models/2014/abilityScore'
-// Remove direct import of APIReference if not needed elsewhere in this file
-// import { APIReference } from '@/models/2014/common'
-import { apiReferenceFactory } from './common.factory' // Corrected relative import path
+import { apiReferenceFactory } from './common.factory'
 
 // Define the factory using fishery
 export const abilityScoreFactory = Factory.define<AbilityScore>(
