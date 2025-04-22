@@ -1,13 +1,34 @@
-import { describe, it, expect, afterEach, vi } from 'vitest'
+import { mongodbUri, redisClient } from '@/util'
+
+import { Application } from 'express'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
+import createApp from '@/server'
+
+import mongoose from 'mongoose'
 import request from 'supertest'
-import { app } from '../../globalSetup' // Adjusted path for subdirectory
+
+let app: Application
+let server: any
 
 afterEach(() => {
   vi.clearAllMocks()
 })
 
+beforeAll(async () => {
+  await mongoose.connect(mongodbUri)
+  await redisClient.connect()
+  app = await createApp()
+  server = app.listen() // Start the server and store the instance
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await redisClient.quit()
+  server.close()
+})
+
 describe('/api/2014/classes', () => {
-  it('should return a list', async () => {
+  it('should list classes', async () => {
     const res = await request(app).get('/api/2014/classes')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
@@ -34,10 +55,11 @@ describe('/api/2014/classes', () => {
 
   describe('/api/2014/classes/:index', () => {
     it('should return one object', async () => {
-      const index = 'barbarian'
-      const res = await request(app).get(`/api/2014/classes/${index}`)
-      expect(res.statusCode).toEqual(200)
-      expect(res.body.index).toEqual(index)
+      const indexRes = await request(app).get('/api/2014/classes')
+      const index = indexRes.body.results[0].index
+      const showRes = await request(app).get(`/api/2014/classes/${index}`)
+      expect(showRes.statusCode).toEqual(200)
+      expect(showRes.body.index).toEqual(index)
     })
 
     describe('with an invalid index', () => {

@@ -1,9 +1,29 @@
-import { describe, it, afterEach, vi } from 'vitest'
+import { mongodbUri, redisClient } from '@/util'
+
+import { Application } from 'express'
+import createApp from '@/server'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
+import mongoose from 'mongoose'
 import request from 'supertest'
-import { app } from '../globalSetup' // Adjusted path for relative import
+
+let app: Application
+let server: any
 
 afterEach(() => {
   vi.clearAllMocks()
+})
+
+beforeAll(async () => {
+  await mongoose.connect(mongodbUri)
+  await redisClient.connect()
+  app = await createApp()
+  server = app.listen() // Start the server and store the instance
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await redisClient.quit()
+  server.close()
 })
 
 describe('/api/magic-items', () => {

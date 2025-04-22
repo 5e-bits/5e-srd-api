@@ -1,4 +1,6 @@
+import { vi } from 'vitest'
+
 export type MockResponse = {
-  status?: jest.Mock<any, any>;
-  json?: jest.Mock<any, any>;
+  status?: vi.Mock<any, any>
+  json?: vi.Mock<any, any>
 }

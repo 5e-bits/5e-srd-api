@@ -39,13 +39,13 @@ COPY --from=builder /app/src /app/src
 COPY --from=builder /app/vitest.config*.ts ./
 COPY --from=builder /app/tsconfig.json ./
 
-# Add non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# # Add non-root user for security
+# RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Change ownership of app directory to the non-root user AFTER user creation
-RUN chown -R appuser:appgroup /app
+# # Change ownership of app directory to the non-root user AFTER user creation
+# RUN chown -R appuser:appgroup /app
 
-USER appuser
+# USER appuser
 
 # Expose port (replace 3000 if different)
 EXPOSE 3000

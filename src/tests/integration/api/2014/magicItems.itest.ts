@@ -1,21 +1,41 @@
-import { describe, it, expect, afterEach, vi } from 'vitest'
+import { mongodbUri, redisClient } from '@/util'
+
+import { Application } from 'express'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
+import createApp from '@/server'
+
+import mongoose from 'mongoose'
 import request from 'supertest'
-import { app } from '../../globalSetup' // Adjusted path for subdirectory
-import { redisClient } from '@/util' // Keep redisClient import
+
+let app: Application
+let server: any
 
 afterEach(() => {
   vi.clearAllMocks()
 })
 
+beforeAll(async () => {
+  await mongoose.connect(mongodbUri)
+  await redisClient.connect()
+  app = await createApp()
+  server = app.listen() // Start the server and store the instance
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await redisClient.quit()
+  server.close()
+})
+
 describe('/api/2014/magic-items', () => {
-  it('should return a list', async () => {
+  it('should list magic items', async () => {
     const res = await request(app).get('/api/2014/magic-items')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
   })
 
   it('should hit the cache', async () => {
-    await (redisClient as any).del('/api/2014/magic-items')
+    await redisClient.del('/api/2014/magic-items')
     const clientSet = vi.spyOn(redisClient, 'set')
     let res = await request(app).get('/api/2014/magic-items')
     res = await request(app).get('/api/2014/magic-items')
@@ -42,21 +62,22 @@ describe('/api/2014/magic-items', () => {
       expect(res.body.results[0].name).toEqual(name)
     })
   })
-})
 
-describe('/api/2014/magic-items/:index', () => {
-  it('should return one object', async () => {
-    const index = 'adamantine-armor'
-    const res = await request(app).get(`/api/2014/magic-items/${index}`)
-    expect(res.statusCode).toEqual(200)
-    expect(res.body.index).toEqual(index)
-  })
+  describe('/api/2014/magic-items/:index', () => {
+    it('should return one object', async () => {
+      const indexRes = await request(app).get('/api/2014/magic-items')
+      const index = indexRes.body.results[0].index
+      const showRes = await request(app).get(`/api/2014/magic-items/${index}`)
+      expect(showRes.statusCode).toEqual(200)
+      expect(showRes.body.index).toEqual(index)
+    })
 
-  describe('with an invalid index', () => {
-    it('should return 404', async () => {
-      const invalidIndex = 'invalid-index'
-      const res = await request(app).get(`/api/2014/magic-items/${invalidIndex}`)
-      expect(res.statusCode).toEqual(404)
+    describe('with an invalid index', () => {
+      it('should return 404', async () => {
+        const invalidIndex = 'invalid-index'
+        const showRes = await request(app).get(`/api/2014/magic-items/${invalidIndex}`)
+        expect(showRes.statusCode).toEqual(404)
+      })
     })
   })
 })

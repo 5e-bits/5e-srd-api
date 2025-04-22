@@ -17,10 +17,16 @@ const __filename = fileURLToPath(import.meta.url)
 
 const __dirname = path.dirname(__filename)
 
+const rateLimitWindowMs = process.env.RATE_LIMIT_WINDOW_MS
+  ? parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10)
+  : 1000 // Default 1 second
+
+const rateLimitMax = process.env.RATE_LIMIT_MAX ? parseInt(process.env.RATE_LIMIT_MAX, 10) : 50 // Default 50
+
 const limiter = rateLimit({
-  windowMs: 1000, // 1 second
-  max: 50, // limit each IP to 50 requests per windowMs
-  message: 'Rate limit of 50 requests per second exceeded, try again in a second'
+  windowMs: rateLimitWindowMs,
+  max: rateLimitMax,
+  message: `Rate limit of ${rateLimitMax} requests per ${rateLimitWindowMs / 1000} second(s) exceeded, try again later.`
 })
 
 export default async () => {

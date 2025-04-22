@@ -1,21 +1,41 @@
-import { describe, it, expect, afterEach, vi } from 'vitest'
+import { mongodbUri, redisClient } from '@/util'
+
+import { Application } from 'express'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
+import createApp from '@/server'
+
+import mongoose from 'mongoose'
 import request from 'supertest'
-import { app } from '../../globalSetup' // Adjusted path for subdirectory
-import { redisClient } from '@/util' // Keep redisClient import
+
+let app: Application
+let server: any
 
 afterEach(() => {
   vi.clearAllMocks()
 })
 
+beforeAll(async () => {
+  await mongoose.connect(mongodbUri)
+  await redisClient.connect()
+  app = await createApp()
+  server = app.listen() // Start the server and store the instance
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await redisClient.quit()
+  server.close()
+})
+
 describe('/api/2014/spells', () => {
-  it('should return a list', async () => {
+  it('should list spells', async () => {
     const res = await request(app).get('/api/2014/spells')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
   })
 
   it('should hit the cache', async () => {
-    await (redisClient as any).del('/api/2014/spells')
+    await redisClient.del('/api/2014/spells')
     const clientSet = vi.spyOn(redisClient, 'set')
     let res = await request(app).get('/api/2014/spells')
     res = await request(app).get('/api/2014/spells')
@@ -143,21 +163,22 @@ describe('/api/2014/spells', () => {
       expect(queryRes.body.school.name).toEqual(school)
     })
   })
-})
 
-describe('/api/2014/spells/:index', () => {
-  it('should return one object', async () => {
-    const index = 'acid-arrow'
-    const res = await request(app).get(`/api/2014/spells/${index}`)
-    expect(res.statusCode).toEqual(200)
-    expect(res.body.index).toEqual(index)
-  })
+  describe('/api/2014/spells/:index', () => {
+    it('should return one object', async () => {
+      const indexRes = await request(app).get('/api/2014/spells')
+      const index = indexRes.body.results[0].index
+      const showRes = await request(app).get(`/api/2014/spells/${index}`)
+      expect(showRes.statusCode).toEqual(200)
+      expect(showRes.body.index).toEqual(index)
+    })
 
-  describe('with an invalid index', () => {
-    it('should return 404', async () => {
-      const invalidIndex = 'invalid-index'
-      const showRes = await request(app).get(`/api/2014/spells/${invalidIndex}`)
-      expect(showRes.statusCode).toEqual(404)
+    describe('with an invalid index', () => {
+      it('should return 404', async () => {
+        const invalidIndex = 'invalid-index'
+        const showRes = await request(app).get(`/api/2014/spells/${invalidIndex}`)
+        expect(showRes.statusCode).toEqual(404)
+      })
     })
   })
 })

@@ -1,13 +1,34 @@
-import { describe, it, expect, afterEach, vi } from 'vitest'
+import { mongodbUri, redisClient } from '@/util'
+
+import { Application } from 'express'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
+import createApp from '@/server'
+
+import mongoose from 'mongoose'
 import request from 'supertest'
-import { app } from '../../globalSetup' // Adjusted path for subdirectory
+
+let app: Application
+let server: any
 
 afterEach(() => {
   vi.clearAllMocks()
 })
 
+beforeAll(async () => {
+  await mongoose.connect(mongodbUri)
+  await redisClient.connect()
+  app = await createApp()
+  server = app.listen() // Start the server and store the instance
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await redisClient.quit()
+  server.close()
+})
+
 describe('/api/2014/subclasses', () => {
-  it('should return a list', async () => {
+  it('should list subclasses', async () => {
     const res = await request(app).get('/api/2014/subclasses')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
@@ -31,50 +52,51 @@ describe('/api/2014/subclasses', () => {
       expect(res.body.results[0].name).toEqual(name)
     })
   })
-})
 
-describe('/api/2014/subclasses/:index', () => {
-  it('should return one object', async () => {
-    const index = 'berserker'
-    const res = await request(app).get(`/api/2014/subclasses/${index}`)
-    expect(res.statusCode).toEqual(200)
-    expect(res.body.index).toEqual(index)
-  })
-
-  describe('with an invalid index', () => {
-    it('should return 404', async () => {
-      const invalidIndex = 'invalid-index'
-      const showRes = await request(app).get(`/api/2014/subclasses/${invalidIndex}`)
-      expect(showRes.statusCode).toEqual(404)
-    })
-  })
-
-  describe('/api/2014/subclasses/:index/levels', () => {
-    it('returns objects', async () => {
-      const index = 'berserker'
-      const res = await request(app).get(`/api/2014/subclasses/${index}/levels`)
-      expect(res.statusCode).toEqual(200)
-      expect(res.body.length).not.toEqual(0)
+  describe('/api/2014/subclasses/:index', () => {
+    it('should return one object', async () => {
+      const indexRes = await request(app).get('/api/2014/subclasses')
+      const index = indexRes.body.results[0].index
+      const showRes = await request(app).get(`/api/2014/subclasses/${index}`)
+      expect(showRes.statusCode).toEqual(200)
+      expect(showRes.body.index).toEqual(index)
     })
 
-    describe('/api/2014/subclasses/:index/levels/:level', () => {
+    describe('with an invalid index', () => {
+      it('should return 404', async () => {
+        const invalidIndex = 'invalid-index'
+        const showRes = await request(app).get(`/api/2014/subclasses/${invalidIndex}`)
+        expect(showRes.statusCode).toEqual(404)
+      })
+    })
+
+    describe('/api/2014/subclasses/:index/levels', () => {
       it('returns objects', async () => {
         const index = 'berserker'
-        const level = 3
-        const res = await request(app).get(`/api/2014/subclasses/${index}/levels/${level}`)
+        const res = await request(app).get(`/api/2014/subclasses/${index}/levels`)
         expect(res.statusCode).toEqual(200)
-        expect(res.body.level).toEqual(level)
+        expect(res.body.length).not.toEqual(0)
       })
 
-      describe('/api/2014/subclasses/:index/levels/:level/features', () => {
+      describe('/api/2014/subclasses/:index/levels/:level', () => {
         it('returns objects', async () => {
           const index = 'berserker'
           const level = 3
-          const res = await request(app).get(
-            `/api/2014/subclasses/${index}/levels/${level}/features`
-          )
+          const res = await request(app).get(`/api/2014/subclasses/${index}/levels/${level}`)
           expect(res.statusCode).toEqual(200)
-          expect(res.body.results.length).not.toEqual(0)
+          expect(res.body.level).toEqual(level)
+        })
+
+        describe('/api/2014/subclasses/:index/levels/:level/features', () => {
+          it('returns objects', async () => {
+            const index = 'berserker'
+            const level = 3
+            const res = await request(app).get(
+              `/api/2014/subclasses/${index}/levels/${level}/features`
+            )
+            expect(res.statusCode).toEqual(200)
+            expect(res.body.results.length).not.toEqual(0)
+          })
         })
       })
     })
