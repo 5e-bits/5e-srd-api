@@ -30,9 +30,6 @@ export class Subclass {
   @prop({ type: () => APIReference, required: true })
   public class!: APIReference
 
-  @prop({ required: true, index: true, type: () => String })
-  public subclass_flavor!: string
-
   @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
@@ -42,11 +39,14 @@ export class Subclass {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
+  @prop({ type: () => [SubclassSpell] })
+  public spells?: SubclassSpell[]
+
   @prop({ required: true, index: true, type: () => String })
   public subclass_levels!: string
 
-  @prop({ type: () => [SubclassSpell] })
-  public spells?: SubclassSpell[]
+  @prop({ required: true, index: true, type: () => String })
+  public subclass_flavor!: string
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
