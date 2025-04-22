@@ -196,7 +196,7 @@ option-set-model:
         option_set_type:
           description: 'Type of option set; determines other attributes.'
           type: string
-        resource_list:
+        resource_list_url:
           description: 'A reference (by URL) to a collection in the database.'
           type: string
 choice-model:
