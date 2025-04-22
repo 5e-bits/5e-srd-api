@@ -1,8 +1,9 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, AreaOfEffect } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpellDamage {
   @prop({ type: () => APIReference })
   public damage_type?: APIReference

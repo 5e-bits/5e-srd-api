@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice, DifficultyClass, Damage } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
@@ -210,6 +210,7 @@ export class SpecialAbilitySpell {
   public usage?: SpecialAbilityUsage
 }
 
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpecialAbilitySpellcasting {
   @prop({ index: true, type: () => Number })
   public level?: number

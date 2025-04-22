@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
@@ -14,6 +14,7 @@ class Proficiency {
   public url!: string
 }
 
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 class ActionDamage {
   @prop({ type: () => APIReference })
   public damage_type!: APIReference
