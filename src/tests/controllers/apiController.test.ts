@@ -1,47 +1,60 @@
-import { jest } from '@jest/globals'
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
 import deprecatedApiController from '@/controllers/apiController'
-import Collection from '@/models/2014/collection'
-import { mockNext } from '@/tests/support/requestHelpers'
+import CollectionModel from '@/models/2014/collection' // Use Model suffix convention
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
+
+const mockNext = vi.fn(defaultMockNext)
+
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('api')
+
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(CollectionModel)
 
 describe('deprecated /api controller', () => {
-  beforeEach(() => {
-    mockingoose.resetAll()
-
-    const findDoc = [{ index: 'valid-endpoint' }]
-    mockingoose(Collection).toReturn(findDoc, 'find')
-  })
-
-  it('redirects to /api/2014', async () => {
-    const request = createRequest({ path: '/' })
+  it('redirects /api/ to /api/2014/', async () => {
+    const request = createRequest({ path: '/' }) // Path relative to where the controller is mounted
     const response = createResponse()
-    const redirect = jest.spyOn(response, 'redirect')
-
-    await deprecatedApiController(request, response, mockNext)
-    expect(response.statusCode).toBe(301)
-    expect(redirect).toHaveBeenCalledWith(301, '/api/2014/')
-  })
-
-  it('redirects nested endpoint to 2014 equivalent', async () => {
-    const request = createRequest({ path: '/valid-endpoint' })
-    const response = createResponse()
-    const redirect = jest.spyOn(response, 'redirect')
+    const redirectSpy = vi.spyOn(response, 'redirect')
 
     await deprecatedApiController(request, response, mockNext)
 
     expect(response.statusCode).toBe(301)
-    expect(redirect).toHaveBeenCalledWith(301, '/api/2014/valid-endpoint')
+    expect(redirectSpy).toHaveBeenCalledWith(301, '/api/2014/')
+    expect(mockNext).not.toHaveBeenCalled()
+  })
+
+  it('redirects /api/<valid-endpoint> to /api/2014/<valid-endpoint>', async () => {
+    await CollectionModel.insertMany([{ index: 'valid-endpoint' }])
+    const request = createRequest({ method: 'GET', path: '/valid-endpoint' })
+    const response = createResponse()
+    const redirectSpy = vi.spyOn(response, 'redirect')
+
+    await deprecatedApiController(request, response, mockNext)
+
+    expect(response.statusCode).toBe(301)
+    expect(redirectSpy).toHaveBeenCalledWith(301, '/api/2014/valid-endpoint')
+    expect(mockNext).not.toHaveBeenCalled()
   })
 
   it('responds with 404 for invalid sub-routes', async () => {
     const request = createRequest({ path: '/invalid-endpoint' })
     const response = createResponse()
+    const sendStatusSpy = vi.spyOn(response, 'sendStatus')
 
     await deprecatedApiController(request, response, mockNext)
 
-    expect(response.statusCode).toBe(404)
-    expect(response._getData()).toBe('Not Found')
+    expect(sendStatusSpy).toHaveBeenCalledWith(404)
+    expect(mockNext).not.toHaveBeenCalled()
   })
 })

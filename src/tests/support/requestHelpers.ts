@@ -1,3 +1,3 @@
-import { jest } from '@jest/globals'
+import { vi } from 'vitest'
 
-export const mockNext = jest.fn()
+export const mockNext = vi.fn()

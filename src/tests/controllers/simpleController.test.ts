@@ -1,105 +1,165 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, beforeAll, vi } from 'vitest'
+import { type Model } from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 
-import { mockNext } from '@/tests/support/requestHelpers'
-import AbilityScore from '@/models/2014/abilityScore'
+import AbilityScoreModel from '@/models/2014/abilityScore' // Use Model suffix convention
+import { abilityScoreFactory } from '@/tests/factories/2014/abilityScore.factory' // Import factory
 import SimpleController from '@/controllers/simpleController'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
-let simpleController: SimpleController
-beforeEach(() => {
-  mockingoose.resetAll()
-  simpleController = new SimpleController(AbilityScore)
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'str',
-      name: 'STR',
-      url: '/api/ability-scores/str'
-    },
-    {
-      index: 'dex',
-      name: 'DEX',
-      url: '/api/ability-scores/dex'
-    },
-    {
-      index: 'con',
-      name: 'CON',
-      url: '/api/ability-scores/con'
-    }
-  ]
-  const request = createRequest()
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('simple')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(AbilityScore).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(AbilityScoreModel)
 
-    await simpleController.index(request, response, mockNext)
+let abilityScoreController: SimpleController // Keep declaration
 
-    expect(response.statusCode).toBe(200)
+describe('SimpleController (with AbilityScore)', () => {
+  beforeAll(async () => {
+    // Initialize controller after connection
+    abilityScoreController = new SimpleController(AbilityScoreModel as Model<any>)
   })
 
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+  describe('index', () => {
+    it('returns a list of documents', async () => {
+      // Arrange
+      const scoresData = abilityScoreFactory.buildList(3)
+      await AbilityScoreModel.insertMany(scoresData)
+      const request = createRequest()
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(AbilityScore).toReturn(error, 'find')
 
-      await simpleController.index(request, response, mockNext)
+      // Act
+      await abilityScoreController.index(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          // SimpleController index returns index, name, url
+          expect.objectContaining({
+            index: scoresData[0].index,
+            name: scoresData[0].name,
+            url: scoresData[0].url
+          }),
+          expect.objectContaining({
+            index: scoresData[1].index,
+            name: scoresData[1].name,
+            url: scoresData[1].url
+          }),
+          expect.objectContaining({
+            index: scoresData[2].index,
+            name: scoresData[2].name,
+            url: scoresData[2].url
+          })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('handles database errors during find', async () => {
+      // Arrange
+      const request = createRequest()
+      const response = createResponse()
+      const error = new Error('Database find failed')
+      vi.spyOn(AbilityScoreModel, 'find').mockImplementationOnce(() => {
+        const query = {
+          select: vi.fn().mockReturnThis(),
+          sort: vi.fn().mockReturnThis(),
+          exec: vi.fn().mockRejectedValueOnce(error)
+        } as any
+        return query
+      })
+
+      // Act
+      await abilityScoreController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith(error)
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'str',
-    name: 'STR',
-    url: '/api/ability-scores/str'
-  }
-
-  const showParams = { index: 'str' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(AbilityScore).toReturn(findOneDoc, 'findOne')
-
-    await simpleController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no documents exist', async () => {
+      const request = createRequest()
       const response = createResponse()
-      mockingoose(AbilityScore).toReturn(null, 'findOne')
-
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await simpleController.show(invalidRequest, response, mockNext)
-
+      await abilityScoreController.index(request, response, mockNext)
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single document when found', async () => {
+      // Arrange
+      const scoreData = abilityScoreFactory.build({ index: 'str', name: 'STR' })
+      await AbilityScoreModel.insertMany([scoreData])
+      const request = createRequest({ params: { index: 'str' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(AbilityScore).toReturn(error, 'findOne')
 
-      await simpleController.show(request, response, mockNext)
+      // Act
+      await abilityScoreController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      // Check against the specific fields returned by show
+      expect(responseData).toMatchObject({
+        index: scoreData.index,
+        name: scoreData.name,
+        full_name: scoreData.full_name,
+        desc: scoreData.desc
+        // url is often included too
+      })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the document is not found', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      // Act
+      await abilityScoreController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
+    })
+
+    it('handles database errors during findOne', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'str' } })
+      const response = createResponse()
+      const error = new Error('Database findOne failed')
+      vi.spyOn(AbilityScoreModel, 'findOne').mockRejectedValueOnce(error)
+
+      // Act
+      await abilityScoreController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith(error)
     })
   })

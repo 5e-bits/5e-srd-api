@@ -1,7 +1,7 @@
 import { mongodbUri, redisClient } from '@/util'
 
 import { Application } from 'express'
-import { jest } from '@jest/globals'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
 import createApp from '@/server'
 
 import mongoose from 'mongoose'
@@ -11,7 +11,7 @@ let app: Application
 let server: any
 
 afterEach(() => {
-  jest.clearAllMocks()
+  vi.clearAllMocks()
 })
 
 beforeAll(async () => {

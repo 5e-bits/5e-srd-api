@@ -21,18 +21,12 @@
     "src/js/**/*.js",
     "src/**/*.ts",
     "tools/**/*.ts",
-    "jest.config.integration.ts",
-    "jest.config.unit.ts",
-    "jest.config.ts"
+    "vitest.config.ts",
+    "vitest.config.integration.ts"
   ],
   "exclude": ["node_modules"],
   "ts-node": {
     "esm": true,
-    "moduleTypes": {
-      "jest.config.ts": "cjs",
-      "jest.config.integration.ts": "cjs",
-      "jest.config.unit.ts": "cjs"
-    }
   },
   "typedocOptions": {
     "entryPoints": ["src/models/index.ts"],

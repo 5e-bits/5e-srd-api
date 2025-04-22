@@ -1,104 +1,93 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
 import ConditionModel from '@/models/2014/condition'
 import ConditionController from '@/controllers/api/2014/conditionController'
+import { conditionFactory } from '@/tests/factories/2014/condition.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  setupModelCleanup,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'blinded',
-      name: 'Blinded',
-      url: '/api/conditions/blinded'
-    },
-    {
-      index: 'charmed',
-      name: 'Charmed',
-      url: '/api/conditions/charmed'
-    },
-    {
-      index: 'deafened',
-      name: 'Deafened',
-      url: '/api/conditions/deafened'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('condition')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(ConditionModel).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(ConditionModel)
 
-    await ConditionController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+describe('ConditionController', () => {
+  describe('index', () => {
+    it('returns a list of conditions', async () => {
+      const conditionsData = conditionFactory.buildList(3)
+      const conditionDocs = conditionsData.map((data) => new ConditionModel(data))
+      await ConditionModel.insertMany(conditionDocs)
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(ConditionModel).toReturn(error, 'find')
 
       await ConditionController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: conditionsData[0].index, name: conditionsData[0].name }),
+          expect.objectContaining({ index: conditionsData[1].index, name: conditionsData[1].name }),
+          expect.objectContaining({ index: conditionsData[2].index, name: conditionsData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'blinded',
-    name: 'Blinded',
-    url: '/api/conditions/blinded'
-  }
-
-  const showParams = { index: 'blinded' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(ConditionModel).toReturn(findOneDoc, 'findOne')
-
-    await ConditionController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no conditions exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(ConditionModel).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await ConditionController.show(invalidRequest, response, mockNext)
+      await ConditionController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single condition when found', async () => {
+      const conditionData = conditionFactory.build({ index: 'blinded', name: 'Blinded' })
+      await ConditionModel.insertMany([conditionData])
+      const request = createRequest({ params: { index: 'blinded' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(ConditionModel).toReturn(error, 'findOne')
 
       await ConditionController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('blinded')
+      expect(responseData.name).toBe('Blinded')
+      expect(responseData.desc).toEqual(conditionData.desc)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the condition is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      await ConditionController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })

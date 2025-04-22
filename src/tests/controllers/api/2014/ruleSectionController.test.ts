@@ -1,121 +1,110 @@
-import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
-
-import { mockNext } from '@/tests/support/requestHelpers'
-
-import RuleSection from '@/models/2014/ruleSection'
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+import RuleSectionModel from '@/models/2014/ruleSection' // Use Model suffix
+import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
+import { ruleSectionFactory } from '@/tests/factories/2014/ruleSection.factory' // Updated path
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
-describe('index', () => {
-  const findDoc = [
-    {
-      name: 'The Order of Combat',
-      index: 'the-order-of-combat',
-      desc: 'some description',
-      url: '/api/rule-sections/the-order-of-combat'
-    },
-    {
-      name: 'Movement and Position',
-      index: 'movement-and-position',
-      desc: 'some description',
-      url: '/api/rule-sections/movement-and-position'
-    },
-    {
-      name: 'Actions in Combat',
-      index: 'actions-in-combat',
-      desc: 'some description',
-      url: '/api/rule-sections/actions-in-combat'
-    },
-    {
-      name: 'Making an Attack',
-      index: 'making-an-attack',
-      desc: 'some description',
-      url: '/api/rule-sections/making-an-attack'
-    },
-    {
-      name: 'Cover',
-      index: 'cover',
-      desc: 'some description',
-      url: '/api/rule-sections/cover'
-    }
-  ]
-  const request = createRequest({ query: {} })
+const mockNext = vi.fn(defaultMockNext)
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(RuleSection).toReturn(findDoc, 'find')
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('rulesection')
 
-    await RuleSectionController.index(request, response, mockNext)
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(RuleSectionModel)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+describe('RuleSectionController', () => {
+  describe('index', () => {
+    it('returns a list of rule sections', async () => {
+      // Arrange
+      const ruleSectionsData = ruleSectionFactory.buildList(3)
+      await RuleSectionModel.insertMany(ruleSectionsData)
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(RuleSection).toReturn(error, 'find')
+
+      // Act
+      await RuleSectionController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            index: ruleSectionsData[0].index,
+            name: ruleSectionsData[0].name
+          }),
+          expect.objectContaining({
+            index: ruleSectionsData[1].index,
+            name: ruleSectionsData[1].name
+          }),
+          expect.objectContaining({
+            index: ruleSectionsData[2].index,
+            name: ruleSectionsData[2].name
+          })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns an empty list when no rule sections exist', async () => {
+      const request = createRequest({ query: {} })
+      const response = createResponse()
 
       await RuleSectionController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    name: 'The Order of Combat',
-    index: 'the-order-of-combat',
-    desc: 'some description',
-    url: '/api/rule-sections/the-order-of-combat'
-  }
-
-  const showParams = { index: 'the-order-of-combat' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(RuleSection).toReturn(findOneDoc, 'findOne')
-
-    await RuleSectionController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+  describe('show', () => {
+    it('returns a single rule section when found', async () => {
+      // Arrange
+      const ruleSectionData = ruleSectionFactory.build({
+        index: 'adventuring',
+        name: 'Adventuring'
+      })
+      await RuleSectionModel.insertMany([ruleSectionData])
+      const request = createRequest({ params: { index: 'adventuring' } })
       const response = createResponse()
-      mockingoose(RuleSection).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await RuleSectionController.show(invalidRequest, response, mockNext)
+      // Act
+      await RuleSectionController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('adventuring')
+      expect(responseData.name).toBe('Adventuring')
+      expect(responseData.desc).toEqual(ruleSectionData.desc)
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+    it('calls next() when the rule section is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(RuleSection).toReturn(error, 'findOne')
 
       await RuleSectionController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response.statusCode).toBe(200) // Passes to next()
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
   })
 })

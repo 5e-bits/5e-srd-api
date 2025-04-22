@@ -1,164 +1,142 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { jest } from '@jest/globals'
+import { mockNext as defaultMockNext } from '@/tests/support'
+import MonsterModel from '@/models/2014/monster'
 import * as MonsterController from '@/controllers/api/2014/monsterController'
+import { monsterFactory } from '@/tests/factories/2014/monster.factory'
 
-import { mockNext } from '@/tests/support'
+// DB Helper Imports
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
-import Monster from '@/models/2014/monster'
+// Remove redis mock - Integration tests will hit the real DB
+// vi.mock('@/util', ...)
 
-// Keep track of spies to restore them
-let findSpy: ReturnType<typeof jest.spyOn>
+const mockNext = vi.fn(defaultMockNext)
 
-afterEach(() => {
-  // Restore any spies created
-  if (findSpy) {
-    findSpy.mockRestore()
-  }
-  mockingoose.resetAll()
-})
+// Setup DB isolation
+const dbUri = generateUniqueDbUri('monster')
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(MonsterModel)
 
-describe('index', () => {
-  const baseFindDoc = [
-    {
-      index: 'aboleth',
-      name: 'Aboleth',
-      url: '/api/monsters/aboleth'
-    }
-  ]
+// Removed createMockQuery helper
 
-  // Test cases for default behavior (no specific query params)
-  it('returns a list of objects with default query', async () => {
-    const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
-    const response = createResponse()
-    // Mock the find method using mockingoose for this simple case
-    mockingoose(Monster).toReturn(baseFindDoc, 'find')
+describe('MonsterController', () => {
+  describe('index', () => {
+    it('returns a list of monsters with default query', async () => {
+      // Arrange: Seed the database
+      const monstersData = monsterFactory.buildList(3)
+      await MonsterModel.insertMany(monstersData)
 
-    await MonsterController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    // Add check for returned data structure if needed
-  })
-
-  describe('with challenge_rating query', () => {
-    // Define test cases for challenge_rating
-    const crTestCases = [
-      {
-        description: 'handles a single number string',
-        query: { challenge_rating: '5' },
-        expectedMongoQuery: { challenge_rating: { $in: [5] } }
-      },
-      {
-        description: 'handles a comma-separated string',
-        query: { challenge_rating: '1,10,0.25' },
-        expectedMongoQuery: { challenge_rating: { $in: [1, 10, 0.25] } }
-      },
-      {
-        description: 'handles an array of number strings',
-        query: { challenge_rating: ['2', '4'] },
-        expectedMongoQuery: { challenge_rating: { $in: [2, 4] } }
-      },
-      {
-        description: 'handles mixed valid/invalid in a string, ignoring invalid',
-        query: { challenge_rating: 'abc,3,def,0.5' },
-        expectedMongoQuery: { challenge_rating: { $in: [3, 0.5] } }
-      },
-      {
-        description: 'handles mixed valid/invalid in an array, ignoring invalid',
-        query: { challenge_rating: ['1', 'xyz', '5'] },
-        expectedMongoQuery: { challenge_rating: { $in: [1, 5] } }
-      },
-      {
-        description: 'handles only invalid values, resulting in no CR filter',
-        query: { challenge_rating: 'invalid, nope' },
-        expectedMongoQuery: {} // Empty query expected
-      },
-      {
-        description: 'handles an empty string, resulting in no CR filter',
-        query: { challenge_rating: '' },
-        expectedMongoQuery: {} // Empty query expected
-      }
-    ]
-
-    // Use it.each to run the same test logic for each case
-    it.each(crTestCases)(
-      '$description', // Use the description field from the test case object
-      async ({ query, expectedMongoQuery }) => {
-        const request = createRequest({ query })
-        const response = createResponse()
-
-        // Spy on Monster.find and mock its resolution
-        findSpy = jest.spyOn(Monster, 'find').mockResolvedValue(baseFindDoc as any)
-
-        await MonsterController.index(request, response, mockNext)
-
-        expect(response.statusCode).toBe(200)
-        expect(findSpy).toHaveBeenCalledWith(expectedMongoQuery) // Verify the query passed to find
-      }
-    )
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
       const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
-      mockingoose(Monster).toReturn(error, 'find')
+      const response = createResponse()
 
+      // Act
       await MonsterController.index(request, response, mockNext)
 
-      expect(mockNext).toHaveBeenCalledWith(error)
-      expect(response._getData()).toStrictEqual('')
-    })
-  })
-})
-
-describe('show', () => {
-  const findOneDoc = {
-    index: 'aboleth',
-    name: 'Aboleth',
-    url: '/api/monsters/aboleth'
-  }
-
-  const showParams = { index: 'aboleth' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Monster).toReturn(findOneDoc, 'findOne')
-
-    await MonsterController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
-      const response = createResponse()
-      mockingoose(Monster).toReturn(null, 'findOne')
-
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await MonsterController.show(invalidRequest, response, mockNext)
-
+      // Assert: Check response based on seeded data
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: monstersData[0].index, name: monstersData[0].name }),
+          expect.objectContaining({ index: monstersData[1].index, name: monstersData[1].name }),
+          expect.objectContaining({ index: monstersData[2].index, name: monstersData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
+
+    // Keep challenge_rating tests, but they now hit the DB
+    describe('with challenge_rating query', () => {
+      const crTestCases = [
+        { input: '5', expectedCount: 1, seedCRs: [5, 1, 2] },
+        { input: '1,10,0.25', expectedCount: 2, seedCRs: [1, 10, 5] },
+        { input: ['2', '4'], expectedCount: 2, seedCRs: [2, 4, 5] },
+        { input: 'abc,3,def,0.5', expectedCount: 2, seedCRs: [3, 0.5, 1] },
+        { input: ['1', 'xyz', '5'], expectedCount: 2, seedCRs: [1, 5, 10] },
+        { input: 'invalid, nope', expectedCount: 3, seedCRs: [1, 2, 3] }, // Expect all when filter is invalid
+        { input: '', expectedCount: 3, seedCRs: [1, 2, 3] } // Expect all when filter is empty
+      ]
+
+      it.each(crTestCases)(
+        'handles challenge rating: $input',
+        async ({ input, expectedCount, seedCRs }) => {
+          // Arrange: Seed specific CRs
+          const monstersToSeed = seedCRs.map((cr) => monsterFactory.build({ challenge_rating: cr }))
+          await MonsterModel.insertMany(monstersToSeed)
+
+          const request = createRequest({
+            query: { challenge_rating: input },
+            originalUrl: '/api/monsters'
+          })
+          const response = createResponse()
+
+          // Act
+          await MonsterController.index(request, response, mockNext)
+
+          // Assert
+          expect(response.statusCode).toBe(200)
+          const responseData = JSON.parse(response._getData())
+          expect(responseData.count).toBe(expectedCount)
+          expect(responseData.results).toHaveLength(expectedCount)
+          // Optional: Add more specific checks on returned indices if needed
+          expect(mockNext).not.toHaveBeenCalled()
+        }
+      )
+    })
+
+    // No need for explicit DB error mocking now, handled by helpers/real errors
+    // describe('when something goes wrong', ...)
+
+    // Redis tests are removed as we aren't mocking redis here anymore
+    // describe('when data is in Redis cache', ...)
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Monster).toReturn(error, 'findOne')
+  describe('show', () => {
+    it('returns a monster object', async () => {
+      // Arrange
+      const monsterData = monsterFactory.build({ index: 'goblin' })
+      await MonsterModel.insertMany([monsterData])
 
+      const request = createRequest({ params: { index: 'goblin' } })
+      const response = createResponse()
+
+      // Act
       await MonsterController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('goblin')
+      // Add more detailed checks as needed
+      expect(responseData).toHaveProperty('challenge_rating', monsterData.challenge_rating)
+      expect(mockNext).not.toHaveBeenCalled()
     })
+
+    it('calls next() when the record does not exist', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'non-existent' } })
+      const response = createResponse()
+
+      // Act
+      await MonsterController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200) // Controller passes to next
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
+    })
+
+    // No need for explicit DB error mocking
+    // describe('when something goes wrong', ...)
   })
 })

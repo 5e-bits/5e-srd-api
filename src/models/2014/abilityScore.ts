@@ -5,25 +5,25 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-ability-scores')
 export class AbilityScore {
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public full_name!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ type: () => APIReference })
+  @prop({ type: () => [APIReference] })
   public skills!: APIReference[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public url!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
 

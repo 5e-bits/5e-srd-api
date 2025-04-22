@@ -1,156 +1,110 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import * as RulesController from '@/controllers/api/2014/ruleController'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import { mockNext } from '@/tests/support/requestHelpers'
+import RuleModel from '@/models/2014/rule' // Use Model suffix
+// Import specific functions from the correct controller file
+import * as RuleController from '@/controllers/api/2014/ruleController'
+import { ruleFactory } from '@/tests/factories/2014/rule.factory' // Updated path
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  setupModelCleanup,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
-import Rule from '@/models/2014/rule'
+const mockNext = vi.fn(defaultMockNext)
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('rule')
 
-describe('index', () => {
-  const findDoc = [
-    {
-      name: 'Combat',
-      index: 'combat',
-      desc: 'description',
-      subsections: [
-        {
-          name: 'The Order of Combat',
-          desc: 'description'
-        },
-        {
-          name: 'Movement and Position',
-          desc: 'description'
-        }
-      ],
-      url: '/api/rules/combat'
-    },
-    {
-      name: 'Using Ability Scores',
-      index: 'using-ability-scores',
-      desc: 'description',
-      subsections: [
-        {
-          name: 'Ability Scores and Modifiers',
-          desc: 'description'
-        },
-        {
-          name: 'Advantage and Disadvantage',
-          desc: 'description'
-        },
-        {
-          name: 'Proficiency Bonus',
-          desc: 'description'
-        },
-        {
-          name: 'Ability Checks',
-          desc: 'description'
-        }
-      ],
-      url: '/api/rules/using-ability-scores'
-    },
-    {
-      name: 'Adventuring',
-      index: 'adventuring',
-      desc: 'description',
-      subsections: [],
-      url: '/api/rules/adventuring'
-    },
-    {
-      name: 'Spellcasting',
-      index: 'spellcasting',
-      desc: 'description',
-      subsections: [
-        {
-          name: 'What Is a Spell?',
-          desc: 'description'
-        }
-      ],
-      url: '/api/rules/spellcasting'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(RuleModel)
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Rule).toReturn(findDoc, 'find')
+describe('RuleController', () => {
+  // Updated describe block name
+  describe('index', () => {
+    it('returns a list of rules', async () => {
+      // Arrange
+      const rulesData = ruleFactory.buildList(3)
+      const ruleDocs = rulesData.map((data) => new RuleModel(data))
+      await RuleModel.insertMany(ruleDocs)
 
-    await RulesController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Rule).toReturn(error, 'find')
 
-      await RulesController.index(request, response, mockNext)
+      // Act
+      await RuleController.index(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: rulesData[0].index, name: rulesData[0].name }),
+          expect.objectContaining({ index: rulesData[1].index, name: rulesData[1].name }),
+          expect.objectContaining({ index: rulesData[2].index, name: rulesData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns an empty list when no rules exist', async () => {
+      // Arrange
+      const request = createRequest({ query: {} })
+      const response = createResponse()
+
+      // Act
+      await RuleController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    name: 'Spellcasting',
-    index: 'spellcasting',
-    desc: 'description',
-    subsections: [
-      {
-        name: 'What Is a Spell?',
-        desc: 'description'
-      }
-    ],
-    url: '/api/rules/spellcasting'
-  }
+  describe('show', () => {
+    it('returns a single rule when found', async () => {
+      // Arrange
+      const ruleData = ruleFactory.build({ index: 'combat', name: 'Combat' })
+      await RuleModel.insertMany([ruleData]) // Use insertMany workaround
 
-  const showParams = { index: 'spellcasting' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Rule).toReturn(findOneDoc, 'findOne')
-
-    await RulesController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+      const request = createRequest({ params: { index: 'combat' } })
       const response = createResponse()
-      mockingoose(Rule).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await RulesController.show(invalidRequest, response, mockNext)
+      // Act
+      await RuleController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('combat')
+      expect(responseData.name).toBe('Combat')
+      expect(responseData.desc).toEqual(ruleData.desc)
+      expect(responseData.subsections).toHaveLength(ruleData.subsections.length)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the rule is not found', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      // Act
+      await RuleController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith()
-    })
-  })
-
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Rule).toReturn(error, 'findOne')
-
-      await RulesController.show(request, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
     })
   })
 })

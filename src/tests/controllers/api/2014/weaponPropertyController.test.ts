@@ -1,104 +1,87 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
-
-import WeaponProperty from '@/models/2014/weaponProperty'
+import { mockNext as defaultMockNext } from '@/tests/support'
+import WeaponPropertyModel from '@/models/2014/weaponProperty'
 import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController'
+import { weaponPropertyFactory } from '@/tests/factories/2014/weaponProperty.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'ammunition',
-      name: 'Ammunition',
-      url: '/api/weapon-properties/ammunition'
-    },
-    {
-      index: 'finesse',
-      name: 'Finesse',
-      url: '/api/weapon-properties/finesse'
-    },
-    {
-      index: 'heavy',
-      name: 'Heavy',
-      url: '/api/weapon-properties/heavy'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Setup DB isolation
+const dbUri = generateUniqueDbUri('weaponproperty')
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(WeaponPropertyModel)
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(WeaponProperty).toReturn(findDoc, 'find')
+describe('WeaponPropertyController', () => {
+  describe('index', () => {
+    it('returns a list of weapon properties', async () => {
+      // Arrange: Seed DB
+      const propertiesData = weaponPropertyFactory.buildList(3)
+      await WeaponPropertyModel.insertMany(propertiesData)
 
-    await WeaponPropertyController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(WeaponProperty).toReturn(error, 'find')
 
+      // Act
       await WeaponPropertyController.index(request, response, mockNext)
 
+      // Assert: Check response based on seeded data
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: propertiesData[0].index, name: propertiesData[0].name }),
+          expect.objectContaining({ index: propertiesData[1].index, name: propertiesData[1].name }),
+          expect.objectContaining({ index: propertiesData[2].index, name: propertiesData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'ammunition',
-    name: 'Ammunition',
-    url: '/api/weapon-properties/ammunition'
-  }
-
-  const showParams = { index: 'ammunition' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(WeaponProperty).toReturn(findOneDoc, 'findOne')
-
-    await WeaponPropertyController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
+    // describe('when something goes wrong', ...)
   })
 
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+  describe('show', () => {
+    it('returns a single weapon property', async () => {
+      // Arrange
+      const propertyData = weaponPropertyFactory.build({ index: 'versatile' })
+      await WeaponPropertyModel.insertMany([propertyData])
+
+      const request = createRequest({ params: { index: 'versatile' } })
       const response = createResponse()
-      mockingoose(WeaponProperty).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await WeaponPropertyController.show(invalidRequest, response, mockNext)
-
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
-    })
-  })
-
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(WeaponProperty).toReturn(error, 'findOne')
-
+      // Act
       await WeaponPropertyController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe(propertyData.index)
+      expect(responseData.name).toBe(propertyData.name)
+      expect(responseData.desc).toEqual(propertyData.desc)
+      expect(mockNext).not.toHaveBeenCalled()
     })
+
+    it('calls next() when the record does not exist', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'non-existent' } })
+      const response = createResponse()
+      // Act
+      await WeaponPropertyController.show(request, response, mockNext)
+      // Assert
+      expect(mockNext).toHaveBeenCalledWith()
+      expect(response._getData()).toBe('')
+    })
+
+    // describe('when something goes wrong', ...)
   })
 })

@@ -1,15 +1,16 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference, Choice, AreaOfEffect, DifficultyClass } from './common'
+import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
+
 class Proficiency {
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public url!: string
 }
 
@@ -22,18 +23,18 @@ class ActionDamage {
 }
 
 export class Usage {
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => Number })
   public times!: number
 }
 
 class Action {
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => [String] })
   public desc!: string
 
   @prop({ type: () => Usage })
@@ -49,7 +50,7 @@ class Action {
   public area_of_effect!: AreaOfEffect
 }
 
-class TraitSpecific {
+export class TraitSpecific {
   @prop({ type: () => Choice })
   public subtrait_options?: Choice
 
@@ -65,16 +66,16 @@ class TraitSpecific {
 
 @srdModelOptions('2014-traits')
 export class Trait {
-  @prop({ type: () => [String], required: true, index: true })
+  @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ type: () => [Proficiency] })
+  @prop({ type: () => [Proficiency], required: true })
   public proficiencies?: Proficiency[]
 
   @prop({ type: () => Choice })
@@ -83,11 +84,11 @@ export class Trait {
   @prop({ type: () => Choice })
   public language_options?: Choice
 
-  @prop({ type: () => [APIReference] })
-  public races?: APIReference[]
+  @prop({ type: () => [APIReference], required: true })
+  public races!: APIReference[]
 
-  @prop({ type: () => [APIReference] })
-  public subraces?: APIReference[]
+  @prop({ type: () => [APIReference], required: true })
+  public subraces!: APIReference[]
 
   @prop({ type: () => APIReference })
   public parent?: APIReference
@@ -95,10 +96,10 @@ export class Trait {
   @prop({ type: () => TraitSpecific })
   public trait_specific?: TraitSpecific
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public url!: string
 
-  @prop({ required: true, index: true })
+  @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
 

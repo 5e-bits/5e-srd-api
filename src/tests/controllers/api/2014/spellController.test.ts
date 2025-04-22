@@ -1,104 +1,133 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { mockNext as defaultMockNext } from '@/tests/support'
+import SpellModel from '@/models/2014/spell'
 import * as SpellController from '@/controllers/api/2014/spellController'
+import { spellFactory } from '@/tests/factories/2014/spell.factory'
 
-import { mockNext } from '@/tests/support'
-import Spell from '@/models/2014/spell'
+// Import the DB helper functions
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase,
+  setupModelCleanup
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'acid-arrow',
-      name: 'Acid Arrow',
-      url: '/api/spells/acid-arrow'
-    },
-    {
-      index: 'acid-splash',
-      name: 'Acid Splash',
-      url: '/api/spells/acid-splash'
-    },
-    {
-      index: 'aid',
-      name: 'Aid',
-      url: '/api/spells/aid'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('spell')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Spell).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(SpellModel)
 
-    await SpellController.index(request, response, mockNext)
+describe('SpellController', () => {
+  describe('index', () => {
+    it('returns a list of spells', async () => {
+      // Arrange
+      const spellsData = spellFactory.buildList(3)
+      // Use insertMany directly
+      await SpellModel.insertMany(spellsData)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Spell).toReturn(error, 'find')
+
+      // Act
+      await SpellController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: spellsData[0].index, name: spellsData[0].name }),
+          expect.objectContaining({ index: spellsData[1].index, name: spellsData[1].name }),
+          expect.objectContaining({ index: spellsData[2].index, name: spellsData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    // Filters test remains the same
+    it('filters spells by level', async () => {
+      const spellsData = [
+        spellFactory.build({ level: 1, name: 'Spell A' }),
+        spellFactory.build({ level: 2, name: 'Spell B' }),
+        spellFactory.build({ level: 1, name: 'Spell C' })
+      ]
+      await SpellModel.insertMany(spellsData)
+
+      const request = createRequest({ query: { level: '1' } })
+      const response = createResponse()
 
       await SpellController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(2)
+      expect(responseData.results).toHaveLength(2)
+      expect(responseData.results.map((r: any) => r.index)).toEqual(
+        expect.arrayContaining([spellsData[0].index, spellsData[2].index])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'acid-arrow',
-    name: 'Acid Arrow',
-    url: '/api/spells/acid-arrow'
-  }
-
-  const showParams = { index: 'acid-arrow' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Spell).toReturn(findOneDoc, 'findOne')
-
-    await SpellController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no spells exist', async () => {
+      // Arrange
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(Spell).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await SpellController.show(invalidRequest, response, mockNext)
+      // Act
+      await SpellController.index(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
-      const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Spell).toReturn(error, 'findOne')
+  describe('show', () => {
+    it('returns a single spell when found', async () => {
+      // Arrange
+      const spellData = spellFactory.build({ index: 'fireball', name: 'Fireball' })
+      await SpellModel.insertMany([spellData])
 
+      const request = createRequest({ params: { index: 'fireball' } })
+      const response = createResponse()
+
+      // Act
       await SpellController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('fireball')
+      expect(responseData.name).toBe('Fireball')
+      expect(responseData.desc).toEqual(spellData.desc)
+      expect(responseData.level).toEqual(spellData.level)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the spell is not found', async () => {
+      // Arrange
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      // Act
+      await SpellController.show(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })

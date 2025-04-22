@@ -1,104 +1,96 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import Language from '@/models/2014/language'
+import LanguageModel from '@/models/2014/language'
 import LanguageController from '@/controllers/api/2014/languageController'
+import { languageFactory } from '@/tests/factories/2014/language.factory'
+import {
+  generateUniqueDbUri,
+  setupModelCleanup,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'abyssal',
-      name: 'Abyssal',
-      url: '/api/languages/abyssal'
-    },
-    {
-      index: 'celestial',
-      name: 'Celestial',
-      url: '/api/languages/celestial'
-    },
-    {
-      index: 'common',
-      name: 'Common',
-      url: '/api/languages/common'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('language')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Language).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(LanguageModel)
 
-    await LanguageController.index(request, response, mockNext)
+describe('LanguageController', () => {
+  describe('index', () => {
+    it('returns a list of languages', async () => {
+      const languagesData = languageFactory.buildList(3)
+      const languageDocs = languagesData.map((data) => new LanguageModel(data))
+      await LanguageModel.insertMany(languageDocs)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Language).toReturn(error, 'find')
 
       await LanguageController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: languagesData[0].index, name: languagesData[0].name }),
+          expect.objectContaining({ index: languagesData[1].index, name: languagesData[1].name }),
+          expect.objectContaining({ index: languagesData[2].index, name: languagesData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'abyssal',
-    name: 'Abyssal',
-    url: '/api/languages/abyssal'
-  }
-
-  const showParams = { index: 'abyssal' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Language).toReturn(findOneDoc, 'findOne')
-
-    await LanguageController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no languages exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(Language).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await LanguageController.show(invalidRequest, response, mockNext)
+      await LanguageController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single language when found', async () => {
+      const languageData = languageFactory.build({ index: 'common', name: 'Common' })
+      await LanguageModel.insertMany([languageData])
+
+      const request = createRequest({ params: { index: 'common' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Language).toReturn(error, 'findOne')
 
       await LanguageController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('common')
+      expect(responseData.name).toBe('Common')
+      expect(responseData.script).toEqual(languageData.script)
+      expect(responseData.type).toEqual(languageData.type)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the language is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      await LanguageController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })

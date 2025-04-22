@@ -1,104 +1,95 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import EquipmentCategory from '@/models/2014/equipmentCategory'
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController'
+import { equipmentCategoryFactory } from '@/tests/factories/2014/equipmentCategory.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  setupModelCleanup,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'adventuring-gear',
-      name: 'Adventuring Gear',
-      url: '/api/equipment-categories/adventuring-gear'
-    },
-    {
-      index: 'armor',
-      name: 'Armor',
-      url: '/api/equipment-categories/armor'
-    },
-    {
-      index: 'artisans-tools',
-      name: 'Artisan\'s Tools',
-      url: '/api/equipment-categories/artisans-tools'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('equipmentcategory')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(EquipmentCategory).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(EquipmentCategoryModel)
 
-    await EquipmentCategoryController.index(request, response, mockNext)
+describe('EquipmentCategoryController', () => {
+  describe('index', () => {
+    it('returns a list of equipment categories', async () => {
+      const categoriesData = equipmentCategoryFactory.buildList(3)
+      const categoryDocs = categoriesData.map((data) => new EquipmentCategoryModel(data))
+      await EquipmentCategoryModel.insertMany(categoryDocs)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(EquipmentCategory).toReturn(error, 'find')
 
       await EquipmentCategoryController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: categoriesData[0].index, name: categoriesData[0].name }),
+          expect.objectContaining({ index: categoriesData[1].index, name: categoriesData[1].name }),
+          expect.objectContaining({ index: categoriesData[2].index, name: categoriesData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'adventuring-gear',
-    name: 'Adventuring Gear',
-    url: '/api/equipment-categories/adventuring-gear'
-  }
-
-  const showParams = { index: 'adventuring-gear' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(EquipmentCategory).toReturn(findOneDoc, 'findOne')
-
-    await EquipmentCategoryController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no equipment categories exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(EquipmentCategory).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await EquipmentCategoryController.show(invalidRequest, response, mockNext)
+      await EquipmentCategoryController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single equipment category when found', async () => {
+      const categoryData = equipmentCategoryFactory.build({ index: 'armor', name: 'Armor' })
+      await EquipmentCategoryModel.insertMany([categoryData])
+
+      const request = createRequest({ params: { index: 'armor' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(EquipmentCategory).toReturn(error, 'findOne')
 
       await EquipmentCategoryController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('armor')
+      expect(responseData.name).toBe('Armor')
+      expect(responseData.equipment).toHaveLength(categoryData.equipment?.length ?? 0)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the equipment category is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      await EquipmentCategoryController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })

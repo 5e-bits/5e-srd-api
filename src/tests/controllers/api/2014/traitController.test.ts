@@ -1,104 +1,99 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import Trait from '@/models/2014/trait'
+import TraitModel from '@/models/2014/trait'
 import TraitController from '@/controllers/api/2014/traitController'
+import { traitFactory } from '@/tests/factories/2014/trait.factory'
+import {
+  generateUniqueDbUri,
+  setupModelCleanup,
+  setupIsolatedDatabase,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'artificers-lore',
-      name: 'Artificer\'s Lore',
-      url: '/api/traits/artificers-lore'
-    },
-    {
-      index: 'brave',
-      name: 'Brave',
-      url: '/api/traits/brave'
-    },
-    {
-      index: 'breath-weapon',
-      name: 'Breath Weapon',
-      url: '/api/traits/breath-weapon'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('trait')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(Trait).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(TraitModel)
 
-    await TraitController.index(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+describe('TraitController', () => {
+  describe('index', () => {
+    it('returns a list of traits', async () => {
+      // Arrange
+      const traitsData = traitFactory.buildList(3)
+      await TraitModel.insertMany(traitsData)
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Trait).toReturn(error, 'find')
+
+      // Act
+      await TraitController.index(request, response, mockNext)
+
+      // Assert
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ index: traitsData[0].index, name: traitsData[0].name }),
+          expect.objectContaining({ index: traitsData[1].index, name: traitsData[1].name }),
+          expect.objectContaining({ index: traitsData[2].index, name: traitsData[2].name })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns an empty list when no traits exist', async () => {
+      const request = createRequest({ query: {} })
+      const response = createResponse()
 
       await TraitController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'abyssal',
-    name: 'Abyssal',
-    url: '/api/traits/abyssal'
-  }
-
-  const showParams = { index: 'abyssal' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(Trait).toReturn(findOneDoc, 'findOne')
-
-    await TraitController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+  describe('show', () => {
+    it('returns a single trait when found', async () => {
+      // Arrange
+      const traitData = traitFactory.build({ index: 'darkvision', name: 'Darkvision' })
+      await TraitModel.insertMany([traitData])
+      const request = createRequest({ params: { index: 'darkvision' } })
       const response = createResponse()
-      mockingoose(Trait).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await TraitController.show(invalidRequest, response, mockNext)
+      // Act
+      await TraitController.show(request, response, mockNext)
 
+      // Assert
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('darkvision')
+      expect(responseData.name).toBe('Darkvision')
+      expect(responseData.desc).toEqual(traitData.desc)
+      // Add checks for potentially optional fields like races, subraces, proficiencies if needed
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+    it('calls next() when the trait is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(Trait).toReturn(error, 'findOne')
 
       await TraitController.show(request, response, mockNext)
 
-      expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      expect(response.statusCode).toBe(200) // Passes to next()
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
   })
 })

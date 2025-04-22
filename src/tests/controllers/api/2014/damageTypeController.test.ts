@@ -1,104 +1,104 @@
-import mockingoose from 'mockingoose'
+import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext } from '@/tests/support/requestHelpers'
+import { mockNext as defaultMockNext } from '@/tests/support'
 
-import DamageType from '@/models/2014/damageType'
+import DamageTypeModel from '@/models/2014/damageType'
 import DamageTypeController from '@/controllers/api/2014/damageTypeController'
+import { damageTypeFactory } from '@/tests/factories/2014/damageType.factory'
+import {
+  generateUniqueDbUri,
+  setupIsolatedDatabase,
+  setupModelCleanup,
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
-beforeEach(() => {
-  mockingoose.resetAll()
-})
+const mockNext = vi.fn(defaultMockNext)
 
-describe('index', () => {
-  const findDoc = [
-    {
-      index: 'acid',
-      name: 'Acid',
-      url: '/api/damage-types/acid'
-    },
-    {
-      index: 'bludgeoning',
-      name: 'Bludgeoning',
-      url: '/api/damage-types/bludgeoning'
-    },
-    {
-      index: 'cold',
-      name: 'Cold',
-      url: '/api/damage-types/cold'
-    }
-  ]
-  const request = createRequest({ query: {} })
+// Generate URI for this test file
+const dbUri = generateUniqueDbUri('damageType')
 
-  it('returns a list of objects', async () => {
-    const response = createResponse()
-    mockingoose(DamageType).toReturn(findDoc, 'find')
+// Setup hooks using helpers
+setupIsolatedDatabase(dbUri)
+teardownIsolatedDatabase()
+setupModelCleanup(DamageTypeModel)
 
-    await DamageTypeController.index(request, response, mockNext)
+describe('DamageTypeController', () => {
+  describe('index', () => {
+    it('returns a list of damage types', async () => {
+      const damageTypesData = damageTypeFactory.buildList(3)
+      const damageTypeDocs = damageTypesData.map((data) => new DamageTypeModel(data))
+      await DamageTypeModel.insertMany(damageTypeDocs)
 
-    expect(response.statusCode).toBe(200)
-  })
-
-  describe('when something goes wrong', () => {
-    it('handles the error', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(DamageType).toReturn(error, 'find')
 
       await DamageTypeController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3)
+      expect(responseData.results).toHaveLength(3)
+      expect(responseData.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            index: damageTypesData[0].index,
+            name: damageTypesData[0].name
+          }),
+          expect.objectContaining({
+            index: damageTypesData[1].index,
+            name: damageTypesData[1].name
+          }),
+          expect.objectContaining({
+            index: damageTypesData[2].index,
+            name: damageTypesData[2].name
+          })
+        ])
+      )
+      expect(mockNext).not.toHaveBeenCalled()
     })
-  })
-})
 
-describe('show', () => {
-  const findOneDoc = {
-    index: 'acid',
-    name: 'Acid',
-    url: '/api/damage-types/acid'
-  }
-
-  const showParams = { index: 'acid' }
-  const request = createRequest({ params: showParams })
-
-  it('returns an object', async () => {
-    const response = createResponse()
-    mockingoose(DamageType).toReturn(findOneDoc, 'findOne')
-
-    await DamageTypeController.show(request, response, mockNext)
-
-    expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response._getData())).toStrictEqual(expect.objectContaining(showParams))
-  })
-
-  describe('when the record does not exist', () => {
-    it('404s', async () => {
+    it('returns an empty list when no damage types exist', async () => {
+      const request = createRequest({ query: {} })
       const response = createResponse()
-      mockingoose(DamageType).toReturn(null, 'findOne')
 
-      const invalidShowParams = { index: 'abcd' }
-      const invalidRequest = createRequest({ params: invalidShowParams })
-      await DamageTypeController.show(invalidRequest, response, mockNext)
+      await DamageTypeController.index(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalled()
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(0)
+      expect(responseData.results).toEqual([])
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 
-  describe('when something goes wrong', () => {
-    it('is handled', async () => {
+  describe('show', () => {
+    it('returns a single damage type when found', async () => {
+      const damageTypeData = damageTypeFactory.build({ index: 'acid', name: 'Acid' })
+      await DamageTypeModel.insertMany([damageTypeData])
+
+      const request = createRequest({ params: { index: 'acid' } })
       const response = createResponse()
-      const error = new Error('Something went wrong')
-      mockingoose(DamageType).toReturn(error, 'findOne')
 
       await DamageTypeController.show(request, response, mockNext)
 
       expect(response.statusCode).toBe(200)
-      expect(response._getData()).toStrictEqual('')
-      expect(mockNext).toHaveBeenCalledWith(error)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.index).toBe('acid')
+      expect(responseData.name).toBe('Acid')
+      expect(responseData.desc).toEqual(damageTypeData.desc)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('calls next() when the damage type is not found', async () => {
+      const request = createRequest({ params: { index: 'nonexistent' } })
+      const response = createResponse()
+
+      await DamageTypeController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response._getData()).toBe('')
+      expect(mockNext).toHaveBeenCalledOnce()
+      expect(mockNext).toHaveBeenCalledWith()
     })
   })
 })

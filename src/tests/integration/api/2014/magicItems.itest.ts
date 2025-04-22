@@ -1,7 +1,7 @@
 import { mongodbUri, redisClient } from '@/util'
 
 import { Application } from 'express'
-import { jest } from '@jest/globals'
+import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
 import createApp from '@/server'
 
 import mongoose from 'mongoose'
@@ -11,7 +11,7 @@ let app: Application
 let server: any
 
 afterEach(() => {
-  jest.clearAllMocks()
+  vi.clearAllMocks()
 })
 
 beforeAll(async () => {
@@ -36,7 +36,7 @@ describe('/api/2014/magic-items', () => {
 
   it('should hit the cache', async () => {
     await redisClient.del('/api/2014/magic-items')
-    const clientSet = jest.spyOn(redisClient, 'set')
+    const clientSet = vi.spyOn(redisClient, 'set')
     let res = await request(app).get('/api/2014/magic-items')
     res = await request(app).get('/api/2014/magic-items')
     expect(res.statusCode).toEqual(200)
