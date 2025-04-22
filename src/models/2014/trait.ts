@@ -57,14 +57,11 @@ export class TraitSpecific {
   @prop({ type: () => Choice })
   public spell_options?: Choice
 
-  @prop({ type: () => Choice })
-  public proficiency_options?: Choice
+  @prop({ type: () => APIReference })
+  public damage_type?: APIReference
 
   @prop({ type: () => Action })
   public breath_weapon?: Action
-
-  @prop({ type: () => APIReference })
-  public damage_type?: APIReference
 }
 
 @srdModelOptions('2014-traits')
@@ -75,17 +72,8 @@ export class Trait {
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ type: () => [APIReference], required: true })
-  public languages?: APIReference[]
-
-  @prop({ type: () => Choice })
-  public language_options?: Choice
-
   @prop({ required: true, index: true, type: () => String })
   public name!: string
-
-  @prop({ type: () => APIReference })
-  public parent?: APIReference
 
   @prop({ type: () => [Proficiency], required: true })
   public proficiencies?: Proficiency[]
@@ -93,11 +81,17 @@ export class Trait {
   @prop({ type: () => Choice })
   public proficiency_choices?: Choice
 
+  @prop({ type: () => Choice })
+  public language_options?: Choice
+
   @prop({ type: () => [APIReference], required: true })
   public races!: APIReference[]
 
   @prop({ type: () => [APIReference], required: true })
   public subraces!: APIReference[]
+
+  @prop({ type: () => APIReference })
+  public parent?: APIReference
 
   @prop({ type: () => TraitSpecific })
   public trait_specific?: TraitSpecific

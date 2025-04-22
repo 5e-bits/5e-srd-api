@@ -43,10 +43,10 @@ export class Subclass {
   public spells?: SubclassSpell[]
 
   @prop({ required: true, index: true, type: () => String })
-  public subclass_levels!: string
+  public subclass_flavor!: string
 
   @prop({ required: true, index: true, type: () => String })
-  public subclass_flavor!: string
+  public subclass_levels!: string
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
