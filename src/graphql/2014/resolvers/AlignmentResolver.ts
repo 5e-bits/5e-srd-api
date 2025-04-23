@@ -1,18 +1,7 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment' // Use lowercase filename convention
 import { IsOptional, IsString, IsEnum } from 'class-validator'
-
-// Define Enum for ordering
-enum OrderByDirection {
-  ASC = 'ASC',
-  DESC = 'DESC'
-}
-
-// Register the enum with TypeGraphQL
-registerEnumType(OrderByDirection, {
-  name: 'OrderByDirection',
-  description: 'Sort direction'
-})
+import { OrderByDirection } from '@/graphql/common/enums' // Import shared enum
 
 // Define ArgsType for alignments query
 @ArgsType()

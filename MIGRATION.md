@@ -161,8 +161,8 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
 
 Migrate the GraphQL layer for simple models first (Models themselves are already Typegoose):
 
-1. Alignment
-2. Condition
+1. ✅ Alignment
+2. ✅ Condition
 3. DamageType
 4. Language
 5. MagicSchool
@@ -175,9 +175,13 @@ Migrate the GraphQL layer for simple models first (Models themselves are already
 
 For each model:
 
-1. Define the TypeGraphQL `@ObjectType` (likely augmenting the existing Typegoose class).
-2. Create the TypeGraphQL `@Resolver` class with `@Query` and `@Mutation` methods.
-   *(See Appendix A: Example Simple Model GraphQL Migration for a template)*
+1. Define the TypeGraphQL `@ObjectType` decorators on the existing Typegoose class.
+   - Add `@Field()` to properties needed in the GraphQL API (like `name`, `desc`, `index`).
+   - Do **not** add `@Field()` to the `_id` property, as the GraphQL ID is not required for this API.
+   - Do **not** add `@Field()` to properties like `url` that are not currently needed but might be used later.
+   - Ensure only a `default` export is used for the Typegoose model (`const ModelName = ...; export default ModelName;`).
+2. Create the TypeGraphQL `@Resolver` class (e.g., in `src/graphql/2014/resolvers/`) with `@Query` methods.
+   *(See Appendix A: Example Simple Model GraphQL Migration for an updated template)*
 3. Replace the old GraphQL Compose type/resolver files/logic with the new TypeGraphQL implementation.
 4. Update/migrate existing integration tests targeting the GraphQL API for this model.
 5. Verify GraphQL functionality through testing.
@@ -311,87 +315,130 @@ This appendix demonstrates migrating the GraphQL layer for a simple model, `Alig
 **Option 1: Augmenting the Typegoose Model File**
 
 ```typescript
-// src/models/2014/Alignment.ts
-import { ObjectType, Field, ID, Resolver, Query, Arg } from 'type-graphql';
+// src/models/2014/alignment.ts // Lowercase convention
+import { ObjectType, Field, Resolver, Query, Arg, ID } from 'type-graphql'; // Include Resolver decorators if colocating
 import { prop as Property, getModelForClass } from '@typegoose/typegoose';
-import { Base } from '@typegoose/typegoose/lib/defaultClasses';
+// Remove Base import if not extending
 
-@ObjectType({ description: 'Represents a creature\'s moral and ethical outlook.' })
-export class Alignment extends Base<string> {
-  @Field(() => ID)
-  get id(): string {
-    return this._id.toString(); // Ensure string conversion if needed
-  }
+@ObjectType({ description: "Represents a creature's moral and ethical outlook." })
+// Add any necessary Typegoose options like @srdModelOptions if applicable
+export class Alignment {
+  // _id is handled by Typegoose; no @Field needed as API doesn't expose GraphQL ID.
 
-  @Field({ description: 'The name of the alignment (e.g., Lawful Good, Chaotic Evil).' })
-  @Property({ required: true, index: true, unique: true })
-  name!: string;
-
-  @Field({ description: 'A shortened representation of the alignment (e.g., LG, CE).' })
-  @Property({ required: true })
-  abbreviation!: string;
-
-  @Field({ description: 'A brief description of the alignment.' })
-  @Property({ required: true })
+  @Field(() => String, { description: 'A brief description of the alignment.' })
+  @Property({ required: true, index: true, type: () => String })
   desc!: string;
 
-  // Typegoose Model
-  static get model() {
-    return getModelForClass(Alignment, { schemaOptions: { collection: 'alignments' } });
-  }
+  @Field(() => String, { description: 'A shortened representation of the alignment (e.g., LG, CE).' })
+  @Property({ required: true, index: true, type: () => String })
+  abbreviation!: string;
+
+  @Field(() => String, { description: 'The unique identifier for this alignment (e.g., lawful-good).' })
+  @Property({ required: true, index: true, type: () => String })
+  index!: string;
+
+  @Field(() => String, { description: 'The name of the alignment (e.g., Lawful Good, Chaotic Evil).' })
+  @Property({ required: true, index: true, type: () => String })
+  name!: string;
+
+  // url property exists but has no @Field decorator - not exposed in API currently
+  @Property({ required: true, index: true, type: () => String })
+  url!: string;
+
+  @Field(() => String, { description: 'Timestamp of the last update.' })
+  @Property({ required: true, index: true, type: () => String })
+  updated_at!: string;
+
 }
 
-// Resolver can be in the same file or separate
+// Typegoose Model (Default export only)
+const AlignmentModel = getModelForClass(Alignment, { schemaOptions: { collection: 'alignments' } });
+export default AlignmentModel;
+
+// Resolver (if colocating)
+/*
 @Resolver(Alignment)
 export class AlignmentResolver {
-  @Query(() => [Alignment], { description: "Gets all alignments." })
-  async alignments(): Promise<Alignment[]> {
-    // Use the Typegoose model for data access
-    return Alignment.model.find().lean();
+  // Add ArgsType definition here if colocating
+
+  @Query(() => [Alignment], { description: "Gets all alignments, optionally filtered and sorted." })
+  async alignments(@Args() args: AlignmentArgs): Promise<Alignment[]> {
+    // Add logic to handle args.name and args.order_direction
+    return AlignmentModel.find({ /* filter */ }).sort({ /* sort */ }).lean();
   }
 
-  @Query(() => Alignment, { nullable: true, description: "Gets a single alignment by ID." })
-  async alignment(@Arg('id', () => ID) id: string): Promise<Alignment | null> {
-    // Add error handling as needed
-    return Alignment.model.findById(id).lean();
+  // Query by index if ID is not used
+  @Query(() => Alignment, { nullable: true, description: "Gets a single alignment by index." })
+  async alignment(@Arg('index', () => String) index: string): Promise<Alignment | null> {
+    return AlignmentModel.findOne({ index }).lean();
   }
-
-  // Add Mutations if needed using @Mutation decorator
 }
+*/
 ```
 
-**Option 2: Separate Resolver File**
+**Option 2: Separate Resolver File (Recommended Approach)**
 
 ```typescript
 // src/graphql/2014/resolvers/AlignmentResolver.ts
-import { Resolver, Query, Arg, ID } from 'type-graphql';
-import { Alignment } from '../../models/2014/Alignment'; // Import the Typegoose model/ObjectType
+import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'; // Updated imports
+import { Alignment } from '@/models/2014/alignment'; // Import the Typegoose model/ObjectType
+import AlignmentModel from '@/models/2014/alignment'; // Import the default export for data access
+import { IsOptional, IsString, IsEnum } from 'class-validator';
+import { OrderByDirection } from '@/graphql/common/enums';
+
+// Define ArgsType for alignments query
+@ArgsType()
+class AlignmentArgs {
+  @Field(() => String, { nullable: true, description: 'Filter by alignment name (case-insensitive, partial match)' })
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @Field(() => OrderByDirection, { nullable: true, defaultValue: OrderByDirection.ASC, description: 'Field to sort by (default: name ASC)' })
+  @IsOptional()
+  @IsEnum(OrderByDirection)
+  order_direction?: OrderByDirection;
+
+  // Add other args like skip/limit if needed later
+}
 
 @Resolver(Alignment)
 export class AlignmentResolver {
-  @Query(() => [Alignment], { description: "Gets all alignments." })
-  async alignments(): Promise<Alignment[]> {
-    return Alignment.model.find().lean();
+  @Query(() => [Alignment], { description: "Gets all alignments, optionally filtered and sorted." })
+  async alignments(@Args(() => AlignmentArgs) { name, order_direction }: AlignmentArgs): Promise<Alignment[]> {
+    const query = AlignmentModel.find();
+
+    // Apply filtering
+    if (name) {
+      query.where({ name: { $regex: new RegExp(name, 'i') } });
+    }
+
+    // Apply sorting
+    const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1;
+    query.sort({ name: sortOrder });
+
+    return query.lean();
   }
 
-  @Query(() => Alignment, { nullable: true, description: "Gets a single alignment by ID." })
-  async alignment(@Arg('id', () => ID) id: string): Promise<Alignment | null> {
-    return Alignment.model.findById(id).lean();
+  // Query by index if ID is not used in the API
+  @Query(() => Alignment, { nullable: true, description: "Gets a single alignment by index." })
+  async alignment(@Arg('index', () => String) index: string): Promise<Alignment | null> {
+    return AlignmentModel.findOne({ index }).lean();
   }
-
-  // Add Mutations if needed
 }
 
-// Ensure the Alignment class in src/models/2014/Alignment.ts has @ObjectType and @Field decorators.
+// Ensure the Alignment class in src/models/2014/alignment.ts has @ObjectType and @Field decorators as shown in Option 1.
 ```
 
 **Key Changes & Considerations:**
 
-1.  **`@ObjectType` / `@Field`:** The Typegoose `Alignment` class is decorated with `@ObjectType` and its relevant properties with `@Field` to expose them in the GraphQL schema.
-2.  **`@Resolver` / `@Query` / `@Arg`:** A new `AlignmentResolver` class is created using TypeGraphQL decorators. Methods like `alignments` and `alignment` define the GraphQL queries. `@Arg` defines query arguments.
-3.  **Data Access:** The resolver methods use the existing `Alignment.model` (the Typegoose model) to fetch data from the database.
-4.  **Consolidation Choice:** You can choose to put the `@Resolver` in the same file as the `@ObjectType`/Typegoose model or keep it separate (e.g., `src/graphql/2014/resolvers/`). Co-location can improve discoverability for simple models.
-5.  **Dependencies:** Assumes `type-graphql`, `reflect-metadata`, and `@typegoose/typegoose` are installed and configured. `buildSchema` needs to be pointed to the resolver class(es).
+1.  **`@ObjectType` / `@Field`:** Decorate the Typegoose class and relevant properties (`index`, `name`, `desc`, etc.). **Do not** add `@Field` for `_id` or properties not currently needed in the API (like `url`). Ensure explicit type functions (e.g., `() => String`) are used for all `@Field`, `@Arg`, and `@Args` decorators to prevent type inference issues.
+2.  **`_id` Field:** The `_id` property does not need to be explicitly defined in the Typegoose class.
+3.  **Model Export:** Use only a default export for the Typegoose model (`const ModelName = ...; export default ModelName;`).
+4.  **Resolver Arguments:** Use the `@InputType` class as the type for arguments in your `@Query` methods (`@Arg('filterName', () => StringFilterInput)`). Ensure explicit types are used for `@Args` as well.
+5.  **Mutations:** This migration assumes a read-only API; no `@Mutation` decorators are needed.
+6.  **Shared Enums/Args:** Common enums (like `OrderByDirection`) or argument classes should be defined in shared files (e.g., `src/graphql/common/`) and imported into resolvers to avoid duplication and registration errors.
+7.  **Dependencies:** Assumes `type-graphql`, `reflect-metadata`, and `@typegoose/typegoose` are installed and configured. `buildSchema` needs to be pointed to the resolver class(es).
 
 ## Appendix B: Example Complex Model GraphQL Migration (Monster)
 
@@ -444,11 +491,13 @@ class SpecialAbility {
 
 
 @ObjectType({ description: 'Represents a creature from the D&D SRD.' })
-export class Monster extends Base<string> {
-  @Field(() => ID)
-  get id(): string {
-    return this._id.toString();
-  }
+export class Monster /* removed extends Base<string> if not used */ {
+  // No _id definition needed here
+  // No @Field for _id as per decision
+
+  @Field({ description: 'The unique index for the monster.' })
+  @Property({ required: true, index: true, unique: true })
+  index!: string; // Ensure index is exposed
 
   @Field({ description: 'The name of the monster.' })
   @Property({ required: true, index: true, unique: true })
@@ -489,19 +538,18 @@ export class Monster extends Base<string> {
   @Property({ type: () => [SpecialAbility], default: [] })
   special_abilities?: SpecialAbility[];
 
-  // Typegoose Model
-  static get model() {
-    return getModelForClass(Monster, { schemaOptions: { collection: 'monsters' } });
-  }
+  // Typegoose Model (Default export only)
+  // static get model() { ... } // remove static getter if not used
 }
+
+const MonsterModel = getModelForClass(Monster, { schemaOptions: { collection: 'monsters' } });
+export default MonsterModel;
 
 // src/graphql/2014/resolvers/MonsterResolver.ts (Separate Resolver Recommended for Complex Models)
 import { Resolver, Query, Arg, ID, FieldResolver, Root } from 'type-graphql';
-import { Monster } from '../../models/2014/Monster'; // Import the decorated model
-// Import InputTypes for filtering if used (See Appendix C)
-// import { MonsterFilterInput } from '../inputs/MonsterFilterInput';
-// Import other needed Types/Models
-// import { Proficiency } from '../../models/2014/Proficiency';
+import { Monster } from '../../models/2014/monster'; // Import the decorated model
+import MonsterModel from '../../models/2014/monster'; // Import default export for data access
+// ... other imports
 
 @Resolver(Monster)
 export class MonsterResolver {
@@ -518,6 +566,22 @@ export class MonsterResolver {
     // Apply population for Refs as needed
     return Monster.model.findById(id).populate(/* refs needed */).lean();
   }
+
+  // Query by index
+  @Query(() => Monster, { nullable: true, description: "Gets a single monster by index." })
+  async monsterByIndex(@Arg('index', () => String) index: string): Promise<Monster | null> {
+    // Apply population for Refs as needed
+    return MonsterModel.findOne({ index }).populate(/* refs needed */).lean();
+  }
+
+  // Remove or comment out query by ID if not exposed in API
+  /*
+  @Query(() => Monster, { nullable: true, description: "Gets a single monster by ID." })
+  async monsterById(@Arg('id', () => ID) id: string): Promise<Monster | null> {
+    // Apply population for Refs as needed
+    return MonsterModel.findById(id).populate(/* refs needed *).lean();
+  }
+  */
 
   // --- Field Resolvers (Example) ---
   // Use FieldResolvers for computed properties or populated refs that need logic
@@ -544,14 +608,17 @@ export class MonsterResolver {
 
 **Key Changes & Considerations:**
 
-1.  **`@ObjectType` / `@Field` on Model:** The existing `Monster` Typegoose class and its nested classes (`MonsterAction`, `SpecialAbility`) must be decorated with `@ObjectType` and `@Field` for all properties exposed in the GraphQL API.
-2.  **Separate Resolver:** For complex models, keeping the `@Resolver` logic in a separate file (`MonsterResolver.ts`) is highly recommended for organization.
-3.  **Population:** In the resolver methods (`monsters`, `monster`), use Typegoose's `.populate()` method to fetch data for referenced models (`Ref<>` properties in the Typegoose schema) if those references are exposed as GraphQL fields.
-4.  **Field Resolvers (`@FieldResolver`):** Use field resolvers for:
+1.  **`@ObjectType` / `@Field` on Model:** Decorate the existing `Monster` Typegoose class, its nested classes, and all properties exposed in the GraphQL API (including `index`). Do **not** add `@Field` for `_id` or unused fields like `url`.
+2.  **`_id` Field:** No need to define `_id` in the class.
+3.  **Model Export:** Use only a default export for the Typegoose `MonsterModel`.
+4.  **Separate Resolver:** Highly recommended for complex models.
+5.  **Population:** In the resolver methods (`monsters`, `monster`), use Typegoose's `.populate()` method to fetch data for referenced models (`Ref<>` properties in the Typegoose schema) if those references are exposed as GraphQL fields.
+6.  **Field Resolvers (`@FieldResolver`):** Use field resolvers for:
     *   Computed fields that don't exist directly on the model (e.g., calculating `proficiency_bonus` from `challenge_rating`).
     *   Resolving relationships (`Ref` fields) if they require specific logic or weren't populated in the parent query. `@Root()` provides access to the parent `Monster` object.
-5.  **Filtering/Arguments:** Define `@InputType` classes (like `MonsterFilterInput`, see Appendix C) for complex filtering arguments in queries like `monsters`. Use `@Arg` to accept these inputs in resolver methods.
-6.  **Performance:** Be mindful of query complexity and N+1 problems. Use DataLoader or selective population (`populate`) to optimize data fetching, especially within field resolvers.
+7.  **Mutations:** No mutations are needed for this read-only API.
+8.  **Filtering/Arguments:** Define `@InputType` classes (like `MonsterFilterInput`, see Appendix C) for complex filtering arguments in queries like `monsters`. Use `@Arg` to accept these inputs in resolver methods.
+9.  **Performance:** Be mindful of query complexity and N+1 problems. Use DataLoader or selective population (`populate`) to optimize data fetching, especially within field resolvers.
 
 ---
 
@@ -609,7 +676,6 @@ export class StringFilterInput {
 import { Resolver, Query, Arg } from 'type-graphql';
 import { SomeModel from '../../models/2014/SomeModel'; // Assume SomeModel Typegoose model exists and is decorated with @ObjectType/@Field
 import { StringFilterInput } from '../inputs/StringFilterInput'; // Import the InputType
-import { FilterQuery } from 'mongoose'; // Import Mongoose/Typegoose filter type
 
 @Resolver(SomeModel)
 export class SomeResolver {
@@ -649,8 +715,8 @@ export class SomeResolver {
 **Key Changes & Considerations:**
 
 1.  **`@InputType` / `@Field`:** A dedicated class (`StringFilterInput`) is created with the `@InputType` decorator. Each filter condition (`eq`, `contains`, etc.) is a property decorated with `@Field`, specifying its GraphQL type (`String`, `[String]`) and nullability.
-2.  **Validation (`class-validator`):** Integrate `class-validator` decorators (`@IsOptional`, `@Length`, `@IsIn`, etc.) within the `@InputType` class. TypeGraphQL automatically runs these validators on the input arguments before your resolver code executes. Ensure `ValidationPipe` or similar is configured in your NestJS/Express setup if using `class-validator`.
-3.  **Resolver Arguments:** Use the `@InputType` class as the type for arguments in your `@Query` or `@Mutation` methods (`@Arg('filterName', () => StringFilterInput)`).
+2. **Validation (`class-validator`):** Integrate `class-validator` decorators (`@IsOptional`, `@Length`, `@IsIn`, etc.) within the `@InputType` class. TypeGraphQL automatically runs these validators on the input arguments before your resolver code executes. Ensure `ValidationPipe` or similar is configured in your NestJS/Express setup if using `class-validator`.
+3.  **Resolver Arguments:** Use the `@InputType` class as the type for arguments in your `@Query` methods (`@Arg('filterName', () => StringFilterInput)`).
 4.  **Query Building:** The resolver logic inspects the properties of the received `nameFilter` object (which will be an instance of `StringFilterInput` or `undefined`). Based on which properties are set, it constructs the appropriate database query filter object (e.g., a MongoDB filter document using operators like `$eq`, `$regex`, `$in`).
 5.  **Type Safety:** This approach provides better type safety and auto-completion for filter arguments compared to using generic custom scalars for complex filtering logic.
 6.  **Reusability:** Define common `InputType`s like `StringFilterInput`, `NumberFilterInput`, etc., once and reuse them across multiple resolvers wherever similar filtering is needed on corresponding field types.

@@ -1,9 +1,11 @@
 import { buildSchemaSync, NonEmptyArray } from 'type-graphql'
 import { AlignmentResolver } from './resolvers/AlignmentResolver'
+import { ConditionResolver } from './resolvers/ConditionResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers_2014: NonEmptyArray<any> = [
-  AlignmentResolver
+  AlignmentResolver,
+  ConditionResolver
   // ... other migrated resolvers will go here
 ]
 
