@@ -1,52 +1,27 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args } from 'type-graphql'
 import { Condition } from '@/models/2014/condition' // Import the decorated model class
 import ConditionModel from '@/models/2014/condition' // Import the default export for data access
-import { IsOptional, IsString, IsEnum } from 'class-validator'
-import { OrderByDirection } from '@/graphql/common/enums' // Import shared enum
-
-// ArgsType for conditions query
-@ArgsType()
-class ConditionArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by condition name (case-insensitive, partial match)'
-  })
-  @IsOptional()
-  @IsString()
-  name?: string
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Field to sort by (default: name ASC)'
-  })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
-  order_direction?: OrderByDirection
-}
+import { BaseResolver } from '@/graphql/common/resolvers/BaseResolver'
+import { NameSortArgs } from '@/graphql/common/args/NameSortArgs'
 
 @Resolver(Condition)
-export class ConditionResolver {
-  @Query(() => [Condition], { description: 'Gets all conditions, optionally filtered and sorted.' })
-  async conditions(
-    @Args(() => ConditionArgs) { name, order_direction }: ConditionArgs
-  ): Promise<Condition[]> {
-    const query = ConditionModel.find()
-
-    // Filtering
-    if (name !== undefined) {
-      query.where({ name: { $regex: new RegExp(name, 'i') } })
-    }
-
-    // Sorting
-    const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-    query.sort({ name: sortOrder })
-
-    return query.lean()
+export class ConditionResolver extends BaseResolver<Condition> {
+  constructor() {
+    super(ConditionModel, Condition)
   }
 
-  @Query(() => Condition, { nullable: true, description: 'Gets a single condition by its index.' })
+  @Query(() => Condition, {
+    nullable: true,
+    description: 'Gets a single condition by index.'
+  })
   async condition(@Arg('index', () => String) index: string): Promise<Condition | null> {
-    return ConditionModel.findOne({ index }).lean()
+    return this._findOneByIndex(index)
+  }
+
+  @Query(() => [Condition], {
+    description: 'Gets all conditions, optionally filtered and sorted.'
+  })
+  async conditions(@Args(() => NameSortArgs) args: NameSortArgs): Promise<Condition[]> {
+    return this._find(args)
   }
 }
