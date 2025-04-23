@@ -1,8 +1,8 @@
-# Migration to TypeGraphQL + Typegoose
+# Migration to TypeGraphQL from GraphQL Compose
 
 ## Current Architecture
 
-- Backend Stack: Express, Mongoose, TypeScript, GraphQL + GraphQL Compose
+- Backend Stack: Express, Typegoose, TypeScript, GraphQL + GraphQL Compose
 - Database: MongoDB
 - Existing GraphQL implementation using GraphQL Compose
 - 26 models in the current codebase
@@ -20,7 +20,7 @@
 - Bugsnag error tracking
 - CORS support
 
-### Model Complexity Analysis
+### Model Complexity Analysis (for GraphQL Exposure)
 
 #### Simple Models (Good Starting Points)
 
@@ -72,23 +72,21 @@ Current implementation includes custom scalar resolvers for:
 - Float/Int Filters
 - Language Script Filters
 
+*(These will need to be ported or adapted for TypeGraphQL)*
+
 ### Code Organization
 
-- Models and types located in `src/models/2014`
-- Resolvers located in `src/graphql/2014/resolvers`
-- Custom written resolvers (not using graphql-compose package)
-- Uses custom scalars and directives
-- Uses graphql-depth-limit middleware
+- Models (Typegoose) located in `src/models/2014`
+- GraphQL artifacts (Types, Resolvers) previously in `src/graphql/2014/{types,resolvers}`
 
 ## Migration Goals
 
 - Migrate from GraphQL Compose to TypeGraphQL
-- Migrate from Mongoose to Typegoose
-- Consolidate model, type, and resolver files into single files for better cohesion
-- Maintain existing TypeScript types/interfaces
-- Preserve current functionality and test coverage
-- No changes to existing schemas, types, or API endpoints
-- Preserve caching and middleware functionality
+- Define GraphQL Object Types and Resolvers using TypeGraphQL decorators.
+- Potentially consolidate GraphQL Object Type definitions and Resolvers into fewer files, possibly alongside the relevant Typegoose model file.
+- Maintain existing TypeScript types/interfaces where applicable (Typegoose classes serve as the base).
+- Preserve current functionality and test coverage (adapting tests for TypeGraphQL).
+- No changes to the underlying database schema or data access logic (handled by Typegoose).
 
 ## Implementation Details
 
@@ -103,70 +101,41 @@ Current implementation includes custom scalar resolvers for:
   - Jest as testing framework
   - Redis mock for unit tests
   - Existing test coverage requirements
-  - *Note: Anticipate minor adjustments to test setup/teardown or mocking strategies when interacting with Typegoose models and TypeGraphQL resolvers.*
+  - *Note: Anticipate adjustments to integration tests to match the new TypeGraphQL schema structure and query/mutation definitions.*
 
 ### Code Organization
 
-- Main code location: `src/models/2014`
-- Resolvers (if needed separately): `src/graphql/2014/resolvers`
-- Tests remain in separate files
-- Goal: Combine model, type, and resolver files where possible
+- Typegoose Models remain in: `src/models/2014`
+- New TypeGraphQL Resolvers can be located in: `src/graphql/2014/resolvers` or potentially co-located with models in `src/models/2014` if preferred.
+- Tests remain in separate files.
+- Goal: Define GraphQL schema using TypeGraphQL decorators, potentially colocating related GraphQL types/resolvers.
 
 ### Dependency Management
 
 - Update existing package.json
 - Add latest compatible versions of:
   - `type-graphql`: 2.0.0-beta.3 # TODO: Confirm latest stable beta
-  - `@typegoose/typegoose`: 11.4.1 # TODO: Confirm latest stable
   - `reflect-metadata`: ^0.1.13 (Required peer dependency)
   - Other required peer dependencies (e.g., `graphql`, `class-validator`)
 - Maintain Node.js 20.x compatibility
-- Preserve existing middleware dependencies
-
-### Infrastructure Preservation
-
-- Redis caching:
-  - Maintain current caching strategy
-  - Preserve pre-warming functionality
-  - Update cache integration tests
-- Apollo Server:
-  - Migrate cache control plugin
-  - Preserve depth limiting
-- Express middleware:
-  - Maintain rate limiting
-  - Preserve error tracking
-  - Keep CORS configuration
 
 ### Testing Adjustments
 
-While aiming to preserve the existing test infrastructure (Jest, unit/integration separation, Redis mock), some adjustments will be necessary when interacting with Typegoose models and TypeGraphQL resolvers.
+While aiming to preserve the existing test infrastructure (Jest, unit/integration separation, Redis mock), adjustments will be necessary primarily for integration tests interacting with the TypeGraphQL API.
 
-#### Mocking Typegoose Models (Unit Tests)
+#### Unit Tests (Minimal Impact)
 
-- **Current:** Mongoose models might be mocked using libraries like `jest-mock-extended` or custom factories.
-- **New:** Typegoose models, being classes, might require slightly different mocking approaches. Explore using `jest.spyOn` on static methods (like `Alignment.model.find()`) or class methods if applicable. Ensure decorators don't interfere with mocking.
-- **Example (Conceptual):**
-
-  ```typescript
-  // Example: Mocking a static find method
-  jest.spyOn(Alignment.model, 'find').mockResolvedValueOnce([...]);
-  ```
+- Unit tests for services or logic interacting directly with Typegoose models should remain largely unchanged, as the data layer is not migrating.
 
 #### Updating Integration Test Queries
 
 - **Current:** Integration tests likely use tools like Apollo Client or raw `fetch` to send GraphQL queries based on the GraphQL Compose schema.
-- **New:** Queries will need to be updated to reflect the potentially consolidated TypeGraphQL schema structure (e.g., different query names, field structures if consolidation occurred). Ensure tests target the correct endpoint and use the structure defined by TypeGraphQL decorators.
+- **New:** Queries and mutations will need to be updated to reflect the TypeGraphQL schema structure (e.g., different query/mutation names defined by `@Query`/`@Mutation`, field structures defined by `@Field`, argument structures defined by `@Arg` and `@InputType`). Ensure tests target the correct endpoint and use the structure defined by TypeGraphQL decorators.
 - **Example (Conceptual):**
 
   ```graphql
-  # Old Query (Example)
   query {
-    alignmentById(id: "...") { ... }
-  }
-
-  # New Query (Example - depends on resolver implementation)
-  query {
-    alignment(id: "...") { ... } # Might change based on @Query definition
+    alignment(id: "...") { ... }
   }
   ```
 
@@ -175,105 +144,98 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
 ### ✅ Pre-Migration Cleanup
 
 1. Remove deprecated GraphQL Compose dependencies
-   - Removed `graphql-compose` and `graphql-compose-mongoose` as they are no longer used
-   - Codebase already using custom resolvers without these packages
-   - Using `@apollo/server` and `@graphql-tools/schema` for GraphQL implementation
+   - Ensure `graphql-compose` and related packages are removed.
+   - Confirm the setup relies on `@apollo/server`, `@graphql-tools/schema`, and custom resolvers.
 
 ### 1. Initial Setup (Week 1)
 
-1. Add TypeGraphQL and Typegoose dependencies
-2. Configure TypeGraphQL with Express
-3. Set up basic TypeGraphQL schema structure
-4. Create test migration template
-5. Configure middleware integration:
-   - Apollo Server setup
-   - Cache control plugin
-   - Depth limiting
-   - Rate limiting
-   - Error tracking
+1. Add TypeGraphQL dependencies (`type-graphql`, `reflect-metadata`, `class-validator`).
+2. Configure TypeGraphQL with Express/Apollo Server.
+   - Set up `buildSchema` from `type-graphql`.
+   - Integrate the generated schema with Apollo Server.
+3. Create a template for migrating a resolver/type.
+4. Configure middleware integration with the new TypeGraphQL setup:
+   - Ensure Apollo Server cache control, depth limiting, rate limiting, error tracking, etc., work with the TypeGraphQL schema.
 
-### 2. Simple Model Migration (Weeks 2-3)
+### 2. Simple Model GraphQL Migration (Weeks 2-3)
 
-Start with simple models in this order:
+Migrate the GraphQL layer for simple models first (Models themselves are already Typegoose):
 
-1. Alignment (basic enumeration)
-2. Condition (basic properties)
-3. DamageType (basic properties)
-4. Language (basic properties)
-5. MagicSchool (basic properties)
-6. RuleSection (basic documentation)
-7. WeaponProperty (basic properties)
-8. Collection (basic organization)
-9. EquipmentCategory (basic categorization)
-10. AbilityScore (foundation for many other models)
-11. Skill (basic properties with ability score reference)
+1. Alignment
+2. Condition
+3. DamageType
+4. Language
+5. MagicSchool
+6. RuleSection
+7. WeaponProperty
+8. Collection
+9. EquipmentCategory
+10. AbilityScore
+11. Skill
 
 For each model:
 
-1. Create new TypeGraphQL + Typegoose implementation
-   *(See Appendix A: Example Simple Model Migration for a template)*
-2. Update/migrate existing tests
-3. Direct replacement of old implementation (including deleting old files if separate)
-4. Update external imports: Check controllers, services, or other files that imported the old Mongoose model's default export. Update them to import the named `ModelName` class and use `ModelName.model` where the Typegoose model is needed.
-5. Verify functionality
-6. Deploy to production
+1. Define the TypeGraphQL `@ObjectType` (likely augmenting the existing Typegoose class).
+2. Create the TypeGraphQL `@Resolver` class with `@Query` and `@Mutation` methods.
+   *(See Appendix A: Example Simple Model GraphQL Migration for a template)*
+3. Replace the old GraphQL Compose type/resolver files/logic with the new TypeGraphQL implementation.
+4. Update/migrate existing integration tests targeting the GraphQL API for this model.
+5. Verify GraphQL functionality through testing.
+6. Deploy to production.
 
-### 3. Moderate Complexity Migration (Weeks 4-5)
+### 3. Moderate Complexity GraphQL Migration (Weeks 4-5)
 
-Handle models with moderate complexity:
+Migrate GraphQL layer for models with moderate complexity:
 
-1. Background (references and choices)
-2. Feat (features and prerequisites)
-3. Rule (documentation and references)
-4. Trait (race-specific features)
-5. MagicItem (equipment with magical properties)
-6. Subrace (race inheritance)
-
-For each model:
-
-1. Analyze references and dependencies
-2. Create new implementation
-3. Migrate tests
-4. Update external imports: Check controllers, services, or other files that imported the old Mongoose model's default export. Update them to import the named `ModelName` class and use `ModelName.model` where the Typegoose model is needed.
-5. Verify functionality with related models
-6. Deploy to production
-
-### 4. Complex Model Migration (Weeks 6-8)
-
-Handle complex models in this order:
-
-1. Equipment (foundation for items and weapons)
-2. Proficiency (references to other models)
-3. Feature (prerequisites)
-4. Race (ability bonuses)
-5. Spell (damage calculations)
-6. Level (class features)
-7. Class (spellcasting)
-8. Subclass (relationships)
-9. Monster (comprehensive schema)
+1. Background
+2. Feat
+3. Rule
+4. Trait
+5. MagicItem
+6. Subrace
 
 For each model:
 
-1. Analyze dependencies
-2. Create new implementation
-3. Migrate tests
-4. Update external imports: Check controllers, services, or other files that imported the old Mongoose model's default export. Update them to import the named `ModelName` class and use `ModelName.model` where the Typegoose model is needed.
-5. Verify relationships with other models
-6. Deploy to production
+1. Analyze GraphQL dependencies (e.g., does the Background resolver need Feat types?).
+2. Define TypeGraphQL `@ObjectType` and `@Resolver`.
+3. Migrate integration tests.
+4. Verify functionality via GraphQL endpoint.
+5. Deploy to production.
 
-### 5. Infrastructure Migration (Week 9)
+### 4. Complex Model GraphQL Migration (Weeks 6-8)
 
-1. Port custom scalars to TypeGraphQL
-   - Strategy: Wrap existing scalar logic using TypeGraphQL's `GraphQLScalarType` where possible. Rewrite if necessary for better integration or type safety.
-   - Verify behavior, especially for filter-related scalars.
-2. Update Redis caching implementation
-3. Migrate Apollo Server configuration
-4. Update middleware setup
-5. Verify all infrastructure components
+Migrate GraphQL layer for complex models:
+
+1. Equipment
+2. Proficiency
+3. Feature
+4. Race
+5. Spell
+6. Level
+7. Class
+8. Subclass
+9. Monster
+
+For each model:
+
+1. Analyze complex GraphQL relationships and data requirements.
+2. Define TypeGraphQL `@ObjectType` (potentially with nested types/field resolvers) and `@Resolver`.
+3. Migrate integration tests.
+4. Verify complex interactions via GraphQL endpoint.
+5. Deploy to production.
+
+### 5. GraphQL Infrastructure Migration (Week 9)
+
+1. Port custom scalars to TypeGraphQL.
+   - Strategy: Adapt existing scalar logic using TypeGraphQL's `GraphQLScalarType` or implement custom `@InputType`s for filters (See Appendix C).
+   - Verify behavior in GraphQL queries/mutations.
+2. Finalize Redis caching integration with TypeGraphQL resolvers if necessary (e.g., using decorators or middleware).
+3. Finalize Apollo Server configuration with the TypeGraphQL schema.
+4. Verify all middleware (rate limiting, error tracking, CORS) works correctly with the final TypeGraphQL setup.
 
 ### 6. Final Steps (Week 10)
 
-1. Remove old dependencies
+1. Remove any remaining old GraphQL Compose artifacts or dependencies.
 2. Clean up unused code
 3. Update documentation
 4. Final testing pass
@@ -281,91 +243,84 @@ For each model:
 
 ## Risks and Mitigations
 
-### 1. Data Integrity
+### 1. GraphQL Schema Incompatibility
 
-- Risk: Schema changes affecting existing data
+- Risk: TypeGraphQL schema differs unexpectedly from the old GraphQL Compose schema, breaking clients.
 - Mitigation:
-  - Maintain schema compatibility
-  - Thorough testing with production data
-  - Direct replacement strategy
+  - Aim for schema compatibility where possible.
+  - Thorough integration testing using existing client query patterns.
+  - Versioning the API if significant breaking changes are unavoidable (though the goal is to avoid this).
 
 ### 2. Performance
 
-- Risk: New implementation affecting query performance
+- Risk: TypeGraphQL resolvers introduce performance regressions compared to old resolvers.
 - Mitigation:
-  - Performance testing before deployment
-  - Maintain existing Redis cache
-  - Monitor query execution times
+  - Performance testing before deployment.
+  - Leverage existing Redis cache (ensure integration).
+  - Use tools like Apollo Studio or DataLoader for optimization if needed.
+  - Monitor query execution times post-deployment.
 
 ### 3. Service Availability
 
-- Risk: Migration affecting production service
+- Risk: Migration deployment causes downtime or errors.
 - Mitigation:
-  - One model at a time migration strategy.
-  - Immediate rollback capability: Maintain the ability to quickly revert code changes for a specific model if critical issues are found post-deployment.
-    - **Identify Commits:** Ensure migration commits are clearly identifiable (e.g., per-model commits).
-    - **Revert Code:** Use `git checkout <last_good_commit_hash> -- src/models/2014/ModelName.ts src/graphql/2014/resolvers/modelNameResolver.ts` (adjust paths as needed) to revert the specific model files.
-    - **Verify Database:** Confirm the database schema remains backwards-compatible during the transition phase to avoid data loss upon rollback.
+  - One model's GraphQL layer at a time migration strategy.
+  - Immediate rollback capability: Maintain the ability to quickly revert code changes for a specific model's TypeGraphQL resolver/type if critical issues are found.
+    - **Identify Commits:** Ensure migration commits are clearly identifiable (e.g., per-model resolver commits).
+    - **Revert Code:** Use `git checkout <last_good_commit_hash> -- src/graphql/2014/resolvers/modelNameResolver.ts src/models/2014/ModelName.ts` (adjust paths if types/resolvers are co-located or separate) to revert the specific files.
     - **Deploy Reverted Code:** Redeploy the application with the reverted code.
-  - Comprehensive testing before deployment.
+  - Comprehensive integration testing before deployment.
 
-### 4. Testing Coverage
+### 4. Testing Coverage Gaps
 
-- Risk: Missing edge cases during migration
+- Risk: Integration tests don't cover all edge cases in the new TypeGraphQL resolvers.
 - Mitigation:
   - Maintain separate test files
   - Keep existing test infrastructure
   - Verify coverage for each migration
 
-### 5. Caching and Performance
+### 5. Caching Issues
 
-- Risk: Cache invalidation issues during migration
+- Risk: Cache invalidation or integration issues with TypeGraphQL resolvers.
 - Mitigation:
   - Maintain existing cache keys
   - Verify cache behavior for each model
   - Comprehensive cache integration tests
 
-### 6. Middleware Integration
-
-- Risk: Middleware incompatibilities with new setup
-- Mitigation:
-  - Test middleware in isolation
-  - Verify rate limiting effectiveness
-  - Maintain error tracking coverage
-
 ## Success Criteria
 
-1. All models migrated to TypeGraphQL + Typegoose
-2. All tests passing with existing coverage
-3. No regression in API functionality
-4. Maintained performance metrics
-5. Clean, consolidated codebase
-6. Fully functional caching layer
-7. All middleware operating correctly
+1. All GraphQL types and resolvers migrated from GraphQL Compose to TypeGraphQL.
+2. All integration tests passing with existing coverage levels.
+3. No regression in API functionality or performance.
+4. Cleaner, potentially more consolidated GraphQL codebase using decorators.
+5. Fully functional caching layer integrated with TypeGraphQL.
+6. All middleware operating correctly with the TypeGraphQL API.
 
-## Appendix A: Example Simple Model Migration (Alignment)
+## Appendix A: Example Simple Model GraphQL Migration (Alignment)
 
-This appendix demonstrates the migration of a simple model, `Alignment`, from the old Mongoose + GraphQL Compose setup to TypeGraphQL + Typegoose.
+This appendix demonstrates migrating the GraphQL layer for a simple model, `Alignment`, from GraphQL Compose to TypeGraphQL. It assumes the `Alignment` Typegoose model already exists.
 
 ### Old Implementation (Conceptual)
 
-- `src/models/2014/Alignment.ts` (Mongoose Schema/Model)
-- `src/graphql/2014/types/AlignmentType.ts` (GraphQL Compose Type)
-- `src/graphql/2014/resolvers/alignmentResolver.ts` (GraphQL Compose Resolver)
+- `src/models/2014/Alignment.ts` (Existing Typegoose Model)
+- `src/graphql/2014/types/AlignmentType.ts` (Old GraphQL Compose Type definition)
+- `src/graphql/2014/resolvers/alignmentResolver.ts` (Old GraphQL Compose Resolver logic)
 
-### New Implementation (Consolidated)
+### New Implementation (TypeGraphQL - potentially augmenting model file or separate resolver)
+
+**Option 1: Augmenting the Typegoose Model File**
 
 ```typescript
 // src/models/2014/Alignment.ts
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Resolver, Query, Arg } from 'type-graphql';
 import { prop as Property, getModelForClass } from '@typegoose/typegoose';
 import { Base } from '@typegoose/typegoose/lib/defaultClasses';
 
 @ObjectType({ description: 'Represents a creature\'s moral and ethical outlook.' })
-export class Alignment extends Base<string> { // Extend Base for _id
+export class Alignment extends Base<string> {
   @Field(() => ID)
-  get id(): string { // Use getter for TypeGraphQL ID compatibility
-    return this._id;
+  get id(): string {
+    return this._id.toString(); // Ensure string conversion if needed
   }
 
   @Field({ description: 'The name of the alignment (e.g., Lawful Good, Chaotic Evil).' })
@@ -380,64 +335,87 @@ export class Alignment extends Base<string> { // Extend Base for _id
   @Property({ required: true })
   desc!: string;
 
-  // Typegoose Model - export this for database interactions
+  // Typegoose Model
   static get model() {
     return getModelForClass(Alignment, { schemaOptions: { collection: 'alignments' } });
   }
 }
 
-// Placeholder for potential Resolver (if needed, could be in the same file)
-/*
-import { Resolver, Query, Arg } from 'type-graphql';
+// Resolver can be in the same file or separate
+@Resolver(Alignment)
+export class AlignmentResolver {
+  @Query(() => [Alignment], { description: "Gets all alignments." })
+  async alignments(): Promise<Alignment[]> {
+    // Use the Typegoose model for data access
+    return Alignment.model.find().lean();
+  }
+
+  @Query(() => Alignment, { nullable: true, description: "Gets a single alignment by ID." })
+  async alignment(@Arg('id', () => ID) id: string): Promise<Alignment | null> {
+    // Add error handling as needed
+    return Alignment.model.findById(id).lean();
+  }
+
+  // Add Mutations if needed using @Mutation decorator
+}
+```
+
+**Option 2: Separate Resolver File**
+
+```typescript
+// src/graphql/2014/resolvers/AlignmentResolver.ts
+import { Resolver, Query, Arg, ID } from 'type-graphql';
+import { Alignment } from '../../models/2014/Alignment'; // Import the Typegoose model/ObjectType
 
 @Resolver(Alignment)
 export class AlignmentResolver {
-  @Query(() => [Alignment])
+  @Query(() => [Alignment], { description: "Gets all alignments." })
   async alignments(): Promise<Alignment[]> {
     return Alignment.model.find().lean();
   }
 
-  @Query(() => Alignment, { nullable: true })
+  @Query(() => Alignment, { nullable: true, description: "Gets a single alignment by ID." })
   async alignment(@Arg('id', () => ID) id: string): Promise<Alignment | null> {
-    // Basic example, error handling and more specific logic would be needed
     return Alignment.model.findById(id).lean();
   }
+
+  // Add Mutations if needed
 }
-*/
+
+// Ensure the Alignment class in src/models/2014/Alignment.ts has @ObjectType and @Field decorators.
 ```
 
 **Key Changes & Considerations:**
 
-1. **Consolidation:** Model definition (`@ObjectType`, `@Field`) and database schema (`@Property`) are combined in one file using decorators.
-2. **TypeGraphQL Decorators:** `@ObjectType` and `@Field` define the GraphQL schema.
-3. **Typegoose Decorators:** `@Property` defines the MongoDB schema and validation.
-4. **`_id` Handling:** Typegoose uses `_id`. A getter `id` annotated with `@Field(() => ID)` is added for GraphQL compatibility. The `Base<string>` extension provides the `_id` field.
-5. **Model Export:** `getModelForClass` creates the Typegoose model, exported as `Alignment.model` for database operations.
-6. **Resolver (Optional):** A basic resolver (`AlignmentResolver`) can be included in the same file or kept separate. The example above shows it commented out for brevity but demonstrates how `@Resolver` and `@Query` would be used.
-7. **Dependencies:** Assumes `type-graphql`, `@typegoose/typegoose`, and `reflect-metadata` are installed and configured.
+1.  **`@ObjectType` / `@Field`:** The Typegoose `Alignment` class is decorated with `@ObjectType` and its relevant properties with `@Field` to expose them in the GraphQL schema.
+2.  **`@Resolver` / `@Query` / `@Arg`:** A new `AlignmentResolver` class is created using TypeGraphQL decorators. Methods like `alignments` and `alignment` define the GraphQL queries. `@Arg` defines query arguments.
+3.  **Data Access:** The resolver methods use the existing `Alignment.model` (the Typegoose model) to fetch data from the database.
+4.  **Consolidation Choice:** You can choose to put the `@Resolver` in the same file as the `@ObjectType`/Typegoose model or keep it separate (e.g., `src/graphql/2014/resolvers/`). Co-location can improve discoverability for simple models.
+5.  **Dependencies:** Assumes `type-graphql`, `reflect-metadata`, and `@typegoose/typegoose` are installed and configured. `buildSchema` needs to be pointed to the resolver class(es).
 
-## Appendix B: Example Complex Model Migration (Monster)
+## Appendix B: Example Complex Model GraphQL Migration (Monster)
 
-This appendix outlines the potential migration strategy for a complex model like `Monster`, known for its extensive schema and nested data structures.
+This appendix outlines migrating the GraphQL layer for a complex model like `Monster`, assuming the `Monster` Typegoose model already exists with its nested structures and relationships.
 
 **Old Implementation (Conceptual)**
 
-*   `src/models/2014/Monster.ts` (Mongoose Schema/Model)
-*   Potentially multiple files for sub-documents/types
-*   `src/graphql/2014/types/MonsterType.ts` (GraphQL Compose Type)
-*   `src/graphql/2014/resolvers/monsterResolver.ts` (GraphQL Compose Resolver)
+*   `src/models/2014/Monster.ts` (Existing complex Typegoose Model, possibly with nested classes for actions, abilities etc.)
+*   `src/graphql/2014/types/MonsterType.ts` (Old GraphQL Compose Type)
+*   `src/graphql/2014/resolvers/monsterResolver.ts` (Old GraphQL Compose Resolver)
 
-**New Implementation (Consolidated Snippet)**
+**New Implementation (TypeGraphQL - Decorating Model and Creating Resolver)**
 
 ```typescript
-// src/models/2014/Monster.ts
+// src/models/2014/Monster.ts (Ensure TypeGraphQL decorators are added)
 import { ObjectType, Field, ID, Float, Int } from 'type-graphql';
 import { prop as Property, getModelForClass, Ref } from '@typegoose/typegoose';
 import { Base } from '@typegoose/typegoose/lib/defaultClasses';
-import { AbilityScore } from './AbilityScore'; // Assuming AbilityScore is migrated
-import { Skill } from './Skill'; // Assuming Skill is migrated
+// Import related models/types if they are also ObjectTypes
+import { AbilityScore } from './AbilityScore';
+import { Skill } from './Skill';
+// ... other imports
 
-// Example Nested Object Type for Actions
+// Ensure nested classes used in properties are also decorated with @ObjectType
 @ObjectType({ description: 'An action a monster can perform' })
 class MonsterAction {
   @Field()
@@ -448,10 +426,9 @@ class MonsterAction {
   @Property({ required: true })
   desc!: string;
 
-  // Other action-specific fields like attack_bonus, damage_dice, etc.
+  // Other fields... ensure they have @Field if needed in GraphQL
 }
 
-// Example Nested Object Type for Special Abilities
 @ObjectType({ description: 'A special ability of the monster' })
 class SpecialAbility {
   @Field()
@@ -462,7 +439,7 @@ class SpecialAbility {
   @Property({ required: true })
   desc!: string;
 
-  // Other ability-specific fields
+  // Other fields... ensure they have @Field if needed in GraphQL
 }
 
 
@@ -470,20 +447,22 @@ class SpecialAbility {
 export class Monster extends Base<string> {
   @Field(() => ID)
   get id(): string {
-    return this._id;
+    return this._id.toString();
   }
 
   @Field({ description: 'The name of the monster.' })
   @Property({ required: true, index: true, unique: true })
   name!: string;
 
+  // ... Add @Field decorators to all properties exposed via GraphQL ...
+
   @Field({ description: 'Size category (e.g., Medium, Large).' })
   @Property({ required: true })
-  size!: string; // Could potentially be an Enum
+  size!: string; // Register as Enum if applicable
 
   @Field({ description: 'Creature type (e.g., Aberration, Beast).' })
   @Property({ required: true })
-  type!: string; // Could potentially be an Enum
+  type!: string; // Register as Enum if applicable
 
   @Field({ nullable: true, description: 'Creature subtype (e.g., Goblinoid).' })
   @Property()
@@ -493,27 +472,13 @@ export class Monster extends Base<string> {
   @Property({ required: true })
   armor_class!: number;
 
-  @Field(() => Int, { description: 'Hit Points.' })
-  @Property({ required: true })
-  hit_points!: number;
-
-  @Field({ description: 'Hit Dice (e.g., 4d8).' })
-  @Property({ required: true })
-  hit_dice!: string;
-
-  // --- Stats ---
-  @Field(() => Int) @Property({ required: true }) strength!: number;
-  @Field(() => Int) @Property({ required: true }) dexterity!: number;
-  @Field(() => Int) @Property({ required: true }) constitution!: number;
-  @Field(() => Int) @Property({ required: true }) intelligence!: number;
-  @Field(() => Int) @Property({ required: true }) wisdom!: number;
-  @Field(() => Int) @Property({ required: true }) charisma!: number;
+  // ... Decorate ALL other relevant fields (hit_points, stats, speed, senses, etc.) with @Field ...
 
   // --- References (Example) ---
-  // Assuming Proficiency model is migrated and holds proficiency bonus calculation
-  // @Field(() => Proficiency)
+  // Ensure Proficiency is an @ObjectType if you expose it directly
+  // @Field(() => Proficiency, { nullable: true })
   // @Property({ ref: () => Proficiency })
-  // proficiency_bonus_ref?: Ref<Proficiency>;
+  // proficiency_bonus_ref?: Ref<Proficiency>; // Population needed in resolver
 
   // --- Nested Types ---
   @Field(() => [MonsterAction], { description: 'Actions the monster can take.' })
@@ -524,137 +489,170 @@ export class Monster extends Base<string> {
   @Property({ type: () => [SpecialAbility], default: [] })
   special_abilities?: SpecialAbility[];
 
-  // ... other numerous fields like speed, senses, languages, challenge_rating, skills, saving throws, condition_immunities etc.
-
   // Typegoose Model
   static get model() {
-    // Note: May need explicit schema options for complex relations if not automatically inferred
     return getModelForClass(Monster, { schemaOptions: { collection: 'monsters' } });
   }
 }
 
-// Placeholder for potential Monster Resolver (likely complex)
-/*
-import { Resolver, Query, Arg, FieldResolver, Root } from 'type-graphql';
+// src/graphql/2014/resolvers/MonsterResolver.ts (Separate Resolver Recommended for Complex Models)
+import { Resolver, Query, Arg, ID, FieldResolver, Root } from 'type-graphql';
+import { Monster } from '../../models/2014/Monster'; // Import the decorated model
+// Import InputTypes for filtering if used (See Appendix C)
+// import { MonsterFilterInput } from '../inputs/MonsterFilterInput';
+// Import other needed Types/Models
+// import { Proficiency } from '../../models/2014/Proficiency';
 
 @Resolver(Monster)
 export class MonsterResolver {
-  @Query(() => [Monster])
-  async monsters(/* Add Filtering Arguments using Custom Scalars/Inputs *): Promise<Monster[]> {
-    // Complex query logic with population for references
-    return Monster.model.find({ /* filter criteria * }).populate(/* refs *).lean();
+  @Query(() => [Monster], { description: "Gets monsters, potentially filtered." })
+  async monsters(/* @Arg('filter', () => MonsterFilterInput, { nullable: true }) filter?: MonsterFilterInput */): Promise<Monster[]> {
+    const queryFilter = {}; // Build filter based on args
+    // Apply population for Refs as needed
+    // Example: return Monster.model.find(queryFilter).populate('proficiency_bonus_ref').lean();
+    return Monster.model.find(queryFilter).lean();
   }
 
-  @Query(() => Monster, { nullable: true })
+  @Query(() => Monster, { nullable: true, description: "Gets a single monster by ID." })
   async monster(@Arg('id', () => ID) id: string): Promise<Monster | null> {
-    return Monster.model.findById(id).populate(/* refs *).lean();
+    // Apply population for Refs as needed
+    return Monster.model.findById(id).populate(/* refs needed */).lean();
   }
 
-  // Example Field Resolver if needed (e.g., calculating proficiency bonus)
+  // --- Field Resolvers (Example) ---
+  // Use FieldResolvers for computed properties or populated refs that need logic
+
+  // Example: If proficiency_bonus is calculated, not stored directly
   // @FieldResolver(() => Int)
   // async proficiency_bonus(@Root() monster: Monster): Promise<number> {
-  //   // Logic to calculate based on challenge rating or other factors
+  //   // Logic to calculate proficiency based on challenge_rating, etc.
+  //   // const cr = monster.challenge_rating; // Assuming challenge_rating has @Field
+  //   // return calculateProficiencyBonus(cr);
   // }
+
+  // Example: Resolving a populated Ref if needed
+  // @FieldResolver(() => Proficiency, { nullable: true })
+  // async proficiencyBonusRef(@Root() monster: Monster): Promise<Proficiency | null> {
+  //   // If population wasn't done in the main query or needs extra handling
+  //   if (!monster.proficiency_bonus_ref) return null;
+  //   // Assumes proficiency_bonus_ref holds the ID if not populated
+  //   // return Proficiency.model.findById(monster.proficiency_bonus_ref).lean();
+  // }
+
 }
-*/
 ```
 
 **Key Changes & Considerations:**
 
-1.  **Nested Types:** Structures like `actions` or `special_abilities` are defined as separate classes decorated with `@ObjectType` and `@Field`, and then used as types within the main `Monster` class (`@Field(() => [MonsterAction])`). Typegoose needs `@Property({ type: () => [NestedType] })` to handle the array of sub-documents.
-2.  **Extensive Fields:** All fields require both `@Field` (for GraphQL) and `@Property` (for Typegoose/MongoDB). Careful attention must be paid to types (`Int`, `Float`, `String`, custom Enums, etc.).
-3.  **Relationships (`Ref`):** References to other models (like `Proficiency`, `Skill`, `AbilityScore`) will use Typegoose's `Ref` type (`@Property({ ref: () => OtherModel })`) and likely require population in resolvers. The corresponding `@Field` needs to resolve to the correct GraphQL type.
-4.  **Complexity:** The sheer number of fields and potential interdependencies makes this migration time-consuming and requires thorough testing.
-5.  **Resolvers:** Monster resolvers will likely be complex, involving argument handling (potentially using custom filter scalars/inputs), population of referenced documents, and potentially custom field resolvers for calculated values.
-6.  **Enums:** Fields like `size` and `type` could be implemented using TypeScript enums registered with TypeGraphQL (`registerEnumType`).
+1.  **`@ObjectType` / `@Field` on Model:** The existing `Monster` Typegoose class and its nested classes (`MonsterAction`, `SpecialAbility`) must be decorated with `@ObjectType` and `@Field` for all properties exposed in the GraphQL API.
+2.  **Separate Resolver:** For complex models, keeping the `@Resolver` logic in a separate file (`MonsterResolver.ts`) is highly recommended for organization.
+3.  **Population:** In the resolver methods (`monsters`, `monster`), use Typegoose's `.populate()` method to fetch data for referenced models (`Ref<>` properties in the Typegoose schema) if those references are exposed as GraphQL fields.
+4.  **Field Resolvers (`@FieldResolver`):** Use field resolvers for:
+    *   Computed fields that don't exist directly on the model (e.g., calculating `proficiency_bonus` from `challenge_rating`).
+    *   Resolving relationships (`Ref` fields) if they require specific logic or weren't populated in the parent query. `@Root()` provides access to the parent `Monster` object.
+5.  **Filtering/Arguments:** Define `@InputType` classes (like `MonsterFilterInput`, see Appendix C) for complex filtering arguments in queries like `monsters`. Use `@Arg` to accept these inputs in resolver methods.
+6.  **Performance:** Be mindful of query complexity and N+1 problems. Use DataLoader or selective population (`populate`) to optimize data fetching, especially within field resolvers.
 
 ---
 
 ## Appendix C: Example Custom Scalar / Input Type Migration (StringFilterInput)
 
-This appendix provides a conceptual example of how a custom filter, previously implemented as a custom scalar (like the listed `String Filters`), might be migrated or represented in TypeGraphQL, often using custom Input Types for better structure and validation.
+This appendix provides a conceptual example of how a custom filter, previously implemented as a GraphQL Compose custom scalar (like `String Filters`), can be implemented in TypeGraphQL using `@InputType`. This approach is generally preferred for structured filtering.
 
 **Old Implementation (Conceptual)**
 
-*   A custom GraphQL scalar type definition (e.g., `StringFilterScalar`) used directly in resolver arguments.
-*   Resolver logic to parse the scalar's input value and apply database filtering (e.g., regex, equality checks).
+*   A custom GraphQL scalar type definition (e.g., `StringFilterScalar`) used directly in old resolver arguments.
+*   Resolver logic manually parsed the scalar's input value.
 
 **New Implementation (Using InputType)**
-
-Instead of a raw custom scalar, TypeGraphQL often encourages using `@InputType` for complex input objects, which can include fields for various filter conditions. This leverages built-in validation.
 
 ```typescript
 // src/graphql/inputs/StringFilterInput.ts (Example Location)
 import { InputType, Field } from 'type-graphql';
-import { Length, IsOptional } from 'class-validator'; // Example validation
+import { Length, IsOptional, IsIn } from 'class-validator'; // For input validation
 
-@InputType({ description: 'Input for filtering strings.' })
+@InputType({ description: 'Input for filtering strings based on various conditions.' })
 export class StringFilterInput {
-  @Field(() => String, { nullable: true, description: 'Matches exact string.' })
+  @Field(() => String, { nullable: true, description: 'Matches the exact string (case-sensitive).' })
   @IsOptional()
   eq?: string;
 
-  @Field(() => String, { nullable: true, description: 'Matches strings containing the value.' })
+  @Field(() => String, { nullable: true, description: 'Matches strings containing the value (case-insensitive by default in regex).' })
   @IsOptional()
   contains?: string;
 
-  @Field(() => String, { nullable: true, description: 'Matches strings starting with the value.' })
+  @Field(() => String, { nullable: true, description: 'Matches strings starting with the value (case-insensitive by default in regex).' })
   @IsOptional()
   startsWith?: string;
 
-  @Field(() => String, { nullable: true, description: 'Matches strings ending with the value.' })
+  @Field(() => String, { nullable: true, description: 'Matches strings ending with the value (case-insensitive by default in regex).' })
   @IsOptional()
   endsWith?: string;
 
-  @Field(() => [String], { nullable: true, description: 'Matches any string in the list.' })
+  @Field(() => [String], { nullable: true, description: 'Matches any string exactly within the provided list.' })
   @IsOptional()
   in?: string[];
 
-  // Add other conditions as needed (regex, not equals, etc.)
+  // Example using class-validator for basic validation
+  @Field(() => String, { nullable: true, description: 'Example: String must have a specific length.' })
+  @IsOptional()
+  @Length(5, 10) // Must be between 5 and 10 characters if provided
+  fixedLengthExample?: string;
+
+  // Add other relevant string filter conditions as needed (e.g., not equals, regex)
 }
 
 
 // Example Usage in a Resolver:
+// src/graphql/resolvers/SomeResolver.ts
 /*
 import { Resolver, Query, Arg } from 'type-graphql';
-import { Monster } from '../../models/2014/Monster'; // Assuming Monster model
-import { StringFilterInput } from '../inputs/StringFilterInput';
+import { SomeModel from '../../models/2014/SomeModel'; // Assume SomeModel Typegoose model exists and is decorated with @ObjectType/@Field
+import { StringFilterInput } from '../inputs/StringFilterInput'; // Import the InputType
+import { FilterQuery } from 'mongoose'; // Import Mongoose/Typegoose filter type
 
-@Resolver(Monster)
-export class MonsterResolver {
+@Resolver(SomeModel)
+export class SomeResolver {
 
-  @Query(() => [Monster])
-  async monsters(
-    @Arg('nameFilter', () => StringFilterInput, { nullable: true }) nameFilter?: StringFilterInput
-  ): Promise<Monster[]> {
-    const queryFilter: any = {}; // Build MongoDB query filter
+  @Query(() => [SomeModel])
+  async findSomeModels(
+    @Arg('nameFilter', () => StringFilterInput, { nullable: true, description: "Filter by model name using various string conditions." }) nameFilter?: StringFilterInput
+  ): Promise<SomeModel[]> {
+    const queryConditions: FilterQuery<SomeModel> = {}; // Build MongoDB query filter
 
     if (nameFilter) {
-      if (nameFilter.eq !== undefined) queryFilter.name = nameFilter.eq;
-      if (nameFilter.contains !== undefined) queryFilter.name = { $regex: new RegExp(nameFilter.contains, 'i') }; // Case-insensitive contains
-      if (nameFilter.startsWith !== undefined) queryFilter.name = { $regex: new RegExp(`^${nameFilter.startsWith}`, 'i') };
-      if (nameFilter.endsWith !== undefined) queryFilter.name = { $regex: new RegExp(`${nameFilter.endsWith}$`, 'i') };
-      if (nameFilter.in !== undefined) queryFilter.name = { $in: nameFilter.in };
-      // ... handle other filter conditions
+      const nameConditions: any = {};
+      if (nameFilter.eq !== undefined) nameConditions.$eq = nameFilter.eq;
+      // For regex, escape special characters to avoid injection issues if needed
+      if (nameFilter.contains !== undefined) nameConditions.$regex = new RegExp(nameFilter.contains.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+      if (nameFilter.startsWith !== undefined) nameConditions.$regex = new RegExp(`^${nameFilter.startsWith.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}`, 'i');
+      if (nameFilter.endsWith !== undefined) nameConditions.$regex = new RegExp(`${nameFilter.endsWith.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}$`, 'i');
+      if (nameFilter.in !== undefined) nameConditions.$in = nameFilter.in;
+      // ... handle other filter conditions like fixedLengthExample if applicable ...
+
+      // Only add name conditions if any were specified
+      if (Object.keys(nameConditions).length > 0) {
+        queryConditions.name = nameConditions; // Assuming the field is named 'name'
+      }
     }
 
-    console.log('Applying filter:', queryFilter);
-    return Monster.model.find(queryFilter).lean();
+    console.log('Applying filter:', queryConditions);
+    // Use the generated filter with Typegoose find
+    return SomeModel.model.find(queryConditions).lean();
   }
 
-  // ... other monster queries/mutations/resolvers
+  // ... other queries/mutations/resolvers for SomeModel
 }
 */
 ```
 
 **Key Changes & Considerations:**
 
-1.  **`@InputType`:** Define a class decorated with `@InputType` to represent the structure of the filter arguments. Each possible filter condition (`eq`, `contains`, etc.) becomes a field decorated with `@Field`.
-2.  **Nullability:** Fields are typically nullable (`nullable: true`) so users only provide the conditions they need.
-3.  **Validation:** Leverage `class-validator` decorators (like `@Length`, `@IsOptional`, `@IsEnum`) within the `@InputType` class for automatic input validation.
-4.  **Resolver Arguments:** Use the `@InputType` class as the type for arguments in your resolvers (`@Arg('filter', () => StringFilterInput)`).
-5.  **Query Building:** Resolver logic needs to inspect the fields of the input object and construct the appropriate database query (e.g., MongoDB filter document).
-6.  **Alternative (True Custom Scalar):** While `@InputType` is often preferred for structured filters, if you need a *true* custom scalar (e.g., for a specific data format like `DateOnly`), you would define a `GraphQLScalarType` object (from the `graphql` package) and potentially create a TypeScript type/interface for it. You'd then reference this scalar in `@Field` or `@Arg` using `() => GraphQLScalarTypeObject`. TypeGraphQL documentation provides guidance on integrating custom scalars.
-7.  **Reusability:** Define these `InputType` classes once and reuse them across different resolvers where the same filtering logic is needed.
+1.  **`@InputType` / `@Field`:** A dedicated class (`StringFilterInput`) is created with the `@InputType` decorator. Each filter condition (`eq`, `contains`, etc.) is a property decorated with `@Field`, specifying its GraphQL type (`String`, `[String]`) and nullability.
+2.  **Validation (`class-validator`):** Integrate `class-validator` decorators (`@IsOptional`, `@Length`, `@IsIn`, etc.) within the `@InputType` class. TypeGraphQL automatically runs these validators on the input arguments before your resolver code executes. Ensure `ValidationPipe` or similar is configured in your NestJS/Express setup if using `class-validator`.
+3.  **Resolver Arguments:** Use the `@InputType` class as the type for arguments in your `@Query` or `@Mutation` methods (`@Arg('filterName', () => StringFilterInput)`).
+4.  **Query Building:** The resolver logic inspects the properties of the received `nameFilter` object (which will be an instance of `StringFilterInput` or `undefined`). Based on which properties are set, it constructs the appropriate database query filter object (e.g., a MongoDB filter document using operators like `$eq`, `$regex`, `$in`).
+5.  **Type Safety:** This approach provides better type safety and auto-completion for filter arguments compared to using generic custom scalars for complex filtering logic.
+6.  **Reusability:** Define common `InputType`s like `StringFilterInput`, `NumberFilterInput`, etc., once and reuse them across multiple resolvers wherever similar filtering is needed on corresponding field types.
 
 ---
