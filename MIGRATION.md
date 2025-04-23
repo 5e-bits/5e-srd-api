@@ -147,7 +147,7 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
    - Ensure `graphql-compose` and related packages are removed.
    - Confirm the setup relies on `@apollo/server`, `@graphql-tools/schema`, and custom resolvers.
 
-### 1. Initial Setup (Week 1)
+### ✅ 1. Initial Setup (Week 1)
 
 1. Add TypeGraphQL dependencies (`type-graphql`, `reflect-metadata`, `class-validator`).
 2. Configure TypeGraphQL with Express/Apollo Server.
@@ -163,11 +163,11 @@ Migrate the GraphQL layer for simple models first (Models themselves are already
 
 1. ✅ Alignment
 2. ✅ Condition
-3. DamageType
-4. Language
-5. MagicSchool
-6. RuleSection
-7. WeaponProperty
+3. ✅ DamageType
+4. ✅ Language
+5. ✅ MagicSchool
+6. ✅ RuleSection
+7. ✅ WeaponProperty
 8. Collection
 9. EquipmentCategory
 10. AbilityScore
