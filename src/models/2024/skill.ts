@@ -4,7 +4,7 @@ import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2024-skills')
-export class Skill {
+export class Skill2024 {
   @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference
 
@@ -24,7 +24,7 @@ export class Skill {
   public updated_at!: string
 }
 
-export type SkillDocument = DocumentType<Skill>
-const SkillModel = getModelForClass(Skill)
+export type SkillDocument = DocumentType<Skill2024>
+const SkillModel = getModelForClass(Skill2024)
 
 export default SkillModel

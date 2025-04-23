@@ -1,10 +1,10 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import { AbilityScore } from '@/models/2024/abilityScore'
+import { AbilityScore2024 } from '@/models/2024/abilityScore'
 import { apiReferenceFactory } from './common.factory'
 
 // Define the factory using fishery
-export const abilityScoreFactory = Factory.define<AbilityScore>(
+export const abilityScoreFactory = Factory.define<AbilityScore2024>(
   ({ sequence, params, transientParams }) => {
     // params are overrides
     // transientParams are params not part of the final object, useful for intermediate logic

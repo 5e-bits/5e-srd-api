@@ -1,9 +1,9 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import { Skill } from '@/models/2024/skill'
+import { Skill2024 } from '@/models/2024/skill'
 import { apiReferenceFactory } from './common.factory' // Import common factory
 
-export const skillFactory = Factory.define<Skill>(({ sequence }) => {
+export const skillFactory = Factory.define<Skill2024>(({ sequence }) => {
   const name = `Skill ${sequence} - ${faker.lorem.words(2)}`
   const index = name
     .toLowerCase()

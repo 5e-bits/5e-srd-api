@@ -4,7 +4,7 @@ import { APIReference } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2024-ability-scores')
-export class AbilityScore {
+export class AbilityScore2024 {
   @prop({ required: true, index: true, type: () => [String] })
   public description!: string[]
 
@@ -27,7 +27,7 @@ export class AbilityScore {
   public updated_at!: string
 }
 
-export type AbilityScoreDocument = DocumentType<AbilityScore>
-const AbilityScoreModel = getModelForClass(AbilityScore)
+export type AbilityScoreDocument = DocumentType<AbilityScore2024>
+const AbilityScoreModel = getModelForClass(AbilityScore2024)
 
 export default AbilityScoreModel
