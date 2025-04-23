@@ -40,7 +40,9 @@ class AlignmentArgs {
 @Resolver(Alignment)
 export class AlignmentResolver {
   @Query(() => [Alignment], { description: 'Gets all alignments, optionally filtered and sorted.' })
-  async alignments(@Args() { name, order_direction }: AlignmentArgs): Promise<Alignment[]> {
+  async alignments(
+    @Args(() => AlignmentArgs) { name, order_direction }: AlignmentArgs
+  ): Promise<Alignment[]> {
     const query = AlignmentModel.find()
 
     // Apply filtering
