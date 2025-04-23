@@ -12,7 +12,7 @@ export const magicSchoolFactory = Factory.define<MagicSchool>(({ sequence }) => 
   return {
     index: index,
     name: name,
-    desc: [faker.lorem.paragraph()],
+    desc: faker.lorem.paragraph(),
     url: `/api/magic-schools/${index}`,
     updated_at: faker.date.recent().toISOString()
   }

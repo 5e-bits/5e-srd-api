@@ -21,7 +21,6 @@ import IntFilter from './scalars/intFilterResolver'
 import LanguageScriptFilter from './scalars/languageScriptFilterResolver'
 import Level from './levelResolver'
 import MagicItem from './magicItemResolver'
-import MagicSchool from './magicShoolResolver'
 import Monster from './monsterResolver'
 import MonsterActionOption from './monsterActionOptionResolver'
 import MonsterSubtypeFilter from './scalars/monsterSubtypeFilterResolver'
@@ -74,7 +73,6 @@ const resolvers = {
   LanguageScriptFilter,
   Level,
   MagicItem,
-  MagicSchool,
   MonsterActionOption,
   Monster,
   MonsterSubtypeFilter,
