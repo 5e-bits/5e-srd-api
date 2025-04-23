@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { mockNext as defaultMockNext } from '@/tests/support'
-import * as ApiController from '@/controllers/api/v2014Controller'
-import CollectionModel from '@/models/2014/collection'
-import { collectionFactory } from '@/tests/factories/2014/collection.factory'
+import * as ApiController from '@/controllers/api/v2024Controller'
+import CollectionModel from '@/models/2024/collection'
+import { collectionFactory } from '@/tests/factories/2024/collection.factory'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
@@ -14,17 +14,16 @@ import {
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file
-const dbUri = generateUniqueDbUri('v2014')
+const dbUri = generateUniqueDbUri('v2024')
 
 // Setup hooks using helpers
 setupIsolatedDatabase(dbUri)
 teardownIsolatedDatabase()
 setupModelCleanup(CollectionModel)
 
-describe('v2014 API Controller', () => {
+describe('v2024 API Controller', () => {
   describe('index', () => {
     it('returns the map of available API routes', async () => {
-      // Arrange: Seed data within the test
       const collectionsData = collectionFactory.buildList(3)
       await CollectionModel.insertMany(collectionsData)
 
@@ -32,14 +31,14 @@ describe('v2014 API Controller', () => {
       const response = createResponse()
       const expectedResponse = collectionsData.reduce(
         (acc, col) => {
-          acc[col.index] = `/api/2014/${col.index}`
+          acc[col.index] = `/api/2024/${col.index}`
           return acc
         },
         {} as Record<string, string>
       )
       await ApiController.index(request, response, mockNext)
 
-      // Assert
+      // Assert: Check the response
       const actualResponse = JSON.parse(response._getData())
       expect(response.statusCode).toBe(200)
       expect(actualResponse).toEqual(expectedResponse)
@@ -74,8 +73,6 @@ describe('v2014 API Controller', () => {
       // Arrange: Cleanup is handled by setupModelCleanup
       const request = createRequest()
       const response = createResponse()
-
-      // Act
       await ApiController.index(request, response, mockNext)
 
       // Assert

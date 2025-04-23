@@ -46,3 +46,6 @@ dist/**
 # Portman creates some temporary files here during conversion.
 tmp/**
 collection.postman.json
+
+# Docker
+docker-compose.override.yml
