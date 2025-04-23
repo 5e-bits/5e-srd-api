@@ -12,7 +12,7 @@ import morgan from 'morgan'
 import docsController from './controllers/docsController'
 import path from 'path'
 import rateLimit from 'express-rate-limit'
-import schema2014 from './graphql/2014/schema'
+import { schema2014 } from './graphql/2014/schema'
 
 const __filename = fileURLToPath(import.meta.url)
 
