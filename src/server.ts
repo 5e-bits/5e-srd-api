@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import apiRoutes from './routes/api'
 import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
