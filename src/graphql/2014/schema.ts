@@ -2,12 +2,14 @@ import { buildSchemaSync, NonEmptyArray, ClassType } from 'type-graphql'
 import { AlignmentResolver } from './resolvers/AlignmentResolver'
 import { ConditionResolver } from './resolvers/ConditionResolver'
 import { DamageTypeResolver } from './resolvers/DamageTypeResolver'
+import { LanguageResolver } from './resolvers/languageResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers = [
   AlignmentResolver,
   ConditionResolver,
-  DamageTypeResolver
+  DamageTypeResolver,
+  LanguageResolver
   // ... other migrated resolvers will go here
 ] as const satisfies NonEmptyArray<ClassType>
 

@@ -18,7 +18,6 @@ import IEquipment from './iEquipmentResolver'
 import IEquipmentBase from './iEquipmentBaseResolver'
 import IGear from './iGearResolver'
 import IntFilter from './scalars/intFilterResolver'
-import Language from './languageResolver'
 import LanguageScriptFilter from './scalars/languageScriptFilterResolver'
 import Level from './levelResolver'
 import MagicItem from './magicItemResolver'
@@ -72,7 +71,6 @@ const resolvers = {
   IGear,
   Gear,
   IntFilter,
-  Language,
   LanguageScriptFilter,
   Level,
   MagicItem,
