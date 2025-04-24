@@ -5,35 +5,35 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 // Export all nested classes/types
 export class ActionOption {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public action_name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public count!: number | string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: 'melee' | 'ranged' | 'ability' | 'magic'
 }
 
 export class ActionUsage {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public dice?: string
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public min_value?: number
 }
 
 export class Action {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public desc!: string
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public attack_bonus?: number
 
   @prop({ type: () => [Damage] })
@@ -48,7 +48,7 @@ export class Action {
   @prop({ type: () => ActionUsage })
   public usage?: ActionUsage
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public multiattack_type!: 'actions' | 'action_options'
 
   @prop({ type: () => [ActionOption] })
@@ -59,66 +59,66 @@ export class Action {
 }
 
 export class ArmorClassDex {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: 'dex'
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public value!: number
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public desc?: string
 }
 
 export class ArmorClassNatural {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: 'natural'
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public value!: number
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public desc?: string
 }
 
 export class ArmorClassArmor {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: 'armor'
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public value!: number
 
   @prop({ type: () => [APIReference] })
   public armor?: APIReference[]
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public desc?: string
 }
 
 export class ArmorClassSpell {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: 'spell'
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public value!: number
 
   @prop({ type: () => APIReference })
   public spell!: APIReference
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public desc?: string
 }
 
 export class ArmorClassCondition {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: 'condition'
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public value!: number
 
   @prop({ type: () => APIReference })
   public condition!: APIReference
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public desc?: string
 }
 
@@ -130,13 +130,13 @@ export type ArmorClass =
   | ArmorClassCondition
 
 export class LegendaryAction {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public desc!: string
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public attack_bonus?: number
 
   @prop({ type: () => [Damage] })
@@ -150,15 +150,15 @@ export class Proficiency {
   @prop({ type: () => APIReference })
   public proficiency!: APIReference
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public value!: number
 }
 
 export class Reaction {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public desc!: string
 
   @prop({ type: () => DifficultyClass })
@@ -166,27 +166,27 @@ export class Reaction {
 }
 
 export class Sense {
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public blindsight?: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public darkvision?: string
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public passive_perception!: number
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public tremorsense?: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public truesight?: string
 }
 
 export class SpecialAbilityUsage {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public type!: string
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public times?: number
 
   @prop({ type: () => [String] })
@@ -194,16 +194,16 @@ export class SpecialAbilityUsage {
 }
 
 export class SpecialAbilitySpell {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public level!: number
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public url!: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public notes?: string
 
   @prop({ type: () => SpecialAbilityUsage })
@@ -212,22 +212,22 @@ export class SpecialAbilitySpell {
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpecialAbilitySpellcasting {
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public level?: number
 
   @prop({ type: () => APIReference })
   public ability!: APIReference
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public dc?: number
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public modifier?: number
 
   @prop({ type: () => [String] })
   public components_required!: string[]
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public school?: string
 
   @prop({ type: () => Object, default: undefined })
@@ -238,13 +238,13 @@ export class SpecialAbilitySpellcasting {
 }
 
 export class SpecialAbility {
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public desc!: string
 
-  @prop({ index: true, type: () => Number })
+  @prop({ type: () => Number })
   public attack_bonus?: number
 
   @prop({ type: () => [Damage] })
@@ -261,22 +261,22 @@ export class SpecialAbility {
 }
 
 export class Speed {
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public burrow?: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public climb?: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public fly?: string
 
-  @prop({ index: true, type: () => Boolean })
+  @prop({ type: () => Boolean })
   public hover?: boolean
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public swim?: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public walk?: string
 }
 
@@ -285,7 +285,7 @@ export class Monster {
   @prop({ type: () => [Action] })
   public actions?: Action[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public alignment!: string
 
   @prop({ type: () => [Object], required: true })
@@ -294,13 +294,13 @@ export class Monster {
   @prop({ required: true, index: true, type: () => Number })
   public challenge_rating!: number
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public charisma!: number
 
   @prop({ type: () => [APIReference] })
   public condition_immunities!: APIReference[]
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public constitution!: number
 
   @prop({ type: () => [String] })
@@ -312,31 +312,31 @@ export class Monster {
   @prop({ type: () => [String] })
   public damage_vulnerabilities!: string[]
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public dexterity!: number
 
   @prop({ type: () => [APIReference] })
   public forms?: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public hit_dice!: string
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public hit_points!: number
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public hit_points_roll!: string
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public image?: string
 
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public intelligence!: number
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public languages!: string
 
   @prop({ type: () => [LegendaryAction] })
@@ -363,25 +363,25 @@ export class Monster {
   @prop({ type: () => Speed })
   public speed!: Speed
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public strength!: number
 
-  @prop({ index: true, type: () => String })
+  @prop({ type: () => String })
   public subtype?: string
 
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public url!: string
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public wisdom!: number
 
-  @prop({ required: true, index: true, type: () => Number })
+  @prop({ required: true, type: () => Number })
   public xp!: number
 
-  @prop({ required: true, index: true, type: () => String })
+  @prop({ required: true, type: () => String })
   public updated_at!: string
 }
 
