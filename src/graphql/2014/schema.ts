@@ -6,6 +6,8 @@ import { LanguageResolver } from './resolvers/languageResolver'
 import { MagicSchoolResolver } from './resolvers/magicSchoolResolver'
 import { RuleSectionResolver } from './resolvers/ruleSectionResolver'
 import { WeaponPropertyResolver } from './resolvers/weaponPropertyResolver'
+import { AbilityScoreResolver } from './resolvers/abilityScoreResolver'
+import { SkillResolver } from './resolvers/skillResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers = [
@@ -15,7 +17,9 @@ const resolvers = [
   LanguageResolver,
   MagicSchoolResolver,
   RuleSectionResolver,
-  WeaponPropertyResolver
+  WeaponPropertyResolver,
+  AbilityScoreResolver,
+  SkillResolver
   // ... other migrated resolvers will go here
 ] as const satisfies NonEmptyArray<ClassType>
 

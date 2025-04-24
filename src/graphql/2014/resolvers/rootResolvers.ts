@@ -1,4 +1,3 @@
-import AbilityScore from './abilityScoreResolver'
 import ActionCount from './scalars/actionCountResolver'
 import Ammunition from './ammunitionResolver'
 import AreaOfEffectTypeFilter from './scalars/areaOfEffectTypeFilter'
@@ -35,7 +34,6 @@ import Query from './queryResolver'
 import Race from './raceResolver'
 import Rule from './ruleResolver'
 import SizeFilter from './scalars/sizeFilterResolver'
-import Skill from './skillResolver'
 import Spell from './spellResolver'
 import SpellAttackTypeFilter from './scalars/spellAttackTypeFilterResolver'
 import SpellPrerequisite from './spellPrerequisiteResolver'
@@ -50,7 +48,6 @@ import Vehicle from './vehicleResolver'
 import Weapon from './weaponResolver'
 
 const resolvers = {
-  AbilityScore,
   ActionCount,
   Ammunition,
   AreaOfEffectTypeFilter,
@@ -86,7 +83,6 @@ const resolvers = {
   Race,
   Rule,
   SizeFilter,
-  Skill,
   Spell,
   SpellAttackTypeFilter,
   SpellPrerequisite,
