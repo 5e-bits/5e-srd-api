@@ -12,7 +12,7 @@ import { SkillResolver } from './resolvers/SkillResolver'
 import { EquipmentCategoryResolver } from './resolvers/EquipmentCategoryResolver'
 import { RuleResolver } from './resolvers/RuleResolver'
 import { FeatResolver, FeatPrerequisiteResolver } from './resolvers/FeatResolver'
-import { MagicItemResolver } from './resolvers/magicItemResolver'
+import { MagicItemResolver } from './resolvers/MagicItemResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers = [
