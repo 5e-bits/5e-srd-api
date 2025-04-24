@@ -11,6 +11,7 @@ import { AbilityScoreResolver } from './resolvers/AbilityScoreResolver'
 import { SkillResolver } from './resolvers/SkillResolver'
 import { EquipmentCategoryResolver } from './resolvers/EquipmentCategoryResolver'
 import { RuleResolver } from './resolvers/RuleResolver'
+import { FeatResolver, FeatPrerequisiteResolver } from './resolvers/FeatResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers = [
@@ -24,7 +25,9 @@ const resolvers = [
   AbilityScoreResolver,
   SkillResolver,
   EquipmentCategoryResolver,
-  RuleResolver
+  RuleResolver,
+  FeatResolver,
+  FeatPrerequisiteResolver
   // ... other migrated resolvers will go here
 ] as const satisfies NonEmptyArray<ClassType>
 

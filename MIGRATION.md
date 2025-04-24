@@ -192,7 +192,7 @@ For each model:
 Migrate GraphQL layer for models with moderate complexity:
 
 1. Background
-2. Feat
+2. ✅ Feat
 3. ✅ Rule
 4. Trait
 5. MagicItem *(Note: Ensure MagicItem implements shared Interface with Equipment)*

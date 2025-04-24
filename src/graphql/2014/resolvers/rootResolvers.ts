@@ -8,7 +8,6 @@ import ClassSpecific from './classSpecificResolver'
 import EquipmentMultipleItem from './equipmentMultipleItemResolver'
 import EquipmentOption from './equipmentOptionResolver'
 import ExpertiseOption from './expertiseOptionResolver'
-import Feat from './featResolver'
 import Feature from './featureResolver'
 import FloatFilter from './scalars/floatFilterResolver'
 import Gear from './gearResolver'
@@ -58,7 +57,6 @@ const resolvers = {
   EquipmentMultipleItem,
   EquipmentOption,
   ExpertiseOption,
-  Feat,
   Feature,
   FloatFilter,
   IGear,
