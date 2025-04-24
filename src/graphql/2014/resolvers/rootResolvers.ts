@@ -17,7 +17,6 @@ import IGear from './iGearResolver'
 import IntFilter from './scalars/intFilterResolver'
 import LanguageScriptFilter from './scalars/languageScriptFilterResolver'
 import Level from './levelResolver'
-import MagicItem from './magicItemResolver'
 import Monster from './monsterResolver'
 import MonsterActionOption from './monsterActionOptionResolver'
 import MonsterSubtypeFilter from './scalars/monsterSubtypeFilterResolver'
@@ -64,7 +63,6 @@ const resolvers = {
   IntFilter,
   LanguageScriptFilter,
   Level,
-  MagicItem,
   MonsterActionOption,
   Monster,
   MonsterSubtypeFilter,

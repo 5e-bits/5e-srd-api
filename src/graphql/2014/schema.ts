@@ -12,6 +12,7 @@ import { SkillResolver } from './resolvers/SkillResolver'
 import { EquipmentCategoryResolver } from './resolvers/EquipmentCategoryResolver'
 import { RuleResolver } from './resolvers/RuleResolver'
 import { FeatResolver, FeatPrerequisiteResolver } from './resolvers/FeatResolver'
+import { MagicItemResolver } from './resolvers/magicItemResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers = [
@@ -27,7 +28,8 @@ const resolvers = [
   EquipmentCategoryResolver,
   RuleResolver,
   FeatResolver,
-  FeatPrerequisiteResolver
+  FeatPrerequisiteResolver,
+  MagicItemResolver
   // ... other migrated resolvers will go here
 ] as const satisfies NonEmptyArray<ClassType>
 
@@ -37,4 +39,7 @@ export const schema2014 = buildSchemaSync({
   resolvers: resolvers,
   // Add other options like authChecker, pubSub, etc. if needed later
   validate: false // Disable validation initially
+  // TypeGraphQL should automatically discover ObjectTypes implementing interfaces
+  // If explicit declaration is needed later, add:
+  // orphanedTypes: [MagicItem] // Add types that implement interfaces if auto-detection fails
 })
