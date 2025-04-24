@@ -1,5 +1,6 @@
 import { buildSchemaSync, NonEmptyArray, ClassType } from 'type-graphql'
 
+// Migrated Resolvers
 import { AlignmentResolver } from './resolvers/AlignmentResolver'
 import { ConditionResolver } from './resolvers/ConditionResolver'
 import { DamageTypeResolver } from './resolvers/DamageTypeResolver'
@@ -14,7 +15,16 @@ import { RuleResolver } from './resolvers/RuleResolver'
 import { FeatResolver, FeatPrerequisiteResolver } from './resolvers/FeatResolver'
 import { MagicItemResolver } from './resolvers/MagicItemResolver'
 
-// Add newly migrated resolvers to this array
+// Common Object Types (Import from barrel file)
+import * as Objects from '../common/objects'
+
+// OptionSet Object Types (Import from barrel file)
+import * as OptionSetTypes from '../common/options/optionSetTypes'
+
+// Option Object Types (Import from barrel file)
+import * as OptionTypes from '../common/options/optionTypes'
+
+// Array of migrated resolvers
 const resolvers = [
   AlignmentResolver,
   ConditionResolver,
@@ -30,16 +40,36 @@ const resolvers = [
   FeatResolver,
   FeatPrerequisiteResolver,
   MagicItemResolver
-  // ... other migrated resolvers will go here
 ] as const satisfies NonEmptyArray<ClassType>
 
-// Build the schema synchronously
-// Use buildSchema (async) if top-level await is supported or needed
+// Array of object types needed for unions/interfaces but not directly resolved
+const orphanedTypes = [
+  // Objects
+  Objects.APIReferenceObject,
+  Objects.DamageObject,
+  Objects.DifficultyClassObject,
+  Objects.ChoiceObject,
+  // OptionSet Types
+  OptionSetTypes.EquipmentCategoryOptionSetObject,
+  OptionSetTypes.ResourceListOptionSetObject,
+  OptionSetTypes.OptionsArrayOptionSetObject,
+  // Option Types
+  OptionTypes.ReferenceOptionObject,
+  OptionTypes.ActionOptionObject,
+  OptionTypes.MultipleOptionObject,
+  OptionTypes.StringOptionObject,
+  OptionTypes.IdealOptionObject,
+  OptionTypes.CountedReferenceOptionObject,
+  OptionTypes.ScorePrerequisiteOptionObject,
+  OptionTypes.AbilityBonusOptionObject,
+  OptionTypes.BreathOptionObject,
+  OptionTypes.DamageOptionObject,
+  OptionTypes.ChoiceOptionObject
+]
+
+// Build the schema
 export const schema2014 = buildSchemaSync({
   resolvers: resolvers,
-  // Add other options like authChecker, pubSub, etc. if needed later
-  validate: false // Disable validation initially
-  // TypeGraphQL should automatically discover ObjectTypes implementing interfaces
-  // If explicit declaration is needed later, add:
-  // orphanedTypes: [MagicItem] // Add types that implement interfaces if auto-detection fails
+  orphanedTypes: orphanedTypes,
+  validate: false
 })
