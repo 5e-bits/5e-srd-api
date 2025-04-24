@@ -107,6 +107,7 @@ Current implementation includes custom scalar resolvers for:
 
 - Typegoose Models remain in: `src/models/2014`
 - New TypeGraphQL Resolvers can be located in: `src/graphql/2014/resolvers` or potentially co-located with models in `src/models/2014` if preferred.
+  - **Convention:** Resolver filenames should use PascalCase (e.g., `MyResolver.ts`).
 - Tests remain in separate files.
 - Goal: Define GraphQL schema using TypeGraphQL decorators, potentially colocating related GraphQL types/resolvers.
 
@@ -716,7 +717,7 @@ export class SomeResolver {
 **Key Changes & Considerations:**
 
 1.  **`@InputType` / `@Field`:** A dedicated class (`StringFilterInput`) is created with the `@InputType` decorator. Each filter condition (`eq`, `contains`, etc.) is a property decorated with `@Field`, specifying its GraphQL type (`String`, `[String]`) and nullability.
-2. **Validation (`class-validator`):** Integrate `class-validator` decorators (`@IsOptional`, `@Length`, `@IsIn`, etc.) within the `@InputType` class. TypeGraphQL automatically runs these validators on the input arguments before your resolver code executes. Ensure `ValidationPipe` or similar is configured in your NestJS/Express setup if using `class-validator`.
+2 **Validation (`class-validator`):** Integrate `class-validator` decorators (`@IsOptional`, `@Length`, `@IsIn`, etc.) within the `@InputType` class. TypeGraphQL automatically runs these validators on the input arguments before your resolver code executes. Ensure `ValidationPipe` or similar is configured in your NestJS/Express setup if using `class-validator`.
 3.  **Resolver Arguments:** Use the `@InputType` class as the type for arguments in your `@Query` methods (`@Arg('filterName', () => StringFilterInput)`).
 4.  **Query Building:** The resolver logic inspects the properties of the received `nameFilter` object (which will be an instance of `StringFilterInput` or `undefined`). Based on which properties are set, it constructs the appropriate database query filter object (e.g., a MongoDB filter document using operators like `$eq`, `$regex`, `$in`).
 5.  **Type Safety:** This approach provides better type safety and auto-completion for filter arguments compared to using generic custom scalars for complex filtering logic.
