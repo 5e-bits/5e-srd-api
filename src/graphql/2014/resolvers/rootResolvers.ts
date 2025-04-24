@@ -5,7 +5,6 @@ import Armor from './armorResolver'
 import Background from './backgroundResolver'
 import Class from './classResolver'
 import ClassSpecific from './classSpecificResolver'
-import EquipmentCategory from './equipmentCategoryResolver'
 import EquipmentMultipleItem from './equipmentMultipleItemResolver'
 import EquipmentOption from './equipmentOptionResolver'
 import ExpertiseOption from './expertiseOptionResolver'
@@ -57,7 +56,6 @@ const resolvers = {
   ClassSpecific,
   IEquipment,
   IEquipmentBase,
-  EquipmentCategory,
   EquipmentMultipleItem,
   EquipmentOption,
   ExpertiseOption,

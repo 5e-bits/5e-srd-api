@@ -1,4 +1,5 @@
 import { buildSchemaSync, NonEmptyArray, ClassType } from 'type-graphql'
+
 import { AlignmentResolver } from './resolvers/AlignmentResolver'
 import { ConditionResolver } from './resolvers/ConditionResolver'
 import { DamageTypeResolver } from './resolvers/DamageTypeResolver'
@@ -8,6 +9,7 @@ import { RuleSectionResolver } from './resolvers/ruleSectionResolver'
 import { WeaponPropertyResolver } from './resolvers/weaponPropertyResolver'
 import { AbilityScoreResolver } from './resolvers/abilityScoreResolver'
 import { SkillResolver } from './resolvers/skillResolver'
+import { EquipmentCategoryResolver } from './resolvers/equipmentCategoryResolver'
 
 // Add newly migrated resolvers to this array
 const resolvers = [
@@ -19,7 +21,8 @@ const resolvers = [
   RuleSectionResolver,
   WeaponPropertyResolver,
   AbilityScoreResolver,
-  SkillResolver
+  SkillResolver,
+  EquipmentCategoryResolver
   // ... other migrated resolvers will go here
 ] as const satisfies NonEmptyArray<ClassType>
 

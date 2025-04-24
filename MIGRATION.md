@@ -32,7 +32,7 @@
 - RuleSection (basic documentation)
 - WeaponProperty (basic properties)
 - AbilityScore (simple schema with basic fields)
-- Collection (basic organization)
+// - Collection (basic organization) <- Removed as not part of GraphQL schema
 - EquipmentCategory (basic categorization)
 - Skill (basic properties with ability score reference)
 
@@ -168,10 +168,9 @@ Migrate the GraphQL layer for simple models first (Models themselves are already
 5. ✅ MagicSchool
 6. ✅ RuleSection
 7. ✅ WeaponProperty
-8. Collection
-9. EquipmentCategory
-10. AbilityScore
-11. Skill
+8. ✅ EquipmentCategory *(Note: Migrated basic fields only. Implement `equipment` field resolver later - **must return Interface/Union type for Equipment/MagicItem**)*
+9. ✅ AbilityScore
+10. ✅ Skill
 
 For each model:
 
@@ -195,7 +194,7 @@ Migrate GraphQL layer for models with moderate complexity:
 2. Feat
 3. Rule
 4. Trait
-5. MagicItem
+5. MagicItem *(Note: Ensure MagicItem implements shared Interface with Equipment)*
 6. Subrace
 
 For each model:
@@ -210,7 +209,7 @@ For each model:
 
 Migrate GraphQL layer for complex models:
 
-1. Equipment
+1. Equipment *(Note: Implement reference from EquipmentCategoryResolver -> equipment field here. Ensure Equipment implements shared Interface with MagicItem)*
 2. Proficiency
 3. Feature
 4. Race
@@ -558,13 +557,13 @@ export class MonsterResolver {
     const queryFilter = {}; // Build filter based on args
     // Apply population for Refs as needed
     // Example: return Monster.model.find(queryFilter).populate('proficiency_bonus_ref').lean();
-    return Monster.model.find(queryFilter).lean();
+    return MonsterModel.find(queryFilter).lean(); // Corrected: Use MonsterModel
   }
 
   @Query(() => Monster, { nullable: true, description: "Gets a single monster by ID." })
   async monster(@Arg('id', () => ID) id: string): Promise<Monster | null> {
     // Apply population for Refs as needed
-    return Monster.model.findById(id).populate(/* refs needed */).lean();
+    return MonsterModel.findById(id).populate(/* refs needed */).lean(); // Corrected: Use MonsterModel
   }
 
   // Query by index
@@ -674,8 +673,9 @@ export class StringFilterInput {
 // src/graphql/resolvers/SomeResolver.ts
 /*
 import { Resolver, Query, Arg } from 'type-graphql';
-import { SomeModel from '../../models/2014/SomeModel'; // Assume SomeModel Typegoose model exists and is decorated with @ObjectType/@Field
+import { SomeModel } from '../../models/2014/SomeModel'; // Assume SomeModel Typegoose model exists and is decorated with @ObjectType/@Field
 import { StringFilterInput } from '../inputs/StringFilterInput'; // Import the InputType
+import { FilterQuery } from 'mongoose'; // Import FilterQuery if using mongoose
 
 @Resolver(SomeModel)
 export class SomeResolver {
@@ -690,9 +690,10 @@ export class SomeResolver {
       const nameConditions: any = {};
       if (nameFilter.eq !== undefined) nameConditions.$eq = nameFilter.eq;
       // For regex, escape special characters to avoid injection issues if needed
-      if (nameFilter.contains !== undefined) nameConditions.$regex = new RegExp(nameFilter.contains.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
-      if (nameFilter.startsWith !== undefined) nameConditions.$regex = new RegExp(`^${nameFilter.startsWith.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}`, 'i');
-      if (nameFilter.endsWith !== undefined) nameConditions.$regex = new RegExp(`${nameFilter.endsWith.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}$`, 'i');
+      const escapeRegex = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); // Helper function
+      if (nameFilter.contains !== undefined) nameConditions.$regex = new RegExp(escapeRegex(nameFilter.contains), 'i');
+      if (nameFilter.startsWith !== undefined) nameConditions.$regex = new RegExp(`^${escapeRegex(nameFilter.startsWith)}`, 'i');
+      if (nameFilter.endsWith !== undefined) nameConditions.$regex = new RegExp(`${escapeRegex(nameFilter.endsWith)}$`, 'i');
       if (nameFilter.in !== undefined) nameConditions.$in = nameFilter.in;
       // ... handle other filter conditions like fixedLengthExample if applicable ...
 
