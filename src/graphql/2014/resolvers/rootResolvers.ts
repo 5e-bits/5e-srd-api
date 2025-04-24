@@ -31,7 +31,6 @@ import ProficiencyReference from './proficiencyReferenceResolver'
 import ProficiencyTypeFilter from './scalars/proficiencyTypeFilterResolver'
 import Query from './queryResolver'
 import Race from './raceResolver'
-import Rule from './ruleResolver'
 import SizeFilter from './scalars/sizeFilterResolver'
 import Spell from './spellResolver'
 import SpellAttackTypeFilter from './scalars/spellAttackTypeFilterResolver'
@@ -79,7 +78,6 @@ const resolvers = {
   ProficiencyReference,
   ProficiencyTypeFilter,
   Race,
-  Rule,
   SizeFilter,
   Spell,
   SpellAttackTypeFilter,
