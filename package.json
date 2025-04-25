@@ -51,7 +51,12 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@faker-js/faker": "^9.7.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
     "@stylistic/eslint-plugin-ts": "^4.2.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.13",
