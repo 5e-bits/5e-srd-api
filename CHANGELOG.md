@@ -1,3 +1,17 @@
+# [3.20.0](https://github.com/5e-bits/5e-srd-api/compare/v3.19.0...v3.20.0) (2025-04-25)
+
+
+### Bug Fixes
+
+* **release:** Give workflow write permissions ([6c50c47](https://github.com/5e-bits/5e-srd-api/commit/6c50c47f0a599967c8e0ac6cea271452cbf696f9))
+* **release:** Set token on checkout ([158dc35](https://github.com/5e-bits/5e-srd-api/commit/158dc35bde5efb687e7c937c038e7ba54e9bc352))
+* **release:** Use PAT instead of normal GITHUB_TOKEN ([d518a8d](https://github.com/5e-bits/5e-srd-api/commit/d518a8d8eb1cca5ea399fb3d3ce97c7bd0fba618))
+
+
+### Features
+
+* **semver:** Updates changelog and npm version on release ([#733](https://github.com/5e-bits/5e-srd-api/issues/733)) ([40f60f3](https://github.com/5e-bits/5e-srd-api/commit/40f60f39ea1ed10d1b2b27f7e53c3d0fe6a7a9be))
+
 # Changelog
 
 ## 2020-01-12
