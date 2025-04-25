@@ -91,7 +91,7 @@ jobs:
         id: semantic
         uses: cycjimmy/semantic-release-action@0a51e81a6baff2acad3ee88f4121c589c73d0f0e # @v4.2.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_SEMANTIC_RELEASE_TOKEN }}
 
   container-release:
     name: Container Release
