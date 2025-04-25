@@ -103,6 +103,9 @@ export class Equipment {
   @prop({ type: () => APIReference })
   public gear_category?: APIReference
 
+  @prop({ index: true, type: () => String })
+  public image?: string
+
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 

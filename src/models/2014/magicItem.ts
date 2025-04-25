@@ -17,7 +17,7 @@ export class MagicItem {
   public equipment_category!: APIReference
 
   @prop({ type: () => String, index: true })
-  public image!: string
+  public image?: string
 
   @prop({ required: true, index: true, type: () => String })
   public index!: string
