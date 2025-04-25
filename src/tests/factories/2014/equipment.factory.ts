@@ -61,7 +61,7 @@ const twoHandedDamageFactory = Factory.define<TwoHandedDamage>(() => ({
 }))
 
 // --- Main Equipment Factory ---
-export const equipmentFactory = Factory.define<Equipment>(({ sequence }) => {
+export const equipmentFactory = Factory.define<Equipment>(({ sequence, params }) => {
   const name = `Equipment ${sequence} - ${faker.commerce.productName()}`
   const index = name.toLowerCase().replace(/\s+/g, '-')
 
@@ -83,6 +83,7 @@ export const equipmentFactory = Factory.define<Equipment>(({ sequence }) => {
     contents: contentFactory.buildList(1),
     damage: damageFactory.build(),
     gear_category: undefined,
+    image: params.image ?? `/images/equipment/${index}.png`,
     properties: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 3 })),
     quantity: undefined,
     range: rangeFactory.build(),

@@ -13,6 +13,9 @@ equipment-category-model:
     - $ref: './combined.yml#/APIReference'
     - type: object
       properties:
+        image:
+          description: 'The image url of the magic item.'
+          type: string
         equipment:
           description: 'A list of the equipment that falls into this category.'
           type: array
@@ -26,6 +29,9 @@ gear-model:
     - $ref: './combined.yml#/ResourceDescription'
     - type: object
       properties:
+        image:
+          description: 'The image url of the gear.'
+          type: string
         equipment_category:
           $ref: './combined.yml#/APIReference'
         gear_category:
@@ -43,6 +49,9 @@ equipment-pack-model:
     - $ref: './combined.yml#/ResourceDescription'
     - type: object
       properties:
+        image:
+          description: 'The image url of the equipment pack.'
+          type: string
         equipment_category:
           $ref: './combined.yml#/APIReference'
         gear_category:
