@@ -49,6 +49,7 @@ You should get a response with the available endpoints for the root:
   "damage-types": "/api/2014/damage-types",
   "equipment-categories": "/api/2014/equipment-categories",
   "equipment": "/api/2014/equipment",
+  "feats": "/api/2014/feats",
   "features": "/api/2014/features",
   "languages": "/api/2014/languages",
   "magic-schools": "/api/2014/magic-schools",
