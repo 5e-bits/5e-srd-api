@@ -1,3 +1,10 @@
+## [3.20.1](https://github.com/5e-bits/5e-srd-api/compare/v3.20.0...v3.20.1) (2025-04-27)
+
+
+### Bug Fixes
+
+* :bug: Resolve full `Option` objects in `subrace.language_options` resolver ([#735](https://github.com/5e-bits/5e-srd-api/issues/735)) ([ef37127](https://github.com/5e-bits/5e-srd-api/commit/ef37127a68c0303c51d62d21835baa595b742435))
+
 # [3.20.0](https://github.com/5e-bits/5e-srd-api/compare/v3.19.0...v3.20.0) (2025-04-25)
 
 
