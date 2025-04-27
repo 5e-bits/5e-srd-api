@@ -56,9 +56,10 @@ const SubraceResolver = {
       const options = (subrace.language_options.from as OptionsArrayOptionSet).options.map(
         async (option: Option) => {
           if ('item' in option) {
-            return await LanguageModel.findOne({
+            const item = await LanguageModel.findOne({
               index: (option as ReferenceOption).item.index
             }).lean()
+            return { ...option, item }
           }
         }
       )
