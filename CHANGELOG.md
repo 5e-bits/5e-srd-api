@@ -1,3 +1,10 @@
+# [3.21.0](https://github.com/5e-bits/5e-srd-api/compare/v3.20.1...v3.21.0) (2025-04-27)
+
+
+### Features
+
+* **release:** Convert semver release to use App instead of PAT ([#736](https://github.com/5e-bits/5e-srd-api/issues/736)) ([aad1a29](https://github.com/5e-bits/5e-srd-api/commit/aad1a29c459bed41daa73af09c4d64db9dcab770))
+
 ## [3.20.1](https://github.com/5e-bits/5e-srd-api/compare/v3.20.0...v3.20.1) (2025-04-27)
 
 
