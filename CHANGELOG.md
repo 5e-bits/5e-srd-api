@@ -1,3 +1,10 @@
+# [3.22.0](https://github.com/5e-bits/5e-srd-api/compare/v3.21.0...v3.22.0) (2025-04-28)
+
+
+### Features
+
+* **node:** Bump to Node 22 ([#742](https://github.com/5e-bits/5e-srd-api/issues/742)) ([8c27177](https://github.com/5e-bits/5e-srd-api/commit/8c271775661473764295d71bc681a31bda6dd01c))
+
 # [3.21.0](https://github.com/5e-bits/5e-srd-api/compare/v3.20.1...v3.21.0) (2025-04-27)
 
 
