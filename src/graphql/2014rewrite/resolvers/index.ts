@@ -7,6 +7,7 @@ import { MagicSchoolResolver } from './magicSchoolResolver'
 import { RuleSectionResolver } from './ruleSectionResolver'
 import { WeaponPropertyResolver } from './weaponPropertyResolver'
 import { EquipmentCategoryResolver } from './equipmentCategoryResolver'
+import { AbilityScoreResolver } from './abilityScoreResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -16,7 +17,8 @@ export const resolvers = [
   MagicSchoolResolver,
   RuleSectionResolver,
   WeaponPropertyResolver,
-  EquipmentCategoryResolver
+  EquipmentCategoryResolver,
+  AbilityScoreResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
