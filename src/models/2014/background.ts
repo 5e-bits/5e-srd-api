@@ -2,61 +2,85 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
+import { ObjectType, Field, Int } from 'type-graphql'
 
+@ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
+  @Field(() => Int, { description: 'The quantity of the referenced equipment.' })
   @prop({ required: true, index: true, type: () => Number })
   public quantity!: number
 }
 
+@ObjectType({ description: 'A special feature granted by the background.' })
 class Feature {
+  @Field(() => String, { description: 'The name of the background feature.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
+  @Field(() => [String], { description: 'The description of the background feature.' })
   @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 }
 
+@ObjectType({
+  description: 'Represents a character background providing flavor, proficiencies, and features.'
+})
 @srdModelOptions('2014-backgrounds')
 export class Background {
+  @Field(() => String, {
+    description: 'The unique identifier for this background (e.g., acolyte).'
+  })
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
+  @Field(() => String, { description: 'The name of the background (e.g., Acolyte).' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => [APIReference] })
   public starting_proficiencies!: APIReference[]
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public language_options!: Choice
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
+  @Field(() => [EquipmentRef], { description: 'Equipment received when choosing this background.' })
   @prop({ type: () => [EquipmentRef] })
   public starting_equipment!: EquipmentRef[]
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => [Choice], index: true })
   public starting_equipment_options!: Choice[]
 
+  @Field(() => Feature, { description: 'The feature associated with this background.' })
   @prop({ type: () => Feature })
   public feature!: Feature
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public personality_traits!: Choice
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public ideals!: Choice
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public bonds!: Choice
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public flaws!: Choice
 
+  @Field(() => String, { description: 'Timestamp of the last update.' })
   @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
