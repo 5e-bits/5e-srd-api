@@ -8,7 +8,7 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
   let key: string | undefined
   try {
     key = req.url.slice(1)
-    if (!key || !/^[a-zA-Z0-9/_-]+$/.test(key)) {
+    if (!key || !/^[a-zA-Z0-9/._-]+$/.test(key)) {
       return res.status(400).send('Invalid image path')
     }
 
