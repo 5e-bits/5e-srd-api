@@ -4,8 +4,8 @@ import ImageController from '@/controllers/api/imageController'
 
 const router = express.Router()
 
-router.get('/*', function (req, res, next) {
-  ImageController.show(req, res, next)
+router.get('/*', function (req, res) {
+  ImageController.show(req, res)
 })
 
 export default router

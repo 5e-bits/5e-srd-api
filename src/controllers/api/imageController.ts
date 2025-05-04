@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { awsRegion } from '@/util/environmentVariables'
 
 const BUCKET_NAME = 'dnd-5e-api-images'
 const AWS_REGION = awsRegion || 'us-east-1'
 
-const show = async (req: Request, res: Response, next: NextFunction) => {
+const show = async (req: Request, res: Response) => {
   let key: string | undefined
   try {
     key = req.url.slice(1)
