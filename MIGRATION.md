@@ -151,7 +151,7 @@ Models to migrate (in approximate order of increasing complexity):
 9.  - [x] AbilityScore
 10. - [x] Skill *(Skip `ability_score` reference field)*
 11. - [x] Background *(Skip references, choices)*
-12. - [ ] Feat *(Skip prerequisites, choices)*
+12. - [x] Feat *(Skip prerequisites, choices)*
 13. - [ ] Rule *(Skip subsections)*
 14. - [ ] Trait *(Skip races, subraces)*
 15. - [ ] MagicItem *(Skip `equipment_category` reference)*

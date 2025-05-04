@@ -10,6 +10,7 @@ import { EquipmentCategoryResolver } from './equipmentCategoryResolver'
 import { AbilityScoreResolver } from './abilityScoreResolver'
 import { SkillResolver } from './skillResolver'
 import { BackgroundResolver } from './backgroundResolver'
+import { FeatResolver } from './featResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -22,7 +23,8 @@ export const resolvers = [
   EquipmentCategoryResolver,
   AbilityScoreResolver,
   SkillResolver,
-  BackgroundResolver
+  BackgroundResolver,
+  FeatResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
