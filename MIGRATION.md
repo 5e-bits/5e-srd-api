@@ -89,7 +89,7 @@ Current implementation includes custom scalar resolvers for:
 
 - Update existing package.json
 - Add latest compatible versions of:
-  - `type-graphql`: 2.0.0-beta.3 # TODO: Confirm latest stable beta
+  - `type-graphql`: 2.0.0-rc.2
   - `reflect-metadata`: ^0.1.13 (Required peer dependency)
   - Other required peer dependencies (e.g., `graphql`, `class-validator`)
 - Maintain Node.js 20.x compatibility
