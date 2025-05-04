@@ -149,7 +149,7 @@ Models to migrate (in approximate order of increasing complexity):
 7.  - [x] WeaponProperty
 8.  - [x] EquipmentCategory *(Migrate only basic fields like `index`, `name`. Skip the `equipment` field)*
 9.  - [x] AbilityScore
-10. - [ ] Skill *(Skip `ability_score` reference field)*
+10. - [x] Skill *(Skip `ability_score` reference field)*
 11. - [ ] Background *(Skip references, choices)*
 12. - [ ] Feat *(Skip prerequisites, choices)*
 13. - [ ] Rule *(Skip subsections)*
