@@ -140,10 +140,10 @@ Migrate the GraphQL layer for all models, focusing *only* on simple scalar field
 
 Models to migrate (in approximate order of increasing complexity):
 
-1.  - [ ] Alignment
-2.  - [ ] Condition
-3.  - [ ] DamageType
-4.  - [ ] Language
+1.  - [x] Alignment
+2.  - [x] Condition
+3.  - [x] DamageType
+4.  - [x] Language
 5.  - [ ] MagicSchool
 6.  - [ ] RuleSection
 7.  - [ ] WeaponProperty
