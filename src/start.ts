@@ -1,3 +1,4 @@
+import 'reflect-metadata' // Must be imported first
 import { mongodbUri, prewarmCache, redisClient } from './util'
 
 import createApp from './server'

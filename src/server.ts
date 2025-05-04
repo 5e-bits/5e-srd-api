@@ -11,7 +11,9 @@ import morgan from 'morgan'
 import docsController from './controllers/docsController'
 import path from 'path'
 import rateLimit from 'express-rate-limit'
-import schema2014 from './graphql/2014/schema'
+// import schema2014 from './graphql/2014/schema'
+import { buildSchema } from 'type-graphql'
+import { resolvers } from './graphql/2014rewrite/resolvers'
 
 const __filename = fileURLToPath(import.meta.url)
 
@@ -47,8 +49,18 @@ export default async () => {
 
   app.use(limiter)
 
+  console.log('Building TypeGraphQL schema...')
+  const schema = await buildSchema({
+    resolvers: resolvers,
+    // Add other buildSchema options here if needed (e.g., authChecker, pubSub)
+    validate: { forbidUnknownValues: false } // Recommended option
+  })
+  console.log('TypeGraphQL schema built successfully.')
+
   console.log('Setting up Apollo GraphQL server')
-  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
+  // const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
+  // Pass the dynamically built schema
+  const apolloMiddleware2014 = await createApolloMiddleware(schema)
   await apolloMiddleware2014.start()
   app.all('/graphql', (_req, res) => res.redirect(301, '/graphql/2014'))
   app.use(
