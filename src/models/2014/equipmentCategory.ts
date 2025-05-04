@@ -9,6 +9,7 @@ import { ObjectType, Field } from 'type-graphql'
 })
 @srdModelOptions('2014-equipment-categories')
 export class EquipmentCategory {
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => [APIReference], index: true })
   public equipment!: APIReference[]
 

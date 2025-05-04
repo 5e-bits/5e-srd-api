@@ -28,6 +28,7 @@ export class AbilityScore {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => [APIReference] })
   public skills!: APIReference[]
 
