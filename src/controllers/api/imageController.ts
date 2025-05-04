@@ -1,14 +1,14 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { awsRegion } from '@/util/environmentVariables'
 
 const BUCKET_NAME = 'dnd-5e-api-images'
 const AWS_REGION = awsRegion || 'us-east-1'
 
-const show = async (req: Request, res: Response) => {
+const show = async (req: Request, res: Response, next: NextFunction) => {
   let key: string | undefined
   try {
     key = req.url.slice(1)
-    if (!key) {
+    if (!key || !/^[a-zA-Z0-9/_-]+$/.test(key)) {
       return res.status(400).send('Invalid image path')
     }
 
@@ -40,8 +40,12 @@ const show = async (req: Request, res: Response) => {
       throw new Error('Response body from S3 was null')
     }
   } catch (err: any) {
-    console.error(`Error fetching image key "${key || 'unknown'}" from S3 URL:`, err)
-    res.status(500).send('Failed to retrieve image due to server error')
+    if (err !== null) {
+      res.status(404).end('File Not Found')
+    } else {
+      console.error('Error fetching image from S3:', err)
+      next(err)
+    }
   }
 }
 
