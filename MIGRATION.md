@@ -128,9 +128,11 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
 2. Configure TypeGraphQL with Express/Apollo Server.
    - Set up `buildSchema` from `type-graphql`.
    - Integrate the generated schema with Apollo Server.
+   - **Explicitly configure `buildSchema` (or equivalent) to find resolvers within `src/graphql/2014rewrite/resolvers/**/*.ts`.**
 3. Create a template for migrating a resolver/type.
 4. Configure middleware integration with the new TypeGraphQL setup:
    - Ensure Apollo Server cache control, depth limiting, rate limiting, error tracking, etc., work with the TypeGraphQL schema.
+5. Identify and place any shared GraphQL-specific enums or input types (e.g., `OrderByDirection`) into `src/graphql/2014rewrite/common/` early to promote reusability.
 
 ### 2. Pass 1: Basic Field Migration (Weeks 2-4)
 
@@ -138,31 +140,31 @@ Migrate the GraphQL layer for all models, focusing *only* on simple scalar field
 
 Models to migrate (in approximate order of increasing complexity):
 
-1.  Alignment
-2.  Condition
-3.  DamageType
-4.  Language
-5.  MagicSchool
-6.  RuleSection
-7.  WeaponProperty
-8.  EquipmentCategory *(Migrate only basic fields like `index`, `name`. Skip the `equipment` field)*
-9.  AbilityScore
-10. Skill *(Skip `ability_score` reference field)*
-11. Background *(Skip references, choices)*
-12. Feat *(Skip prerequisites, choices)*
-13. Rule *(Skip subsections)*
-14. Trait *(Skip races, subraces)*
-15. MagicItem *(Skip `equipment_category` reference)*
-16. Subrace *(Skip `race`, `ability_bonuses`, `racial_traits` references)*
-17. Equipment *(Skip `equipment_category`, `gear_category`, `cost`, etc. if complex types)*
-18. Proficiency *(Skip references like `classes`, `races`)*
-19. Feature *(Skip `class`, `subclass`, prerequisites, choices)*
-20. Race *(Skip `ability_bonuses`, `proficiencies`, `languages`, `traits`, `subraces`)*
-21. Spell *(Skip `classes`, `subclasses`, `damage`, `dc` if complex)*
-22. Level *(Skip `class`, `subclass`, `features`, `spellcasting`)*
-23. Class *(Skip `proficiencies`, `saving_throws`, `spellcasting`, `subclasses`, starting equipment choices)*
-24. Subclass *(Skip `class`, `features`, `spells`)*
-25. Monster *(Skip complex nested structures needing resolution like specific ability scores, skills, proficiencies, actions needing lookups, special abilities needing lookups)*
+1.  - [ ] Alignment
+2.  - [ ] Condition
+3.  - [ ] DamageType
+4.  - [ ] Language
+5.  - [ ] MagicSchool
+6.  - [ ] RuleSection
+7.  - [ ] WeaponProperty
+8.  - [ ] EquipmentCategory *(Migrate only basic fields like `index`, `name`. Skip the `equipment` field)*
+9.  - [ ] AbilityScore
+10. - [ ] Skill *(Skip `ability_score` reference field)*
+11. - [ ] Background *(Skip references, choices)*
+12. - [ ] Feat *(Skip prerequisites, choices)*
+13. - [ ] Rule *(Skip subsections)*
+14. - [ ] Trait *(Skip races, subraces)*
+15. - [ ] MagicItem *(Skip `equipment_category` reference)*
+16. - [ ] Subrace *(Skip `race`, `ability_bonuses`, `racial_traits` references)*
+17. - [ ] Equipment *(Skip `equipment_category`, `gear_category`, `cost`, etc. if complex types)*
+18. - [ ] Proficiency *(Skip references like `classes`, `races`)*
+19. - [ ] Feature *(Skip `class`, `subclass`, prerequisites, choices)*
+20. - [ ] Race *(Skip `ability_bonuses`, `proficiencies`, `languages`, `traits`, `subraces`)*
+21. - [ ] Spell *(Skip `classes`, `subclasses`, `damage`, `dc` if complex)*
+22. - [ ] Level *(Skip `class`, `subclass`, `features`, `spellcasting`)*
+23. - [ ] Class *(Skip `proficiencies`, `saving_throws`, `spellcasting`, `subclasses`, starting equipment choices)*
+24. - [ ] Subclass *(Skip `class`, `features`, `spells`)*
+25. - [ ] Monster *(Skip complex nested structures needing resolution like specific ability scores, skills, proficiencies, actions needing lookups, special abilities needing lookups)*
 
 For each model in Pass 1:
 
@@ -225,6 +227,7 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
     a. Rename `src/graphql/2014rewrite` to `src/graphql/2014` OR
     b. Move files from `src/graphql/2014rewrite` to other locations (e.g., co-locate resolvers/types with models in `src/models/2014`).
     c. Update all imports and configurations (`buildSchema` path) accordingly.
+    d. *(Consider team preference/codebase style: keep GraphQL separate or co-locate for proximity?)*
 4. Clean up unused code.
 5. Update documentation to reflect the final TypeGraphQL implementation and file structure.
 6. Final testing pass covering all fields (basic, references, choices).
@@ -256,7 +259,7 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
   - One model's GraphQL layer at a time migration strategy.
   - Immediate rollback capability: Maintain the ability to quickly revert code changes for a specific model's TypeGraphQL resolver/type if critical issues are found.
     - **Identify Commits:** Ensure migration commits are clearly identifiable (e.g., per-model resolver commits).
-    - **Revert Code:** Use `git checkout <last_good_commit_hash> -- src/graphql/2014rewrite/resolvers/modelNameResolver.ts src/models/2014/ModelName.ts` (adjust paths if types/resolvers are co-located or separate) to revert the specific files.
+    - **Revert Code:** Use `git checkout <last_good_commit_hash> -- src/graphql/2014rewrite/resolvers/modelNameResolver.ts src/models/2014/ModelName.ts` (adjust paths if types/resolvers are co-located or separate) to revert the specific model and resolver files. This removes the problematic model's types and queries from the *currently building TypeGraphQL schema* upon redeployment, allowing other migrated models to continue functioning. It does **not** revert the entire application back to the old `graphql-compose` schema.
     - **Deploy Reverted Code:** Redeploy the application with the reverted code.
   - Comprehensive integration testing before deployment.
 
