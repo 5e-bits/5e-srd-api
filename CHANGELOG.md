@@ -1,3 +1,10 @@
+## [3.23.1](https://github.com/5e-bits/5e-srd-api/compare/v3.23.0...v3.23.1) (2025-05-04)
+
+
+### Bug Fixes
+
+* **images:** Fix key for regex ([6f8a99d](https://github.com/5e-bits/5e-srd-api/commit/6f8a99da050ff4ce0c57bfc5377fcdf57b42f60c))
+
 # [3.23.0](https://github.com/5e-bits/5e-srd-api/compare/v3.22.0...v3.23.0) (2025-05-04)
 
 
