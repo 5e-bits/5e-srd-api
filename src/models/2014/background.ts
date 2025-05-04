@@ -8,35 +8,23 @@ import { APIReferenceObject, ChoiceObject } from '@/graphql/common/objects'
 @ObjectType({ description: 'Reference to an equipment item with a quantity.' })
 export class EquipmentRefObject {
   @Field(() => APIReferenceObject)
+  @prop({ type: () => APIReference, required: true })
   equipment!: APIReferenceObject
 
   @Field(() => Int)
+  @prop({ required: true, type: () => Number })
   quantity!: number
 }
 
 @ObjectType({ description: 'A feature granted by the background.' })
 class BackgroundFeatureObject {
   @Field(() => String)
+  @prop({ required: true, type: () => String })
   name!: string
 
   @Field(() => [String])
-  desc!: string[]
-}
-
-class Feature {
-  @prop({ required: true, type: () => String })
-  public name!: string
-
   @prop({ required: true, type: () => [String] })
-  public desc!: string[]
-}
-
-export class EquipmentRef {
-  @prop({ type: () => APIReference })
-  public equipment!: APIReference
-
-  @prop({ required: true, type: () => Number })
-  public quantity!: number
+  desc!: string[]
 }
 
 @ObjectType({ description: 'Represents a character background.' })
@@ -62,27 +50,34 @@ export class Background {
   public url!: string
 
   @Field(() => [EquipmentRefObject], { description: 'Equipment granted at the start.' })
-  @prop({ type: () => [EquipmentRef], default: [] })
-  public starting_equipment!: EquipmentRef[]
+  @prop({ type: () => [EquipmentRefObject], default: [] })
+  public starting_equipment!: EquipmentRefObject[]
 
-  @prop({ type: () => [Choice], index: true })
+  @Field(() => [ChoiceObject], { description: 'Options for starting equipment.' })
+  @prop({ type: () => [Choice], default: [] })
   public starting_equipment_options!: Choice[]
 
-  @prop({ type: () => Feature })
-  public feature!: Feature
+  @Field(() => BackgroundFeatureObject, { description: 'The main feature of the background.' })
+  @prop({ type: () => BackgroundFeatureObject })
+  public feature!: BackgroundFeatureObject
 
+  @Field(() => ChoiceObject, { description: 'Options for personality traits.' })
   @prop({ type: () => Choice })
   public personality_traits!: Choice
 
+  @Field(() => ChoiceObject, { description: 'Options for ideals.' })
   @prop({ type: () => Choice })
   public ideals!: Choice
 
+  @Field(() => ChoiceObject, { description: 'Options for bonds.' })
   @prop({ type: () => Choice })
   public bonds!: Choice
 
+  @Field(() => ChoiceObject, { description: 'Options for flaws.' })
   @prop({ type: () => Choice })
   public flaws!: Choice
 
+  @Field(() => String, { description: 'Timestamp of the last update.' })
   @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }

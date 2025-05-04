@@ -2,7 +2,6 @@ import ActionCount from './scalars/actionCountResolver'
 import Ammunition from './ammunitionResolver'
 import AreaOfEffectTypeFilter from './scalars/areaOfEffectTypeFilter'
 import Armor from './armorResolver'
-import Background from './backgroundResolver'
 import Class from './classResolver'
 import ClassSpecific from './classSpecificResolver'
 import EquipmentMultipleItem from './equipmentMultipleItemResolver'
@@ -48,7 +47,6 @@ const resolvers = {
   Ammunition,
   AreaOfEffectTypeFilter,
   Armor,
-  Background,
   Class,
   ClassSpecific,
   IEquipment,

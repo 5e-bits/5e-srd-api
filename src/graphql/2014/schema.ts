@@ -14,6 +14,7 @@ import { EquipmentCategoryResolver } from './resolvers/EquipmentCategoryResolver
 import { RuleResolver } from './resolvers/RuleResolver'
 import { FeatResolver, FeatPrerequisiteResolver } from './resolvers/FeatResolver'
 import { MagicItemResolver } from './resolvers/MagicItemResolver'
+import { BackgroundResolver } from './resolvers/backgroundResolver'
 
 // Common Object Types (Import from barrel file)
 import * as Objects from '../common/objects'
@@ -39,7 +40,8 @@ const resolvers = [
   RuleResolver,
   FeatResolver,
   FeatPrerequisiteResolver,
-  MagicItemResolver
+  MagicItemResolver,
+  BackgroundResolver
 ] as const satisfies NonEmptyArray<ClassType>
 
 // Array of object types needed for unions/interfaces but not directly resolved
