@@ -1,3 +1,10 @@
+## [3.23.2](https://github.com/5e-bits/5e-srd-api/compare/v3.23.1...v3.23.2) (2025-05-04)
+
+
+### Bug Fixes
+
+* **desc:** Fix models to match data reality for desc ([#751](https://github.com/5e-bits/5e-srd-api/issues/751)) ([6bcd610](https://github.com/5e-bits/5e-srd-api/commit/6bcd610df4cccc57d79e8ff3b075fee356c34f04))
+
 ## [3.23.1](https://github.com/5e-bits/5e-srd-api/compare/v3.23.0...v3.23.1) (2025-05-04)
 
 
