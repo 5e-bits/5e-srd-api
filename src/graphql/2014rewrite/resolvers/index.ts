@@ -4,13 +4,15 @@ import { ConditionResolver } from './conditionResolver'
 import { DamageTypeResolver } from './damageTypeResolver'
 import { LanguageResolver } from './languageResolver'
 import { MagicSchoolResolver } from './magicSchoolResolver'
+import { RuleSectionResolver } from './ruleSectionResolver'
 
 export const resolvers = [
   AlignmentResolver,
   ConditionResolver,
   DamageTypeResolver,
   LanguageResolver,
-  MagicSchoolResolver
+  MagicSchoolResolver,
+  RuleSectionResolver
 ] as const
 
 // For now, export an empty array until resolvers are created

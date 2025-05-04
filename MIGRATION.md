@@ -145,7 +145,7 @@ Models to migrate (in approximate order of increasing complexity):
 3.  - [x] DamageType
 4.  - [x] Language
 5.  - [x] MagicSchool
-6.  - [ ] RuleSection
+6.  - [x] RuleSection
 7.  - [ ] WeaponProperty
 8.  - [ ] EquipmentCategory *(Migrate only basic fields like `index`, `name`. Skip the `equipment` field)*
 9.  - [ ] AbilityScore
