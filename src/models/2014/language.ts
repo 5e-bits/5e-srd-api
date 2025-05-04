@@ -4,8 +4,8 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-languages')
 export class Language {
-  @prop({ required: true, index: true, type: () => [String] })
-  public desc!: string[]
+  @prop({ required: true, index: true, type: () => String })
+  public desc!: string
 
   @prop({ required: true, index: true, type: () => String })
   public index!: string
