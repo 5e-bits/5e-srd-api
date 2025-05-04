@@ -1,3 +1,10 @@
+# [3.23.0](https://github.com/5e-bits/5e-srd-api/compare/v3.22.0...v3.23.0) (2025-05-04)
+
+
+### Features
+
+* **images:** Add /api/images endpoint and use fetch for image fetching ([#750](https://github.com/5e-bits/5e-srd-api/issues/750)) ([fec63b7](https://github.com/5e-bits/5e-srd-api/commit/fec63b78ac075ca8c093896f6bd6c8519ac9870b))
+
 # [3.22.0](https://github.com/5e-bits/5e-srd-api/compare/v3.21.0...v3.22.0) (2025-04-28)
 
 
