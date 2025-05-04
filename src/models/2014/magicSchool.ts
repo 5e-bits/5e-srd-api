@@ -4,8 +4,8 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-magic-schools')
 export class MagicSchool {
-  @prop({ type: () => [String], index: true })
-  public desc!: string[]
+  @prop({ type: () => String, index: true })
+  public desc!: string
 
   @prop({ required: true, index: true, type: () => String })
   public index!: string

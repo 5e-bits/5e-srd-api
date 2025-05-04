@@ -16,8 +16,8 @@ export class Subrace {
   @prop({ type: () => [SubraceAbilityBonus], required: true })
   public ability_bonuses!: SubraceAbilityBonus[]
 
-  @prop({ required: true, index: true, type: () => [String] })
-  public desc!: string[]
+  @prop({ required: true, index: true, type: () => String })
+  public desc!: string
 
   @prop({ required: true, index: true, type: () => String })
   public index!: string

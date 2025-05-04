@@ -15,7 +15,7 @@ export const languageFactory = Factory.define<Language>(({ sequence }) => {
   return {
     index: index,
     name: name,
-    desc: [faker.lorem.sentence()],
+    desc: faker.lorem.sentence(),
     script: faker.helpers.arrayElement(scripts),
     type: faker.helpers.arrayElement(languageTypes),
     typical_speakers: [faker.person.jobTitle(), faker.person.jobTitle()],

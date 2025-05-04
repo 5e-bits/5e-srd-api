@@ -4,8 +4,8 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-alignments')
 export class Alignment {
-  @prop({ required: true, index: true, type: () => [String] })
-  public desc!: string[]
+  @prop({ required: true, index: true, type: () => String })
+  public desc!: string
 
   @prop({ required: true, index: true, type: () => String })
   public abbreviation!: string
