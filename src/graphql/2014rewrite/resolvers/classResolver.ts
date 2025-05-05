@@ -40,12 +40,14 @@ export class ClassResolver {
 
     if (name) {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
-      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-      query.sort({ name: sortOrder })
     }
 
     if (hit_die) {
       query.where({ hit_die })
+    }
+
+    if (order_direction) {
+      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
     return query.lean()
