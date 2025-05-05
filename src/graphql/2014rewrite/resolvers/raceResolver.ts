@@ -1,8 +1,22 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
-import RaceModel, { Race } from '@/models/2014/race'
+import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
+import { AbilityScore } from '@/models/2014/abilityScore'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import { Language } from '@/models/2014/language'
+import LanguageModel from '@/models/2014/language'
+import { Proficiency } from '@/models/2014/proficiency'
+import ProficiencyModel from '@/models/2014/proficiency'
+import { Subrace } from '@/models/2014/subrace'
+import SubraceModel from '@/models/2014/subrace'
+import { Trait } from '@/models/2014/trait'
+import TraitModel from '@/models/2014/trait'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class RaceArgs {
@@ -46,6 +60,33 @@ export class RaceResolver {
     return RaceModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (ability_bonuses, languages, starting_proficiencies, subraces, traits)
-  // TODO: Pass 3 - Field resolvers for choices (ability_bonus_options, language_options, starting_proficiency_options)
+  @FieldResolver(() => [Language], { nullable: true })
+  async languages(@Root() race: Race): Promise<Language[]> {
+    return resolveMultipleReferences(race.languages, LanguageModel)
+  }
+
+  @FieldResolver(() => [Proficiency], { nullable: true })
+  async starting_proficiencies(@Root() race: Race): Promise<Proficiency[]> {
+    return resolveMultipleReferences(race.starting_proficiencies, ProficiencyModel)
+  }
+
+  @FieldResolver(() => [Subrace], { nullable: true })
+  async subraces(@Root() race: Race): Promise<Subrace[]> {
+    return resolveMultipleReferences(race.subraces, SubraceModel)
+  }
+
+  @FieldResolver(() => [Trait], { nullable: true })
+  async traits(@Root() race: Race): Promise<Trait[]> {
+    return resolveMultipleReferences(race.traits, TraitModel)
+  }
 }
+
+@Resolver(RaceAbilityBonus)
+export class RaceAbilityBonusResolver {
+  @FieldResolver(() => AbilityScore, { nullable: true })
+  async ability_score(@Root() raceAbilityBonus: RaceAbilityBonus): Promise<AbilityScore | null> {
+    return resolveSingleReference(raceAbilityBonus.ability_score, AbilityScoreModel)
+  }
+}
+
+// TODO: Pass 3 - Choice fields
