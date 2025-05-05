@@ -16,6 +16,7 @@ import { TraitResolver } from './traitResolver'
 import { MagicItemResolver } from './magicItemResolver'
 import { SubraceResolver } from './subraceResolver'
 import { EquipmentResolver } from './equipmentResolver'
+import { ProficiencyResolver } from './proficiencyResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -34,7 +35,8 @@ export const resolvers = [
   TraitResolver,
   MagicItemResolver,
   SubraceResolver,
-  EquipmentResolver
+  EquipmentResolver,
+  ProficiencyResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
