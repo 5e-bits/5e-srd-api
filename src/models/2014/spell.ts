@@ -3,34 +3,31 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, AreaOfEffect } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { Class } from './class'
+import { MagicSchool } from './magicSchool'
+import { Subclass } from './subclass'
 
 @ObjectType({ description: 'Details about spell damage' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpellDamage {
-  // TODO: Pass 2 - API Reference
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
-  // TODO: Pass 2/3 - Complex map object
   @prop({ mapProp: true, type: () => Object, default: undefined })
   public damage_at_slot_level?: Record<number, string>
 
-  // TODO: Pass 2/3 - Complex map object
   @prop({ mapProp: true, type: () => Object, default: undefined })
   public damage_at_character_level?: Record<number, string>
 }
 
 @ObjectType({ description: "Details about a spell's saving throw" })
 export class SpellDC {
-  // TODO: Pass 2 - API Reference
   @prop({ type: () => APIReference, required: true })
   public dc_type!: APIReference
 
-  // TODO: Pass 2/3? - Basic field, but part of complex parent
   @prop({ required: true, index: true, type: () => String })
   public dc_success!: string
 
-  // TODO: Pass 2/3? - Basic field, but part of complex parent
   @prop({ index: true, type: () => String })
   public desc?: string
 }
@@ -38,7 +35,7 @@ export class SpellDC {
 @ObjectType({ description: 'Represents a spell in D&D' })
 @srdModelOptions('2014-spells')
 export class Spell {
-  // TODO: Pass 2/3 - Complex nested type (AreaOfEffect)
+  // TODO: Define complex types post-Pass 2 (Define AreaOfEffect type)
   @prop({ type: () => AreaOfEffect })
   public area_of_effect?: AreaOfEffect
 
@@ -53,7 +50,7 @@ export class Spell {
   @prop({ required: true, index: true, type: () => String })
   public casting_time!: string
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Class], { nullable: true, description: 'Classes that can cast this spell.' })
   @prop({ type: () => [APIReference], required: true })
   public classes!: APIReference[]
 
@@ -65,11 +62,11 @@ export class Spell {
   @prop({ index: true, type: () => Boolean })
   public concentration!: boolean
 
-  // TODO: Pass 2/3 - Complex nested type (SpellDamage)
+  // TODO: Define complex types post-Pass 2 (Define SpellDamage type and resolve nested refs)
   @prop({ type: () => SpellDamage })
   public damage?: SpellDamage
 
-  // TODO: Pass 2/3 - Complex nested type (SpellDC)
+  // TODO: Define complex types post-Pass 2 (Define SpellDC type and resolve nested refs)
   @prop({ type: () => SpellDC })
   public dc?: SpellDC
 
@@ -81,7 +78,7 @@ export class Spell {
   @prop({ required: true, index: true, type: () => String })
   public duration!: string
 
-  // TODO: Pass 2/3 - Complex map object
+  // TODO: Define complex types post-Pass 2 (Define heal_at_slot_level map)
   @prop({ type: () => Object })
   public heal_at_slot_level?: Record<number, string>
 
@@ -116,15 +113,17 @@ export class Spell {
   @prop({ required: true, index: true, type: () => Boolean })
   public ritual!: boolean
 
-  // TODO: Pass 2 - API Reference
+  @Field(() => MagicSchool, {
+    nullable: true,
+    description: 'The school of magic this spell belongs to.'
+  })
   @prop({ type: () => APIReference, required: true })
   public school!: APIReference
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Subclass], { nullable: true, description: 'Subclasses that can cast this spell.' })
   @prop({ type: () => [APIReference], required: true })
   public subclasses?: APIReference[]
 
-  // url field is not exposed via GraphQL
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
