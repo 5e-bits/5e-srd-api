@@ -155,7 +155,7 @@ Models to migrate (in approximate order of increasing complexity):
 13. - [x] Rule *(Skip subsections)*
 14. - [x] Trait *(Skip races, subraces)*
 15. - [x] MagicItem *(Skip `equipment_category` reference)*
-16. - [ ] Subrace *(Skip `race`, `ability_bonuses`, `racial_traits` references)*
+16. - [x] Subrace *(Skip `race`, `ability_bonuses`, `racial_traits` references)*
 17. - [ ] Equipment *(Skip `equipment_category`, `gear_category`, `cost`, etc. if complex types)*
 18. - [ ] Proficiency *(Skip references like `classes`, `races`)*
 19. - [ ] Feature *(Skip `class`, `subclass`, prerequisites, choices)*
