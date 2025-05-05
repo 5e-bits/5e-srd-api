@@ -49,8 +49,6 @@ export class EquipmentCategoryResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so the equipment field will contain the raw APIReference data
-    // A FieldResolver will be added in Pass 2 to resolve these references properly.
     return query.lean()
   }
 
@@ -61,8 +59,6 @@ export class EquipmentCategoryResolver {
   async equipmentCategory(
     @Arg('index', () => String) index: string
   ): Promise<EquipmentCategory | null> {
-    // Note: .lean() is used, equipment field will be raw APIReference data.
-    // FieldResolver needed in Pass 2.
     return EquipmentCategoryModel.findOne({ index }).lean()
   }
 
