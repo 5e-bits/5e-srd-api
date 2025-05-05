@@ -3,10 +3,12 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { Proficiency } from './proficiency'
+import { Equipment } from './equipment'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => Equipment, { description: 'The specific equipment referenced.' })
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
@@ -41,7 +43,7 @@ export class Background {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [Proficiency], { description: 'Proficiencies granted by this background at start.' })
   @prop({ type: () => [APIReference] })
   public starting_proficiencies!: APIReference[]
 

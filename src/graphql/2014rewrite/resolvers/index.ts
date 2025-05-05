@@ -9,7 +9,7 @@ import { WeaponPropertyResolver } from './weaponPropertyResolver'
 import { EquipmentCategoryResolver } from './equipmentCategoryResolver'
 import { AbilityScoreResolver } from './abilityScoreResolver'
 import { SkillResolver } from './skillResolver'
-import { BackgroundResolver } from './backgroundResolver'
+import { BackgroundResolver, EquipmentRefResolver } from './backgroundResolver'
 import { FeatResolver } from './featResolver'
 import { RuleResolver } from './ruleResolver'
 import { TraitResolver } from './traitResolver'
@@ -25,33 +25,40 @@ import { SubclassResolver } from './subclassResolver'
 import { ClassResolver } from './classResolver'
 import { MonsterResolver } from './monsterResolver'
 
-export const resolvers = [
+const collectionResolvers = [
+  AbilityScoreResolver,
   AlignmentResolver,
+  BackgroundResolver,
+  ClassResolver,
   ConditionResolver,
   DamageTypeResolver,
-  LanguageResolver,
-  MagicSchoolResolver,
-  RuleSectionResolver,
-  WeaponPropertyResolver,
   EquipmentCategoryResolver,
-  AbilityScoreResolver,
-  SkillResolver,
-  BackgroundResolver,
-  FeatResolver,
-  RuleResolver,
-  TraitResolver,
-  MagicItemResolver,
-  SubraceResolver,
   EquipmentResolver,
-  ProficiencyResolver,
+  FeatResolver,
   FeatureResolver,
-  RaceResolver,
-  SpellResolver,
+  LanguageResolver,
   LevelResolver,
+  MagicItemResolver,
+  MagicSchoolResolver,
+  MonsterResolver,
+  ProficiencyResolver,
+  RaceResolver,
+  RuleResolver,
+  RuleSectionResolver,
+  SkillResolver,
+  SpellResolver,
   SubclassResolver,
-  ClassResolver,
-  MonsterResolver
-] as const
+  SubraceResolver,
+  TraitResolver,
+  WeaponPropertyResolver
+]
+
+const fieldResolvers = [
+  // Background
+  EquipmentRefResolver
+]
+
+export const resolvers = [...collectionResolvers, ...fieldResolvers] as const
 
 // For now, export an empty array until resolvers are created
 // export const resolvers: Function[] = []; // Original empty array
