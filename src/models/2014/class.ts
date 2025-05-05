@@ -87,7 +87,10 @@ export class Class {
   @prop({ required: true, index: true, type: () => String })
   public class_levels!: string
 
-  // TODO: Define complex types post-Pass 2 (Define MultiClassing type)
+  @Field(() => MultiClassing, {
+    nullable: true,
+    description: 'Multi-classing requirements and features for this class.'
+  })
   @prop({ type: () => MultiClassing })
   public multi_classing!: MultiClassing
 
