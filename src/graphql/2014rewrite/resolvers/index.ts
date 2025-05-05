@@ -13,6 +13,7 @@ import { BackgroundResolver } from './backgroundResolver'
 import { FeatResolver } from './featResolver'
 import { RuleResolver } from './ruleResolver'
 import { TraitResolver } from './traitResolver'
+import { MagicItemResolver } from './magicItemResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -28,7 +29,8 @@ export const resolvers = [
   BackgroundResolver,
   FeatResolver,
   RuleResolver,
-  TraitResolver
+  TraitResolver,
+  MagicItemResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
