@@ -3,33 +3,29 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { Class } from './class'
+import { Level } from './level'
 
 @ObjectType({ description: 'Prerequisite for a subclass spell' })
 export class Prerequisite {
-  // Fields skipped in Pass 1
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  // Fields skipped in Pass 1
   @prop({ required: true, type: () => String })
   public name!: string
 
-  // Fields skipped in Pass 1
   @prop({ required: true, type: () => String })
   public type!: string
 
-  // Fields skipped in Pass 1
   @prop({ required: true, type: () => String })
   public url!: string
 }
 
 @ObjectType({ description: 'Spell gained by a subclass' })
 export class SubclassSpell {
-  // Fields skipped in Pass 1
   @prop({ type: () => [Prerequisite], required: true })
   public prerequisites!: Prerequisite[]
 
-  // Fields skipped in Pass 1
   @prop({ type: () => APIReference, required: true })
   public spell!: APIReference
 }
@@ -39,7 +35,7 @@ export class SubclassSpell {
 })
 @srdModelOptions('2014-subclasses')
 export class Subclass {
-  // TODO: Pass 2 - API Reference
+  @Field(() => Class, { nullable: true, description: 'The parent class for this subclass.' })
   @prop({ type: () => APIReference, required: true })
   public class!: APIReference
 
@@ -55,7 +51,7 @@ export class Subclass {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2/3 - Complex nested type array (SubclassSpell)
+  // TODO: Define complex types post-Pass 2 (Define SubclassSpell and resolve nested refs)
   @prop({ type: () => [SubclassSpell] })
   public spells?: SubclassSpell[]
 
@@ -63,11 +59,13 @@ export class Subclass {
   @prop({ required: true, index: true, type: () => String })
   public subclass_flavor!: string
 
-  // TODO: Pass 2 - Reference to Level API (likely)
+  @Field(() => [Level], {
+    nullable: true,
+    description: 'Features and abilities gained by level for this subclass.'
+  })
   @prop({ required: true, index: true, type: () => String })
   public subclass_levels!: string
 
-  // url field is not exposed via GraphQL
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
