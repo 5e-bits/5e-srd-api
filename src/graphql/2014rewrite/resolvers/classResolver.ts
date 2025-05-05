@@ -1,8 +1,13 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, Int } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum, IsInt } from 'class-validator'
-import ClassModel, { Class } from '@/models/2014/class'
+import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
+import { APIReference } from '@/models/2014/common'
 
 @ArgsType()
 class ClassArgs {
@@ -58,7 +63,34 @@ export class ClassResolver {
     return ClassModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (class_levels, proficiencies, saving_throws, spells, subclasses)
-  // TODO: Pass 2/3 - Field resolvers for complex types (multi_classing, spellcasting, starting_equipment)
-  // TODO: Pass 3 - Field resolvers for choices (proficiency_choices, starting_equipment_options)
+  @FieldResolver(() => [Proficiency])
+  async proficiencies(@Root() classData: Class): Promise<APIReference[]> {
+    return resolveMultipleReferences(classData.proficiencies, ProficiencyModel)
+  }
+
+  @FieldResolver(() => [AbilityScore])
+  async saving_throws(@Root() classData: Class): Promise<APIReference[]> {
+    return resolveMultipleReferences(classData.saving_throws, AbilityScoreModel)
+  }
+
+  @FieldResolver(() => [Subclass])
+  async subclasses(@Root() classData: Class): Promise<APIReference[]> {
+    return resolveMultipleReferences(classData.subclasses, SubclassModel)
+  }
+}
+
+@Resolver(MultiClassing)
+export class MultiClassingResolver {
+  @FieldResolver(() => [Proficiency])
+  async proficiencies(@Root() multiClassing: MultiClassing): Promise<APIReference[]> {
+    return resolveMultipleReferences(multiClassing.proficiencies, ProficiencyModel)
+  }
+}
+
+@Resolver(MultiClassingPrereq)
+export class MultiClassingPrereqResolver {
+  @FieldResolver(() => AbilityScore)
+  async ability_score(@Root() prerequisite: MultiClassingPrereq): Promise<APIReference | null> {
+    return resolveSingleReference(prerequisite.ability_score, AbilityScoreModel)
+  }
 }
