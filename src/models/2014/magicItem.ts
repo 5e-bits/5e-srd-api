@@ -3,6 +3,7 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { EquipmentCategory } from './equipmentCategory'
 
 @ObjectType({ description: 'Rarity level of a magic item.' })
 export class Rarity {
@@ -22,7 +23,9 @@ export class MagicItem {
   @prop({ type: () => [String], index: true })
   public desc!: string[]
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => EquipmentCategory, {
+    description: 'The category of equipment this magic item belongs to.'
+  })
   @prop({ type: () => APIReference, index: true })
   public equipment_category!: APIReference
 
@@ -50,7 +53,10 @@ export class MagicItem {
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [MagicItem], {
+    nullable: true,
+    description: 'Other magic items that are variants of this item.'
+  })
   @prop({ type: () => [APIReference], index: true })
   public variants!: APIReference[]
 
