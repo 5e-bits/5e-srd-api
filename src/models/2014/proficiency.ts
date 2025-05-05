@@ -3,13 +3,16 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { Class } from './class'
+import { Race } from './race'
+import { ProficiencyReference } from '@/graphql/2014rewrite/common/unions'
 
 @ObjectType({
   description: 'Represents a skill, tool, weapon, armor, or saving throw proficiency.'
 })
 @srdModelOptions('2014-proficiencies')
 export class Proficiency {
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Class], { nullable: true, description: 'Classes that grant this proficiency.' })
   @prop({ type: () => [APIReference] })
   public classes?: APIReference[]
 
@@ -21,11 +24,14 @@ export class Proficiency {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Race], { nullable: true, description: 'Races that grant this proficiency.' })
   @prop({ type: () => [APIReference] })
   public races?: APIReference[]
 
-  // TODO: Pass 2 - API Reference (Corrected type from previous edit attempt)
+  @Field(() => ProficiencyReference, {
+    description:
+      'The specific skill, ability score, equipment, or equipment category related to this proficiency.'
+  })
   @prop({ type: () => APIReference })
   public reference!: APIReference
 
@@ -35,7 +41,6 @@ export class Proficiency {
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  // TODO: Pass 2/3 - System field, handle later if needed
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
