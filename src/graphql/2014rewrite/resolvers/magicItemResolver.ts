@@ -1,13 +1,17 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { MagicItem } from '@/models/2014/magicItem' // Import the decorated Typegoose model
-import MagicItemModel from '@/models/2014/magicItem' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { MagicItem } from '@/models/2014/magicItem'
+import MagicItemModel from '@/models/2014/magicItem'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import related types if needed for FieldResolver placeholders
-// import { EquipmentCategory } from '@/models/2014/equipmentCategory';
+// Import related types/models for FieldResolvers
+import { EquipmentCategory } from '@/models/2014/equipmentCategory'
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
+import {
+  resolveSingleReference,
+  resolveMultipleReferences
+} from '@/graphql/2014rewrite/utils/resolvers'
 
-// Define ArgsType for the magicItems query
 @ArgsType()
 class MagicItemArgs {
   @Field(() => String, {
@@ -44,17 +48,21 @@ export class MagicItemResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so reference fields will contain raw data
-    // FieldResolvers will be added in Pass 2.
     return query.lean()
   }
 
   @Query(() => MagicItem, { nullable: true, description: 'Gets a single magic item by index.' })
   async magicItem(@Arg('index', () => String) index: string): Promise<MagicItem | null> {
-    // Note: .lean() is used, reference fields will contain raw data.
-    // FieldResolvers needed in Pass 2.
     return MagicItemModel.findOne({ index }).lean()
   }
 
-  // Field Resolvers for references (equipment_category, variants) will be added in Pass 2
+  @FieldResolver(() => EquipmentCategory, { nullable: true })
+  async equipment_category(@Root() magicItem: MagicItem): Promise<EquipmentCategory | null> {
+    return resolveSingleReference(magicItem.equipment_category, EquipmentCategoryModel)
+  }
+
+  @FieldResolver(() => [MagicItem], { nullable: true })
+  async variants(@Root() magicItem: MagicItem): Promise<MagicItem[]> {
+    return resolveMultipleReferences(magicItem.variants, MagicItemModel)
+  }
 }
