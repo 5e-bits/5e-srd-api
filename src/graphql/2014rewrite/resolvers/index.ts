@@ -20,6 +20,7 @@ import { ProficiencyResolver } from './proficiencyResolver'
 import { FeatureResolver } from './featureResolver'
 import { RaceResolver } from './raceResolver'
 import { SpellResolver } from './spellResolver'
+import { LevelResolver } from './levelResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -42,7 +43,8 @@ export const resolvers = [
   ProficiencyResolver,
   FeatureResolver,
   RaceResolver,
-  SpellResolver
+  SpellResolver,
+  LevelResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
