@@ -1,8 +1,11 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
+import ClassModel, { Class } from '@/models/2014/class'
+import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
+import LevelModel, { Level } from '@/models/2014/level'
 
 @ArgsType()
 class SubclassArgs {
@@ -48,6 +51,15 @@ export class SubclassResolver {
     return SubclassModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (class, subclass_levels)
-  // TODO: Pass 2/3 - Field resolvers for complex types (spells)
+  @FieldResolver(() => Class, { nullable: true })
+  async class(@Root() subclass: Subclass): Promise<Class | null> {
+    return resolveSingleReference(subclass.class, ClassModel)
+  }
+
+  @FieldResolver(() => [Level], { nullable: true })
+  async subclass_levels(@Root() subclass: Subclass): Promise<Level[]> {
+    if (!subclass.index) return []
+
+    return LevelModel.find({ 'subclass.index': subclass.index }).sort({ level: 1 })
+  }
 }
