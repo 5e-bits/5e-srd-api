@@ -185,13 +185,7 @@ For each model in Pass 1:
 5. Verify basic GraphQL functionality through testing.
 6. Deploy to production (optional per-model deployment).
 
-### 3. Pass 1 Cleanup: Refactor Common Arguments (Week 4 - Part 2)
-
-1. Identify common query arguments introduced in Pass 1 resolvers (e.g., `name` filter, `order_direction` sorting).
-2. Create a reusable base `@ArgsType` class (e.g., `BaseNameArgs` in `src/graphql/2014rewrite/common/args.ts`).
-3. Refactor the resolvers modified in Pass 1 to use the new base `ArgsType`, removing redundant argument definitions.
-
-### 4. Pass 2: API Reference Field Migration (Weeks 5-7)
+### 3. Pass 2: API Reference Field Migration (Weeks 5-7)
 
 Implement the `@FieldResolver` logic or adjust main query population for fields that reference other models (e.g., `Skill.ability_score`, `Trait.races`, `EquipmentCategory.equipment`, `Monster` references).
 
@@ -205,7 +199,7 @@ Iterate through the models again, focusing on connecting them:
 4. Verify functionality via GraphQL endpoint.
 5. Deploy to production.
 
-### 5. Pass 3: Choice Field Migration (Weeks 8-9)
+### 4. Pass 3: Choice Field Migration (Weeks 8-9)
 
 Implement the logic for resolving `Choice` fields across relevant models (e.g., `Background`, `Class`, `Race`, `Feature`).
 
@@ -216,7 +210,21 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
 5. Verify functionality via GraphQL endpoint.
 6. Deploy to production.
 
-### 6. GraphQL Infrastructure Migration (Week 10)
+### 5. Pass 4: Input/Argument Verification (Week 10 - Part 1)
+
+1. Review the `@ArgsType` classes created in `src/graphql/2014rewrite/resolvers/` and `src/graphql/2014rewrite/common/args.ts` (if created later).
+2. Compare the implemented filters and arguments against the capabilities of the old GraphQL Compose endpoint (e.g., inspecting `src/graphql/2014/resolvers/queryResolver.ts` or old schema documentation).
+3. Identify any missing filters/arguments or discrepancies in behavior (e.g., case sensitivity, exact vs. partial match, range queries).
+4. Update the `@ArgsType` classes and resolver logic to align with the required filtering/sorting capabilities based on the old endpoint.
+5. Create or update integration tests to cover these specific input arguments and filters.
+
+### 6. Pass 5: Refactor Common Arguments (Week 10 - Part 2)
+
+1. Identify common query arguments across resolvers (e.g., `name` filter, `order_direction` sorting, potentially others identified in Pass 4).
+2. Create reusable base `@ArgsType` classes (e.g., `BaseNameArgs` in `src/graphql/2014rewrite/common/args.ts`).
+3. Refactor the resolvers modified in previous passes to use the new base `ArgsType`, removing redundant argument definitions.
+
+### 7. Pass 6: GraphQL Infrastructure Migration (Week 11)
 
 1. Port custom scalars to TypeGraphQL.
    - Strategy: Adapt existing scalar logic using TypeGraphQL's `GraphQLScalarType` or implement custom `@InputType`s for filters (See Appendix C).
@@ -225,7 +233,7 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
 3. Finalize Apollo Server configuration with the TypeGraphQL schema.
 4. Verify all middleware (rate limiting, error tracking, CORS) works correctly with the final TypeGraphQL setup.
 
-### 7. Final Steps (Week 11)
+### 8. Pass 7: Final Steps (Week 12)
 
 1. Remove any remaining old GraphQL Compose artifacts or dependencies.
 2. Delete the old `src/graphql/2014` directory.
@@ -236,7 +244,7 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
     d. *(Consider team preference/codebase style: keep GraphQL separate or co-locate for proximity?)*
 4. Clean up unused code.
 5. Update documentation to reflect the final TypeGraphQL implementation and file structure.
-6. Final testing pass covering all fields (basic, references, choices).
+6. Final testing pass covering all fields (basic, references, choices) and inputs.
 7. Production deployment.
 
 ## Risks and Mitigations
