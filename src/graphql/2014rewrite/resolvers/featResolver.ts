@@ -41,10 +41,9 @@ export class FeatResolver {
 
     if (name) {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
+      query.sort({ name: sortOrder })
     }
-
-    const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-    query.sort({ name: sortOrder })
 
     // Note: .lean() is used, so prerequisite ability_score will be raw APIReference data
     // A FieldResolver will be added in Pass 2.

@@ -40,10 +40,9 @@ export class SkillResolver {
 
     if (name) {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
+      query.sort({ name: sortOrder })
     }
-
-    const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-    query.sort({ name: sortOrder })
 
     // Note: .lean() is used, so the ability_score field will contain the raw APIReference data
     // A FieldResolver will be added in Pass 2 to resolve these references properly.
