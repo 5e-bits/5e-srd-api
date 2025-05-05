@@ -1,13 +1,14 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Rule } from '@/models/2014/rule' // Import the decorated Typegoose model
-import RuleModel from '@/models/2014/rule' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Rule } from '@/models/2014/rule'
+import RuleModel from '@/models/2014/rule'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import RuleSection if needed for FieldResolver placeholder
-// import { RuleSection } from '@/models/2014/ruleSection';
+// Import types/models for FieldResolver
+import { RuleSection } from '@/models/2014/ruleSection'
+import RuleSectionModel from '@/models/2014/ruleSection'
+import { resolveMultipleReferences } from '@/graphql/2014rewrite/utils/resolvers'
 
-// Define ArgsType for the rules query
 @ArgsType()
 class RuleArgs {
   @Field(() => String, {
@@ -44,24 +45,16 @@ export class RuleResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so the subsections field will contain the raw APIReference data
-    // A FieldResolver will be added in Pass 2.
     return query.lean()
   }
 
   @Query(() => Rule, { nullable: true, description: 'Gets a single rule by index.' })
   async rule(@Arg('index', () => String) index: string): Promise<Rule | null> {
-    // Note: .lean() is used, subsections field will be raw APIReference data.
-    // FieldResolver needed in Pass 2.
     return RuleModel.findOne({ index }).lean()
   }
 
-  // Field Resolver for 'subsections' will be added in Pass 2
-  /*
-  @FieldResolver(() => [RuleSection]) // Assuming RuleSection is the decorated @ObjectType
+  @FieldResolver(() => [RuleSection], { nullable: true })
   async subsections(@Root() rule: Rule): Promise<RuleSection[]> {
-    // Logic to fetch RuleSections based on rule.subsections references
-    return []; // Placeholder
+    return resolveMultipleReferences(rule.subsections, RuleSectionModel)
   }
-  */
 }

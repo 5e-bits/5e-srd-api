@@ -3,6 +3,7 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { RuleSection } from './ruleSection'
 
 @ObjectType({ description: 'A specific rule from the SRD.' })
 @srdModelOptions('2014-rules')
@@ -19,7 +20,9 @@ export class Rule {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [RuleSection], {
+    description: 'Subsections clarifying or detailing this rule.'
+  })
   @prop({ type: () => [APIReference], index: true })
   public subsections!: APIReference[]
 
