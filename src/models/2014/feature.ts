@@ -3,6 +3,8 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { Class } from './class'
+import { Subclass } from './subclass'
 
 // Export nested classes
 @ObjectType({ description: 'Prerequisite based on character level' })
@@ -48,6 +50,7 @@ export class FeatureSpecific {
   @prop({ type: () => Choice })
   public enemy_type_options?: Choice
 
+  @Field(() => [Feature], { nullable: true, description: 'Invocations related to this feature.' })
   @prop({ type: () => [APIReference] })
   public invocations?: APIReference[]
 }
@@ -55,7 +58,7 @@ export class FeatureSpecific {
 @ObjectType({ description: 'Represents a class or subclass feature.' })
 @srdModelOptions('2014-features')
 export class Feature {
-  // TODO: Pass 2 - API Reference
+  @Field(() => Class, { nullable: true, description: 'The class that gains this feature.' })
   @prop({ type: () => APIReference })
   public class!: APIReference
 
@@ -63,7 +66,7 @@ export class Feature {
   @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  // TODO: Pass 2 - API Reference (Optional)
+  @Field(() => Feature, { nullable: true, description: 'A parent feature, if applicable.' })
   @prop({ type: () => APIReference })
   public parent?: APIReference
 
@@ -79,7 +82,7 @@ export class Feature {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2/3 - Prerequisite array (complex type/union)
+  // TODO: Define complex types post-Pass 2 (Define Prerequisite union and resolve nested refs)
   @prop({ type: () => [Object] })
   public prerequisites?: Prerequisite[]
 
@@ -90,15 +93,20 @@ export class Feature {
   @prop({ index: true, type: () => String })
   public reference?: string
 
-  // TODO: Pass 2 - API Reference (Optional)
+  @Field(() => Subclass, {
+    nullable: true,
+    description: 'The subclass that gains this feature, if applicable.'
+  })
   @prop({ type: () => APIReference })
   public subclass?: APIReference
 
-  // TODO: Pass 2/3 - Feature Specific details (complex type)
+  @Field(() => FeatureSpecific, {
+    nullable: true,
+    description: 'Specific details for this feature, if applicable.'
+  })
   @prop({ type: () => FeatureSpecific })
   public feature_specific?: FeatureSpecific
 
-  // url field is not exposed via GraphQL
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
