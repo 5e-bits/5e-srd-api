@@ -1,5 +1,5 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
+import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
+import { IsOptional, IsString, IsEnum, Min } from 'class-validator'
 import FeatureModel, { Feature, FeatureSpecific } from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
@@ -20,6 +20,21 @@ class FeatureArgs {
   @IsString()
   name?: string
 
+  @Field(() => Int, { nullable: true, description: 'Filter by minimum level required' })
+  @IsOptional()
+  @Min(1)
+  level?: number
+
+  @Field(() => String, { nullable: true, description: 'Filter by associated class index' })
+  @IsOptional()
+  @IsString()
+  class?: string
+
+  @Field(() => String, { nullable: true, description: 'Filter by associated subclass index' })
+  @IsOptional()
+  @IsString()
+  subclass?: string
+
   @Field(() => OrderByDirection, {
     nullable: true,
     defaultValue: OrderByDirection.ASC,
@@ -33,17 +48,34 @@ class FeatureArgs {
 @Resolver(Feature)
 export class FeatureResolver {
   @Query(() => [Feature], {
-    description: 'Gets all features, optionally filtered by name and sorted.'
+    description: 'Gets all features, optionally filtered and sorted.'
   })
-  async features(@Args() { name, order_direction }: FeatureArgs): Promise<Feature[]> {
+  async features(
+    @Args() { name, level, class: className, subclass: subclassName, order_direction }: FeatureArgs
+  ): Promise<Feature[]> {
     const query = FeatureModel.find()
+    const filters: any = {}
 
     if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      filters.name = { $regex: new RegExp(escapeRegExp(name), 'i') }
+    }
+    if (level !== undefined) {
+      filters.level = { $gte: level }
+    }
+    if (className) {
+      filters['class.index'] = className
+    }
+    if (subclassName) {
+      filters['subclass.index'] = subclassName
+    }
+
+    if (Object.keys(filters).length > 0) {
+      query.where(filters)
     }
 
     if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
+      query.sort({ name: sortOrder })
     }
 
     return query.lean()
