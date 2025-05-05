@@ -116,13 +116,13 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
 
 ## Migration Steps
 
-### Pre-Migration Cleanup
+### ✅ Pre-Migration Cleanup
 
 1. Remove deprecated GraphQL Compose dependencies
    - Ensure `graphql-compose` and related packages are removed.
    - Confirm the setup relies on `@apollo/server`, `@graphql-tools/schema`, and custom resolvers.
 
-### 1. Initial Setup (Week 1)
+### ✅ 1. Initial Setup (Week 1)
 
 1. Add TypeGraphQL dependencies (`type-graphql`, `reflect-metadata`, `class-validator`).
 2. Configure TypeGraphQL with Express/Apollo Server.
