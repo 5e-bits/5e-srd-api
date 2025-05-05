@@ -1,9 +1,14 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { EquipmentCategory } from '@/models/2014/equipmentCategory' // Import the decorated Typegoose model
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory' // Import the default export for data access
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import { Equipment } from '@/models/2014/equipment'
+import EquipmentModel from '@/models/2014/equipment'
+import { MagicItem } from '@/models/2014/magicItem'
+import MagicItemModel from '@/models/2014/magicItem'
+import { EquipmentOrMagicItem } from '@/graphql/2014rewrite/common/unions'
 
 // Define ArgsType for the equipmentCategories query
 @ArgsType()
@@ -24,8 +29,6 @@ class EquipmentCategoryArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
-
-  // Note: Sorting is hardcoded by 'name'
 }
 
 @Resolver(EquipmentCategory)
@@ -63,13 +66,24 @@ export class EquipmentCategoryResolver {
     return EquipmentCategoryModel.findOne({ index }).lean()
   }
 
-  // Field Resolver for 'equipment' will be added in Pass 2
-  /*
-  @FieldResolver(() => [SomeEquipmentInterfaceOrUnion]) // TODO: Define appropriate return type
-  async equipment(@Root() equipmentCategory: EquipmentCategory): Promise<any[]> { // TODO: Define appropriate return type
-    // Logic to fetch Equipment/MagicItem based on equipmentCategory.equipment references
-    // Remember to handle potential Interface/Union types
-    return []; // Placeholder
+  @FieldResolver(() => [EquipmentOrMagicItem])
+  async equipment(
+    @Root() equipmentCategory: EquipmentCategory
+  ): Promise<(Equipment | MagicItem)[]> {
+    if (!equipmentCategory.equipment || equipmentCategory.equipment.length === 0) {
+      return []
+    }
+
+    const equipmentIndices = equipmentCategory.equipment.map((ref) => ref.index)
+
+    // Fetch both Equipment and MagicItems matching the indices
+    const [equipments, magicItems] = await Promise.all([
+      EquipmentModel.find({ index: { $in: equipmentIndices } }).lean(),
+      MagicItemModel.find({ index: { $in: equipmentIndices } }).lean()
+    ])
+
+    // Combine and return
+    // Note: The union's resolveType will handle differentiating them in the GraphQL response
+    return [...equipments, ...magicItems]
   }
-  */
 }
