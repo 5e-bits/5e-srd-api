@@ -10,6 +10,7 @@ import { Proficiency } from '@/models/2014/proficiency'
 import ProficiencyModel from '@/models/2014/proficiency'
 import { Equipment } from '@/models/2014/equipment'
 import EquipmentModel from '@/models/2014/equipment'
+import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
 
 // Define ArgsType for the backgrounds query
 @ArgsType()
@@ -63,11 +64,7 @@ export class BackgroundResolver {
   // Field Resolver for starting_proficiencies
   @FieldResolver(() => [Proficiency])
   async starting_proficiencies(@Root() background: Background): Promise<Proficiency[]> {
-    if (!background.starting_proficiencies || background.starting_proficiencies.length === 0) {
-      return []
-    }
-    const proficiencyIndices = background.starting_proficiencies.map((ref) => ref.index)
-    return ProficiencyModel.find({ index: { $in: proficiencyIndices } }).lean()
+    return resolveMultipleReferences(background.starting_proficiencies, ProficiencyModel)
   }
 
   // Field Resolvers for references (starting_equipment.equipment) will be added in Pass 2
@@ -79,12 +76,6 @@ export class BackgroundResolver {
 export class EquipmentRefResolver {
   @FieldResolver(() => Equipment)
   async equipment(@Root() equipmentRef: EquipmentRef): Promise<Equipment | null> {
-    if (!equipmentRef.equipment || !equipmentRef.equipment.index) {
-      return null
-    }
-    const equipmentIndex = equipmentRef.equipment.index
-
-    // Fetch only Equipment
-    return EquipmentModel.findOne({ index: equipmentIndex }).lean()
+    return resolveSingleReference(equipmentRef.equipment, EquipmentModel)
   }
 }

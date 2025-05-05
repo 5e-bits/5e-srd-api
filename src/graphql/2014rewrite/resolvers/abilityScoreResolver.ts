@@ -1,13 +1,13 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { AbilityScore } from '@/models/2014/abilityScore' // Import the decorated Typegoose model
-import AbilityScoreModel from '@/models/2014/abilityScore' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { AbilityScore } from '@/models/2014/abilityScore'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import { Skill } from '@/models/2014/skill'
 import SkillModel from '@/models/2014/skill'
+import { resolveMultipleReferences } from '../utils/resolvers'
 
-// Define ArgsType for the abilityScores query
 @ArgsType()
 class AbilityScoreArgs {
   @Field(() => String, {
@@ -40,7 +40,6 @@ export class AbilityScoreResolver {
     const query = AbilityScoreModel.find()
 
     if (name) {
-      // Use escaped regex for case-insensitive partial match
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
@@ -48,8 +47,6 @@ export class AbilityScoreResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so the skills field will contain the raw APIReference data
-    // A FieldResolver will be added in Pass 2 to resolve these references properly.
     return query.lean()
   }
 
@@ -58,17 +55,11 @@ export class AbilityScoreResolver {
     description: 'Gets a single ability score by index.'
   })
   async abilityScore(@Arg('index', () => String) index: string): Promise<AbilityScore | null> {
-    // Note: .lean() is used, skills field will be raw APIReference data.
-    // FieldResolver needed in Pass 2.
     return AbilityScoreModel.findOne({ index }).lean()
   }
 
   @FieldResolver(() => [Skill])
   async skills(@Root() abilityScore: AbilityScore): Promise<Skill[]> {
-    if (!abilityScore.skills || abilityScore.skills.length === 0) {
-      return []
-    }
-    const skillIndices = abilityScore.skills.map((ref) => ref.index)
-    return SkillModel.find({ index: { $in: skillIndices } }).lean()
+    return resolveMultipleReferences(abilityScore.skills, SkillModel)
   }
 }

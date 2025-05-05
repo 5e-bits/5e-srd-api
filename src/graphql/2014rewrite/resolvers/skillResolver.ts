@@ -1,13 +1,13 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Skill } from '@/models/2014/skill' // Import the decorated Typegoose model
-import SkillModel from '@/models/2014/skill' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { Skill } from '@/models/2014/skill'
+import SkillModel from '@/models/2014/skill'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import { AbilityScore } from '@/models/2014/abilityScore'
 import AbilityScoreModel from '@/models/2014/abilityScore'
+import { resolveSingleReference } from '../utils/resolvers'
 
-// Define ArgsType for the skills query
 @ArgsType()
 class SkillArgs {
   @Field(() => String, {
@@ -44,27 +44,16 @@ export class SkillResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so the ability_score field will contain the raw APIReference data
-    // A FieldResolver will be added in Pass 2 to resolve these references properly.
     return query.lean()
   }
 
   @Query(() => Skill, { nullable: true, description: 'Gets a single skill by index.' })
   async skill(@Arg('index', () => String) index: string): Promise<Skill | null> {
-    // Note: .lean() is used, ability_score field will be raw APIReference data.
-    // FieldResolver needed in Pass 2.
     return SkillModel.findOne({ index }).lean()
   }
 
-  // Field Resolver for 'ability_score' will be added in Pass 2
   @FieldResolver(() => AbilityScore)
   async ability_score(@Root() skill: Skill): Promise<AbilityScore | null> {
-    // The parent Skill object (skill) is already resolved and likely .lean()
-    // The ability_score property on it holds the APIReference { index, name, url }
-    if (!skill.ability_score || !skill.ability_score.index) {
-      return null // Or handle error appropriately
-    }
-    // Fetch the full AbilityScore document using the index from the reference
-    return AbilityScoreModel.findOne({ index: skill.ability_score.index }).lean()
+    return resolveSingleReference(skill.ability_score, AbilityScoreModel)
   }
 }
