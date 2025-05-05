@@ -134,7 +134,7 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
    - Ensure Apollo Server cache control, depth limiting, rate limiting, error tracking, etc., work with the TypeGraphQL schema.
 5. Identify and place any shared GraphQL-specific enums or input types (e.g., `OrderByDirection`) into `src/graphql/2014rewrite/common/` early to promote reusability.
 
-### 2. Pass 1: Basic Field Migration (Weeks 2-4)
+### ✅ 2. Pass 1: Basic Field Migration (Weeks 2-4)
 
 Migrate the GraphQL layer for all models, focusing *only* on simple scalar fields and basic nested objects (like `MonsterAction` within `Monster`). **Skip `Choice` fields and fields requiring resolution via API references for now.**
 
@@ -188,7 +188,7 @@ For each model in Pass 1:
 5. Verify basic GraphQL functionality through testing.
 6. Deploy to production (optional per-model deployment).
 
-### 3. Pass 2: API Reference Field Migration (Weeks 5-7)
+### ✅ 3. Pass 2: API Reference Field Migration (Weeks 5-7)
 
 Implement the `@FieldResolver` logic or adjust main query population for fields that reference other models (e.g., `Skill.ability_score`, `Trait.races`, `EquipmentCategory.equipment`, `Monster` references).
 
@@ -204,7 +204,7 @@ Iterate through the models again, focusing on connecting them:
 
 ### Intermediate Step: Define Deferred Complex Types (Before Pass 3)
 
-Before moving to Choice fields, fully define the GraphQL structures (Interfaces, Unions, detailed Object Types) for models whose complexity was deferred from Pass 1 (marked with `// TODO: Define complex types post-Pass 2`).
+Based on the plan and model analysis, define the full GraphQL structures (Interfaces, Unions, detailed Object Types) for models whose complexity was deferred. Add `@Field` decorators to expose these structures and their nested fields.
 
 1.  **Identify Models:** Find all models marked with the `// TODO: Define complex types post-Pass 2` comment.
 2.  **Define Structures:** For each identified model, define the necessary `@InterfaceType`s, `@ObjectType`s (implementing interfaces if applicable), and Unions.
@@ -699,7 +699,7 @@ export class StringFilterInput {
 // src/graphql/2014rewrite/resolvers/someResolver.ts // Updated path and name
 /*
 import { Resolver, Query, Arg } from 'type-graphql';
-import { SomeModel } from '../../models/2014/SomeModel'; // Assume SomeModel Typegoose model exists and is decorated with @ObjectType/@Field
+import { SomeModel from '../../models/2014/SomeModel'; // Assume SomeModel Typegoose model exists and is decorated with @ObjectType/@Field
 import { StringFilterInput } from '../inputs/StringFilterInput'; // Import the InputType (relative path within 2014rewrite)
 import { FilterQuery } from 'mongoose'; // Import FilterQuery if using mongoose
 import { getModelForClass } from '@typegoose/typegoose'; // Import if needed
