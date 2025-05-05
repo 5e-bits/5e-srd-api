@@ -163,7 +163,7 @@ Models to migrate (in approximate order of increasing complexity):
 21. - [x] Spell *(Skip `classes`, `subclasses`, `damage`, `dc` if complex)*
 22. - [x] Level *(Skip `class`, `subclass`, `features`, `spellcasting`)*
 23. - [x] Subclass *(Skip `class`, `features`, `spells`)*
-24. - [ ] Class *(Skip `proficiencies`, `saving_throws`, `spellcasting`, `subclasses`, starting equipment choices)*
+24. - [x] Class *(Skip `proficiencies`, `saving_throws`, `spellcasting`, `subclasses`, starting equipment choices)*
 25. - [ ] Monster *(Skip complex nested structures needing resolution like specific ability scores, skills, proficiencies, actions needing lookups, special abilities needing lookups)*
 
 For each model in Pass 1:
