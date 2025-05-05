@@ -3,6 +3,7 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { Skill } from './skill'
 
 @ObjectType({
   description:
@@ -28,7 +29,7 @@ export class AbilityScore {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [Skill], { description: 'Skills associated with this ability score.' })
   @prop({ type: () => [APIReference] })
   public skills!: APIReference[]
 
