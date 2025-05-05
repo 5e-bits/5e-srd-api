@@ -53,14 +53,14 @@ export class BackgroundResolver {
     }
 
     // Note: .lean() is used, so reference/choice fields will contain raw data
-    // FieldResolvers will be added in Pass 2/3.
+    // FieldResolvers will be added in Pass 3.
     return query.lean()
   }
 
   @Query(() => Background, { nullable: true, description: 'Gets a single background by index.' })
   async background(@Arg('index', () => String) index: string): Promise<Background | null> {
     // Note: .lean() is used, reference/choice fields will contain raw data.
-    // FieldResolvers needed in Pass 2/3.
+    // FieldResolvers needed in Pass 3.
     return BackgroundModel.findOne({ index }).lean()
   }
 
@@ -70,7 +70,6 @@ export class BackgroundResolver {
     return resolveMultipleReferences(background.starting_proficiencies, ProficiencyModel)
   }
 
-  // Field Resolvers for references (starting_equipment.equipment) will be added in Pass 2
   // Field Resolvers for choices (language_options, etc.) will be added in Pass 3
 }
 
