@@ -51,13 +51,14 @@ const collectionResolvers = [
   SubraceResolver,
   TraitResolver,
   WeaponPropertyResolver
-]
+] as const
 
 const fieldResolvers = [
   // Background
   EquipmentRefResolver
-]
+] as const
 
+// Export a new mutable array combining the readonly ones
 export const resolvers = [...collectionResolvers, ...fieldResolvers] as const
 
 // For now, export an empty array until resolvers are created
