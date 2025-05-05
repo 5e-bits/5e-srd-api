@@ -40,10 +40,9 @@ export class WeaponPropertyResolver {
 
     if (name) {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
+      query.sort({ name: sortOrder })
     }
-
-    const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-    query.sort({ name: sortOrder })
 
     return query.lean()
   }

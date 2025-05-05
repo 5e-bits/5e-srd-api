@@ -40,15 +40,11 @@ export class AbilityScoreResolver {
     const query = AbilityScoreModel.find()
 
     if (name) {
-      const nameRegex = new RegExp(escapeRegExp(name), 'i')
-      // Filter by name OR full_name
-      query.or([{ name: nameRegex }, { full_name: nameRegex }])
+      // Use escaped regex for case-insensitive partial match
+      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
+      query.sort({ name: sortOrder })
     }
-
-    const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-    // Sort primarily by index as ability scores have a standard order (STR, DEX, CON...)
-    // Secondary sort by name might not be necessary but added for consistency example
-    query.sort({ index: 1, name: sortOrder })
 
     // Note: .lean() is used, so the skills field will contain the raw APIReference data
     // A FieldResolver will be added in Pass 2 to resolve these references properly.
