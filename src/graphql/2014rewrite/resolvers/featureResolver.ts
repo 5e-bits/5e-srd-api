@@ -1,8 +1,16 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
-import FeatureModel, { Feature } from '@/models/2014/feature'
+import FeatureModel, { Feature, FeatureSpecific } from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
+import { Class } from '@/models/2014/class'
+import ClassModel from '@/models/2014/class'
+import { Subclass } from '@/models/2014/subclass'
+import SubclassModel from '@/models/2014/subclass'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class FeatureArgs {
@@ -48,5 +56,26 @@ export class FeatureResolver {
     return FeatureModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (class, subclass, parent, prerequisites)
+  @FieldResolver(() => Class, { nullable: true })
+  async class(@Root() feature: Feature): Promise<Class | null> {
+    return resolveSingleReference(feature.class, ClassModel)
+  }
+
+  @FieldResolver(() => Feature, { nullable: true })
+  async parent(@Root() feature: Feature): Promise<Feature | null> {
+    return resolveSingleReference(feature.parent, FeatureModel)
+  }
+
+  @FieldResolver(() => Subclass, { nullable: true })
+  async subclass(@Root() feature: Feature): Promise<Subclass | null> {
+    return resolveSingleReference(feature.subclass, SubclassModel)
+  }
+}
+
+@Resolver(FeatureSpecific)
+export class FeatureSpecificResolver {
+  @FieldResolver(() => [Feature], { nullable: true })
+  async invocations(@Root() featureSpecific: FeatureSpecific): Promise<Feature[]> {
+    return resolveMultipleReferences(featureSpecific.invocations, FeatureModel)
+  }
 }
