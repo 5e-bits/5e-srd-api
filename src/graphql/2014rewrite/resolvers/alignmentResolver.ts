@@ -24,8 +24,6 @@ class AlignmentArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
-
- in this basic version
 }
 
 @Resolver(Alignment)
