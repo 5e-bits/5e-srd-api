@@ -12,7 +12,7 @@ import { SkillResolver } from './skillResolver'
 import { BackgroundResolver, EquipmentRefResolver } from './backgroundResolver'
 import { FeatResolver, PrerequisiteResolver } from './featResolver'
 import { RuleResolver } from './ruleResolver'
-import { TraitResolver } from './traitResolver'
+import { TraitResolver, TraitSpecificResolver } from './traitResolver'
 import { MagicItemResolver } from './magicItemResolver'
 import { SubraceResolver } from './subraceResolver'
 import { EquipmentResolver } from './equipmentResolver'
@@ -57,7 +57,9 @@ const fieldResolvers = [
   // Background
   EquipmentRefResolver,
   // Feat
-  PrerequisiteResolver
+  PrerequisiteResolver,
+  // Trait
+  TraitSpecificResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones
