@@ -2,17 +2,7 @@ import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typeg
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
-
-class Proficiency {
-  @prop({ required: true, index: true, type: () => String })
-  public index!: string
-
-  @prop({ required: true, index: true, type: () => String })
-  public name!: string
-
-  @prop({ required: true, index: true, type: () => String })
-  public url!: string
-}
+import { ObjectType, Field } from 'type-graphql'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 class ActionDamage {
@@ -65,41 +55,55 @@ export class TraitSpecific {
   public breath_weapon?: Action
 }
 
+@ObjectType({
+  description: 'A racial or subracial trait providing specific benefits or abilities.'
+})
 @srdModelOptions('2014-traits')
 export class Trait {
+  @Field(() => [String], { description: 'A description of the trait.' })
   @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
+  @Field(() => String, { description: 'The unique identifier for this trait (e.g., darkvision).' })
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
+  @Field(() => String, { description: 'The name of the trait (e.g., Darkvision).' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ type: () => [Proficiency], required: true })
-  public proficiencies?: Proficiency[]
+  // TODO: Pass 2 - Implement reference resolver
+  @prop({ type: () => [APIReference] })
+  public proficiencies?: APIReference[]
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public proficiency_choices?: Choice
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public language_options?: Choice
 
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => [APIReference], required: true })
   public races!: APIReference[]
 
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => [APIReference], required: true })
   public subraces!: APIReference[]
 
+  // TODO: Pass 2 - Implement reference resolver
   @prop({ type: () => APIReference })
   public parent?: APIReference
 
+  // TODO: Pass 2/3 - Implement trait_specific resolver (contains refs/choices)
   @prop({ type: () => TraitSpecific })
   public trait_specific?: TraitSpecific
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
+  @Field(() => String, { description: 'Timestamp of the last update.' })
   @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
