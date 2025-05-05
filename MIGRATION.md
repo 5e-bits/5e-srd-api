@@ -138,6 +138,8 @@ While aiming to preserve the existing test infrastructure (Jest, unit/integratio
 
 Migrate the GraphQL layer for all models, focusing *only* on simple scalar fields and basic nested objects (like `MonsterAction` within `Monster`). **Skip `Choice` fields and fields requiring resolution via API references for now.**
 
+**Note:** For highly complex models involving interfaces, unions, or intricate nested structures (e.g., `Equipment`, `Monster`, `Class`), the full definition of these structures might be deferred until after Pass 2 (Reference Field Migration) is complete, even though their basic scalar fields and simple nested types are handled here in Pass 1. See the intermediate step before Pass 3 for an example with `Equipment`.
+
 Models to migrate (in approximate order of increasing complexity):
 
 1.  - [x] Alignment
@@ -170,11 +172,12 @@ For each model in Pass 1:
 
 1. Define the TypeGraphQL `@ObjectType` decorators on the existing Typegoose class.
    - Add `@Field()` to basic properties (`name`, `desc`, `index`, etc.).
-   - Decorate simple nested structures (like `MonsterAction` arrays) if they don't require external lookups.
+   - Decorate simple nested structures (like `MonsterAction` arrays) if they don't require external lookups or complex type definitions (e.g., just scalar fields).
+   - **For fields representing complex structures (e.g., `Equipment` needing an Interface, `Class` needing `Spellcasting` type) whose full definition is deferred: add the comment `// TODO: Define complex types post-Pass 2` and do *not* add a `@Field` decorator yet.**
    - **Do not** add `@Field()` to the `_id` property.
    - **Do not** add `@Field()` to `url` or other unused properties.
-   - **Do not** add `@Field()` for fields representing choices or references to other models yet.
-   - Add `// TODO: Pass 2 - Implement reference resolver` comment next to reference fields that are skipped.
+   - **Do not** add `@Field()` for fields representing choices or simple references to other models yet (these get TODOs below).
+   - Add `// TODO: Pass 2 - Implement reference resolver` comment next to simple reference fields that are skipped.
    - Add `// TODO: Pass 3 - Implement choice resolver` comment next to choice fields that are skipped.
    - Ensure only a `default` export is used for the Typegoose model (`const ModelName = ...; export default ModelName;`).
 2. Create the TypeGraphQL `@Resolver` class (e.g., in `src/graphql/2014rewrite/resolvers/`) with basic `@Query` methods (e.g., `queryAll`, `queryByIndex`).
@@ -198,6 +201,23 @@ Iterate through the models again, focusing on connecting them:
 3. Update integration tests to verify the resolved reference fields.
 4. Verify functionality via GraphQL endpoint.
 5. Deploy to production.
+
+### Intermediate Step: Define Deferred Complex Types (Before Pass 3)
+
+Before moving to Choice fields, fully define the GraphQL structures (Interfaces, Unions, detailed Object Types) for models whose complexity was deferred from Pass 1 (marked with `// TODO: Define complex types post-Pass 2`).
+
+1.  **Identify Models:** Find all models marked with the `// TODO: Define complex types post-Pass 2` comment.
+2.  **Define Structures:** For each identified model, define the necessary `@InterfaceType`s, `@ObjectType`s (implementing interfaces if applicable), and Unions.
+    *   *Example (`Equipment`):*
+        *   Define the `IEquipment` `@InterfaceType` (e.g., in `common/interfaces.ts`) with shared fields.
+        *   Define concrete `@ObjectType`s (`Weapon`, `Armor`, `Tool`, `Gear`, `Pack`, `Ammunition`) implementing `IEquipment`.
+        *   Add `@Field` decorators to these types for their specific simple, non-reference, non-choice fields.
+    *   *Other Examples:* This might include defining a `Spellcasting` type for `Class`/`Subclass`, detailed nested types for `Monster`, specific `Level` feature structures, etc.
+3.  **Add `@Field` Decorators:** Add the corresponding `@Field` decorators (referencing the newly defined Interfaces/Types/Unions) to the properties in the parent model files where the TODO comment was placed, then remove the comment.
+4.  **Update Resolvers/Unions:**
+    *   Adjust any relevant Union `resolveType` logic (like `EquipmentOrMagicItem`) to correctly differentiate between new specific types.
+    *   Update Field Resolvers (like `EquipmentCategoryResolver.equipment`) if their return types or fetching logic needs adjustment based on the new detailed types.
+5.  **Verify Schema:** Verify the updated schema structure via testing/introspection.
 
 ### 4. Pass 3: Choice Field Migration (Weeks 8-9)
 
