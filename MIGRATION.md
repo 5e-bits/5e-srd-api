@@ -159,7 +159,7 @@ Models to migrate (in approximate order of increasing complexity):
 17. - [x] Equipment *(Skip `equipment_category`, `gear_category`, `cost`, etc. if complex types)*
 18. - [x] Proficiency *(Skip references like `classes`, `races`)*
 19. - [x] Feature *(Skip `class`, `subclass`, prerequisites, choices)*
-20. - [ ] Race *(Skip `ability_bonuses`, `proficiencies`, `languages`, `traits`, `subraces`)*
+20. - [x] Race *(Skip `ability_bonuses`, `proficiencies`, `languages`, `traits`, `subraces`)*
 21. - [ ] Spell *(Skip `classes`, `subclasses`, `damage`, `dc` if complex)*
 22. - [ ] Level *(Skip `class`, `subclass`, `features`, `spellcasting`)*
 23. - [ ] Subclass *(Skip `class`, `features`, `spells`)*

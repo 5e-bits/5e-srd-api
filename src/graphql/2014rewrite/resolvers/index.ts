@@ -18,6 +18,7 @@ import { SubraceResolver } from './subraceResolver'
 import { EquipmentResolver } from './equipmentResolver'
 import { ProficiencyResolver } from './proficiencyResolver'
 import { FeatureResolver } from './featureResolver'
+import { RaceResolver } from './raceResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -38,7 +39,8 @@ export const resolvers = [
   SubraceResolver,
   EquipmentResolver,
   ProficiencyResolver,
-  FeatureResolver
+  FeatureResolver,
+  RaceResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
