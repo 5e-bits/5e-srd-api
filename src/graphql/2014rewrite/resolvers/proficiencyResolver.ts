@@ -1,9 +1,22 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { Proficiency } from '@/models/2014/proficiency'
 import ProficiencyModel from '@/models/2014/proficiency'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import { Class } from '@/models/2014/class'
+import ClassModel from '@/models/2014/class'
+import { Race } from '@/models/2014/race'
+import RaceModel from '@/models/2014/race'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
+import { ProficiencyReference } from '../common/unions'
+import EquipmentModel from '@/models/2014/equipment'
+import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import SkillModel from '@/models/2014/skill'
 
 // Define ArgsType for the proficiencies query
 @ArgsType()
@@ -55,5 +68,39 @@ export class ProficiencyResolver {
     return ProficiencyModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (classes, races, reference)
+  @FieldResolver(() => [Class], { nullable: true })
+  async classes(@Root() proficiency: Proficiency): Promise<Class[]> {
+    return resolveMultipleReferences(proficiency.classes, ClassModel)
+  }
+
+  @FieldResolver(() => [Race], { nullable: true })
+  async races(@Root() proficiency: Proficiency): Promise<Race[]> {
+    return resolveMultipleReferences(proficiency.races, RaceModel)
+  }
+
+  @FieldResolver(() => ProficiencyReference, { nullable: true })
+  async reference(@Root() proficiency: Proficiency): Promise<typeof ProficiencyReference | null> {
+    const ref = proficiency.reference
+    if (!ref?.index || !ref.url) {
+      return null
+    }
+
+    if (ref.url.includes('/equipment-categories/')) {
+      return resolveSingleReference(ref, EquipmentCategoryModel)
+    }
+    if (ref.url.includes('/skills/')) {
+      return resolveSingleReference(ref, SkillModel)
+    }
+    if (ref.url.includes('/ability-scores/')) {
+      return resolveSingleReference(ref, AbilityScoreModel)
+    }
+    if (ref.url.includes('/equipment/')) {
+      return resolveSingleReference(ref, EquipmentModel)
+    }
+
+    console.warn(
+      `Unable to determine reference type from URL: ${ref.url} (Proficiency index: ${proficiency.index})`
+    )
+    return null
+  }
 }
