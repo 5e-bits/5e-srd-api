@@ -1,9 +1,15 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Background } from '@/models/2014/background' // Import the decorated Typegoose model
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Background, EquipmentRef } from '@/models/2014/background' // Import EquipmentRef as well
 import BackgroundModel from '@/models/2014/background' // Import the default export for data access
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+
+// Import types and models needed for FieldResolvers
+import { Proficiency } from '@/models/2014/proficiency'
+import ProficiencyModel from '@/models/2014/proficiency'
+import { Equipment } from '@/models/2014/equipment'
+import EquipmentModel from '@/models/2014/equipment'
 
 // Define ArgsType for the backgrounds query
 @ArgsType()
@@ -54,6 +60,31 @@ export class BackgroundResolver {
     return BackgroundModel.findOne({ index }).lean()
   }
 
-  // Field Resolvers for references (starting_proficiencies, starting_equipment.equipment) will be added in Pass 2
+  // Field Resolver for starting_proficiencies
+  @FieldResolver(() => [Proficiency])
+  async starting_proficiencies(@Root() background: Background): Promise<Proficiency[]> {
+    if (!background.starting_proficiencies || background.starting_proficiencies.length === 0) {
+      return []
+    }
+    const proficiencyIndices = background.starting_proficiencies.map((ref) => ref.index)
+    return ProficiencyModel.find({ index: { $in: proficiencyIndices } }).lean()
+  }
+
+  // Field Resolvers for references (starting_equipment.equipment) will be added in Pass 2
   // Field Resolvers for choices (language_options, etc.) will be added in Pass 3
+}
+
+// Separate Resolver for the nested EquipmentRef type
+@Resolver(EquipmentRef)
+export class EquipmentRefResolver {
+  @FieldResolver(() => Equipment)
+  async equipment(@Root() equipmentRef: EquipmentRef): Promise<Equipment | null> {
+    if (!equipmentRef.equipment || !equipmentRef.equipment.index) {
+      return null
+    }
+    const equipmentIndex = equipmentRef.equipment.index
+
+    // Fetch only Equipment
+    return EquipmentModel.findOne({ index: equipmentIndex }).lean()
+  }
 }
