@@ -3,6 +3,10 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { Proficiency } from './proficiency'
+import { Race } from './race'
+import { Subrace } from './subrace'
+import { DamageType } from './damageType'
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 class ActionDamage {
@@ -41,16 +45,25 @@ class Action {
   public area_of_effect!: AreaOfEffect
 }
 
+@ObjectType({ description: 'Details specific to certain traits.' })
 export class TraitSpecific {
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public subtrait_options?: Choice
 
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
   public spell_options?: Choice
 
+  @Field(() => DamageType, {
+    nullable: true,
+    description: 'Specific damage type associated with the trait.'
+  })
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
+  // No @Field decorator here yet
+  // TODO: Define complex types post-Pass 2 (Define Action @ObjectType)
   @prop({ type: () => Action })
   public breath_weapon?: Action
 }
@@ -72,7 +85,10 @@ export class Trait {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [Proficiency], {
+    nullable: true,
+    description: 'Proficiencies granted by this trait.'
+  })
   @prop({ type: () => [APIReference] })
   public proficiencies?: APIReference[]
 
@@ -84,19 +100,22 @@ export class Trait {
   @prop({ type: () => Choice })
   public language_options?: Choice
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [Race], { nullable: true, description: 'Races that possess this trait.' })
   @prop({ type: () => [APIReference], required: true })
   public races!: APIReference[]
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => [Subrace], { nullable: true, description: 'Subraces that possess this trait.' })
   @prop({ type: () => [APIReference], required: true })
   public subraces!: APIReference[]
 
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => Trait, { nullable: true, description: 'A parent trait, if this is a sub-trait.' })
   @prop({ type: () => APIReference })
   public parent?: APIReference
 
-  // TODO: Pass 2/3 - Implement trait_specific resolver (contains refs/choices)
+  @Field(() => TraitSpecific, {
+    nullable: true,
+    description: 'Specific details for this trait, if applicable.'
+  })
   @prop({ type: () => TraitSpecific })
   public trait_specific?: TraitSpecific
 

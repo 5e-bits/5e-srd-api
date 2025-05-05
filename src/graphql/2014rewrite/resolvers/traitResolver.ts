@@ -1,14 +1,22 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Trait } from '@/models/2014/trait' // Import the decorated Typegoose model
-import TraitModel from '@/models/2014/trait' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Trait, TraitSpecific } from '@/models/2014/trait'
+import TraitModel from '@/models/2014/trait'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import related types if needed for FieldResolver placeholders
-// import { Race } from '@/models/2014/race';
-// import { Subrace } from '@/models/2014/subrace';
-// import { Proficiency } from '@/models/2014/proficiency';
-// import { Language } from '@/models/2014/language';
+// Import types/models for FieldResolvers
+import { Race } from '@/models/2014/race'
+import RaceModel from '@/models/2014/race'
+import { Subrace } from '@/models/2014/subrace'
+import SubraceModel from '@/models/2014/subrace'
+import { Proficiency } from '@/models/2014/proficiency'
+import ProficiencyModel from '@/models/2014/proficiency'
+import { DamageType } from '@/models/2014/damageType'
+import DamageTypeModel from '@/models/2014/damageType'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
 
 // Define ArgsType for the traits query
 @ArgsType()
@@ -48,18 +56,44 @@ export class TraitResolver {
     }
 
     // Note: .lean() is used, so reference/choice fields will contain raw data
-    // FieldResolvers will be added in Pass 2/3.
+    // FieldResolvers will be added in Pass 3.
     return query.lean()
   }
 
   @Query(() => Trait, { nullable: true, description: 'Gets a single trait by index.' })
   async trait(@Arg('index', () => String) index: string): Promise<Trait | null> {
-    // Note: .lean() is used, reference/choice fields will contain raw data.
-    // FieldResolvers needed in Pass 2/3.
+    // FieldResolvers needed in Pass 3.
     return TraitModel.findOne({ index }).lean()
   }
 
-  // Field Resolvers for references (races, subraces, parent, proficiencies->proficiency) will be added in Pass 2
-  // Field Resolvers for choices (proficiency_choices, language_options) will be added in Pass 3
-  // Field Resolver for trait_specific and its contents will be added in Pass 2/3
+  @FieldResolver(() => [Proficiency], { nullable: true })
+  async proficiencies(@Root() trait: Trait): Promise<Proficiency[]> {
+    return resolveMultipleReferences(trait.proficiencies, ProficiencyModel)
+  }
+
+  @FieldResolver(() => [Race], { nullable: true })
+  async races(@Root() trait: Trait): Promise<Race[]> {
+    return resolveMultipleReferences(trait.races, RaceModel)
+  }
+
+  @FieldResolver(() => [Subrace], { nullable: true })
+  async subraces(@Root() trait: Trait): Promise<Subrace[]> {
+    return resolveMultipleReferences(trait.subraces, SubraceModel)
+  }
+
+  @FieldResolver(() => Trait, { nullable: true })
+  async parent(@Root() trait: Trait): Promise<Trait | null> {
+    return resolveSingleReference(trait.parent, TraitModel)
+  }
+}
+
+// Separate resolver for nested TraitSpecific type
+@Resolver(TraitSpecific)
+export class TraitSpecificResolver {
+  @FieldResolver(() => DamageType, { nullable: true })
+  async damage_type(@Root() traitSpecific: TraitSpecific): Promise<DamageType | null> {
+    return resolveSingleReference(traitSpecific.damage_type, DamageTypeModel)
+  }
+
+  // Resolvers for choices (subtrait_options, spell_options) will go here in Pass 3
 }
