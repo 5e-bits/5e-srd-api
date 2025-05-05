@@ -1,11 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { MagicSchool } from '@/models/2014/magicSchool' // Import the decorated Typegoose model
-import MagicSchoolModel from '@/models/2014/magicSchool' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 
-// Define ArgsType for the magicSchools query
 @ArgsType()
 class MagicSchoolArgs {
   @Field(() => String, {

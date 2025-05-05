@@ -1,21 +1,16 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Background, EquipmentRef } from '@/models/2014/background' // Import EquipmentRef as well
-import BackgroundModel from '@/models/2014/background' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import BackgroundModel, { Background, EquipmentRef } from '@/models/2014/background'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 
-// Import types and models needed for FieldResolvers
-import { Proficiency } from '@/models/2014/proficiency'
-import ProficiencyModel from '@/models/2014/proficiency'
-import { Equipment } from '@/models/2014/equipment'
-import EquipmentModel from '@/models/2014/equipment'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import {
   resolveMultipleReferences,
   resolveSingleReference
 } from '@/graphql/2014rewrite/utils/resolvers'
 
-// Define ArgsType for the backgrounds query
 @ArgsType()
 class BackgroundArgs {
   @Field(() => String, {

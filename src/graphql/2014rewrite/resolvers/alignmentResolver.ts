@@ -1,7 +1,6 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Alignment } from '@/models/2014/alignment' // Import the decorated Typegoose model
-import AlignmentModel from '@/models/2014/alignment' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import AlignmentModel, { Alignment } from '@/models/2014/alignment'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 

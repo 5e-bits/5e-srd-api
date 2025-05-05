@@ -1,12 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Rule } from '@/models/2014/rule'
-import RuleModel from '@/models/2014/rule'
+import RuleModel, { Rule } from '@/models/2014/rule'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import types/models for FieldResolver
-import { RuleSection } from '@/models/2014/ruleSection'
-import RuleSectionModel from '@/models/2014/ruleSection'
+import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 import { resolveMultipleReferences } from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()

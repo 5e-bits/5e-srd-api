@@ -1,11 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Language } from '@/models/2014/language' // Import the decorated Typegoose model
-import LanguageModel from '@/models/2014/language' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import LanguageModel, { Language } from '@/models/2014/language'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 
-// Define ArgsType for the languages query
 @ArgsType()
 class LanguageArgs {
   @Field(() => String, {
