@@ -2,8 +2,10 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
+import { ObjectType, Field, Int } from 'type-graphql'
 
 // Export nested classes
+@ObjectType({ description: 'Spell slot creation details for Sorcerer levels' })
 export class ClassSpecificCreatingSpellSlot {
   @prop({ required: true, index: true, type: () => Number })
   public sorcery_point_cost!: number
@@ -12,6 +14,7 @@ export class ClassSpecificCreatingSpellSlot {
   public spell_slot_level!: number
 }
 
+@ObjectType({ description: 'Martial arts details for Monk levels' })
 export class ClassSpecificMartialArt {
   @prop({ required: true, index: true, type: () => Number })
   public dice_count!: number
@@ -20,6 +23,7 @@ export class ClassSpecificMartialArt {
   public dice_value!: number
 }
 
+@ObjectType({ description: 'Sneak attack details for Rogue levels' })
 export class ClassSpecificSneakAttack {
   @prop({ required: true, index: true, type: () => Number })
   public dice_count!: number
@@ -28,6 +32,7 @@ export class ClassSpecificSneakAttack {
   public dice_value!: number
 }
 
+@ObjectType({ description: 'Class-specific features and values gained at a level' })
 export class ClassSpecific {
   @prop({ index: true, type: () => Number })
   public action_surges?: number
@@ -126,6 +131,7 @@ export class ClassSpecific {
   public wild_shape_swim?: boolean
 }
 
+@ObjectType({ description: 'Spellcasting details for a class at a specific level' })
 export class LevelSpellcasting {
   @prop({ index: true, type: () => Number })
   public cantrips_known?: number
@@ -161,6 +167,7 @@ export class LevelSpellcasting {
   public spells_known?: number
 }
 
+@ObjectType({ description: 'Subclass-specific features and values gained at a level' })
 export class SubclassSpecific {
   @prop({ index: true, type: () => Number })
   public additional_magical_secrets_max_lvl?: number
@@ -169,41 +176,61 @@ export class SubclassSpecific {
   public aura_range?: number
 }
 
+@ObjectType({
+  description: 'Represents the features and abilities gained at a specific class level'
+})
 @srdModelOptions('2014-levels')
 export class Level {
+  @Field(() => Int, {
+    nullable: true,
+    description: 'Number of ability score bonuses gained at this level'
+  })
   @prop({ index: true, type: () => Number })
   public ability_score_bonuses?: number
 
+  // TODO: Pass 2 - API Reference
   @prop({ type: () => APIReference })
   public class!: APIReference
 
+  // TODO: Pass 2/3 - Complex nested type (ClassSpecific)
   @prop({ type: () => ClassSpecific })
   public class_specific?: ClassSpecific
 
+  // TODO: Pass 2 - API Reference array
   @prop({ type: () => [APIReference] })
   public features?: APIReference[]
 
+  @Field(() => String, {
+    description: 'Unique identifier for this level (e.g., barbarian-1, rogue-20)'
+  })
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
+  @Field(() => Int, { description: 'The class level (1-20)' })
   @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
+  @Field(() => Int, { nullable: true, description: 'Proficiency bonus gained at this level' })
   @prop({ index: true, type: () => Number })
   public prof_bonus?: number
 
+  // TODO: Pass 2/3 - Complex nested type (LevelSpellcasting)
   @prop({ type: () => LevelSpellcasting })
   public spellcasting?: LevelSpellcasting
 
+  // TODO: Pass 2 - API Reference (Optional)
   @prop({ type: () => APIReference })
   public subclass?: APIReference
 
+  // TODO: Pass 2/3 - Complex nested type (SubclassSpecific)
   @prop({ type: () => SubclassSpecific })
   public subclass_specific?: SubclassSpecific
 
+  // url field is not exposed via GraphQL
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
+  @Field(() => String, { description: 'Timestamp of the last update' })
   @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
 }
