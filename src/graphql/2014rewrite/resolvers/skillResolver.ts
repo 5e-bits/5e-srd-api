@@ -1,11 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Skill } from '@/models/2014/skill'
-import SkillModel from '@/models/2014/skill'
+import SkillModel, { Skill } from '@/models/2014/skill'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-import { AbilityScore } from '@/models/2014/abilityScore'
-import AbilityScoreModel from '@/models/2014/abilityScore'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()

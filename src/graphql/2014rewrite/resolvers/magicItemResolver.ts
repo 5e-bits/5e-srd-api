@@ -1,12 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { MagicItem } from '@/models/2014/magicItem'
-import MagicItemModel from '@/models/2014/magicItem'
+import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import related types/models for FieldResolvers
-import { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
+import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import {
   resolveSingleReference,
   resolveMultipleReferences

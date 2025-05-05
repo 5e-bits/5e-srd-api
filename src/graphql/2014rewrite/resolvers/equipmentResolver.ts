@@ -1,11 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Equipment } from '@/models/2014/equipment'
-import EquipmentModel from '@/models/2014/equipment'
+import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 
-// Define ArgsType for the magicItems query
 @ArgsType()
 class EquipmentArgs {
   @Field(() => String, {

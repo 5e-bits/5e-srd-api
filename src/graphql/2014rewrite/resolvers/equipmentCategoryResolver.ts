@@ -1,16 +1,12 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { EquipmentCategory } from '@/models/2014/equipmentCategory' // Import the decorated Typegoose model
-import EquipmentCategoryModel from '@/models/2014/equipmentCategory' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-import { Equipment } from '@/models/2014/equipment'
-import EquipmentModel from '@/models/2014/equipment'
-import { MagicItem } from '@/models/2014/magicItem'
-import MagicItemModel from '@/models/2014/magicItem'
+import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
+import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { EquipmentOrMagicItem } from '@/graphql/2014rewrite/common/unions'
 
-// Define ArgsType for the equipmentCategories query
 @ArgsType()
 class EquipmentCategoryArgs {
   @Field(() => String, {

@@ -1,13 +1,10 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Proficiency } from '@/models/2014/proficiency'
-import ProficiencyModel from '@/models/2014/proficiency'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-import { Class } from '@/models/2014/class'
-import ClassModel from '@/models/2014/class'
-import { Race } from '@/models/2014/race'
-import RaceModel from '@/models/2014/race'
+import ClassModel, { Class } from '@/models/2014/class'
+import RaceModel, { Race } from '@/models/2014/race'
 import {
   resolveMultipleReferences,
   resolveSingleReference

@@ -1,12 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Feat, Prerequisite } from '@/models/2014/feat'
-import FeatModel from '@/models/2014/feat'
+import FeatModel, { Feat, Prerequisite } from '@/models/2014/feat'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import types and models needed for FieldResolver
-import { AbilityScore } from '@/models/2014/abilityScore'
-import AbilityScoreModel from '@/models/2014/abilityScore'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()

@@ -1,24 +1,17 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Trait, TraitSpecific } from '@/models/2014/trait'
-import TraitModel from '@/models/2014/trait'
+import TraitModel, { Trait, TraitSpecific } from '@/models/2014/trait'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import types/models for FieldResolvers
-import { Race } from '@/models/2014/race'
-import RaceModel from '@/models/2014/race'
-import { Subrace } from '@/models/2014/subrace'
-import SubraceModel from '@/models/2014/subrace'
-import { Proficiency } from '@/models/2014/proficiency'
-import ProficiencyModel from '@/models/2014/proficiency'
-import { DamageType } from '@/models/2014/damageType'
-import DamageTypeModel from '@/models/2014/damageType'
+import RaceModel, { Race } from '@/models/2014/race'
+import SubraceModel, { Subrace } from '@/models/2014/subrace'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import {
   resolveMultipleReferences,
   resolveSingleReference
 } from '@/graphql/2014rewrite/utils/resolvers'
 
-// Define ArgsType for the traits query
 @ArgsType()
 class TraitArgs {
   @Field(() => String, {

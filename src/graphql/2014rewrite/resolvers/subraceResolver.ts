@@ -1,26 +1,18 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace' // Import the decorated Typegoose model and SubraceAbilityBonus
-import SubraceModel from '@/models/2014/subrace' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import types/models for FieldResolvers
-import { Race } from '@/models/2014/race'
-import RaceModel from '@/models/2014/race'
-import { Trait } from '@/models/2014/trait'
-import TraitModel from '@/models/2014/trait'
-import { Language } from '@/models/2014/language'
-import LanguageModel from '@/models/2014/language'
-import { Proficiency } from '@/models/2014/proficiency'
-import ProficiencyModel from '@/models/2014/proficiency'
-import { AbilityScore } from '@/models/2014/abilityScore'
-import AbilityScoreModel from '@/models/2014/abilityScore'
+import RaceModel, { Race } from '@/models/2014/race'
+import TraitModel, { Trait } from '@/models/2014/trait'
+import LanguageModel, { Language } from '@/models/2014/language'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import {
   resolveMultipleReferences,
   resolveSingleReference
-} from '@/graphql/2014rewrite/utils/resolvers' // Import helpers
+} from '@/graphql/2014rewrite/utils/resolvers'
 
-// Define ArgsType for the subraces query
 @ArgsType()
 class SubraceArgs {
   @Field(() => String, {

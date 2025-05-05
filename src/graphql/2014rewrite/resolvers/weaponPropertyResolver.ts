@@ -1,11 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { WeaponProperty } from '@/models/2014/weaponProperty' // Import the decorated Typegoose model
-import WeaponPropertyModel from '@/models/2014/weaponProperty' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 
-// Define ArgsType for the weaponProperties query
 @ArgsType()
 class WeaponPropertyArgs {
   @Field(() => String, {

@@ -1,11 +1,9 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { DamageType } from '@/models/2014/damageType' // Import the decorated Typegoose model
-import DamageTypeModel from '@/models/2014/damageType' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 
-// Define ArgsType for the damageTypes query
 @ArgsType()
 class DamageTypeArgs {
   @Field(() => String, {

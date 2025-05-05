@@ -3,10 +3,8 @@ import { IsOptional, IsString, IsEnum } from 'class-validator'
 import FeatureModel, { Feature, FeatureSpecific } from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
-import { Class } from '@/models/2014/class'
-import ClassModel from '@/models/2014/class'
-import { Subclass } from '@/models/2014/subclass'
-import SubclassModel from '@/models/2014/subclass'
+import ClassModel, { Class } from '@/models/2014/class'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import {
   resolveMultipleReferences,
   resolveSingleReference
