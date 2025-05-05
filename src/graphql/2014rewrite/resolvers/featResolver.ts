@@ -1,14 +1,14 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Feat } from '@/models/2014/feat' // Import the decorated Typegoose model
-import FeatModel from '@/models/2014/feat' // Import the default export for data access
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Feat, Prerequisite } from '@/models/2014/feat'
+import FeatModel from '@/models/2014/feat'
+import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import Prerequisite if needed for FieldResolver placeholder
-// import { Prerequisite } from '@/models/2014/feat';
-// import { AbilityScore } from '@/models/2014/abilityScore';
+// Import types and models needed for FieldResolver
+import { AbilityScore } from '@/models/2014/abilityScore'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 
-// Define ArgsType for the feats query
 @ArgsType()
 class FeatArgs {
   @Field(() => String, {
@@ -45,28 +45,20 @@ export class FeatResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so prerequisite ability_score will be raw APIReference data
-    // A FieldResolver will be added in Pass 2.
     return query.lean()
   }
 
   @Query(() => Feat, { nullable: true, description: 'Gets a single feat by index.' })
   async feat(@Arg('index', () => String) index: string): Promise<Feat | null> {
-    // Note: .lean() is used, prerequisite ability_score will be raw APIReference data.
-    // FieldResolver needed in Pass 2.
     return FeatModel.findOne({ index }).lean()
   }
+}
 
-  // Field Resolver for prerequisites.ability_score would conceptually go here in Pass 2,
-  // likely by adding a resolver for the Prerequisite type or handling it within the Feat resolver.
-  /*
-  @Resolver(Prerequisite) // Example: Resolver for the nested type
-  export class PrerequisiteResolver {
-    @FieldResolver(() => AbilityScore)
-    async ability_score(@Root() prerequisite: Prerequisite): Promise<AbilityScore | null> {
-       // Fetch AbilityScore based on prerequisite.ability_score reference
-       return AbilityScoreModel.findOne({ index: prerequisite.ability_score.index }).lean();
-    }
+// Separate resolver for nested Prerequisite type
+@Resolver(Prerequisite)
+export class PrerequisiteResolver {
+  @FieldResolver(() => AbilityScore, { nullable: true })
+  async ability_score(@Root() prerequisite: Prerequisite): Promise<AbilityScore | null> {
+    return resolveSingleReference(prerequisite.ability_score, AbilityScoreModel)
   }
-  */
 }

@@ -10,7 +10,10 @@ import { Proficiency } from '@/models/2014/proficiency'
 import ProficiencyModel from '@/models/2014/proficiency'
 import { Equipment } from '@/models/2014/equipment'
 import EquipmentModel from '@/models/2014/equipment'
-import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
 
 // Define ArgsType for the backgrounds query
 @ArgsType()

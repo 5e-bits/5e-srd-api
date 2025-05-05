@@ -10,7 +10,7 @@ import { EquipmentCategoryResolver } from './equipmentCategoryResolver'
 import { AbilityScoreResolver } from './abilityScoreResolver'
 import { SkillResolver } from './skillResolver'
 import { BackgroundResolver, EquipmentRefResolver } from './backgroundResolver'
-import { FeatResolver } from './featResolver'
+import { FeatResolver, PrerequisiteResolver } from './featResolver'
 import { RuleResolver } from './ruleResolver'
 import { TraitResolver } from './traitResolver'
 import { MagicItemResolver } from './magicItemResolver'
@@ -55,11 +55,10 @@ const collectionResolvers = [
 
 const fieldResolvers = [
   // Background
-  EquipmentRefResolver
+  EquipmentRefResolver,
+  // Feat
+  PrerequisiteResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones
 export const resolvers = [...collectionResolvers, ...fieldResolvers] as const
-
-// For now, export an empty array until resolvers are created
-// export const resolvers: Function[] = []; // Original empty array

@@ -6,7 +6,7 @@ import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import { Skill } from '@/models/2014/skill'
 import SkillModel from '@/models/2014/skill'
-import { resolveMultipleReferences } from '../utils/resolvers'
+import { resolveMultipleReferences } from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class AbilityScoreArgs {

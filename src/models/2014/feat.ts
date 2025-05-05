@@ -3,10 +3,14 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { AbilityScore } from './abilityScore'
 
 @ObjectType({ description: 'A prerequisite for taking a feat, usually a minimum ability score.' })
 export class Prerequisite {
-  // TODO: Pass 2 - Implement reference resolver
+  @Field(() => AbilityScore, {
+    nullable: true,
+    description: 'The ability score required for this prerequisite.'
+  })
   @prop({ type: () => APIReference })
   public ability_score!: APIReference
 

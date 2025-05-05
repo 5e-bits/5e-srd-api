@@ -6,7 +6,7 @@ import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import { AbilityScore } from '@/models/2014/abilityScore'
 import AbilityScoreModel from '@/models/2014/abilityScore'
-import { resolveSingleReference } from '../utils/resolvers'
+import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class SkillArgs {
