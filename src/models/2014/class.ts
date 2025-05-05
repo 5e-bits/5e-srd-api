@@ -3,71 +3,79 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice } from './common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { Proficiency } from './proficiency'
+import { AbilityScore } from './abilityScore'
+import { Subclass } from './subclass'
 
-// EXPORT local classes/types needed by factories
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class Equipment {
-  // Fields skipped in Pass 1
+  // TODO: Define complex types post-Pass 2 (Resolve equipment reference)
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
-  // Fields skipped in Pass 1
+  @Field(() => Int, { description: 'Quantity of the equipment item.' })
   @prop({ required: true, index: true, type: () => Number })
   public quantity!: number
 }
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  // Fields skipped in Pass 1
+  // TODO: Define complex types post-Pass 2
   @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  // Fields skipped in Pass 1
+  // TODO: Define complex types post-Pass 2
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 }
 
 @ObjectType({ description: 'Spellcasting details for a class' })
 export class Spellcasting {
-  // Fields skipped in Pass 1
+  // TODO: Define complex types post-Pass 2
   @prop({ type: () => [SpellcastingInfo] })
   public info!: SpellcastingInfo[]
 
-  // Fields skipped in Pass 1
+  // TODO: Define complex types post-Pass 2
   @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
-  // Fields skipped in Pass 1
+  // TODO: Define complex types post-Pass 2 (Resolve reference)
   @prop({ type: () => APIReference })
   public spellcasting_ability!: APIReference
 }
 
 @ObjectType({ description: 'Prerequisite for multi-classing' })
 export class MultiClassingPrereq {
-  // Fields skipped in Pass 1
+  @Field(() => AbilityScore, { nullable: true, description: 'The ability score required.' }) // Add Field
   @prop({ type: () => APIReference })
   public ability_score!: APIReference
 
-  // Fields skipped in Pass 1
+  @Field(() => Int, { description: 'The minimum score required.' }) // Add Field
   @prop({ required: true, index: true, type: () => Number })
   public minimum_score!: number
 }
 
 @ObjectType({ description: 'Multi-classing requirements and features for a class' })
 export class MultiClassing {
-  // Fields skipped in Pass 1
+  @Field(() => [MultiClassingPrereq], {
+    nullable: true,
+    description: 'Ability score prerequisites for multi-classing.'
+  })
   @prop({ type: () => [MultiClassingPrereq], default: undefined })
   public prerequisites?: MultiClassingPrereq[]
 
-  // Fields skipped in Pass 1
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice, default: undefined })
   public prerequisite_options?: Choice
 
-  // Fields skipped in Pass 1
+  @Field(() => [Proficiency], {
+    nullable: true,
+    description: 'Proficiencies gained when multi-classing into this class.'
+  })
   @prop({ type: () => [APIReference], default: undefined })
   public proficiencies?: APIReference[]
 
-  // Fields skipped in Pass 1
+  // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => [Choice], default: undefined })
   public proficiency_choices?: Choice[]
 }
@@ -75,11 +83,11 @@ export class MultiClassing {
 @ObjectType({ description: 'Represents a character class (e.g., Barbarian, Wizard)' })
 @srdModelOptions('2014-classes')
 export class Class {
-  // TODO: Pass 2 - Reference to Level API (likely)
+  // TODO: Define complex types post-Pass 2 (Resolve reference to Level type)
   @prop({ required: true, index: true, type: () => String })
   public class_levels!: string
 
-  // TODO: Pass 2/3 - Complex nested type (MultiClassing)
+  // TODO: Define complex types post-Pass 2 (Define MultiClassing type)
   @prop({ type: () => MultiClassing })
   public multi_classing!: MultiClassing
 
@@ -95,7 +103,10 @@ export class Class {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Proficiency], {
+    nullable: true,
+    description: 'Base proficiencies granted by this class.'
+  })
   @prop({ type: () => [APIReference] })
   public proficiencies!: APIReference[]
 
@@ -103,19 +114,22 @@ export class Class {
   @prop({ type: () => [Choice] })
   public proficiency_choices!: Choice[]
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [AbilityScore], {
+    nullable: true,
+    description: 'Saving throw proficiencies granted by this class.'
+  })
   @prop({ type: () => [APIReference] })
   public saving_throws!: APIReference[]
 
-  // TODO: Pass 2/3 - Complex nested type (Spellcasting)
+  // TODO: Define complex types post-Pass 2 (Define Spellcasting type and resolve nested refs)
   @prop({ type: () => Spellcasting })
   public spellcasting?: Spellcasting
 
-  // TODO: Pass 2 - Reference to Spell API (likely)
+  // TODO: Define complex types post-Pass 2 (Resolve reference to Spell type array)
   @prop({ required: true, index: true, type: () => String })
   public spells!: string
 
-  // TODO: Pass 2/3 - Array of complex nested type (Equipment)
+  // TODO: Define complex types post-Pass 2 (Define local starting Equipment type and resolve nested refs)
   @prop({ type: () => [Equipment] })
   public starting_equipment!: Equipment[]
 
@@ -123,7 +137,7 @@ export class Class {
   @prop({ type: () => [Choice] })
   public starting_equipment_options!: Choice[]
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Subclass], { nullable: true, description: 'Available subclasses for this class.' })
   @prop({ type: () => [APIReference] })
   public subclasses!: APIReference[]
 
