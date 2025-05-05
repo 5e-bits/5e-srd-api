@@ -1,7 +1,14 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, Int } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsInt, Min, Max } from 'class-validator'
 import { FilterQuery } from 'mongoose'
 import LevelModel, { Level } from '@/models/2014/level'
+import ClassModel, { Class } from '@/models/2014/class'
+import FeatureModel, { Feature } from '@/models/2014/feature'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class LevelArgs {
@@ -64,6 +71,20 @@ export class LevelResolver {
     return LevelModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (class, features, subclass)
-  // TODO: Pass 2/3 - Field resolvers for complex types (class_specific, spellcasting, subclass_specific)
+  @FieldResolver(() => Class, { nullable: true })
+  async class(@Root() level: Level): Promise<Class | null> {
+    return resolveSingleReference(level.class, ClassModel)
+  }
+
+  @FieldResolver(() => [Feature], { nullable: true })
+  async features(@Root() level: Level): Promise<Feature[]> {
+    return resolveMultipleReferences(level.features, FeatureModel)
+  }
+
+  @FieldResolver(() => Subclass, { nullable: true })
+  async subclass(@Root() level: Level): Promise<Subclass | null> {
+    return resolveSingleReference(level.subclass, SubclassModel)
+  }
+
+  // Resolvers for class_specific, spellcasting, subclass_specific deferred
 }

@@ -3,6 +3,9 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { Class } from './class'
+import { Feature } from './feature'
+import { Subclass } from './subclass'
 
 // Export nested classes
 @ObjectType({ description: 'Spell slot creation details for Sorcerer levels' })
@@ -188,15 +191,15 @@ export class Level {
   @prop({ index: true, type: () => Number })
   public ability_score_bonuses?: number
 
-  // TODO: Pass 2 - API Reference
+  @Field(() => Class, { nullable: true, description: 'The class this level belongs to.' })
   @prop({ type: () => APIReference })
   public class!: APIReference
 
-  // TODO: Pass 2/3 - Complex nested type (ClassSpecific)
+  // TODO: Define complex types post-Pass 2 (Define ClassSpecific type)
   @prop({ type: () => ClassSpecific })
   public class_specific?: ClassSpecific
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Feature], { nullable: true, description: 'Features gained at this level.' })
   @prop({ type: () => [APIReference] })
   public features?: APIReference[]
 
@@ -214,15 +217,18 @@ export class Level {
   @prop({ index: true, type: () => Number })
   public prof_bonus?: number
 
-  // TODO: Pass 2/3 - Complex nested type (LevelSpellcasting)
+  // TODO: Define complex types post-Pass 2 (Define LevelSpellcasting type)
   @prop({ type: () => LevelSpellcasting })
   public spellcasting?: LevelSpellcasting
 
-  // TODO: Pass 2 - API Reference (Optional)
+  @Field(() => Subclass, {
+    nullable: true,
+    description: 'The subclass this level relates to, if applicable.'
+  })
   @prop({ type: () => APIReference })
   public subclass?: APIReference
 
-  // TODO: Pass 2/3 - Complex nested type (SubclassSpecific)
+  // TODO: Define complex types post-Pass 2 (Define SubclassSpecific type)
   @prop({ type: () => SubclassSpecific })
   public subclass_specific?: SubclassSpecific
 
