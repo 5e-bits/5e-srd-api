@@ -1,14 +1,16 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
+import { resolveMultipleReferences } from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class EquipmentArgs {
   @Field(() => String, {
     nullable: true,
-    description: 'Filter by magic item name (case-insensitive, partial match)'
+    description: 'Filter by equipment name (case-insensitive, partial match)'
   })
   @IsOptional()
   @IsString()
@@ -17,7 +19,7 @@ class EquipmentArgs {
   @Field(() => OrderByDirection, {
     nullable: true,
     defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction (default: ASC)'
+    description: 'Sort direction for the name field (default: ASC)'
   })
   @IsOptional()
   @IsEnum(OrderByDirection)
@@ -27,7 +29,7 @@ class EquipmentArgs {
 @Resolver(Equipment)
 export class EquipmentResolver {
   @Query(() => [Equipment], {
-    description: 'Query all Equipment, optionally filtered by name and sorted by name.'
+    description: 'Gets all equipment, optionally filtered and sorted.'
   })
   async equipments(@Args() { name, order_direction }: EquipmentArgs): Promise<Equipment[]> {
     const query = EquipmentModel.find()
@@ -47,11 +49,18 @@ export class EquipmentResolver {
 
   @Query(() => Equipment, {
     nullable: true,
-    description: 'Gets a single equipment by index.'
+    description: 'Gets a single piece of equipment by its index.'
   })
   async equipment(@Arg('index', () => String) index: string): Promise<Equipment | null> {
     return EquipmentModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2/3 - Field resolvers for complex fields
+  // --- Pass 2 Field Resolver ---
+  @FieldResolver(() => [WeaponProperty], { nullable: true })
+  async properties(@Root() equipment: Equipment): Promise<WeaponProperty[] | null> {
+    if (!equipment.properties) return null
+    return resolveMultipleReferences(equipment.properties, WeaponPropertyModel)
+  }
+
+  // Resolvers for equipment_category, gear_category, armor_class, contents, damage, two_handed_damage deferred to Intermediate Step
 }
