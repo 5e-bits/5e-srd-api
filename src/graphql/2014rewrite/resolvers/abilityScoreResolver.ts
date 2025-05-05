@@ -1,9 +1,11 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { AbilityScore } from '@/models/2014/abilityScore' // Import the decorated Typegoose model
 import AbilityScoreModel from '@/models/2014/abilityScore' // Import the default export for data access
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import { Skill } from '@/models/2014/skill'
+import SkillModel from '@/models/2014/skill'
 
 // Define ArgsType for the abilityScores query
 @ArgsType()
@@ -25,8 +27,6 @@ class AbilityScoreArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
-
-  // Note: Sorting is hardcoded by 'name'
 }
 
 @Resolver(AbilityScore)
@@ -63,12 +63,12 @@ export class AbilityScoreResolver {
     return AbilityScoreModel.findOne({ index }).lean()
   }
 
-  // Field Resolver for 'skills' will be added in Pass 2
-  /*
-  @FieldResolver(() => [Skill]) // Assuming Skill is another @ObjectType
+  @FieldResolver(() => [Skill])
   async skills(@Root() abilityScore: AbilityScore): Promise<Skill[]> {
-    // Logic to fetch Skills based on abilityScore.skills references
-    return []; // Placeholder
+    if (!abilityScore.skills || abilityScore.skills.length === 0) {
+      return []
+    }
+    const skillIndices = abilityScore.skills.map((ref) => ref.index)
+    return SkillModel.find({ index: { $in: skillIndices } }).lean()
   }
-  */
 }

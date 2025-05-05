@@ -3,13 +3,14 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
+import { AbilityScore } from './abilityScore'
 
 @ObjectType({
   description: 'A skill representing proficiency in a specific task (e.g., Athletics, Stealth).'
 })
 @srdModelOptions('2014-skills')
 export class Skill {
-  // ability_score field is skipped in Pass 1 - TODO: Pass 2 - Implement reference resolver
+  @Field(() => AbilityScore, { description: 'The ability score associated with this skill.' })
   @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference
 

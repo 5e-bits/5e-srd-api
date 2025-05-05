@@ -1,11 +1,11 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { Skill } from '@/models/2014/skill' // Import the decorated Typegoose model
 import SkillModel from '@/models/2014/skill' // Import the default export for data access
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import AbilityScore if needed for the FieldResolver placeholder
-// import { AbilityScore } from '@/models/2014/abilityScore';
+import { AbilityScore } from '@/models/2014/abilityScore'
+import AbilityScoreModel from '@/models/2014/abilityScore'
 
 // Define ArgsType for the skills query
 @ArgsType()
@@ -26,8 +26,6 @@ class SkillArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
-
-  // Note: Sorting is hardcoded by 'name'
 }
 
 @Resolver(Skill)
@@ -59,12 +57,14 @@ export class SkillResolver {
   }
 
   // Field Resolver for 'ability_score' will be added in Pass 2
-  /*
-  @FieldResolver(() => AbilityScore) // Assuming AbilityScore is the decorated @ObjectType
+  @FieldResolver(() => AbilityScore)
   async ability_score(@Root() skill: Skill): Promise<AbilityScore | null> {
-    // Logic to fetch AbilityScore based on skill.ability_score reference
-    // Example: return AbilityScoreModel.findOne({ index: skill.ability_score.index }).lean();
-    return null; // Placeholder
+    // The parent Skill object (skill) is already resolved and likely .lean()
+    // The ability_score property on it holds the APIReference { index, name, url }
+    if (!skill.ability_score || !skill.ability_score.index) {
+      return null // Or handle error appropriately
+    }
+    // Fetch the full AbilityScore document using the index from the reference
+    return AbilityScoreModel.findOne({ index: skill.ability_score.index }).lean()
   }
-  */
 }
