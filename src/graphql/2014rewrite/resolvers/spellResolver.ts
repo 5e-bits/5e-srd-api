@@ -1,8 +1,15 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
+import ClassModel, { Class } from '@/models/2014/class'
+import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
 
 @ArgsType()
 class SpellArgs {
@@ -48,6 +55,20 @@ export class SpellResolver {
     return SpellModel.findOne({ index }).lean()
   }
 
-  // TODO: Pass 2 - Field resolvers for references (school, classes, subclasses)
-  // TODO: Pass 2/3 - Field resolvers for complex types (area_of_effect, damage, dc, heal_at_slot_level)
+  @FieldResolver(() => [Class], { nullable: true })
+  async classes(@Root() spell: Spell): Promise<Class[]> {
+    return resolveMultipleReferences(spell.classes, ClassModel)
+  }
+
+  @FieldResolver(() => MagicSchool, { nullable: true })
+  async school(@Root() spell: Spell): Promise<MagicSchool | null> {
+    return resolveSingleReference(spell.school, MagicSchoolModel)
+  }
+
+  @FieldResolver(() => [Subclass], { nullable: true })
+  async subclasses(@Root() spell: Spell): Promise<Subclass[]> {
+    return resolveMultipleReferences(spell.subclasses, SubclassModel)
+  }
+
+  // Resolvers for area_of_effect, damage, dc, heal_at_slot_level deferred
 }
