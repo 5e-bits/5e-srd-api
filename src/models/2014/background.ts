@@ -16,7 +16,7 @@ export class EquipmentRef {
 }
 
 @ObjectType({ description: 'A special feature granted by the background.' })
-class Feature {
+class BackgroundFeature {
   @Field(() => String, { description: 'The name of the background feature.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
@@ -60,9 +60,9 @@ export class Background {
   @prop({ type: () => [Choice], index: true })
   public starting_equipment_options!: Choice[]
 
-  @Field(() => Feature, { description: 'The feature associated with this background.' })
-  @prop({ type: () => Feature })
-  public feature!: Feature
+  @Field(() => BackgroundFeature, { description: 'The feature associated with this background.' })
+  @prop({ type: () => BackgroundFeature })
+  public feature!: BackgroundFeature
 
   // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })

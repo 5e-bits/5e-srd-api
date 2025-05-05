@@ -158,13 +158,12 @@ Models to migrate (in approximate order of increasing complexity):
 16. - [x] Subrace *(Skip `race`, `ability_bonuses`, `racial_traits` references)*
 17. - [x] Equipment *(Skip `equipment_category`, `gear_category`, `cost`, etc. if complex types)*
 18. - [x] Proficiency *(Skip references like `classes`, `races`)*
-19. - [ ] Feature *(Skip `class`, `subclass`, prerequisites, choices)*
+19. - [x] Feature *(Skip `class`, `subclass`, prerequisites, choices)*
 20. - [ ] Race *(Skip `ability_bonuses`, `proficiencies`, `languages`, `traits`, `subraces`)*
 21. - [ ] Spell *(Skip `classes`, `subclasses`, `damage`, `dc` if complex)*
 22. - [ ] Level *(Skip `class`, `subclass`, `features`, `spellcasting`)*
-23. - [ ] Class *(Skip `proficiencies`, `saving_throws`, `spellcasting`, `subclasses`, starting equipment choices)*
-24. - [ ] Subclass *(Skip `class`, `features`, `spells`)*
-25. - [ ] Monster *(Skip complex nested structures needing resolution like specific ability scores, skills, proficiencies, actions needing lookups, special abilities needing lookups)*
+23. - [ ] Subclass *(Skip `class`, `features`, `spells`)*
+24. - [ ] Monster *(Skip complex nested structures needing resolution like specific ability scores, skills, proficiencies, actions needing lookups, special abilities needing lookups)*
 
 For each model in Pass 1:
 
