@@ -1,16 +1,24 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
-import { Subrace } from '@/models/2014/subrace' // Import the decorated Typegoose model
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace' // Import the decorated Typegoose model and SubraceAbilityBonus
 import SubraceModel from '@/models/2014/subrace' // Import the default export for data access
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums' // Import shared enum
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
-// Import related types if needed for FieldResolver placeholders
-// import { Race } from '@/models/2014/race';
-// import { Trait } from '@/models/2014/trait';
-// import { Language } from '@/models/2014/language';
-// import { Proficiency } from '@/models/2014/proficiency';
-// import { SubraceAbilityBonus } from '@/models/2014/subrace';
-// import { AbilityScore } from '@/models/2014/abilityScore';
+// Import types/models for FieldResolvers
+import { Race } from '@/models/2014/race'
+import RaceModel from '@/models/2014/race'
+import { Trait } from '@/models/2014/trait'
+import TraitModel from '@/models/2014/trait'
+import { Language } from '@/models/2014/language'
+import LanguageModel from '@/models/2014/language'
+import { Proficiency } from '@/models/2014/proficiency'
+import ProficiencyModel from '@/models/2014/proficiency'
+import { AbilityScore } from '@/models/2014/abilityScore'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers' // Import helpers
 
 // Define ArgsType for the subraces query
 @ArgsType()
@@ -49,30 +57,47 @@ export class SubraceResolver {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so reference/choice fields will contain raw data
-    // FieldResolvers will be added in Pass 2/3.
+    // FieldResolvers will be added in Pass 3.
     return query.lean()
   }
 
   @Query(() => Subrace, { nullable: true, description: 'Gets a single subrace by index.' })
   async subrace(@Arg('index', () => String) index: string): Promise<Subrace | null> {
     // Note: .lean() is used, reference/choice fields will contain raw data.
-    // FieldResolvers needed in Pass 2/3.
+    // FieldResolvers needed in Pass 3.
     return SubraceModel.findOne({ index }).lean()
   }
 
-  // Field Resolvers for references (race, languages, racial_traits, starting_proficiencies, ability_bonuses.ability_score) will be added in Pass 2
   // Field Resolver for choices (language_options) will be added in Pass 3
 
-  // Example placeholder for nested ability_score reference:
-  /*
-  @Resolver(SubraceAbilityBonus) // Example: Resolver for the nested type
-  export class SubraceAbilityBonusResolver {
-    @FieldResolver(() => AbilityScore)
-    async ability_score(@Root() subraceAbilityBonus: SubraceAbilityBonus): Promise<AbilityScore | null> {
-       // Fetch AbilityScore based on subraceAbilityBonus.ability_score reference
-       return AbilityScoreModel.findOne({ index: subraceAbilityBonus.ability_score.index }).lean();
-    }
+  @FieldResolver(() => Race, { nullable: true })
+  async race(@Root() subrace: Subrace): Promise<Race | null> {
+    return resolveSingleReference(subrace.race, RaceModel)
   }
-  */
+
+  @FieldResolver(() => [Language], { nullable: true })
+  async languages(@Root() subrace: Subrace): Promise<Language[]> {
+    return resolveMultipleReferences(subrace.languages, LanguageModel)
+  }
+
+  @FieldResolver(() => [Trait], { nullable: true })
+  async racial_traits(@Root() subrace: Subrace): Promise<Trait[]> {
+    return resolveMultipleReferences(subrace.racial_traits, TraitModel)
+  }
+
+  @FieldResolver(() => [Proficiency], { nullable: true })
+  async starting_proficiencies(@Root() subrace: Subrace): Promise<Proficiency[]> {
+    return resolveMultipleReferences(subrace.starting_proficiencies, ProficiencyModel)
+  }
+}
+
+// Separate resolver for nested SubraceAbilityBonus type
+@Resolver(SubraceAbilityBonus)
+export class SubraceAbilityBonusResolver {
+  @FieldResolver(() => AbilityScore, { nullable: true })
+  async ability_score(
+    @Root() subraceAbilityBonus: SubraceAbilityBonus
+  ): Promise<AbilityScore | null> {
+    return resolveSingleReference(subraceAbilityBonus.ability_score, AbilityScoreModel)
+  }
 }
