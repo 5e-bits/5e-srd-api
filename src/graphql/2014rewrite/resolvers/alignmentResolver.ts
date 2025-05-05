@@ -25,7 +25,7 @@ class AlignmentArgs {
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
 
-  // Note: Sorting is hardcoded by 'name' in this basic version
+ in this basic version
 }
 
 @Resolver(Alignment)

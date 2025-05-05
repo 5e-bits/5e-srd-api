@@ -26,8 +26,6 @@ class RuleArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
-
-  // Note: Sorting is hardcoded by 'name'
 }
 
 @Resolver(Rule)
