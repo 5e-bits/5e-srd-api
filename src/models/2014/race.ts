@@ -3,10 +3,18 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference, Choice } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
+import { AbilityScore } from './abilityScore'
+import { Language } from './language'
+import { Proficiency } from './proficiency'
+import { Subrace } from './subrace'
+import { Trait } from './trait'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {
-  // TODO: Pass 2 - API Reference
+  @Field(() => AbilityScore, {
+    nullable: true,
+    description: 'The ability score that receives the bonus.'
+  })
   @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference
 
@@ -22,7 +30,7 @@ export class Race {
   @prop({ type: () => Choice })
   public ability_bonus_options?: Choice
 
-  // TODO: Pass 2 - Nested type with API Reference
+  @Field(() => [RaceAbilityBonus], { description: 'Ability score bonuses granted by this race.' })
   @prop({ type: () => [RaceAbilityBonus], required: true })
   public ability_bonuses!: RaceAbilityBonus[]
 
@@ -46,7 +54,10 @@ export class Race {
   @prop({ type: () => Choice, required: true })
   public language_options!: Choice
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Language], {
+    nullable: true,
+    description: 'Languages typically spoken by this race.'
+  })
   @prop({ type: () => [APIReference], required: true })
   public languages!: APIReference[]
 
@@ -66,7 +77,10 @@ export class Race {
   @prop({ required: true, index: true, type: () => Number })
   public speed!: number
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Proficiency], {
+    nullable: true,
+    description: 'Proficiencies granted by this race at start.'
+  })
   @prop({ type: () => [APIReference] })
   public starting_proficiencies?: APIReference[]
 
@@ -74,15 +88,14 @@ export class Race {
   @prop({ type: () => Choice })
   public starting_proficiency_options?: Choice
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Subrace], { nullable: true, description: 'Subraces available for this race.' })
   @prop({ type: () => [APIReference] })
   public subraces?: APIReference[]
 
-  // TODO: Pass 2 - API Reference array
+  @Field(() => [Trait], { nullable: true, description: 'Traits common to this race.' })
   @prop({ type: () => [APIReference] })
   public traits?: APIReference[]
 
-  // url field is not exposed via GraphQL
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
