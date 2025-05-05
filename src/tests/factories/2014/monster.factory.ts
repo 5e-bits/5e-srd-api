@@ -14,7 +14,7 @@ import type {
   SpecialAbilitySpell,
   SpecialAbilitySpellcasting,
   SpecialAbilityUsage,
-  Speed,
+  MonsterSpeed,
   Monster,
   MonsterDocument
 } from '@/models/2014/monster'
@@ -260,8 +260,8 @@ const specialAbilityFactory = Factory.define<SpecialAbility>(({ associations }) 
 })
 
 // Factory for Speed
-const speedFactory = Factory.define<Speed>(() => {
-  const speeds: Partial<Speed> = {}
+const speedFactory = Factory.define<MonsterSpeed>(() => {
+  const speeds: Partial<MonsterSpeed> = {}
   if (faker.datatype.boolean()) speeds.walk = `${faker.number.int({ min: 10, max: 60 })} ft.`
   if (faker.datatype.boolean()) speeds.swim = `${faker.number.int({ min: 10, max: 60 })} ft.`
   if (faker.datatype.boolean()) speeds.fly = `${faker.number.int({ min: 10, max: 60 })} ft.`
@@ -272,7 +272,7 @@ const speedFactory = Factory.define<Speed>(() => {
   if (Object.keys(speeds).length === 0 || (Object.keys(speeds).length === 1 && 'hover' in speeds)) {
     speeds.walk = `${faker.number.int({ min: 10, max: 60 })} ft.`
   }
-  return speeds as Speed // Cast needed because we build it partially
+  return speeds as MonsterSpeed // Cast needed because we build it partially
 })
 
 // Factory for Monster - Define return type explicitly as Monster

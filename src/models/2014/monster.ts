@@ -283,7 +283,7 @@ export class SpecialAbility {
 }
 
 @ObjectType({ description: 'Monster movement speeds' })
-export class Speed {
+export class MonsterSpeed {
   @Field(() => String, { nullable: true })
   @prop({ index: true, type: () => String })
   public burrow?: string
@@ -408,9 +408,9 @@ export class Monster {
   @prop({ type: () => [SpecialAbility] })
   public special_abilities?: SpecialAbility[]
 
-  @Field(() => Speed)
-  @prop({ type: () => Speed })
-  public speed!: Speed
+  @Field(() => MonsterSpeed)
+  @prop({ type: () => MonsterSpeed })
+  public speed!: MonsterSpeed
 
   @Field(() => Int)
   @prop({ required: true, index: true, type: () => Number })
