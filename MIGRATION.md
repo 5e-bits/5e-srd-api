@@ -221,8 +221,8 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
 ### 6. Pass 5: Refactor Common Arguments (Week 10 - Part 2)
 
 1. Identify common query arguments across resolvers (e.g., `name` filter, `order_direction` sorting, potentially others identified in Pass 4).
-2. Create reusable base `@ArgsType` classes (e.g., `BaseNameArgs` in `src/graphql/2014rewrite/common/args.ts`).
-3. Refactor the resolvers modified in previous passes to use the new base `ArgsType`, removing redundant argument definitions.
+2. **Create reusable base `@ArgsType` classes for common filters (e.g., `BaseNameArgs`) and pagination (e.g., `BasePaginationArgs` with `limit`, `skip`) in `src/graphql/2014rewrite/common/args.ts`. Define sensible defaults and validation (e.g., max limit) for pagination.**
+3. Refactor the list query resolvers modified in previous passes to **extend or compose** the new base `ArgsType` classes, removing redundant argument definitions.
 
 ### 7. Pass 6: GraphQL Infrastructure Migration (Week 11)
 
