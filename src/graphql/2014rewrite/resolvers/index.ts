@@ -23,6 +23,7 @@ import { SpellResolver } from './spellResolver'
 import { LevelResolver } from './levelResolver'
 import { SubclassResolver } from './subclassResolver'
 import { ClassResolver } from './classResolver'
+import { MonsterResolver } from './monsterResolver'
 
 export const resolvers = [
   AlignmentResolver,
@@ -48,7 +49,8 @@ export const resolvers = [
   SpellResolver,
   LevelResolver,
   SubclassResolver,
-  ClassResolver
+  ClassResolver,
+  MonsterResolver
 ] as const
 
 // For now, export an empty array until resolvers are created
