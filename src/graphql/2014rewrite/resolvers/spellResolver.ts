@@ -1,5 +1,5 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { IsOptional, IsString, IsEnum, IsInt, Min, Max } from 'class-validator'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
@@ -21,6 +21,21 @@ class SpellArgs {
   @IsString()
   name?: string
 
+  @Field(() => [Int], {
+    nullable: true,
+    description: 'Filter by spell level (e.g., [1, 3] for levels 1 to 3)'
+  })
+  @IsOptional()
+  @IsInt({ each: true })
+  @Min(0, { each: true })
+  @Max(9, { each: true })
+  level?: number[]
+
+  @Field(() => [String], { nullable: true, description: 'Filter by magic school index' })
+  @IsOptional()
+  @IsString({ each: true })
+  school?: string[]
+
   @Field(() => OrderByDirection, {
     nullable: true,
     defaultValue: OrderByDirection.ASC,
@@ -29,22 +44,32 @@ class SpellArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
-
-  // Maybe add level filter later?
 }
 
 @Resolver(Spell)
 export class SpellResolver {
-  @Query(() => [Spell], { description: 'Gets all spells, optionally filtered by name and sorted.' })
-  async spells(@Args() { name, order_direction }: SpellArgs): Promise<Spell[]> {
+  @Query(() => [Spell], { description: 'Gets all spells, optionally filtered and sorted.' })
+  async spells(@Args() { name, level, school, order_direction }: SpellArgs): Promise<Spell[]> {
     const query = SpellModel.find()
+    const filters: any = {}
 
     if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      filters.name = { $regex: new RegExp(escapeRegExp(name), 'i') }
+    }
+    if (level && level.length > 0) {
+      filters.level = { $in: level }
+    }
+    if (school && school.length > 0) {
+      filters['school.index'] = { $in: school }
+    }
+
+    if (Object.keys(filters).length > 0) {
+      query.where(filters)
     }
 
     if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
+      query.sort({ name: sortOrder })
     }
 
     return query.lean()
