@@ -3,9 +3,10 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Float, Int } from 'type-graphql'
+import { WeaponProperty } from './weaponProperty'
 
 // Export nested classes
-// TODO: Pass 2/3 - Needs FieldResolver
+// Note: This type and its fields are part of the Equipment refactor (Intermediate Step)
 // @ObjectType({ description: 'Details about armor class.' })
 export class ArmorClass {
   // @Field(() => Int, { description: 'Base armor class value.' })
@@ -21,7 +22,7 @@ export class ArmorClass {
   public max_bonus?: number
 }
 
-// TODO: Pass 2/3 - Needs FieldResolver
+// Note: This type and its fields are part of the Equipment refactor (Intermediate Step)
 // @ObjectType({ description: 'An item and its quantity within a container or bundle.' })
 export class Content {
   // @Field(() => APIReference, { description: 'The item contained.' }) // Needs FieldResolver for APIReference
@@ -44,7 +45,7 @@ export class Cost {
   public unit!: string
 }
 
-// TODO: Pass 2/3 - Needs FieldResolver
+// Note: This type and its fields are part of the Equipment refactor (Intermediate Step)
 // @ObjectType({ description: 'Damage dealt by a weapon or item.' })
 export class Damage {
   // @Field(() => String, { description: 'Damage roll (e.g., 1d8).' })
@@ -89,7 +90,7 @@ export class ThrowRange {
   public normal!: number
 }
 
-// TODO: Pass 2/3 - Needs FieldResolver
+// Note: This type and its fields are part of the Equipment refactor (Intermediate Step)
 // @ObjectType({ description: 'Damage dealt when using a weapon with two hands.' })
 export class TwoHandedDamage {
   // @Field(() => String, { description: 'Damage roll (e.g., 1d10).' })
@@ -101,6 +102,7 @@ export class TwoHandedDamage {
   public damage_type!: APIReference
 }
 
+// TODO: Define complex types post-Pass 2 - Refactor Equipment into Interface/Union
 @ObjectType({ description: 'An item that can be equipped or used.' })
 @srdModelOptions('2014-equipment')
 export class Equipment {
@@ -111,7 +113,7 @@ export class Equipment {
   @prop({ index: true, type: () => String })
   public armor_category?: string
 
-  // TODO: Pass 2/3 - Nested object with potential logic
+  // TODO: Define complex types post-Pass 2 - Define ArmorClass type and add @Field
   @prop({ type: () => ArmorClass })
   public armor_class?: ArmorClass
 
@@ -126,7 +128,7 @@ export class Equipment {
   @prop({ index: true, type: () => String })
   public category_range?: string
 
-  // TODO: Pass 2/3 - Array of nested objects with API references
+  // TODO: Define complex types post-Pass 2 - Define Content type and add @Field
   @prop({ type: () => [Content] })
   public contents?: Content[]
 
@@ -134,7 +136,7 @@ export class Equipment {
   @prop({ type: () => Cost })
   public cost!: Cost
 
-  // TODO: Pass 2/3 - Nested object with API reference
+  // TODO: Define complex types post-Pass 2 - Define Damage type and add @Field
   @prop({ type: () => Damage })
   public damage?: Damage
 
@@ -142,11 +144,11 @@ export class Equipment {
   @prop({ required: true, index: true, type: () => [String] })
   public desc?: string[]
 
-  // TODO: Pass 2/3 - API Reference
+  // TODO: Define complex types post-Pass 2 - Add @Field decorator (deferred from Pass 2 due to Equipment refactor)
   @prop({ type: () => APIReference })
   public equipment_category!: APIReference
 
-  // TODO: Pass 2/3 - API Reference
+  // TODO: Define complex types post-Pass 2 - Add @Field decorator (deferred from Pass 2 due to Equipment refactor)
   @prop({ type: () => APIReference })
   public gear_category?: APIReference
 
@@ -162,7 +164,7 @@ export class Equipment {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Pass 2/3 - Array of API References
+  @Field(() => [WeaponProperty], { nullable: true, description: 'Properties of the weapon.' })
   @prop({ type: () => [APIReference] })
   public properties?: APIReference[]
 
@@ -210,11 +212,10 @@ export class Equipment {
   @prop({ index: true, type: () => String })
   public tool_category?: string
 
-  // TODO: Pass 2/3 - Nested object with API reference
+  // TODO: Define complex types post-Pass 2 - Define TwoHandedDamage type and add @Field
   @prop({ type: () => TwoHandedDamage })
   public two_handed_damage?: TwoHandedDamage
 
-  // TODO: Pass 2/3 - System field, handle later if needed
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
