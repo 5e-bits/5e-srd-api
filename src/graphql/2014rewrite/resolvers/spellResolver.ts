@@ -34,8 +34,10 @@ export class SpellResolver {
 
     if (name) {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
-      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-      query.sort({ name: sortOrder })
+    }
+
+    if (order_direction) {
+      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
     return query.lean()
