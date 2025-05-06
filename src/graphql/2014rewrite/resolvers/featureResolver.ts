@@ -5,8 +5,7 @@ import FeatureModel, {
   FeatureSpecific,
   LevelPrerequisite,
   FeaturePrerequisite,
-  SpellPrerequisite,
-  Prerequisite
+  SpellPrerequisite
 } from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
@@ -16,7 +15,7 @@ import {
   resolveMultipleReferences,
   resolveSingleReference
 } from '@/graphql/2014rewrite/utils/resolvers'
-import SpellModel, { Spell } from '@/models/2014/spell'
+import SpellModel from '@/models/2014/spell'
 import { FeaturePrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
 
 @ArgsType()
