@@ -9,16 +9,7 @@ import { Race } from './race'
 import { Subrace } from './subrace'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
-
-// Define the structure for level-based damage
-@ObjectType({ description: 'Damage amount at a specific character level.' })
-export class LevelDamage {
-  @Field(() => Int, { description: 'The character level at which this damage applies.' })
-  level!: number // We expect the resolver to convert the string key to a number
-
-  @Field(() => String, { description: "The damage dice string (e.g., '2d6')." })
-  damage!: string
-}
+import { LevelValue } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -27,13 +18,12 @@ export class ActionDamage {
   @prop({ type: () => APIReference })
   public damage_type!: APIReference
 
-  // Expose as an array of LevelDamage objects
-  @Field(() => [LevelDamage], {
+  @Field(() => [LevelValue], {
     nullable: true,
     description: 'Damage scaling based on character level.'
   })
-  @prop({ type: () => Object }) // Data is stored as Record<string, string>
-  public damage_at_character_level?: Record<string, string> // Keep TS type as Record, mark prop optional
+  @prop({ type: () => Object })
+  public damage_at_character_level?: Record<string, string>
 }
 
 @ObjectType({ description: 'Usage limit details for an action' })
