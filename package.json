@@ -46,7 +46,7 @@
     "node-fetch": "^3.1.1",
     "redis": "^4.7.0",
     "serve-favicon": "^2.5.0",
-    "zod": "^3.24.3"
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
