@@ -4,6 +4,8 @@ import { MagicItem } from '@/models/2014/magicItem'
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import { AbilityScore } from '@/models/2014/abilityScore'
 import { Skill } from '@/models/2014/skill'
+import { Level } from '@/models/2014/level'
+import { Feature } from '@/models/2014/feature'
 
 export const EquipmentOrMagicItem = createUnionType({
   name: 'EquipmentOrMagicItem',
@@ -36,5 +38,22 @@ export const ProficiencyReference = createUnionType({
     // Equipment is the remaining option (assuming it doesn't uniquely have the others)
     // More specific checks like 'weapon_category' or 'armor_class' could be added if needed.
     return Equipment
+  }
+})
+
+// Union type for SubclassSpell.prerequisites
+export const SubclassSpellPrerequisiteUnion = createUnionType({
+  name: 'SubclassSpellPrerequisite',
+  types: () => [Level, Feature] as const,
+  resolveType: (value) => {
+    if ('prof_bonus' in value || 'spellcasting' in value || 'features' in value) {
+      return Level
+    }
+    if ('subclass' in value || 'feature_specific' in value || 'prerequisites' in value) {
+      return Feature
+    }
+
+    console.warn('Could not reliably resolve type for SubclassSpellPrerequisiteUnion:', value)
+    throw new Error('Could not resolve type for SubclassSpellPrerequisiteUnion')
   }
 })
