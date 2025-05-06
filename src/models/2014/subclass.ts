@@ -5,6 +5,8 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
 import { Class } from './class'
 import { Level } from './level'
+import { Spell } from './spell'
+import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
 
 @ObjectType({ description: 'Prerequisite for a subclass spell' })
 export class Prerequisite {
@@ -23,9 +25,13 @@ export class Prerequisite {
 
 @ObjectType({ description: 'Spell gained by a subclass' })
 export class SubclassSpell {
+  @Field(() => [SubclassSpellPrerequisiteUnion], {
+    description: 'Prerequisites (Level or Feature) that must be met for this spell.'
+  })
   @prop({ type: () => [Prerequisite], required: true })
   public prerequisites!: Prerequisite[]
 
+  @Field(() => Spell, { description: 'The spell gained.' })
   @prop({ type: () => APIReference, required: true })
   public spell!: APIReference
 }
@@ -51,7 +57,10 @@ export class Subclass {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (Define SubclassSpell and resolve nested refs)
+  @Field(() => [SubclassSpell], {
+    nullable: true,
+    description: 'Spells specific to this subclass.'
+  })
   @prop({ type: () => [SubclassSpell] })
   public spells?: SubclassSpell[]
 

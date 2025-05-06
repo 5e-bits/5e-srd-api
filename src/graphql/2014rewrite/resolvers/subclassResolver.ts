@@ -1,11 +1,14 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
-import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import SubclassModel, { Subclass, SubclassSpell } from '@/models/2014/subclass'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 import LevelModel, { Level } from '@/models/2014/level'
+import { Feature } from '@/models/2014/feature'
+import FeatureModel from '@/models/2014/feature'
+import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
 
 @ArgsType()
 class SubclassArgs {
@@ -61,5 +64,40 @@ export class SubclassResolver {
     if (!subclass.index) return []
 
     return LevelModel.find({ 'subclass.index': subclass.index }).sort({ level: 1 })
+  }
+}
+
+@Resolver(SubclassSpell)
+export class SubclassSpellResolver {
+  @FieldResolver(() => [SubclassSpellPrerequisiteUnion], {
+    description: 'Resolves the prerequisites to actual Level or Feature objects.',
+    nullable: true
+  })
+  async prerequisites(
+    @Root() subclassSpell: SubclassSpell
+  ): Promise<Array<Level | Feature> | null> {
+    const prereqsData = subclassSpell.prerequisites
+
+    if (!prereqsData || prereqsData.length === 0) {
+      return null
+    }
+
+    const resolvedPrereqs: Array<Level | Feature> = []
+
+    for (const prereq of prereqsData) {
+      if (prereq.type === 'level') {
+        const level = await LevelModel.findOne({ index: prereq.index }).lean()
+        if (level) {
+          resolvedPrereqs.push(level)
+        }
+      } else if (prereq.type === 'feature') {
+        const feature = await FeatureModel.findOne({ index: prereq.index }).lean()
+        if (feature) {
+          resolvedPrereqs.push(feature)
+        }
+      }
+    }
+
+    return resolvedPrereqs.length > 0 ? resolvedPrereqs : null
   }
 }

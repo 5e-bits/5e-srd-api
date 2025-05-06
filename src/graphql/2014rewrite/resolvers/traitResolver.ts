@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import TraitModel, { Trait, TraitSpecific } from '@/models/2014/trait'
+import TraitModel, { ActionDamage, LevelDamage, Trait, TraitSpecific } from '@/models/2014/trait'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
@@ -89,4 +89,38 @@ export class TraitSpecificResolver {
   }
 
   // Resolvers for choices (subtrait_options, spell_options) will go here in Pass 3
+}
+
+@Resolver(ActionDamage)
+export class ActionDamageResolver {
+  @FieldResolver(() => [LevelDamage], {
+    nullable: true,
+    description: 'Damage scaling based on character level, transformed from the raw data object.'
+  })
+  async damage_at_character_level(
+    @Root() actionDamage: ActionDamage
+  ): Promise<LevelDamage[] | null> {
+    const data = actionDamage.damage_at_character_level
+
+    if (!data || typeof data !== 'object') {
+      return null
+    }
+
+    const levelDamageArray: LevelDamage[] = []
+    for (const levelKey in data) {
+      if (Object.prototype.hasOwnProperty.call(data, levelKey)) {
+        const level = parseInt(levelKey, 10)
+        const damage = data[levelKey]
+
+        if (!isNaN(level) && typeof damage === 'string') {
+          levelDamageArray.push({ level, damage })
+        }
+      }
+    }
+
+    // Sort by level for predictable order
+    levelDamageArray.sort((a, b) => a.level - b.level)
+
+    return levelDamageArray.length > 0 ? levelDamageArray : null
+  }
 }
