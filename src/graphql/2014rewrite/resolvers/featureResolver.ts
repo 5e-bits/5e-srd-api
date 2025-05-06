@@ -1,6 +1,13 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum, Min } from 'class-validator'
-import FeatureModel, { Feature, FeatureSpecific } from '@/models/2014/feature'
+import FeatureModel, {
+  Feature,
+  FeatureSpecific,
+  LevelPrerequisite,
+  FeaturePrerequisite,
+  SpellPrerequisite,
+  Prerequisite
+} from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -9,6 +16,8 @@ import {
   resolveMultipleReferences,
   resolveSingleReference
 } from '@/graphql/2014rewrite/utils/resolvers'
+import SpellModel, { Spell } from '@/models/2014/spell'
+import { FeaturePrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
 
 @ArgsType()
 class FeatureArgs {
@@ -99,6 +108,68 @@ export class FeatureResolver {
   @FieldResolver(() => Subclass, { nullable: true })
   async subclass(@Root() feature: Feature): Promise<Subclass | null> {
     return resolveSingleReference(feature.subclass, SubclassModel)
+  }
+
+  @FieldResolver(() => [FeaturePrerequisiteUnion], {
+    nullable: true,
+    description: 'Resolves the prerequisites array, fetching referenced Features or Spells.'
+  })
+  async prerequisites(
+    @Root() feature: Feature
+  ): Promise<Array<LevelPrerequisite | FeaturePrerequisite | SpellPrerequisite> | null> {
+    const prereqsData = feature.prerequisites
+
+    if (!prereqsData || prereqsData.length === 0) {
+      return null
+    }
+
+    const resolvedPrereqsPromises = prereqsData.map(
+      async (
+        prereq
+      ): Promise<LevelPrerequisite | FeaturePrerequisite | SpellPrerequisite | null> => {
+        switch (prereq.type) {
+          case 'level': {
+            return prereq as LevelPrerequisite
+          }
+          case 'feature': {
+            const featureUrl = (prereq as FeaturePrerequisite).feature
+            const referencedFeature = await FeatureModel.findOne({ url: featureUrl }).lean()
+            if (referencedFeature) {
+              return {
+                type: 'feature',
+                feature: referencedFeature
+              } as unknown as FeaturePrerequisite
+            } else {
+              console.warn(`Could not find prerequisite feature with url: ${featureUrl}`)
+              return null
+            }
+          }
+          case 'spell': {
+            const spellUrl = (prereq as SpellPrerequisite).spell
+            const referencedSpell = await SpellModel.findOne({ url: spellUrl }).lean()
+            if (referencedSpell) {
+              return {
+                type: 'spell',
+                spell: referencedSpell
+              } as unknown as SpellPrerequisite
+            } else {
+              console.warn(`Could not find prerequisite spell with index: ${spellUrl}`)
+              return null
+            }
+          }
+          default: {
+            console.warn(`Unknown prerequisite type found: ${prereq.type}`)
+            return null
+          }
+        }
+      }
+    )
+
+    const resolvedPrereqs = (await Promise.all(resolvedPrereqsPromises)).filter(
+      (p) => p !== null
+    ) as Array<LevelPrerequisite | FeaturePrerequisite | SpellPrerequisite>
+
+    return resolvedPrereqs.length > 0 ? resolvedPrereqs : null
   }
 }
 
