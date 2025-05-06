@@ -16,15 +16,15 @@ const WeaponResolver = {
     const indexStart = weapon.category_range?.replace(/\s+/g, '-').toLowerCase()
     return await EquipmentCategoryModel.findOne({ index: `${indexStart}-weapons` }).lean()
   },
-  damage: async (weapon: Equipment) =>
-    weapon.damage
-      ? {
-        ...weapon.damage,
-        damage_type: await DamageTypeModel.findOne({
-          index: weapon.damage.damage_type.index
-        }).lean()
-      }
-      : null,
+  // damage: async (weapon: Equipment) =>
+  //   weapon.damage
+  //     ? {
+  //       ...weapon.damage,
+  //       damage_type: await DamageTypeModel.findOne({
+  //         index: weapon.damage.damage_type.index
+  //       }).lean()
+  //     }
+  //     : null,
   properties: async (weapon: Equipment, args: QueryParams) => {
     const filters: any[] = [
       {

@@ -1,4 +1,4 @@
-import { createUnionType } from 'type-graphql'
+import { createUnionType, ClassType } from 'type-graphql'
 import { Equipment } from '@/models/2014/equipment'
 import { MagicItem } from '@/models/2014/magicItem'
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
@@ -7,15 +7,74 @@ import { Skill } from '@/models/2014/skill'
 import { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
+import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './types'
+
+// --- Helper Function for Equipment Type Resolution ---
+function resolveConcreteEquipmentType(
+  value: any
+): // Explicitly list all possible concrete return types
+| typeof Armor
+  | typeof Weapon
+  | typeof Tool
+  | typeof Gear
+  | typeof Pack
+  | typeof Ammunition
+  | typeof Vehicle
+  | null {
+  // Add specific checks based on unique properties of each type
+  if ('armor_class' in value) {
+    return Armor
+  }
+  if ('weapon_category' in value || 'weapon_range' in value) {
+    return Weapon
+  }
+  if ('tool_category' in value) {
+    return Tool
+  }
+  if ('vehicle_category' in value) {
+    return Vehicle
+  }
+  if ('contents' in value) {
+    return Pack
+  }
+  if (value.gear_category?.index === 'ammunition') {
+    return Ammunition
+  }
+  if ('gear_category' in value) {
+    return Gear
+  }
+  return null
+}
 
 export const EquipmentOrMagicItem = createUnionType({
   name: 'EquipmentOrMagicItem',
-  types: () => [Equipment, MagicItem] as const,
+  types: () => [Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle, MagicItem] as const,
   resolveType: (value) => {
     if ('rarity' in value) {
       return MagicItem
     }
-    return Equipment
+
+    const equipmentType = resolveConcreteEquipmentType(value)
+    if (equipmentType) {
+      return equipmentType
+    }
+
+    console.warn('Could not resolve type for EquipmentOrMagicItem:', value)
+    throw new Error('Could not resolve type for EquipmentOrMagicItem')
+  }
+})
+
+export const AnyEquipment = createUnionType({
+  name: 'AnyEquipment',
+  types: () => [Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle] as const,
+  resolveType: (value) => {
+    const equipmentType = resolveConcreteEquipmentType(value)
+    if (equipmentType) {
+      return equipmentType
+    }
+
+    console.warn('Could not resolve type for AnyEquipment:', value)
+    return Gear
   }
 })
 

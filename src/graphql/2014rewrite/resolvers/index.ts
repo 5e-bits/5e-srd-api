@@ -6,7 +6,7 @@ import { ClassResolver, MultiClassingResolver, MultiClassingPrereqResolver } fro
 import { ConditionResolver } from './conditionResolver'
 import { DamageTypeResolver } from './damageTypeResolver'
 import { EquipmentCategoryResolver } from './equipmentCategoryResolver'
-import { EquipmentResolver } from './equipmentResolver'
+import { EquipmentResolver, ContentFieldResolver } from './equipmentResolver'
 import { FeatResolver, PrerequisiteResolver } from './featResolver'
 import { FeatureResolver, FeatureSpecificResolver } from './featureResolver'
 import { LanguageResolver } from './languageResolver'
@@ -60,6 +60,7 @@ const fieldResolvers = [
   PrerequisiteResolver,
   // Trait
   TraitSpecificResolver,
+  ActionDamageResolver,
   // Feature
   FeatureSpecificResolver,
   // Race
@@ -69,12 +70,12 @@ const fieldResolvers = [
   // Class
   MultiClassingResolver,
   MultiClassingPrereqResolver,
-  // Trait
-  ActionDamageResolver,
   // Subclass
   SubclassSpellResolver,
-  // Spell (Nested type)
-  SpellDamageResolver
+  // Spell
+  SpellDamageResolver,
+  // Equipment
+  ContentFieldResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones

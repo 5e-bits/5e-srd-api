@@ -1,10 +1,15 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import EquipmentModel, { Equipment, Content } from '@/models/2014/equipment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
-import { resolveMultipleReferences } from '@/graphql/2014rewrite/utils/resolvers'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference
+} from '@/graphql/2014rewrite/utils/resolvers'
+import { APIReference } from '@/models/2014/types/apiReference'
+import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
 
 @ArgsType()
 class EquipmentArgs {
@@ -63,4 +68,20 @@ export class EquipmentResolver {
   }
 
   // Resolvers for equipment_category, gear_category, armor_class, contents, damage, two_handed_damage deferred to Intermediate Step
+}
+
+// --- Resolver for nested Content type ---
+@Resolver(Content)
+export class ContentFieldResolver {
+  @FieldResolver(() => AnyEquipment, {
+    nullable: true,
+    description: 'Resolves the APIReference to the actual Equipment.'
+  })
+  async item(@Root() content: Content): Promise<Equipment | null> {
+    const itemRef: APIReference = content.item
+
+    if (!itemRef?.index) return null
+
+    return resolveSingleReference(itemRef, EquipmentModel)
+  }
 }
