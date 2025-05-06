@@ -61,7 +61,7 @@ export const SubclassSpellPrerequisiteUnion = createUnionType({
 
 // Union type for Feature.prerequisites
 export const FeaturePrerequisiteUnion = createUnionType({
-  name: 'FeaturePrerequisiteChoice',
+  name: 'FeaturePrerequisiteUnion',
   types: () => [LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite] as const,
   resolveType: (value) => {
     if (value.type === 'level') {
