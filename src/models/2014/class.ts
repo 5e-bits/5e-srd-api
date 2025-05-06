@@ -7,10 +7,13 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { AbilityScore } from './abilityScore'
 import { Subclass } from './subclass'
+import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
+import { Level } from './level'
+import { Spell } from './spell'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
-export class Equipment {
-  // TODO: Define complex types post-Pass 2 (Resolve equipment reference)
+export class ClassEquipment {
+  @Field(() => AnyEquipment, { description: 'The resolved equipment item.' })
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
@@ -21,26 +24,26 @@ export class Equipment {
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  // TODO: Define complex types post-Pass 2
+  @Field(() => [String], { description: 'Description of the spellcasting ability.' })
   @prop({ required: true, index: true, type: () => [String] })
   public desc!: string[]
 
-  // TODO: Define complex types post-Pass 2
+  @Field(() => String, { description: 'Name of the spellcasting ability.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 }
 
 @ObjectType({ description: 'Spellcasting details for a class' })
 export class Spellcasting {
-  // TODO: Define complex types post-Pass 2
+  @Field(() => [SpellcastingInfo], { description: 'Spellcasting details for the class.' })
   @prop({ type: () => [SpellcastingInfo] })
   public info!: SpellcastingInfo[]
 
-  // TODO: Define complex types post-Pass 2
+  @Field(() => Int, { description: 'Level of the spellcasting ability.' })
   @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
-  // TODO: Define complex types post-Pass 2 (Resolve reference)
+  @Field(() => AbilityScore, { description: 'Ability score used for spellcasting.' })
   @prop({ type: () => APIReference })
   public spellcasting_ability!: APIReference
 }
@@ -84,7 +87,9 @@ export class MultiClassing {
 @ObjectType({ description: 'Represents a character class (e.g., Barbarian, Wizard)' })
 @srdModelOptions('2014-classes')
 export class Class {
-  // TODO: Define complex types post-Pass 2 (Resolve reference to Level type)
+  @Field(() => [Level], {
+    description: 'All levels for this class, detailing features and abilities gained.'
+  })
   @prop({ required: true, index: true, type: () => String })
   public class_levels!: string
 
@@ -125,17 +130,23 @@ export class Class {
   @prop({ type: () => [APIReference] })
   public saving_throws!: APIReference[]
 
-  // TODO: Define complex types post-Pass 2 (Define Spellcasting type and resolve nested refs)
+  @Field(() => Spellcasting, {
+    nullable: true,
+    description: 'Spellcasting details for the class.'
+  })
   @prop({ type: () => Spellcasting })
   public spellcasting?: Spellcasting
 
-  // TODO: Define complex types post-Pass 2 (Resolve reference to Spell type array)
+  @Field(() => [Spell], { description: 'Spells available to this class.' })
   @prop({ required: true, index: true, type: () => String })
   public spells!: string
 
-  // TODO: Define complex types post-Pass 2 (Define local starting Equipment type and resolve nested refs)
-  @prop({ type: () => [Equipment] })
-  public starting_equipment!: Equipment[]
+  @Field(() => [ClassEquipment], {
+    nullable: true,
+    description: 'Starting equipment for the class.'
+  })
+  @prop({ type: () => [ClassEquipment] })
+  public starting_equipment!: ClassEquipment[]
 
   // TODO: Pass 3 - Choice array
   @prop({ type: () => [Choice] })
@@ -145,7 +156,6 @@ export class Class {
   @prop({ type: () => [APIReference] })
   public subclasses!: APIReference[]
 
-  // url field is not exposed via GraphQL
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 

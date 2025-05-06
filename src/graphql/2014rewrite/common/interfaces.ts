@@ -1,14 +1,12 @@
-import { InterfaceType, Field, ID, Float } from 'type-graphql'
+import { InterfaceType, Field, Float } from 'type-graphql'
 import { Cost } from '@/models/2014/equipment'
 
 @InterfaceType({
   description: 'Common fields shared by all types of equipment and magic items.'
-  // Resolve type function needed later if union uses this interface
-  // resolveType: value => { ... }
 })
 export abstract class IEquipment {
-  @Field(() => ID, { description: 'The unique identifier for this equipment.' })
-  index!: string // ID often maps to index
+  @Field(() => String, { description: 'The unique identifier for this equipment.' })
+  index!: string
 
   @Field(() => String, { description: 'The name of the equipment.' })
   name!: string
