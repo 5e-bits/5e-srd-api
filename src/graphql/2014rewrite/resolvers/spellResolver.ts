@@ -1,6 +1,6 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
 import { IsOptional, IsString, IsEnum, IsInt, Min, Max } from 'class-validator'
-import SpellModel, { Spell } from '@/models/2014/spell'
+import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -10,6 +10,8 @@ import {
   resolveMultipleReferences,
   resolveSingleReference
 } from '@/graphql/2014rewrite/utils/resolvers'
+import { LevelValue } from '@/graphql/2014rewrite/common/types'
+import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
 
 @ArgsType()
 class SpellArgs {
@@ -95,5 +97,30 @@ export class SpellResolver {
     return resolveMultipleReferences(spell.subclasses, SubclassModel)
   }
 
-  // Resolvers for area_of_effect, damage, dc, heal_at_slot_level deferred
+  @FieldResolver(() => [LevelValue], {
+    nullable: true,
+    description: 'Healing amount based on spell slot level, transformed from raw data.'
+  })
+  async heal_at_slot_level(@Root() spell: Spell): Promise<LevelValue[] | null> {
+    return mapLevelObjectToArray(spell.heal_at_slot_level)
+  }
+}
+
+@Resolver(SpellDamage)
+export class SpellDamageResolver {
+  @FieldResolver(() => [LevelValue], {
+    nullable: true,
+    description: 'Damage scaling based on spell slot level, transformed from raw data.'
+  })
+  async damage_at_slot_level(@Root() spellDamage: SpellDamage): Promise<LevelValue[] | null> {
+    return mapLevelObjectToArray(spellDamage.damage_at_slot_level)
+  }
+
+  @FieldResolver(() => [LevelValue], {
+    nullable: true,
+    description: 'Damage scaling based on character level, transformed from raw data.'
+  })
+  async damage_at_character_level(@Root() spellDamage: SpellDamage): Promise<LevelValue[] | null> {
+    return mapLevelObjectToArray(spellDamage.damage_at_character_level)
+  }
 }

@@ -19,7 +19,7 @@ import { RaceResolver, RaceAbilityBonusResolver } from './raceResolver'
 import { RuleResolver } from './ruleResolver'
 import { RuleSectionResolver } from './ruleSectionResolver'
 import { SkillResolver } from './skillResolver'
-import { SpellResolver } from './spellResolver'
+import { SpellResolver, SpellDamageResolver } from './spellResolver'
 import { SubclassResolver, SubclassSpellResolver } from './subclassResolver'
 import { SubraceResolver, SubraceAbilityBonusResolver } from './subraceResolver'
 import { TraitResolver, TraitSpecificResolver, ActionDamageResolver } from './traitResolver'
@@ -72,7 +72,9 @@ const fieldResolvers = [
   // Trait
   ActionDamageResolver,
   // Subclass
-  SubclassSpellResolver
+  SubclassSpellResolver,
+  // Spell (Nested type)
+  SpellDamageResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones

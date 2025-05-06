@@ -7,28 +7,46 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Class } from './class'
 import { MagicSchool } from './magicSchool'
 import { Subclass } from './subclass'
+import { DamageType } from './damageType'
+import { AbilityScore } from './abilityScore'
+import { LevelValue } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Details about spell damage' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpellDamage {
+  @Field(() => DamageType, { nullable: true, description: 'Type of damage dealt.' })
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
+  @Field(() => [LevelValue], {
+    nullable: true,
+    description: 'Damage dealt at specific spell slot levels.'
+  })
   @prop({ mapProp: true, type: () => Object, default: undefined })
   public damage_at_slot_level?: Record<number, string>
 
+  @Field(() => [LevelValue], {
+    nullable: true,
+    description: 'Damage dealt based on character level.'
+  })
   @prop({ mapProp: true, type: () => Object, default: undefined })
   public damage_at_character_level?: Record<number, string>
 }
 
 @ObjectType({ description: "Details about a spell's saving throw" })
 export class SpellDC {
+  @Field(() => AbilityScore, { description: 'The ability score used for the saving throw.' })
   @prop({ type: () => APIReference, required: true })
   public dc_type!: APIReference
 
+  @Field(() => String, { description: "The result of a successful save (e.g., 'half', 'none')." })
   @prop({ required: true, index: true, type: () => String })
   public dc_success!: string
 
+  @Field(() => String, {
+    nullable: true,
+    description: 'Additional description for the saving throw.'
+  })
   @prop({ index: true, type: () => String })
   public desc?: string
 }
@@ -36,7 +54,10 @@ export class SpellDC {
 @ObjectType({ description: 'Represents a spell in D&D' })
 @srdModelOptions('2014-spells')
 export class Spell {
-  // TODO: Define complex types post-Pass 2 (Define AreaOfEffect type)
+  @Field(() => AreaOfEffect, {
+    nullable: true,
+    description: 'Area of effect details, if applicable.'
+  })
   @prop({ type: () => AreaOfEffect })
   public area_of_effect?: AreaOfEffect
 
@@ -63,11 +84,11 @@ export class Spell {
   @prop({ index: true, type: () => Boolean })
   public concentration!: boolean
 
-  // TODO: Define complex types post-Pass 2 (Define SpellDamage type and resolve nested refs)
+  @Field(() => SpellDamage, { nullable: true, description: 'Damage details, if applicable.' })
   @prop({ type: () => SpellDamage })
   public damage?: SpellDamage
 
-  // TODO: Define complex types post-Pass 2 (Define SpellDC type and resolve nested refs)
+  @Field(() => SpellDC, { nullable: true, description: 'Saving throw details, if applicable.' })
   @prop({ type: () => SpellDC })
   public dc?: SpellDC
 
@@ -79,7 +100,10 @@ export class Spell {
   @prop({ required: true, index: true, type: () => String })
   public duration!: string
 
-  // TODO: Define complex types post-Pass 2 (Define heal_at_slot_level map)
+  @Field(() => [LevelValue], {
+    nullable: true,
+    description: 'Healing amount based on spell slot level.'
+  })
   @prop({ type: () => Object })
   public heal_at_slot_level?: Record<number, string>
 
