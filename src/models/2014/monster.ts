@@ -1,6 +1,7 @@
 import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference, Choice, DifficultyClass, Damage } from './common'
+import { APIReference } from '@/models/2014/types/apiReference'
+import { Choice, DifficultyClass, Damage } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'

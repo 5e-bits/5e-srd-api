@@ -24,6 +24,7 @@ import { LevelResolver } from './levelResolver'
 import { SubclassResolver } from './subclassResolver'
 import { ClassResolver, MultiClassingResolver, MultiClassingPrereqResolver } from './classResolver'
 import { MonsterResolver } from './monsterResolver'
+import { ActionDamageResolver } from './actionDamageResolver'
 
 const collectionResolvers = [
   AbilityScoreResolver,
@@ -68,7 +69,9 @@ const fieldResolvers = [
   SubraceAbilityBonusResolver,
   // Class
   MultiClassingResolver,
-  MultiClassingPrereqResolver
+  MultiClassingPrereqResolver,
+  // ActionDamage
+  ActionDamageResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones

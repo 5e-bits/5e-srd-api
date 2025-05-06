@@ -7,7 +7,7 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
-import { APIReference } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
 
 @ArgsType()
 class ClassArgs {

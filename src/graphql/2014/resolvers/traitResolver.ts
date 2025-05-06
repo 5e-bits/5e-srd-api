@@ -21,14 +21,14 @@ import { Option, OptionsArrayOptionSet, ReferenceOption } from '@/models/2014/co
 
 type TraitSpecificClient = {
   breath_weapon?: {
-    dc?: Promise<ResolvedDC>;
-    damage?: any;
-    usage?: any;
-    area_of_effect?: any;
-  };
-  damage_type?: any;
-  spell_options?: any;
-  subtrait_options?: any;
+    dc?: Promise<ResolvedDC>
+    damage?: any
+    usage?: any
+    area_of_effect?: any
+  }
+  damage_type?: any
+  spell_options?: any
+  subtrait_options?: any
 }
 
 const resolveUsage = (usage: Usage) => {
@@ -103,18 +103,18 @@ const TraitResolver = {
 
     const traitSpecificToReturn: TraitSpecificClient = {}
 
-    if (trait_specific.breath_weapon) {
-      traitSpecificToReturn.breath_weapon = {
-        ...trait_specific.breath_weapon,
-        dc: resolveDc(trait_specific.breath_weapon.dc),
-        damage: trait_specific.breath_weapon.damage.map(async (damage) => ({
-          damage_at_character_level: levelObjectToArray(damage.damage_at_character_level, 'damage'),
-          damage_type: await DamageTypeModel.findOne({ index: damage.damage_type.index }).lean()
-        })),
-        usage: resolveUsage(trait_specific.breath_weapon.usage),
-        area_of_effect: resolveAreaOfEffect(trait_specific.breath_weapon.area_of_effect)
-      }
-    }
+    // if (trait_specific.breath_weapon) {
+    //   traitSpecificToReturn.breath_weapon = {
+    //     ...trait_specific.breath_weapon,
+    //     dc: resolveDc(trait_specific.breath_weapon.dc),
+    //     damage: trait_specific.breath_weapon.damage.map(async (damage) => ({
+    //       damage_at_character_level: levelObjectToArray(damage.damage_at_character_level, 'damage'),
+    //       damage_type: await DamageTypeModel.findOne({ index: damage.damage_type.index }).lean()
+    //     })),
+    //     usage: resolveUsage(trait_specific.breath_weapon.usage),
+    //     area_of_effect: resolveAreaOfEffect(trait_specific.breath_weapon.area_of_effect)
+    //   }
+    // }
 
     if (trait_specific.damage_type) {
       traitSpecificToReturn.damage_type = await DamageTypeModel.findOne({

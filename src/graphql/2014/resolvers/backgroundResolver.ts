@@ -6,11 +6,8 @@ import ProficiencyModel from '@/models/2014/proficiency'
 import { coalesceFilters, resolveChoice, resolveContainsStringFilter, QueryParams } from './common'
 
 import { Background, EquipmentRef } from '@/models/2014/background'
-import {
-  APIReference,
-  EquipmentCategoryOptionSet,
-  OptionsArrayOptionSet
-} from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
+import { EquipmentCategoryOptionSet, OptionsArrayOptionSet } from '@/models/2014/common'
 import { Choice, Option } from '@/models/2014/common'
 
 const BackgroundResolver = {

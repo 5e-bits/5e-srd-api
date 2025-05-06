@@ -3,7 +3,7 @@ import { IsOptional, IsString, IsEnum, IsIn } from 'class-validator'
 import MonsterModel, { Monster } from '@/models/2014/monster'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
-import { APIReference } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
 import ConditionModel, { Condition } from '@/models/2014/condition'
 import { resolveMultipleReferences } from '../utils/resolvers'
 

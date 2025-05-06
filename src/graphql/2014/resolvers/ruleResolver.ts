@@ -1,7 +1,7 @@
 import RuleSectionModel from '@/models/2014/ruleSection'
 import { coalesceFilters, resolveContainsStringFilter, QueryParams } from './common'
 import { Rule } from '@/models/2014/rule'
-import { APIReference } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
 
 const RuleResolver = {
   subsections: async (rule: Rule, args: QueryParams) => {
