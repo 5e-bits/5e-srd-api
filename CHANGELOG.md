@@ -1,3 +1,10 @@
+## [3.23.3](https://github.com/5e-bits/5e-srd-api/compare/v3.23.2...v3.23.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* **class:** showSpellsForClassAndLevel now gives the spells available at that class level ([#758](https://github.com/5e-bits/5e-srd-api/issues/758)) ([22b1b35](https://github.com/5e-bits/5e-srd-api/commit/22b1b351e7355bcdde04c5fd2fee0c967fb4f2f5))
+
 ## [3.23.2](https://github.com/5e-bits/5e-srd-api/compare/v3.23.1...v3.23.2) (2025-05-04)
 
 
