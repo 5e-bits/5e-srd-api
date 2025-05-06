@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference, Choice } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
+import { Choice } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
 import { AbilityScore } from './abilityScore'

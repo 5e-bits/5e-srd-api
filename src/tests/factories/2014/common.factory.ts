@@ -1,7 +1,7 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { APIReference } from '@/models/2014/types/apiReference'
 import {
-  APIReference,
   AreaOfEffect,
   DifficultyClass,
   Damage,

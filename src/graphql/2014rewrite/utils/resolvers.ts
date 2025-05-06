@@ -1,5 +1,5 @@
-import { APIReference } from '@/models/2014/common'
-import { ReturnModelType, DocumentType } from '@typegoose/typegoose'
+import { APIReference } from '@/models/2014/types/apiReference'
+import { ReturnModelType } from '@typegoose/typegoose'
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types'
 
 // Helper to resolve a single APIReference to a lean object

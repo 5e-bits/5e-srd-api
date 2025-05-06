@@ -1,48 +1,90 @@
 import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference, Choice, AreaOfEffect, DifficultyClass } from '@/models/2014/common'
+import { Choice, AreaOfEffect } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field } from 'type-graphql'
+import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { Race } from './race'
 import { Subrace } from './subrace'
 import { DamageType } from './damageType'
+import { AbilityScore } from './abilityScore'
 
+// Define the structure for level-based damage
+@ObjectType({ description: 'Damage amount at a specific character level.' })
+export class LevelDamage {
+  @Field(() => Int, { description: 'The character level at which this damage applies.' })
+  level!: number // We expect the resolver to convert the string key to a number
+
+  @Field(() => String, { description: "The damage dice string (e.g., '2d6')." })
+  damage!: string
+}
+
+@ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-class ActionDamage {
+export class ActionDamage {
+  @Field(() => DamageType, { nullable: true, description: 'The type of damage dealt.' })
   @prop({ type: () => APIReference })
   public damage_type!: APIReference
 
-  @prop({ type: () => Object })
-  public damage_at_character_level!: Record<string, string>
+  // Expose as an array of LevelDamage objects
+  @Field(() => [LevelDamage], {
+    nullable: true,
+    description: 'Damage scaling based on character level.'
+  })
+  @prop({ type: () => Object }) // Data is stored as Record<string, string>
+  public damage_at_character_level?: Record<string, string> // Keep TS type as Record, mark prop optional
 }
 
+@ObjectType({ description: 'Usage limit details for an action' })
 export class Usage {
+  @Field(() => String, { description: "Type of usage limit (e.g., 'per day')." })
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
+  @Field(() => Int, { description: 'Number of times the action can be used.' })
   @prop({ required: true, index: true, type: () => Number })
   public times!: number
 }
 
-class Action {
+@ObjectType({ description: 'DC details for a trait action (lacks dc_value).' })
+export class TraitActionDC {
+  @Field(() => AbilityScore, { description: 'The ability score associated with this DC.' })
+  dc_type!: APIReference
+
+  @Field(() => String, { description: 'The result of a successful save against this DC.' })
+  success_type!: 'none' | 'half' | 'other'
+}
+
+@ObjectType({ description: 'Represents an action associated with a trait (like a breath weapon).' })
+export class Action {
+  @Field(() => String, { description: 'The name of the action.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => [String] })
+  @Field(() => String, { description: 'Description of the action.' })
+  @prop({ required: true, index: true, type: () => String })
   public desc!: string
 
+  @Field(() => Usage, { nullable: true, description: 'Usage limitations for the action.' })
   @prop({ type: () => Usage })
-  public usage!: Usage
+  public usage?: Usage
 
-  @prop({ type: () => DifficultyClass })
-  public dc!: DifficultyClass
+  @Field(() => TraitActionDC, {
+    nullable: true,
+    description:
+      'The Difficulty Class (DC) associated with the action (value may not be applicable).'
+  })
+  @prop({ type: () => TraitActionDC })
+  public dc?: TraitActionDC
 
+  @Field(() => [ActionDamage], { nullable: true, description: 'Damage dealt by the action.' })
   @prop({ type: () => [ActionDamage] })
-  public damage!: ActionDamage[]
+  public damage?: ActionDamage[]
 
+  @Field(() => AreaOfEffect, { nullable: true, description: 'The area of effect for the action.' })
   @prop({ type: () => AreaOfEffect })
-  public area_of_effect!: AreaOfEffect
+  public area_of_effect?: AreaOfEffect
 }
 
 @ObjectType({ description: 'Details specific to certain traits.' })
@@ -62,8 +104,10 @@ export class TraitSpecific {
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
-  // No @Field decorator here yet
-  // TODO: Define complex types post-Pass 2 (Define Action @ObjectType)
+  @Field(() => Action, {
+    nullable: true,
+    description: 'Breath weapon action details, if applicable.'
+  })
   @prop({ type: () => Action })
   public breath_weapon?: Action
 }
