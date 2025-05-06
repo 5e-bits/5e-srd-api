@@ -10,6 +10,7 @@ import Proficiency from '@/models/2014/proficiency'
 import SimpleController from '@/controllers/simpleController'
 import Spell from '@/models/2014/spell'
 import Subclass from '@/models/2014/subclass'
+import LevelModel from '@/models/2014/level'
 
 const simpleController = new SimpleController(Class)
 interface ShowLevelsForClassQuery {
@@ -210,17 +211,42 @@ export const showSpellsForClassAndLevel = async (
         .status(400)
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
-    const { index, level } = validatedParams.data
+    const { index, level: classLevel } = validatedParams.data
+
+    // Find the level data for the class
+    const levelData = await LevelModel.findOne({ 'class.index': index, level: classLevel }).lean()
+
+    let maxSpellLevel = -1 // Default to -1 indicating no spellcasting ability found
+
+    if (levelData?.spellcasting) {
+      maxSpellLevel = 0 // Has spellcasting, so at least cantrips (level 0) might be available
+      const spellcasting = levelData.spellcasting
+      for (let i = 9; i >= 1; i--) {
+        // Check if the spell slot exists and is greater than 0
+        const spellSlotKey = `spell_slots_level_${i}` as keyof typeof spellcasting
+        if (spellcasting[spellSlotKey] != null && spellcasting[spellSlotKey]! > 0) {
+          maxSpellLevel = i
+          break // Found the highest level
+        }
+      }
+    }
+
+    if (maxSpellLevel < 0) {
+      return res.status(200).json(ResourceList([]))
+    }
 
     const urlString = '/api/2014/classes/' + index
 
-    const data = await Spell.find({
+    // Find spells for the class with level <= maxSpellLevel
+    const spellData = await Spell.find({
       'classes.url': urlString,
-      level
+      level: { $lte: maxSpellLevel, $gte: 0 } // Query uses maxSpellLevel
     })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
-    return res.status(200).json(ResourceList(data))
+      .lean() // Use lean for performance as we only read data
+
+    return res.status(200).json(ResourceList(spellData))
   } catch (err) {
     next(err)
   }
