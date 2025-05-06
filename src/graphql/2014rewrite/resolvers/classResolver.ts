@@ -8,6 +8,8 @@ import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
 import { APIReference } from '@/models/2014/types/apiReference'
+import LevelModel, { Level } from '@/models/2014/level'
+import SpellModel, { Spell } from '@/models/2014/spell'
 
 @ArgsType()
 class ClassArgs {
@@ -63,6 +65,16 @@ export class ClassResolver {
     return ClassModel.findOne({ index }).lean()
   }
 
+  @FieldResolver(() => [Level])
+  async class_levels(@Root() classData: Class): Promise<Level[]> {
+    return LevelModel.find({
+      'class.index': classData.index,
+      subclass: { $exists: false }
+    })
+      .sort({ level: 1 })
+      .lean()
+  }
+
   @FieldResolver(() => [Proficiency])
   async proficiencies(@Root() classData: Class): Promise<APIReference[]> {
     return resolveMultipleReferences(classData.proficiencies, ProficiencyModel)
@@ -76,6 +88,11 @@ export class ClassResolver {
   @FieldResolver(() => [Subclass])
   async subclasses(@Root() classData: Class): Promise<APIReference[]> {
     return resolveMultipleReferences(classData.subclasses, SubclassModel)
+  }
+
+  @FieldResolver(() => [Spell])
+  async spells(@Root() classData: Class): Promise<Spell[]> {
+    return SpellModel.find({ 'classes.index': classData.index }).sort({ level: 1, name: 1 }).lean()
   }
 }
 
