@@ -6,31 +6,39 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
 import { Class } from './class'
 import { Subclass } from './subclass'
+import { Spell } from './spell'
+import { FeaturePrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
 
 // Export nested classes
 @ObjectType({ description: 'Prerequisite based on character level' })
 export class LevelPrerequisite {
+  @Field(() => String, { description: 'Type indicator for this prerequisite.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
+  @Field(() => Int, { description: 'The character level required.' })
   @prop({ required: true, index: true, type: () => Number })
   public level!: number
 }
 
 @ObjectType({ description: 'Prerequisite based on having another feature' })
 export class FeaturePrerequisite {
+  @Field(() => String, { description: 'Type indicator for this prerequisite.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
+  @Field(() => Feature, { description: 'The specific feature required.' })
   @prop({ required: true, index: true, type: () => String })
   public feature!: string
 }
 
 @ObjectType({ description: 'Prerequisite based on knowing a specific spell' })
 export class SpellPrerequisite {
+  @Field(() => String, { description: 'Type indicator for this prerequisite.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
+  @Field(() => Spell, { description: 'The specific spell required.' })
   @prop({ required: true, index: true, type: () => String })
   public spell!: string
 }
@@ -83,7 +91,11 @@ export class Feature {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (Define Prerequisite union and resolve nested refs)
+  @Field(() => [FeaturePrerequisiteUnion], {
+    nullable: true,
+    description:
+      'Prerequisites that must be met for this feature (specific type resolved by union).'
+  })
   @prop({ type: () => [Object] })
   public prerequisites?: Prerequisite[]
 

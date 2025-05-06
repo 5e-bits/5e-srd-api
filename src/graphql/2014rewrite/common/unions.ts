@@ -6,6 +6,7 @@ import { AbilityScore } from '@/models/2014/abilityScore'
 import { Skill } from '@/models/2014/skill'
 import { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
+import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
 
 export const EquipmentOrMagicItem = createUnionType({
   name: 'EquipmentOrMagicItem',
@@ -55,5 +56,24 @@ export const SubclassSpellPrerequisiteUnion = createUnionType({
 
     console.warn('Could not reliably resolve type for SubclassSpellPrerequisiteUnion:', value)
     throw new Error('Could not resolve type for SubclassSpellPrerequisiteUnion')
+  }
+})
+
+// Union type for Feature.prerequisites
+export const FeaturePrerequisiteUnion = createUnionType({
+  name: 'FeaturePrerequisiteChoice',
+  types: () => [LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite] as const,
+  resolveType: (value) => {
+    if (value.type === 'level') {
+      return LevelPrerequisite
+    }
+    if (value.type === 'feature') {
+      return FeaturePrerequisite
+    }
+    if (value.type === 'spell') {
+      return SpellPrerequisite
+    }
+    console.warn('Could not resolve type for FeaturePrerequisiteUnion:', value)
+    throw new Error('Could not resolve type for FeaturePrerequisiteUnion')
   }
 })
