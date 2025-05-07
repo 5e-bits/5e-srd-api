@@ -5,12 +5,11 @@ import {
   ArmorClass,
   Content,
   Cost,
-  Damage,
   Range,
   Speed,
-  ThrowRange,
-  TwoHandedDamage
+  ThrowRange
 } from '@/models/2014/equipment'
+import { Damage } from '@/models/2014/common'
 import { apiReferenceFactory } from './common.factory'
 
 // --- Sub-factories (Simple defaults/placeholders) ---
@@ -53,7 +52,7 @@ const throwRangeFactory = Factory.define<ThrowRange>(() => ({
   long: faker.number.int({ min: 31, max: 120 })
 }))
 
-const twoHandedDamageFactory = Factory.define<TwoHandedDamage>(() => ({
+const twoHandedDamageFactory = Factory.define<Damage>(() => ({
   damage_dice: `${faker.number.int({ min: 1, max: 2 })}d${faker.helpers.arrayElement([
     6, 8, 10, 12
   ])}`,
