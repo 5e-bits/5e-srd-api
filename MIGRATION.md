@@ -202,7 +202,7 @@ Iterate through the models again, focusing on connecting them:
 4. Verify functionality via GraphQL endpoint.
 5. Deploy to production.
 
-### Intermediate Step: Define Deferred Complex Types (Before Pass 3)
+### ✅ Intermediate Step: Define Deferred Complex Types (Before Pass 3)
 
 Based on the plan and model analysis, define the full GraphQL structures (Interfaces, Unions, detailed Object Types) for models whose complexity was deferred. Add `@Field` decorators to expose these structures and their nested fields.
 
