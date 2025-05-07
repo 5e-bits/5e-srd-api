@@ -5,57 +5,61 @@ import { Choice, DifficultyClass, Damage } from '@/models/2014/common'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'
+import { AbilityScore } from './abilityScore'
 
 // Export all nested classes/types
 @ObjectType({ description: 'Option within a monster action' })
 export class ActionOption {
-  // TODO: Define complex types post-Pass 2 (ActionOption)
+  @Field(() => String, { description: 'The name of the action.' })
   @prop({ required: true, index: true, type: () => String })
   public action_name!: string
 
-  // TODO: Define complex types post-Pass 2 (ActionOption)
+  @Field(() => String, { description: 'Number of times the action can be used.' })
   @prop({ required: true, index: true, type: () => String })
   public count!: number | string
 
-  // TODO: Define complex types post-Pass 2 (ActionOption)
+  @Field(() => String, { description: 'The type of action.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'melee' | 'ranged' | 'ability' | 'magic'
 }
 
 @ObjectType({ description: 'Usage details for a monster action or ability' })
 export class ActionUsage {
-  // TODO: Define complex types post-Pass 2 (ActionUsage)
+  @Field(() => String, { description: 'The type of action usage.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  // TODO: Define complex types post-Pass 2 (ActionUsage)
+  @Field(() => String, { nullable: true, description: 'The dice roll for the action usage.' })
   @prop({ index: true, type: () => String })
   public dice?: string
 
-  // TODO: Define complex types post-Pass 2 (ActionUsage)
+  @Field(() => Int, { nullable: true, description: 'The minimum value for the action usage.' })
   @prop({ index: true, type: () => Number })
   public min_value?: number
 }
 
 @ObjectType({ description: 'An action a monster can perform' })
-export class Action {
-  // TODO: Define complex types post-Pass 2 (Action)
+export class MonsterAction {
+  @Field(() => String, { description: 'The name of the action.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (Action)
+  @Field(() => String, { description: 'The description of the action.' })
   @prop({ required: true, index: true, type: () => String })
   public desc!: string
 
-  // TODO: Define complex types post-Pass 2 (Action)
+  @Field(() => Int, { nullable: true, description: 'The attack bonus for the action.' })
   @prop({ index: true, type: () => Number })
   public attack_bonus?: number
 
-  // TODO: Define complex types post-Pass 2 (Action - nested Damage)
+  @Field(() => [Damage], { nullable: true, description: 'The damage for the action.' })
   @prop({ type: () => [Damage] })
   public damage?: Damage[]
 
-  // TODO: Define complex types post-Pass 2 (Action - nested DifficultyClass)
+  @Field(() => DifficultyClass, {
+    nullable: true,
+    description: 'The difficulty class for the action.'
+  })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 
@@ -63,15 +67,15 @@ export class Action {
   @prop({ type: () => Choice })
   public options?: Choice
 
-  // TODO: Define complex types post-Pass 2 (Action - nested ActionUsage)
+  @Field(() => ActionUsage, { nullable: true, description: 'The usage for the action.' })
   @prop({ type: () => ActionUsage })
   public usage?: ActionUsage
 
-  // TODO: Define complex types post-Pass 2 (Action)
+  @Field(() => String, { description: 'The type of multiattack for the action.' })
   @prop({ required: true, index: true, type: () => String })
   public multiattack_type!: 'actions' | 'action_options'
 
-  // TODO: Define complex types post-Pass 2 (Action - nested ActionOption array)
+  @Field(() => [ActionOption], { description: 'The actions for the action.' })
   @prop({ type: () => [ActionOption] })
   public actions!: ActionOption[]
 
@@ -167,59 +171,61 @@ export type ArmorClass =
 
 @ObjectType({ description: 'A legendary action a monster can perform' })
 export class LegendaryAction {
-  // TODO: Define complex types post-Pass 2 (LegendaryAction)
+  @Field(() => String, { description: 'The name of the legendary action.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (LegendaryAction)
+  @Field(() => String, { description: 'The description of the legendary action.' })
   @prop({ required: true, index: true, type: () => String })
   public desc!: string
 
-  // TODO: Define complex types post-Pass 2 (LegendaryAction)
+  @Field(() => Int, { nullable: true, description: 'The attack bonus for the legendary action.' })
   @prop({ index: true, type: () => Number })
   public attack_bonus?: number
 
-  // TODO: Define complex types post-Pass 2 (LegendaryAction - nested Damage)
+  @Field(() => [Damage], { nullable: true, description: 'The damage for the legendary action.' })
   @prop({ type: () => [Damage] })
   public damage?: Damage[]
 
-  // TODO: Define complex types post-Pass 2 (LegendaryAction - nested DifficultyClass)
+  @Field(() => DifficultyClass, {
+    nullable: true,
+    description: 'The difficulty class for the legendary action.'
+  })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 }
 
 @ObjectType({ description: 'A proficiency possessed by a monster' })
 export class Proficiency {
-  // This is the nested type for Monster.proficiencies
-  // Note: Part of Monster.proficiencies array, defined post-Pass 2
-
-  // Reference resolver exists, but field exposed when Monster.proficiencies defined
+  @Field(() => Proficiency, { description: 'The proficiency for the monster.' })
   @prop({ type: () => APIReference })
   public proficiency!: APIReference
 
-  // Scalar field, exposed when Monster.proficiencies defined
+  @Field(() => Int, { description: 'The value of the proficiency.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 }
 
 @ObjectType({ description: 'A reaction a monster can perform' })
 export class Reaction {
-  // TODO: Define complex types post-Pass 2 (Reaction)
+  @Field(() => String, { description: 'The name of the reaction.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (Reaction)
+  @Field(() => String, { description: 'The description of the reaction.' })
   @prop({ required: true, index: true, type: () => String })
   public desc!: string
 
-  // TODO: Define complex types post-Pass 2 (Reaction - nested DifficultyClass)
+  @Field(() => DifficultyClass, {
+    nullable: true,
+    description: 'The difficulty class for the reaction.'
+  })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 }
 
 @ObjectType({ description: 'Monster senses details' })
 export class Sense {
-  // Note: All fields are simple scalars handled in Pass 1
   @Field(() => String, { nullable: true })
   @prop({ index: true, type: () => String })
   public blindsight?: string
@@ -243,26 +249,32 @@ export class Sense {
 
 @ObjectType({ description: 'Usage details for a special ability' })
 export class SpecialAbilityUsage {
-  // TODO: Define complex types post-Pass 2 (SpecialAbilityUsage)
+  @Field(() => String, { description: 'The type of usage for the special ability.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilityUsage)
+  @Field(() => Int, {
+    nullable: true,
+    description: 'The number of times the special ability can be used.'
+  })
   @prop({ index: true, type: () => Number })
   public times?: number
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilityUsage)
+  @Field(() => [String], {
+    nullable: true,
+    description: 'The types of rest the special ability can be used on.'
+  })
   @prop({ type: () => [String] })
   public rest_types?: string[]
 }
 
 @ObjectType({ description: "A spell within a monster's special ability spellcasting" })
 export class SpecialAbilitySpell {
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpell - possibly resolve name/url to actual Spell?)
+  @Field(() => String, { description: 'The name of the spell.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpell)
+  @Field(() => Int, { description: 'The level of the spell.' })
   @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
@@ -270,11 +282,11 @@ export class SpecialAbilitySpell {
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpell)
+  @Field(() => String, { nullable: true, description: 'The notes for the spell.' })
   @prop({ index: true, type: () => String })
   public notes?: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpell - nested SpecialAbilityUsage)
+  @Field(() => SpecialAbilityUsage, { nullable: true, description: 'The usage for the spell.' })
   @prop({ type: () => SpecialAbilityUsage })
   public usage?: SpecialAbilityUsage
 }
@@ -282,29 +294,27 @@ export class SpecialAbilitySpell {
 @ObjectType({ description: 'Spellcasting details for a special ability' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpecialAbilitySpellcasting {
-  // Note: Part of SpecialAbility type, defined post-Pass 2
-
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting)
+  @Field(() => Int, { nullable: true, description: 'The level of the spellcasting.' })
   @prop({ index: true, type: () => Number })
   public level?: number
 
-  // Reference resolver exists, but field exposed when SpecialAbility.spellcasting defined
+  @Field(() => AbilityScore, { description: 'The ability for the spellcasting.' })
   @prop({ type: () => APIReference })
   public ability!: APIReference
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting)
+  @Field(() => Int, { nullable: true, description: 'The difficulty class for the spellcasting.' })
   @prop({ index: true, type: () => Number })
   public dc?: number
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting)
+  @Field(() => Int, { nullable: true, description: 'The modifier for the spellcasting.' })
   @prop({ index: true, type: () => Number })
   public modifier?: number
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting)
+  @Field(() => [String], { description: 'The components required for the spellcasting.' })
   @prop({ type: () => [String] })
   public components_required!: string[]
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting)
+  @Field(() => String, { nullable: true, description: 'The school of the spellcasting.' })
   @prop({ index: true, type: () => String })
   public school?: string
 
@@ -312,40 +322,49 @@ export class SpecialAbilitySpellcasting {
   @prop({ type: () => Object, default: undefined })
   public slots?: Record<string, number>
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting - nested SpecialAbilitySpell array)
+  @Field(() => [SpecialAbilitySpell], { description: 'The spells for the spellcasting.' })
   @prop({ type: () => [SpecialAbilitySpell] })
   public spells!: SpecialAbilitySpell[]
 }
 
 @ObjectType({ description: 'A special ability of the monster' })
 export class SpecialAbility {
-  // TODO: Define complex types post-Pass 2 (SpecialAbility)
+  @Field(() => String, { description: 'The name of the special ability.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility)
+  @Field(() => String, { description: 'The description of the special ability.' })
   @prop({ required: true, index: true, type: () => String })
   public desc!: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility)
+  @Field(() => Int, { nullable: true, description: 'The attack bonus for the special ability.' })
   @prop({ index: true, type: () => Number })
   public attack_bonus?: number
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility - nested Damage)
+  @Field(() => [Damage], { nullable: true, description: 'The damage for the special ability.' })
   @prop({ type: () => [Damage] })
   public damage?: Damage[]
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility - nested DifficultyClass)
+  @Field(() => DifficultyClass, {
+    nullable: true,
+    description: 'The difficulty class for the special ability.'
+  })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility - nested SpecialAbilitySpellcasting)
+  @Field(() => SpecialAbilitySpellcasting, {
+    nullable: true,
+    description: 'The spellcasting for the special ability.'
+  })
   @prop({ type: () => SpecialAbilitySpellcasting })
   public spellcasting?: SpecialAbilitySpellcasting
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility - nested SpecialAbilityUsage)
+  @Field(() => SpecialAbilityUsage, {
+    nullable: true,
+    description: 'The usage for the special ability.'
+  })
   @prop({ type: () => SpecialAbilityUsage })
-  public usage!: SpecialAbilityUsage
+  public usage?: SpecialAbilityUsage
 }
 
 @ObjectType({ description: 'Monster movement speeds' })
@@ -378,9 +397,9 @@ export class MonsterSpeed {
 @ObjectType({ description: 'Represents a creature in the D&D SRD' })
 @srdModelOptions('2014-monsters')
 export class Monster {
-  // TODO: Define complex types post-Pass 2 (Action array)
-  @prop({ type: () => [Action] })
-  public actions?: Action[]
+  @Field(() => [MonsterAction], { nullable: true, description: 'The actions for the monster.' })
+  @prop({ type: () => [MonsterAction] })
+  public actions?: MonsterAction[]
 
   @Field(() => String)
   @prop({ required: true, index: true, type: () => String })
@@ -454,7 +473,10 @@ export class Monster {
   @prop({ required: true, index: true, type: () => String })
   public languages!: string
 
-  // TODO: Define complex types post-Pass 2 (LegendaryAction array)
+  @Field(() => [LegendaryAction], {
+    nullable: true,
+    description: 'The legendary actions for the monster.'
+  })
   @prop({ type: () => [LegendaryAction] })
   public legendary_actions?: LegendaryAction[]
 
@@ -462,11 +484,11 @@ export class Monster {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  // TODO: Define complex types post-Pass 2 (Nested Proficiency array)
+  @Field(() => [Proficiency], { nullable: true, description: 'The proficiencies for the monster.' })
   @prop({ type: () => [Proficiency] })
   public proficiencies!: Proficiency[]
 
-  // TODO: Define complex types post-Pass 2 (Reaction array)
+  @Field(() => [Reaction], { nullable: true, description: 'The reactions for the monster.' })
   @prop({ type: () => [Reaction] })
   public reactions?: Reaction[]
 
@@ -478,7 +500,10 @@ export class Monster {
   @prop({ required: true, index: true, type: () => String })
   public size!: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbility array)
+  @Field(() => [SpecialAbility], {
+    nullable: true,
+    description: 'The special abilities for the monster.'
+  })
   @prop({ type: () => [SpecialAbility] })
   public special_abilities?: SpecialAbility[]
 

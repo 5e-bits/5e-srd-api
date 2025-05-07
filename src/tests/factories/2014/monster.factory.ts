@@ -2,7 +2,7 @@ import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import mongoose from 'mongoose'
 import type {
-  Action,
+  MonsterAction,
   ActionOption,
   ActionUsage,
   ArmorClass,
@@ -41,9 +41,9 @@ const actionOptionFactory = Factory.define<ActionOption>(() => ({
 
 // Factory for Action
 const actionFactory = Factory.define<
-  Action,
+  MonsterAction,
   { has_damage?: boolean; has_dc?: boolean; has_attack_bonus?: boolean; has_usage?: boolean },
-  Action
+  MonsterAction
 >(({ transientParams, associations }) => {
   const generated_multiattack_type = faker.helpers.arrayElement(['actions', 'action_options'])
 
@@ -70,14 +70,14 @@ const actionFactory = Factory.define<
       multiattack_type: 'actions',
       actions: actionOptionFactory.buildList(faker.number.int({ min: 1, max: 3 })),
       action_options: choiceFactory.build()
-    } as Action
+    } as MonsterAction
   } else {
     return {
       ...baseAction,
       multiattack_type: 'action_options',
       actions: [],
       action_options: choiceFactory.build()
-    } as Action
+    } as MonsterAction
   }
 })
 
