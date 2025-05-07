@@ -6,6 +6,9 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'
 import { AbilityScore } from './abilityScore'
+import { MonsterArmorClassUnion } from '@/graphql/2014rewrite/common/unions'
+import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
+import { Proficiency } from './proficiency'
 
 // Export all nested classes/types
 @ObjectType({ description: 'Option within a monster action' })
@@ -52,8 +55,11 @@ export class MonsterAction {
   @prop({ index: true, type: () => Number })
   public attack_bonus?: number
 
-  @Field(() => [Damage], { nullable: true, description: 'The damage for the action.' })
-  @prop({ type: () => [Damage] })
+  // TODO: PASS 3 - Reinstate @Field with a DamageOrDamageChoiceUnion once Choice is a GraphQL type.
+  // This field can contain either direct Damage objects or Choice objects that resolve to Damage.
+  // Temporarily removing @Field to prevent schema errors due to mixed types in the array.
+  // @Field(() => [Damage], { nullable: true, description: 'The damage for the action.' })
+  @prop({ type: () => [Object] }) // Prop type allows mixed array for Typegoose
   public damage?: Damage[]
 
   @Field(() => DifficultyClass, {
@@ -71,13 +77,13 @@ export class MonsterAction {
   @prop({ type: () => ActionUsage })
   public usage?: ActionUsage
 
-  @Field(() => String, { description: 'The type of multiattack for the action.' })
+  @Field(() => String, { nullable: true, description: 'The type of multiattack for the action.' })
   @prop({ required: true, index: true, type: () => String })
-  public multiattack_type!: 'actions' | 'action_options'
+  public multiattack_type?: 'actions' | 'action_options'
 
-  @Field(() => [ActionOption], { description: 'The actions for the action.' })
+  @Field(() => [ActionOption], { nullable: true, description: 'The actions for the action.' })
   @prop({ type: () => [ActionOption] })
-  public actions!: ActionOption[]
+  public actions?: ActionOption[]
 
   // TODO: Pass 3 - Implement choice resolver
   @prop({ type: () => Choice })
@@ -93,36 +99,53 @@ export class ArmorClassDex {
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
+  @Field(() => String, {
+    nullable: true,
+    description: 'Optional description for this AC component.'
+  })
   @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Natural armor' })
 export class ArmorClassNatural {
-  // Note: Part of the ArmorClass union, defined post-Pass 2
+  @Field(() => String, { description: "Type of AC component: 'natural'" })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'natural'
 
+  @Field(() => Int, { description: 'AC value from natural armor.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
+  @Field(() => String, {
+    nullable: true,
+    description: 'Optional description for this AC component.'
+  })
   @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Armor worn' })
 export class ArmorClassArmor {
-  // Note: Part of the ArmorClass union, defined post-Pass 2
+  @Field(() => String, { description: "Type of AC component: 'armor'" })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'armor'
 
+  @Field(() => Int, { description: 'AC value from worn armor.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
-  // Reference resolver exists, but field exposed when ArmorClass union defined
+  @Field(() => [Armor], {
+    nullable: true,
+    description: 'Specific armor(s) worn, if any. Resolved via resolver.'
+  }) // Using AnyEquipment union
   @prop({ type: () => [APIReference] })
   public armor?: APIReference[]
 
+  @Field(() => String, {
+    nullable: true,
+    description: 'Optional description for this AC component.'
+  })
   @prop({ index: true, type: () => String })
   public desc?: string
 }
@@ -157,17 +180,13 @@ export class ArmorClassCondition {
   @prop({ type: () => APIReference })
   public condition!: APIReference
 
+  @Field(() => String, {
+    nullable: true,
+    description: 'Optional description for this AC component.'
+  })
   @prop({ index: true, type: () => String })
   public desc?: string
 }
-
-// TODO: Define complex types post-Pass 2 (ArmorClass Union definition)
-export type ArmorClass =
-  | ArmorClassDex
-  | ArmorClassNatural
-  | ArmorClassArmor
-  | ArmorClassSpell
-  | ArmorClassCondition
 
 @ObjectType({ description: 'A legendary action a monster can perform' })
 export class LegendaryAction {
@@ -195,13 +214,15 @@ export class LegendaryAction {
   public dc?: DifficultyClass
 }
 
-@ObjectType({ description: 'A proficiency possessed by a monster' })
-export class Proficiency {
-  @Field(() => Proficiency, { description: 'The proficiency for the monster.' })
+@ObjectType({ description: "A monster's specific proficiency and its bonus value." })
+export class MonsterProficiency {
+  @Field(() => Proficiency, {
+    description: 'The specific proficiency (e.g., Saving Throw: STR, Skill: Athletics).'
+  })
   @prop({ type: () => APIReference })
   public proficiency!: APIReference
 
-  @Field(() => Int, { description: 'The value of the proficiency.' })
+  @Field(() => Int, { description: 'The proficiency bonus value for this monster.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 }
@@ -270,7 +291,6 @@ export class SpecialAbilityUsage {
 
 @ObjectType({ description: "A spell within a monster's special ability spellcasting" })
 export class SpecialAbilitySpell {
-  @Field(() => String, { description: 'The name of the spell.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
@@ -278,7 +298,6 @@ export class SpecialAbilitySpell {
   @prop({ required: true, index: true, type: () => Number })
   public level!: number
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpell)
   @prop({ required: true, index: true, type: () => String })
   public url!: string
 
@@ -291,7 +310,7 @@ export class SpecialAbilitySpell {
   public usage?: SpecialAbilityUsage
 }
 
-@ObjectType({ description: 'Spellcasting details for a special ability' })
+@ObjectType({ description: 'Spellcasting details for a monster special ability' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpecialAbilitySpellcasting {
   @Field(() => Int, { nullable: true, description: 'The level of the spellcasting.' })
@@ -318,7 +337,10 @@ export class SpecialAbilitySpellcasting {
   @prop({ index: true, type: () => String })
   public school?: string
 
-  // TODO: Define complex types post-Pass 2 (SpecialAbilitySpellcasting - slots object)
+  @Field(() => [SpellSlotCount], {
+    nullable: true,
+    description: 'Spell slots available per spell level.'
+  })
   @prop({ type: () => Object, default: undefined })
   public slots?: Record<string, number>
 
@@ -405,9 +427,14 @@ export class Monster {
   @prop({ required: true, index: true, type: () => String })
   public alignment!: string
 
-  // TODO: Define complex types post-Pass 2 (ArmorClass union array)
+  // Comment removed as ArmorClass union is now defined and used
+  @Field(() => [MonsterArmorClassUnion], {
+    description: "List of AC components that contribute to the monster's AC."
+  })
   @prop({ type: () => [Object], required: true })
-  public armor_class!: ArmorClass[]
+  public armor_class!: Array<
+    ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
+  >
 
   @Field(() => Float)
   @prop({ required: true, index: true, type: () => Number })
@@ -484,9 +511,12 @@ export class Monster {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @Field(() => [Proficiency], { nullable: true, description: 'The proficiencies for the monster.' })
-  @prop({ type: () => [Proficiency] })
-  public proficiencies!: Proficiency[]
+  @Field(() => [MonsterProficiency], {
+    nullable: true,
+    description: 'The proficiencies for the monster.'
+  })
+  @prop({ type: () => [MonsterProficiency] })
+  public proficiencies!: MonsterProficiency[]
 
   @Field(() => [Reaction], { nullable: true, description: 'The reactions for the monster.' })
   @prop({ type: () => [Reaction] })

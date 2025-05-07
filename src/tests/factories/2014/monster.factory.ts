@@ -5,9 +5,13 @@ import type {
   MonsterAction,
   ActionOption,
   ActionUsage,
-  ArmorClass,
+  ArmorClassDex,
+  ArmorClassNatural,
+  ArmorClassArmor,
+  ArmorClassSpell,
+  ArmorClassCondition,
   LegendaryAction,
-  Proficiency,
+  MonsterProficiency,
   Reaction,
   Sense,
   SpecialAbility,
@@ -83,26 +87,26 @@ const actionFactory = Factory.define<
 
 // Factory for ArmorClass (Union Type - need specific factories or a generic one)
 // Example for 'natural' type
-const armorClassNaturalFactory = Factory.define<Extract<ArmorClass, { type: 'natural' }>>(() => ({
+const armorClassNaturalFactory = Factory.define<ArmorClassNatural>(() => ({
   type: 'natural',
   value: faker.number.int({ min: 10, max: 20 }),
   desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
 }))
 
 // Example for 'armor' type
-const armorClassArmorFactory = Factory.define<Extract<ArmorClass, { type: 'armor' }>>(
-  ({ associations }) => ({
-    type: 'armor',
-    value: faker.number.int({ min: 12, max: 18 }),
-    armor: associations.armor
-      ? associations.armor
-      : apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 })),
-    desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
-  })
-)
+const armorClassArmorFactory = Factory.define<ArmorClassArmor>(({ associations }) => ({
+  type: 'armor',
+  value: faker.number.int({ min: 12, max: 18 }),
+  armor: associations.armor
+    ? associations.armor
+    : apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 })),
+  desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
+}))
 
 // A helper to create a random ArmorClass type
-const armorClassFactory = Factory.define<ArmorClass>(({ transientParams }) => {
+const armorClassFactory = Factory.define<
+  ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
+>(({ transientParams }) => {
   const type = faker.helpers.arrayElement(['dex', 'natural', 'armor', 'spell', 'condition'])
   const value = faker.number.int({ min: 10, max: 25 })
   const desc = faker.datatype.boolean() ? faker.lorem.sentence() : undefined
@@ -144,7 +148,7 @@ const legendaryActionFactory = Factory.define<LegendaryAction>(({ associations }
 }))
 
 // Factory for Proficiency
-const proficiencyFactory = Factory.define<Proficiency>(({ associations }) => ({
+const proficiencyFactory = Factory.define<MonsterProficiency>(({ associations }) => ({
   proficiency: apiReferenceFactory.build(associations.proficiency),
   value: faker.number.int({ min: 1, max: 10 })
 }))

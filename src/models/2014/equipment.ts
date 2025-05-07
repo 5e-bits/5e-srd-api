@@ -3,10 +3,10 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/types/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Float, Int } from 'type-graphql'
-import { DamageType } from './damageType'
 import { EquipmentCategory } from './equipmentCategory'
 import { IEquipment } from '@/graphql/2014rewrite/common/interfaces'
 import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
+import { Damage } from '@/models/2014/common'
 
 @ObjectType({ description: 'Details about armor class.' })
 export class ArmorClass {
@@ -45,18 +45,6 @@ export class Cost {
   public unit!: string
 }
 
-// Add @Field decorators and export
-@ObjectType({ description: 'Damage dealt by a weapon or item.' })
-export class Damage {
-  @Field(() => String, { description: 'Damage roll (e.g., 1d8).' })
-  @prop({ required: true, index: true, type: () => String })
-  public damage_dice!: string
-
-  @Field(() => DamageType, { nullable: true, description: 'Type of damage dealt.' })
-  @prop({ type: () => APIReference })
-  public damage_type!: APIReference
-}
-
 @ObjectType({ description: 'Range of a weapon (normal and long).' })
 export class Range {
   @Field(() => Int, { nullable: true, description: 'The long range of the weapon.' })
@@ -88,17 +76,6 @@ export class ThrowRange {
   @Field(() => Int, { description: 'The normal range when thrown.' })
   @prop({ required: true, index: true, type: () => Number })
   public normal!: number
-}
-
-@ObjectType({ description: 'Damage dealt when using a weapon with two hands.' })
-export class TwoHandedDamage {
-  @Field(() => String, { description: 'Damage roll (e.g., 1d10).' })
-  @prop({ required: true, index: true, type: () => String })
-  public damage_dice!: string
-
-  @Field(() => DamageType, { nullable: true, description: 'Type of damage dealt.' })
-  @prop({ type: () => APIReference })
-  public damage_type!: APIReference
 }
 
 @ObjectType({
@@ -188,8 +165,8 @@ export class Equipment implements IEquipment {
   @prop({ index: true, type: () => String })
   public tool_category?: string
 
-  @prop({ type: () => TwoHandedDamage })
-  public two_handed_damage?: TwoHandedDamage
+  @prop({ type: () => Damage })
+  public two_handed_damage?: Damage
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string

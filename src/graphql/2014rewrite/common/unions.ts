@@ -1,4 +1,4 @@
-import { createUnionType, ClassType } from 'type-graphql'
+import { createUnionType } from 'type-graphql'
 import { Equipment } from '@/models/2014/equipment'
 import { MagicItem } from '@/models/2014/magicItem'
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
@@ -8,6 +8,13 @@ import { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
 import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './types'
+import {
+  ArmorClassDex,
+  ArmorClassNatural,
+  ArmorClassArmor,
+  ArmorClassSpell,
+  ArmorClassCondition
+} from '@/models/2014/monster' // Import the individual AC types
 
 // --- Helper Function for Equipment Type Resolution ---
 function resolveConcreteEquipmentType(
@@ -134,5 +141,42 @@ export const FeaturePrerequisiteUnion = createUnionType({
     }
     console.warn('Could not resolve type for FeaturePrerequisiteUnion:', value)
     throw new Error('Could not resolve type for FeaturePrerequisiteUnion')
+  }
+})
+
+export const MonsterArmorClassUnion = createUnionType({
+  name: 'MonsterArmorClass',
+  types: () =>
+    [
+      ArmorClassDex,
+      ArmorClassNatural,
+      ArmorClassArmor,
+      ArmorClassSpell,
+      ArmorClassCondition
+    ] as const,
+  resolveType: (value: any) => {
+    if (!value || typeof value.type !== 'string') {
+      console.warn('Cannot resolve MonsterArmorClass: type field is missing or invalid', value)
+      // Optionally, throw an error or return a default type if appropriate
+      throw new Error('Cannot resolve MonsterArmorClass: type field is missing or invalid')
+    }
+    switch (value.type) {
+      case 'dex':
+        return ArmorClassDex
+      case 'natural':
+        return ArmorClassNatural
+      case 'armor':
+        return ArmorClassArmor
+      case 'spell':
+        return ArmorClassSpell
+      case 'condition':
+        return ArmorClassCondition
+      default:
+        console.warn('Could not resolve type for MonsterArmorClassUnion:', value)
+        // Optionally, throw an error or return a default type if appropriate
+        throw new Error(
+          'Could not resolve type for MonsterArmorClassUnion: Unknown type ' + value.type
+        )
+    }
   }
 })

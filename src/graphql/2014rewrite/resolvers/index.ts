@@ -13,7 +13,15 @@ import { LanguageResolver } from './languageResolver'
 import { LevelResolver } from './levelResolver'
 import { MagicItemResolver } from './magicItemResolver'
 import { MagicSchoolResolver } from './magicSchoolResolver'
-import { MonsterResolver } from './monsterResolver'
+import {
+  MonsterResolver,
+  ArmorClassArmorResolver,
+  ArmorClassSpellResolver,
+  ArmorClassConditionResolver,
+  MonsterProficiencyResolver,
+  SpecialAbilitySpellcastingResolver,
+  SpecialAbilitySpellResolver
+} from './monsterResolver'
 import { ProficiencyResolver } from './proficiencyResolver'
 import { RaceResolver, RaceAbilityBonusResolver } from './raceResolver'
 import { RuleResolver } from './ruleResolver'
@@ -75,7 +83,14 @@ const fieldResolvers = [
   // Spell
   SpellDamageResolver,
   // Equipment
-  ContentFieldResolver
+  ContentFieldResolver,
+  // Monster Field Resolvers
+  ArmorClassArmorResolver,
+  ArmorClassSpellResolver,
+  ArmorClassConditionResolver,
+  MonsterProficiencyResolver,
+  SpecialAbilitySpellcastingResolver,
+  SpecialAbilitySpellResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones

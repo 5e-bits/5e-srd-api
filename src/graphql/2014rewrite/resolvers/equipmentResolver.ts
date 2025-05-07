@@ -33,10 +33,12 @@ class EquipmentArgs {
 
 @Resolver(Equipment)
 export class EquipmentResolver {
-  @Query(() => [Equipment], {
+  @Query(() => [AnyEquipment], {
     description: 'Gets all equipment, optionally filtered and sorted.'
   })
-  async equipments(@Args() { name, order_direction }: EquipmentArgs): Promise<Equipment[]> {
+  async equipments(
+    @Args() { name, order_direction }: EquipmentArgs
+  ): Promise<Array<typeof AnyEquipment>> {
     const query = EquipmentModel.find()
 
     if (name) {
@@ -52,11 +54,11 @@ export class EquipmentResolver {
     return query.lean()
   }
 
-  @Query(() => Equipment, {
+  @Query(() => AnyEquipment, {
     nullable: true,
     description: 'Gets a single piece of equipment by its index.'
   })
-  async equipment(@Arg('index', () => String) index: string): Promise<Equipment | null> {
+  async equipment(@Arg('index', () => String) index: string): Promise<typeof AnyEquipment | null> {
     return EquipmentModel.findOne({ index }).lean()
   }
 
@@ -77,7 +79,7 @@ export class ContentFieldResolver {
     nullable: true,
     description: 'Resolves the APIReference to the actual Equipment.'
   })
-  async item(@Root() content: Content): Promise<Equipment | null> {
+  async item(@Root() content: Content): Promise<typeof AnyEquipment | null> {
     const itemRef: APIReference = content.item
 
     if (!itemRef?.index) return null
