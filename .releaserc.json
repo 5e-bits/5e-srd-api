@@ -8,7 +8,9 @@
       "@semantic-release/git",
       {
         "assets": ["package.json", "CHANGELOG.md"],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        "authorName": "5e-bits-deploy-bot",
+        "authorEmail": "5e-bits-deploy-bot@users.noreply.github.com"
       }
     ],
     [

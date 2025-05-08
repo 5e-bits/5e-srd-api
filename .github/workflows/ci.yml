@@ -95,6 +95,10 @@ jobs:
         run: |
           npm run bundle-swagger
           npm run gen-postman
+      - name: Configure Git
+        run: |
+          git config --global user.name "5e-bits-deploy-bot"
+          git config --global user.email "5e-bits-deploy-bot@users.noreply.github.com"
       - name: Semantic Release
         id: semantic
         uses: cycjimmy/semantic-release-action@0a51e81a6baff2acad3ee88f4121c589c73d0f0e # @v4.2.0
