@@ -104,10 +104,10 @@ jobs:
         uses: cycjimmy/semantic-release-action@0a51e81a6baff2acad3ee88f4121c589c73d0f0e # @v4.2.0
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          GIT_AUTHOR_NAME: '5e-bits-deploy-bot'
-          GIT_AUTHOR_EMAIL: '5e-bits-deploy-bot@users.noreply.github.com'
-          GIT_COMMITTER_NAME: '5e-bits-deploy-bot'
-          GIT_COMMITTER_EMAIL: '5e-bits-deploy-bot@users.noreply.github.com'
+          GIT_AUTHOR_NAME: '5e-bits-deploy-bot[bot]'
+          GIT_AUTHOR_EMAIL: '${{ secrets.SEMANTIC_RELEASE_APP_ID }}+5e-bits-deploy-bot[bot]@users.noreply.github.com'
+          GIT_COMMITTER_NAME: '5e-bits-deploy-bot[bot]'
+          GIT_COMMITTER_EMAIL: '${{ secrets.SEMANTIC_RELEASE_APP_ID }}+5e-bits-deploy-bot[bot]@users.noreply.github.com'
 
   container-release:
     name: Container Release
