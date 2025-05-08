@@ -1,3 +1,10 @@
+## [3.23.4](https://github.com/5e-bits/5e-srd-api/compare/v3.23.3...v3.23.4) (2025-05-08)
+
+
+### Bug Fixes
+
+* **deploy:** Use deploy bot for authoring commits ([1f62894](https://github.com/5e-bits/5e-srd-api/commit/1f628949cd218d5939dd8b6f68c702f2355761ba))
+
 ## [3.23.3](https://github.com/5e-bits/5e-srd-api/compare/v3.23.2...v3.23.3) (2025-05-06)
 
 
