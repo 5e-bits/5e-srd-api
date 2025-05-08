@@ -1,3 +1,10 @@
+## [3.23.7](https://github.com/5e-bits/5e-srd-api/compare/v3.23.6...v3.23.7) (2025-05-08)
+
+
+### Bug Fixes
+
+* **deploy:** Undo everything from before ([c3c84d1](https://github.com/5e-bits/5e-srd-api/commit/c3c84d1b20ce930ed1afb558c26955a049ca9560))
+
 ## [3.23.6](https://github.com/5e-bits/5e-srd-api/compare/v3.23.5...v3.23.6) (2025-05-08)
 
 
