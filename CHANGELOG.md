@@ -1,3 +1,10 @@
+## [3.23.6](https://github.com/5e-bits/5e-srd-api/compare/v3.23.5...v3.23.6) (2025-05-08)
+
+
+### Bug Fixes
+
+* **deploy:** Let's try this one more time ([5c5c1cf](https://github.com/5e-bits/5e-srd-api/commit/5c5c1cfa774826837114014e7dbdf9e150e865d3))
+
 ## [3.23.5](https://github.com/5e-bits/5e-srd-api/compare/v3.23.4...v3.23.5) (2025-05-08)
 
 
