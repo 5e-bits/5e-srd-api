@@ -2,19 +2,23 @@ import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import mongoose from 'mongoose'
 import type {
-  Action,
+  MonsterAction,
   ActionOption,
   ActionUsage,
-  ArmorClass,
+  ArmorClassDex,
+  ArmorClassNatural,
+  ArmorClassArmor,
+  ArmorClassSpell,
+  ArmorClassCondition,
   LegendaryAction,
-  Proficiency,
+  MonsterProficiency,
   Reaction,
   Sense,
   SpecialAbility,
   SpecialAbilitySpell,
   SpecialAbilitySpellcasting,
   SpecialAbilityUsage,
-  Speed,
+  MonsterSpeed,
   Monster,
   MonsterDocument
 } from '@/models/2014/monster'
@@ -41,9 +45,9 @@ const actionOptionFactory = Factory.define<ActionOption>(() => ({
 
 // Factory for Action
 const actionFactory = Factory.define<
-  Action,
+  MonsterAction,
   { has_damage?: boolean; has_dc?: boolean; has_attack_bonus?: boolean; has_usage?: boolean },
-  Action
+  MonsterAction
 >(({ transientParams, associations }) => {
   const generated_multiattack_type = faker.helpers.arrayElement(['actions', 'action_options'])
 
@@ -70,39 +74,39 @@ const actionFactory = Factory.define<
       multiattack_type: 'actions',
       actions: actionOptionFactory.buildList(faker.number.int({ min: 1, max: 3 })),
       action_options: choiceFactory.build()
-    } as Action
+    } as MonsterAction
   } else {
     return {
       ...baseAction,
       multiattack_type: 'action_options',
       actions: [],
       action_options: choiceFactory.build()
-    } as Action
+    } as MonsterAction
   }
 })
 
 // Factory for ArmorClass (Union Type - need specific factories or a generic one)
 // Example for 'natural' type
-const armorClassNaturalFactory = Factory.define<Extract<ArmorClass, { type: 'natural' }>>(() => ({
+const armorClassNaturalFactory = Factory.define<ArmorClassNatural>(() => ({
   type: 'natural',
   value: faker.number.int({ min: 10, max: 20 }),
   desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
 }))
 
 // Example for 'armor' type
-const armorClassArmorFactory = Factory.define<Extract<ArmorClass, { type: 'armor' }>>(
-  ({ associations }) => ({
-    type: 'armor',
-    value: faker.number.int({ min: 12, max: 18 }),
-    armor: associations.armor
-      ? associations.armor
-      : apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 })),
-    desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
-  })
-)
+const armorClassArmorFactory = Factory.define<ArmorClassArmor>(({ associations }) => ({
+  type: 'armor',
+  value: faker.number.int({ min: 12, max: 18 }),
+  armor: associations.armor
+    ? associations.armor
+    : apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 })),
+  desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
+}))
 
 // A helper to create a random ArmorClass type
-const armorClassFactory = Factory.define<ArmorClass>(({ transientParams }) => {
+const armorClassFactory = Factory.define<
+  ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
+>(({ transientParams }) => {
   const type = faker.helpers.arrayElement(['dex', 'natural', 'armor', 'spell', 'condition'])
   const value = faker.number.int({ min: 10, max: 25 })
   const desc = faker.datatype.boolean() ? faker.lorem.sentence() : undefined
@@ -144,7 +148,7 @@ const legendaryActionFactory = Factory.define<LegendaryAction>(({ associations }
 }))
 
 // Factory for Proficiency
-const proficiencyFactory = Factory.define<Proficiency>(({ associations }) => ({
+const proficiencyFactory = Factory.define<MonsterProficiency>(({ associations }) => ({
   proficiency: apiReferenceFactory.build(associations.proficiency),
   value: faker.number.int({ min: 1, max: 10 })
 }))
@@ -260,8 +264,8 @@ const specialAbilityFactory = Factory.define<SpecialAbility>(({ associations }) 
 })
 
 // Factory for Speed
-const speedFactory = Factory.define<Speed>(() => {
-  const speeds: Partial<Speed> = {}
+const speedFactory = Factory.define<MonsterSpeed>(() => {
+  const speeds: Partial<MonsterSpeed> = {}
   if (faker.datatype.boolean()) speeds.walk = `${faker.number.int({ min: 10, max: 60 })} ft.`
   if (faker.datatype.boolean()) speeds.swim = `${faker.number.int({ min: 10, max: 60 })} ft.`
   if (faker.datatype.boolean()) speeds.fly = `${faker.number.int({ min: 10, max: 60 })} ft.`
@@ -272,7 +276,7 @@ const speedFactory = Factory.define<Speed>(() => {
   if (Object.keys(speeds).length === 0 || (Object.keys(speeds).length === 1 && 'hover' in speeds)) {
     speeds.walk = `${faker.number.int({ min: 10, max: 60 })} ft.`
   }
-  return speeds as Speed // Cast needed because we build it partially
+  return speeds as MonsterSpeed // Cast needed because we build it partially
 })
 
 // Factory for Monster - Define return type explicitly as Monster

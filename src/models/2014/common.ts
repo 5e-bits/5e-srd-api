@@ -1,40 +1,47 @@
 import { prop, getModelForClass } from '@typegoose/typegoose'
+import { ObjectType, Field, Int } from 'type-graphql'
+import { AbilityScore } from './abilityScore'
+import { DamageType } from './damageType'
+import { APIReference } from './types/apiReference'
 
 // Base classes
-export class APIReference {
-  @prop({ required: true, index: true, type: () => String })
-  public index!: string
-
-  @prop({ required: true, index: true, type: () => String })
-  public name!: string
-
-  @prop({ required: true, index: true, type: () => String })
-  public url!: string
-}
-
+@ObjectType({ description: 'Defines an area of effect for spells or abilities.' })
 export class AreaOfEffect {
+  @Field(() => Int, { description: 'The size of the area of effect (e.g., radius in feet).' })
   @prop({ required: true, type: () => Number })
   public size!: number
 
+  @Field(() => String, { description: 'The shape of the area of effect.' })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone'
 }
 
+@ObjectType({
+  description:
+    'Represents a Difficulty Class (DC) for saving throws or ability checks where a value is expected.'
+})
 export class DifficultyClass {
+  @Field(() => AbilityScore, { description: 'The ability score associated with this DC.' })
   @prop({ type: () => APIReference })
   public dc_type!: APIReference
 
+  @Field(() => Int, { description: 'The value of the DC.' })
   @prop({ required: true, index: true, type: () => Number })
   public dc_value!: number
 
+  @Field(() => String, { description: 'The result of a successful save against this DC.' })
   @prop({ required: true, index: true, type: () => String })
   public success_type!: 'none' | 'half' | 'other'
 }
 
+// Decorate Damage
+@ObjectType({ description: 'Represents damage dealt by an ability, spell, or weapon.' })
 export class Damage {
+  @Field(() => DamageType, { nullable: true, description: 'The type of damage.' })
   @prop({ type: () => APIReference })
   public damage_type!: APIReference
 
+  @Field(() => String, { description: 'The damage dice roll (e.g., 3d6).' })
   @prop({ required: true, index: true, type: () => String })
   public damage_dice!: string
 }
@@ -183,7 +190,6 @@ export class ChoiceOption extends Option {
 }
 
 // Export models
-export const APIReferenceModel = getModelForClass(APIReference)
 export const OptionSetModel = getModelForClass(OptionSet)
 export const OptionModel = getModelForClass(Option)
 export const ChoiceModel = getModelForClass(Choice)

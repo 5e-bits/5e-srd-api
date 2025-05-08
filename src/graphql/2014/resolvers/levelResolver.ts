@@ -10,7 +10,7 @@ import {
 } from './common'
 
 import { Level } from '@/models/2014/level'
-import { APIReference } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/types/apiReference'
 
 const LevelResolver = {
   class: async (level: Level) => await ClassModel.findOne({ index: level.class.index }).lean(),
