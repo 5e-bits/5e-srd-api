@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsInt, Min, Max } from 'class-validator'
+import { IsOptional, IsInt, Min, Max, IsString } from 'class-validator'
 import { FilterQuery } from 'mongoose'
 import LevelModel, { Level } from '@/models/2014/level'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -32,17 +32,29 @@ class LevelArgs {
   @IsInt()
   ability_score_bonuses?: number
 
-  // TODO: Add class filter in Pass 2
-  // TODO: Add subclass filter in Pass 2
+  @Field(() => String, { nullable: true, description: 'Filter by class index (e.g., barbarian)' })
+  @IsOptional()
+  @IsString()
+  class_index?: string
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'Filter by subclass index (e.g., berserker)'
+  })
+  @IsOptional()
+  @IsString()
+  subclass_index?: string
 }
 
 @Resolver(Level)
 export class LevelResolver {
   @Query(() => [Level], {
     description:
-      'Gets levels, optionally filtering by level, proficiency bonus, or ability score bonuses.'
+      'Gets levels, optionally filtering by level, proficiency bonus, ability score bonuses, class, or subclass.'
   })
-  async levels(@Args() { level, prof_bonus, ability_score_bonuses }: LevelArgs): Promise<Level[]> {
+  async levels(
+    @Args() { level, prof_bonus, ability_score_bonuses, class_index, subclass_index }: LevelArgs
+  ): Promise<Level[]> {
     const filter: FilterQuery<Level> = {}
 
     if (level !== undefined) {
@@ -55,6 +67,28 @@ export class LevelResolver {
 
     if (ability_score_bonuses !== undefined) {
       filter.ability_score_bonuses = ability_score_bonuses
+    }
+
+    if (class_index !== undefined) {
+      const classDoc = await ClassModel.findOne({ index: class_index }).select('_id').lean()
+      if (classDoc) {
+        filter.class = classDoc._id
+      } else {
+        // If class_index is provided but no class is found, return no levels
+        return []
+      }
+    }
+
+    if (subclass_index !== undefined) {
+      const subclassDoc = await SubclassModel.findOne({ index: subclass_index })
+        .select('_id')
+        .lean()
+      if (subclassDoc) {
+        filter.subclass = subclassDoc._id
+      } else {
+        // If subclass_index is provided but no subclass is found, return no levels
+        return []
+      }
     }
 
     // Always sort by level number
@@ -85,6 +119,4 @@ export class LevelResolver {
   async subclass(@Root() level: Level): Promise<Subclass | null> {
     return resolveSingleReference(level.subclass, SubclassModel)
   }
-
-  // Resolvers for class_specific, spellcasting, subclass_specific deferred
 }
