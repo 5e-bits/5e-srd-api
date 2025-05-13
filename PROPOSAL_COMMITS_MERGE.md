@@ -170,12 +170,47 @@ Other merge strategies were considered:
 
 ## Implementation Recommendations
 
-- **Establish a Rollout Plan:** Define whether this standard applies immediately to new projects and create a timeline for potentially migrating key existing projects.
-- **Implement Enforcement Tooling:** Integrate automated checks (e.g., `action-semantic-pull-request` in CI) early to ensure compliance and provide consistent feedback. Consider local hooks (`commitlint`/`husky`) for faster developer feedback loops.
-- **Education:** Ensure developers understand the Conventional Commits format and the squash merge workflow. Provide links to documentation and potentially hold brief training sessions.
+- **Rollout Plan:**
+  - **Phase 1 (e.g., Next 2-4 Weeks):**
+    - Announce this proposal and the Conventional Commits standard to all engineering teams.
+    - Begin applying these standards (Conventional Commits, Squash Merging) to all *newly created* repositories.
+    - Identify 1-2 pilot teams/projects to adopt these standards for their existing repositories. Gather feedback.
+  - **Phase 2 (e.g., Next 1-2 Months):**
+    - Based on pilot feedback, refine any necessary documentation or support materials.
+    - Implement CI enforcement tooling (e.g., `action-semantic-pull-request` for PR titles) for the pilot teams and new repositories.
+    - Encourage voluntary adoption by other teams, offering support and resources.
+    - Optionally, start introducing or extending local pre-commit hooks (`commitlint`/`husky`) to pilot teams.
+  - **Phase 3 (e.g., Next 2-3 Months):**
+    - Roll out CI enforcement and local hooks to a broader set of key repositories.
+    - Evaluate the success of the rollout and determine a timeline for full adoption across all relevant projects.
+- **Migrating Existing Projects:**
+  - **No History Rewrites:** For existing projects, these new commit and merge standards should apply to *new* Pull Requests and their subsequent squash merge commits. Do not rewrite existing Git history.
+  - **Update Merge Strategy:** Configure repository settings to default to or require "Squash and merge," ensuring the option to use the "Pull request title and description" for the commit message is selected.
+  - **Gradual GHA Enforcement:** Incrementally introduce the GitHub Actions for PR linting. Start by running them in a non-blocking "audit" mode if possible, or apply them to a few active repositories first to gather feedback before wider enforcement.
+- **Implement Enforcement Tooling:** Integrate automated checks (e.g., `action-semantic-pull-request` in CI) early for new projects and during the phased rollout for existing ones to ensure compliance and provide consistent feedback. Consider local hooks (`commitlint`/`husky`) for faster developer feedback loops.
+- **Education:** Ensure developers understand the Conventional Commits format and the squash merge workflow. Provide links to documentation and potentially hold brief training sessions or Q&A sessions.
 - **Repository Settings & Enforcement:**
   - Configure individual repository merge settings to default to or require squash merging. Crucially, ensure the repository is set to use the *"Pull request title and description"* option for the automatically generated squash commit message to capture full Conventional Commit details.
   - For broader enforcement at the organization level, utilize GitHub branch rulesets. Create or modify a ruleset that targets your main branches across repositories. Within this ruleset:
     - Enable "Require a pull request before merging."
     - Under "Restrict merge types," select only "Squash and merge." This provides a centralized way to enforce the desired merge strategy.
-  - Unfortunately, I’m not sure if there is a way to set using *“Pull request title and description”* at an org level.
+  - Unfortunately, I'm not sure if there is a way to set using *"Pull request title and description"* at an org level.
+- **Emergency Bypass Procedures:**
+  - **Context:** In rare, time-sensitive critical situations (e.g., urgent production hotfix), it may be necessary to bypass standard PR and commit message checks to deploy a fix rapidly.
+  - **Process (Example):**
+      1. **Approval:** Obtain explicit approval from a designated lead or manager. This approval should be documented (e.g., in a Linear ticket comment, Slack message).
+      2. **Bypass Mechanism:**
+          - If using branch protection rules, an administrator with bypass permissions may need to merge the PR.
+          - If using GitHub App-based enforcement, temporarily adjust settings or use an admin override if available.
+      3. **Direct Push (If PR bypass is too slow):** In extreme cases, an authorized admin might perform a direct push to the main branch. This is highly discouraged.
+      4. **Commit Message:** Even in an emergency, strive to include a clear commit message. It can be simplified but should indicate the urgency and nature of the fix (e.g., `fix(hotfix)!: address critical login failure P0`). The `!` can denote it's a breaking change or a high-impact fix.
+      5. **Post-Mortem/Follow-up:** After the emergency is resolved:
+          - Document the bypass event and reasons.
+          - Review the incident to identify if process improvements can prevent future similar emergencies or the need for bypass.
+          - If a temporary, less-than-ideal commit message was used, consider amending it or creating a follow-up PR to clean up documentation/changelog if necessary (though amending pushed history is generally discouraged).
+  - **Risks of Bypassing:**
+    - **Inconsistent History:** Bypassed commits may not follow Conventional Commits, impacting changelog generation and automated versioning for that specific change.
+    - **Skipped Quality Checks:** Bypassing CI checks (linting, tests) increases the risk of introducing new bugs.
+    - **Reduced Visibility:** Deviating from the standard process can make it harder to track changes and understand the deployment history.
+    - **Tooling Failures:** Automated tools relying on commit message conventions (like `semantic-release`) might behave unexpectedly or skip the bypassed commit.
+  - **Recommendation:** Use bypass procedures *extremely sparingly* and only for genuine, audited emergencies. The primary goal should be to improve processes to avoid needing such bypasses.
