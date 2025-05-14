@@ -11,9 +11,10 @@ import TraitModel, { Trait } from '@/models/2014/trait'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
-  resolveLanguageChoice
+  resolveLanguageChoice,
+  resolveProficiencyChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LanguageChoice } from '../common/types'
+import { LanguageChoice, ProficiencyChoice } from '../common/types'
 import { Choice } from '@/models/2014/common'
 
 @ArgsType()
@@ -81,6 +82,11 @@ export class RaceResolver {
   @FieldResolver(() => LanguageChoice, { nullable: true })
   async language_options(@Root() race: Race): Promise<LanguageChoice | null> {
     return resolveLanguageChoice(race.language_options as Choice)
+  }
+
+  @FieldResolver(() => ProficiencyChoice, { nullable: true })
+  async starting_proficiency_options(@Root() race: Race): Promise<ProficiencyChoice | null> {
+    return resolveProficiencyChoice(race.starting_proficiency_options)
   }
 }
 
