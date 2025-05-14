@@ -3,7 +3,6 @@ import { AbilityScore } from '@/models/2014/abilityScore'
 import { Proficiency } from '@/models/2014/proficiency'
 import { Language } from '@/models/2014/language'
 import { ProficiencyChoiceItem } from './unions'
-import { DifficultyClass, Damage } from '@/models/2014/common'
 
 // --- Generic String Choice Types ---
 @ObjectType({

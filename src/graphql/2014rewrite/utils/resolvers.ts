@@ -10,7 +10,8 @@ import {
   ChoiceOption,
   AbilityBonusOption,
   BreathOption,
-  DamageOption
+  DamageOption,
+  ActionOption
 } from '@/models/2014/common'
 import {
   StringChoice,
@@ -31,7 +32,10 @@ import {
   BreathChoice,
   BreathChoiceOption,
   DamageChoice,
-  DamageChoiceOption
+  DamageChoiceOption,
+  ActionChoice,
+  ActionChoiceOption,
+  MultipleActionChoiceOption
 } from '@/graphql/2014rewrite/types/monsterTypes'
 import LanguageModel, { Language } from '@/models/2014/language'
 import TraitModel, { Trait } from '@/models/2014/trait'
@@ -330,8 +334,10 @@ export async function resolveAbilityScoreBonusChoice(
   }
 }
 
-export const resolveBreathChoice = async (choiceData: Choice): Promise<BreathChoice | null> => {
-  if (!('options' in choiceData.from)) {
+export const resolveBreathChoice = async (
+  choiceData: Choice | undefined | null
+): Promise<BreathChoice | null> => {
+  if (!choiceData || !('options' in choiceData.from)) {
     return null
   }
 
@@ -412,6 +418,63 @@ export const resolveDamageChoice = async (choiceData: Choice): Promise<DamageCho
           damage_dice: damageOption.damage_dice,
           damage_type: await resolveSingleReference(damageOption.damage_type, DamageTypeModel)
         }
+      }
+
+      validOptions.push(resolvedOption)
+    }
+  }
+
+  if (validOptions.length === 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: choiceData.from.option_set_type,
+      options: validOptions
+    },
+    desc: choiceData.desc
+  }
+}
+
+export const resolveActionChoice = async (
+  choiceData: Choice | undefined | null
+): Promise<ActionChoice | null> => {
+  if (!choiceData || !('options' in choiceData.from)) {
+    return null
+  }
+
+  const options = (choiceData.from as OptionsArrayOptionSet).options
+  const validOptions: Array<ActionChoiceOption | MultipleActionChoiceOption> = []
+
+  for (const option of options) {
+    if (option.option_type === 'multiple') {
+      // Handle multiple type with nested items
+      const multipleOption = option as { option_type: string; items: ActionOption[] }
+      const resolvedItems = multipleOption.items.map((item) => ({
+        option_type: item.option_type,
+        action_name: item.action_name,
+        count: typeof item.count === 'string' ? parseInt(item.count) : item.count,
+        type: item.type
+      }))
+
+      validOptions.push({
+        option_type: multipleOption.option_type,
+        items: resolvedItems
+      })
+    } else if (option.option_type === 'action') {
+      // Handle single action option
+      const actionOption = option as ActionOption
+      const resolvedOption: ActionChoiceOption = {
+        option_type: actionOption.option_type,
+        action_name: actionOption.action_name,
+        count:
+          typeof actionOption.count === 'string'
+            ? parseInt(actionOption.count)
+            : actionOption.count,
+        type: actionOption.type
       }
 
       validOptions.push(resolvedOption)

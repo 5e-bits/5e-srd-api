@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from 'type-graphql'
 import { DifficultyClass, Damage } from '@/models/2014/common'
+import { ActionOptionUnion } from '../common/unions'
 
 // --- Breath Choice Types ---
 @ObjectType({ description: 'A single breath option within a breath choice' })
@@ -72,5 +73,57 @@ export class DamageChoice {
   from!: DamageChoiceOptionSet
 
   @Field(() => String, { nullable: true, description: 'The description of the choice.' })
+  desc?: string
+}
+
+// --- Action Option Choice Types ---
+@ObjectType({ description: 'A single action option within a choice' })
+export class ActionChoiceOption {
+  @Field(() => String, { description: 'The type of option.' })
+  option_type!: string
+
+  @Field(() => String, { description: 'The name of the action.' })
+  action_name!: string
+
+  @Field(() => Int, { description: 'Number of times the action can be used.' })
+  count!: number
+
+  @Field(() => String, { description: 'The type of action.' })
+  type!: 'melee' | 'ranged' | 'ability' | 'magic'
+
+  @Field(() => String, { nullable: true, description: 'Additional notes about the action.' })
+  notes?: string
+}
+
+@ObjectType({ description: 'A multiple action option containing a set of actions' })
+export class MultipleActionChoiceOption {
+  @Field(() => String, { description: 'The type of option.' })
+  option_type!: string
+
+  @Field(() => [ActionChoiceOption], { description: 'The set of actions in this option.' })
+  items!: ActionChoiceOption[]
+}
+
+@ObjectType({ description: 'A set of action options to choose from' })
+export class ActionChoiceOptionSet {
+  @Field(() => String, { description: 'The type of option set.' })
+  option_set_type!: string
+
+  @Field(() => [ActionOptionUnion], { description: 'The available options.' })
+  options!: Array<ActionChoiceOption | MultipleActionChoiceOption>
+}
+
+@ObjectType({ description: 'A choice of actions for a monster' })
+export class ActionChoice {
+  @Field(() => Int, { description: 'Number of actions to choose.' })
+  choose!: number
+
+  @Field(() => String, { description: 'Type of actions to choose from.' })
+  type!: string
+
+  @Field(() => ActionChoiceOptionSet, { description: 'The options to choose from.' })
+  from!: ActionChoiceOptionSet
+
+  @Field(() => String, { nullable: true, description: 'Description of the action choice.' })
   desc?: string
 }
