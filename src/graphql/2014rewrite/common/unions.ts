@@ -17,6 +17,8 @@ import {
 } from '@/models/2014/monster' // Import the individual AC types
 import { Proficiency } from '@/models/2014/proficiency'
 import { ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import { Damage } from '@/models/2014/common'
+import { DamageChoice } from '@/graphql/2014rewrite/types/monsterTypes'
 
 // --- Helper Function for Equipment Type Resolution ---
 function resolveConcreteEquipmentType(
@@ -187,15 +189,20 @@ export const ProficiencyChoiceItem = createUnionType({
   name: 'ProficiencyChoiceItem',
   types: () => [Proficiency, ProficiencyChoice] as const,
   resolveType: (value) => {
-    if (
-      value &&
-      typeof value === 'object' &&
-      'choose' in value &&
-      'type' in value &&
-      'from' in value
-    ) {
+    if (typeof value === 'object' && 'choose' in value && 'type' in value && 'from' in value) {
       return ProficiencyChoice
     }
     return Proficiency
+  }
+})
+
+export const DamageOrDamageChoiceUnion = createUnionType({
+  name: 'DamageOrDamageChoice',
+  types: () => [Damage, DamageChoice],
+  resolveType: (value) => {
+    if ('choose' in value) {
+      return DamageChoice
+    }
+    return Damage
   }
 })

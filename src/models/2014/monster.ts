@@ -9,7 +9,8 @@ import { AbilityScore } from './abilityScore'
 import { MonsterArmorClassUnion } from '@/graphql/2014rewrite/common/unions'
 import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
 import { Proficiency } from './proficiency'
-import { BreathChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import { BreathChoice } from '@/graphql/2014rewrite/types/monsterTypes'
+import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
 
 // Export all nested classes/types
 @ObjectType({ description: 'Option within a monster action' })
@@ -56,12 +57,12 @@ export class MonsterAction {
   @prop({ index: true, type: () => Number })
   public attack_bonus?: number
 
-  // TODO: PASS 3 - Reinstate @Field with a DamageOrDamageChoiceUnion once Choice is a GraphQL type.
-  // This field can contain either direct Damage objects or Choice objects that resolve to Damage.
-  // Temporarily removing @Field to prevent schema errors due to mixed types in the array.
-  // @Field(() => [Damage], { nullable: true, description: 'The damage for the action.' })
-  @prop({ type: () => [Object] }) // Prop type allows mixed array for Typegoose
-  public damage?: Damage[]
+  @Field(() => [DamageOrDamageChoiceUnion], {
+    nullable: true,
+    description: 'The damage for the action.'
+  })
+  @prop({ type: () => [Object] })
+  public damage?: (Damage | Choice)[]
 
   @Field(() => DifficultyClass, {
     nullable: true,
