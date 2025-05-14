@@ -3,6 +3,7 @@ import { AbilityScore } from '@/models/2014/abilityScore'
 import { Proficiency } from '@/models/2014/proficiency'
 import { Language } from '@/models/2014/language'
 import { ProficiencyChoiceItem } from './unions'
+import { DifficultyClass, Damage } from '@/models/2014/common'
 
 // --- Generic String Choice Types ---
 @ObjectType({
@@ -193,5 +194,45 @@ export class AbilityScoreBonusChoice {
     nullable: true,
     description: 'Description of the ability score bonus choice.'
   })
+  desc?: string
+}
+
+// --- Breath Choice Types ---
+@ObjectType({ description: 'A single breath option within a breath choice' })
+export class BreathChoiceOption {
+  @Field(() => String, { description: 'The type of option (e.g., breath).' })
+  option_type!: string
+
+  @Field(() => String, { description: 'The name of the breath option.' })
+  name!: string
+
+  @Field(() => DifficultyClass, { description: 'The difficulty class for the breath.' })
+  dc!: DifficultyClass
+
+  @Field(() => [Damage], { nullable: true, description: 'The damage dealt by the breath.' })
+  damage?: Damage[]
+}
+
+@ObjectType({ description: 'A set of breath options to choose from' })
+export class BreathChoiceOptionSet {
+  @Field(() => String, { description: 'The type of option set.' })
+  option_set_type!: string
+
+  @Field(() => [BreathChoiceOption], { description: 'The available breath options.' })
+  options!: BreathChoiceOption[]
+}
+
+@ObjectType({ description: 'A choice of breath options for a monster action' })
+export class BreathChoice {
+  @Field(() => Int, { description: 'Number of breath options to choose.' })
+  choose!: number
+
+  @Field(() => String, { description: 'Type of breath options to choose from.' })
+  type!: string
+
+  @Field(() => BreathChoiceOptionSet, { description: 'The options to choose from.' })
+  from!: BreathChoiceOptionSet
+
+  @Field(() => String, { nullable: true, description: 'Description of the breath choice.' })
   desc?: string
 }
