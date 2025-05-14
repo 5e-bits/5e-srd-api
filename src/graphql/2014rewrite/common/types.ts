@@ -114,6 +114,39 @@ class SpellSlotCount {
   count!: number
 }
 
+// --- Added Generic String Choice Types ---
+@ObjectType({
+  description: 'Represents a single string option within a choice (e.g., a flaw, a bond).'
+})
+class StringChoiceOption {
+  @Field(() => String, { description: 'The text content of the string option.' })
+  string!: string
+
+  @Field(() => String, { description: 'The type of the string option.' })
+  option_type!: string
+}
+
+@ObjectType({ description: 'Represents a set of string options.' })
+class StringChoiceOptionSet {
+  @Field(() => String, { description: 'The type of the string option set.' })
+  option_set_type!: string
+
+  @Field(() => [StringChoiceOption], { description: 'The list of string options available.' })
+  options!: StringChoiceOption[]
+}
+
+@ObjectType({ description: 'Represents a choice from a list of string options.' })
+class StringChoice {
+  @Field(() => Int, { description: 'The number of options to choose from this list.' })
+  choose!: number
+
+  @Field(() => String, { description: 'The type or category of the choice.' })
+  type!: string
+
+  @Field(() => StringChoiceOptionSet, { description: 'The set of string options available.' })
+  from!: StringChoiceOptionSet
+}
+
 // Export the concrete types and the interface
 export {
   IEquipment,
@@ -125,5 +158,9 @@ export {
   Ammunition,
   Vehicle,
   LevelValue,
-  SpellSlotCount
+  SpellSlotCount,
+  // Choice Types
+  StringChoice,
+  StringChoiceOption,
+  StringChoiceOptionSet
 }

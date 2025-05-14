@@ -8,8 +8,11 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import {
   resolveMultipleReferences,
-  resolveSingleReference
+  resolveSingleReference,
+  resolveStringChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
+import { StringChoice } from '../common/types'
+import { Choice } from '@/models/2014/common'
 
 @ArgsType()
 class BackgroundArgs {
@@ -63,6 +66,30 @@ export class BackgroundResolver {
   @FieldResolver(() => [Proficiency])
   async starting_proficiencies(@Root() background: Background): Promise<Proficiency[]> {
     return resolveMultipleReferences(background.starting_proficiencies, ProficiencyModel)
+  }
+
+  @FieldResolver(() => StringChoice, {
+    nullable: true,
+    description: 'Resolves the flaws choice for the background.'
+  })
+  async flaws(@Root() background: Background): Promise<StringChoice | null> {
+    return resolveStringChoice(background.flaws as Choice)
+  }
+
+  @FieldResolver(() => StringChoice, {
+    nullable: true,
+    description: 'Resolves the bonds choice for the background.'
+  })
+  async bonds(@Root() background: Background): Promise<StringChoice | null> {
+    return resolveStringChoice(background.bonds as Choice)
+  }
+
+  @FieldResolver(() => StringChoice, {
+    nullable: true,
+    description: 'Resolves the personality traits choice for the background.'
+  })
+  async personality_traits(@Root() background: Background): Promise<StringChoice | null> {
+    return resolveStringChoice(background.personality_traits as Choice)
   }
 
   // Field Resolvers for choices (language_options, etc.) will be added in Pass 3
