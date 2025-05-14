@@ -9,6 +9,7 @@ import { Language } from './language'
 import { Race } from './race'
 import { Trait } from './trait'
 import { Proficiency } from './proficiency'
+import { LanguageChoice } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Bonus to an ability score provided by a subrace.' })
 export class SubraceAbilityBonus {
@@ -48,7 +49,10 @@ export class Subrace {
   @prop({ type: () => [APIReference] })
   public languages?: APIReference[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => LanguageChoice, {
+    nullable: true,
+    description: 'Languages typically spoken by this subrace.'
+  })
   @prop({ type: () => Choice })
   public language_options?: Choice
 

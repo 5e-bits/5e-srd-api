@@ -138,7 +138,7 @@ export class BackgroundResolver {
     nullable: true,
     description: 'Resolves the language choices for the background.'
   })
-  async language_options(@Root() background: Background): Promise<LanguageChoice> {
+  async language_options(@Root() background: Background): Promise<LanguageChoice | null> {
     return resolveLanguageChoice(background.language_options as Choice)
   }
 

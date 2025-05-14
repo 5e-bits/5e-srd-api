@@ -9,10 +9,12 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import {
   resolveMultipleReferences,
-  resolveSingleReference
+  resolveSingleReference,
+  resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LevelValue } from '@/graphql/2014rewrite/common/types'
+import { LanguageChoice, LevelValue } from '@/graphql/2014rewrite/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
+import { Choice } from '@/models/2014/common'
 
 @ArgsType()
 class TraitArgs {
@@ -79,6 +81,11 @@ export class TraitResolver {
   @FieldResolver(() => Trait, { nullable: true })
   async parent(@Root() trait: Trait): Promise<Trait | null> {
     return resolveSingleReference(trait.parent, TraitModel)
+  }
+
+  @FieldResolver(() => LanguageChoice, { nullable: true })
+  async language_options(@Root() trait: Trait): Promise<LanguageChoice | null> {
+    return resolveLanguageChoice(trait.language_options as Choice)
   }
 }
 
