@@ -1,0 +1,37 @@
+import { ObjectType, Field, Int } from 'type-graphql'
+import { customRequire } from '../utils/helpers'
+import type { Trait } from '@/models/2014/trait'
+
+@ObjectType({ description: 'Represents a reference to a Trait within a choice option set.' })
+export class TraitChoiceOption {
+  @Field(() => String, { description: 'The type of this option (e.g., "reference").' })
+  option_type!: string
+
+  @Field(() => customRequire('../../../models/2014/trait').Trait, {
+    description: 'The resolved Trait object.'
+  })
+  item!: Trait
+}
+
+@ObjectType({ description: 'Represents a set of Trait options for a choice.' })
+export class TraitChoiceOptionSet {
+  @Field(() => String, {
+    description: 'The type of the option set (e.g., resource_list, options_array).'
+  })
+  option_set_type!: string
+
+  @Field(() => [TraitChoiceOption], { description: 'The list of Trait options available.' })
+  options!: TraitChoiceOption[]
+}
+
+@ObjectType({ description: 'Represents a choice from a list of Traits.' })
+export class TraitChoice {
+  @Field(() => Int, { description: 'The number of Traits to choose from this list.' })
+  choose!: number
+
+  @Field(() => String, { description: 'The type of choice (e.g., subtraits).' })
+  type!: string
+
+  @Field(() => TraitChoiceOptionSet, { description: 'The set of Trait options available.' })
+  from!: TraitChoiceOptionSet
+}
