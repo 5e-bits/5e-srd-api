@@ -91,5 +91,3 @@ export class RaceAbilityBonusResolver {
     return resolveSingleReference(raceAbilityBonus.ability_score, AbilityScoreModel)
   }
 }
-
-// TODO: Pass 3 - Choice fields

@@ -10,7 +10,7 @@ import { Subrace } from './subrace'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
 import { LanguageChoice, LevelValue } from '@/graphql/2014rewrite/common/types'
-import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
+import { TraitChoice, SpellChoice, ProficiencyChoice } from '@/graphql/2014rewrite/types/traitTypes'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -127,7 +127,10 @@ export class Trait {
   @prop({ type: () => [APIReference] })
   public proficiencies?: APIReference[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => ProficiencyChoice, {
+    nullable: true,
+    description: 'Proficiencies that can be chosen from this trait.'
+  })
   @prop({ type: () => Choice })
   public proficiency_choices?: Choice
 
