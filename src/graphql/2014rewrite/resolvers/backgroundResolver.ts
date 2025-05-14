@@ -13,7 +13,7 @@ import {
   resolveStringChoice,
   resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { StringChoice, LanguageChoice } from '../common/types'
+import { StringChoice, LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { IdealChoice, IdealOption, IdealOptionSet } from '../types/backgroundTypes'
 import { Choice, IdealOption as DbIdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
 

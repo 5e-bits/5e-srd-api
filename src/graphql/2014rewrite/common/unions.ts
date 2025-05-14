@@ -16,7 +16,7 @@ import {
   ArmorClassCondition
 } from '@/models/2014/monster' // Import the individual AC types
 import { Proficiency } from '@/models/2014/proficiency'
-import { ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
+import { ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 
 // --- Helper Function for Equipment Type Resolution ---
 function resolveConcreteEquipmentType(

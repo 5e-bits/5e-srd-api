@@ -13,7 +13,7 @@ import {
   resolveSingleReference,
   resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LanguageChoice } from '../common/types'
+import { LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { Choice } from '@/models/2014/common'
 
 @ArgsType()

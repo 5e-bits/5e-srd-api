@@ -16,7 +16,8 @@ import {
   resolveSpellChoice,
   resolveProficiencyChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LanguageChoice, LevelValue, ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
+import { LevelValue } from '@/graphql/2014rewrite/common/types'
+import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
 import { Choice } from '@/models/2014/common'
 
