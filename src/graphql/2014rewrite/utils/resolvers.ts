@@ -7,7 +7,8 @@ import {
   StringOption,
   ReferenceOption,
   ScorePrerequisiteOption,
-  ChoiceOption
+  ChoiceOption,
+  AbilityBonusOption
 } from '@/models/2014/common'
 import {
   StringChoice,
@@ -20,7 +21,9 @@ import {
   ProficiencyChoiceOption,
   ProficiencyChoiceOptionSet,
   PrerequisiteChoice,
-  PrerequisiteChoiceOption
+  PrerequisiteChoiceOption,
+  AbilityScoreBonusChoice,
+  AbilityScoreBonusChoiceOption
 } from '@/graphql/2014rewrite/common/choiceTypes'
 import LanguageModel, { Language } from '@/models/2014/language'
 import TraitModel, { Trait } from '@/models/2014/trait'
@@ -34,7 +37,7 @@ import {
   SpellChoiceOptionSet,
   SpellChoiceOption
 } from '@/graphql/2014rewrite/types/traitTypes'
-import AbilityScoreModel from '@/models/2014/abilityScore'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 
 // Helper to resolve a single APIReference to a lean object
 export async function resolveSingleReference<T>(
@@ -277,5 +280,42 @@ export async function resolvePrerequisiteChoice(
       option_set_type: choiceData.from.option_set_type,
       options: gqlEmbeddedOptions
     }
+  }
+}
+
+export async function resolveAbilityScoreBonusChoice(
+  choiceData: Choice | undefined,
+  abilityScoreModel: ReturnModelType<AnyParamConstructor<AbilityScore>>
+): Promise<AbilityScoreBonusChoice | null> {
+  if (!choiceData || !choiceData.type || typeof choiceData.choose !== 'number') {
+    return null
+  }
+
+  const options: AbilityScoreBonusChoiceOption[] = []
+  const from = choiceData.from as OptionsArrayOptionSet
+
+  for (const option of from.options) {
+    if (option.option_type === 'ability_bonus') {
+      const abilityScore = await resolveSingleReference(
+        (option as AbilityBonusOption).ability_score,
+        abilityScoreModel
+      )
+
+      options.push({
+        option_type: option.option_type,
+        ability_score: abilityScore,
+        bonus: (option as AbilityBonusOption).bonus
+      })
+    }
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: from.option_set_type,
+      options
+    },
+    desc: choiceData.desc
   }
 }
