@@ -9,7 +9,7 @@ import { AbilityScore } from './abilityScore'
 import { MonsterArmorClassUnion } from '@/graphql/2014rewrite/common/unions'
 import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
 import { Proficiency } from './proficiency'
-import { BreathChoice } from '@/graphql/2014rewrite/types/monsterTypes'
+import { BreathChoice, ActionChoice } from '@/graphql/2014rewrite/types/monsterTypes'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
 
 // Export all nested classes/types
@@ -87,9 +87,12 @@ export class MonsterAction {
   @prop({ type: () => [ActionOption] })
   public actions?: ActionOption[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => ActionChoice, {
+    nullable: true,
+    description: 'The action options for the action.'
+  })
   @prop({ type: () => Choice })
-  public action_options!: Choice
+  public action_options?: Choice
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Dexterity based' })

@@ -17,7 +17,9 @@ import ConditionModel, { Condition } from '@/models/2014/condition'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
-  resolveDamageChoice
+  resolveDamageChoice,
+  resolveActionChoice,
+  resolveBreathChoice
 } from '../utils/resolvers'
 import EquipmentModel from '@/models/2014/equipment'
 import SpellModel, { Spell } from '@/models/2014/spell'
@@ -26,7 +28,7 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
 import { Damage, Choice } from '@/models/2014/common'
-import { DamageChoice } from '@/graphql/2014rewrite/types/monsterTypes'
+import { DamageChoice, ActionChoice, BreathChoice } from '@/graphql/2014rewrite/types/monsterTypes'
 
 @ArgsType()
 class MonsterArgs {
@@ -256,5 +258,15 @@ export class MonsterActionResolver {
     )
 
     return resolvedDamage.filter((item): item is Damage | DamageChoice => item !== null)
+  }
+
+  @FieldResolver(() => ActionChoice, { nullable: true })
+  async action_options(@Root() action: MonsterAction): Promise<ActionChoice | null> {
+    return resolveActionChoice(action.action_options)
+  }
+
+  @FieldResolver(() => BreathChoice, { nullable: true })
+  async options(@Root() action: MonsterAction): Promise<BreathChoice | null> {
+    return resolveBreathChoice(action.options)
   }
 }
