@@ -1,6 +1,6 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
-import { TraitChoice, SpellChoice, ProficiencyChoice } from '@/graphql/2014rewrite/types/traitTypes'
+import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
@@ -16,7 +16,7 @@ import {
   resolveSpellChoice,
   resolveProficiencyChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LanguageChoice, LevelValue } from '@/graphql/2014rewrite/common/types'
+import { LanguageChoice, LevelValue, ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
 import { Choice } from '@/models/2014/common'
 
