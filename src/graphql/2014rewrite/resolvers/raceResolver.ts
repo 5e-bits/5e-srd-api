@@ -10,8 +10,11 @@ import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
 import {
   resolveMultipleReferences,
-  resolveSingleReference
+  resolveSingleReference,
+  resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
+import { LanguageChoice } from '../common/types'
+import { Choice } from '@/models/2014/common'
 
 @ArgsType()
 class RaceArgs {
@@ -73,6 +76,11 @@ export class RaceResolver {
   @FieldResolver(() => [Trait], { nullable: true })
   async traits(@Root() race: Race): Promise<Trait[]> {
     return resolveMultipleReferences(race.traits, TraitModel)
+  }
+
+  @FieldResolver(() => LanguageChoice, { nullable: true })
+  async language_options(@Root() race: Race): Promise<LanguageChoice | null> {
+    return resolveLanguageChoice(race.language_options as Choice)
   }
 }
 

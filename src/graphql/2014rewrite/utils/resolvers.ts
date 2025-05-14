@@ -62,7 +62,11 @@ export function resolveStringChoice(choiceData: Choice): StringChoice {
   }
 }
 
-export async function resolveLanguageChoice(choiceData: Choice): Promise<LanguageChoice> {
+export async function resolveLanguageChoice(choiceData: Choice): Promise<LanguageChoice | null> {
+  if (!choiceData) {
+    return null
+  }
+
   const gqlEmbeddedOptions: LanguageChoiceOption[] = []
 
   if (choiceData.from.option_set_type === 'resource_list') {

@@ -9,6 +9,7 @@ import { Language } from './language'
 import { Proficiency } from './proficiency'
 import { Subrace } from './subrace'
 import { Trait } from './trait'
+import { LanguageChoice } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {
@@ -51,9 +52,12 @@ export class Race {
   @prop({ required: true, index: true, type: () => String })
   public language_desc!: string
 
-  // TODO: Pass 3 - Choice field
-  @prop({ type: () => Choice, required: true })
-  public language_options!: Choice
+  @Field(() => LanguageChoice, {
+    nullable: true,
+    description: 'Languages typically spoken by this race.'
+  })
+  @prop({ type: () => Choice })
+  public language_options?: Choice
 
   @Field(() => [Language], {
     nullable: true,

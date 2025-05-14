@@ -9,7 +9,7 @@ import { Race } from './race'
 import { Subrace } from './subrace'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
-import { LevelValue } from '@/graphql/2014rewrite/common/types'
+import { LanguageChoice, LevelValue } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -130,7 +130,10 @@ export class Trait {
   @prop({ type: () => Choice })
   public proficiency_choices?: Choice
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => LanguageChoice, {
+    nullable: true,
+    description: 'Languages typically spoken by this trait.'
+  })
   @prop({ type: () => Choice })
   public language_options?: Choice
 

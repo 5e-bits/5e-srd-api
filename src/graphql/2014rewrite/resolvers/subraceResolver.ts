@@ -10,8 +10,11 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import {
   resolveMultipleReferences,
-  resolveSingleReference
+  resolveSingleReference,
+  resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
+import { LanguageChoice } from '../common/types'
+import { Choice } from '@/models/2014/common'
 
 @ArgsType()
 class SubraceArgs {
@@ -80,6 +83,11 @@ export class SubraceResolver {
   @FieldResolver(() => [Proficiency], { nullable: true })
   async starting_proficiencies(@Root() subrace: Subrace): Promise<Proficiency[]> {
     return resolveMultipleReferences(subrace.starting_proficiencies, ProficiencyModel)
+  }
+
+  @FieldResolver(() => LanguageChoice, { nullable: true })
+  async language_options(@Root() subrace: Subrace): Promise<LanguageChoice | null> {
+    return resolveLanguageChoice(subrace.language_options as Choice)
   }
 }
 
