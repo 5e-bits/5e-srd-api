@@ -114,7 +114,7 @@ class SpellSlotCount {
   count!: number
 }
 
-// --- Added Generic String Choice Types ---
+// --- Generic String Choice Types ---
 @ObjectType({
   description: 'Represents a single string option within a choice (e.g., a flaw, a bond).'
 })

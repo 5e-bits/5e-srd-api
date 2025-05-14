@@ -7,6 +7,7 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { Equipment } from './equipment'
 import { StringChoice } from '@/graphql/2014rewrite/common/types'
+import { IdealChoice } from '@/graphql/2014rewrite/types/backgroundTypes'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
@@ -74,7 +75,10 @@ export class Background {
   @prop({ type: () => Choice })
   public personality_traits!: Choice
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => IdealChoice, {
+    description: 'Options for character ideals.',
+    nullable: true
+  })
   @prop({ type: () => Choice })
   public ideals!: Choice
 
