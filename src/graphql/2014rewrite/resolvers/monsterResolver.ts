@@ -7,18 +7,26 @@ import MonsterModel, {
   ArmorClassCondition,
   MonsterProficiency,
   SpecialAbilitySpellcasting,
-  SpecialAbilitySpell
+  SpecialAbilitySpell,
+  MonsterAction
 } from '@/models/2014/monster'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import { APIReference } from '@/models/2014/types/apiReference'
 import ConditionModel, { Condition } from '@/models/2014/condition'
-import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
+import {
+  resolveMultipleReferences,
+  resolveSingleReference,
+  resolveDamageChoice
+} from '../utils/resolvers'
 import EquipmentModel from '@/models/2014/equipment'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
+import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
+import { Damage, Choice } from '@/models/2014/common'
+import { DamageChoice } from '@/graphql/2014rewrite/types/monsterTypes'
 
 @ArgsType()
 class MonsterArgs {
@@ -227,5 +235,26 @@ export class SpecialAbilitySpellResolver {
     const spellIndex = abilitySpell.url.substring(abilitySpell.url.lastIndexOf('/') + 1)
     if (!spellIndex) return null
     return SpellModel.findOne({ index: spellIndex })
+  }
+}
+
+@Resolver(MonsterAction)
+export class MonsterActionResolver {
+  @FieldResolver(() => [DamageOrDamageChoiceUnion], { nullable: true })
+  async damage(@Root() action: MonsterAction): Promise<(Damage | DamageChoice)[] | undefined> {
+    if (!action.damage) {
+      return undefined
+    }
+
+    const resolvedDamage = await Promise.all(
+      action.damage.map(async (item) => {
+        if ('choose' in item) {
+          return resolveDamageChoice(item as Choice)
+        }
+        return item as Damage
+      })
+    )
+
+    return resolvedDamage.filter((item): item is Damage | DamageChoice => item !== null)
   }
 }

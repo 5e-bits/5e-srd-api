@@ -20,7 +20,8 @@ import {
   ArmorClassConditionResolver,
   MonsterProficiencyResolver,
   SpecialAbilitySpellcastingResolver,
-  SpecialAbilitySpellResolver
+  SpecialAbilitySpellResolver,
+  MonsterActionResolver
 } from './monsterResolver'
 import { ProficiencyResolver } from './proficiencyResolver'
 import { RaceResolver, RaceAbilityBonusResolver } from './raceResolver'
@@ -90,7 +91,8 @@ const fieldResolvers = [
   ArmorClassConditionResolver,
   MonsterProficiencyResolver,
   SpecialAbilitySpellcastingResolver,
-  SpecialAbilitySpellResolver
+  SpecialAbilitySpellResolver,
+  MonsterActionResolver
 ] as const
 
 // Export a new mutable array combining the readonly ones

@@ -9,7 +9,8 @@ import {
   ScorePrerequisiteOption,
   ChoiceOption,
   AbilityBonusOption,
-  BreathOption
+  BreathOption,
+  DamageOption
 } from '@/models/2014/common'
 import {
   StringChoice,
@@ -24,10 +25,14 @@ import {
   PrerequisiteChoice,
   PrerequisiteChoiceOption,
   AbilityScoreBonusChoice,
-  AbilityScoreBonusChoiceOption,
-  BreathChoice,
-  BreathChoiceOption
+  AbilityScoreBonusChoiceOption
 } from '@/graphql/2014rewrite/common/choiceTypes'
+import {
+  BreathChoice,
+  BreathChoiceOption,
+  DamageChoice,
+  DamageChoiceOption
+} from '@/graphql/2014rewrite/types/monsterTypes'
 import LanguageModel, { Language } from '@/models/2014/language'
 import TraitModel, { Trait } from '@/models/2014/trait'
 import SpellModel, { Spell } from '@/models/2014/spell'
@@ -369,6 +374,44 @@ export const resolveBreathChoice = async (choiceData: Choice): Promise<BreathCho
         resolvedOption.damage = resolvedDamage.filter(
           (d) => d.damage_type !== undefined
         ) as Damage[]
+      }
+
+      validOptions.push(resolvedOption)
+    }
+  }
+
+  if (validOptions.length === 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: choiceData.from.option_set_type,
+      options: validOptions
+    },
+    desc: choiceData.desc
+  }
+}
+
+export const resolveDamageChoice = async (choiceData: Choice): Promise<DamageChoice | null> => {
+  if (!('options' in choiceData.from)) {
+    return null
+  }
+
+  const options = (choiceData.from as OptionsArrayOptionSet).options
+  const validOptions: DamageChoiceOption[] = []
+
+  for (const option of options) {
+    if (option.option_type === 'damage') {
+      const damageOption = option as DamageOption
+      const resolvedOption: DamageChoiceOption = {
+        option_type: damageOption.option_type,
+        damage: {
+          damage_dice: damageOption.damage_dice,
+          damage_type: await resolveSingleReference(damageOption.damage_type, DamageTypeModel)
+        }
       }
 
       validOptions.push(resolvedOption)

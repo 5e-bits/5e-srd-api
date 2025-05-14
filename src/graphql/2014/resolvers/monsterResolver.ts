@@ -23,8 +23,8 @@ const resolveUsage = (usage: ActionUsage | SpecialAbilityUsage) => {
 }
 
 type ResolvedDamage = {
-  damage_dice: string;
-  damage_type?: DamageType | undefined;
+  damage_dice: string
+  damage_type?: DamageType | undefined
 }
 
 const resolveDamage = async (damage: Damage[]) => {
@@ -108,10 +108,10 @@ const MonsterResolver = {
   reactions: async (monster: Monster) =>
     monster.reactions
       ? monster.reactions.map(async (r) => {
-        const resolvedReaction: Record<string, any> = { ...r }
-        if (r.dc) resolvedReaction.dc = resolveDc(r.dc)
-        return resolvedReaction
-      })
+          const resolvedReaction: Record<string, any> = { ...r }
+          if (r.dc) resolvedReaction.dc = resolveDc(r.dc)
+          return resolvedReaction
+        })
       : null,
   size: (monster: Monster) => monster.size.toUpperCase(),
   special_abilities: async (monster: Monster) => {
@@ -175,7 +175,7 @@ const MonsterResolver = {
       const actionToAdd: Record<string, any> = { ...action }
 
       if (action.damage) {
-        actionToAdd.damage = await resolveDamage(action.damage)
+        actionToAdd.damage = await resolveDamage(action.damage as Damage[])
       }
 
       if (action.dc) {
