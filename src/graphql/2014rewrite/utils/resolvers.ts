@@ -13,13 +13,17 @@ import {
 import LanguageModel, { Language } from '@/models/2014/language'
 import TraitModel, { Trait } from '@/models/2014/trait'
 import SpellModel, { Spell } from '@/models/2014/spell'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import {
   TraitChoice,
   TraitChoiceOptionSet,
   TraitChoiceOption,
   SpellChoice,
   SpellChoiceOptionSet,
-  SpellChoiceOption
+  SpellChoiceOption,
+  ProficiencyChoice,
+  ProficiencyChoiceOptionSet,
+  ProficiencyChoiceOption
 } from '@/graphql/2014rewrite/types/traitTypes'
 
 // Helper to resolve a single APIReference to a lean object
@@ -162,6 +166,37 @@ export async function resolveSpellChoice(
   }
 
   const gqlOptionSet: SpellChoiceOptionSet = {
+    option_set_type: choiceData.from.option_set_type,
+    options: gqlEmbeddedOptions
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: gqlOptionSet
+  }
+}
+
+export async function resolveProficiencyChoice(
+  choiceData: Choice | undefined | null
+): Promise<ProficiencyChoice | null> {
+  if (!choiceData || !choiceData.from) {
+    return null
+  }
+
+  const gqlEmbeddedOptions: ProficiencyChoiceOption[] = []
+
+  const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+  for (const dbOption of optionsArraySet.options) {
+    const dbRefOpt = dbOption as ReferenceOption
+    const resolvedItem = await resolveSingleReference(dbRefOpt.item, ProficiencyModel)
+    gqlEmbeddedOptions.push({
+      option_type: dbRefOpt.option_type,
+      item: resolvedItem as Proficiency
+    })
+  }
+
+  const gqlOptionSet: ProficiencyChoiceOptionSet = {
     option_set_type: choiceData.from.option_set_type,
     options: gqlEmbeddedOptions
   }
