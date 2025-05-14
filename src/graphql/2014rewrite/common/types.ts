@@ -5,6 +5,7 @@ import { Equipment, ArmorClass, Range, ThrowRange, Content, Speed } from '@/mode
 import { Damage } from '@/models/2014/common'
 import { WeaponProperty } from '@/models/2014/weaponProperty'
 import { APIReference } from '@/models/2014/types/apiReference'
+import { Language } from '@/models/2014/language'
 
 // Define a generic key-value type for level-based maps
 @ObjectType({ description: 'A key-value pair representing a value at a specific level.' })
@@ -147,6 +148,43 @@ class StringChoice {
   from!: StringChoiceOptionSet
 }
 
+// --- Language Choice Types (Revised) ---
+
+@ObjectType({ description: 'Represents a reference to a language within a choice option set.' })
+class LanguageChoiceOption {
+  // Renamed for clarity from GQLEmbeddedReferenceOption
+  @Field(() => String, { description: 'The type of this option (e.g., "reference").' })
+  option_type!: string
+
+  @Field(() => Language, { description: 'The resolved Language object.' })
+  item!: Language
+}
+
+@ObjectType({ description: 'Represents a set of language options for a choice.' })
+class LanguageChoiceOptionSet {
+  @Field(() => String, {
+    description: 'The type of the option set (e.g., resource_list, options_array).'
+  })
+  option_set_type!: string
+
+  @Field(() => [LanguageChoiceOption], {
+    description: 'The list of language options available.'
+  })
+  options!: LanguageChoiceOption[]
+}
+
+@ObjectType({ description: 'Represents a choice from a list of languages.' })
+class LanguageChoice {
+  @Field(() => Int, { description: 'The number of languages to choose from this list.' })
+  choose!: number
+
+  @Field(() => String, { description: 'The type of choice (e.g., languages).' })
+  type!: string
+
+  @Field(() => LanguageChoiceOptionSet, { description: 'The set of language options available.' })
+  from!: LanguageChoiceOptionSet
+}
+
 // Export the concrete types and the interface
 export {
   IEquipment,
@@ -162,5 +200,9 @@ export {
   // Choice Types
   StringChoice,
   StringChoiceOption,
-  StringChoiceOptionSet
+  StringChoiceOptionSet,
+  // Language Choice Types
+  LanguageChoice,
+  LanguageChoiceOptionSet,
+  LanguageChoiceOption
 }

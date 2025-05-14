@@ -6,7 +6,7 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { Equipment } from './equipment'
-import { StringChoice } from '@/graphql/2014rewrite/common/types'
+import { StringChoice, LanguageChoice } from '@/graphql/2014rewrite/common/types'
 import { IdealChoice } from '@/graphql/2014rewrite/types/backgroundTypes'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
@@ -50,7 +50,7 @@ export class Background {
   @prop({ type: () => [APIReference] })
   public starting_proficiencies!: APIReference[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => LanguageChoice, { description: 'Options for language choices.', nullable: true })
   @prop({ type: () => Choice })
   public language_options!: Choice
 

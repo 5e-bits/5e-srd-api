@@ -10,11 +10,12 @@ import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
-  resolveStringChoice
+  resolveStringChoice,
+  resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { StringChoice } from '../common/types'
+import { StringChoice, LanguageChoice } from '../common/types'
 import { IdealChoice, IdealOption, IdealOptionSet } from '../types/backgroundTypes'
-import { Choice, OptionsArrayOptionSet, IdealOption as DbIdealOption } from '@/models/2014/common'
+import { Choice, IdealOption as DbIdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
 
 @ArgsType()
 class BackgroundArgs {
@@ -133,7 +134,15 @@ export class BackgroundResolver {
     }
   }
 
-  // Field Resolvers for choices (language_options, etc.) will be added in Pass 3
+  @FieldResolver(() => LanguageChoice, {
+    nullable: true,
+    description: 'Resolves the language choices for the background.'
+  })
+  async language_options(@Root() background: Background): Promise<LanguageChoice> {
+    return resolveLanguageChoice(background.language_options as Choice)
+  }
+
+  // Field Resolvers for choices (starting_equipment_options, etc.) will be added in Pass 3
 }
 
 // Separate Resolver for the nested EquipmentRef type

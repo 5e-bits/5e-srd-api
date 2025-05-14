@@ -1,12 +1,16 @@
 import { APIReference } from '@/models/2014/types/apiReference'
 import { ReturnModelType } from '@typegoose/typegoose'
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types'
-import { Choice, OptionsArrayOptionSet, StringOption } from '@/models/2014/common'
+import { Choice, OptionsArrayOptionSet, StringOption, ReferenceOption } from '@/models/2014/common'
 import {
   StringChoice,
   StringChoiceOption,
-  StringChoiceOptionSet
+  StringChoiceOptionSet,
+  LanguageChoice,
+  LanguageChoiceOptionSet,
+  LanguageChoiceOption
 } from '@/graphql/2014rewrite/common/types'
+import LanguageModel, { Language } from '@/models/2014/language'
 
 // Helper to resolve a single APIReference to a lean object
 export async function resolveSingleReference<T>(
@@ -49,6 +53,41 @@ export function resolveStringChoice(choiceData: Choice): StringChoice {
   const gqlOptionSet: StringChoiceOptionSet = {
     option_set_type: dbOptionSet.option_set_type,
     options: gqlChoiceOptions
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: gqlOptionSet
+  }
+}
+
+export async function resolveLanguageChoice(choiceData: Choice): Promise<LanguageChoice> {
+  const gqlEmbeddedOptions: LanguageChoiceOption[] = []
+
+  if (choiceData.from.option_set_type === 'resource_list') {
+    const allItems = (await LanguageModel.find({}).lean()) as Language[]
+    for (const item of allItems) {
+      gqlEmbeddedOptions.push({
+        option_type: 'reference',
+        item: item
+      })
+    }
+  } else if (choiceData.from.option_set_type === 'options_array') {
+    const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+    for (const dbOption of optionsArraySet.options) {
+      const dbRefOpt = dbOption as ReferenceOption
+      const resolvedItem = await resolveSingleReference(dbRefOpt.item, LanguageModel)
+      gqlEmbeddedOptions.push({
+        option_type: dbRefOpt.option_type,
+        item: resolvedItem as Language
+      })
+    }
+  }
+
+  const gqlOptionSet: LanguageChoiceOptionSet = {
+    option_set_type: choiceData.from.option_set_type,
+    options: gqlEmbeddedOptions
   }
 
   return {
