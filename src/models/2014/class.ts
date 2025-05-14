@@ -10,7 +10,7 @@ import { Subclass } from './subclass'
 import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
 import { Level } from './level'
 import { Spell } from './spell'
-import { ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
+import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
@@ -69,7 +69,10 @@ export class MultiClassing {
   @prop({ type: () => [MultiClassingPrereq], default: undefined })
   public prerequisites?: MultiClassingPrereq[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => PrerequisiteChoice, {
+    nullable: true,
+    description: 'Optional prerequisites for multi-classing.'
+  })
   @prop({ type: () => Choice, default: undefined })
   public prerequisite_options?: Choice
 

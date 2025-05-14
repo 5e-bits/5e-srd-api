@@ -14,7 +14,8 @@ import {
 import { APIReference } from '@/models/2014/types/apiReference'
 import LevelModel, { Level } from '@/models/2014/level'
 import SpellModel, { Spell } from '@/models/2014/spell'
-import { ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
+import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import { resolvePrerequisiteChoice } from '../utils/resolvers'
 
 @ArgsType()
 class ClassArgs {
@@ -116,6 +117,13 @@ export class MultiClassingResolver {
   @FieldResolver(() => [ProficiencyChoice])
   async proficiency_choices(@Root() multiClassing: MultiClassing): Promise<ProficiencyChoice[]> {
     return resolveProficiencyChoiceArray(multiClassing.proficiency_choices)
+  }
+
+  @FieldResolver(() => PrerequisiteChoice)
+  async prerequisite_options(
+    @Root() multiClassing: MultiClassing
+  ): Promise<PrerequisiteChoice | null> {
+    return resolvePrerequisiteChoice(multiClassing.prerequisite_options)
   }
 }
 

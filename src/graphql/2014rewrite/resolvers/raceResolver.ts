@@ -14,7 +14,7 @@ import {
   resolveLanguageChoice,
   resolveProficiencyChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LanguageChoice, ProficiencyChoice } from '../common/types'
+import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { Choice } from '@/models/2014/common'
 
 @ArgsType()

@@ -5,9 +5,6 @@ import { Equipment, ArmorClass, Range, ThrowRange, Content, Speed } from '@/mode
 import { Damage } from '@/models/2014/common'
 import { WeaponProperty } from '@/models/2014/weaponProperty'
 import { APIReference } from '@/models/2014/types/apiReference'
-import { Language } from '@/models/2014/language'
-import { Proficiency } from '@/models/2014/proficiency'
-import { ProficiencyChoiceItem } from './unions'
 
 // Define a generic key-value type for level-based maps
 @ObjectType({ description: 'A key-value pair representing a value at a specific level.' })
@@ -117,122 +114,6 @@ class SpellSlotCount {
   count!: number
 }
 
-// --- Generic String Choice Types ---
-@ObjectType({
-  description: 'Represents a single string option within a choice (e.g., a flaw, a bond).'
-})
-class StringChoiceOption {
-  @Field(() => String, { description: 'The text content of the string option.' })
-  string!: string
-
-  @Field(() => String, { description: 'The type of the string option.' })
-  option_type!: string
-}
-
-@ObjectType({ description: 'Represents a set of string options.' })
-class StringChoiceOptionSet {
-  @Field(() => String, { description: 'The type of the string option set.' })
-  option_set_type!: string
-
-  @Field(() => [StringChoiceOption], { description: 'The list of string options available.' })
-  options!: StringChoiceOption[]
-}
-
-@ObjectType({ description: 'Represents a choice from a list of string options.' })
-class StringChoice {
-  @Field(() => Int, { description: 'The number of options to choose from this list.' })
-  choose!: number
-
-  @Field(() => String, { description: 'The type or category of the choice.' })
-  type!: string
-
-  @Field(() => StringChoiceOptionSet, { description: 'The set of string options available.' })
-  from!: StringChoiceOptionSet
-}
-
-// --- Language Choice Types (Revised) ---
-
-@ObjectType({ description: 'Represents a reference to a language within a choice option set.' })
-class LanguageChoiceOption {
-  // Renamed for clarity from GQLEmbeddedReferenceOption
-  @Field(() => String, { description: 'The type of this option (e.g., "reference").' })
-  option_type!: string
-
-  @Field(() => Language, { description: 'The resolved Language object.' })
-  item!: Language
-}
-
-@ObjectType({ description: 'Represents a set of language options for a choice.' })
-class LanguageChoiceOptionSet {
-  @Field(() => String, {
-    description: 'The type of the option set (e.g., resource_list, options_array).'
-  })
-  option_set_type!: string
-
-  @Field(() => [LanguageChoiceOption], {
-    description: 'The list of language options available.'
-  })
-  options!: LanguageChoiceOption[]
-}
-
-@ObjectType({ description: 'Represents a choice from a list of languages.' })
-class LanguageChoice {
-  @Field(() => Int, { description: 'The number of languages to choose from this list.' })
-  choose!: number
-
-  @Field(() => String, { description: 'The type of choice (e.g., languages).' })
-  type!: string
-
-  @Field(() => LanguageChoiceOptionSet, { description: 'The set of language options available.' })
-  from!: LanguageChoiceOptionSet
-}
-
-@ObjectType({
-  description:
-    'Represents a reference to a Proficiency or nested ProficiencyChoice within a choice option set.'
-})
-class ProficiencyChoiceOption {
-  @Field(() => String, { description: 'The type of this option (e.g., "reference", "choice").' })
-  option_type!: string
-
-  @Field(() => ProficiencyChoiceItem, {
-    description: 'The resolved Proficiency object or nested ProficiencyChoice.'
-  })
-  item!: Proficiency | ProficiencyChoice
-}
-
-@ObjectType({ description: 'Represents a set of Proficiency options for a choice.' })
-class ProficiencyChoiceOptionSet {
-  @Field(() => String, {
-    description: 'The type of the option set (e.g., resource_list, options_array).'
-  })
-  option_set_type!: string
-
-  @Field(() => [ProficiencyChoiceOption], {
-    description: 'The list of Proficiency options available.'
-  })
-  options!: ProficiencyChoiceOption[]
-}
-
-@ObjectType({
-  description: 'Represents a choice from a list of Proficiencies or nested ProficiencyChoices.'
-})
-class ProficiencyChoice {
-  @Field(() => Int, { description: 'The number of Proficiencies to choose from this list.' })
-  choose!: number
-
-  @Field(() => String, { description: 'The type of choice (e.g., proficiencies).' })
-  type!: string
-
-  @Field(() => ProficiencyChoiceOptionSet, {
-    description: 'The set of Proficiency options available.'
-  })
-  from!: ProficiencyChoiceOptionSet
-
-  @Field(() => String, { nullable: true, description: 'Description of the choice.' })
-  desc?: string
-}
-
 // Export the concrete types and the interface
 export {
   IEquipment,
@@ -244,16 +125,5 @@ export {
   Ammunition,
   Vehicle,
   LevelValue,
-  SpellSlotCount,
-  // Choice Types
-  StringChoice,
-  StringChoiceOption,
-  StringChoiceOptionSet,
-  // Language Choice Types
-  LanguageChoice,
-  LanguageChoiceOptionSet,
-  LanguageChoiceOption,
-  ProficiencyChoice,
-  ProficiencyChoiceOption,
-  ProficiencyChoiceOptionSet
+  SpellSlotCount
 }
