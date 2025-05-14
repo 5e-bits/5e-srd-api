@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
+import TraitModel, { ActionDamage, Trait, TraitSpecific, TraitChoice } from '@/models/2014/trait'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
@@ -10,7 +10,8 @@ import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
-  resolveLanguageChoice
+  resolveLanguageChoice,
+  resolveTraitChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { LanguageChoice, LevelValue } from '@/graphql/2014rewrite/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
@@ -97,7 +98,15 @@ export class TraitSpecificResolver {
     return resolveSingleReference(traitSpecific.damage_type, DamageTypeModel)
   }
 
-  // Resolvers for choices (subtrait_options, spell_options) will go here in Pass 3
+  @FieldResolver(() => TraitChoice, {
+    nullable: true,
+    description: 'Resolves the subtrait choices for the trait specific data.'
+  })
+  async subtrait_options(@Root() traitSpecific: TraitSpecific): Promise<TraitChoice | null> {
+    return resolveTraitChoice(traitSpecific.subtrait_options as Choice | undefined | null)
+  }
+
+  // Resolvers for choices (spell_options) will go here in Pass 3
 }
 
 @Resolver(ActionDamage)

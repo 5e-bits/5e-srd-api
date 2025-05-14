@@ -11,6 +11,12 @@ import {
   LanguageChoiceOption
 } from '@/graphql/2014rewrite/common/types'
 import LanguageModel, { Language } from '@/models/2014/language'
+import TraitModel, {
+  Trait,
+  TraitChoice,
+  TraitChoiceOptionSet,
+  TraitChoiceOption
+} from '@/models/2014/trait'
 
 // Helper to resolve a single APIReference to a lean object
 export async function resolveSingleReference<T>(
@@ -90,6 +96,37 @@ export async function resolveLanguageChoice(choiceData: Choice): Promise<Languag
   }
 
   const gqlOptionSet: LanguageChoiceOptionSet = {
+    option_set_type: choiceData.from.option_set_type,
+    options: gqlEmbeddedOptions
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: gqlOptionSet
+  }
+}
+
+export async function resolveTraitChoice(
+  choiceData: Choice | undefined | null
+): Promise<TraitChoice | null> {
+  if (!choiceData || !choiceData.from) {
+    return null
+  }
+
+  const gqlEmbeddedOptions: TraitChoiceOption[] = []
+
+  const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+  for (const dbOption of optionsArraySet.options) {
+    const dbRefOpt = dbOption as ReferenceOption
+    const resolvedItem = await resolveSingleReference(dbRefOpt.item, TraitModel)
+    gqlEmbeddedOptions.push({
+      option_type: dbRefOpt.option_type,
+      item: resolvedItem as Trait
+    })
+  }
+
+  const gqlOptionSet: TraitChoiceOptionSet = {
     option_set_type: choiceData.from.option_set_type,
     options: gqlEmbeddedOptions
   }

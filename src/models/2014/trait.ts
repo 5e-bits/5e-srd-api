@@ -79,7 +79,7 @@ export class Action {
 
 @ObjectType({ description: 'Details specific to certain traits.' })
 export class TraitSpecific {
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => TraitChoice, { nullable: true, description: 'Options for subtraits.' })
   @prop({ type: () => Choice })
   public subtrait_options?: Choice
 
@@ -162,6 +162,38 @@ export class Trait {
   @Field(() => String, { description: 'Timestamp of the last update.' })
   @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
+}
+
+@ObjectType({ description: 'Represents a reference to a Trait within a choice option set.' })
+export class TraitChoiceOption {
+  @Field(() => String, { description: 'The type of this option (e.g., "reference").' })
+  option_type!: string
+
+  @Field(() => Trait, { description: 'The resolved Trait object.' })
+  item!: Trait
+}
+
+@ObjectType({ description: 'Represents a set of Trait options for a choice.' })
+export class TraitChoiceOptionSet {
+  @Field(() => String, {
+    description: 'The type of the option set (e.g., resource_list, options_array).'
+  })
+  option_set_type!: string
+
+  @Field(() => [TraitChoiceOption], { description: 'The list of Trait options available.' })
+  options!: TraitChoiceOption[]
+}
+
+@ObjectType({ description: 'Represents a choice from a list of Traits.' })
+export class TraitChoice {
+  @Field(() => Int, { description: 'The number of Traits to choose from this list.' })
+  choose!: number
+
+  @Field(() => String, { description: 'The type of choice (e.g., subtraits).' })
+  type!: string
+
+  @Field(() => TraitChoiceOptionSet, { description: 'The set of Trait options available.' })
+  from!: TraitChoiceOptionSet
 }
 
 export type TraitDocument = DocumentType<Trait>
