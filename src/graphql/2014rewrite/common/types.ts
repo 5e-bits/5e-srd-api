@@ -6,6 +6,8 @@ import { Damage } from '@/models/2014/common'
 import { WeaponProperty } from '@/models/2014/weaponProperty'
 import { APIReference } from '@/models/2014/types/apiReference'
 import { Language } from '@/models/2014/language'
+import { Proficiency } from '@/models/2014/proficiency'
+import { ProficiencyChoiceItem } from './unions'
 
 // Define a generic key-value type for level-based maps
 @ObjectType({ description: 'A key-value pair representing a value at a specific level.' })
@@ -185,6 +187,52 @@ class LanguageChoice {
   from!: LanguageChoiceOptionSet
 }
 
+@ObjectType({
+  description:
+    'Represents a reference to a Proficiency or nested ProficiencyChoice within a choice option set.'
+})
+class ProficiencyChoiceOption {
+  @Field(() => String, { description: 'The type of this option (e.g., "reference", "choice").' })
+  option_type!: string
+
+  @Field(() => ProficiencyChoiceItem, {
+    description: 'The resolved Proficiency object or nested ProficiencyChoice.'
+  })
+  item!: Proficiency | ProficiencyChoice
+}
+
+@ObjectType({ description: 'Represents a set of Proficiency options for a choice.' })
+class ProficiencyChoiceOptionSet {
+  @Field(() => String, {
+    description: 'The type of the option set (e.g., resource_list, options_array).'
+  })
+  option_set_type!: string
+
+  @Field(() => [ProficiencyChoiceOption], {
+    description: 'The list of Proficiency options available.'
+  })
+  options!: ProficiencyChoiceOption[]
+}
+
+@ObjectType({
+  description: 'Represents a choice from a list of Proficiencies or nested ProficiencyChoices.'
+})
+class ProficiencyChoice {
+  @Field(() => Int, { description: 'The number of Proficiencies to choose from this list.' })
+  choose!: number
+
+  @Field(() => String, { description: 'The type of choice (e.g., proficiencies).' })
+  type!: string
+
+  @Field(() => ProficiencyChoiceOptionSet, {
+    description: 'The set of Proficiency options available.'
+  })
+  from!: ProficiencyChoiceOptionSet
+
+  @Field(() => String, { nullable: true, description: 'Description of the choice.' })
+  desc?: string
+}
+
 // Export the concrete types and the interface
 export {
   IEquipment,
@@ -204,5 +252,8 @@ export {
   // Language Choice Types
   LanguageChoice,
   LanguageChoiceOptionSet,
-  LanguageChoiceOption
+  LanguageChoiceOption,
+  ProficiencyChoice,
+  ProficiencyChoiceOption,
+  ProficiencyChoiceOptionSet
 }

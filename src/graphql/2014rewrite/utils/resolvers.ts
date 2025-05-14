@@ -1,14 +1,24 @@
 import { APIReference } from '@/models/2014/types/apiReference'
 import { ReturnModelType } from '@typegoose/typegoose'
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types'
-import { Choice, OptionsArrayOptionSet, StringOption, ReferenceOption } from '@/models/2014/common'
+import {
+  Choice,
+  OptionsArrayOptionSet,
+  StringOption,
+  ReferenceOption,
+  ChoiceModel,
+  ChoiceOption
+} from '@/models/2014/common'
 import {
   StringChoice,
   StringChoiceOption,
   StringChoiceOptionSet,
   LanguageChoice,
   LanguageChoiceOptionSet,
-  LanguageChoiceOption
+  LanguageChoiceOption,
+  ProficiencyChoice,
+  ProficiencyChoiceOption,
+  ProficiencyChoiceOptionSet
 } from '@/graphql/2014rewrite/common/types'
 import LanguageModel, { Language } from '@/models/2014/language'
 import TraitModel, { Trait } from '@/models/2014/trait'
@@ -20,10 +30,7 @@ import {
   TraitChoiceOption,
   SpellChoice,
   SpellChoiceOptionSet,
-  SpellChoiceOption,
-  ProficiencyChoice,
-  ProficiencyChoiceOptionSet,
-  ProficiencyChoiceOption
+  SpellChoiceOption
 } from '@/graphql/2014rewrite/types/traitTypes'
 
 // Helper to resolve a single APIReference to a lean object
@@ -180,7 +187,7 @@ export async function resolveSpellChoice(
 export async function resolveProficiencyChoice(
   choiceData: Choice | undefined | null
 ): Promise<ProficiencyChoice | null> {
-  if (!choiceData || !choiceData.from) {
+  if (!choiceData || !choiceData.type) {
     return null
   }
 
@@ -188,12 +195,27 @@ export async function resolveProficiencyChoice(
 
   const optionsArraySet = choiceData.from as OptionsArrayOptionSet
   for (const dbOption of optionsArraySet.options) {
-    const dbRefOpt = dbOption as ReferenceOption
-    const resolvedItem = await resolveSingleReference(dbRefOpt.item, ProficiencyModel)
-    gqlEmbeddedOptions.push({
-      option_type: dbRefOpt.option_type,
-      item: resolvedItem as Proficiency
-    })
+    if (dbOption.option_type === 'choice') {
+      // For nested choices, use ChoiceOption
+      const choiceOpt = dbOption as ChoiceOption
+      const nestedChoice = await resolveProficiencyChoice(choiceOpt.choice)
+      if (nestedChoice) {
+        gqlEmbeddedOptions.push({
+          option_type: choiceOpt.option_type,
+          item: nestedChoice
+        })
+      }
+    } else {
+      // Handle regular proficiency reference
+      const dbRefOpt = dbOption as ReferenceOption
+      const resolvedItem = await resolveSingleReference(dbRefOpt.item, ProficiencyModel)
+      if (resolvedItem) {
+        gqlEmbeddedOptions.push({
+          option_type: dbRefOpt.option_type,
+          item: resolvedItem as Proficiency
+        })
+      }
+    }
   }
 
   const gqlOptionSet: ProficiencyChoiceOptionSet = {
@@ -204,6 +226,25 @@ export async function resolveProficiencyChoice(
   return {
     choose: choiceData.choose,
     type: choiceData.type,
-    from: gqlOptionSet
+    from: gqlOptionSet,
+    desc: choiceData.desc
   }
+}
+
+export async function resolveProficiencyChoiceArray(
+  choices: Choice[] | undefined | null
+): Promise<ProficiencyChoice[]> {
+  if (!choices || !Array.isArray(choices)) {
+    return []
+  }
+
+  const resolvedChoices: ProficiencyChoice[] = []
+  for (const choice of choices) {
+    const resolvedChoice = await resolveProficiencyChoice(choice)
+    if (resolvedChoice) {
+      resolvedChoices.push(resolvedChoice)
+    }
+  }
+
+  return resolvedChoices
 }

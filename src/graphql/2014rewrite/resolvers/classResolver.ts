@@ -6,10 +6,15 @@ import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
-import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
+import {
+  resolveMultipleReferences,
+  resolveProficiencyChoiceArray,
+  resolveSingleReference
+} from '../utils/resolvers'
 import { APIReference } from '@/models/2014/types/apiReference'
 import LevelModel, { Level } from '@/models/2014/level'
 import SpellModel, { Spell } from '@/models/2014/spell'
+import { ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
 
 @ArgsType()
 class ClassArgs {
@@ -94,6 +99,11 @@ export class ClassResolver {
   async spells(@Root() classData: Class): Promise<Spell[]> {
     return SpellModel.find({ 'classes.index': classData.index }).sort({ level: 1, name: 1 }).lean()
   }
+
+  @FieldResolver(() => [ProficiencyChoice])
+  async proficiency_choices(@Root() classData: Class): Promise<ProficiencyChoice[]> {
+    return resolveProficiencyChoiceArray(classData.proficiency_choices)
+  }
 }
 
 @Resolver(MultiClassing)
@@ -101,6 +111,11 @@ export class MultiClassingResolver {
   @FieldResolver(() => [Proficiency])
   async proficiencies(@Root() multiClassing: MultiClassing): Promise<APIReference[]> {
     return resolveMultipleReferences(multiClassing.proficiencies, ProficiencyModel)
+  }
+
+  @FieldResolver(() => [ProficiencyChoice])
+  async proficiency_choices(@Root() multiClassing: MultiClassing): Promise<ProficiencyChoice[]> {
+    return resolveProficiencyChoiceArray(multiClassing.proficiency_choices)
   }
 }
 

@@ -15,6 +15,8 @@ import {
   ArmorClassSpell,
   ArmorClassCondition
 } from '@/models/2014/monster' // Import the individual AC types
+import { Proficiency } from '@/models/2014/proficiency'
+import { ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
 
 // --- Helper Function for Equipment Type Resolution ---
 function resolveConcreteEquipmentType(
@@ -178,5 +180,22 @@ export const MonsterArmorClassUnion = createUnionType({
           'Could not resolve type for MonsterArmorClassUnion: Unknown type ' + value.type
         )
     }
+  }
+})
+
+export const ProficiencyChoiceItem = createUnionType({
+  name: 'ProficiencyChoiceItem',
+  types: () => [Proficiency, ProficiencyChoice] as const,
+  resolveType: (value) => {
+    if (
+      value &&
+      typeof value === 'object' &&
+      'choose' in value &&
+      'type' in value &&
+      'from' in value
+    ) {
+      return ProficiencyChoice
+    }
+    return Proficiency
   }
 })

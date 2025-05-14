@@ -10,6 +10,7 @@ import { Subclass } from './subclass'
 import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
 import { Level } from './level'
 import { Spell } from './spell'
+import { ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
@@ -79,7 +80,10 @@ export class MultiClassing {
   @prop({ type: () => [APIReference], default: undefined })
   public proficiencies?: APIReference[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => [ProficiencyChoice], {
+    nullable: true,
+    description: 'Proficiency choices gained when multi-classing into this class.'
+  })
   @prop({ type: () => [Choice], default: undefined })
   public proficiency_choices?: Choice[]
 }
@@ -119,7 +123,9 @@ export class Class {
   @prop({ type: () => [APIReference] })
   public proficiencies!: APIReference[]
 
-  // TODO: Pass 3 - Choice array
+  @Field(() => [ProficiencyChoice], {
+    description: 'Proficiency choices for this class.'
+  })
   @prop({ type: () => [Choice] })
   public proficiency_choices!: Choice[]
 
