@@ -11,12 +11,12 @@ import {
   LanguageChoiceOption
 } from '@/graphql/2014rewrite/common/types'
 import LanguageModel, { Language } from '@/models/2014/language'
-import TraitModel, {
-  Trait,
+import TraitModel, { Trait } from '@/models/2014/trait'
+import {
   TraitChoice,
   TraitChoiceOptionSet,
   TraitChoiceOption
-} from '@/models/2014/trait'
+} from '@/graphql/2014rewrite/types/traitTypes'
 
 // Helper to resolve a single APIReference to a lean object
 export async function resolveSingleReference<T>(

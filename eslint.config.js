@@ -43,7 +43,8 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/strict-boolean-expressions': 'warn'
+      '@typescript-eslint/strict-boolean-expressions': 'warn',
+      '@typescript-eslint/no-require-imports': 'off'
     }
   },
   eslintConfigPrettier
