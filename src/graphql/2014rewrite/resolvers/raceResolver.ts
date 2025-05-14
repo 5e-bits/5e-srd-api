@@ -12,9 +12,14 @@ import {
   resolveMultipleReferences,
   resolveSingleReference,
   resolveLanguageChoice,
-  resolveProficiencyChoice
+  resolveProficiencyChoice,
+  resolveAbilityScoreBonusChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
-import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import {
+  LanguageChoice,
+  ProficiencyChoice,
+  AbilityScoreBonusChoice
+} from '@/graphql/2014rewrite/common/choiceTypes'
 import { Choice } from '@/models/2014/common'
 
 @ArgsType()
@@ -37,7 +42,7 @@ class RaceArgs {
   order_direction?: OrderByDirection
 }
 
-@Resolver(Race)
+@Resolver(() => Race)
 export class RaceResolver {
   @Query(() => [Race], { description: 'Gets all races, optionally filtered by name and sorted.' })
   async races(@Args() { name, order_direction }: RaceArgs): Promise<Race[]> {
@@ -55,7 +60,7 @@ export class RaceResolver {
   }
 
   @Query(() => Race, { nullable: true, description: 'Gets a single race by its index.' })
-  async race(@Arg('index', () => String) index: string): Promise<Race | null> {
+  async race(@Arg('index') index: string): Promise<Race | null> {
     return RaceModel.findOne({ index }).lean()
   }
 
@@ -87,6 +92,11 @@ export class RaceResolver {
   @FieldResolver(() => ProficiencyChoice, { nullable: true })
   async starting_proficiency_options(@Root() race: Race): Promise<ProficiencyChoice | null> {
     return resolveProficiencyChoice(race.starting_proficiency_options)
+  }
+
+  @FieldResolver(() => AbilityScoreBonusChoice, { nullable: true })
+  async ability_bonus_options(@Root() race: Race): Promise<AbilityScoreBonusChoice | null> {
+    return resolveAbilityScoreBonusChoice(race.ability_bonus_options, AbilityScoreModel)
   }
 }
 

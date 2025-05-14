@@ -155,3 +155,43 @@ export class PrerequisiteChoice {
   @Field(() => String, { nullable: true, description: 'Description of the prerequisite choice.' })
   desc?: string
 }
+
+// --- Ability Score Bonus Choice Types ---
+@ObjectType({ description: 'A single ability score bonus option' })
+export class AbilityScoreBonusChoiceOption {
+  @Field(() => String, { description: 'The type of option.' })
+  option_type!: string
+
+  @Field(() => AbilityScore, { description: 'The ability score to increase.' })
+  ability_score!: AbilityScore
+
+  @Field(() => Int, { description: 'The amount to increase the ability score by.' })
+  bonus!: number
+}
+
+@ObjectType({ description: 'A set of ability score bonus options to choose from' })
+export class AbilityScoreBonusChoiceOptionSet {
+  @Field(() => String, { description: 'The type of option set.' })
+  option_set_type!: string
+
+  @Field(() => [AbilityScoreBonusChoiceOption], { description: 'The available options.' })
+  options!: AbilityScoreBonusChoiceOption[]
+}
+
+@ObjectType({ description: 'A choice of ability score bonuses for a race' })
+export class AbilityScoreBonusChoice {
+  @Field(() => Int, { description: 'Number of ability score bonuses to choose.' })
+  choose!: number
+
+  @Field(() => String, { description: 'Type of ability score bonuses to choose from.' })
+  type!: string
+
+  @Field(() => AbilityScoreBonusChoiceOptionSet, { description: 'The options to choose from.' })
+  from!: AbilityScoreBonusChoiceOptionSet
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'Description of the ability score bonus choice.'
+  })
+  desc?: string
+}

@@ -9,7 +9,11 @@ import { Language } from './language'
 import { Proficiency } from './proficiency'
 import { Subrace } from './subrace'
 import { Trait } from './trait'
-import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import {
+  LanguageChoice,
+  ProficiencyChoice,
+  AbilityScoreBonusChoice
+} from '@/graphql/2014rewrite/common/choiceTypes'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {
@@ -28,8 +32,15 @@ export class RaceAbilityBonus {
 @ObjectType({ description: 'Represents a playable race in D&D' })
 @srdModelOptions('2014-races')
 export class Race {
-  // TODO: Pass 3 - Choice field
-  @prop({ type: () => Choice })
+  @Field(() => String, { description: 'The index of the race.' })
+  @prop({ required: true, index: true, type: () => String })
+  public index!: string
+
+  @Field(() => AbilityScoreBonusChoice, {
+    nullable: true,
+    description: 'The ability bonus options of the race.'
+  })
+  @prop({ type: () => Choice, required: false, index: true })
   public ability_bonus_options?: Choice
 
   @Field(() => [RaceAbilityBonus], { description: 'Ability score bonuses granted by this race.' })
@@ -43,10 +54,6 @@ export class Race {
   @Field(() => String, { description: 'Typical alignment tendencies for the race' })
   @prop({ required: true, index: true, type: () => String })
   public alignment!: string
-
-  @Field(() => String, { description: 'Unique identifier for this race' })
-  @prop({ required: true, index: true, type: () => String })
-  public index!: string
 
   @Field(() => String, { description: 'Description of languages typically spoken by the race' })
   @prop({ required: true, index: true, type: () => String })
@@ -66,7 +73,7 @@ export class Race {
   @prop({ type: () => [APIReference], required: true })
   public languages!: APIReference[]
 
-  @Field(() => String, { description: 'Name of the race' })
+  @Field(() => String, { description: 'The name of the race.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
