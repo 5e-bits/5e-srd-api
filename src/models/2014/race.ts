@@ -9,7 +9,7 @@ import { Language } from './language'
 import { Proficiency } from './proficiency'
 import { Subrace } from './subrace'
 import { Trait } from './trait'
-import { LanguageChoice } from '@/graphql/2014rewrite/common/types'
+import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {
@@ -89,7 +89,10 @@ export class Race {
   @prop({ type: () => [APIReference] })
   public starting_proficiencies?: APIReference[]
 
-  // TODO: Pass 3 - Choice field
+  @Field(() => ProficiencyChoice, {
+    nullable: true,
+    description: 'Proficiencies granted by this race at start.'
+  })
   @prop({ type: () => Choice })
   public starting_proficiency_options?: Choice
 
