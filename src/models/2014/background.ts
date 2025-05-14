@@ -6,6 +6,7 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { Equipment } from './equipment'
+import { StringChoice } from '@/graphql/2014rewrite/common/types'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
@@ -67,7 +68,9 @@ export class Background {
   @prop({ type: () => BackgroundFeature })
   public feature!: BackgroundFeature
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => StringChoice, {
+    description: 'Options for character personality traits.'
+  })
   @prop({ type: () => Choice })
   public personality_traits!: Choice
 
@@ -75,11 +78,11 @@ export class Background {
   @prop({ type: () => Choice })
   public ideals!: Choice
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => StringChoice, { description: 'Options for character bonds.' })
   @prop({ type: () => Choice })
   public bonds!: Choice
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => StringChoice, { description: 'Options for character flaws.' })
   @prop({ type: () => Choice })
   public flaws!: Choice
 
