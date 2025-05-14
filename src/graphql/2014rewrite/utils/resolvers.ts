@@ -8,7 +8,8 @@ import {
   ReferenceOption,
   ScorePrerequisiteOption,
   ChoiceOption,
-  AbilityBonusOption
+  AbilityBonusOption,
+  BreathOption
 } from '@/models/2014/common'
 import {
   StringChoice,
@@ -23,7 +24,9 @@ import {
   PrerequisiteChoice,
   PrerequisiteChoiceOption,
   AbilityScoreBonusChoice,
-  AbilityScoreBonusChoiceOption
+  AbilityScoreBonusChoiceOption,
+  BreathChoice,
+  BreathChoiceOption
 } from '@/graphql/2014rewrite/common/choiceTypes'
 import LanguageModel, { Language } from '@/models/2014/language'
 import TraitModel, { Trait } from '@/models/2014/trait'
@@ -38,6 +41,8 @@ import {
   SpellChoiceOption
 } from '@/graphql/2014rewrite/types/traitTypes'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
+import { Damage } from '@/models/2014/common'
 
 // Helper to resolve a single APIReference to a lean object
 export async function resolveSingleReference<T>(
@@ -315,6 +320,71 @@ export async function resolveAbilityScoreBonusChoice(
     from: {
       option_set_type: from.option_set_type,
       options
+    },
+    desc: choiceData.desc
+  }
+}
+
+export const resolveBreathChoice = async (choiceData: Choice): Promise<BreathChoice | null> => {
+  if (!('options' in choiceData.from)) {
+    return null
+  }
+
+  const options = (choiceData.from as OptionsArrayOptionSet).options
+  const validOptions: BreathChoiceOption[] = []
+
+  for (const option of options) {
+    if (option.option_type === 'breath') {
+      const breathOption = option as BreathOption
+      const abilityScore = await resolveSingleReference(breathOption.dc.dc_type, AbilityScoreModel)
+
+      const resolvedOption: BreathChoiceOption = {
+        option_type: breathOption.option_type,
+        name: breathOption.name,
+        dc: {
+          dc_type: abilityScore,
+          dc_value: breathOption.dc.dc_value,
+          success_type: breathOption.dc.success_type
+        }
+      }
+
+      if (breathOption.damage) {
+        // Resolve each damage entry directly
+        const resolvedDamage = await Promise.all(
+          breathOption.damage.map(async (d) => {
+            const newDamage: { damage_dice: string; damage_type?: DamageType } = {
+              damage_dice: d.damage_dice
+            }
+
+            const damageType = await resolveSingleReference(d.damage_type, DamageTypeModel)
+            if (damageType) {
+              newDamage.damage_type = damageType
+            }
+
+            return newDamage
+          })
+        )
+
+        // Only include entries with a valid damage_type
+        resolvedOption.damage = resolvedDamage.filter(
+          (d) => d.damage_type !== undefined
+        ) as Damage[]
+      }
+
+      validOptions.push(resolvedOption)
+    }
+  }
+
+  if (validOptions.length === 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: choiceData.from.option_set_type,
+      options: validOptions
     },
     desc: choiceData.desc
   }
