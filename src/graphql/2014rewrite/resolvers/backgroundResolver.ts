@@ -6,13 +6,15 @@ import { escapeRegExp } from '@/util'
 
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
   resolveStringChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { StringChoice } from '../common/types'
-import { Choice } from '@/models/2014/common'
+import { IdealChoice, IdealOption, IdealOptionSet } from '../types/backgroundTypes'
+import { Choice, OptionsArrayOptionSet, IdealOption as DbIdealOption } from '@/models/2014/common'
 
 @ArgsType()
 class BackgroundArgs {
@@ -90,6 +92,45 @@ export class BackgroundResolver {
   })
   async personality_traits(@Root() background: Background): Promise<StringChoice | null> {
     return resolveStringChoice(background.personality_traits as Choice)
+  }
+
+  @FieldResolver(() => IdealChoice, {
+    nullable: true,
+    description: 'Resolves the ideals choice for the background.'
+  })
+  async ideals(@Root() background: Background): Promise<IdealChoice> {
+    const choiceData = background.ideals as Choice
+
+    const dbOptionSet = choiceData.from as OptionsArrayOptionSet
+
+    const gqlIdealOptions: IdealOption[] = []
+    if (dbOptionSet.options && Array.isArray(dbOptionSet.options)) {
+      for (const dbOption of dbOptionSet.options) {
+        // Assuming these options are specifically DbIdealOption based on the 'ideals' context
+        const dbIdealOpt = dbOption as DbIdealOption
+        const resolvedAlignments = (await resolveMultipleReferences(
+          dbIdealOpt.alignments,
+          AlignmentModel
+        )) as Alignment[]
+
+        gqlIdealOptions.push({
+          option_type: dbIdealOpt.option_type,
+          desc: dbIdealOpt.desc,
+          alignments: resolvedAlignments
+        })
+      }
+    }
+
+    const gqlOptionSet: IdealOptionSet = {
+      option_set_type: dbOptionSet.option_set_type,
+      options: gqlIdealOptions
+    }
+
+    return {
+      choose: choiceData.choose,
+      type: choiceData.type,
+      from: gqlOptionSet
+    }
   }
 
   // Field Resolvers for choices (language_options, etc.) will be added in Pass 3
