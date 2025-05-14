@@ -10,7 +10,7 @@ import { Subrace } from './subrace'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
 import { LanguageChoice, LevelValue } from '@/graphql/2014rewrite/common/types'
-import { TraitChoice } from '@/graphql/2014rewrite/types/traitTypes'
+import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -84,7 +84,7 @@ export class TraitSpecific {
   @prop({ type: () => Choice })
   public subtrait_options?: Choice
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => SpellChoice, { nullable: true, description: 'Options for spells.' })
   @prop({ type: () => Choice })
   public spell_options?: Choice
 
