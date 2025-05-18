@@ -230,34 +230,35 @@ Implement the logic for resolving `Choice` fields across relevant models (e.g., 
 5. Verify functionality via GraphQL endpoint.
 6. Deploy to production.
 
-### Pass 4: Input/Argument Verification with Zod
+### ✅ Pass 4: Input/Argument Verification with Zod
 
 **Goal:**
 Ensure all query arguments in the new TypeGraphQL resolvers (`src/graphql/2014rewrite/resolvers/`) match the filtering, sorting, and pagination capabilities of the old GraphQL API (`src/graphql/2014/resolvers/queryResolver.ts`). Implement argument validation using `zod`.
 
 **Overall Approach:**
 For each entity (e.g., Monster, Proficiency, Race):
-1.  **Review Old API:** Examine the corresponding query in the old `queryResolver.ts` to identify all supported arguments (filters, sorting options, pagination like `skip`/`limit`).
-2.  **Define `ArgsType` for TypeGraphQL:**
-    *   In the new resolver file (e.g., `monsterResolver.ts`), create or update the TypeGraphQL `ArgsType` class (e.g., `MonsterArgs`).
-    *   Use TypeGraphQL's `@Field()` decorators to define the GraphQL schema for each argument. This ensures TypeGraphQL can generate the correct GraphQL schema.
-    *   **Do not** use `class-validator` decorators.
-3.  **Define `zod` Schema for Validation:**
-    *   Create a `zod` schema corresponding to the `ArgsType` class.
-        *   Initially, these `zod` schemas will be co-located with their respective resolver files (e.g., `ProficiencyArgsSchema` in `proficiencyResolver.ts`). In Pass 5, common schemas will be extracted.
-        *   The `zod` schema should define the expected types, optionality, and any specific validation rules (e.g., min/max values, regex patterns, enum values).
-        *   Utilize `zod` transformations (`.transform()`) if necessary to match how the old API processed certain inputs (e.g., ensuring a single string or an array of strings are both handled for a filter).
-        *   For `order_direction` arguments in Zod schemas, always include `.default(OrderByDirection.ASC)` unless specified otherwise.
-4.  **Implement Resolver Logic & Validation:**
-    *   In the resolver method (e.g., `monsters(@Args() args: MonsterArgs)`), the first step should be to validate the incoming `args` using the `zod` schema: `const validatedArgs = MonsterArgsSchema.parse(args);`. Use `parse()` (which throws on error) rather than `safeParse()`.
-    *   Use the `validatedArgs` (the output of `zodSchema.parse()`) for all subsequent logic (filtering, sorting, database queries).
-    *   Implement the filtering logic based on the old API's capabilities. Use `buildMongoQueryFromNumberFilter` for `NumberFilterInput` types.
-    *   Implement sorting using `buildMongoSortQuery`, creating `SORT_FIELD_MAP` and `OrderField` enums as needed.
-    *   Add `skip` and `limit` fields to the `ArgsType` and Zod schema. The database query logic for `skip` and `limit` should be added but commented out with a "TODO: Pass 5" comment.
-5.  **Remove `class-validator`:**
-    *   Remove all `class-validator` decorators (e.g., `@IsString`, `@IsOptional`, `@Min`, `@ValidateNested`) from the `ArgsType` class.
-    *   Remove `class-validator` imports from the resolver file.
-    *   `class-validator` will be removed from `package.json` in a later pass.
+
+1. **Review Old API:** Examine the corresponding query in the old `queryResolver.ts` to identify all supported arguments (filters, sorting options, pagination like `skip`/`limit`).
+2. **Define `ArgsType` for TypeGraphQL:**
+    - In the new resolver file (e.g., `monsterResolver.ts`), create or update the TypeGraphQL `ArgsType` class (e.g., `MonsterArgs`).
+    - Use TypeGraphQL's `@Field()` decorators to define the GraphQL schema for each argument. This ensures TypeGraphQL can generate the correct GraphQL schema.
+    - **Do not** use `class-validator` decorators.
+3. **Define `zod` Schema for Validation:**
+    - Create a `zod` schema corresponding to the `ArgsType` class.
+        - Initially, these `zod` schemas will be co-located with their respective resolver files (e.g., `ProficiencyArgsSchema` in `proficiencyResolver.ts`). In Pass 5, common schemas will be extracted.
+        - The `zod` schema should define the expected types, optionality, and any specific validation rules (e.g., min/max values, regex patterns, enum values).
+        - Utilize `zod` transformations (`.transform()`) if necessary to match how the old API processed certain inputs (e.g., ensuring a single string or an array of strings are both handled for a filter).
+        - For `order_direction` arguments in Zod schemas, always include `.default(OrderByDirection.ASC)` unless specified otherwise.
+4. **Implement Resolver Logic & Validation:**
+    - In the resolver method (e.g., `monsters(@Args() args: MonsterArgs)`), the first step should be to validate the incoming `args` using the `zod` schema: `const validatedArgs = MonsterArgsSchema.parse(args);`. Use `parse()` (which throws on error) rather than `safeParse()`.
+    - Use the `validatedArgs` (the output of `zodSchema.parse()`) for all subsequent logic (filtering, sorting, database queries).
+    - Implement the filtering logic based on the old API's capabilities. Use `buildMongoQueryFromNumberFilter` for `NumberFilterInput` types.
+    - Implement sorting using `buildMongoSortQuery`, creating `SORT_FIELD_MAP` and `OrderField` enums as needed.
+    - Add `skip` and `limit` fields to the `ArgsType` and Zod schema. The database query logic for `skip` and `limit` should be added but commented out with a "TODO: Pass 5" comment.
+5. **Remove `class-validator`:**
+    - Remove all `class-validator` decorators (e.g., `@IsString`, `@IsOptional`, `@Min`, `@ValidateNested`) from the `ArgsType` class.
+    - Remove `class-validator` imports from the resolver file.
+    - `class-validator` will be removed from `package.json` in a later pass.
 
 ### Pass 5: Refactor and Centralize (Weeks 10-11)
 
@@ -267,7 +268,7 @@ For each entity (e.g., Monster, Proficiency, Race):
 4. Update the `@ArgsType` classes and resolver logic to align with the required filtering/sorting capabilities based on the old endpoint.
 5. Create or update integration tests to cover these specific input arguments and filters.
 
-### 6. Pass 6: GraphQL Infrastructure Migration (Week 11)
+### Pass 6: GraphQL Infrastructure Migration (Week 11)
 
 1. Port custom scalars to TypeGraphQL.
    - Strategy: Adapt existing scalar logic using TypeGraphQL's `GraphQLScalarType` or implement custom `@InputType`s for filters (See Appendix C).
@@ -276,7 +277,7 @@ For each entity (e.g., Monster, Proficiency, Race):
 3. Finalize Apollo Server configuration with the TypeGraphQL schema.
 4. Verify all middleware (rate limiting, error tracking, CORS) works correctly with the final TypeGraphQL setup.
 
-### 7. Pass 7: Final Steps (Week 12)
+### Pass 7: Final Steps (Week 12)
 
 1. Remove any remaining old GraphQL Compose artifacts or dependencies.
 2. Delete the old `src/graphql/2014` directory.
