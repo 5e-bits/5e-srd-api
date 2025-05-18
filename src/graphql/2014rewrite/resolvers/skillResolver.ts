@@ -1,10 +1,22 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { z } from 'zod'
 import SkillModel, { Skill } from '@/models/2014/skill'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+
+const SkillArgsSchema = z.object({
+  name: z.string().optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const SkillIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class SkillArgs {
@@ -12,18 +24,22 @@ class SkillArgs {
     nullable: true,
     description: 'Filter by skill name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction (default: ASC)'
+    description: 'Sort direction for the name field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Skill)
@@ -31,22 +47,37 @@ export class SkillResolver {
   @Query(() => [Skill], {
     description: 'Gets all skills, optionally filtered by name and sorted by name.'
   })
-  async skills(@Args() { name, order_direction }: SkillArgs): Promise<Skill[]> {
+  async skills(@Args() args: SkillArgs): Promise<Skill[]> {
+    const validatedArgs = SkillArgsSchema.parse(args)
+
     const query = SkillModel.find()
 
-    if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: validatedArgs.order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
+
+    // TODO: Pass 5 - Implement pagination
+    // if (skip) {
+    //   query.skip(skip)
+    // }
+    // if (limit) {
+    //   query.limit(limit)
+    // }
 
     return query.lean()
   }
 
   @Query(() => Skill, { nullable: true, description: 'Gets a single skill by index.' })
-  async skill(@Arg('index', () => String) index: string): Promise<Skill | null> {
+  async skill(@Arg('index') indexInput: string): Promise<Skill | null> {
+    const { index } = SkillIndexArgsSchema.parse({ index: indexInput })
     return SkillModel.findOne({ index }).lean()
   }
 

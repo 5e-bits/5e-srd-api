@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
-import { IsOptional, IsString, IsEnum, IsInt, Min, Max } from 'class-validator'
+import { z } from 'zod'
 import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
@@ -12,6 +12,20 @@ import {
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { LevelValue } from '@/graphql/2014rewrite/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+
+const SpellArgsSchema = z.object({
+  name: z.string().optional(),
+  level: z.array(z.number().int().min(0).max(9)).optional(),
+  school: z.array(z.string()).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const SpellIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class SpellArgs {
@@ -19,66 +33,79 @@ class SpellArgs {
     nullable: true,
     description: 'Filter by spell name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => [Int], {
     nullable: true,
     description: 'Filter by spell level (e.g., [1, 3] for levels 1 to 3)'
   })
-  @IsOptional()
-  @IsInt({ each: true })
-  @Min(0, { each: true })
-  @Max(9, { each: true })
   level?: number[]
 
   @Field(() => [String], { nullable: true, description: 'Filter by magic school index' })
-  @IsOptional()
-  @IsString({ each: true })
   school?: string[]
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
+    // defaultValue: OrderByDirection.ASC, // Default is handled by Zod
     description: 'Sort direction for the name field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Spell)
 export class SpellResolver {
   @Query(() => [Spell], { description: 'Gets all spells, optionally filtered and sorted.' })
-  async spells(@Args() { name, level, school, order_direction }: SpellArgs): Promise<Spell[]> {
+  async spells(@Args() args: SpellArgs): Promise<Spell[]> {
+    const validatedArgs = SpellArgsSchema.parse(args)
+
     const query = SpellModel.find()
-    const filters: any = {}
+    const filters: any[] = []
 
-    if (name) {
-      filters.name = { $regex: new RegExp(escapeRegExp(name), 'i') }
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
-    if (level && level.length > 0) {
-      filters.level = { $in: level }
+    if (validatedArgs.level && validatedArgs.level.length > 0) {
+      filters.push({ level: { $in: validatedArgs.level } })
     }
-    if (school && school.length > 0) {
-      filters['school.index'] = { $in: school }
-    }
-
-    if (Object.keys(filters).length > 0) {
-      query.where(filters)
+    if (validatedArgs.school && validatedArgs.school.length > 0) {
+      filters.push({ 'school.index': { $in: validatedArgs.school } })
     }
 
-    if (order_direction) {
-      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-      query.sort({ name: sortOrder })
+    if (filters.length > 0) {
+      query.where({ $and: filters })
     }
+
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: validatedArgs.order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
+    }
+
+    // TODO: Pass 5 - Implement pagination
+    // if (skip) {
+    //   query.skip(skip)
+    // }
+    // if (limit) {
+    //   query.limit(limit)
+    // }
 
     return query.lean()
   }
 
   @Query(() => Spell, { nullable: true, description: 'Gets a single spell by its index.' })
-  async spell(@Arg('index', () => String) index: string): Promise<Spell | null> {
+  async spell(@Arg('index') indexInput: string): Promise<Spell | null> {
+    const { index } = SpellIndexArgsSchema.parse({ index: indexInput })
     return SpellModel.findOne({ index }).lean()
   }
 
