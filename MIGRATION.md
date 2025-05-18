@@ -247,47 +247,19 @@ For each entity (e.g., Monster, Proficiency, Race):
         *   Initially, these `zod` schemas will be co-located with their respective resolver files (e.g., `ProficiencyArgsSchema` in `proficiencyResolver.ts`). In Pass 5, common schemas will be extracted.
         *   The `zod` schema should define the expected types, optionality, and any specific validation rules (e.g., min/max values, regex patterns, enum values).
         *   Utilize `zod` transformations (`.transform()`) if necessary to match how the old API processed certain inputs (e.g., ensuring a single string or an array of strings are both handled for a filter).
+        *   For `order_direction` arguments in Zod schemas, always include `.default(OrderByDirection.ASC)` unless specified otherwise.
 4.  **Implement Resolver Logic & Validation:**
-    *   In the resolver method (e.g., `monsters(@Args() args: MonsterArgs)`):
-        *   At the beginning of the method, validate the incoming `args` using the defined `zod` schema (e.g., `YourEntityArgsSchema.parse(args)`). If validation fails, `zod` will throw an error which can be handled by GraphQL's error reporting.
-        *   Implement the filtering logic based on the validated arguments, constructing the appropriate MongoDB query.
-        *   Implement sorting logic using the `buildMongoSortQuery` utility, defining necessary `OrderField` enums and `SORT_FIELD_MAPS`.
-        *   **Pagination (`skip`, `limit`):** Define `skip` and `limit` fields in the `ArgsType` (with `@Field()`) and its `zod` schema (as optional numbers). Comment out their usage in the resolver query logic for now. These will be fully implemented in Pass 5 (Refactor Common Arguments). Mark these with `// TODO: Pass 5`.
-5.  **Field Resolvers:** Implement any necessary field resolvers for complex fields within the entity, as identified in Pass 2.
+    *   In the resolver method (e.g., `monsters(@Args() args: MonsterArgs)`), the first step should be to validate the incoming `args` using the `zod` schema: `const validatedArgs = MonsterArgsSchema.parse(args);`. Use `parse()` (which throws on error) rather than `safeParse()`.
+    *   Use the `validatedArgs` (the output of `zodSchema.parse()`) for all subsequent logic (filtering, sorting, database queries).
+    *   Implement the filtering logic based on the old API's capabilities. Use `buildMongoQueryFromNumberFilter` for `NumberFilterInput` types.
+    *   Implement sorting using `buildMongoSortQuery`, creating `SORT_FIELD_MAP` and `OrderField` enums as needed.
+    *   Add `skip` and `limit` fields to the `ArgsType` and Zod schema. The database query logic for `skip` and `limit` should be added but commented out with a "TODO: Pass 5" comment.
+5.  **Remove `class-validator`:**
+    *   Remove all `class-validator` decorators (e.g., `@IsString`, `@IsOptional`, `@Min`, `@ValidateNested`) from the `ArgsType` class.
+    *   Remove `class-validator` imports from the resolver file.
+    *   `class-validator` will be removed from `package.json` in a later pass.
 
-**Current Status (as of starting this revised Pass 4):**
-We had previously started Pass 4 using `class-validator`. We will now pivot to using `zod` for all argument validation moving forward. Resolvers partially addressed under the old Pass 4 will need to be revisited to replace `class-validator` with `zod`.
-
-**Resolvers to cover in this pass (non-exhaustive, based on `queryResolver.ts`):**
-*   `AbilityScoreResolver`
-*   `AlignmentResolver`
-*   `BackgroundResolver`
-*   `ClassResolver`
-*   `ConditionResolver`
-*   `DamageTypeResolver`
-*   `EquipmentResolver`
-*   `EquipmentCategoryResolver`
-*   `FeatResolver`
-*   `FeatureResolver`
-*   `LanguageResolver`
-*   `LevelResolver`
-*   `MagicItemResolver`
-*   `MagicSchoolResolver`
-*   `MonsterResolver`
-*   `ProficiencyResolver`
-*   `RaceResolver`
-*   `RuleResolver`
-*   `RuleSectionResolver`
-*   `SkillResolver`
-*   `SpellResolver`
-*   `SubclassResolver`
-*   `SubraceResolver`
-*   `TraitResolver`
-*   `WeaponPropertyResolver`
-
-6.  **Cleanup `class-validator`:** Once all `ArgsType` classes within `src/graphql/2014rewrite/resolvers/` have been migrated to use `zod` for validation and no longer use `class-validator` decorators, remove `class-validator` from the project's dependencies in `package.json`.
-
-### Pass 5: Refactor Common Arguments & Finalize Choices
+### Pass 5: Refactor and Centralize (Weeks 10-11)
 
 1. Identify common query arguments across resolvers (e.g., `name` filter, `order_direction` sorting, potentially others identified in Pass 4).
 2. **Create reusable base `@ArgsType` classes for common filters (e.g., `BaseNameArgs`) and pagination (e.g., `BasePaginationArgs` with `limit`, `skip`) in `src/graphql/2014rewrite/common/args.ts`. Define sensible defaults and validation (e.g., max limit) for pagination.**
