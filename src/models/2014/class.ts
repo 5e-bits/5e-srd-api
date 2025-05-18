@@ -11,6 +11,7 @@ import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
 import { Level } from './level'
 import { Spell } from './spell'
 import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import { StartingEquipmentChoice } from '@/graphql/2014rewrite/types/startingEquipment'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
@@ -157,7 +158,10 @@ export class Class {
   @prop({ type: () => [ClassEquipment] })
   public starting_equipment!: ClassEquipment[]
 
-  // TODO: Pass 3 - Choice array
+  @Field(() => [StartingEquipmentChoice], {
+    nullable: true,
+    description: 'Options for starting equipment, if any.'
+  })
   @prop({ type: () => [Choice] })
   public starting_equipment_options!: Choice[]
 

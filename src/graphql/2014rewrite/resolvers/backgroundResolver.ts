@@ -16,6 +16,8 @@ import {
 import { StringChoice, LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { IdealChoice, IdealOption, IdealOptionSet } from '../types/backgroundTypes'
 import { Choice, IdealOption as DbIdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
+import { StartingEquipmentChoice } from '../types/startingEquipment'
+import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 
 @ArgsType()
 class BackgroundArgs {
@@ -142,10 +144,17 @@ export class BackgroundResolver {
     return resolveLanguageChoice(background.language_options as Choice)
   }
 
-  // Field Resolvers for choices (starting_equipment_options, etc.) will be added in Pass 3
+  @FieldResolver(() => [StartingEquipmentChoice], {
+    nullable: true,
+    description: 'Resolves starting equipment choices for the background.'
+  })
+  async starting_equipment_options(
+    @Root() background: Background
+  ): Promise<StartingEquipmentChoice[] | null> {
+    return resolveStartingEquipmentChoices(background.starting_equipment_options)
+  }
 }
 
-// Separate Resolver for the nested EquipmentRef type
 @Resolver(EquipmentRef)
 export class EquipmentRefResolver {
   @FieldResolver(() => Equipment)

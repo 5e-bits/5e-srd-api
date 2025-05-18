@@ -8,6 +8,7 @@ import { Proficiency } from './proficiency'
 import { Equipment } from './equipment'
 import { StringChoice, LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { IdealChoice } from '@/graphql/2014rewrite/types/backgroundTypes'
+import { StartingEquipmentChoice } from '@/graphql/2014rewrite/types/startingEquipment'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
@@ -61,7 +62,10 @@ export class Background {
   @prop({ type: () => [EquipmentRef] })
   public starting_equipment!: EquipmentRef[]
 
-  // TODO: Pass 3 - Implement choice resolver
+  @Field(() => [StartingEquipmentChoice], {
+    nullable: true,
+    description: 'Options for starting equipment, if any.'
+  })
   @prop({ type: () => [Choice], index: true })
   public starting_equipment_options!: Choice[]
 

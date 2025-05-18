@@ -16,6 +16,8 @@ import LevelModel, { Level } from '@/models/2014/level'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { resolvePrerequisiteChoice } from '../utils/resolvers'
+import { StartingEquipmentChoice } from '../types/startingEquipment'
+import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 
 @ArgsType()
 class ClassArgs {
@@ -104,6 +106,16 @@ export class ClassResolver {
   @FieldResolver(() => [ProficiencyChoice])
   async proficiency_choices(@Root() classData: Class): Promise<ProficiencyChoice[]> {
     return resolveProficiencyChoiceArray(classData.proficiency_choices)
+  }
+
+  @FieldResolver(() => [StartingEquipmentChoice], {
+    nullable: true,
+    description: 'Resolves starting equipment choices for the class.'
+  })
+  async starting_equipment_options(
+    @Root() classData: Class
+  ): Promise<StartingEquipmentChoice[] | null> {
+    return resolveStartingEquipmentChoices(classData.starting_equipment_options)
   }
 }
 
