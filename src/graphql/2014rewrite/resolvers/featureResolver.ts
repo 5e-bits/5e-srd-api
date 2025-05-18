@@ -1,5 +1,17 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum, Min } from 'class-validator'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  Int,
+  FieldResolver,
+  Root,
+  registerEnumType
+} from 'type-graphql'
+import { IsOptional, IsString, IsEnum, IsArray, ValidateNested } from 'class-validator'
+import { Type } from 'class-transformer'
 import FeatureModel, {
   Feature,
   FeatureSpecific,
@@ -8,6 +20,7 @@ import FeatureModel, {
   SpellPrerequisite
 } from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
+import { NumberFilterInput, buildMongoQueryFromNumberFilter } from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
@@ -17,6 +30,25 @@ import {
 } from '@/graphql/2014rewrite/utils/resolvers'
 import SpellModel from '@/models/2014/spell'
 import { FeaturePrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
+
+export enum FeatureOrderField {
+  NAME = 'name',
+  LEVEL = 'level',
+  CLASS = 'class',
+  SUBCLASS = 'subclass'
+}
+
+registerEnumType(FeatureOrderField, {
+  name: 'FeatureOrderField',
+  description: 'Fields to sort Features by'
+})
+
+const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
+  [FeatureOrderField.NAME]: 'name',
+  [FeatureOrderField.LEVEL]: 'level',
+  [FeatureOrderField.CLASS]: 'class.name',
+  [FeatureOrderField.SUBCLASS]: 'subclass.name'
+}
 
 @ArgsType()
 class FeatureArgs {
@@ -28,29 +60,62 @@ class FeatureArgs {
   @IsString()
   name?: string
 
-  @Field(() => Int, { nullable: true, description: 'Filter by minimum level required' })
+  @Field(() => NumberFilterInput, {
+    nullable: true,
+    description: 'Filter by level. Allows exact match, list, or range.'
+  })
   @IsOptional()
-  @Min(1)
-  level?: number
+  @ValidateNested()
+  @Type(() => NumberFilterInput)
+  level?: NumberFilterInput
 
-  @Field(() => String, { nullable: true, description: 'Filter by associated class index' })
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by one or more associated class indices'
+  })
   @IsOptional()
-  @IsString()
-  class?: string
+  @IsString({ each: true })
+  @IsArray()
+  class?: string[]
 
-  @Field(() => String, { nullable: true, description: 'Filter by associated subclass index' })
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by one or more associated subclass indices'
+  })
   @IsOptional()
-  @IsString()
-  subclass?: string
+  @IsString({ each: true })
+  @IsArray()
+  subclass?: string[]
+
+  @Field(() => FeatureOrderField, {
+    nullable: true,
+    description: 'Field to sort features by (e.g., NAME, LEVEL, CLASS, SUBCLASS).'
+  })
+  @IsOptional()
+  @IsEnum(FeatureOrderField)
+  order_by?: FeatureOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
     defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction for the name field (default: ASC)'
+    description: 'Sort direction for the chosen field (default: ASC)'
   })
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
+  @Field(() => Int, { nullable: true, description: 'Number of results to skip for pagination' })
+  @IsOptional()
+  // @Min(0)
+  skip?: number
+
+  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
+  @Field(() => Int, { nullable: true, description: 'Maximum number of results to return' })
+  @IsOptional()
+  // @Min(1)
+  // @Max(100) // Example max limit
+  limit?: number
 }
 
 @Resolver(Feature)
@@ -59,32 +124,58 @@ export class FeatureResolver {
     description: 'Gets all features, optionally filtered and sorted.'
   })
   async features(
-    @Args() { name, level, class: className, subclass: subclassName, order_direction }: FeatureArgs
+    @Args()
+    {
+      name,
+      level,
+      class: classIndices,
+      subclass: subclassIndices,
+      order_by,
+      order_direction,
+      skip,
+      limit
+    }: FeatureArgs
   ): Promise<Feature[]> {
     const query = FeatureModel.find()
-    const filters: any = {}
+    const filters: any[] = []
 
     if (name) {
-      filters.name = { $regex: new RegExp(escapeRegExp(name), 'i') }
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
-    if (level !== undefined) {
-      filters.level = { $gte: level }
+    if (level) {
+      const levelQuery = buildMongoQueryFromNumberFilter(level)
+      if (levelQuery) {
+        filters.push({ level: levelQuery })
+      }
     }
-    if (className) {
-      filters['class.index'] = className
+    if (classIndices && classIndices.length > 0) {
+      filters.push({ 'class.index': { $in: classIndices } })
     }
-    if (subclassName) {
-      filters['subclass.index'] = subclassName
+    if (subclassIndices && subclassIndices.length > 0) {
+      filters.push({ 'subclass.index': { $in: subclassIndices } })
     }
 
-    if (Object.keys(filters).length > 0) {
-      query.where(filters)
+    if (filters.length > 0) {
+      query.where({ $and: filters })
     }
 
     if (order_direction) {
       const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-      query.sort({ name: sortOrder })
+      const sortField = order_by ? FEATURE_SORT_FIELD_MAP[order_by] : 'name'
+
+      if (sortField) {
+        query.sort({ [sortField]: sortOrder })
+      } else if (order_by) {
+        console.warn(
+          `FeatureResolver: Missing sort field mapping for order_by: ${order_by}. Defaulting to sort by name.`
+        )
+        query.sort({ name: sortOrder })
+      }
     }
+
+    // TODO: Pass 5 - Implement pagination properly
+    // if (skip !== undefined) query.skip(skip);
+    // if (limit !== undefined) query.limit(limit);
 
     return query.lean()
   }

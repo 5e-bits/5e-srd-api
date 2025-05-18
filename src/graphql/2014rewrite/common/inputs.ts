@@ -64,3 +64,40 @@ export class NumberFilterInput {
   @Type(() => NumberRangeFilterInput)
   range?: NumberRangeFilterInput
 }
+
+/**
+ * Builds a MongoDB query object from a NumberFilterInput.
+ * @param filterInput The NumberFilterInput object.
+ * @returns A MongoDB query object for the number field, or null if the input is empty or invalid.
+ */
+export function buildMongoQueryFromNumberFilter(
+  filterInput?: NumberFilterInput
+): Record<string, any> | null {
+  if (!filterInput) {
+    return null
+  }
+
+  const queryPortion: any = {}
+
+  if (typeof filterInput.eq === 'number') {
+    queryPortion.$eq = filterInput.eq
+  }
+  if (Array.isArray(filterInput.in) && filterInput.in.length > 0) {
+    queryPortion.$in = filterInput.in
+  }
+  if (Array.isArray(filterInput.nin) && filterInput.nin.length > 0) {
+    queryPortion.$nin = filterInput.nin
+  }
+  if (filterInput.range) {
+    if (typeof filterInput.range.lt === 'number') queryPortion.$lt = filterInput.range.lt
+    if (typeof filterInput.range.lte === 'number') queryPortion.$lte = filterInput.range.lte
+    if (typeof filterInput.range.gt === 'number') queryPortion.$gt = filterInput.range.gt
+    if (typeof filterInput.range.gte === 'number') queryPortion.$gte = filterInput.range.gte
+  }
+
+  if (Object.keys(queryPortion).length === 0) {
+    return null
+  }
+
+  return queryPortion
+}

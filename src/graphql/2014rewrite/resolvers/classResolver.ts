@@ -1,8 +1,8 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { NumberFilterInput } from '../common/inputs'
+import { NumberFilterInput, buildMongoQueryFromNumberFilter } from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
@@ -62,24 +62,9 @@ export class ClassResolver {
     }
 
     if (hit_die) {
-      const hitDieQueryPortion: any = {}
-      if (typeof hit_die.eq === 'number') {
-        hitDieQueryPortion.$eq = hit_die.eq
-      }
-      if (Array.isArray(hit_die.in) && hit_die.in.length > 0) {
-        hitDieQueryPortion.$in = hit_die.in
-      }
-      if (Array.isArray(hit_die.nin) && hit_die.nin.length > 0) {
-        hitDieQueryPortion.$nin = hit_die.nin
-      }
-      if (hit_die.range) {
-        if (typeof hit_die.range.lt === 'number') hitDieQueryPortion.$lt = hit_die.range.lt
-        if (typeof hit_die.range.lte === 'number') hitDieQueryPortion.$lte = hit_die.range.lte
-        if (typeof hit_die.range.gt === 'number') hitDieQueryPortion.$gt = hit_die.range.gt
-        if (typeof hit_die.range.gte === 'number') hitDieQueryPortion.$gte = hit_die.range.gte
-      }
-      if (Object.keys(hitDieQueryPortion).length > 0) {
-        filters.push({ hit_die: hitDieQueryPortion })
+      const hitDieQuery = buildMongoQueryFromNumberFilter(hit_die)
+      if (hitDieQuery) {
+        filters.push({ hit_die: hitDieQuery })
       }
     }
 
