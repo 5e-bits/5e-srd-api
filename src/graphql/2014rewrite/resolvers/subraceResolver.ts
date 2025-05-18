@@ -1,7 +1,7 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { z } from 'zod'
 import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import RaceModel, { Race } from '@/models/2014/race'
 import TraitModel, { Trait } from '@/models/2014/trait'
@@ -15,6 +15,18 @@ import {
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { Choice } from '@/models/2014/common'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+
+const SubraceArgsSchema = z.object({
+  name: z.string().optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const SubraceIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class SubraceArgs {
@@ -22,18 +34,22 @@ class SubraceArgs {
     nullable: true,
     description: 'Filter by subrace name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Subrace)
@@ -41,29 +57,31 @@ export class SubraceResolver {
   @Query(() => [Subrace], {
     description: 'Gets all subraces, optionally filtered by name and sorted by name.'
   })
-  async subraces(@Args() { name, order_direction }: SubraceArgs): Promise<Subrace[]> {
+  async subraces(@Args() args: SubraceArgs): Promise<Subrace[]> {
+    const validatedArgs = SubraceArgsSchema.parse(args)
     const query = SubraceModel.find()
 
-    if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      orderDirection: validatedArgs.order_direction,
+      defaultSortField: 'name'
+    })
+
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
-    // FieldResolvers will be added in Pass 3.
     return query.lean()
   }
 
   @Query(() => Subrace, { nullable: true, description: 'Gets a single subrace by index.' })
-  async subrace(@Arg('index', () => String) index: string): Promise<Subrace | null> {
-    // Note: .lean() is used, reference/choice fields will contain raw data.
-    // FieldResolvers needed in Pass 3.
+  async subrace(@Arg('index') indexInput: string): Promise<Subrace | null> {
+    const { index } = SubraceIndexArgsSchema.parse({ index: indexInput })
     return SubraceModel.findOne({ index }).lean()
   }
-
-  // Field Resolver for choices (language_options) will be added in Pass 3
 
   @FieldResolver(() => Race, { nullable: true })
   async race(@Root() subrace: Subrace): Promise<Race | null> {
@@ -90,8 +108,6 @@ export class SubraceResolver {
     return resolveLanguageChoice(subrace.language_options as Choice)
   }
 }
-
-// Separate resolver for nested SubraceAbilityBonus type
 @Resolver(SubraceAbilityBonus)
 export class SubraceAbilityBonusResolver {
   @FieldResolver(() => AbilityScore, { nullable: true })

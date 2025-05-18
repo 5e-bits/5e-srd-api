@@ -1,5 +1,5 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { z } from 'zod'
 import SubclassModel, { Subclass, SubclassSpell } from '@/models/2014/subclass'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
@@ -9,6 +9,18 @@ import LevelModel, { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import FeatureModel from '@/models/2014/feature'
 import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+
+const SubclassArgsSchema = z.object({
+  name: z.string().optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const SubclassIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class SubclassArgs {
@@ -16,18 +28,22 @@ class SubclassArgs {
     nullable: true,
     description: 'Filter by subclass name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction for the name field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Subclass)
@@ -35,22 +51,38 @@ export class SubclassResolver {
   @Query(() => [Subclass], {
     description: 'Gets all subclasses, optionally filtered by name and sorted.'
   })
-  async subclasses(@Args() { name, order_direction }: SubclassArgs): Promise<Subclass[]> {
+  async subclasses(@Args() args: SubclassArgs): Promise<Subclass[]> {
+    const validatedArgs = SubclassArgsSchema.parse(args)
+
     const query = SubclassModel.find()
 
-    if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      orderDirection: validatedArgs.order_direction,
+      defaultSortField: 'name'
+    })
+
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
+
+    // TODO: Pass 5 - Implement pagination
+    // if (validatedArgs.skip) {
+    //   query.skip(validatedArgs.skip)
+    // }
+    // if (validatedArgs.limit) {
+    //  query.limit(validatedArgs.limit)
+    // }
 
     return query.lean()
   }
 
   @Query(() => Subclass, { nullable: true, description: 'Gets a single subclass by its index.' })
-  async subclass(@Arg('index', () => String) index: string): Promise<Subclass | null> {
+  async subclass(@Arg('index') indexInput: string): Promise<Subclass | null> {
+    const { index } = SubclassIndexArgsSchema.parse({ index: indexInput })
     return SubclassModel.findOne({ index }).lean()
   }
 

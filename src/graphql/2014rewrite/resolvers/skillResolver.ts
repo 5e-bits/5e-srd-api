@@ -1,4 +1,15 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  FieldResolver,
+  Root,
+  Int,
+  registerEnumType
+} from 'type-graphql'
 import { z } from 'zod'
 import SkillModel, { Skill } from '@/models/2014/skill'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
@@ -7,13 +18,16 @@ import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
 
-// Enum for Skill sortable fields
 export enum SkillOrderField {
   NAME = 'name',
   ABILITY_SCORE = 'ability_score'
 }
 
-// Map GraphQL SkillOrderField to MongoDB field name
+registerEnumType(SkillOrderField, {
+  name: 'SkillOrderField',
+  description: 'Fields to sort Skills by'
+})
+
 const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
   [SkillOrderField.NAME]: 'name',
   [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'

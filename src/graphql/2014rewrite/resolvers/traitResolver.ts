@@ -1,8 +1,8 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { z } from 'zod'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
 import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import RaceModel, { Race } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
@@ -20,6 +20,18 @@ import { LevelValue } from '@/graphql/2014rewrite/common/types'
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
 import { Choice } from '@/models/2014/common'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+
+const TraitArgsSchema = z.object({
+  name: z.string().optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const TraitIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class TraitArgs {
@@ -27,18 +39,22 @@ class TraitArgs {
     nullable: true,
     description: 'Filter by trait name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Trait)
@@ -46,25 +62,29 @@ export class TraitResolver {
   @Query(() => [Trait], {
     description: 'Gets all traits, optionally filtered by name and sorted by name.'
   })
-  async traits(@Args() { name, order_direction }: TraitArgs): Promise<Trait[]> {
+  async traits(@Args() args: TraitArgs): Promise<Trait[]> {
+    const validatedArgs = TraitArgsSchema.parse(args)
     const query = TraitModel.find()
 
-    if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      orderDirection: validatedArgs.order_direction,
+      defaultSortField: 'name'
+    })
+
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
-    // Note: .lean() is used, so reference/choice fields will contain raw data
-    // FieldResolvers will be added in Pass 3.
     return query.lean()
   }
 
   @Query(() => Trait, { nullable: true, description: 'Gets a single trait by index.' })
-  async trait(@Arg('index', () => String) index: string): Promise<Trait | null> {
-    // FieldResolvers needed in Pass 3.
+  async trait(@Arg('index') indexInput: string): Promise<Trait | null> {
+    const { index } = TraitIndexArgsSchema.parse({ index: indexInput })
     return TraitModel.findOne({ index }).lean()
   }
 

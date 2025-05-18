@@ -8,7 +8,8 @@ import {
   FieldResolver,
   Root,
   Int,
-  InputType
+  InputType,
+  registerEnumType
 } from 'type-graphql'
 import { z } from 'zod'
 import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
@@ -59,6 +60,11 @@ export enum SpellOrderField {
   SCHOOL = 'school',
   AREA_OF_EFFECT_SIZE = 'area_of_effect_size' // Matches old API
 }
+
+registerEnumType(SpellOrderField, {
+  name: 'SpellOrderField',
+  description: 'Fields to sort Spells by'
+})
 
 // Map GraphQL SpellOrderField to MongoDB field name
 const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
