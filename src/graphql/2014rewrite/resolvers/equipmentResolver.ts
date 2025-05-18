@@ -38,6 +38,19 @@ class EquipmentArgs {
   @IsOptional()
   @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
+  @Field(() => Number, { nullable: true, description: 'Number of results to skip for pagination' })
+  @IsOptional()
+  // @Min(0) // Add validation if needed
+  skip?: number
+
+  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
+  @Field(() => Number, { nullable: true, description: 'Maximum number of results to return' })
+  @IsOptional()
+  // @Min(1) // Add validation if needed
+  // @Max(100) // Add validation if needed
+  limit?: number
 }
 
 @Resolver(Equipment)
