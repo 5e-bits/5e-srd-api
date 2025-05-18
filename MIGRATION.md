@@ -219,7 +219,7 @@ Based on the plan and model analysis, define the full GraphQL structures (Interf
     *   Update Field Resolvers (like `EquipmentCategoryResolver.equipment`) if their return types or fetching logic needs adjustment based on the new detailed types.
 5.  **Verify Schema:** Verify the updated schema structure via testing/introspection.
 
-### 4. Pass 3: Choice Field Migration (Weeks 8-9)
+### ✅ 4. Pass 3: Choice Field Migration (Weeks 8-9)
 
 Implement the logic for resolving `Choice` fields across relevant models (e.g., `Background`, `Class`, `Race`, `Feature`).
 

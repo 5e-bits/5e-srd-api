@@ -10,12 +10,19 @@ import { escapeRegExp } from '@/util'
 class AbilityScoreArgs {
   @Field(() => String, {
     nullable: true,
-    description:
-      'Filter by ability score name (case-insensitive, partial match, checks both name and full_name)'
+    description: 'Filter by ability score name (case-insensitive, partial match)'
   })
   @IsOptional()
   @IsString()
   name?: string
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'Filter by ability score full name (case-insensitive, partial match)'
+  })
+  @IsOptional()
+  @IsString()
+  full_name?: string
 
   @Field(() => OrderByDirection, {
     nullable: true,
@@ -33,12 +40,21 @@ export class AbilityScoreResolver {
     description: 'Gets all ability scores, optionally filtered by name and sorted by name.'
   })
   async abilityScores(
-    @Args() { name, order_direction }: AbilityScoreArgs
+    @Args() { name, full_name, order_direction }: AbilityScoreArgs
   ): Promise<AbilityScore[]> {
     const query = AbilityScoreModel.find()
+    const filters: any[] = []
 
     if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    }
+
+    if (full_name) {
+      filters.push({ full_name: { $regex: new RegExp(escapeRegExp(full_name), 'i') } })
+    }
+
+    if (filters.length > 0) {
+      query.where({ $and: filters })
     }
 
     if (order_direction) {
