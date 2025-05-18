@@ -1,5 +1,16 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum, IsIn } from 'class-validator'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  FieldResolver,
+  Root,
+  registerEnumType,
+  Int
+} from 'type-graphql'
+import { z } from 'zod'
 import MonsterModel, {
   Monster,
   ArmorClassArmor,
@@ -29,6 +40,70 @@ import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
 import { Damage, Choice } from '@/models/2014/common'
 import { DamageChoice, ActionChoice, BreathChoice } from '@/graphql/2014rewrite/types/monsterTypes'
+import {
+  NumberFilterInput,
+  buildMongoQueryFromNumberFilter,
+  buildMongoSortQuery,
+  NumberFilterInputSchema
+} from '@/graphql/2014rewrite/common/inputs'
+
+export enum MonsterOrderField {
+  NAME = 'name',
+  TYPE = 'type',
+  SIZE = 'size',
+  CHALLENGE_RATING = 'challenge_rating',
+  STRENGTH = 'strength',
+  DEXTERITY = 'dexterity',
+  CONSTITUTION = 'constitution',
+  INTELLIGENCE = 'intelligence',
+  WISDOM = 'wisdom',
+  CHARISMA = 'charisma'
+}
+
+registerEnumType(MonsterOrderField, {
+  name: 'MonsterOrderField',
+  description: 'Fields to sort Monsters by'
+})
+
+const MONSTER_SORT_FIELD_MAP: Record<MonsterOrderField, string> = {
+  [MonsterOrderField.NAME]: 'name',
+  [MonsterOrderField.TYPE]: 'type',
+  [MonsterOrderField.SIZE]: 'size',
+  [MonsterOrderField.CHALLENGE_RATING]: 'challenge_rating',
+  [MonsterOrderField.STRENGTH]: 'strength',
+  [MonsterOrderField.DEXTERITY]: 'dexterity',
+  [MonsterOrderField.CONSTITUTION]: 'constitution',
+  [MonsterOrderField.INTELLIGENCE]: 'intelligence',
+  [MonsterOrderField.WISDOM]: 'wisdom',
+  [MonsterOrderField.CHARISMA]: 'charisma'
+}
+
+const MonsterArgsSchema = z.object({
+  name: z.string().optional(),
+  type: z.string().optional(),
+  subtype: z.string().optional(),
+  challenge_rating: NumberFilterInputSchema.optional(),
+  size: z.string().optional(),
+  xp: NumberFilterInputSchema.optional(),
+  strength: NumberFilterInputSchema.optional(),
+  dexterity: NumberFilterInputSchema.optional(),
+  constitution: NumberFilterInputSchema.optional(),
+  intelligence: NumberFilterInputSchema.optional(),
+  wisdom: NumberFilterInputSchema.optional(),
+  charisma: NumberFilterInputSchema.optional(),
+  damage_vulnerabilities: z.array(z.string()).optional(),
+  damage_resistances: z.array(z.string()).optional(),
+  damage_immunities: z.array(z.string()).optional(),
+  condition_immunities: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(MonsterOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const MonsterIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class MonsterArgs {
@@ -36,120 +111,177 @@ class MonsterArgs {
     nullable: true,
     description: 'Filter by monster name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => String, {
     nullable: true,
-    description: 'Filter by monster type (case-insensitive, exact match)'
+    description: 'Filter by monster type (case-insensitive, exact match, e.g., "beast")'
   })
-  @IsOptional()
-  @IsString()
   type?: string
 
   @Field(() => String, {
     nullable: true,
-    description: 'Filter by monster subtype (case-insensitive, exact match)'
+    description: 'Filter by monster subtype (case-insensitive, exact match, e.g., "goblinoid")'
   })
-  @IsOptional()
-  @IsString()
   subtype?: string
 
-  @Field(() => [Int], {
+  @Field(() => NumberFilterInput, {
     nullable: true,
-    description: 'Filter by challenge rating values'
+    description: 'Filter by challenge rating'
   })
-  @IsOptional()
-  @IsIn(
-    [
-      0, 0.125, 0.25, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30
-    ],
-    { each: true }
-  )
-  challenge_rating?: number[]
+  challenge_rating?: NumberFilterInput
 
   @Field(() => String, {
     nullable: true,
-    description: 'Filter by monster size (case-insensitive, exact match)'
+    description: 'Filter by monster size (exact match, e.g., "Medium")'
   })
-  @IsOptional()
-  @IsString()
   size?: string
 
-  @Field(() => String, {
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by monster XP' })
+  xp?: NumberFilterInput
+
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by strength score' })
+  strength?: NumberFilterInput
+
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by dexterity score' })
+  dexterity?: NumberFilterInput
+
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by constitution score' })
+  constitution?: NumberFilterInput
+
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by intelligence score' })
+  intelligence?: NumberFilterInput
+
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by wisdom score' })
+  wisdom?: NumberFilterInput
+
+  @Field(() => NumberFilterInput, { nullable: true, description: 'Filter by charisma score' })
+  charisma?: NumberFilterInput
+
+  @Field(() => [String], { nullable: true, description: 'Filter by damage vulnerability indices' })
+  damage_vulnerabilities?: string[]
+
+  @Field(() => [String], { nullable: true, description: 'Filter by damage resistance indices' })
+  damage_resistances?: string[]
+
+  @Field(() => [String], { nullable: true, description: 'Filter by damage immunity indices' })
+  damage_immunities?: string[]
+
+  @Field(() => [String], { nullable: true, description: 'Filter by condition immunity indices' })
+  condition_immunities?: string[]
+
+  @Field(() => MonsterOrderField, {
     nullable: true,
-    description: 'Filter by monster alignment (case-insensitive, exact match)'
+    description: 'Field to sort monsters by.'
   })
-  @IsOptional()
-  @IsString()
-  alignment?: string
+  order_by?: MonsterOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction for the name field (default: ASC)'
+    description: 'Sort direction for the chosen field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Monster)
 export class MonsterResolver {
   @Query(() => [Monster], {
-    description:
-      'Gets all monsters, optionally filtering by name, type, or challenge rating and sorted by name.'
+    description: 'Gets all monsters, optionally filtered and sorted.'
   })
   async monsters(@Args() args: MonsterArgs): Promise<Monster[]> {
-    const query = MonsterModel.find()
-    const filters: any = {}
+    const validatedArgs = MonsterArgsSchema.parse(args)
+    let query = MonsterModel.find()
+    const filters: any[] = []
 
-    if (args.name) {
-      filters.name = { $regex: new RegExp(escapeRegExp(args.name), 'i') }
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
+    }
+    if (validatedArgs.type) {
+      filters.push({ type: { $regex: new RegExp(`^${escapeRegExp(validatedArgs.type)}$`, 'i') } })
+    }
+    if (validatedArgs.subtype) {
+      filters.push({
+        subtype: { $regex: new RegExp(`^${escapeRegExp(validatedArgs.subtype)}$`, 'i') }
+      })
+    }
+    if (validatedArgs.challenge_rating) {
+      const crQuery = buildMongoQueryFromNumberFilter(validatedArgs.challenge_rating)
+      if (crQuery) filters.push({ challenge_rating: crQuery })
+    }
+    if (validatedArgs.size) {
+      filters.push({ size: validatedArgs.size })
     }
 
-    if (args.type) {
-      filters.type = { $regex: new RegExp(`^${escapeRegExp(args.type)}$`, 'i') }
+    if (validatedArgs.xp) {
+      const xpQuery = buildMongoQueryFromNumberFilter(validatedArgs.xp)
+      if (xpQuery) filters.push({ xp: xpQuery })
     }
 
-    if (args.subtype) {
-      filters.subtype = { $regex: new RegExp(`^${escapeRegExp(args.subtype)}$`, 'i') }
+    const abilityScores = [
+      'strength',
+      'dexterity',
+      'constitution',
+      'intelligence',
+      'wisdom',
+      'charisma'
+    ] as const
+    for (const score of abilityScores) {
+      if (validatedArgs[score]) {
+        const scoreQuery = buildMongoQueryFromNumberFilter(validatedArgs[score]!)
+        if (scoreQuery) filters.push({ [score]: scoreQuery })
+      }
     }
 
-    if (args.challenge_rating && args.challenge_rating.length > 0) {
-      filters.challenge_rating = { $in: args.challenge_rating }
+    if (validatedArgs.damage_vulnerabilities && validatedArgs.damage_vulnerabilities.length > 0) {
+      filters.push({
+        'damage_vulnerabilities.index': { $in: validatedArgs.damage_vulnerabilities }
+      })
+    }
+    if (validatedArgs.damage_resistances && validatedArgs.damage_resistances.length > 0) {
+      filters.push({ 'damage_resistances.index': { $in: validatedArgs.damage_resistances } })
+    }
+    if (validatedArgs.damage_immunities && validatedArgs.damage_immunities.length > 0) {
+      filters.push({ 'damage_immunities.index': { $in: validatedArgs.damage_immunities } })
+    }
+    if (validatedArgs.condition_immunities && validatedArgs.condition_immunities.length > 0) {
+      filters.push({ 'condition_immunities.index': { $in: validatedArgs.condition_immunities } })
     }
 
-    if (args.size) {
-      filters.size = { $regex: new RegExp(`^${escapeRegExp(args.size)}$`, 'i') }
+    if (filters.length > 0) {
+      query = query.where({ $and: filters })
     }
 
-    if (args.alignment) {
-      filters.alignment = { $regex: new RegExp(`^${escapeRegExp(args.alignment)}$`, 'i') }
-    }
+    const sortQuery = buildMongoSortQuery({
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
+      sortFieldMap: MONSTER_SORT_FIELD_MAP,
+      defaultSortField: MonsterOrderField.NAME
+    })
 
-    if (Object.keys(filters).length > 0) {
-      query.where(filters)
-    }
-
-    if (args.order_direction) {
-      const sortOrder = args.order_direction === OrderByDirection.DESC ? -1 : 1
-      query.sort({ name: sortOrder })
+    if (sortQuery) {
+      query = query.sort(sortQuery)
     }
 
     return query.lean()
   }
 
   @Query(() => Monster, { nullable: true, description: 'Gets a single monster by its index.' })
-  async monster(@Arg('index', () => String) index: string): Promise<Monster | null> {
+  async monster(@Arg('index', () => String) indexInput: string): Promise<Monster | null> {
+    const { index } = MonsterIndexArgsSchema.parse({ index: indexInput })
     return MonsterModel.findOne({ index }).lean()
   }
 
   @FieldResolver(() => [Condition])
   async condition_immunities(@Root() monster: Monster): Promise<APIReference[]> {
-    if (!monster.condition_immunities) return []
     return resolveMultipleReferences(monster.condition_immunities, ConditionModel)
   }
 
@@ -175,7 +307,6 @@ export class ArmorClassArmorResolver {
 export class ArmorClassSpellResolver {
   @FieldResolver(() => Spell, { name: 'spell', nullable: true })
   async spell(@Root() acSpell: ArmorClassSpell): Promise<Spell | null> {
-    if (!acSpell.spell) return null
     return resolveSingleReference(acSpell.spell, SpellModel)
   }
 }
@@ -184,12 +315,10 @@ export class ArmorClassSpellResolver {
 export class ArmorClassConditionResolver {
   @FieldResolver(() => Condition, { name: 'condition', nullable: true })
   async condition(@Root() acCondition: ArmorClassCondition): Promise<Condition | null> {
-    if (!acCondition.condition) return null
     return resolveSingleReference(acCondition.condition, ConditionModel)
   }
 }
 
-// Resolver for the `proficiency` field within the local `MonsterProficiency` type
 @Resolver(MonsterProficiency)
 export class MonsterProficiencyResolver {
   @FieldResolver(() => Proficiency, { name: 'proficiency' })
@@ -198,12 +327,10 @@ export class MonsterProficiencyResolver {
   }
 }
 
-// Resolver for SpecialAbilitySpellcasting.ability
 @Resolver(SpecialAbilitySpellcasting)
 export class SpecialAbilitySpellcastingResolver {
   @FieldResolver(() => AbilityScore, { name: 'ability' })
   async ability(@Root() spellcasting: SpecialAbilitySpellcasting): Promise<AbilityScore | null> {
-    if (!spellcasting.ability) return null
     return resolveSingleReference(spellcasting.ability, AbilityScoreModel)
   }
 
@@ -216,7 +343,6 @@ export class SpecialAbilitySpellcastingResolver {
     for (const levelKey in spellcasting.slots) {
       if (Object.prototype.hasOwnProperty.call(spellcasting.slots, levelKey)) {
         const count = spellcasting.slots[levelKey]
-        // Ensure levelKey is a number, common/types.ts defines slot_level as number
         const slotLevel = parseInt(levelKey, 10)
         if (!isNaN(slotLevel)) {
           const slotCount = new SpellSlotCount()
@@ -226,7 +352,7 @@ export class SpecialAbilitySpellcastingResolver {
         }
       }
     }
-    return slotCounts.sort((a, b) => a.slot_level - b.slot_level) // Optional: sort by slot level
+    return slotCounts.sort((a, b) => a.slot_level - b.slot_level)
   }
 }
 

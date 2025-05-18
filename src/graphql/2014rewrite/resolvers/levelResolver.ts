@@ -10,8 +10,7 @@ import {
   FieldResolver,
   Root
 } from 'type-graphql'
-import { IsOptional, IsString, IsArray, IsEnum, ValidateNested, Min, IsInt } from 'class-validator'
-import { Type } from 'class-transformer'
+import { z } from 'zod'
 
 import LevelModel, { Level } from '@/models/2014/level'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -22,7 +21,8 @@ import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import {
   NumberFilterInput,
   buildMongoQueryFromNumberFilter,
-  buildMongoSortQuery
+  buildMongoSortQuery,
+  NumberFilterInputSchema
 } from '@/graphql/2014rewrite/common/inputs'
 import {
   resolveMultipleReferences,
@@ -46,58 +46,65 @@ const LEVEL_SORT_FIELD_MAP: Record<LevelOrderField, string> = {
   [LevelOrderField.SUBCLASS]: 'subclass.name'
 }
 
+const LevelArgsSchema = z.object({
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  level: NumberFilterInputSchema.optional(),
+  ability_score_bonuses: z.number().int().optional(),
+  prof_bonus: z.number().int().optional(),
+  order_by: z.nativeEnum(LevelOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const LevelIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
+
 @ArgsType()
 class LevelArgs {
   @Field(() => [String], { nullable: true, description: 'Filter by one or more class indices' })
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
   class?: string[]
 
   @Field(() => [String], { nullable: true, description: 'Filter by one or more subclass indices' })
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
   subclass?: string[]
 
   @Field(() => NumberFilterInput, {
     nullable: true,
     description: 'Filter by level. Allows exact match, list, or range.'
   })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => NumberFilterInput)
   level?: NumberFilterInput
 
   @Field(() => Int, {
     nullable: true,
     description: 'Filter by the exact number of ability score bonuses granted at this level.'
   })
-  @IsOptional()
-  @IsInt()
   ability_score_bonuses?: number
 
   @Field(() => Int, {
     nullable: true,
     description: 'Filter by the exact proficiency bonus at this level.'
   })
-  @IsOptional()
-  @IsInt()
   prof_bonus?: number
 
   @Field(() => LevelOrderField, { nullable: true, description: 'Field to sort levels by.' })
-  @IsOptional()
-  @IsEnum(LevelOrderField)
   order_by?: LevelOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction for the chosen field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Level)
@@ -107,45 +114,39 @@ export class LevelResolver {
     description:
       'Gets a single level by its combined index (e.g., wizard-3-evocation or fighter-5).'
   })
-  async level(@Arg('index', () => String) index: string): Promise<Level | null> {
+  async level(@Arg('index', () => String) indexInput: string): Promise<Level | null> {
+    const { index } = LevelIndexArgsSchema.parse({ index: indexInput })
     return LevelModel.findOne({ index }).lean()
   }
 
   @Query(() => [Level], { description: 'Gets all levels, optionally filtered and sorted.' })
   async levels(@Args() args: LevelArgs): Promise<Level[]> {
-    const {
-      class: classIndices,
-      subclass: subclassIndices,
-      level,
-      ability_score_bonuses,
-      prof_bonus,
-      order_by,
-      order_direction
-    } = args
+    const validatedArgs = LevelArgsSchema.parse(args)
+
     let query = LevelModel.find()
     const filters: any[] = []
 
-    if (classIndices && classIndices.length > 0) {
-      filters.push({ 'class.index': { $in: classIndices } })
+    if (validatedArgs.class && validatedArgs.class.length > 0) {
+      filters.push({ 'class.index': { $in: validatedArgs.class } })
     }
 
-    if (subclassIndices && subclassIndices.length > 0) {
-      filters.push({ 'subclass.index': { $in: subclassIndices } })
+    if (validatedArgs.subclass && validatedArgs.subclass.length > 0) {
+      filters.push({ 'subclass.index': { $in: validatedArgs.subclass } })
     }
 
-    if (level) {
-      const levelQuery = buildMongoQueryFromNumberFilter(level)
+    if (validatedArgs.level) {
+      const levelQuery = buildMongoQueryFromNumberFilter(validatedArgs.level)
       if (levelQuery) {
         filters.push({ level: levelQuery })
       }
     }
 
-    if (ability_score_bonuses) {
-      filters.push({ ability_score_bonuses })
+    if (validatedArgs.ability_score_bonuses) {
+      filters.push({ ability_score_bonuses: validatedArgs.ability_score_bonuses })
     }
 
-    if (prof_bonus) {
-      filters.push({ prof_bonus })
+    if (validatedArgs.prof_bonus) {
+      filters.push({ prof_bonus: validatedArgs.prof_bonus })
     }
 
     if (filters.length > 0) {
@@ -153,10 +154,10 @@ export class LevelResolver {
     }
 
     const sortQuery = buildMongoSortQuery({
-      orderBy: order_by,
-      orderDirection: order_direction,
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
       sortFieldMap: LEVEL_SORT_FIELD_MAP,
-      defaultSortField: 'level'
+      defaultSortField: LevelOrderField.LEVEL
     })
 
     if (sortQuery) {

@@ -10,8 +10,7 @@ import {
   Root,
   registerEnumType
 } from 'type-graphql'
-import { IsOptional, IsString, IsEnum, IsArray, ValidateNested } from 'class-validator'
-import { Type } from 'class-transformer'
+import { z } from 'zod'
 import FeatureModel, {
   Feature,
   FeatureSpecific,
@@ -23,7 +22,8 @@ import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import {
   NumberFilterInput,
   buildMongoQueryFromNumberFilter,
-  buildMongoSortQuery
+  buildMongoSortQuery,
+  NumberFilterInputSchema
 } from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -54,71 +54,66 @@ const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
   [FeatureOrderField.SUBCLASS]: 'subclass.name'
 }
 
+const FeatureArgsSchema = z.object({
+  name: z.string().optional(),
+  level: NumberFilterInputSchema.optional(),
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(FeatureOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const FeatureIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
+
 @ArgsType()
 class FeatureArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by feature name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => NumberFilterInput, {
     nullable: true,
     description: 'Filter by level. Allows exact match, list, or range.'
   })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => NumberFilterInput)
   level?: NumberFilterInput
 
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more associated class indices'
   })
-  @IsOptional()
-  @IsString({ each: true })
-  @IsArray()
   class?: string[]
 
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more associated subclass indices'
   })
-  @IsOptional()
-  @IsString({ each: true })
-  @IsArray()
   subclass?: string[]
 
   @Field(() => FeatureOrderField, {
     nullable: true,
     description: 'Field to sort features by (e.g., NAME, LEVEL, CLASS, SUBCLASS).'
   })
-  @IsOptional()
-  @IsEnum(FeatureOrderField)
   order_by?: FeatureOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction for the chosen field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
 
-  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
-  @Field(() => Int, { nullable: true, description: 'Number of results to skip for pagination' })
-  @IsOptional()
-  // @Min(0)
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
   skip?: number
 
-  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
-  @Field(() => Int, { nullable: true, description: 'Maximum number of results to return' })
-  @IsOptional()
-  // @Min(1)
-  // @Max(100) // Example max limit
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
   limit?: number
 }
 
@@ -127,36 +122,26 @@ export class FeatureResolver {
   @Query(() => [Feature], {
     description: 'Gets all features, optionally filtered and sorted.'
   })
-  async features(
-    @Args()
-    {
-      name,
-      level,
-      class: classIndices,
-      subclass: subclassIndices,
-      order_by,
-      order_direction,
-      skip,
-      limit
-    }: FeatureArgs
-  ): Promise<Feature[]> {
+  async features(@Args() args: FeatureArgs): Promise<Feature[]> {
+    const validatedArgs = FeatureArgsSchema.parse(args)
+
     const query = FeatureModel.find()
     const filters: any[] = []
 
-    if (name) {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
-    if (level) {
-      const levelQuery = buildMongoQueryFromNumberFilter(level)
+    if (validatedArgs.level) {
+      const levelQuery = buildMongoQueryFromNumberFilter(validatedArgs.level)
       if (levelQuery) {
         filters.push({ level: levelQuery })
       }
     }
-    if (classIndices && classIndices.length > 0) {
-      filters.push({ 'class.index': { $in: classIndices } })
+    if (validatedArgs.class && validatedArgs.class.length > 0) {
+      filters.push({ 'class.index': { $in: validatedArgs.class } })
     }
-    if (subclassIndices && subclassIndices.length > 0) {
-      filters.push({ 'subclass.index': { $in: subclassIndices } })
+    if (validatedArgs.subclass && validatedArgs.subclass.length > 0) {
+      filters.push({ 'subclass.index': { $in: validatedArgs.subclass } })
     }
 
     if (filters.length > 0) {
@@ -164,10 +149,10 @@ export class FeatureResolver {
     }
 
     const sortQuery = buildMongoSortQuery({
-      orderBy: order_by,
-      orderDirection: order_direction,
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
       sortFieldMap: FEATURE_SORT_FIELD_MAP,
-      defaultSortField: 'name'
+      defaultSortField: FeatureOrderField.NAME
     })
     if (sortQuery) {
       query.sort(sortQuery)
@@ -181,7 +166,8 @@ export class FeatureResolver {
   }
 
   @Query(() => Feature, { nullable: true, description: 'Gets a single feature by its index.' })
-  async feature(@Arg('index', () => String) index: string): Promise<Feature | null> {
+  async feature(@Arg('index', () => String) indexInput: string): Promise<Feature | null> {
+    const { index } = FeatureIndexArgsSchema.parse({ index: indexInput })
     return FeatureModel.findOne({ index }).lean()
   }
 

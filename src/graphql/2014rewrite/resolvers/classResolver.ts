@@ -1,11 +1,23 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  FieldResolver,
+  Root,
+  Int,
+  registerEnumType
+} from 'type-graphql'
+import { z } from 'zod'
 import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import {
   NumberFilterInput,
   buildMongoQueryFromNumberFilter,
-  buildMongoSortQuery
+  buildMongoSortQuery,
+  NumberFilterInputSchema
 } from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
@@ -24,49 +36,87 @@ import { resolvePrerequisiteChoice } from '../utils/resolvers'
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 
+export enum ClassOrderField {
+  NAME = 'name',
+  HIT_DIE = 'hit_die'
+}
+
+registerEnumType(ClassOrderField, {
+  name: 'ClassOrderField',
+  description: 'Fields to sort Classes by'
+})
+
+const CLASS_SORT_FIELD_MAP: Record<ClassOrderField, string> = {
+  [ClassOrderField.NAME]: 'name',
+  [ClassOrderField.HIT_DIE]: 'hit_die'
+}
+
+const ClassArgsSchema = z.object({
+  name: z.string().optional(),
+  hit_die: NumberFilterInputSchema.optional(),
+  order_by: z.nativeEnum(ClassOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const ClassIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
+
 @ArgsType()
 class ClassArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by class name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => NumberFilterInput, {
     nullable: true,
     description: 'Filter by hit die size. Allows exact match, list of values, or a range.'
   })
-  @IsOptional()
   hit_die?: NumberFilterInput
 
-  // Order direction applies only to name for now
+  @Field(() => ClassOrderField, {
+    nullable: true,
+    description: 'Field to sort classes by.'
+  })
+  order_by?: ClassOrderField
+
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction for the name field (default: ASC)'
+    description: 'Sort direction for the chosen field'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Class)
 export class ClassResolver {
   @Query(() => [Class], {
-    description: 'Gets all classes, optionally filtering by name or hit die and sorted by name.'
+    description: 'Gets all classes, optionally filtering by name or hit die and sorted.'
   })
-  async classes(@Args() { name, hit_die, order_direction }: ClassArgs): Promise<Class[]> {
+  async classes(@Args() args: ClassArgs): Promise<Class[]> {
+    const validatedArgs = ClassArgsSchema.parse(args)
+
     const query = ClassModel.find()
     const filters: any[] = []
 
-    if (name) {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (hit_die) {
-      const hitDieQuery = buildMongoQueryFromNumberFilter(hit_die)
+    if (validatedArgs.hit_die) {
+      const hitDieQuery = buildMongoQueryFromNumberFilter(validatedArgs.hit_die)
       if (hitDieQuery) {
         filters.push({ hit_die: hitDieQuery })
       }
@@ -77,8 +127,10 @@ export class ClassResolver {
     }
 
     const sortQuery = buildMongoSortQuery({
-      defaultSortField: 'name',
-      orderDirection: order_direction
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
+      sortFieldMap: CLASS_SORT_FIELD_MAP,
+      defaultSortField: ClassOrderField.NAME
     })
     if (sortQuery) {
       query.sort(sortQuery)
@@ -88,7 +140,8 @@ export class ClassResolver {
   }
 
   @Query(() => Class, { nullable: true, description: 'Gets a single class by its index.' })
-  async class(@Arg('index', () => String) index: string): Promise<Class | null> {
+  async class(@Arg('index', () => String) indexInput: string): Promise<Class | null> {
+    const { index } = ClassIndexArgsSchema.parse({ index: indexInput })
     return ClassModel.findOne({ index }).lean()
   }
 

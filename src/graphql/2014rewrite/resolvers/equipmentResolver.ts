@@ -1,7 +1,18 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  FieldResolver,
+  Root,
+  Int,
+  registerEnumType
+} from 'type-graphql'
+import { z } from 'zod'
 import EquipmentModel, { Equipment, Content } from '@/models/2014/equipment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum, IsArray } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import {
@@ -12,45 +23,71 @@ import { APIReference } from '@/models/2014/types/apiReference'
 import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
 import { buildMongoSortQuery } from '../common/inputs'
 
+export enum EquipmentOrderField {
+  NAME = 'name',
+  WEIGHT = 'weight',
+  COST_QUANTITY = 'cost_quantity'
+}
+
+registerEnumType(EquipmentOrderField, {
+  name: 'EquipmentOrderField',
+  description: 'Fields to sort Equipment by'
+})
+
+const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
+  [EquipmentOrderField.NAME]: 'name',
+  [EquipmentOrderField.WEIGHT]: 'weight',
+  [EquipmentOrderField.COST_QUANTITY]: 'cost.quantity'
+}
+
+const EquipmentArgsSchema = z.object({
+  name: z.string().optional(),
+  equipment_category: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(EquipmentOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const EquipmentIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
+
 @ArgsType()
 class EquipmentArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by equipment name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more equipment category indices (e.g., ["weapon", "armor"])'
   })
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
   equipment_category?: string[]
+
+  @Field(() => EquipmentOrderField, {
+    nullable: true,
+    description: 'Field to sort equipment by.'
+  })
+  order_by?: EquipmentOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction for the name field (default: ASC)'
+    description: 'Sort direction for the chosen field'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
 
   // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
-  @Field(() => Number, { nullable: true, description: 'Number of results to skip for pagination' })
-  @IsOptional()
-  // @Min(0) // Add validation if needed
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
   skip?: number
 
   // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
-  @Field(() => Number, { nullable: true, description: 'Maximum number of results to return' })
-  @IsOptional()
-  // @Min(1) // Add validation if needed
-  // @Max(100) // Add validation if needed
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
   limit?: number
 }
 
@@ -59,18 +96,17 @@ export class EquipmentResolver {
   @Query(() => [AnyEquipment], {
     description: 'Gets all equipment, optionally filtered and sorted.'
   })
-  async equipments(
-    @Args() { name, equipment_category, order_direction }: EquipmentArgs
-  ): Promise<Array<typeof AnyEquipment>> {
+  async equipments(@Args() args: EquipmentArgs): Promise<Array<typeof AnyEquipment>> {
+    const validatedArgs = EquipmentArgsSchema.parse(args)
     const query = EquipmentModel.find()
     const filters: any[] = []
 
-    if (name) {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (equipment_category && equipment_category.length > 0) {
-      filters.push({ 'equipment_category.index': { $in: equipment_category } })
+    if (validatedArgs.equipment_category && validatedArgs.equipment_category.length > 0) {
+      filters.push({ 'equipment_category.index': { $in: validatedArgs.equipment_category } })
     }
 
     if (filters.length > 0) {
@@ -78,12 +114,17 @@ export class EquipmentResolver {
     }
 
     const sortQuery = buildMongoSortQuery({
-      defaultSortField: 'name',
-      orderDirection: order_direction
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
+      sortFieldMap: EQUIPMENT_SORT_FIELD_MAP,
+      defaultSortField: EquipmentOrderField.NAME
     })
     if (sortQuery) {
       query.sort(sortQuery)
     }
+    // TODO: Pass 5 - Implement pagination
+    // if (skip) query.skip(skip);
+    // if (limit) query.limit(limit);
 
     return query.lean()
   }
@@ -92,7 +133,10 @@ export class EquipmentResolver {
     nullable: true,
     description: 'Gets a single piece of equipment by its index.'
   })
-  async equipment(@Arg('index', () => String) index: string): Promise<typeof AnyEquipment | null> {
+  async equipment(
+    @Arg('index', () => String) indexInput: string
+  ): Promise<typeof AnyEquipment | null> {
+    const { index } = EquipmentIndexArgsSchema.parse({ index: indexInput })
     return EquipmentModel.findOne({ index }).lean()
   }
 

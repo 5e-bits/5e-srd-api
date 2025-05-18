@@ -7,11 +7,12 @@ import {
   Field,
   FieldResolver,
   Root,
-  registerEnumType
+  registerEnumType,
+  Int
 } from 'type-graphql'
+import { z } from 'zod'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum, IsArray } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import {
@@ -37,50 +38,60 @@ const MAGIC_ITEM_SORT_FIELD_MAP: Record<MagicItemOrderField, string> = {
   [MagicItemOrderField.RARITY]: 'rarity.name'
 }
 
+const MagicItemArgsSchema = z.object({
+  name: z.string().optional(),
+  equipment_category: z.array(z.string()).optional(),
+  rarity: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(MagicItemOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const MagicItemIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
+
 @ArgsType()
 class MagicItemArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by magic item name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more equipment category indices (e.g., ["armor", "weapon"])'
   })
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
   equipment_category?: string[]
 
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more rarity names (e.g., ["Rare", "Legendary"])'
   })
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
   rarity?: string[]
 
   @Field(() => MagicItemOrderField, {
     nullable: true,
     description: 'Field to sort magic items by.'
   })
-  @IsOptional()
-  @IsEnum(MagicItemOrderField)
   order_by?: MagicItemOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(MagicItem)
@@ -88,22 +99,22 @@ export class MagicItemResolver {
   @Query(() => [MagicItem], {
     description: 'Gets all magic items, optionally filtered and sorted.'
   })
-  async magicItems(
-    @Args() { name, equipment_category, rarity, order_by, order_direction }: MagicItemArgs
-  ): Promise<MagicItem[]> {
+  async magicItems(@Args() args: MagicItemArgs): Promise<MagicItem[]> {
+    const validatedArgs = MagicItemArgsSchema.parse(args)
+
     let query = MagicItemModel.find()
     const filters: any[] = []
 
-    if (name) {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (equipment_category && equipment_category.length > 0) {
-      filters.push({ 'equipment_category.index': { $in: equipment_category } })
+    if (validatedArgs.equipment_category && validatedArgs.equipment_category.length > 0) {
+      filters.push({ 'equipment_category.index': { $in: validatedArgs.equipment_category } })
     }
 
-    if (rarity && rarity.length > 0) {
-      filters.push({ 'rarity.name': { $in: rarity } })
+    if (validatedArgs.rarity && validatedArgs.rarity.length > 0) {
+      filters.push({ 'rarity.name': { $in: validatedArgs.rarity } })
     }
 
     if (filters.length > 0) {
@@ -111,10 +122,10 @@ export class MagicItemResolver {
     }
 
     const sortQuery = buildMongoSortQuery({
-      orderBy: order_by,
-      orderDirection: order_direction,
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
       sortFieldMap: MAGIC_ITEM_SORT_FIELD_MAP,
-      defaultSortField: 'name'
+      defaultSortField: MagicItemOrderField.NAME
     })
 
     if (sortQuery) {
@@ -125,7 +136,8 @@ export class MagicItemResolver {
   }
 
   @Query(() => MagicItem, { nullable: true, description: 'Gets a single magic item by index.' })
-  async magicItem(@Arg('index', () => String) index: string): Promise<MagicItem | null> {
+  async magicItem(@Arg('index', () => String) indexInput: string): Promise<MagicItem | null> {
+    const { index } = MagicItemIndexArgsSchema.parse({ index: indexInput })
     return MagicItemModel.findOne({ index }).lean()
   }
 

@@ -1,9 +1,22 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, Int } from 'type-graphql'
+import { z } from 'zod'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '../common/inputs'
+
+// Zod schema for AlignmentArgs
+const AlignmentArgsSchema = z.object({
+  name: z.string().optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+// Zod schema for Alignment index argument
+const AlignmentIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 // Define ArgsType for the alignments query to handle filtering and sorting
 @ArgsType()
@@ -12,18 +25,22 @@ class AlignmentArgs {
     nullable: true,
     description: 'Filter by alignment name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction (default: ASC)'
+    description: 'Sort direction (default: ASC for name)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Alignment)
@@ -31,17 +48,18 @@ export class AlignmentResolver {
   @Query(() => [Alignment], {
     description: 'Gets all alignments, optionally filtered by name and sorted by name.'
   })
-  async alignments(@Args() { name, order_direction }: AlignmentArgs): Promise<Alignment[]> {
+  async alignments(@Args() args: AlignmentArgs): Promise<Alignment[]> {
+    const validatedArgs = AlignmentArgsSchema.parse(args)
+
     const query = AlignmentModel.find()
 
-    if (name) {
-      // Use escaped regex for case-insensitive partial match
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    if (validatedArgs.name) {
+      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
     const sortQuery = buildMongoSortQuery({
       defaultSortField: 'name',
-      orderDirection: order_direction
+      orderDirection: validatedArgs.order_direction
     })
     if (sortQuery) {
       query.sort(sortQuery)
@@ -51,8 +69,8 @@ export class AlignmentResolver {
   }
 
   @Query(() => Alignment, { nullable: true, description: 'Gets a single alignment by index.' })
-  async alignment(@Arg('index', () => String) index: string): Promise<Alignment | null> {
-    // Find by index
+  async alignment(@Arg('index', () => String) indexInput: string): Promise<Alignment | null> {
+    const { index } = AlignmentIndexArgsSchema.parse({ index: indexInput })
     return AlignmentModel.findOne({ index }).lean()
   }
 }

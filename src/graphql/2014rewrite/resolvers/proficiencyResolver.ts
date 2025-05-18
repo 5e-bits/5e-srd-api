@@ -1,7 +1,18 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  FieldResolver,
+  Root,
+  registerEnumType,
+  Int
+} from 'type-graphql'
+import { z } from 'zod'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import RaceModel, { Race } from '@/models/2014/race'
@@ -14,6 +25,37 @@ import EquipmentModel from '@/models/2014/equipment'
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import SkillModel from '@/models/2014/skill'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+
+export enum ProficiencyOrderField {
+  NAME = 'name',
+  TYPE = 'type'
+}
+
+registerEnumType(ProficiencyOrderField, {
+  name: 'ProficiencyOrderField',
+  description: 'Fields to sort Proficiencies by'
+})
+
+const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
+  [ProficiencyOrderField.NAME]: 'name',
+  [ProficiencyOrderField.TYPE]: 'type'
+}
+
+const ProficiencyArgsSchema = z.object({
+  name: z.string().optional(),
+  class: z.array(z.string()).optional(),
+  race: z.array(z.string()).optional(),
+  type: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(ProficiencyOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+const ProficiencyIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 // Define ArgsType for the proficiencies query
 @ArgsType()
@@ -22,38 +64,97 @@ class ProficiencyArgs {
     nullable: true,
     description: 'Filter by proficiency name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by class index (e.g., ["barbarian", "bard"])'
+  })
+  class?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by race index (e.g., ["dragonborn", "dwarf"])'
+  })
+  race?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by proficiency type (exact match, e.g., ["ARMOR", "WEAPONS"])'
+  })
+  type?: string[]
+
+  @Field(() => ProficiencyOrderField, {
+    nullable: true,
+    description: 'Field to sort proficiencies by.'
+  })
+  order_by?: ProficiencyOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
-    description: 'Sort direction (default: ASC)'
+    description: 'Sort direction for the chosen field'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(Proficiency)
 export class ProficiencyResolver {
   @Query(() => [Proficiency], {
-    description: 'Query all Proficiencies, optionally filtered by name and sorted by name.'
+    description: 'Query all Proficiencies, optionally filtered and sorted.'
   })
-  async proficiencies(@Args() { name, order_direction }: ProficiencyArgs): Promise<Proficiency[]> {
-    const query = ProficiencyModel.find()
+  async proficiencies(@Args() args: ProficiencyArgs): Promise<Proficiency[]> {
+    const validatedArgs = ProficiencyArgsSchema.parse(args)
 
-    if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    let query = ProficiencyModel.find()
+    const filters: any[] = []
+
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    if (validatedArgs.class?.length) {
+      filters.push({ 'classes.index': { $in: validatedArgs.class } })
     }
 
-    // Note: .lean() is used, so reference fields will contain raw data
-    // FieldResolvers will be added in Pass 2.
+    if (validatedArgs.race?.length) {
+      filters.push({ 'races.index': { $in: validatedArgs.race } })
+    }
+
+    if (validatedArgs.type?.length) {
+      filters.push({ type: { $in: validatedArgs.type } })
+    }
+
+    if (filters.length > 0) {
+      query = query.where({ $and: filters })
+    }
+
+    const sort = buildMongoSortQuery({
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
+      sortFieldMap: PROFICIENCY_SORT_FIELD_MAP,
+      defaultSortField: ProficiencyOrderField.NAME
+    })
+    if (sort) {
+      query.sort(sort)
+    }
+
+    // TODO: Pass 5 - Implement pagination
+    // if (validatedArgs.skip !== undefined) {
+    //   query.skip(validatedArgs.skip);
+    // }
+    // if (validatedArgs.limit !== undefined) {
+    //  query.limit(validatedArgs.limit);
+    // }
+
     return query.lean()
   }
 
@@ -61,7 +162,8 @@ export class ProficiencyResolver {
     nullable: true,
     description: 'Gets a single proficiency by index.'
   })
-  async proficiency(@Arg('index', () => String) index: string): Promise<Proficiency | null> {
+  async proficiency(@Arg('index', () => String) indexInput: string): Promise<Proficiency | null> {
+    const { index } = ProficiencyIndexArgsSchema.parse({ index: indexInput })
     return ProficiencyModel.findOne({ index }).lean()
   }
 
