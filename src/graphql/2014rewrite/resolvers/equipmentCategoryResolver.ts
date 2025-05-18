@@ -62,7 +62,7 @@ export class EquipmentCategoryResolver {
   async equipment(
     @Root() equipmentCategory: EquipmentCategory
   ): Promise<(Equipment | MagicItem)[]> {
-    if (!equipmentCategory.equipment || equipmentCategory.equipment.length === 0) {
+    if (equipmentCategory.equipment.length === 0) {
       return []
     }
 
@@ -74,8 +74,6 @@ export class EquipmentCategoryResolver {
       MagicItemModel.find({ index: { $in: equipmentIndices } }).lean()
     ])
 
-    // Combine and return
-    // Note: The union's resolveType will handle differentiating them in the GraphQL response
     return [...equipments, ...magicItems]
   }
 }

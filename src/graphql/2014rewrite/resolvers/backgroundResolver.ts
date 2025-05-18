@@ -14,8 +14,8 @@ import {
   resolveLanguageChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { StringChoice, LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
-import { IdealChoice, IdealOption, IdealOptionSet } from '../types/backgroundTypes'
-import { Choice, IdealOption as DbIdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
+import { IdealChoice, IdealOption as ResolvedIdealOption } from '../types/backgroundTypes'
+import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 
@@ -104,35 +104,32 @@ export class BackgroundResolver {
   async ideals(@Root() background: Background): Promise<IdealChoice> {
     const choiceData = background.ideals as Choice
 
-    const dbOptionSet = choiceData.from as OptionsArrayOptionSet
+    const optionSet = choiceData.from as OptionsArrayOptionSet
 
-    const gqlIdealOptions: IdealOption[] = []
-    if (dbOptionSet.options && Array.isArray(dbOptionSet.options)) {
-      for (const dbOption of dbOptionSet.options) {
-        // Assuming these options are specifically DbIdealOption based on the 'ideals' context
-        const dbIdealOpt = dbOption as DbIdealOption
+    const resolvedIdealOptions: ResolvedIdealOption[] = []
+    if (Array.isArray(optionSet.options)) {
+      for (const option of optionSet.options) {
+        const idealOption = option as IdealOption
         const resolvedAlignments = (await resolveMultipleReferences(
-          dbIdealOpt.alignments,
+          idealOption.alignments,
           AlignmentModel
         )) as Alignment[]
 
-        gqlIdealOptions.push({
-          option_type: dbIdealOpt.option_type,
-          desc: dbIdealOpt.desc,
+        resolvedIdealOptions.push({
+          option_type: idealOption.option_type,
+          desc: idealOption.desc,
           alignments: resolvedAlignments
         })
       }
     }
 
-    const gqlOptionSet: IdealOptionSet = {
-      option_set_type: dbOptionSet.option_set_type,
-      options: gqlIdealOptions
-    }
-
     return {
       choose: choiceData.choose,
       type: choiceData.type,
-      from: gqlOptionSet
+      from: {
+        option_set_type: optionSet.option_set_type,
+        options: resolvedIdealOptions
+      }
     }
   }
 
