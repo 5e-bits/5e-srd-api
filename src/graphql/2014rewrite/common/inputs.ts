@@ -1,6 +1,7 @@
 import { InputType, Field, Int } from 'type-graphql'
 import { IsOptional, IsInt, IsArray, ValidateNested } from 'class-validator'
 import { Type } from 'class-transformer'
+import { OrderByDirection } from './enums'
 
 @InputType({
   description:
@@ -100,4 +101,48 @@ export function buildMongoQueryFromNumberFilter(
   }
 
   return queryPortion
+}
+
+interface BuildMongoSortQueryArgs<T extends string | symbol | number> {
+  orderBy?: T
+  orderDirection?: OrderByDirection
+  sortFieldMap?: Record<T, string>
+  defaultSortField?: string
+}
+
+/**
+ * Builds a MongoDB sort query object based on order_by and order_direction arguments.
+ *
+ * @template T - The type of the order_by enum (string | symbol | number).
+ * @param {BuildMongoSortQueryArgs<T>} args - The arguments for building the sort query.
+ * @returns {Record<string, 1 | -1> | null} A MongoDB sort object, or null if no sort direction is provided.
+ */
+export function buildMongoSortQuery<T extends string | symbol | number>({
+  orderBy,
+  orderDirection,
+  sortFieldMap,
+  defaultSortField = 'name'
+}: BuildMongoSortQueryArgs<T>): Record<string, 1 | -1> | null {
+  if (!orderDirection) {
+    return null
+  }
+
+  const sortOrder = orderDirection === OrderByDirection.DESC ? -1 : 1
+  let resolvedSortField = defaultSortField
+
+  if (orderBy) {
+    if (sortFieldMap && sortFieldMap[orderBy]) {
+      resolvedSortField = sortFieldMap[orderBy]
+    } else if (sortFieldMap && !sortFieldMap[orderBy]) {
+      console.warn(
+        `buildMongoSortQuery: orderBy key '${String(orderBy)}' not found in sortFieldMap. Defaulting to sort by '${resolvedSortField}'.`
+      )
+    } else if (!sortFieldMap) {
+      console.warn(
+        `buildMongoSortQuery: orderBy '${String(orderBy)}' provided without a sortFieldMap. Defaulting to sort by '${resolvedSortField}'.`
+      )
+    }
+  }
+
+  return { [resolvedSortField]: sortOrder }
 }

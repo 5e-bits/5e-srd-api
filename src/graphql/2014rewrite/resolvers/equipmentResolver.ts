@@ -10,6 +10,7 @@ import {
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { APIReference } from '@/models/2014/types/apiReference'
 import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
+import { buildMongoSortQuery } from '../common/inputs'
 
 @ArgsType()
 class EquipmentArgs {
@@ -76,8 +77,12 @@ export class EquipmentResolver {
       query.where({ $and: filters })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

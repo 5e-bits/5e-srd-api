@@ -18,6 +18,7 @@ import { IdealChoice, IdealOption as ResolvedIdealOption } from '../types/backgr
 import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
+import { buildMongoSortQuery } from '../common/inputs'
 
 @ArgsType()
 class BackgroundArgs {
@@ -51,23 +52,22 @@ export class BackgroundResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
-    // Note: .lean() is used, so reference/choice fields will contain raw data
-    // FieldResolvers will be added in Pass 3.
     return query.lean()
   }
 
   @Query(() => Background, { nullable: true, description: 'Gets a single background by index.' })
   async background(@Arg('index', () => String) index: string): Promise<Background | null> {
-    // Note: .lean() is used, reference/choice fields will contain raw data.
-    // FieldResolvers needed in Pass 3.
     return BackgroundModel.findOne({ index }).lean()
   }
 
-  // Field Resolver for starting_proficiencies
   @FieldResolver(() => [Proficiency])
   async starting_proficiencies(@Root() background: Background): Promise<Proficiency[]> {
     return resolveMultipleReferences(background.starting_proficiencies, ProficiencyModel)
@@ -102,6 +102,7 @@ export class BackgroundResolver {
     description: 'Resolves the ideals choice for the background.'
   })
   async ideals(@Root() background: Background): Promise<IdealChoice> {
+    // TODO: Pass 5 - See if any choice resolvers can be refactored
     const choiceData = background.ideals as Choice
 
     const optionSet = choiceData.from as OptionsArrayOptionSet

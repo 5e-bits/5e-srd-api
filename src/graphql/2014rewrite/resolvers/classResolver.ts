@@ -2,7 +2,11 @@ import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { NumberFilterInput, buildMongoQueryFromNumberFilter } from '../common/inputs'
+import {
+  NumberFilterInput,
+  buildMongoQueryFromNumberFilter,
+  buildMongoSortQuery
+} from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
@@ -72,8 +76,12 @@ export class ClassResolver {
       query.where({ $and: filters })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

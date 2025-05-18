@@ -3,6 +3,7 @@ import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import { buildMongoSortQuery } from '../common/inputs'
 
 // Define ArgsType for the alignments query to handle filtering and sorting
 @ArgsType()
@@ -38,8 +39,12 @@ export class AlignmentResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

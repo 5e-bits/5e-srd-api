@@ -5,6 +5,7 @@ import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
+import { buildMongoSortQuery } from '../common/inputs'
 
 @ArgsType()
 class FeatArgs {
@@ -38,8 +39,12 @@ export class FeatResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

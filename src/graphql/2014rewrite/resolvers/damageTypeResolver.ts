@@ -3,6 +3,7 @@ import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import { buildMongoSortQuery } from '../common/inputs'
 
 @ArgsType()
 class DamageTypeArgs {
@@ -36,8 +37,12 @@ export class DamageTypeResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

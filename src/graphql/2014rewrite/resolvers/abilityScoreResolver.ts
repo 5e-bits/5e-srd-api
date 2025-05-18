@@ -5,6 +5,7 @@ import { resolveMultipleReferences } from '@/graphql/2014rewrite/utils/resolvers
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SkillModel, { Skill } from '@/models/2014/skill'
 import { escapeRegExp } from '@/util'
+import { buildMongoSortQuery } from '../common/inputs'
 
 @ArgsType()
 class AbilityScoreArgs {
@@ -57,8 +58,12 @@ export class AbilityScoreResolver {
       query.where({ $and: filters })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

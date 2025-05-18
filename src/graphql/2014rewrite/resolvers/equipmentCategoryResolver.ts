@@ -6,6 +6,7 @@ import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { EquipmentOrMagicItem } from '@/graphql/2014rewrite/common/unions'
+import { buildMongoSortQuery } from '../common/inputs'
 
 @ArgsType()
 class EquipmentCategoryArgs {
@@ -41,8 +42,12 @@ export class EquipmentCategoryResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()

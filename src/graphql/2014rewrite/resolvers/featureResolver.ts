@@ -20,7 +20,11 @@ import FeatureModel, {
   SpellPrerequisite
 } from '@/models/2014/feature'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { NumberFilterInput, buildMongoQueryFromNumberFilter } from '../common/inputs'
+import {
+  NumberFilterInput,
+  buildMongoQueryFromNumberFilter,
+  buildMongoSortQuery
+} from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
@@ -159,18 +163,14 @@ export class FeatureResolver {
       query.where({ $and: filters })
     }
 
-    if (order_direction) {
-      const sortOrder = order_direction === OrderByDirection.DESC ? -1 : 1
-      const sortField = order_by ? FEATURE_SORT_FIELD_MAP[order_by] : 'name'
-
-      if (sortField) {
-        query.sort({ [sortField]: sortOrder })
-      } else if (order_by) {
-        console.warn(
-          `FeatureResolver: Missing sort field mapping for order_by: ${order_by}. Defaulting to sort by name.`
-        )
-        query.sort({ name: sortOrder })
-      }
+    const sortQuery = buildMongoSortQuery({
+      orderBy: order_by,
+      orderDirection: order_direction,
+      sortFieldMap: FEATURE_SORT_FIELD_MAP,
+      defaultSortField: 'name'
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     // TODO: Pass 5 - Implement pagination properly

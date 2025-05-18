@@ -77,6 +77,7 @@ export async function resolveMultipleReferences<T>(
   return TargetModel.find({ index: { $in: indices } }).lean() as any
 }
 
+// TODO: Pass 5 - Clean up these to live with model resolvers if they are single use
 export function resolveStringChoice(choiceData: Choice): StringChoice {
   const dbOptionSet = choiceData.from as OptionsArrayOptionSet
 
