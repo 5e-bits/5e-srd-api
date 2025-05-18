@@ -7,8 +7,22 @@ import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
 
+// Enum for Skill sortable fields
+export enum SkillOrderField {
+  NAME = 'name',
+  ABILITY_SCORE = 'ability_score'
+}
+
+// Map GraphQL SkillOrderField to MongoDB field name
+const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
+  [SkillOrderField.NAME]: 'name',
+  [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'
+}
+
 const SkillArgsSchema = z.object({
   name: z.string().optional(),
+  ability_score: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(SkillOrderField).optional().default(SkillOrderField.NAME),
   order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
   skip: z.number().int().min(0).optional(),
   limit: z.number().int().min(1).optional()
@@ -25,6 +39,19 @@ class SkillArgs {
     description: 'Filter by skill name (case-insensitive, partial match)'
   })
   name?: string
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by ability score index (e.g., ["str", "dex"])'
+  })
+  ability_score?: string[]
+
+  @Field(() => SkillOrderField, {
+    nullable: true,
+    description: 'Field to sort by (default: name)',
+    defaultValue: SkillOrderField.NAME
+  })
+  order_by?: SkillOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
@@ -51,14 +78,25 @@ export class SkillResolver {
     const validatedArgs = SkillArgsSchema.parse(args)
 
     const query = SkillModel.find()
+    const filters: any[] = []
 
     if (validatedArgs.name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      defaultSortField: 'name',
-      orderDirection: validatedArgs.order_direction
+    if (validatedArgs.ability_score && validatedArgs.ability_score.length > 0) {
+      filters.push({ 'ability_score.index': { $in: validatedArgs.ability_score } })
+    }
+
+    if (filters.length > 0) {
+      query.where({ $and: filters })
+    }
+
+    const sortQuery = buildMongoSortQuery<SkillOrderField>({
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
+      sortFieldMap: SKILL_SORT_FIELD_MAP,
+      defaultSortField: SkillOrderField.NAME
     })
     if (sortQuery) {
       query.sort(sortQuery)

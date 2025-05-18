@@ -1,4 +1,15 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import {
+  Resolver,
+  Query,
+  Arg,
+  Args,
+  ArgsType,
+  Field,
+  FieldResolver,
+  Root,
+  Int,
+  InputType
+} from 'type-graphql'
 import { z } from 'zod'
 import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
@@ -12,12 +23,66 @@ import {
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { LevelValue } from '@/graphql/2014rewrite/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
-import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import {
+  buildMongoSortQuery,
+  NumberFilterInput,
+  NumberFilterInputSchema,
+  buildMongoQueryFromNumberFilter
+} from '@/graphql/2014rewrite/common/inputs'
+
+const AreaOfEffectFilterInputSchema = z.object({
+  type: z.array(z.string()).optional(),
+  size: NumberFilterInputSchema.optional()
+})
+
+@InputType({
+  description: 'Input for filtering by area of effect properties.'
+})
+class AreaOfEffectFilterInput {
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by area of effect type (e.g., ["sphere", "cone"])'
+  })
+  type?: string[]
+
+  @Field(() => NumberFilterInput, {
+    nullable: true,
+    description: 'Filter by area of effect size (in feet).'
+  })
+  size?: NumberFilterInput
+}
+
+// Enum for Spell sortable fields
+export enum SpellOrderField {
+  NAME = 'name',
+  LEVEL = 'level',
+  SCHOOL = 'school',
+  AREA_OF_EFFECT_SIZE = 'area_of_effect_size' // Matches old API
+}
+
+// Map GraphQL SpellOrderField to MongoDB field name
+const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
+  [SpellOrderField.NAME]: 'name',
+  [SpellOrderField.LEVEL]: 'level',
+  [SpellOrderField.SCHOOL]: 'school.name',
+  [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
+}
 
 const SpellArgsSchema = z.object({
   name: z.string().optional(),
   level: z.array(z.number().int().min(0).max(9)).optional(),
   school: z.array(z.string()).optional(),
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  concentration: z.boolean().optional(),
+  ritual: z.boolean().optional(),
+  attack_type: z.array(z.string()).optional(),
+  casting_time: z.array(z.string()).optional(),
+  area_of_effect: AreaOfEffectFilterInputSchema.optional(),
+  damage_type: z.array(z.string()).optional(),
+  dc_type: z.array(z.string()).optional(),
+  range: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME),
   order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
   skip: z.number().int().min(0).optional(),
   limit: z.number().int().min(1).optional()
@@ -37,12 +102,75 @@ class SpellArgs {
 
   @Field(() => [Int], {
     nullable: true,
-    description: 'Filter by spell level (e.g., [1, 3] for levels 1 to 3)'
+    description: 'Filter by spell level (e.g., [0, 9])'
   })
   level?: number[]
 
-  @Field(() => [String], { nullable: true, description: 'Filter by magic school index' })
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by magic school index (e.g., ["evocation"])'
+  })
   school?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by class index that can cast the spell (e.g., ["wizard"])'
+  })
+  class?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by subclass index that can cast the spell (e.g., ["lore"])'
+  })
+  subclass?: string[]
+
+  @Field(() => Boolean, { nullable: true, description: 'Filter by concentration requirement' })
+  concentration?: boolean
+
+  @Field(() => Boolean, { nullable: true, description: 'Filter by ritual requirement' })
+  ritual?: boolean
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by attack type (e.g., ["ranged", "melee"])'
+  })
+  attack_type?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by casting time (e.g., ["1 action"])'
+  })
+  casting_time?: string[]
+
+  @Field(() => AreaOfEffectFilterInput, {
+    nullable: true,
+    description: 'Filter by area of effect properties'
+  })
+  area_of_effect?: AreaOfEffectFilterInput
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by damage type index (e.g., ["fire"])'
+  })
+  damage_type?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by saving throw DC type index (e.g., ["dex"])'
+  })
+  dc_type?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by spell range (e.g., ["Self", "Touch"])'
+  })
+  range?: string[]
+
+  @Field(() => SpellOrderField, {
+    nullable: true,
+    description: 'Field to sort spells by (default: name)'
+  })
+  order_by?: SpellOrderField
 
   @Field(() => OrderByDirection, {
     nullable: true,
@@ -79,14 +207,54 @@ export class SpellResolver {
     if (validatedArgs.school && validatedArgs.school.length > 0) {
       filters.push({ 'school.index': { $in: validatedArgs.school } })
     }
+    if (validatedArgs.class && validatedArgs.class.length > 0) {
+      filters.push({ 'classes.index': { $in: validatedArgs.class } })
+    }
+    if (validatedArgs.subclass && validatedArgs.subclass.length > 0) {
+      filters.push({ 'subclasses.index': { $in: validatedArgs.subclass } })
+    }
+    if (typeof validatedArgs.concentration === 'boolean') {
+      filters.push({ concentration: validatedArgs.concentration })
+    }
+    if (typeof validatedArgs.ritual === 'boolean') {
+      filters.push({ ritual: validatedArgs.ritual })
+    }
+    if (validatedArgs.attack_type && validatedArgs.attack_type.length > 0) {
+      filters.push({ attack_type: { $in: validatedArgs.attack_type } })
+    }
+    if (validatedArgs.casting_time && validatedArgs.casting_time.length > 0) {
+      filters.push({ casting_time: { $in: validatedArgs.casting_time } })
+    }
+    if (validatedArgs.area_of_effect) {
+      if (validatedArgs.area_of_effect.type && validatedArgs.area_of_effect.type.length > 0) {
+        filters.push({ 'area_of_effect.type': { $in: validatedArgs.area_of_effect.type } })
+      }
+      if (validatedArgs.area_of_effect.size) {
+        const sizeFilter = buildMongoQueryFromNumberFilter(validatedArgs.area_of_effect.size)
+        if (sizeFilter) {
+          filters.push({ 'area_of_effect.size': sizeFilter })
+        }
+      }
+    }
+    if (validatedArgs.damage_type && validatedArgs.damage_type.length > 0) {
+      filters.push({ 'damage.damage_type.index': { $in: validatedArgs.damage_type } })
+    }
+    if (validatedArgs.dc_type && validatedArgs.dc_type.length > 0) {
+      filters.push({ 'dc.dc_type.index': { $in: validatedArgs.dc_type } })
+    }
+    if (validatedArgs.range && validatedArgs.range.length > 0) {
+      filters.push({ range: { $in: validatedArgs.range } })
+    }
 
     if (filters.length > 0) {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      defaultSortField: 'name',
-      orderDirection: validatedArgs.order_direction
+    const sortQuery = buildMongoSortQuery<SpellOrderField>({
+      orderBy: validatedArgs.order_by,
+      orderDirection: validatedArgs.order_direction,
+      sortFieldMap: SPELL_SORT_FIELD_MAP,
+      defaultSortField: SpellOrderField.NAME
     })
     if (sortQuery) {
       query.sort(sortQuery)
