@@ -1,5 +1,5 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { z } from 'zod'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
@@ -21,6 +21,29 @@ import {
   AbilityScoreBonusChoice
 } from '@/graphql/2014rewrite/common/choiceTypes'
 import { Choice } from '@/models/2014/common'
+import {
+  buildMongoSortQuery,
+  NumberFilterInput,
+  NumberFilterInputSchema,
+  buildMongoQueryFromNumberFilter
+} from '@/graphql/2014rewrite/common/inputs'
+
+// Zod schema for RaceArgs
+const RaceArgsSchema = z.object({
+  name: z.string().optional(),
+  ability_bonus: z.array(z.string()).optional(),
+  size: z.array(z.string()).optional(),
+  language: z.array(z.string()).optional(),
+  speed: NumberFilterInputSchema.optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
+  skip: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).optional()
+})
+
+// Zod schema for Race index argument
+const RaceIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
 
 @ArgsType()
 class RaceArgs {
@@ -28,39 +51,98 @@ class RaceArgs {
     nullable: true,
     description: 'Filter by race name (case-insensitive, partial match)'
   })
-  @IsOptional()
-  @IsString()
   name?: string
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by one or more ability score indices that provide a bonus'
+  })
+  ability_bonus?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by one or more race sizes (e.g., ["Medium", "Small"])'
+  })
+  size?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by one or more language indices spoken by the race'
+  })
+  language?: string[]
+
+  @Field(() => NumberFilterInput, {
+    nullable: true,
+    description: 'Filter by race speed. Allows exact match, list, or range.'
+  })
+  speed?: NumberFilterInput
 
   @Field(() => OrderByDirection, {
     nullable: true,
-    defaultValue: OrderByDirection.ASC,
     description: 'Sort direction for the name field (default: ASC)'
   })
-  @IsOptional()
-  @IsEnum(OrderByDirection)
   order_direction?: OrderByDirection
+
+  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
+  skip?: number
+
+  @Field(() => Int, {
+    nullable: true,
+    description: 'TODO: Pass 5 - Maximum number of results to return'
+  })
+  limit?: number
 }
 
 @Resolver(() => Race)
 export class RaceResolver {
   @Query(() => [Race], { description: 'Gets all races, optionally filtered by name and sorted.' })
-  async races(@Args() { name, order_direction }: RaceArgs): Promise<Race[]> {
-    const query = RaceModel.find()
+  async races(@Args() args: RaceArgs): Promise<Race[]> {
+    const validatedArgs = RaceArgsSchema.parse(args)
 
-    if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    const query = RaceModel.find()
+    const filters: any[] = []
+
+    if (validatedArgs.name) {
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    if (validatedArgs.ability_bonus?.length) {
+      filters.push({ 'ability_bonuses.ability_score.index': { $in: validatedArgs.ability_bonus } })
+    }
+
+    if (validatedArgs.size?.length) {
+      filters.push({ size: { $in: validatedArgs.size } })
+    }
+
+    if (validatedArgs.language?.length) {
+      filters.push({ 'languages.index': { $in: validatedArgs.language } })
+    }
+
+    if (validatedArgs.speed) {
+      const speedQuery = buildMongoQueryFromNumberFilter(validatedArgs.speed)
+      if (speedQuery) {
+        filters.push({ speed: speedQuery })
+      }
+    }
+
+    if (filters.length > 0) {
+      query.where({ $and: filters })
+    }
+
+    const sortQuery = buildMongoSortQuery({
+      defaultSortField: 'name',
+      orderDirection: validatedArgs.order_direction
+    })
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()
   }
 
   @Query(() => Race, { nullable: true, description: 'Gets a single race by its index.' })
-  async race(@Arg('index') index: string): Promise<Race | null> {
+  async race(@Arg('index') indexInput: string): Promise<Race | null> {
+    const { index } = RaceIndexArgsSchema.parse({ index: indexInput })
     return RaceModel.findOne({ index }).lean()
   }
 
