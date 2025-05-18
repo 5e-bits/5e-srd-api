@@ -1,7 +1,7 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import EquipmentModel, { Equipment, Content } from '@/models/2014/equipment'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { IsOptional, IsString, IsEnum } from 'class-validator'
+import { IsOptional, IsString, IsEnum, IsArray } from 'class-validator'
 import { escapeRegExp } from '@/util'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import {
@@ -21,6 +21,15 @@ class EquipmentArgs {
   @IsString()
   name?: string
 
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by one or more equipment category indices (e.g., ["weapon", "armor"])'
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  equipment_category?: string[]
+
   @Field(() => OrderByDirection, {
     nullable: true,
     defaultValue: OrderByDirection.ASC,
@@ -37,20 +46,27 @@ export class EquipmentResolver {
     description: 'Gets all equipment, optionally filtered and sorted.'
   })
   async equipments(
-    @Args() { name, order_direction }: EquipmentArgs
+    @Args() { name, equipment_category, order_direction }: EquipmentArgs
   ): Promise<Array<typeof AnyEquipment>> {
     const query = EquipmentModel.find()
+    const filters: any[] = []
 
     if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+    }
+
+    if (equipment_category && equipment_category.length > 0) {
+      filters.push({ 'equipment_category.index': { $in: equipment_category } })
+    }
+
+    if (filters.length > 0) {
+      query.where({ $and: filters })
     }
 
     if (order_direction) {
       query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
     }
 
-    // Note: .lean() is used, so reference fields will contain raw data
-    // FieldResolvers will be added in Pass 2.
     return query.lean()
   }
 
@@ -62,17 +78,12 @@ export class EquipmentResolver {
     return EquipmentModel.findOne({ index }).lean()
   }
 
-  // --- Pass 2 Field Resolver ---
   @FieldResolver(() => [WeaponProperty], { nullable: true })
   async properties(@Root() equipment: Equipment): Promise<WeaponProperty[] | null> {
     if (!equipment.properties) return null
     return resolveMultipleReferences(equipment.properties, WeaponPropertyModel)
   }
-
-  // Resolvers for equipment_category, gear_category, armor_class, contents, damage, two_handed_damage deferred to Intermediate Step
 }
-
-// --- Resolver for nested Content type ---
 @Resolver(Content)
 export class ContentFieldResolver {
   @FieldResolver(() => AnyEquipment, {
