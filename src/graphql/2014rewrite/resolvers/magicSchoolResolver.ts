@@ -3,6 +3,7 @@ import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { escapeRegExp } from '@/util'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
 
 @ArgsType()
 class MagicSchoolArgs {
@@ -36,8 +37,13 @@ export class MagicSchoolResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
-    if (order_direction) {
-      query.sort({ name: order_direction === OrderByDirection.DESC ? -1 : 1 })
+    const sortQuery = buildMongoSortQuery({
+      orderDirection: order_direction,
+      defaultSortField: 'name'
+    })
+
+    if (sortQuery) {
+      query.sort(sortQuery)
     }
 
     return query.lean()
