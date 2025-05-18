@@ -1,7 +1,8 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, Int, FieldResolver, Root } from 'type-graphql'
-import { IsOptional, IsString, IsEnum, IsInt } from 'class-validator'
+import { IsOptional, IsString, IsEnum } from 'class-validator'
 import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
+import { NumberFilterInput } from '../common/inputs'
 import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
@@ -29,10 +30,12 @@ class ClassArgs {
   @IsString()
   name?: string
 
-  @Field(() => Int, { nullable: true, description: 'Filter by hit die size' })
+  @Field(() => NumberFilterInput, {
+    nullable: true,
+    description: 'Filter by hit die size. Allows exact match, list of values, or a range.'
+  })
   @IsOptional()
-  @IsInt()
-  hit_die?: number
+  hit_die?: NumberFilterInput
 
   // Order direction applies only to name for now
   @Field(() => OrderByDirection, {
@@ -52,13 +55,36 @@ export class ClassResolver {
   })
   async classes(@Args() { name, hit_die, order_direction }: ClassArgs): Promise<Class[]> {
     const query = ClassModel.find()
+    const filters: any[] = []
 
     if (name) {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
+      filters.push({ name: { $regex: new RegExp(escapeRegExp(name), 'i') } })
     }
 
     if (hit_die) {
-      query.where({ hit_die })
+      const hitDieQueryPortion: any = {}
+      if (typeof hit_die.eq === 'number') {
+        hitDieQueryPortion.$eq = hit_die.eq
+      }
+      if (Array.isArray(hit_die.in) && hit_die.in.length > 0) {
+        hitDieQueryPortion.$in = hit_die.in
+      }
+      if (Array.isArray(hit_die.nin) && hit_die.nin.length > 0) {
+        hitDieQueryPortion.$nin = hit_die.nin
+      }
+      if (hit_die.range) {
+        if (typeof hit_die.range.lt === 'number') hitDieQueryPortion.$lt = hit_die.range.lt
+        if (typeof hit_die.range.lte === 'number') hitDieQueryPortion.$lte = hit_die.range.lte
+        if (typeof hit_die.range.gt === 'number') hitDieQueryPortion.$gt = hit_die.range.gt
+        if (typeof hit_die.range.gte === 'number') hitDieQueryPortion.$gte = hit_die.range.gte
+      }
+      if (Object.keys(hitDieQueryPortion).length > 0) {
+        filters.push({ hit_die: hitDieQueryPortion })
+      }
+    }
+
+    if (filters.length > 0) {
+      query.where({ $and: filters })
     }
 
     if (order_direction) {
