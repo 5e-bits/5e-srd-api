@@ -12,15 +12,15 @@ import {
   resolveMultipleReferences,
   resolveSingleReference,
   resolveLanguageChoice,
-  resolveProficiencyChoice,
-  resolveAbilityScoreBonusChoice
+  resolveProficiencyChoice
 } from '@/graphql/2014rewrite/utils/resolvers'
 import {
   LanguageChoice,
   ProficiencyChoice,
-  AbilityScoreBonusChoice
+  AbilityScoreBonusChoice,
+  AbilityScoreBonusChoiceOption
 } from '@/graphql/2014rewrite/common/choiceTypes'
-import { Choice } from '@/models/2014/common'
+import { Choice, OptionsArrayOptionSet, AbilityBonusOption } from '@/models/2014/common'
 import {
   buildMongoSortQuery,
   NumberFilterInput,
@@ -186,5 +186,48 @@ export class RaceAbilityBonusResolver {
   @FieldResolver(() => AbilityScore, { nullable: true })
   async ability_score(@Root() raceAbilityBonus: RaceAbilityBonus): Promise<AbilityScore | null> {
     return resolveSingleReference(raceAbilityBonus.ability_score, AbilityScoreModel)
+  }
+}
+
+async function resolveAbilityScoreBonusChoice(
+  choiceData: Choice | undefined,
+  TargetAbilityScoreModel: typeof AbilityScoreModel
+): Promise<AbilityScoreBonusChoice | null> {
+  if (!choiceData || !choiceData.type || typeof choiceData.choose !== 'number') {
+    return null
+  }
+
+  const resolvedOptions: AbilityScoreBonusChoiceOption[] = []
+  const from = choiceData.from as OptionsArrayOptionSet
+
+  for (const option of from.options) {
+    if (option.option_type === 'ability_bonus') {
+      const abilityScore = await resolveSingleReference(
+        (option as AbilityBonusOption).ability_score,
+        TargetAbilityScoreModel
+      )
+
+      if (abilityScore) {
+        resolvedOptions.push({
+          option_type: option.option_type,
+          ability_score: abilityScore as AbilityScore,
+          bonus: (option as AbilityBonusOption).bonus
+        })
+      }
+    }
+  }
+
+  if (resolvedOptions.length === 0 && from.options.length > 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: from.option_set_type,
+      options: resolvedOptions
+    },
+    desc: choiceData.desc
   }
 }

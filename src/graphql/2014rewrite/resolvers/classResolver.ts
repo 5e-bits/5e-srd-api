@@ -30,11 +30,16 @@ import {
 import { APIReference } from '@/models/2014/types/apiReference'
 import LevelModel, { Level } from '@/models/2014/level'
 import SpellModel, { Spell } from '@/models/2014/spell'
-import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014rewrite/common/choiceTypes'
-import { resolvePrerequisiteChoice } from '../utils/resolvers'
+import {
+  ProficiencyChoice,
+  PrerequisiteChoice,
+  PrerequisiteChoiceOption,
+  PrerequisiteChoiceOptionSet
+} from '@/graphql/2014rewrite/common/choiceTypes'
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common'
 
 export enum ClassOrderField {
   NAME = 'name',
@@ -214,5 +219,46 @@ export class MultiClassingPrereqResolver {
   @FieldResolver(() => AbilityScore)
   async ability_score(@Root() prerequisite: MultiClassingPrereq): Promise<APIReference | null> {
     return resolveSingleReference(prerequisite.ability_score, AbilityScoreModel)
+  }
+}
+
+async function resolvePrerequisiteChoice(
+  choiceData: Choice | undefined | null
+): Promise<PrerequisiteChoice | null> {
+  if (!choiceData || !choiceData.type || typeof choiceData.choose !== 'number') {
+    return null
+  }
+
+  const gqlEmbeddedOptions: PrerequisiteChoiceOption[] = []
+
+  const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+  for (const opt of optionsArraySet.options) {
+    if (opt.option_type === 'score_prerequisite') {
+      const scoreOpt = opt as ScorePrerequisiteOption
+      const abilityScore = await resolveSingleReference(scoreOpt.ability_score, AbilityScoreModel)
+      if (abilityScore) {
+        gqlEmbeddedOptions.push({
+          option_type: scoreOpt.option_type,
+          ability_score: abilityScore as AbilityScore,
+          minimum_score: scoreOpt.minimum_score
+        })
+      }
+    }
+  }
+
+  if (gqlEmbeddedOptions.length === 0 && optionsArraySet.options.length > 0) {
+    return null
+  }
+
+  const gqlOptionSet: PrerequisiteChoiceOptionSet = {
+    option_set_type: choiceData.from.option_set_type,
+    options: gqlEmbeddedOptions
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    desc: choiceData.desc,
+    from: gqlOptionSet
   }
 }

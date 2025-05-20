@@ -24,21 +24,32 @@ import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import { APIReference } from '@/models/2014/types/apiReference'
 import ConditionModel, { Condition } from '@/models/2014/condition'
-import {
-  resolveMultipleReferences,
-  resolveSingleReference,
-  resolveDamageChoice,
-  resolveActionChoice,
-  resolveBreathChoice
-} from '../utils/resolvers'
+import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
 import EquipmentModel from '@/models/2014/equipment'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
-import { Damage, Choice } from '@/models/2014/common'
-import { DamageChoice, ActionChoice, BreathChoice } from '@/graphql/2014rewrite/types/monsterTypes'
+import {
+  Damage,
+  Choice,
+  OptionsArrayOptionSet,
+  DamageOption,
+  ActionOption,
+  BreathOption
+} from '@/models/2014/common'
+import {
+  DamageChoice,
+  ActionChoice,
+  BreathChoice,
+  DamageChoiceOption,
+  ActionChoiceOption,
+  MultipleActionChoiceOption,
+  BreathChoiceOption,
+  ActionChoiceOptionSet
+} from '@/graphql/2014rewrite/types/monsterTypes'
 import {
   NumberFilterInput,
   buildMongoQueryFromNumberFilter,
@@ -46,6 +57,7 @@ import {
   NumberFilterInputSchema
 } from '@/graphql/2014rewrite/common/inputs'
 import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { normalizeCount } from '../utils/helpers'
 
 export enum MonsterOrderField {
   NAME = 'name',
@@ -373,7 +385,7 @@ export class MonsterActionResolver {
     }
 
     const resolvedDamage = await Promise.all(
-      action.damage.map(async (item) => {
+      action.damage.map(async (item: Damage | Choice) => {
         if ('choose' in item) {
           return resolveDamageChoice(item as Choice)
         }
@@ -392,5 +404,160 @@ export class MonsterActionResolver {
   @FieldResolver(() => BreathChoice, { nullable: true })
   async options(@Root() action: MonsterAction): Promise<BreathChoice | null> {
     return resolveBreathChoice(action.options)
+  }
+}
+
+async function resolveBreathChoice(
+  choiceData: Choice | undefined | null
+): Promise<BreathChoice | null> {
+  if (!choiceData || !('options' in choiceData.from)) {
+    return null
+  }
+  const options = (choiceData.from as OptionsArrayOptionSet).options
+  const validOptions: BreathChoiceOption[] = []
+
+  for (const option of options) {
+    if (option.option_type === 'breath') {
+      const breathOption = option as BreathOption
+      const abilityScore = await resolveSingleReference(breathOption.dc.dc_type, AbilityScoreModel)
+
+      const currentResolvedOption: Partial<BreathChoiceOption> = {
+        option_type: breathOption.option_type,
+        name: breathOption.name,
+        dc: {
+          dc_type: abilityScore as AbilityScore,
+          dc_value: breathOption.dc.dc_value,
+          success_type: breathOption.dc.success_type
+        }
+      }
+
+      if (breathOption.damage && breathOption.damage.length > 0) {
+        const resolvedDamageItems = await Promise.all(
+          breathOption.damage.map(async (damageItem) => {
+            const resolvedDamageType = await resolveSingleReference(
+              damageItem.damage_type,
+              DamageTypeModel
+            )
+            if (resolvedDamageType) {
+              return {
+                damage_dice: damageItem.damage_dice,
+                damage_type: resolvedDamageType as DamageType
+              }
+            }
+            return null
+          })
+        )
+
+        const filteredDamageItems = resolvedDamageItems.filter((item) => item !== null)
+        if (filteredDamageItems.length > 0) {
+          currentResolvedOption.damage = filteredDamageItems as any[]
+        }
+      }
+      validOptions.push(currentResolvedOption as BreathChoiceOption)
+    }
+  }
+
+  if (validOptions.length === 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: choiceData.from.option_set_type,
+      options: validOptions
+    },
+    desc: choiceData.desc
+  }
+}
+
+async function resolveDamageChoice(
+  choiceData: Choice | undefined | null
+): Promise<DamageChoice | null> {
+  if (!choiceData || !('options' in choiceData.from)) {
+    return null
+  }
+  const options = (choiceData.from as OptionsArrayOptionSet).options
+  const validOptions: DamageChoiceOption[] = []
+
+  for (const option of options) {
+    if (option.option_type === 'damage') {
+      const damageOption = option as DamageOption
+      const damageType = await resolveSingleReference(damageOption.damage_type, DamageTypeModel)
+      if (damageType) {
+        const resolvedOption: DamageChoiceOption = {
+          option_type: damageOption.option_type,
+          damage: {
+            damage_dice: damageOption.damage_dice,
+            damage_type: damageType as DamageType
+          }
+        }
+        validOptions.push(resolvedOption)
+      }
+    }
+  }
+
+  if (validOptions.length === 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: choiceData.from.option_set_type,
+      options: validOptions
+    },
+    desc: choiceData.desc
+  }
+}
+
+async function resolveActionChoice(
+  choiceData: Choice | undefined | null
+): Promise<ActionChoice | null> {
+  if (!choiceData || !('options' in choiceData.from)) {
+    return null
+  }
+  const options = (choiceData.from as OptionsArrayOptionSet).options
+  const validOptions: Array<ActionChoiceOption | MultipleActionChoiceOption> = []
+
+  for (const option of options) {
+    if (option.option_type === 'multiple') {
+      const multipleOption = option as { option_type: string; items: ActionOption[] }
+      const resolvedItems = multipleOption.items.map((item) => ({
+        option_type: item.option_type,
+        action_name: item.action_name,
+        count: normalizeCount(item.count),
+        type: item.type
+      }))
+      validOptions.push({
+        option_type: multipleOption.option_type,
+        items: resolvedItems
+      })
+    } else if (option.option_type === 'action') {
+      const actionOption = option as ActionOption
+      const resolvedOption: ActionChoiceOption = {
+        option_type: actionOption.option_type,
+        action_name: actionOption.action_name,
+        count: normalizeCount(actionOption.count),
+        type: actionOption.type
+      }
+      validOptions.push(resolvedOption)
+    }
+  }
+
+  if (validOptions.length === 0) {
+    return null
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: choiceData.from.option_set_type,
+      options: validOptions
+    },
+    desc: choiceData.desc
   }
 }

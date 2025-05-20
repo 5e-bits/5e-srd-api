@@ -1,25 +1,32 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { z } from 'zod'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
-import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
+import {
+  TraitChoice,
+  SpellChoice,
+  TraitChoiceOptionSet,
+  TraitChoiceOption,
+  SpellChoiceOptionSet,
+  SpellChoiceOption
+} from '@/graphql/2014rewrite/types/traitTypes'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import RaceModel, { Race } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
+import SpellModel from '@/models/2014/spell'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
   resolveLanguageChoice,
-  resolveTraitChoice,
-  resolveSpellChoice,
-  resolveProficiencyChoice
+  resolveProficiencyChoice,
+  resolveReferenceOptionArray
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { LevelValue } from '@/graphql/2014rewrite/common/types'
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
-import { Choice } from '@/models/2014/common'
+import { Choice, OptionsArrayOptionSet } from '@/models/2014/common'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
 import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
@@ -147,5 +154,57 @@ export class ActionDamageResolver {
     @Root() actionDamage: ActionDamage
   ): Promise<LevelValue[] | null> {
     return mapLevelObjectToArray(actionDamage.damage_at_character_level)
+  }
+}
+
+async function resolveTraitChoice(
+  choiceData: Choice | undefined | null
+): Promise<TraitChoice | null> {
+  if (!choiceData) {
+    return null
+  }
+
+  const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+  const gqlEmbeddedOptions = await resolveReferenceOptionArray(
+    optionsArraySet,
+    TraitModel,
+    (item, optionType) => ({ option_type: optionType, item }) as TraitChoiceOption
+  )
+
+  const gqlOptionSet: TraitChoiceOptionSet = {
+    option_set_type: choiceData.from.option_set_type,
+    options: gqlEmbeddedOptions
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: gqlOptionSet
+  }
+}
+
+async function resolveSpellChoice(
+  choiceData: Choice | undefined | null
+): Promise<SpellChoice | null> {
+  if (!choiceData) {
+    return null
+  }
+
+  const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+  const gqlEmbeddedOptions = await resolveReferenceOptionArray(
+    optionsArraySet,
+    SpellModel,
+    (item, optionType) => ({ option_type: optionType, item }) as SpellChoiceOption
+  )
+
+  const gqlOptionSet: SpellChoiceOptionSet = {
+    option_set_type: choiceData.from.option_set_type,
+    options: gqlEmbeddedOptions
+  }
+
+  return {
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: gqlOptionSet
   }
 }
