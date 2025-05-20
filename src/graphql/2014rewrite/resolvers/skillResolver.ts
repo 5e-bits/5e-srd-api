@@ -7,7 +7,6 @@ import {
   Field,
   FieldResolver,
   Root,
-  Int,
   registerEnumType
 } from 'type-graphql'
 import { z } from 'zod'
@@ -17,6 +16,7 @@ import { escapeRegExp } from '@/util'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014rewrite/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum SkillOrderField {
   NAME = 'name',
@@ -33,21 +33,21 @@ const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
   [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'
 }
 
-const SkillArgsSchema = z.object({
-  name: z.string().optional(),
-  ability_score: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(SkillOrderField).optional().default(SkillOrderField.NAME),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const SkillArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    ability_score: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(SkillOrderField).optional().default(SkillOrderField.NAME),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const SkillIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class SkillArgs {
+class SkillArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by skill name (case-insensitive, partial match)'
@@ -72,15 +72,6 @@ class SkillArgs {
     description: 'Sort direction for the name field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Skill)
@@ -116,13 +107,12 @@ export class SkillResolver {
       query.sort(sortQuery)
     }
 
-    // TODO: Pass 5 - Implement pagination
-    // if (skip) {
-    //   query.skip(skip)
-    // }
-    // if (limit) {
-    //   query.limit(limit)
-    // }
+    if (validatedArgs.skip !== undefined) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query.limit(validatedArgs.limit)
+    }
 
     return query.lean()
   }

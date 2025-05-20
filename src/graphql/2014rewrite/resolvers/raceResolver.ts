@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { z } from 'zod'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
@@ -27,18 +27,19 @@ import {
   NumberFilterInputSchema,
   buildMongoQueryFromNumberFilter
 } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 // Zod schema for RaceArgs
-const RaceArgsSchema = z.object({
-  name: z.string().optional(),
-  ability_bonus: z.array(z.string()).optional(),
-  size: z.array(z.string()).optional(),
-  language: z.array(z.string()).optional(),
-  speed: NumberFilterInputSchema.optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const RaceArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    ability_bonus: z.array(z.string()).optional(),
+    size: z.array(z.string()).optional(),
+    language: z.array(z.string()).optional(),
+    speed: NumberFilterInputSchema.optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 // Zod schema for Race index argument
 const RaceIndexArgsSchema = z.object({
@@ -46,7 +47,7 @@ const RaceIndexArgsSchema = z.object({
 })
 
 @ArgsType()
-class RaceArgs {
+class RaceArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by race name (case-insensitive, partial match)'
@@ -82,15 +83,6 @@ class RaceArgs {
     description: 'Sort direction for the name field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(() => Race)
@@ -135,6 +127,13 @@ export class RaceResolver {
     })
     if (sortQuery) {
       query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip !== undefined) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query.limit(validatedArgs.limit)
     }
 
     return query.lean()

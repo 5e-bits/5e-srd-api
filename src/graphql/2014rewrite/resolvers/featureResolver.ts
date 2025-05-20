@@ -5,7 +5,6 @@ import {
   Args,
   ArgsType,
   Field,
-  Int,
   FieldResolver,
   Root,
   registerEnumType
@@ -34,6 +33,7 @@ import {
 } from '@/graphql/2014rewrite/utils/resolvers'
 import SpellModel from '@/models/2014/spell'
 import { FeaturePrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum FeatureOrderField {
   NAME = 'name',
@@ -54,23 +54,23 @@ const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
   [FeatureOrderField.SUBCLASS]: 'subclass.name'
 }
 
-const FeatureArgsSchema = z.object({
-  name: z.string().optional(),
-  level: NumberFilterInputSchema.optional(),
-  class: z.array(z.string()).optional(),
-  subclass: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(FeatureOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const FeatureArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    level: NumberFilterInputSchema.optional(),
+    class: z.array(z.string()).optional(),
+    subclass: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(FeatureOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const FeatureIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class FeatureArgs {
+class FeatureArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by feature name (case-insensitive, partial match)'
@@ -106,15 +106,6 @@ class FeatureArgs {
     description: 'Sort direction for the chosen field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Feature)
@@ -148,7 +139,7 @@ export class FeatureResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
+    const sortQuery = buildMongoSortQuery<FeatureOrderField>({
       orderBy: validatedArgs.order_by,
       orderDirection: validatedArgs.order_direction,
       sortFieldMap: FEATURE_SORT_FIELD_MAP,
@@ -158,9 +149,12 @@ export class FeatureResolver {
       query.sort(sortQuery)
     }
 
-    // TODO: Pass 5 - Implement pagination properly
-    // if (skip !== undefined) query.skip(skip);
-    // if (limit !== undefined) query.limit(limit);
+    if (validatedArgs.skip) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit) {
+      query.limit(validatedArgs.limit)
+    }
 
     return query.lean()
   }

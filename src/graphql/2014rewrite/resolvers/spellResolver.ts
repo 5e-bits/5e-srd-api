@@ -30,6 +30,7 @@ import {
   NumberFilterInputSchema,
   buildMongoQueryFromNumberFilter
 } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 const AreaOfEffectFilterInputSchema = z.object({
   type: z.array(z.string()).optional(),
@@ -74,32 +75,32 @@ const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
   [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
 }
 
-const SpellArgsSchema = z.object({
-  name: z.string().optional(),
-  level: z.array(z.number().int().min(0).max(9)).optional(),
-  school: z.array(z.string()).optional(),
-  class: z.array(z.string()).optional(),
-  subclass: z.array(z.string()).optional(),
-  concentration: z.boolean().optional(),
-  ritual: z.boolean().optional(),
-  attack_type: z.array(z.string()).optional(),
-  casting_time: z.array(z.string()).optional(),
-  area_of_effect: AreaOfEffectFilterInputSchema.optional(),
-  damage_type: z.array(z.string()).optional(),
-  dc_type: z.array(z.string()).optional(),
-  range: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const SpellArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    level: z.array(z.number().int().min(0).max(9)).optional(),
+    school: z.array(z.string()).optional(),
+    class: z.array(z.string()).optional(),
+    subclass: z.array(z.string()).optional(),
+    concentration: z.boolean().optional(),
+    ritual: z.boolean().optional(),
+    attack_type: z.array(z.string()).optional(),
+    casting_time: z.array(z.string()).optional(),
+    area_of_effect: AreaOfEffectFilterInputSchema.optional(),
+    damage_type: z.array(z.string()).optional(),
+    dc_type: z.array(z.string()).optional(),
+    range: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const SpellIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class SpellArgs {
+class SpellArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by spell name (case-insensitive, partial match)'
@@ -184,15 +185,6 @@ class SpellArgs {
     description: 'Sort direction for the name field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Spell)
@@ -266,13 +258,12 @@ export class SpellResolver {
       query.sort(sortQuery)
     }
 
-    // TODO: Pass 5 - Implement pagination
-    // if (skip) {
-    //   query.skip(skip)
-    // }
-    // if (limit) {
-    //   query.limit(limit)
-    // }
+    if (validatedArgs.skip !== undefined) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query.limit(validatedArgs.limit)
+    }
 
     return query.lean()
   }

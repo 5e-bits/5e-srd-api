@@ -7,7 +7,6 @@ import {
   Field,
   FieldResolver,
   Root,
-  Int,
   registerEnumType
 } from 'type-graphql'
 import { z } from 'zod'
@@ -22,6 +21,7 @@ import {
 import { APIReference } from '@/models/2014/types/apiReference'
 import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
 import { buildMongoSortQuery } from '../common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum EquipmentOrderField {
   NAME = 'name',
@@ -40,21 +40,21 @@ const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
   [EquipmentOrderField.COST_QUANTITY]: 'cost.quantity'
 }
 
-const EquipmentArgsSchema = z.object({
-  name: z.string().optional(),
-  equipment_category: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(EquipmentOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const EquipmentArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    equipment_category: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(EquipmentOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const EquipmentIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class EquipmentArgs {
+class EquipmentArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by equipment name (case-insensitive, partial match)'
@@ -78,17 +78,6 @@ class EquipmentArgs {
     description: 'Sort direction for the chosen field'
   })
   order_direction?: OrderByDirection
-
-  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  // TODO: Pass 5 - Implement and refactor to BasePaginationArgs
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Equipment)
@@ -122,9 +111,13 @@ export class EquipmentResolver {
     if (sortQuery) {
       query.sort(sortQuery)
     }
-    // TODO: Pass 5 - Implement pagination
-    // if (skip) query.skip(skip);
-    // if (limit) query.limit(limit);
+
+    if (validatedArgs.skip) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit) {
+      query.limit(validatedArgs.limit)
+    }
 
     return query.lean()
   }

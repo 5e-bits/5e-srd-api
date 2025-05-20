@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { z } from 'zod'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
 import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
@@ -21,20 +21,21 @@ import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/
 import { mapLevelObjectToArray } from '@/graphql/2014rewrite/utils/helpers'
 import { Choice } from '@/models/2014/common'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
-const TraitArgsSchema = z.object({
-  name: z.string().optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const TraitArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const TraitIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class TraitArgs {
+class TraitArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by trait name (case-insensitive, partial match)'
@@ -46,15 +47,6 @@ class TraitArgs {
     description: 'Sort direction (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Trait)
@@ -77,6 +69,13 @@ export class TraitResolver {
 
     if (sortQuery) {
       query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip !== undefined) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query.limit(validatedArgs.limit)
     }
 
     return query.lean()

@@ -16,20 +16,21 @@ import {
 import { LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
 import { Choice } from '@/models/2014/common'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
-const SubraceArgsSchema = z.object({
-  name: z.string().optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const SubraceArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const SubraceIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class SubraceArgs {
+class SubraceArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by subrace name (case-insensitive, partial match)'
@@ -41,15 +42,6 @@ class SubraceArgs {
     description: 'Sort direction (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Subrace)
@@ -72,6 +64,13 @@ export class SubraceResolver {
 
     if (sortQuery) {
       query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip !== undefined) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query.limit(validatedArgs.limit)
     }
 
     return query.lean()

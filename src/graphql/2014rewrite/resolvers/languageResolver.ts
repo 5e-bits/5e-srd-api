@@ -1,9 +1,10 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, Int, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, Field, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 import LanguageModel, { Language } from '@/models/2014/language'
 import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum LanguageOrderField {
   NAME = 'name',
@@ -22,30 +23,30 @@ const LANGUAGE_SORT_FIELD_MAP: Record<LanguageOrderField, string> = {
   [LanguageOrderField.SCRIPT]: 'script'
 }
 
-const LanguageArgsSchema = z.object({
-  name: z.string().optional(),
-  type: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (typeof val === 'string' && val.length > 0) {
-        return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()
-      }
-      return undefined
-    }),
-  script: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(LanguageOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const LanguageArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    type: z
+      .string()
+      .optional()
+      .transform((val) => {
+        if (typeof val === 'string' && val.length > 0) {
+          return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()
+        }
+        return undefined
+      }),
+    script: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(LanguageOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const LanguageIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class LanguageArgs {
+class LanguageArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by language name (case-insensitive, partial match)'
@@ -76,15 +77,6 @@ class LanguageArgs {
     description: 'Sort direction for the chosen field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Language)
@@ -128,9 +120,12 @@ export class LanguageResolver {
       query.sort(sortQuery)
     }
 
-    // TODO: Pass 5 - Implement pagination properly
-    // if (skip !== undefined) query.skip(skip);
-    // if (limit !== undefined) query.limit(limit);
+    if (validatedArgs.skip !== undefined) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query.limit(validatedArgs.limit)
+    }
 
     return query.lean()
   }

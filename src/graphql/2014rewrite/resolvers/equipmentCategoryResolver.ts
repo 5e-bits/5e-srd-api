@@ -1,49 +1,21 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root, Int } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, FieldResolver, Root } from 'type-graphql'
 import { z } from 'zod'
-import { OrderByDirection } from '@/graphql/2014rewrite/common/enums'
-import { escapeRegExp } from '@/util'
-import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
+import { escapeRegExp } from '@/util'
 import { EquipmentOrMagicItem } from '@/graphql/2014rewrite/common/unions'
-import { buildMongoSortQuery } from '../common/inputs'
+import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 
-// Zod schema for EquipmentCategoryArgs
-const EquipmentCategoryArgsSchema = z.object({
-  name: z.string().optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const EquipmentCategoryArgsSchema = BaseFilterNameSortArgsSchema
 
-// Zod schema for EquipmentCategory index argument
 const EquipmentCategoryIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class EquipmentCategoryArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by category name (case-insensitive, partial match)'
-  })
-  name?: string
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction (default: ASC for name)'
-  })
-  order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
-}
+class EquipmentCategoryArgs extends BaseFilterNameSortArgs {}
 
 @Resolver(EquipmentCategory)
 export class EquipmentCategoryResolver {
@@ -59,16 +31,21 @@ export class EquipmentCategoryResolver {
     }
 
     const sortQuery = buildMongoSortQuery({
-      defaultSortField: 'name',
-      orderDirection: validatedArgs.order_direction
+      orderDirection: validatedArgs.order_direction,
+      defaultSortField: 'name'
     })
+
     if (sortQuery) {
       query.sort(sortQuery)
     }
 
-    // TODO: Pass 5 - Implement pagination
-    // if (skip) query.skip(skip);
-    // if (limit) query.limit(limit);
+    if (validatedArgs.skip) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit) {
+      query.limit(validatedArgs.limit)
+    }
+
     return query.lean()
   }
 
@@ -76,9 +53,7 @@ export class EquipmentCategoryResolver {
     nullable: true,
     description: 'Gets a single equipment category by index.'
   })
-  async equipmentCategory(
-    @Arg('index', () => String) indexInput: string
-  ): Promise<EquipmentCategory | null> {
+  async equipmentCategory(@Arg('index') indexInput: string): Promise<EquipmentCategory | null> {
     const { index } = EquipmentCategoryIndexArgsSchema.parse({ index: indexInput })
     return EquipmentCategoryModel.findOne({ index }).lean()
   }

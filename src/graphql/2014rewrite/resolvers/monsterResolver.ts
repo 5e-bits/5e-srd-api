@@ -7,8 +7,7 @@ import {
   Field,
   FieldResolver,
   Root,
-  registerEnumType,
-  Int
+  registerEnumType
 } from 'type-graphql'
 import { z } from 'zod'
 import MonsterModel, {
@@ -46,6 +45,7 @@ import {
   buildMongoSortQuery,
   NumberFilterInputSchema
 } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum MonsterOrderField {
   NAME = 'name',
@@ -78,35 +78,35 @@ const MONSTER_SORT_FIELD_MAP: Record<MonsterOrderField, string> = {
   [MonsterOrderField.CHARISMA]: 'charisma'
 }
 
-const MonsterArgsSchema = z.object({
-  name: z.string().optional(),
-  type: z.string().optional(),
-  subtype: z.string().optional(),
-  challenge_rating: NumberFilterInputSchema.optional(),
-  size: z.string().optional(),
-  xp: NumberFilterInputSchema.optional(),
-  strength: NumberFilterInputSchema.optional(),
-  dexterity: NumberFilterInputSchema.optional(),
-  constitution: NumberFilterInputSchema.optional(),
-  intelligence: NumberFilterInputSchema.optional(),
-  wisdom: NumberFilterInputSchema.optional(),
-  charisma: NumberFilterInputSchema.optional(),
-  damage_vulnerabilities: z.array(z.string()).optional(),
-  damage_resistances: z.array(z.string()).optional(),
-  damage_immunities: z.array(z.string()).optional(),
-  condition_immunities: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(MonsterOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const MonsterArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    type: z.string().optional(),
+    subtype: z.string().optional(),
+    challenge_rating: NumberFilterInputSchema.optional(),
+    size: z.string().optional(),
+    xp: NumberFilterInputSchema.optional(),
+    strength: NumberFilterInputSchema.optional(),
+    dexterity: NumberFilterInputSchema.optional(),
+    constitution: NumberFilterInputSchema.optional(),
+    intelligence: NumberFilterInputSchema.optional(),
+    wisdom: NumberFilterInputSchema.optional(),
+    charisma: NumberFilterInputSchema.optional(),
+    damage_vulnerabilities: z.array(z.string()).optional(),
+    damage_resistances: z.array(z.string()).optional(),
+    damage_immunities: z.array(z.string()).optional(),
+    condition_immunities: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(MonsterOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const MonsterIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class MonsterArgs {
+class MonsterArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by monster name (case-insensitive, partial match)'
@@ -181,15 +181,6 @@ class MonsterArgs {
     description: 'Sort direction for the chosen field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Monster)
@@ -269,6 +260,13 @@ export class MonsterResolver {
 
     if (sortQuery) {
       query = query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip !== undefined) {
+      query = query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query = query.limit(validatedArgs.limit)
     }
 
     return query.lean()

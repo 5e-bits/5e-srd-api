@@ -28,6 +28,7 @@ import {
   resolveMultipleReferences,
   resolveSingleReference
 } from '@/graphql/2014rewrite/utils/resolvers'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum LevelOrderField {
   LEVEL = 'level',
@@ -46,24 +47,24 @@ const LEVEL_SORT_FIELD_MAP: Record<LevelOrderField, string> = {
   [LevelOrderField.SUBCLASS]: 'subclass.name'
 }
 
-const LevelArgsSchema = z.object({
-  class: z.array(z.string()).optional(),
-  subclass: z.array(z.string()).optional(),
-  level: NumberFilterInputSchema.optional(),
-  ability_score_bonuses: z.number().int().optional(),
-  prof_bonus: z.number().int().optional(),
-  order_by: z.nativeEnum(LevelOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const LevelArgsSchema = z
+  .object({
+    class: z.array(z.string()).optional(),
+    subclass: z.array(z.string()).optional(),
+    level: NumberFilterInputSchema.optional(),
+    ability_score_bonuses: z.number().int().optional(),
+    prof_bonus: z.number().int().optional(),
+    order_by: z.nativeEnum(LevelOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const LevelIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class LevelArgs {
+class LevelArgs extends BasePaginationArgs {
   @Field(() => [String], { nullable: true, description: 'Filter by one or more class indices' })
   class?: string[]
 
@@ -96,15 +97,6 @@ class LevelArgs {
     description: 'Sort direction for the chosen field (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Level)
@@ -162,6 +154,13 @@ export class LevelResolver {
 
     if (sortQuery) {
       query = query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip !== undefined) {
+      query = query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query = query.limit(validatedArgs.limit)
     }
 
     return query.lean()

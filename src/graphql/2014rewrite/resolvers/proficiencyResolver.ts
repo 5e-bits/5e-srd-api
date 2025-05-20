@@ -7,8 +7,7 @@ import {
   Field,
   FieldResolver,
   Root,
-  registerEnumType,
-  Int
+  registerEnumType
 } from 'type-graphql'
 import { z } from 'zod'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
@@ -26,6 +25,7 @@ import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import SkillModel from '@/models/2014/skill'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum ProficiencyOrderField {
   NAME = 'name',
@@ -42,16 +42,16 @@ const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
   [ProficiencyOrderField.TYPE]: 'type'
 }
 
-const ProficiencyArgsSchema = z.object({
-  name: z.string().optional(),
-  class: z.array(z.string()).optional(),
-  race: z.array(z.string()).optional(),
-  type: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(ProficiencyOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const ProficiencyArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    class: z.array(z.string()).optional(),
+    race: z.array(z.string()).optional(),
+    type: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(ProficiencyOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const ProficiencyIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
@@ -59,7 +59,7 @@ const ProficiencyIndexArgsSchema = z.object({
 
 // Define ArgsType for the proficiencies query
 @ArgsType()
-class ProficiencyArgs {
+class ProficiencyArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by proficiency name (case-insensitive, partial match)'
@@ -95,15 +95,6 @@ class ProficiencyArgs {
     description: 'Sort direction for the chosen field'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(Proficiency)
@@ -147,13 +138,12 @@ export class ProficiencyResolver {
       query.sort(sort)
     }
 
-    // TODO: Pass 5 - Implement pagination
-    // if (validatedArgs.skip !== undefined) {
-    //   query.skip(validatedArgs.skip);
-    // }
-    // if (validatedArgs.limit !== undefined) {
-    //  query.limit(validatedArgs.limit);
-    // }
+    if (validatedArgs.skip !== undefined) {
+      query = query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query = query.limit(validatedArgs.limit)
+    }
 
     return query.lean()
   }

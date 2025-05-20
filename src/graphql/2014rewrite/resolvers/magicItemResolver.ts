@@ -7,8 +7,7 @@ import {
   Field,
   FieldResolver,
   Root,
-  registerEnumType,
-  Int
+  registerEnumType
 } from 'type-graphql'
 import { z } from 'zod'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
@@ -20,6 +19,7 @@ import {
   resolveMultipleReferences
 } from '@/graphql/2014rewrite/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014rewrite/common/inputs'
+import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 
 export enum MagicItemOrderField {
   NAME = 'name',
@@ -38,22 +38,22 @@ const MAGIC_ITEM_SORT_FIELD_MAP: Record<MagicItemOrderField, string> = {
   [MagicItemOrderField.RARITY]: 'rarity.name'
 }
 
-const MagicItemArgsSchema = z.object({
-  name: z.string().optional(),
-  equipment_category: z.array(z.string()).optional(),
-  rarity: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(MagicItemOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC),
-  skip: z.number().int().min(0).optional(),
-  limit: z.number().int().min(1).optional()
-})
+const MagicItemArgsSchema = z
+  .object({
+    name: z.string().optional(),
+    equipment_category: z.array(z.string()).optional(),
+    rarity: z.array(z.string()).optional(),
+    order_by: z.nativeEnum(MagicItemOrderField).optional(),
+    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  })
+  .merge(BasePaginationArgsSchema)
 
 const MagicItemIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class MagicItemArgs {
+class MagicItemArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by magic item name (case-insensitive, partial match)'
@@ -83,15 +83,6 @@ class MagicItemArgs {
     description: 'Sort direction (default: ASC)'
   })
   order_direction?: OrderByDirection
-
-  @Field(() => Int, { nullable: true, description: 'TODO: Pass 5 - Number of results to skip' })
-  skip?: number
-
-  @Field(() => Int, {
-    nullable: true,
-    description: 'TODO: Pass 5 - Maximum number of results to return'
-  })
-  limit?: number
 }
 
 @Resolver(MagicItem)
@@ -130,6 +121,13 @@ export class MagicItemResolver {
 
     if (sortQuery) {
       query = query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip !== undefined) {
+      query = query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit !== undefined) {
+      query = query.limit(validatedArgs.limit)
     }
 
     return query.lean()

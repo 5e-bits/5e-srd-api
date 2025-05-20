@@ -35,7 +35,7 @@ export class CountedReferenceOption {
 // Describes the details of a choice that is specifically from an equipment category.
 // This is used inside EquipmentCategoryChoiceOption.
 @ObjectType({ description: 'Details of a choice limited to an equipment category.' })
-class EquipmentCategoryChoice {
+export class EquipmentCategoryChoice {
   @Field(() => Int, { description: 'Number of items to choose from the category.' })
   choose!: number
 
