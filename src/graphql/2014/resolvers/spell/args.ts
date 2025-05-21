@@ -1,0 +1,144 @@
+import { ArgsType, Field, InputType, Int, registerEnumType } from 'type-graphql'
+import { z } from 'zod'
+import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+import {
+  BaseFilterArgs,
+  BaseFilterArgsSchema,
+  BaseIndexArgsSchema
+} from '@/graphql/2014/common/args'
+
+const AreaOfEffectFilterInputSchema = z.object({
+  type: z.array(z.string()).optional(),
+  size: NumberFilterInputSchema.optional()
+})
+
+@InputType({
+  description: 'Input for filtering by area of effect properties.'
+})
+export class AreaOfEffectFilterInput {
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by area of effect type (e.g., ["sphere", "cone"])'
+  })
+  type?: string[]
+
+  @Field(() => NumberFilterInput, {
+    nullable: true,
+    description: 'Filter by area of effect size (in feet).'
+  })
+  size?: NumberFilterInput
+}
+
+// Enum for Spell sortable fields
+export enum SpellOrderField {
+  NAME = 'name',
+  LEVEL = 'level',
+  SCHOOL = 'school',
+  AREA_OF_EFFECT_SIZE = 'area_of_effect_size' // Matches old API
+}
+
+registerEnumType(SpellOrderField, {
+  name: 'SpellOrderField',
+  description: 'Fields to sort Spells by'
+})
+
+// Map GraphQL SpellOrderField to MongoDB field name
+export const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
+  [SpellOrderField.NAME]: 'name',
+  [SpellOrderField.LEVEL]: 'level',
+  [SpellOrderField.SCHOOL]: 'school.name',
+  [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
+}
+
+export const SpellArgsSchema = BaseFilterArgsSchema.extend({
+  level: z.array(z.number().int().min(0).max(9)).optional(),
+  school: z.array(z.string()).optional(),
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  concentration: z.boolean().optional(),
+  ritual: z.boolean().optional(),
+  attack_type: z.array(z.string()).optional(),
+  casting_time: z.array(z.string()).optional(),
+  area_of_effect: AreaOfEffectFilterInputSchema.optional(),
+  damage_type: z.array(z.string()).optional(),
+  dc_type: z.array(z.string()).optional(),
+  range: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME)
+})
+
+export const SpellIndexArgsSchema = BaseIndexArgsSchema
+
+@ArgsType()
+export class SpellArgs extends BaseFilterArgs {
+  @Field(() => [Int], {
+    nullable: true,
+    description: 'Filter by spell level (e.g., [0, 9])'
+  })
+  level?: number[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by magic school index (e.g., ["evocation"])'
+  })
+  school?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by class index that can cast the spell (e.g., ["wizard"])'
+  })
+  class?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by subclass index that can cast the spell (e.g., ["lore"])'
+  })
+  subclass?: string[]
+
+  @Field(() => Boolean, { nullable: true, description: 'Filter by concentration requirement' })
+  concentration?: boolean
+
+  @Field(() => Boolean, { nullable: true, description: 'Filter by ritual requirement' })
+  ritual?: boolean
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by attack type (e.g., ["ranged", "melee"])'
+  })
+  attack_type?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by casting time (e.g., ["1 action"])'
+  })
+  casting_time?: string[]
+
+  @Field(() => AreaOfEffectFilterInput, {
+    nullable: true,
+    description: 'Filter by area of effect properties'
+  })
+  area_of_effect?: AreaOfEffectFilterInput
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by damage type index (e.g., ["fire"])'
+  })
+  damage_type?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by saving throw DC type index (e.g., ["dex"])'
+  })
+  dc_type?: string[]
+
+  @Field(() => [String], {
+    nullable: true,
+    description: 'Filter by spell range (e.g., ["Self", "Touch"])'
+  })
+  range?: string[]
+
+  @Field(() => SpellOrderField, {
+    nullable: true,
+    description: 'Field to sort spells by (default: name)'
+  })
+  order_by?: SpellOrderField
+}

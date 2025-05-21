@@ -48,3 +48,9 @@ export class BaseFilterArgs extends BasePaginationArgs {
   })
   order_direction?: OrderByDirection
 }
+
+// --- Index Argument ---
+
+export const BaseIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})

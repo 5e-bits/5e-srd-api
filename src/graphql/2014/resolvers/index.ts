@@ -1,18 +1,18 @@
 // This file will export an array of all resolver classes
-import { AbilityScoreResolver } from './abilityScoreResolver'
-import { AlignmentResolver } from './alignmentResolver'
-import { BackgroundResolver, EquipmentRefResolver } from './backgroundResolver'
-import { ClassResolver, MultiClassingResolver, MultiClassingPrereqResolver } from './classResolver'
-import { ConditionResolver } from './conditionResolver'
-import { DamageTypeResolver } from './damageTypeResolver'
-import { EquipmentCategoryResolver } from './equipmentCategoryResolver'
-import { EquipmentResolver, ContentFieldResolver } from './equipmentResolver'
-import { FeatResolver, PrerequisiteResolver } from './featResolver'
-import { FeatureResolver, FeatureSpecificResolver } from './featureResolver'
-import { LanguageResolver } from './languageResolver'
-import { LevelResolver } from './levelResolver'
-import { MagicItemResolver } from './magicItemResolver'
-import { MagicSchoolResolver } from './magicSchoolResolver'
+import { AbilityScoreResolver } from './abilityScore/resolver'
+import { AlignmentResolver } from './alignment/resolver'
+import { BackgroundResolver, EquipmentRefResolver } from './background/resolver'
+import { ClassResolver, MultiClassingResolver, MultiClassingPrereqResolver } from './class/resolver'
+import { ConditionResolver } from './condition/resolver'
+import { DamageTypeResolver } from './damageType/resolver'
+import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
+import { EquipmentResolver, ContentFieldResolver } from './equipment/resolver'
+import { FeatResolver, PrerequisiteResolver } from './feat/resolver'
+import { FeatureResolver, FeatureSpecificResolver } from './feature/resolver'
+import { LanguageResolver } from './language/resolver'
+import { LevelResolver } from './level/resolver'
+import { MagicItemResolver } from './magicItem/resolver'
+import { MagicSchoolResolver } from './magicSchool/resolver'
 import {
   MonsterResolver,
   ArmorClassArmorResolver,
@@ -22,17 +22,17 @@ import {
   SpecialAbilitySpellcastingResolver,
   SpecialAbilitySpellResolver,
   MonsterActionResolver
-} from './monsterResolver'
-import { ProficiencyResolver } from './proficiencyResolver'
-import { RaceResolver, RaceAbilityBonusResolver } from './raceResolver'
-import { RuleResolver } from './ruleResolver'
-import { RuleSectionResolver } from './ruleSectionResolver'
-import { SkillResolver } from './skillResolver'
-import { SpellResolver, SpellDamageResolver } from './spellResolver'
-import { SubclassResolver, SubclassSpellResolver } from './subclassResolver'
-import { SubraceResolver, SubraceAbilityBonusResolver } from './subraceResolver'
-import { TraitResolver, TraitSpecificResolver, ActionDamageResolver } from './traitResolver'
-import { WeaponPropertyResolver } from './weaponPropertyResolver'
+} from './monster/resolver'
+import { ProficiencyResolver } from './proficiency/resolver'
+import { RaceResolver, RaceAbilityBonusResolver } from './race/resolver'
+import { RuleResolver } from './rule/resolver'
+import { RuleSectionResolver } from './ruleSection/resolver'
+import { SkillResolver } from './skill/resolver'
+import { SpellResolver, SpellDamageResolver } from './spell/resolver'
+import { SubclassResolver, SubclassSpellResolver } from './subclass/resolver'
+import { SubraceResolver, SubraceAbilityBonusResolver } from './subrace/resolver'
+import { TraitResolver, TraitSpecificResolver, ActionDamageResolver } from './trait/resolver'
+import { WeaponPropertyResolver } from './weaponProperty/resolver'
 
 const collectionResolvers = [
   AbilityScoreResolver,
