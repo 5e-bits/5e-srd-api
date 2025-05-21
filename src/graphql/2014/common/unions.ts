@@ -7,7 +7,7 @@ import { Skill } from '@/models/2014/skill'
 import { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
-import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './types'
+import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './equipmentTypes'
 import {
   ArmorClassDex,
   ArmorClassNatural,
