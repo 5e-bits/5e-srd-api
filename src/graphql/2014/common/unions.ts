@@ -14,7 +14,7 @@ import {
   ArmorClassArmor,
   ArmorClassSpell,
   ArmorClassCondition
-} from '@/models/2014/monster' // Import the individual AC types
+} from '@/models/2014/monster'
 import { Proficiency } from '@/models/2014/proficiency'
 import { ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
 import { Damage } from '@/models/2014/common/damage'
@@ -24,11 +24,10 @@ import {
   MultipleActionChoiceOption
 } from '@/graphql/2014/types/monsterTypes'
 
-// --- Helper Function for Equipment Type Resolution ---
-function resolveConcreteEquipmentType(
+function resolveEquipmentType(
   value: any
-): // Explicitly list all possible concrete return types
-| typeof Armor
+):
+  | typeof Armor
   | typeof Weapon
   | typeof Tool
   | typeof Gear
@@ -36,7 +35,6 @@ function resolveConcreteEquipmentType(
   | typeof Ammunition
   | typeof Vehicle
   | null {
-  // Add specific checks based on unique properties of each type
   if ('armor_class' in value) {
     return Armor
   }
@@ -69,7 +67,7 @@ export const EquipmentOrMagicItem = createUnionType({
       return MagicItem
     }
 
-    const equipmentType = resolveConcreteEquipmentType(value)
+    const equipmentType = resolveEquipmentType(value)
     if (equipmentType) {
       return equipmentType
     }
@@ -83,7 +81,7 @@ export const AnyEquipment = createUnionType({
   name: 'AnyEquipment',
   types: () => [Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle] as const,
   resolveType: (value) => {
-    const equipmentType = resolveConcreteEquipmentType(value)
+    const equipmentType = resolveEquipmentType(value)
     if (equipmentType) {
       return equipmentType
     }
@@ -96,22 +94,17 @@ export const AnyEquipment = createUnionType({
 // Union type for Proficiency.reference
 export const ProficiencyReference = createUnionType({
   name: 'ProficiencyReference',
-  // Types that can be referenced by a proficiency
   types: () => [Equipment, EquipmentCategory, AbilityScore, Skill] as const,
-  // Logic to determine the object type at runtime
   resolveType: (value) => {
-    // Check for properties unique to each type
     if ('equipment' in value) {
-      return EquipmentCategory // EquipmentCategory has an 'equipment' field
+      return EquipmentCategory
     }
     if ('full_name' in value) {
-      return AbilityScore // AbilityScore has a 'full_name' field
+      return AbilityScore
     }
     if ('desc' in value && Array.isArray(value.desc)) {
-      return Skill // Skill has a 'desc' field which is an array of strings
+      return Skill
     }
-    // Equipment is the remaining option (assuming it doesn't uniquely have the others)
-    // More specific checks like 'weapon_category' or 'armor_class' could be added if needed.
     return Equipment
   }
 })
@@ -165,7 +158,6 @@ export const MonsterArmorClassUnion = createUnionType({
   resolveType: (value: any) => {
     if (!value || typeof value.type !== 'string') {
       console.warn('Cannot resolve MonsterArmorClass: type field is missing or invalid', value)
-      // Optionally, throw an error or return a default type if appropriate
       throw new Error('Cannot resolve MonsterArmorClass: type field is missing or invalid')
     }
     switch (value.type) {
@@ -181,7 +173,6 @@ export const MonsterArmorClassUnion = createUnionType({
         return ArmorClassCondition
       default:
         console.warn('Could not resolve type for MonsterArmorClassUnion:', value)
-        // Optionally, throw an error or return a default type if appropriate
         throw new Error(
           'Could not resolve type for MonsterArmorClassUnion: Unknown type ' + value.type
         )
