@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference } from '@/models/2014/types/apiReference'
+import { APIReference } from '@/models/2014/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2024-skills')

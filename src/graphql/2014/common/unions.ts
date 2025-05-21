@@ -17,7 +17,7 @@ import {
 } from '@/models/2014/monster' // Import the individual AC types
 import { Proficiency } from '@/models/2014/proficiency'
 import { ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
-import { Damage } from '@/models/2014/common'
+import { Damage } from '@/models/2014/common/damage'
 import {
   ActionChoiceOption,
   DamageChoice,

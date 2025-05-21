@@ -26,7 +26,7 @@ import {
 import { LevelValue } from '@/graphql/2014/common/types'
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
-import { Choice, OptionsArrayOptionSet } from '@/models/2014/common'
+import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
 import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 

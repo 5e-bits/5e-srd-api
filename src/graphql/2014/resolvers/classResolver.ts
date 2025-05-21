@@ -27,7 +27,7 @@ import {
   resolveProficiencyChoiceArray,
   resolveSingleReference
 } from '../utils/resolvers'
-import { APIReference } from '@/models/2014/types/apiReference'
+import { APIReference } from '@/models/2014/common/apiReference'
 import LevelModel, { Level } from '@/models/2014/level'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import {
@@ -39,7 +39,7 @@ import {
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
-import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common'
+import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common/choice'
 
 export enum ClassOrderField {
   NAME = 'name',

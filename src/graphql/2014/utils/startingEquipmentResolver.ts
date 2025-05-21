@@ -16,7 +16,7 @@ import {
   CountedReferenceOption,
   ChoiceOption,
   MultipleOption
-} from '@/models/2014/common'
+} from '@/models/2014/common/choice'
 
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'

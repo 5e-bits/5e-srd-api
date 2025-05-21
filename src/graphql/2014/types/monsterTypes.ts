@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from 'type-graphql'
-import { DifficultyClass, Damage } from '@/models/2014/common'
+import { DifficultyClass } from '@/models/2014/common/difficultyClass'
+import { Damage } from '@/models/2014/common/damage'
 import { ActionOptionUnion } from '../common/unions'
 
 // --- Breath Choice Types ---

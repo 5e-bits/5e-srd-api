@@ -2,9 +2,9 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { IEquipment } from './interfaces'
 // Import needed types from the models directory
 import { Equipment, ArmorClass, Range, ThrowRange, Content, Speed } from '@/models/2014/equipment'
-import { Damage } from '@/models/2014/common'
+import { Damage } from '@/models/2014/common/damage'
 import { WeaponProperty } from '@/models/2014/weaponProperty'
-import { APIReference } from '@/models/2014/types/apiReference'
+import { APIReference } from '@/models/2014/common/apiReference'
 
 // Define a generic key-value type for level-based maps
 @ObjectType({ description: 'A key-value pair representing a value at a specific level.' })

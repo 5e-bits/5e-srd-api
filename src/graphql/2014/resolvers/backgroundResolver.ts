@@ -14,7 +14,7 @@ import {
 } from '@/graphql/2014/utils/resolvers'
 import { StringChoice, LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import { IdealChoice, IdealOption as ResolvedIdealOption } from '../types/backgroundTypes'
-import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common'
+import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 import { buildMongoSortQuery } from '../common/inputs'

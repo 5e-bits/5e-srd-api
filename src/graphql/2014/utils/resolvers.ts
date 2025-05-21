@@ -1,4 +1,4 @@
-import { APIReference } from '@/models/2014/types/apiReference'
+import { APIReference } from '@/models/2014/common/apiReference'
 import { ReturnModelType } from '@typegoose/typegoose'
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types'
 import {
@@ -7,7 +7,7 @@ import {
   StringOption,
   ReferenceOption,
   ChoiceOption
-} from '@/models/2014/common'
+} from '@/models/2014/common/choice'
 import {
   StringChoice,
   StringChoiceOption,

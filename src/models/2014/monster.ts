@@ -1,7 +1,7 @@
 import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference } from '@/models/2014/types/apiReference'
-import { Choice, DifficultyClass, Damage } from '@/models/2014/common'
+import { APIReference } from '@/models/2014/common/apiReference'
+import { Choice } from '@/models/2014/common/choice'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'
@@ -11,6 +11,8 @@ import { Armor, SpellSlotCount } from '@/graphql/2014/common/types'
 import { Proficiency } from './proficiency'
 import { BreathChoice, ActionChoice } from '@/graphql/2014/types/monsterTypes'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014/common/unions'
+import { DifficultyClass } from '@/models/2014/common/difficultyClass'
+import { Damage } from '@/models/2014/common/damage'
 
 // Export all nested classes/types
 @ObjectType({ description: 'Option within a monster action' })

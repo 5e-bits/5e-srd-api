@@ -22,7 +22,7 @@ import MonsterModel, {
 } from '@/models/2014/monster'
 import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
-import { APIReference } from '@/models/2014/types/apiReference'
+import { APIReference } from '@/models/2014/common/apiReference'
 import ConditionModel, { Condition } from '@/models/2014/condition'
 import { resolveMultipleReferences, resolveSingleReference } from '../utils/resolvers'
 import EquipmentModel from '@/models/2014/equipment'
@@ -33,13 +33,13 @@ import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { Armor, SpellSlotCount } from '@/graphql/2014/common/types'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014/common/unions'
 import {
-  Damage,
   Choice,
   OptionsArrayOptionSet,
   DamageOption,
   ActionOption,
   BreathOption
-} from '@/models/2014/common'
+} from '@/models/2014/common/choice'
+import { Damage } from '@/models/2014/common/damage'
 import {
   DamageChoice,
   ActionChoice,
@@ -47,8 +47,7 @@ import {
   DamageChoiceOption,
   ActionChoiceOption,
   MultipleActionChoiceOption,
-  BreathChoiceOption,
-  ActionChoiceOptionSet
+  BreathChoiceOption
 } from '@/graphql/2014/types/monsterTypes'
 import {
   NumberFilterInput,

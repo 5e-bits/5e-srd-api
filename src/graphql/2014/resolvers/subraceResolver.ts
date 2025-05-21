@@ -14,7 +14,7 @@ import {
   resolveLanguageChoice
 } from '@/graphql/2014/utils/resolvers'
 import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
-import { Choice } from '@/models/2014/common'
+import { Choice } from '@/models/2014/common/choice'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
 import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
 

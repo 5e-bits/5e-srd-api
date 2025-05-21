@@ -9,7 +9,7 @@ import {
   Speed,
   ThrowRange
 } from '@/models/2014/equipment'
-import { Damage } from '@/models/2014/common'
+import { Damage } from '@/models/2014/common/damage'
 import { apiReferenceFactory } from './common.factory'
 
 // --- Sub-factories (Simple defaults/placeholders) ---

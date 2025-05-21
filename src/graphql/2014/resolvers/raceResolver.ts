@@ -20,7 +20,7 @@ import {
   AbilityScoreBonusChoice,
   AbilityScoreBonusChoiceOption
 } from '@/graphql/2014/common/choiceTypes'
-import { Choice, OptionsArrayOptionSet, AbilityBonusOption } from '@/models/2014/common'
+import { Choice, OptionsArrayOptionSet, AbilityBonusOption } from '@/models/2014/common/choice'
 import {
   buildMongoSortQuery,
   NumberFilterInput,
