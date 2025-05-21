@@ -7,7 +7,7 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Class } from './class'
 import { Subclass } from './subclass'
 import { Spell } from './spell'
-import { FeaturePrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
+import { FeaturePrerequisiteUnion } from '@/graphql/2014/common/unions'
 
 // Export nested classes
 @ObjectType({ description: 'Prerequisite based on character level' })

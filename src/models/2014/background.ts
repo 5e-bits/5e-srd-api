@@ -6,9 +6,9 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { Equipment } from './equipment'
-import { StringChoice, LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
-import { IdealChoice } from '@/graphql/2014rewrite/types/backgroundTypes'
-import { StartingEquipmentChoice } from '@/graphql/2014rewrite/types/startingEquipment'
+import { StringChoice, LanguageChoice } from '@/graphql/2014/common/choiceTypes'
+import { IdealChoice } from '@/graphql/2014/types/backgroundTypes'
+import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {

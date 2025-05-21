@@ -6,7 +6,7 @@ import { ObjectType, Field } from 'type-graphql'
 import { Class } from './class'
 import { Level } from './level'
 import { Spell } from './spell'
-import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014rewrite/common/unions'
+import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/common/unions'
 
 @ObjectType({ description: 'Prerequisite for a subclass spell' })
 export class Prerequisite {

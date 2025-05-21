@@ -9,7 +9,7 @@ import { MagicSchool } from './magicSchool'
 import { Subclass } from './subclass'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
-import { LevelValue } from '@/graphql/2014rewrite/common/types'
+import { LevelValue } from '@/graphql/2014/common/types'
 
 @ObjectType({ description: 'Details about spell damage' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })

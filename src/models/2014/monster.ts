@@ -6,11 +6,11 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'
 import { AbilityScore } from './abilityScore'
-import { MonsterArmorClassUnion } from '@/graphql/2014rewrite/common/unions'
-import { Armor, SpellSlotCount } from '@/graphql/2014rewrite/common/types'
+import { MonsterArmorClassUnion } from '@/graphql/2014/common/unions'
+import { Armor, SpellSlotCount } from '@/graphql/2014/common/types'
 import { Proficiency } from './proficiency'
-import { BreathChoice, ActionChoice } from '@/graphql/2014rewrite/types/monsterTypes'
-import { DamageOrDamageChoiceUnion } from '@/graphql/2014rewrite/common/unions'
+import { BreathChoice, ActionChoice } from '@/graphql/2014/types/monsterTypes'
+import { DamageOrDamageChoiceUnion } from '@/graphql/2014/common/unions'
 
 // Export all nested classes/types
 @ObjectType({ description: 'Option within a monster action' })

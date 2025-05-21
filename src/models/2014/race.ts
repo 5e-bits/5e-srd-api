@@ -13,7 +13,7 @@ import {
   LanguageChoice,
   ProficiencyChoice,
   AbilityScoreBonusChoice
-} from '@/graphql/2014rewrite/common/choiceTypes'
+} from '@/graphql/2014/common/choiceTypes'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {

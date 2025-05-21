@@ -7,11 +7,11 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { AbilityScore } from './abilityScore'
 import { Subclass } from './subclass'
-import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
+import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { Level } from './level'
 import { Spell } from './spell'
-import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014rewrite/common/choiceTypes'
-import { StartingEquipmentChoice } from '@/graphql/2014rewrite/types/startingEquipment'
+import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014/common/choiceTypes'
+import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {

@@ -4,8 +4,8 @@ import { APIReference } from '@/models/2014/types/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Float, Int } from 'type-graphql'
 import { EquipmentCategory } from './equipmentCategory'
-import { IEquipment } from '@/graphql/2014rewrite/common/interfaces'
-import { AnyEquipment } from '@/graphql/2014rewrite/common/unions'
+import { IEquipment } from '@/graphql/2014/common/interfaces'
+import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { Damage } from '@/models/2014/common'
 
 @ObjectType({ description: 'Details about armor class.' })

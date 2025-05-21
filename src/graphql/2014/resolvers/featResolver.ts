@@ -1,0 +1,64 @@
+import { Resolver, Query, Arg, Args, ArgsType, FieldResolver, Root } from 'type-graphql'
+import { z } from 'zod'
+import FeatModel, { Feat, Prerequisite } from '@/models/2014/feat'
+import { escapeRegExp } from '@/util'
+import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+
+const FeatArgsSchema = BaseFilterNameSortArgsSchema
+
+const FeatIndexArgsSchema = z.object({
+  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+})
+
+@ArgsType()
+class FeatArgs extends BaseFilterNameSortArgs {}
+
+@Resolver(Feat)
+export class FeatResolver {
+  @Query(() => [Feat], {
+    description: 'Gets all feats, optionally filtered by name and sorted by name.'
+  })
+  async feats(@Args() args: FeatArgs): Promise<Feat[]> {
+    const validatedArgs = FeatArgsSchema.parse(args)
+    const query = FeatModel.find()
+
+    if (validatedArgs.name) {
+      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
+    }
+
+    const sortQuery = buildMongoSortQuery({
+      orderDirection: validatedArgs.order_direction,
+      defaultSortField: 'name'
+    })
+
+    if (sortQuery) {
+      query.sort(sortQuery)
+    }
+
+    if (validatedArgs.skip) {
+      query.skip(validatedArgs.skip)
+    }
+    if (validatedArgs.limit) {
+      query.limit(validatedArgs.limit)
+    }
+
+    return query.lean()
+  }
+
+  @Query(() => Feat, { nullable: true, description: 'Gets a single feat by index.' })
+  async feat(@Arg('index') indexInput: string): Promise<Feat | null> {
+    const { index } = FeatIndexArgsSchema.parse({ index: indexInput })
+    return FeatModel.findOne({ index }).lean()
+  }
+}
+
+@Resolver(Prerequisite)
+export class PrerequisiteResolver {
+  @FieldResolver(() => AbilityScore, { nullable: true })
+  async ability_score(@Root() prerequisite: Prerequisite): Promise<AbilityScore | null> {
+    return resolveSingleReference(prerequisite.ability_score, AbilityScoreModel)
+  }
+}

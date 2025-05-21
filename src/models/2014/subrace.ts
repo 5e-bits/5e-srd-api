@@ -9,7 +9,7 @@ import { Language } from './language'
 import { Race } from './race'
 import { Trait } from './trait'
 import { Proficiency } from './proficiency'
-import { LanguageChoice } from '@/graphql/2014rewrite/common/choiceTypes'
+import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 
 @ObjectType({ description: 'Bonus to an ability score provided by a subrace.' })
 export class SubraceAbilityBonus {

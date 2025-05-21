@@ -3,7 +3,7 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/types/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
-import { EquipmentOrMagicItem } from '@/graphql/2014rewrite/common/unions'
+import { EquipmentOrMagicItem } from '@/graphql/2014/common/unions'
 
 @ObjectType({
   description: 'A category for grouping equipment (e.g., Weapon, Armor, Adventuring Gear).'

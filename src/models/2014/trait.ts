@@ -9,9 +9,9 @@ import { Race } from './race'
 import { Subrace } from './subrace'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
-import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014rewrite/common/choiceTypes'
-import { LevelValue } from '@/graphql/2014rewrite/common/types'
-import { TraitChoice, SpellChoice } from '@/graphql/2014rewrite/types/traitTypes'
+import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
+import { LevelValue } from '@/graphql/2014/common/types'
+import { TraitChoice, SpellChoice } from '@/graphql/2014/types/traitTypes'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
