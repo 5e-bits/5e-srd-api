@@ -1,9 +1,5 @@
 import { createUnionType } from 'type-graphql'
-import { Equipment } from '@/models/2014/equipment'
 import { MagicItem } from '@/models/2014/magicItem'
-import { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import { AbilityScore } from '@/models/2014/abilityScore'
-import { Skill } from '@/models/2014/skill'
 import { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
@@ -75,24 +71,6 @@ export const AnyEquipment = createUnionType({
 
     console.warn('Could not resolve type for AnyEquipment:', value)
     return Gear
-  }
-})
-
-// Union type for Proficiency.reference
-export const ProficiencyReference = createUnionType({
-  name: 'ProficiencyReference',
-  types: () => [Equipment, EquipmentCategory, AbilityScore, Skill] as const,
-  resolveType: (value) => {
-    if ('equipment' in value) {
-      return EquipmentCategory
-    }
-    if ('full_name' in value) {
-      return AbilityScore
-    }
-    if ('desc' in value && Array.isArray(value.desc)) {
-      return Skill
-    }
-    return Equipment
   }
 })
 

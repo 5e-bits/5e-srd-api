@@ -5,7 +5,7 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
 import { Class } from './class'
 import { Race } from './race'
-import { ProficiencyReference } from '@/graphql/2014/common/unions'
+import { ProficiencyReference } from '@/graphql/2014/types/proficiencyTypes'
 
 @ObjectType({
   description: 'Represents a skill, tool, weapon, armor, or saving throw proficiency.'
