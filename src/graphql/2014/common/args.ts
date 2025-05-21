@@ -6,7 +6,7 @@ import { OrderByDirection } from './enums'
 
 export const BasePaginationArgsSchema = z.object({
   skip: z.number().int().min(0).optional().default(0),
-  limit: z.number().int().min(1).max(100).optional().default(50) // Default 50, Max 100
+  limit: z.number().int().min(1).optional().default(100) // Default 50, Max 100
 })
 
 @ArgsType()

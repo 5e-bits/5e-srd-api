@@ -9,6 +9,7 @@ import { AbilityScore } from './abilityScore'
 import { MonsterArmorClassUnion } from '@/graphql/2014/common/unions'
 import { Armor, SpellSlotCount } from '@/graphql/2014/common/types'
 import { Proficiency } from './proficiency'
+import { Spell } from './spell'
 import { BreathChoice, ActionChoice } from '@/graphql/2014/types/monsterTypes'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014/common/unions'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
@@ -99,10 +100,11 @@ export class MonsterAction {
 
 @ObjectType({ description: 'Monster Armor Class component: Dexterity based' })
 export class ArmorClassDex {
-  // Note: Part of the ArmorClass union, defined post-Pass 2
+  @Field(() => String, { description: "Type of AC component: 'dex'" })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'dex'
 
+  @Field(() => Int, { description: 'AC value from dexterity.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
@@ -145,7 +147,7 @@ export class ArmorClassArmor {
   @Field(() => [Armor], {
     nullable: true,
     description: 'Specific armor(s) worn, if any. Resolved via resolver.'
-  }) // Using AnyEquipment union
+  })
   @prop({ type: () => [APIReference] })
   public armor?: APIReference[]
 
@@ -159,31 +161,41 @@ export class ArmorClassArmor {
 
 @ObjectType({ description: 'Monster Armor Class component: Spell effect' })
 export class ArmorClassSpell {
-  // Note: Part of the ArmorClass union, defined post-Pass 2
+  @Field(() => String, { description: "Type of AC component: 'spell'" })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'spell'
 
+  @Field(() => Int, { description: 'AC value from spell effect.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
-  // Reference resolver exists, but field exposed when ArmorClass union defined
+  @Field(() => Spell, {
+    description: 'The spell providing the AC bonus. Resolved via resolver.'
+  })
   @prop({ type: () => APIReference })
   public spell!: APIReference
 
+  @Field(() => String, {
+    nullable: true,
+    description: 'Optional description for this AC component.'
+  })
   @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Condition effect' })
 export class ArmorClassCondition {
-  // Note: Part of the ArmorClass union, defined post-Pass 2
+  @Field(() => String, { description: "Type of AC component: 'condition'" })
   @prop({ required: true, index: true, type: () => String })
   public type!: 'condition'
 
+  @Field(() => Int, { description: 'AC value from condition effect.' })
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
-  // Reference resolver exists, but field exposed when ArmorClass union defined
+  @Field(() => Condition, {
+    description: 'The condition providing the AC bonus. Resolved via resolver.'
+  })
   @prop({ type: () => APIReference })
   public condition!: APIReference
 
