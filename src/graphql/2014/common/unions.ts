@@ -1,7 +1,5 @@
 import { createUnionType } from 'type-graphql'
 import { MagicItem } from '@/models/2014/magicItem'
-import { Level } from '@/models/2014/level'
-import { Feature } from '@/models/2014/feature'
 import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
 import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './equipmentTypes'
 import { Proficiency } from '@/models/2014/proficiency'
@@ -71,23 +69,6 @@ export const AnyEquipment = createUnionType({
 
     console.warn('Could not resolve type for AnyEquipment:', value)
     return Gear
-  }
-})
-
-// Union type for SubclassSpell.prerequisites
-export const SubclassSpellPrerequisiteUnion = createUnionType({
-  name: 'SubclassSpellPrerequisite',
-  types: () => [Level, Feature] as const,
-  resolveType: (value) => {
-    if ('prof_bonus' in value || 'spellcasting' in value || 'features' in value) {
-      return Level
-    }
-    if ('subclass' in value || 'feature_specific' in value || 'prerequisites' in value) {
-      return Feature
-    }
-
-    console.warn('Could not reliably resolve type for SubclassSpellPrerequisiteUnion:', value)
-    throw new Error('Could not resolve type for SubclassSpellPrerequisiteUnion')
   }
 })
 

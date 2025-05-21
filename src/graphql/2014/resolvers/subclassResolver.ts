@@ -7,7 +7,7 @@ import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import LevelModel, { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import FeatureModel from '@/models/2014/feature'
-import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/common/unions'
+import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/types/subclassTypes'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
 import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
