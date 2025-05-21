@@ -18,16 +18,16 @@ import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
 import { buildMongoSortQuery } from '../common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const BackgroundArgsSchema = BaseFilterNameSortArgsSchema
+const BackgroundArgsSchema = BaseFilterArgsSchema
 
 const BackgroundIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class BackgroundArgs extends BaseFilterNameSortArgs {}
+class BackgroundArgs extends BaseFilterArgs {}
 
 @Resolver(Background)
 export class BackgroundResolver {

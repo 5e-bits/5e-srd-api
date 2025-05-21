@@ -20,7 +20,6 @@ import MonsterModel, {
   SpecialAbilitySpell,
   MonsterAction
 } from '@/models/2014/monster'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import { APIReference } from '@/models/2014/common/apiReference'
 import ConditionModel, { Condition } from '@/models/2014/condition'
@@ -55,7 +54,7 @@ import {
   buildMongoSortQuery,
   NumberFilterInputSchema
 } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 import { normalizeCount } from '../utils/helpers'
 
 export enum MonsterOrderField {
@@ -89,41 +88,31 @@ const MONSTER_SORT_FIELD_MAP: Record<MonsterOrderField, string> = {
   [MonsterOrderField.CHARISMA]: 'charisma'
 }
 
-const MonsterArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    type: z.string().optional(),
-    subtype: z.string().optional(),
-    challenge_rating: NumberFilterInputSchema.optional(),
-    size: z.string().optional(),
-    xp: NumberFilterInputSchema.optional(),
-    strength: NumberFilterInputSchema.optional(),
-    dexterity: NumberFilterInputSchema.optional(),
-    constitution: NumberFilterInputSchema.optional(),
-    intelligence: NumberFilterInputSchema.optional(),
-    wisdom: NumberFilterInputSchema.optional(),
-    charisma: NumberFilterInputSchema.optional(),
-    damage_vulnerabilities: z.array(z.string()).optional(),
-    damage_resistances: z.array(z.string()).optional(),
-    damage_immunities: z.array(z.string()).optional(),
-    condition_immunities: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(MonsterOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const MonsterArgsSchema = BaseFilterArgsSchema.extend({
+  type: z.string().optional(),
+  subtype: z.string().optional(),
+  challenge_rating: NumberFilterInputSchema.optional(),
+  size: z.string().optional(),
+  xp: NumberFilterInputSchema.optional(),
+  strength: NumberFilterInputSchema.optional(),
+  dexterity: NumberFilterInputSchema.optional(),
+  constitution: NumberFilterInputSchema.optional(),
+  intelligence: NumberFilterInputSchema.optional(),
+  wisdom: NumberFilterInputSchema.optional(),
+  charisma: NumberFilterInputSchema.optional(),
+  damage_vulnerabilities: z.array(z.string()).optional(),
+  damage_resistances: z.array(z.string()).optional(),
+  damage_immunities: z.array(z.string()).optional(),
+  condition_immunities: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(MonsterOrderField).optional()
+})
 
 const MonsterIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class MonsterArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by monster name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class MonsterArgs extends BaseFilterArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by monster type (case-insensitive, exact match, e.g., "beast")'
@@ -186,12 +175,6 @@ class MonsterArgs extends BasePaginationArgs {
     description: 'Field to sort monsters by.'
   })
   order_by?: MonsterOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the chosen field (default: ASC)'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Monster)

@@ -44,17 +44,15 @@ const LEVEL_SORT_FIELD_MAP: Record<LevelOrderField, string> = {
   [LevelOrderField.SUBCLASS]: 'subclass.name'
 }
 
-const LevelArgsSchema = z
-  .object({
-    class: z.array(z.string()).optional(),
-    subclass: z.array(z.string()).optional(),
-    level: NumberFilterInputSchema.optional(),
-    ability_score_bonuses: z.number().int().optional(),
-    prof_bonus: z.number().int().optional(),
-    order_by: z.nativeEnum(LevelOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const LevelArgsSchema = BasePaginationArgsSchema.extend({
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  level: NumberFilterInputSchema.optional(),
+  ability_score_bonuses: z.number().int().optional(),
+  prof_bonus: z.number().int().optional(),
+  order_by: z.nativeEnum(LevelOrderField).optional(),
+  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+})
 
 const LevelIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })

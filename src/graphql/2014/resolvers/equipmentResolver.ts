@@ -11,14 +11,13 @@ import {
 } from 'type-graphql'
 import { z } from 'zod'
 import EquipmentModel, { Equipment, Content } from '@/models/2014/equipment'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import { APIReference } from '@/models/2014/common/apiReference'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { buildMongoSortQuery } from '../common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 export enum EquipmentOrderField {
   NAME = 'name',
@@ -37,27 +36,17 @@ const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
   [EquipmentOrderField.COST_QUANTITY]: 'cost.quantity'
 }
 
-const EquipmentArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    equipment_category: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(EquipmentOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const EquipmentArgsSchema = BaseFilterArgsSchema.extend({
+  equipment_category: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(EquipmentOrderField).optional()
+})
 
 const EquipmentIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class EquipmentArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by equipment name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class EquipmentArgs extends BaseFilterArgs {
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more equipment category indices (e.g., ["weapon", "armor"])'
@@ -69,12 +58,6 @@ class EquipmentArgs extends BasePaginationArgs {
     description: 'Field to sort equipment by.'
   })
   order_by?: EquipmentOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the chosen field'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Equipment)

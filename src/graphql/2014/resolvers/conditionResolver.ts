@@ -3,16 +3,16 @@ import { z } from 'zod'
 import ConditionModel, { Condition } from '@/models/2014/condition'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const ConditionArgsSchema = BaseFilterNameSortArgsSchema
+const ConditionArgsSchema = BaseFilterArgsSchema
 
 const ConditionIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class ConditionArgs extends BaseFilterNameSortArgs {}
+class ConditionArgs extends BaseFilterArgs {}
 
 @Resolver(Condition)
 export class ConditionResolver {

@@ -3,16 +3,16 @@ import { z } from 'zod'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const MagicSchoolArgsSchema = BaseFilterNameSortArgsSchema
+const MagicSchoolArgsSchema = BaseFilterArgsSchema
 
 const MagicSchoolIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class MagicSchoolArgs extends BaseFilterNameSortArgs {}
+class MagicSchoolArgs extends BaseFilterArgs {}
 
 @Resolver(MagicSchool)
 export class MagicSchoolResolver {

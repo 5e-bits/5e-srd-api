@@ -5,9 +5,9 @@ import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SkillModel, { Skill } from '@/models/2014/skill'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '../common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const AbilityScoreArgsSchema = BaseFilterNameSortArgsSchema.extend({
+const AbilityScoreArgsSchema = BaseFilterArgsSchema.extend({
   full_name: z.string().optional()
 })
 
@@ -15,7 +15,7 @@ const AbilityScoreIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 @ArgsType()
-class AbilityScoreArgs extends BaseFilterNameSortArgs {
+class AbilityScoreArgs extends BaseFilterArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by ability score full name (case-insensitive, partial match)'

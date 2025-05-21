@@ -3,16 +3,16 @@ import { z } from 'zod'
 import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const RuleSectionArgsSchema = BaseFilterNameSortArgsSchema
+const RuleSectionArgsSchema = BaseFilterArgsSchema
 
 const RuleSectionIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class RuleSectionArgs extends BaseFilterNameSortArgs {}
+class RuleSectionArgs extends BaseFilterArgs {}
 
 @Resolver(RuleSection)
 export class RuleSectionResolver {

@@ -5,16 +5,16 @@ import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 import { escapeRegExp } from '@/util'
 import { resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const RuleArgsSchema = BaseFilterNameSortArgsSchema
+const RuleArgsSchema = BaseFilterArgsSchema
 
 const RuleIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class RuleArgs extends BaseFilterNameSortArgs {}
+class RuleArgs extends BaseFilterArgs {}
 
 @Resolver(Rule)
 export class RuleResolver {

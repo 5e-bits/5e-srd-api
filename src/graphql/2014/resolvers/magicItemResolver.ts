@@ -11,12 +11,11 @@ import {
 } from 'type-graphql'
 import { z } from 'zod'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import { resolveSingleReference, resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 export enum MagicItemOrderField {
   NAME = 'name',
@@ -35,28 +34,18 @@ const MAGIC_ITEM_SORT_FIELD_MAP: Record<MagicItemOrderField, string> = {
   [MagicItemOrderField.RARITY]: 'rarity.name'
 }
 
-const MagicItemArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    equipment_category: z.array(z.string()).optional(),
-    rarity: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(MagicItemOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const MagicItemArgsSchema = BaseFilterArgsSchema.extend({
+  equipment_category: z.array(z.string()).optional(),
+  rarity: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(MagicItemOrderField).optional()
+})
 
 const MagicItemIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class MagicItemArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by magic item name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class MagicItemArgs extends BaseFilterArgs {
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more equipment category indices (e.g., ["armor", "weapon"])'
@@ -74,12 +63,6 @@ class MagicItemArgs extends BasePaginationArgs {
     description: 'Field to sort magic items by.'
   })
   order_by?: MagicItemOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction (default: ASC)'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(MagicItem)

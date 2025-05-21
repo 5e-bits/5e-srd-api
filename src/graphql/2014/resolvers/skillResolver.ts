@@ -11,12 +11,11 @@ import {
 } from 'type-graphql'
 import { z } from 'zod'
 import SkillModel, { Skill } from '@/models/2014/skill'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 export enum SkillOrderField {
   NAME = 'name',
@@ -33,27 +32,17 @@ const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
   [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'
 }
 
-const SkillArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    ability_score: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(SkillOrderField).optional().default(SkillOrderField.NAME),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const SkillArgsSchema = BaseFilterArgsSchema.extend({
+  ability_score: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(SkillOrderField).optional().default(SkillOrderField.NAME)
+})
 
 const SkillIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class SkillArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by skill name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class SkillArgs extends BaseFilterArgs {
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by ability score index (e.g., ["str", "dex"])'
@@ -66,12 +55,6 @@ class SkillArgs extends BasePaginationArgs {
     defaultValue: SkillOrderField.NAME
   })
   order_by?: SkillOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the name field (default: ASC)'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Skill)

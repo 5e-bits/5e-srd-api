@@ -26,7 +26,7 @@ export class BasePaginationArgs {
 
 // --- Filtering & Sorting by Name (includes Pagination) ---
 
-export const BaseFilterNameSortArgsSchema = z
+export const BaseFilterArgsSchema = z
   .object({
     name: z.string().optional(),
     order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
@@ -34,7 +34,7 @@ export const BaseFilterNameSortArgsSchema = z
   .merge(BasePaginationArgsSchema) // Include pagination fields
 
 @ArgsType()
-export class BaseFilterNameSortArgs extends BasePaginationArgs {
+export class BaseFilterArgs extends BasePaginationArgs {
   @Field(() => String, {
     nullable: true,
     description: 'Filter by name (case-insensitive, partial match).'

@@ -3,16 +3,16 @@ import { z } from 'zod'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const WeaponPropertyArgsSchema = BaseFilterNameSortArgsSchema
+const WeaponPropertyArgsSchema = BaseFilterArgsSchema
 
 const WeaponPropertyIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class WeaponPropertyArgs extends BaseFilterNameSortArgs {}
+class WeaponPropertyArgs extends BaseFilterArgs {}
 
 @Resolver(WeaponProperty)
 export class WeaponPropertyResolver {

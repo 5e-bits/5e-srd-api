@@ -30,7 +30,7 @@ import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import SpellModel from '@/models/2014/spell'
 import { FeaturePrerequisiteUnion } from '@/graphql/2014/common/unions'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 export enum FeatureOrderField {
   NAME = 'name',
@@ -51,29 +51,19 @@ const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
   [FeatureOrderField.SUBCLASS]: 'subclass.name'
 }
 
-const FeatureArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    level: NumberFilterInputSchema.optional(),
-    class: z.array(z.string()).optional(),
-    subclass: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(FeatureOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const FeatureArgsSchema = BaseFilterArgsSchema.extend({
+  level: NumberFilterInputSchema.optional(),
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(FeatureOrderField).optional()
+})
 
 const FeatureIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class FeatureArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by feature name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class FeatureArgs extends BaseFilterArgs {
   @Field(() => NumberFilterInput, {
     nullable: true,
     description: 'Filter by level. Allows exact match, list, or range.'
@@ -97,12 +87,6 @@ class FeatureArgs extends BasePaginationArgs {
     description: 'Field to sort features by (e.g., NAME, LEVEL, CLASS, SUBCLASS).'
   })
   order_by?: FeatureOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the chosen field (default: ASC)'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Feature)

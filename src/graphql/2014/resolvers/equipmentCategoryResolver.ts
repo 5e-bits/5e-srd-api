@@ -5,17 +5,17 @@ import { escapeRegExp } from '@/util'
 import { EquipmentOrMagicItem } from '@/graphql/2014/common/unions'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 
-const EquipmentCategoryArgsSchema = BaseFilterNameSortArgsSchema
+const EquipmentCategoryArgsSchema = BaseFilterArgsSchema
 
 const EquipmentCategoryIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class EquipmentCategoryArgs extends BaseFilterNameSortArgs {}
+class EquipmentCategoryArgs extends BaseFilterArgs {}
 
 @Resolver(EquipmentCategory)
 export class EquipmentCategoryResolver {

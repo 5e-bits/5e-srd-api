@@ -9,16 +9,16 @@ import { Feature } from '@/models/2014/feature'
 import FeatureModel from '@/models/2014/feature'
 import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/common/unions'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const SubclassArgsSchema = BaseFilterNameSortArgsSchema
+const SubclassArgsSchema = BaseFilterArgsSchema
 
 const SubclassIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class SubclassArgs extends BaseFilterNameSortArgs {}
+class SubclassArgs extends BaseFilterArgs {}
 
 @Resolver(Subclass)
 export class SubclassResolver {

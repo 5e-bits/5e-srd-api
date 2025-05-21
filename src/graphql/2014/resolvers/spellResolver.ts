@@ -13,7 +13,6 @@ import {
 } from 'type-graphql'
 import { z } from 'zod'
 import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
@@ -27,7 +26,7 @@ import {
   NumberFilterInputSchema,
   buildMongoQueryFromNumberFilter
 } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 const AreaOfEffectFilterInputSchema = z.object({
   type: z.array(z.string()).optional(),
@@ -72,38 +71,28 @@ const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
   [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
 }
 
-const SpellArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    level: z.array(z.number().int().min(0).max(9)).optional(),
-    school: z.array(z.string()).optional(),
-    class: z.array(z.string()).optional(),
-    subclass: z.array(z.string()).optional(),
-    concentration: z.boolean().optional(),
-    ritual: z.boolean().optional(),
-    attack_type: z.array(z.string()).optional(),
-    casting_time: z.array(z.string()).optional(),
-    area_of_effect: AreaOfEffectFilterInputSchema.optional(),
-    damage_type: z.array(z.string()).optional(),
-    dc_type: z.array(z.string()).optional(),
-    range: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const SpellArgsSchema = BaseFilterArgsSchema.extend({
+  level: z.array(z.number().int().min(0).max(9)).optional(),
+  school: z.array(z.string()).optional(),
+  class: z.array(z.string()).optional(),
+  subclass: z.array(z.string()).optional(),
+  concentration: z.boolean().optional(),
+  ritual: z.boolean().optional(),
+  attack_type: z.array(z.string()).optional(),
+  casting_time: z.array(z.string()).optional(),
+  area_of_effect: AreaOfEffectFilterInputSchema.optional(),
+  damage_type: z.array(z.string()).optional(),
+  dc_type: z.array(z.string()).optional(),
+  range: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME)
+})
 
 const SpellIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class SpellArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by spell name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class SpellArgs extends BaseFilterArgs {
   @Field(() => [Int], {
     nullable: true,
     description: 'Filter by spell level (e.g., [0, 9])'
@@ -175,13 +164,6 @@ class SpellArgs extends BasePaginationArgs {
     description: 'Field to sort spells by (default: name)'
   })
   order_by?: SpellOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    // defaultValue: OrderByDirection.ASC, // Default is handled by Zod
-    description: 'Sort direction for the name field (default: ASC)'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Spell)

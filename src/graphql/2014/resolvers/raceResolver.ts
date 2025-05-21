@@ -1,7 +1,6 @@
 import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
 import { z } from 'zod'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import LanguageModel, { Language } from '@/models/2014/language'
@@ -27,33 +26,21 @@ import {
   NumberFilterInputSchema,
   buildMongoQueryFromNumberFilter
 } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-// Zod schema for RaceArgs
-const RaceArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    ability_bonus: z.array(z.string()).optional(),
-    size: z.array(z.string()).optional(),
-    language: z.array(z.string()).optional(),
-    speed: NumberFilterInputSchema.optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const RaceArgsSchema = BaseFilterArgsSchema.extend({
+  ability_bonus: z.array(z.string()).optional(),
+  size: z.array(z.string()).optional(),
+  language: z.array(z.string()).optional(),
+  speed: NumberFilterInputSchema.optional()
+})
 
-// Zod schema for Race index argument
 const RaceIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class RaceArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by race name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class RaceArgs extends BaseFilterArgs {
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by one or more ability score indices that provide a bonus'
@@ -77,12 +64,6 @@ class RaceArgs extends BasePaginationArgs {
     description: 'Filter by race speed. Allows exact match, list, or range.'
   })
   speed?: NumberFilterInput
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the name field (default: ASC)'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(() => Race)

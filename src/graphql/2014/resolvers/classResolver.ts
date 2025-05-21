@@ -11,7 +11,6 @@ import {
 } from 'type-graphql'
 import { z } from 'zod'
 import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   NumberFilterInput,
   buildMongoQueryFromNumberFilter,
@@ -38,7 +37,7 @@ import {
 } from '@/graphql/2014/common/choiceTypes'
 import { StartingEquipmentChoice } from '../types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '../utils/startingEquipmentResolver'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common/choice'
 
 export enum ClassOrderField {
@@ -56,27 +55,17 @@ const CLASS_SORT_FIELD_MAP: Record<ClassOrderField, string> = {
   [ClassOrderField.HIT_DIE]: 'hit_die'
 }
 
-const ClassArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    hit_die: NumberFilterInputSchema.optional(),
-    order_by: z.nativeEnum(ClassOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const ClassArgsSchema = BaseFilterArgsSchema.extend({
+  hit_die: NumberFilterInputSchema.optional(),
+  order_by: z.nativeEnum(ClassOrderField).optional()
+})
 
 const ClassIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class ClassArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by class name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class ClassArgs extends BaseFilterArgs {
   @Field(() => NumberFilterInput, {
     nullable: true,
     description: 'Filter by hit die size. Allows exact match, list of values, or a range.'
@@ -88,12 +77,6 @@ class ClassArgs extends BasePaginationArgs {
     description: 'Field to sort classes by.'
   })
   order_by?: ClassOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the chosen field'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Class)

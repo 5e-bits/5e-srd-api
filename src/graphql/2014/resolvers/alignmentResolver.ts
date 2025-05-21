@@ -3,15 +3,15 @@ import { z } from 'zod'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const AlignmentArgsSchema = BaseFilterNameSortArgsSchema
+const AlignmentArgsSchema = BaseFilterArgsSchema
 
 const AlignmentIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 @ArgsType()
-class AlignmentArgs extends BaseFilterNameSortArgs {}
+class AlignmentArgs extends BaseFilterArgs {}
 
 @Resolver(Alignment)
 export class AlignmentResolver {

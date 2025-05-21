@@ -3,16 +3,16 @@ import { z } from 'zod'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { escapeRegExp } from '@/util'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BaseFilterNameSortArgs, BaseFilterNameSortArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const DamageTypeArgsSchema = BaseFilterNameSortArgsSchema
+const DamageTypeArgsSchema = BaseFilterArgsSchema
 
 const DamageTypeIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class DamageTypeArgs extends BaseFilterNameSortArgs {}
+class DamageTypeArgs extends BaseFilterArgs {}
 
 @Resolver(DamageType)
 export class DamageTypeResolver {

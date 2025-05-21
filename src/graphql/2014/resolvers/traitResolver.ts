@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Args, ArgsType, Field, FieldResolver, Root } from 'type-graphql'
+import { Resolver, Query, Arg, Args, ArgsType, FieldResolver, Root } from 'type-graphql'
 import { z } from 'zod'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
 import {
@@ -9,7 +9,6 @@ import {
   SpellChoiceOptionSet,
   SpellChoiceOption
 } from '@/graphql/2014/types/traitTypes'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import RaceModel, { Race } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
@@ -28,33 +27,16 @@ import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceT
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
 import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
-const TraitArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const TraitArgsSchema = BaseFilterArgsSchema
 
 const TraitIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
 
 @ArgsType()
-class TraitArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by trait name (case-insensitive, partial match)'
-  })
-  name?: string
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction (default: ASC)'
-  })
-  order_direction?: OrderByDirection
-}
+class TraitArgs extends BaseFilterArgs {}
 
 @Resolver(Trait)
 export class TraitResolver {

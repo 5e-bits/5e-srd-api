@@ -11,7 +11,6 @@ import {
 } from 'type-graphql'
 import { z } from 'zod'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import RaceModel, { Race } from '@/models/2014/race'
@@ -22,7 +21,7 @@ import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import SkillModel from '@/models/2014/skill'
 import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BasePaginationArgs, BasePaginationArgsSchema } from '../common/args'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 export enum ProficiencyOrderField {
   NAME = 'name',
@@ -39,16 +38,12 @@ const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
   [ProficiencyOrderField.TYPE]: 'type'
 }
 
-const ProficiencyArgsSchema = z
-  .object({
-    name: z.string().optional(),
-    class: z.array(z.string()).optional(),
-    race: z.array(z.string()).optional(),
-    type: z.array(z.string()).optional(),
-    order_by: z.nativeEnum(ProficiencyOrderField).optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
-  })
-  .merge(BasePaginationArgsSchema)
+const ProficiencyArgsSchema = BaseFilterArgsSchema.extend({
+  class: z.array(z.string()).optional(),
+  race: z.array(z.string()).optional(),
+  type: z.array(z.string()).optional(),
+  order_by: z.nativeEnum(ProficiencyOrderField).optional()
+})
 
 const ProficiencyIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
@@ -56,13 +51,7 @@ const ProficiencyIndexArgsSchema = z.object({
 
 // Define ArgsType for the proficiencies query
 @ArgsType()
-class ProficiencyArgs extends BasePaginationArgs {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Filter by proficiency name (case-insensitive, partial match)'
-  })
-  name?: string
-
+class ProficiencyArgs extends BaseFilterArgs {
   @Field(() => [String], {
     nullable: true,
     description: 'Filter by class index (e.g., ["barbarian", "bard"])'
@@ -86,12 +75,6 @@ class ProficiencyArgs extends BasePaginationArgs {
     description: 'Field to sort proficiencies by.'
   })
   order_by?: ProficiencyOrderField
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the chosen field'
-  })
-  order_direction?: OrderByDirection
 }
 
 @Resolver(Proficiency)
