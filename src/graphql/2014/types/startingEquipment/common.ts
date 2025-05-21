@@ -1,7 +1,8 @@
 import { ObjectType, Field, Int, createUnionType } from 'type-graphql'
 import { Equipment } from '@/models/2014/equipment'
-import { Proficiency } from '@/models/2014/proficiency'
+import type { Proficiency } from '@/models/2014/proficiency'
 import { EquipmentCategorySet } from './optionSet'
+import { customRequire } from '@/graphql/2014/utils/helpers' // Make sure this path is correct
 
 @ObjectType({
   description: 'A prerequisite for an equipment option, typically requiring a specific proficiency.'
@@ -10,7 +11,9 @@ export class ProficiencyPrerequisite {
   @Field(() => String, { description: "The type of prerequisite, e.g., 'proficiency'." })
   type!: string
 
-  @Field(() => Proficiency, { description: 'The specific proficiency required.' })
+  @Field(() => customRequire('../../../models/2014/proficiency').Proficiency, {
+    description: 'The specific proficiency required.'
+  })
   proficiency!: Proficiency
 }
 

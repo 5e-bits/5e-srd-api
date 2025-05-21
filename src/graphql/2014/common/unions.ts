@@ -1,6 +1,5 @@
 import { createUnionType } from 'type-graphql'
 import { MagicItem } from '@/models/2014/magicItem'
-import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
 import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './equipmentTypes'
 import { Proficiency } from '@/models/2014/proficiency'
 import { ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
@@ -69,25 +68,6 @@ export const AnyEquipment = createUnionType({
 
     console.warn('Could not resolve type for AnyEquipment:', value)
     return Gear
-  }
-})
-
-// Union type for Feature.prerequisites
-export const FeaturePrerequisiteUnion = createUnionType({
-  name: 'FeaturePrerequisiteUnion',
-  types: () => [LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite] as const,
-  resolveType: (value) => {
-    if (value.type === 'level') {
-      return LevelPrerequisite
-    }
-    if (value.type === 'feature') {
-      return FeaturePrerequisite
-    }
-    if (value.type === 'spell') {
-      return SpellPrerequisite
-    }
-    console.warn('Could not resolve type for FeaturePrerequisiteUnion:', value)
-    throw new Error('Could not resolve type for FeaturePrerequisiteUnion')
   }
 })
 

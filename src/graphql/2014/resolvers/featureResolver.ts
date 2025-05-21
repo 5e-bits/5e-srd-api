@@ -17,7 +17,6 @@ import FeatureModel, {
   FeaturePrerequisite,
   SpellPrerequisite
 } from '@/models/2014/feature'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   NumberFilterInput,
   buildMongoQueryFromNumberFilter,
@@ -29,7 +28,7 @@ import ClassModel, { Class } from '@/models/2014/class'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import SpellModel from '@/models/2014/spell'
-import { FeaturePrerequisiteUnion } from '@/graphql/2014/common/unions'
+import { FeaturePrerequisiteUnion } from '@/graphql/2014/types/featureTypes'
 import { BaseFilterArgs, BaseFilterArgsSchema } from '../common/args'
 
 export enum FeatureOrderField {
