@@ -51,8 +51,7 @@ export default async () => {
   console.log('Building TypeGraphQL schema...')
   const schema = await buildSchema({
     resolvers: resolvers,
-    // Add other buildSchema options here if needed (e.g., authChecker, pubSub)
-    validate: { forbidUnknownValues: false } // Recommended option
+    validate: { forbidUnknownValues: false }
   })
   console.log('TypeGraphQL schema built successfully.')
 
