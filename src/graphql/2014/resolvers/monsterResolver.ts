@@ -31,7 +31,7 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import { SpellSlotCount } from '@/graphql/2014/common/types'
-import { DamageOrDamageChoiceUnion } from '@/graphql/2014/common/unions'
+import { DamageOrDamageChoiceUnion } from '@/graphql/2014/types/monsterTypes'
 import {
   Choice,
   OptionsArrayOptionSet,

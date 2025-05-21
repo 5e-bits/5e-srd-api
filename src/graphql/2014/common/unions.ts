@@ -8,21 +8,8 @@ import { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import { LevelPrerequisite, FeaturePrerequisite, SpellPrerequisite } from '@/models/2014/feature'
 import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './equipmentTypes'
-import {
-  ArmorClassDex,
-  ArmorClassNatural,
-  ArmorClassArmor,
-  ArmorClassSpell,
-  ArmorClassCondition
-} from '@/models/2014/monster'
 import { Proficiency } from '@/models/2014/proficiency'
 import { ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
-import { Damage } from '@/models/2014/common/damage'
-import {
-  ActionChoiceOption,
-  DamageChoice,
-  MultipleActionChoiceOption
-} from '@/graphql/2014/types/monsterTypes'
 
 function resolveEquipmentType(
   value: any
@@ -145,41 +132,6 @@ export const FeaturePrerequisiteUnion = createUnionType({
   }
 })
 
-export const MonsterArmorClassUnion = createUnionType({
-  name: 'MonsterArmorClass',
-  types: () =>
-    [
-      ArmorClassDex,
-      ArmorClassNatural,
-      ArmorClassArmor,
-      ArmorClassSpell,
-      ArmorClassCondition
-    ] as const,
-  resolveType: (value: any) => {
-    if (!value || typeof value.type !== 'string') {
-      console.warn('Cannot resolve MonsterArmorClass: type field is missing or invalid', value)
-      throw new Error('Cannot resolve MonsterArmorClass: type field is missing or invalid')
-    }
-    switch (value.type) {
-      case 'dex':
-        return ArmorClassDex
-      case 'natural':
-        return ArmorClassNatural
-      case 'armor':
-        return ArmorClassArmor
-      case 'spell':
-        return ArmorClassSpell
-      case 'condition':
-        return ArmorClassCondition
-      default:
-        console.warn('Could not resolve type for MonsterArmorClassUnion:', value)
-        throw new Error(
-          'Could not resolve type for MonsterArmorClassUnion: Unknown type ' + value.type
-        )
-    }
-  }
-})
-
 export const ProficiencyChoiceItem = createUnionType({
   name: 'ProficiencyChoiceItem',
   types: () => [Proficiency, ProficiencyChoice] as const,
@@ -188,27 +140,5 @@ export const ProficiencyChoiceItem = createUnionType({
       return ProficiencyChoice
     }
     return Proficiency
-  }
-})
-
-export const DamageOrDamageChoiceUnion = createUnionType({
-  name: 'DamageOrDamageChoice',
-  types: () => [Damage, DamageChoice],
-  resolveType: (value) => {
-    if ('choose' in value) {
-      return DamageChoice
-    }
-    return Damage
-  }
-})
-
-export const ActionOptionUnion = createUnionType({
-  name: 'ActionOptionUnion',
-  types: () => [ActionChoiceOption, MultipleActionChoiceOption],
-  resolveType(value) {
-    if ('items' in value) {
-      return MultipleActionChoiceOption
-    }
-    return ActionChoiceOption
   }
 })

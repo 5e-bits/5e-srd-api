@@ -1,7 +1,13 @@
-import { ObjectType, Field, Int } from 'type-graphql'
+import { ObjectType, Field, Int, createUnionType } from 'type-graphql'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import { Damage } from '@/models/2014/common/damage'
-import { ActionOptionUnion } from '../common/unions'
+import {
+  ArmorClassDex,
+  ArmorClassNatural,
+  ArmorClassArmor,
+  ArmorClassSpell,
+  ArmorClassCondition
+} from '@/models/2014/monster'
 
 // --- Breath Choice Types ---
 @ObjectType({ description: 'A single breath option within a breath choice' })
@@ -128,3 +134,62 @@ export class ActionChoice {
   @Field(() => String, { nullable: true, description: 'Description of the action choice.' })
   desc?: string
 }
+
+// --- Unions ---
+
+export const ActionOptionUnion = createUnionType({
+  name: 'ActionOptionUnion',
+  types: () => [ActionChoiceOption, MultipleActionChoiceOption],
+  resolveType(value) {
+    if ('items' in value) {
+      return MultipleActionChoiceOption
+    }
+    return ActionChoiceOption
+  }
+})
+
+export const DamageOrDamageChoiceUnion = createUnionType({
+  name: 'DamageOrDamageChoice',
+  types: () => [Damage, DamageChoice],
+  resolveType: (value) => {
+    if ('choose' in value) {
+      return DamageChoice
+    }
+    return Damage
+  }
+})
+
+export const MonsterArmorClassUnion = createUnionType({
+  name: 'MonsterArmorClass',
+  types: () =>
+    [
+      ArmorClassDex,
+      ArmorClassNatural,
+      ArmorClassArmor,
+      ArmorClassSpell,
+      ArmorClassCondition
+    ] as const,
+  resolveType: (value: any) => {
+    if (!value || typeof value.type !== 'string') {
+      console.warn('Cannot resolve MonsterArmorClass: type field is missing or invalid', value)
+      throw new Error('Cannot resolve MonsterArmorClass: type field is missing or invalid')
+    }
+    switch (value.type) {
+      case 'dex':
+        return ArmorClassDex
+      case 'natural':
+        return ArmorClassNatural
+      case 'armor':
+        return ArmorClassArmor
+      case 'spell':
+        return ArmorClassSpell
+      case 'condition':
+        return ArmorClassCondition
+      default:
+        console.warn('Could not resolve type for MonsterArmorClassUnion:', value)
+        throw new Error(
+          'Could not resolve type for MonsterArmorClassUnion: Unknown type ' + value.type
+        )
+    }
+  }
+})

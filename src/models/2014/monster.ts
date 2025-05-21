@@ -6,13 +6,15 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'
 import { AbilityScore } from './abilityScore'
-import { MonsterArmorClassUnion } from '@/graphql/2014/common/unions'
+import {
+  MonsterArmorClassUnion,
+  DamageOrDamageChoiceUnion
+} from '@/graphql/2014/types/monsterTypes'
 import { SpellSlotCount } from '@/graphql/2014/common/types'
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import { Proficiency } from './proficiency'
 import { Spell } from './spell'
 import { BreathChoice, ActionChoice } from '@/graphql/2014/types/monsterTypes'
-import { DamageOrDamageChoiceUnion } from '@/graphql/2014/common/unions'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import { Damage } from '@/models/2014/common/damage'
 
