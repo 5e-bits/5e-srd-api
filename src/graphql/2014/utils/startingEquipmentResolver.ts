@@ -34,22 +34,22 @@ export async function resolveStartingEquipmentChoices(
   if (!choices) {
     return []
   }
-  const gqlChoices: StartingEquipmentChoice[] = []
+  const resolvedChoices: StartingEquipmentChoice[] = []
   for (const choice of choices) {
-    const gqlChoice = await resolveStartingEquipmentChoice(choice)
-    if (gqlChoice) {
-      gqlChoices.push(gqlChoice)
+    const resolvedChoice = await resolveStartingEquipmentChoice(choice)
+    if (resolvedChoice) {
+      resolvedChoices.push(resolvedChoice)
     }
   }
-  return gqlChoices
+  return resolvedChoices
 }
 
 // --- Helper to map a single DB Choice to GraphQL StartingEquipmentChoice ---
 async function resolveStartingEquipmentChoice(
   choice: Choice
 ): Promise<StartingEquipmentChoice | null> {
-  const gqlFrom = await resolveStartingEquipmentOptionSet(choice.from as OptionSet)
-  if (!gqlFrom) {
+  const resolvedFrom = await resolveStartingEquipmentOptionSet(choice.from as OptionSet)
+  if (!resolvedFrom) {
     return null
   }
 
@@ -57,7 +57,7 @@ async function resolveStartingEquipmentChoice(
     choose: choice.choose,
     desc: choice.desc,
     type: choice.type,
-    from: gqlFrom
+    from: resolvedFrom
   }
 }
 
@@ -86,21 +86,21 @@ async function resolveStartingEquipmentOptionSet(
 async function resolveEquipmentOptionSet(
   dbOaos: OptionsArrayOptionSet
 ): Promise<EquipmentOptionSet | null> {
-  const gqlOptions: Array<
+  const resolvedOptions: Array<
     ResolvedCountedReferenceOption | EquipmentCategoryChoiceOption | MultipleItemsOption
   > = []
   for (const dbOpt of dbOaos.options) {
-    const gqlOpt = await resolveEquipmentOptionUnion(
+    const resolvedOpt = await resolveEquipmentOptionUnion(
       dbOpt as CountedReferenceOption | ChoiceOption | MultipleOption
     )
-    if (gqlOpt) {
-      gqlOptions.push(gqlOpt)
+    if (resolvedOpt) {
+      resolvedOptions.push(resolvedOpt)
     }
   }
 
   return {
     option_set_type: dbOaos.option_set_type,
-    options: gqlOptions
+    options: resolvedOptions
   } as EquipmentOptionSet
 }
 
@@ -130,17 +130,17 @@ async function resolveProficiencyPrerequisites(
   if (!dbPrerequisites || dbPrerequisites.length === 0) {
     return []
   }
-  const gqlPrerequisites: ResolvedProficiencyPrerequisite[] = []
+  const resolvedPrerequisites: ResolvedProficiencyPrerequisite[] = []
   for (const dbPrereq of dbPrerequisites) {
     const proficiency = await ProficiencyModel.findOne({ index: dbPrereq.proficiency.index }).lean()
     if (proficiency) {
-      gqlPrerequisites.push({
+      resolvedPrerequisites.push({
         type: dbPrereq.type,
         proficiency: proficiency as Proficiency
       })
     }
   }
-  return gqlPrerequisites
+  return resolvedPrerequisites
 }
 
 async function resolveCountedReferenceOption(
@@ -151,7 +151,7 @@ async function resolveCountedReferenceOption(
   const equipment = await EquipmentModel.findOne({ index: countedReferenceOption.of.index }).lean()
   if (!equipment) return null
 
-  const gqlPrerequisites = await resolveProficiencyPrerequisites(
+  const resolvedPrerequisites = await resolveProficiencyPrerequisites(
     countedReferenceOption.prerequisites as ProficiencyPrerequisite[] | undefined
   )
 
@@ -159,7 +159,7 @@ async function resolveCountedReferenceOption(
     option_type: countedReferenceOption.option_type,
     count: countedReferenceOption.count,
     of: equipment as Equipment,
-    prerequisites: gqlPrerequisites.length > 0 ? gqlPrerequisites : undefined
+    prerequisites: resolvedPrerequisites.length > 0 ? resolvedPrerequisites : undefined
   } as ResolvedCountedReferenceOption
 }
 

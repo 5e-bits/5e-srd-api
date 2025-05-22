@@ -28,7 +28,6 @@ export class AlignmentResolver {
       query.sort(sortQuery)
     }
 
-    // Implement pagination
     if (validatedArgs.skip) {
       query.skip(validatedArgs.skip)
     }
