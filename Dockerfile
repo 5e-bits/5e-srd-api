@@ -3,9 +3,14 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files and install all dependencies (including dev)
-COPY package*.json ./
-RUN npm install
+COPY package.json ./
+# Copy the package-lock.json that was freshly generated on your host
+COPY package-lock.json ./
+
+# Clean existing node_modules just in case of Docker layer caching weirdness.
+# Then run `npm ci` which is generally recommended for CI/Docker if you have a package-lock.json.
+RUN rm -rf node_modules
+RUN npm ci
 
 # Copy the rest of the application source code
 # .dockerignore will handle exclusions like node_modules, dist, etc.
@@ -20,20 +25,21 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Copy package files needed for production install
-COPY package*.json ./
+# Copy package.json and lock file (good practice)
+COPY package.json ./
+COPY package-lock.json* ./
 
-# Install ALL dependencies (dev included)
-RUN npm install --ignore-scripts
+# Copy node_modules from builder stage - this includes all dependencies with scripts run
+COPY --from=builder /app/node_modules ./node_modules/
 
-# Set environment to production AFTER install for runtime
+# Set environment to production AFTER dependencies are in place
 ENV NODE_ENV=production
 
 # Copy built application from builder stage
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/dist ./dist/
 
 # Copy entire source tree (needed for tests and potentially other runtime file access)
-COPY --from=builder /app/src /app/src
+COPY --from=builder /app/src ./src/
 
 # Copy config files needed for tests/runtime
 COPY --from=builder /app/vitest.config*.ts ./

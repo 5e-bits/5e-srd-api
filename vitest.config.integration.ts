@@ -7,6 +7,7 @@ export default defineConfig({
     globals: true, // Keep or remove based on preference
     environment: 'node',
     include: ['src/tests/integration/**/*.itest.ts'],
+    setupFiles: ['./src/tests/setup.ts'],
     // Consider longer timeouts for integration tests involving DB/network/server startup
     testTimeout: 20000,
     hookTimeout: 30000 // Timeout for globalSetup/teardown
