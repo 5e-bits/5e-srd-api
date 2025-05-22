@@ -66,76 +66,75 @@ async function resolveStartingEquipmentOptionSet(
   optionSet: OptionSet
 ): Promise<EquipmentCategorySet | EquipmentOptionSet | null> {
   if (optionSet.option_set_type === 'equipment_category') {
-    const dbEcOS = optionSet as EquipmentCategoryOptionSet
+    const equipmentCategoryOptionSet = optionSet as EquipmentCategoryOptionSet
     const category = await EquipmentCategoryModel.findOne({
-      index: dbEcOS.equipment_category.index
+      index: equipmentCategoryOptionSet.equipment_category.index
     }).lean()
     if (!category) return null
 
     return {
-      option_set_type: dbEcOS.option_set_type,
+      option_set_type: equipmentCategoryOptionSet.option_set_type,
       equipment_category: category as EquipmentCategory
     } as EquipmentCategorySet
   } else if (optionSet.option_set_type === 'options_array') {
-    const dbOaos = optionSet as OptionsArrayOptionSet
-    return await resolveEquipmentOptionSet(dbOaos)
+    return await resolveEquipmentOptionSet(optionSet as OptionsArrayOptionSet)
   }
   return null
 }
 
 async function resolveEquipmentOptionSet(
-  dbOaos: OptionsArrayOptionSet
+  optionSet: OptionsArrayOptionSet
 ): Promise<EquipmentOptionSet | null> {
   const resolvedOptions: Array<
     ResolvedCountedReferenceOption | EquipmentCategoryChoiceOption | MultipleItemsOption
   > = []
-  for (const dbOpt of dbOaos.options) {
-    const resolvedOpt = await resolveEquipmentOptionUnion(
-      dbOpt as CountedReferenceOption | ChoiceOption | MultipleOption
+  for (const option of optionSet.options) {
+    const resolvedOption = await resolveEquipmentOptionUnion(
+      option as CountedReferenceOption | ChoiceOption | MultipleOption
     )
-    if (resolvedOpt) {
-      resolvedOptions.push(resolvedOpt)
+    if (resolvedOption) {
+      resolvedOptions.push(resolvedOption)
     }
   }
 
   return {
-    option_set_type: dbOaos.option_set_type,
+    option_set_type: optionSet.option_set_type,
     options: resolvedOptions
   } as EquipmentOptionSet
 }
 
 async function resolveEquipmentOptionUnion(
-  dbOption: CountedReferenceOption | ChoiceOption | MultipleOption
+  option: CountedReferenceOption | ChoiceOption | MultipleOption
 ): Promise<
   ResolvedCountedReferenceOption | EquipmentCategoryChoiceOption | MultipleItemsOption | null
 > {
-  if (!dbOption.option_type) return null
+  if (!option.option_type) return null
 
-  switch (dbOption.option_type) {
+  switch (option.option_type) {
     case 'counted_reference':
-      return resolveCountedReferenceOption(dbOption as CountedReferenceOption)
+      return resolveCountedReferenceOption(option as CountedReferenceOption)
     case 'choice':
-      return resolveEquipmentCategoryChoiceOption(dbOption as ChoiceOption)
+      return resolveEquipmentCategoryChoiceOption(option as ChoiceOption)
     case 'multiple':
-      return resolveMultipleItemsOption(dbOption as MultipleOption)
+      return resolveMultipleItemsOption(option as MultipleOption)
     default:
-      console.warn(`Unknown dbOption.option_type: ${dbOption.option_type}`)
+      console.warn(`Unknown option.option_type: ${option.option_type}`)
       return null
   }
 }
 
 async function resolveProficiencyPrerequisites(
-  dbPrerequisites: ProficiencyPrerequisite[] | undefined
+  prerequisites: ProficiencyPrerequisite[] | undefined
 ): Promise<ResolvedProficiencyPrerequisite[]> {
-  if (!dbPrerequisites || dbPrerequisites.length === 0) {
+  if (!prerequisites || prerequisites.length === 0) {
     return []
   }
   const resolvedPrerequisites: ResolvedProficiencyPrerequisite[] = []
-  for (const dbPrereq of dbPrerequisites) {
-    const proficiency = await ProficiencyModel.findOne({ index: dbPrereq.proficiency.index }).lean()
+  for (const prereq of prerequisites) {
+    const proficiency = await ProficiencyModel.findOne({ index: prereq.proficiency.index }).lean()
     if (proficiency) {
       resolvedPrerequisites.push({
-        type: dbPrereq.type,
+        type: prereq.type,
         proficiency: proficiency as Proficiency
       })
     }
