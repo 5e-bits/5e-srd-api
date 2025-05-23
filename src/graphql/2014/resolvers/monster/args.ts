@@ -1,10 +1,12 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 export enum MonsterOrderField {
@@ -24,6 +26,26 @@ registerEnumType(MonsterOrderField, {
   name: 'MonsterOrderField',
   description: 'Fields to sort Monsters by'
 })
+
+@InputType()
+export class MonsterOrder implements BaseOrderInterface<MonsterOrderField> {
+  @Field(() => MonsterOrderField)
+  by!: MonsterOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => MonsterOrder, { nullable: true })
+  then_by?: MonsterOrder
+}
+
+export const MonsterOrderSchema: z.ZodType<MonsterOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(MonsterOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: MonsterOrderSchema.optional()
+  })
+)
 
 export const MONSTER_SORT_FIELD_MAP: Record<MonsterOrderField, string> = {
   [MonsterOrderField.NAME]: 'name',
@@ -54,7 +76,7 @@ export const MonsterArgsSchema = BaseFilterArgsSchema.extend({
   damage_resistances: z.array(z.string()).optional(),
   damage_immunities: z.array(z.string()).optional(),
   condition_immunities: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(MonsterOrderField).optional()
+  order: MonsterOrderSchema.optional()
 })
 
 export const MonsterIndexArgsSchema = BaseIndexArgsSchema
@@ -151,9 +173,9 @@ export class MonsterArgs extends BaseFilterArgs {
   })
   condition_immunities?: string[]
 
-  @Field(() => MonsterOrderField, {
+  @Field(() => MonsterOrder, {
     nullable: true,
-    description: 'Field to sort monsters by.'
+    description: 'Specify sorting order for monsters.'
   })
-  order_by?: MonsterOrderField
+  order?: MonsterOrder
 }

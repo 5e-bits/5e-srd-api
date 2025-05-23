@@ -5,7 +5,7 @@ import ClassModel, {
   MultiClassingPrereq,
   ClassEquipment
 } from '@/models/2014/class'
-import { buildMongoQueryFromNumberFilter, buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
@@ -27,6 +27,7 @@ import {
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
 import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common/choice'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   ClassArgs,
   ClassArgsSchema,
@@ -63,13 +64,12 @@ export class ClassResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery<ClassOrderField>({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<ClassOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: CLASS_SORT_FIELD_MAP,
       defaultSortField: ClassOrderField.NAME
     })
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

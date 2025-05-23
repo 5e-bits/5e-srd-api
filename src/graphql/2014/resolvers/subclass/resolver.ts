@@ -7,8 +7,14 @@ import LevelModel, { Level } from '@/models/2014/level'
 import { Feature } from '@/models/2014/feature'
 import FeatureModel from '@/models/2014/feature'
 import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/types/subclassTypes'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { SubclassArgs, SubclassArgsSchema, SubclassIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  SubclassArgs,
+  SubclassArgsSchema,
+  SubclassIndexArgsSchema,
+  SubclassOrderField,
+  SUBCLASS_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Subclass)
 export class SubclassResolver {
@@ -24,12 +30,13 @@ export class SubclassResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<SubclassOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: SUBCLASS_SORT_FIELD_MAP,
+      defaultSortField: SubclassOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

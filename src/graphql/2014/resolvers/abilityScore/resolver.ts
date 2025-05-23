@@ -3,8 +3,14 @@ import { resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SkillModel, { Skill } from '@/models/2014/skill'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { AbilityScoreArgs, AbilityScoreArgsSchema, AbilityScoreIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  AbilityScoreArgs,
+  AbilityScoreArgsSchema,
+  AbilityScoreIndexArgsSchema,
+  AbilityScoreOrderField,
+  ABILITY_SCORE_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(AbilityScore)
 export class AbilityScoreResolver {
@@ -33,12 +39,13 @@ export class AbilityScoreResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<AbilityScoreOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: ABILITY_SCORE_SORT_FIELD_MAP,
+      defaultSortField: AbilityScoreOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

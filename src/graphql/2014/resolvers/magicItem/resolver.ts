@@ -3,7 +3,7 @@ import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { escapeRegExp } from '@/util'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import { resolveSingleReference, resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   MagicItemArgs,
   MagicItemArgsSchema,
@@ -39,14 +39,13 @@ export class MagicItemResolver {
       query = query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<MagicItemOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: MAGIC_ITEM_SORT_FIELD_MAP,
       defaultSortField: MagicItemOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query = query.sort(sortQuery)
     }
 

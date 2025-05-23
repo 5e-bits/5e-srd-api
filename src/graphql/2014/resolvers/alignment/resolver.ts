@@ -1,9 +1,15 @@
 import { Resolver, Query, Arg, Args } from 'type-graphql'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '../../common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 
-import { AlignmentArgs, AlignmentArgsSchema, AlignmentIndexArgsSchema } from './args'
+import {
+  AlignmentArgs,
+  AlignmentArgsSchema,
+  AlignmentIndexArgsSchema,
+  AlignmentOrderField,
+  ALIGNMENT_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Alignment)
 export class AlignmentResolver {
@@ -19,12 +25,13 @@ export class AlignmentResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<AlignmentOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: ALIGNMENT_SORT_FIELD_MAP,
+      defaultSortField: AlignmentOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

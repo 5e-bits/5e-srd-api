@@ -1,10 +1,12 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 export enum FeatureOrderField {
@@ -19,6 +21,26 @@ registerEnumType(FeatureOrderField, {
   description: 'Fields to sort Features by'
 })
 
+@InputType()
+export class FeatureOrder implements BaseOrderInterface<FeatureOrderField> {
+  @Field(() => FeatureOrderField)
+  by!: FeatureOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => FeatureOrder, { nullable: true })
+  then_by?: FeatureOrder
+}
+
+export const FeatureOrderSchema: z.ZodType<FeatureOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(FeatureOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: FeatureOrderSchema.optional()
+  })
+)
+
 export const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
   [FeatureOrderField.NAME]: 'name',
   [FeatureOrderField.LEVEL]: 'level',
@@ -30,7 +52,7 @@ export const FeatureArgsSchema = BaseFilterArgsSchema.extend({
   level: NumberFilterInputSchema.optional(),
   class: z.array(z.string()).optional(),
   subclass: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(FeatureOrderField).optional()
+  order: FeatureOrderSchema.optional()
 })
 
 export const FeatureIndexArgsSchema = BaseIndexArgsSchema
@@ -55,9 +77,9 @@ export class FeatureArgs extends BaseFilterArgs {
   })
   subclass?: string[]
 
-  @Field(() => FeatureOrderField, {
+  @Field(() => FeatureOrder, {
     nullable: true,
-    description: 'Field to sort features by (e.g., NAME, LEVEL, CLASS, SUBCLASS).'
+    description: 'Specify sorting order for features.'
   })
-  order_by?: FeatureOrderField
+  order?: FeatureOrder
 }

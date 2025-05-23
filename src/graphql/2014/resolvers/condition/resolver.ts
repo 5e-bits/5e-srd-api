@@ -1,8 +1,14 @@
 import { Resolver, Query, Arg, Args } from 'type-graphql'
 import ConditionModel, { Condition } from '@/models/2014/condition'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { ConditionArgs, ConditionArgsSchema, ConditionIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  ConditionArgs,
+  ConditionArgsSchema,
+  ConditionIndexArgsSchema,
+  ConditionOrderField,
+  CONDITION_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Condition)
 export class ConditionResolver {
@@ -17,12 +23,13 @@ export class ConditionResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<ConditionOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: CONDITION_SORT_FIELD_MAP,
+      defaultSortField: ConditionOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

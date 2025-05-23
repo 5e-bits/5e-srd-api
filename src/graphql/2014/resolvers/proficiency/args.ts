@@ -1,10 +1,12 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, registerEnumType, InputType } from 'type-graphql'
 import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 
 export enum ProficiencyOrderField {
   NAME = 'name',
@@ -16,6 +18,26 @@ registerEnumType(ProficiencyOrderField, {
   description: 'Fields to sort Proficiencies by'
 })
 
+@InputType()
+export class ProficiencyOrder implements BaseOrderInterface<ProficiencyOrderField> {
+  @Field(() => ProficiencyOrderField)
+  by!: ProficiencyOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => ProficiencyOrder, { nullable: true })
+  then_by?: ProficiencyOrder
+}
+
+export const ProficiencyOrderSchema: z.ZodType<ProficiencyOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(ProficiencyOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: ProficiencyOrderSchema.optional()
+  })
+)
+
 export const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
   [ProficiencyOrderField.NAME]: 'name',
   [ProficiencyOrderField.TYPE]: 'type'
@@ -25,7 +47,7 @@ export const ProficiencyArgsSchema = BaseFilterArgsSchema.extend({
   class: z.array(z.string()).optional(),
   race: z.array(z.string()).optional(),
   type: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(ProficiencyOrderField).optional()
+  order: ProficiencyOrderSchema.optional()
 })
 
 export const ProficiencyIndexArgsSchema = BaseIndexArgsSchema
@@ -51,9 +73,9 @@ export class ProficiencyArgs extends BaseFilterArgs {
   })
   type?: string[]
 
-  @Field(() => ProficiencyOrderField, {
+  @Field(() => ProficiencyOrder, {
     nullable: true,
-    description: 'Field to sort proficiencies by.'
+    description: 'Specify sorting order for proficiencies. Allows nested sorting.'
   })
-  order_by?: ProficiencyOrderField
+  order?: ProficiencyOrder
 }

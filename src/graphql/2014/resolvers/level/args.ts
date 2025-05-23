@@ -1,11 +1,12 @@
-import { ArgsType, Field, Int, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, Int, registerEnumType, InputType } from 'type-graphql'
 import { z } from 'zod'
 import { OrderByDirection } from '@/graphql/2014/common/enums'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
 import {
   BasePaginationArgs,
   BasePaginationArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 export enum LevelOrderField {
@@ -19,6 +20,26 @@ registerEnumType(LevelOrderField, {
   description: 'Fields to sort Levels by'
 })
 
+@InputType()
+export class LevelOrder implements BaseOrderInterface<LevelOrderField> {
+  @Field(() => LevelOrderField)
+  by!: LevelOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => LevelOrder, { nullable: true })
+  then_by?: LevelOrder
+}
+
+export const LevelOrderSchema: z.ZodType<LevelOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(LevelOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: LevelOrderSchema.optional()
+  })
+)
+
 export const LEVEL_SORT_FIELD_MAP: Record<LevelOrderField, string> = {
   [LevelOrderField.LEVEL]: 'level',
   [LevelOrderField.CLASS]: 'class.name',
@@ -31,8 +52,7 @@ export const LevelArgsSchema = BasePaginationArgsSchema.extend({
   level: NumberFilterInputSchema.optional(),
   ability_score_bonuses: z.number().int().optional(),
   prof_bonus: z.number().int().optional(),
-  order_by: z.nativeEnum(LevelOrderField).optional(),
-  order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+  order: LevelOrderSchema.optional()
 })
 
 export const LevelIndexArgsSchema = BaseIndexArgsSchema
@@ -63,12 +83,10 @@ export class LevelArgs extends BasePaginationArgs {
   })
   prof_bonus?: number
 
-  @Field(() => LevelOrderField, { nullable: true, description: 'Field to sort levels by.' })
-  order_by?: LevelOrderField
-
-  @Field(() => OrderByDirection, {
+  @Field(() => LevelOrder, {
     nullable: true,
-    description: 'Sort direction for the chosen field (default: ASC)'
+    description:
+      'Specify sorting order for levels. Allows nested sorting. Defaults to LEVEL ascending.'
   })
-  order_direction?: OrderByDirection
+  order?: LevelOrder
 }

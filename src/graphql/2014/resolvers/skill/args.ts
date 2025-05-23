@@ -1,10 +1,12 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, registerEnumType, InputType } from 'type-graphql'
 import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 
 export enum SkillOrderField {
   NAME = 'name',
@@ -16,6 +18,26 @@ registerEnumType(SkillOrderField, {
   description: 'Fields to sort Skills by'
 })
 
+@InputType()
+export class SkillOrder implements BaseOrderInterface<SkillOrderField> {
+  @Field(() => SkillOrderField)
+  by!: SkillOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => SkillOrder, { nullable: true })
+  then_by?: SkillOrder
+}
+
+export const SkillOrderSchema: z.ZodType<SkillOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(SkillOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: SkillOrderSchema.optional()
+  })
+)
+
 export const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
   [SkillOrderField.NAME]: 'name',
   [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'
@@ -23,7 +45,7 @@ export const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
 
 export const SkillArgsSchema = BaseFilterArgsSchema.extend({
   ability_score: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(SkillOrderField).optional().default(SkillOrderField.NAME)
+  order: SkillOrderSchema.optional()
 })
 
 export const SkillIndexArgsSchema = BaseIndexArgsSchema
@@ -36,10 +58,10 @@ export class SkillArgs extends BaseFilterArgs {
   })
   ability_score?: string[]
 
-  @Field(() => SkillOrderField, {
+  @Field(() => SkillOrder, {
     nullable: true,
-    description: 'Field to sort by (default: name)',
-    defaultValue: SkillOrderField.NAME
+    description:
+      'Specify sorting order for skills. Allows nested sorting. Defaults to NAME ascending.'
   })
-  order_by?: SkillOrderField
+  order?: SkillOrder
 }

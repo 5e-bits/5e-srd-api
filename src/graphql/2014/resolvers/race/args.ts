@@ -1,17 +1,54 @@
-import { ArgsType, Field } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
+
+export enum RaceOrderField {
+  NAME = 'name'
+}
+
+registerEnumType(RaceOrderField, {
+  name: 'RaceOrderField',
+  description: 'Fields to sort Races by'
+})
+
+@InputType()
+export class RaceOrder implements BaseOrderInterface<RaceOrderField> {
+  @Field(() => RaceOrderField)
+  by!: RaceOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => RaceOrder, { nullable: true })
+  then_by?: RaceOrder
+}
+
+export const RaceOrderSchema: z.ZodType<RaceOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(RaceOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: RaceOrderSchema.optional()
+  })
+)
+
+export const RACE_SORT_FIELD_MAP: Record<RaceOrderField, string> = {
+  [RaceOrderField.NAME]: 'name'
+  // Add mappings for other sortable fields here
+}
 
 export const RaceArgsSchema = BaseFilterArgsSchema.extend({
   ability_bonus: z.array(z.string()).optional(),
   size: z.array(z.string()).optional(),
   language: z.array(z.string()).optional(),
-  speed: NumberFilterInputSchema.optional()
+  speed: NumberFilterInputSchema.optional(),
+  order: RaceOrderSchema.optional()
 })
 
 export const RaceIndexArgsSchema = BaseIndexArgsSchema
@@ -41,4 +78,10 @@ export class RaceArgs extends BaseFilterArgs {
     description: 'Filter by race speed. Allows exact match, list, or range.'
   })
   speed?: NumberFilterInput
+
+  @Field(() => RaceOrder, {
+    nullable: true,
+    description: 'Specify sorting order for races. Allows nested sorting.'
+  })
+  order?: RaceOrder
 }

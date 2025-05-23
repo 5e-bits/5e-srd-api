@@ -1,10 +1,11 @@
-import { Resolver, Query, Arg, Args, registerEnumType, FieldResolver, Root } from 'type-graphql'
+import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
 
 import LevelModel, { Level } from '@/models/2014/level'
 import ClassModel, { Class } from '@/models/2014/class'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import FeatureModel, { Feature } from '@/models/2014/feature'
-import { buildMongoQueryFromNumberFilter, buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import {
   LevelArgs,
@@ -13,11 +14,6 @@ import {
   LevelOrderField,
   LEVEL_SORT_FIELD_MAP
 } from './args'
-
-registerEnumType(LevelOrderField, {
-  name: 'LevelOrderField',
-  description: 'Fields to sort Levels by'
-})
 
 @Resolver(Level)
 export class LevelResolver {
@@ -65,14 +61,13 @@ export class LevelResolver {
       query = query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<LevelOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: LEVEL_SORT_FIELD_MAP,
       defaultSortField: LevelOrderField.LEVEL
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query = query.sort(sortQuery)
     }
 

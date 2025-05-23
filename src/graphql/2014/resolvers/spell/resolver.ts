@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
 import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -8,7 +8,8 @@ import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import { LevelValue } from '@/graphql/2014/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
-import { buildMongoSortQuery, buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   SpellArgs,
   SpellArgsSchema,
@@ -16,11 +17,6 @@ import {
   SpellOrderField,
   SPELL_SORT_FIELD_MAP
 } from './args'
-
-registerEnumType(SpellOrderField, {
-  name: 'SpellOrderField',
-  description: 'Fields to sort Spells by'
-})
 
 @Resolver(Spell)
 export class SpellResolver {
@@ -83,13 +79,12 @@ export class SpellResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery<SpellOrderField>({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<SpellOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: SPELL_SORT_FIELD_MAP,
       defaultSortField: SpellOrderField.NAME
     })
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

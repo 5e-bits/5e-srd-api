@@ -38,7 +38,8 @@ import {
   MultipleActionChoiceOption,
   BreathChoiceOption
 } from '@/graphql/2014/types/monsterTypes'
-import { buildMongoQueryFromNumberFilter, buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import {
   MonsterArgs,
@@ -117,14 +118,13 @@ export class MonsterResolver {
       query = query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<MonsterOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: MONSTER_SORT_FIELD_MAP,
       defaultSortField: MonsterOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query = query.sort(sortQuery)
     }
 

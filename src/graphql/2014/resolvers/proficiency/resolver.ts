@@ -9,7 +9,7 @@ import EquipmentModel from '@/models/2014/equipment'
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import SkillModel from '@/models/2014/skill'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   ProficiencyArgs,
   ProficiencyArgsSchema,
@@ -49,14 +49,14 @@ export class ProficiencyResolver {
       query = query.where({ $and: filters })
     }
 
-    const sort = buildMongoSortQuery({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<ProficiencyOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: PROFICIENCY_SORT_FIELD_MAP,
       defaultSortField: ProficiencyOrderField.NAME
     })
-    if (sort) {
-      query.sort(sort)
+
+    if (Object.keys(sortQuery).length > 0) {
+      query.sort(sortQuery)
     }
 
     if (validatedArgs.skip !== undefined) {

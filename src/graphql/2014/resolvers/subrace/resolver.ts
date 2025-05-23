@@ -13,8 +13,14 @@ import {
 } from '@/graphql/2014/utils/resolvers'
 import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import { Choice } from '@/models/2014/common/choice'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { SubraceArgs, SubraceArgsSchema, SubraceIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  SubraceArgs,
+  SubraceArgsSchema,
+  SubraceIndexArgsSchema,
+  SubraceOrderField,
+  SUBRACE_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Subrace)
 export class SubraceResolver {
@@ -29,12 +35,13 @@ export class SubraceResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<SubraceOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: SUBRACE_SORT_FIELD_MAP,
+      defaultSortField: SubraceOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

@@ -3,12 +3,14 @@ import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipme
 import { escapeRegExp } from '@/util'
 import { EquipmentOrMagicItem } from '@/graphql/2014/common/unions'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   EquipmentCategoryArgs,
   EquipmentCategoryArgsSchema,
-  EquipmentCategoryIndexArgsSchema
+  EquipmentCategoryIndexArgsSchema,
+  EquipmentCategoryOrderField,
+  EQUIPMENT_CATEGORY_SORT_FIELD_MAP
 } from './args'
 
 @Resolver(EquipmentCategory)
@@ -26,12 +28,13 @@ export class EquipmentCategoryResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<EquipmentCategoryOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: EQUIPMENT_CATEGORY_SORT_FIELD_MAP,
+      defaultSortField: EquipmentCategoryOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

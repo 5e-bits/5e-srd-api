@@ -1,8 +1,14 @@
 import { Resolver, Query, Arg, Args } from 'type-graphql'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { WeaponPropertyArgs, WeaponPropertyArgsSchema, WeaponPropertyIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  WeaponPropertyArgs,
+  WeaponPropertyArgsSchema,
+  WeaponPropertyIndexArgsSchema,
+  WeaponPropertyOrderField,
+  WEAPON_PROPERTY_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(WeaponProperty)
 export class WeaponPropertyResolver {
@@ -19,12 +25,13 @@ export class WeaponPropertyResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<WeaponPropertyOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: WEAPON_PROPERTY_SORT_FIELD_MAP,
+      defaultSortField: WeaponPropertyOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

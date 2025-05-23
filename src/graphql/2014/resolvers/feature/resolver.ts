@@ -6,7 +6,8 @@ import FeatureModel, {
   FeaturePrerequisite,
   SpellPrerequisite
 } from '@/models/2014/feature'
-import { buildMongoQueryFromNumberFilter, buildMongoSortQuery } from '../../common/inputs'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { escapeRegExp } from '@/util'
 import ClassModel, { Class } from '@/models/2014/class'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
@@ -52,13 +53,12 @@ export class FeatureResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery<FeatureOrderField>({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<FeatureOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: FEATURE_SORT_FIELD_MAP,
       defaultSortField: FeatureOrderField.NAME
     })
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

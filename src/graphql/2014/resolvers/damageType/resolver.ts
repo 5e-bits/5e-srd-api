@@ -1,8 +1,14 @@
 import { Resolver, Query, Arg, Args } from 'type-graphql'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { DamageTypeArgs, DamageTypeArgsSchema, DamageTypeIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  DamageTypeArgs,
+  DamageTypeArgsSchema,
+  DamageTypeIndexArgsSchema,
+  DamageTypeOrderField,
+  DAMAGE_TYPE_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(DamageType)
 export class DamageTypeResolver {
@@ -17,12 +23,13 @@ export class DamageTypeResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<DamageTypeOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: DAMAGE_TYPE_SORT_FIELD_MAP,
+      defaultSortField: DamageTypeOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

@@ -19,8 +19,15 @@ import {
   AbilityScoreBonusChoiceOption
 } from '@/graphql/2014/common/choiceTypes'
 import { Choice, OptionsArrayOptionSet, AbilityBonusOption } from '@/models/2014/common/choice'
-import { buildMongoSortQuery, buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { RaceArgs, RaceArgsSchema, RaceIndexArgsSchema } from './args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  RaceArgs,
+  RaceArgsSchema,
+  RaceIndexArgsSchema,
+  RaceOrderField,
+  RACE_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(() => Race)
 export class RaceResolver {
@@ -58,11 +65,12 @@ export class RaceResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      defaultSortField: 'name',
-      orderDirection: validatedArgs.order_direction
+    const sortQuery = buildSortPipeline<RaceOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: RACE_SORT_FIELD_MAP,
+      defaultSortField: RaceOrderField.NAME
     })
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

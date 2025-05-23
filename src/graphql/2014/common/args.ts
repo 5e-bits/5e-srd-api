@@ -28,10 +28,9 @@ export class BasePaginationArgs {
 
 export const BaseFilterArgsSchema = z
   .object({
-    name: z.string().optional(),
-    order_direction: z.nativeEnum(OrderByDirection).optional().default(OrderByDirection.ASC)
+    name: z.string().optional()
   })
-  .merge(BasePaginationArgsSchema) // Include pagination fields
+  .merge(BasePaginationArgsSchema)
 
 @ArgsType()
 export class BaseFilterArgs extends BasePaginationArgs {
@@ -40,13 +39,6 @@ export class BaseFilterArgs extends BasePaginationArgs {
     description: 'Filter by name (case-insensitive, partial match).'
   })
   name?: string
-
-  @Field(() => OrderByDirection, {
-    nullable: true,
-    description: 'Sort direction for the name field (default: ASC).'
-    // DefaultValue is handled by Zod schema
-  })
-  order_direction?: OrderByDirection
 }
 
 // --- Index Argument ---
@@ -54,3 +46,67 @@ export class BaseFilterArgs extends BasePaginationArgs {
 export const BaseIndexArgsSchema = z.object({
   index: z.string().min(1, { message: 'Index must be a non-empty string' })
 })
+
+// --- Generic Sorting Logic ---
+
+export interface BaseOrderInterface<TOrderFieldValue extends string> {
+  by: TOrderFieldValue
+  direction: OrderByDirection
+  then_by?: BaseOrderInterface<TOrderFieldValue>
+}
+
+interface BuildSortPipelineArgs<TOrderFieldValue extends string> {
+  order?: BaseOrderInterface<TOrderFieldValue>
+  sortFieldMap: Record<string, string>
+  defaultSortField?: TOrderFieldValue
+  defaultSortDirection?: OrderByDirection
+}
+
+export function buildSortPipeline<TOrderFieldValue extends string>({
+  order,
+  sortFieldMap,
+  defaultSortField,
+  defaultSortDirection = OrderByDirection.ASC
+}: BuildSortPipelineArgs<TOrderFieldValue>): Record<string, 1 | -1> {
+  const sortPipeline: Record<string, 1 | -1> = {}
+
+  function populateSortPipelineRecursive(
+    currentOrder: BaseOrderInterface<TOrderFieldValue> | undefined
+  ) {
+    if (!currentOrder) {
+      return
+    }
+
+    const fieldKey = currentOrder.by
+    const mappedDbField = sortFieldMap[fieldKey]
+
+    if (mappedDbField) {
+      const direction = currentOrder.direction === OrderByDirection.ASC ? 1 : -1
+      sortPipeline[mappedDbField] = direction
+    } else {
+      console.warn(
+        `Sort field for key "${fieldKey}" not found in sortFieldMap. Skipping this criterion.`
+      )
+    }
+
+    if (currentOrder.then_by) {
+      populateSortPipelineRecursive(currentOrder.then_by)
+    }
+  }
+
+  populateSortPipelineRecursive(order)
+
+  if (Object.keys(sortPipeline).length === 0 && defaultSortField) {
+    const defaultFieldKey = String(defaultSortField)
+    const defaultMappedField = sortFieldMap[defaultFieldKey]
+    if (defaultMappedField) {
+      sortPipeline[defaultMappedField] = defaultSortDirection === OrderByDirection.ASC ? 1 : -1
+    } else {
+      console.warn(
+        `Default sort field for key "${defaultFieldKey}" not found in sortFieldMap. No default sort will be applied.`
+      )
+    }
+  }
+
+  return sortPipeline
+}

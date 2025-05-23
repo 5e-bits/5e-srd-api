@@ -1,9 +1,11 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 export enum EquipmentOrderField {
@@ -17,6 +19,26 @@ registerEnumType(EquipmentOrderField, {
   description: 'Fields to sort Equipment by'
 })
 
+@InputType()
+export class EquipmentOrder implements BaseOrderInterface<EquipmentOrderField> {
+  @Field(() => EquipmentOrderField)
+  by!: EquipmentOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => EquipmentOrder, { nullable: true })
+  then_by?: EquipmentOrder
+}
+
+export const EquipmentOrderSchema: z.ZodType<EquipmentOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(EquipmentOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: EquipmentOrderSchema.optional() // Simplified
+  })
+)
+
 export const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
   [EquipmentOrderField.NAME]: 'name',
   [EquipmentOrderField.WEIGHT]: 'weight',
@@ -25,7 +47,7 @@ export const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
 
 export const EquipmentArgsSchema = BaseFilterArgsSchema.extend({
   equipment_category: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(EquipmentOrderField).optional()
+  order: EquipmentOrderSchema.optional()
 })
 
 export const EquipmentIndexArgsSchema = BaseIndexArgsSchema
@@ -38,9 +60,9 @@ export class EquipmentArgs extends BaseFilterArgs {
   })
   equipment_category?: string[]
 
-  @Field(() => EquipmentOrderField, {
+  @Field(() => EquipmentOrder, {
     nullable: true,
-    description: 'Field to sort equipment by.'
+    description: 'Specify sorting order for equipment.'
   })
-  order_by?: EquipmentOrderField
+  order?: EquipmentOrder
 }

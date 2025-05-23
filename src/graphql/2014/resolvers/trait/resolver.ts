@@ -25,8 +25,14 @@ import { LevelValue } from '@/graphql/2014/common/types'
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
 import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { TraitArgs, TraitArgsSchema, TraitIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  TraitArgs,
+  TraitArgsSchema,
+  TraitIndexArgsSchema,
+  TraitOrderField,
+  TRAIT_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Trait)
 export class TraitResolver {
@@ -41,12 +47,13 @@ export class TraitResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<TraitOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: TRAIT_SORT_FIELD_MAP,
+      defaultSortField: TraitOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

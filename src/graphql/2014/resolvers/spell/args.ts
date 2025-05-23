@@ -1,10 +1,12 @@
 import { ArgsType, Field, InputType, Int, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 const AreaOfEffectFilterInputSchema = z.object({
@@ -42,6 +44,26 @@ registerEnumType(SpellOrderField, {
   description: 'Fields to sort Spells by'
 })
 
+@InputType()
+export class SpellOrder implements BaseOrderInterface<SpellOrderField> {
+  @Field(() => SpellOrderField)
+  by!: SpellOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => SpellOrder, { nullable: true })
+  then_by?: SpellOrder
+}
+
+export const SpellOrderSchema: z.ZodType<SpellOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(SpellOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: SpellOrderSchema.optional()
+  })
+)
+
 // Map GraphQL SpellOrderField to MongoDB field name
 export const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
   [SpellOrderField.NAME]: 'name',
@@ -63,7 +85,7 @@ export const SpellArgsSchema = BaseFilterArgsSchema.extend({
   damage_type: z.array(z.string()).optional(),
   dc_type: z.array(z.string()).optional(),
   range: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(SpellOrderField).optional().default(SpellOrderField.NAME)
+  order: SpellOrderSchema.optional()
 })
 
 export const SpellIndexArgsSchema = BaseIndexArgsSchema
@@ -136,9 +158,10 @@ export class SpellArgs extends BaseFilterArgs {
   })
   range?: string[]
 
-  @Field(() => SpellOrderField, {
+  @Field(() => SpellOrder, {
     nullable: true,
-    description: 'Field to sort spells by (default: name)'
+    description:
+      'Specify sorting order for spells. Allows nested sorting. Defaults to NAME ascending.'
   })
-  order_by?: SpellOrderField
+  order?: SpellOrder
 }

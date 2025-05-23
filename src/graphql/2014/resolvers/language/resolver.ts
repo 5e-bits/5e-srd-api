@@ -1,7 +1,7 @@
-import { Resolver, Query, Arg, Args, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Args } from 'type-graphql'
 import LanguageModel, { Language } from '@/models/2014/language'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   LanguageArgs,
   LanguageArgsSchema,
@@ -9,11 +9,6 @@ import {
   LanguageOrderField,
   LANGUAGE_SORT_FIELD_MAP
 } from './args'
-
-registerEnumType(LanguageOrderField, {
-  name: 'LanguageOrderField',
-  description: 'Fields to sort Languages by'
-})
 
 @Resolver(Language)
 export class LanguageResolver {
@@ -35,7 +30,7 @@ export class LanguageResolver {
     }
 
     if (validatedArgs.type) {
-      filters.push({ type: validatedArgs.type })
+      filters.push({ type: { $regex: new RegExp(escapeRegExp(validatedArgs.type), 'i') } })
     }
 
     if (validatedArgs.script && validatedArgs.script.length > 0) {
@@ -46,13 +41,12 @@ export class LanguageResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<LanguageOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: LANGUAGE_SORT_FIELD_MAP,
       defaultSortField: LanguageOrderField.NAME
     })
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

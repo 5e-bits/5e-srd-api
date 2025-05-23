@@ -1,10 +1,16 @@
 import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
 import FeatModel, { Feat, Prerequisite } from '@/models/2014/feat'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
-import { FeatArgs, FeatArgsSchema, FeatIndexArgsSchema } from './args'
+import {
+  FeatArgs,
+  FeatArgsSchema,
+  FeatIndexArgsSchema,
+  FeatOrderField,
+  FEAT_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Feat)
 export class FeatResolver {
@@ -19,12 +25,13 @@ export class FeatResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<FeatOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: FEAT_SORT_FIELD_MAP,
+      defaultSortField: FeatOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

@@ -1,11 +1,11 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root, registerEnumType } from 'type-graphql'
+import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
 import EquipmentModel, { Equipment, Content } from '@/models/2014/equipment'
 import { escapeRegExp } from '@/util'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import { APIReference } from '@/models/2014/common/apiReference'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   EquipmentArgs,
   EquipmentArgsSchema,
@@ -13,11 +13,6 @@ import {
   EquipmentOrderField,
   EQUIPMENT_SORT_FIELD_MAP
 } from './args'
-
-registerEnumType(EquipmentOrderField, {
-  name: 'EquipmentOrderField',
-  description: 'Fields to sort Equipment by'
-})
 
 @Resolver(Equipment)
 export class EquipmentResolver {
@@ -43,13 +38,12 @@ export class EquipmentResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<EquipmentOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: EQUIPMENT_SORT_FIELD_MAP,
       defaultSortField: EquipmentOrderField.NAME
     })
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

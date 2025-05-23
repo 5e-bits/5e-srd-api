@@ -1,8 +1,14 @@
 import { Resolver, Query, Arg, Args } from 'type-graphql'
 import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { RuleSectionArgs, RuleSectionArgsSchema, RuleSectionIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  RuleSectionArgs,
+  RuleSectionArgsSchema,
+  RuleSectionIndexArgsSchema,
+  RuleSectionOrderField,
+  RULE_SECTION_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(RuleSection)
 export class RuleSectionResolver {
@@ -17,15 +23,13 @@ export class RuleSectionResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (validatedArgs.order_direction) {
-      const sortQuery = buildMongoSortQuery({
-        orderDirection: validatedArgs.order_direction,
-        defaultSortField: 'name'
-      })
+    const sortQuery = buildSortPipeline<RuleSectionOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: RULE_SECTION_SORT_FIELD_MAP
+    })
 
-      if (sortQuery) {
-        query.sort(sortQuery)
-      }
+    if (Object.keys(sortQuery).length > 0) {
+      query.sort(sortQuery)
     }
 
     if (validatedArgs.skip) {

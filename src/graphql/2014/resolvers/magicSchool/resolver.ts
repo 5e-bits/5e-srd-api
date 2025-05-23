@@ -1,8 +1,14 @@
 import { Resolver, Query, Arg, Args } from 'type-graphql'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
 import { escapeRegExp } from '@/util'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { MagicSchoolArgs, MagicSchoolArgsSchema, MagicSchoolIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  MagicSchoolArgs,
+  MagicSchoolArgsSchema,
+  MagicSchoolIndexArgsSchema,
+  MagicSchoolOrderField,
+  MAGIC_SCHOOL_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(MagicSchool)
 export class MagicSchoolResolver {
@@ -17,12 +23,13 @@ export class MagicSchoolResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<MagicSchoolOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: MAGIC_SCHOOL_SORT_FIELD_MAP,
+      defaultSortField: MagicSchoolOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

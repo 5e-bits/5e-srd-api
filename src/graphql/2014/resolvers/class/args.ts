@@ -1,10 +1,12 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 export enum ClassOrderField {
@@ -17,6 +19,26 @@ registerEnumType(ClassOrderField, {
   description: 'Fields to sort Classes by'
 })
 
+@InputType()
+export class ClassOrder implements BaseOrderInterface<ClassOrderField> {
+  @Field(() => ClassOrderField)
+  by!: ClassOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => ClassOrder, { nullable: true })
+  then_by?: ClassOrder
+}
+
+export const ClassOrderSchema: z.ZodType<ClassOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(ClassOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: ClassOrderSchema.optional()
+  })
+)
+
 export const CLASS_SORT_FIELD_MAP: Record<ClassOrderField, string> = {
   [ClassOrderField.NAME]: 'name',
   [ClassOrderField.HIT_DIE]: 'hit_die'
@@ -24,7 +46,7 @@ export const CLASS_SORT_FIELD_MAP: Record<ClassOrderField, string> = {
 
 export const ClassArgsSchema = BaseFilterArgsSchema.extend({
   hit_die: NumberFilterInputSchema.optional(),
-  order_by: z.nativeEnum(ClassOrderField).optional()
+  order: ClassOrderSchema.optional()
 })
 
 export const ClassIndexArgsSchema = BaseIndexArgsSchema
@@ -37,9 +59,9 @@ export class ClassArgs extends BaseFilterArgs {
   })
   hit_die?: NumberFilterInput
 
-  @Field(() => ClassOrderField, {
+  @Field(() => ClassOrder, {
     nullable: true,
-    description: 'Field to sort classes by.'
+    description: 'Specify sorting order for classes. Allows nested sorting.'
   })
-  order_by?: ClassOrderField
+  order?: ClassOrder
 }

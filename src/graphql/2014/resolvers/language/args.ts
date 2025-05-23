@@ -1,9 +1,11 @@
-import { ArgsType, Field, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
 export enum LanguageOrderField {
@@ -17,6 +19,26 @@ registerEnumType(LanguageOrderField, {
   description: 'Fields to sort Languages by'
 })
 
+@InputType()
+export class LanguageOrder implements BaseOrderInterface<LanguageOrderField> {
+  @Field(() => LanguageOrderField)
+  by!: LanguageOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => LanguageOrder, { nullable: true })
+  then_by?: LanguageOrder
+}
+
+export const LanguageOrderSchema: z.ZodType<LanguageOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(LanguageOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: LanguageOrderSchema.optional()
+  })
+)
+
 export const LANGUAGE_SORT_FIELD_MAP: Record<LanguageOrderField, string> = {
   [LanguageOrderField.NAME]: 'name',
   [LanguageOrderField.TYPE]: 'type',
@@ -24,17 +46,9 @@ export const LANGUAGE_SORT_FIELD_MAP: Record<LanguageOrderField, string> = {
 }
 
 export const LanguageArgsSchema = BaseFilterArgsSchema.extend({
-  type: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (typeof val === 'string' && val.length > 0) {
-        return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()
-      }
-      return undefined
-    }),
+  type: z.string().optional(),
   script: z.array(z.string()).optional(),
-  order_by: z.nativeEnum(LanguageOrderField).optional()
+  order: LanguageOrderSchema.optional()
 })
 
 export const LanguageIndexArgsSchema = BaseIndexArgsSchema
@@ -54,9 +68,9 @@ export class LanguageArgs extends BaseFilterArgs {
   })
   script?: string[]
 
-  @Field(() => LanguageOrderField, {
+  @Field(() => LanguageOrder, {
     nullable: true,
-    description: 'Field to sort languages by.'
+    description: 'Specify sorting order for languages.'
   })
-  order_by?: LanguageOrderField
+  order?: LanguageOrder
 }

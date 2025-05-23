@@ -1,13 +1,57 @@
-import { ArgsType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
+import { z } from 'zod'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
-export const ConditionArgsSchema = BaseFilterArgsSchema
+export enum ConditionOrderField {
+  NAME = 'name'
+}
+
+registerEnumType(ConditionOrderField, {
+  name: 'ConditionOrderField',
+  description: 'Fields to sort Conditions by'
+})
+
+@InputType()
+export class ConditionOrder implements BaseOrderInterface<ConditionOrderField> {
+  @Field(() => ConditionOrderField)
+  by!: ConditionOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => ConditionOrder, { nullable: true })
+  then_by?: ConditionOrder
+}
+
+export const ConditionOrderSchema: z.ZodType<ConditionOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(ConditionOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: ConditionOrderSchema.optional()
+  })
+)
+
+export const CONDITION_SORT_FIELD_MAP: Record<ConditionOrderField, string> = {
+  [ConditionOrderField.NAME]: 'name'
+}
+
+export const ConditionArgsSchema = BaseFilterArgsSchema.extend({
+  order: ConditionOrderSchema.optional()
+})
 
 export const ConditionIndexArgsSchema = BaseIndexArgsSchema
 
 @ArgsType()
-export class ConditionArgs extends BaseFilterArgs {}
+export class ConditionArgs extends BaseFilterArgs {
+  @Field(() => ConditionOrder, {
+    nullable: true,
+    description: 'Specify sorting order for conditions.'
+  })
+  order?: ConditionOrder
+}

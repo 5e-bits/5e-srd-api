@@ -3,7 +3,7 @@ import SkillModel, { Skill } from '@/models/2014/skill'
 import { escapeRegExp } from '@/util'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   SkillArgs,
   SkillArgsSchema,
@@ -35,13 +35,13 @@ export class SkillResolver {
       query.where({ $and: filters })
     }
 
-    const sortQuery = buildMongoSortQuery<SkillOrderField>({
-      orderBy: validatedArgs.order_by,
-      orderDirection: validatedArgs.order_direction,
+    const sortQuery = buildSortPipeline<SkillOrderField>({
+      order: validatedArgs.order,
       sortFieldMap: SKILL_SORT_FIELD_MAP,
       defaultSortField: SkillOrderField.NAME
     })
-    if (sortQuery) {
+
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 

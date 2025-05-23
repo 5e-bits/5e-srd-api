@@ -1,13 +1,57 @@
-import { ArgsType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
+import { z } from 'zod'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
-  BaseIndexArgsSchema
+  BaseIndexArgsSchema,
+  BaseOrderInterface
 } from '@/graphql/2014/common/args'
 
-export const DamageTypeArgsSchema = BaseFilterArgsSchema
+export enum DamageTypeOrderField {
+  NAME = 'name'
+}
+
+registerEnumType(DamageTypeOrderField, {
+  name: 'DamageTypeOrderField',
+  description: 'Fields to sort Damage Types by'
+})
+
+@InputType()
+export class DamageTypeOrder implements BaseOrderInterface<DamageTypeOrderField> {
+  @Field(() => DamageTypeOrderField)
+  by!: DamageTypeOrderField
+
+  @Field(() => OrderByDirection)
+  direction!: OrderByDirection
+
+  @Field(() => DamageTypeOrder, { nullable: true })
+  then_by?: DamageTypeOrder
+}
+
+export const DamageTypeOrderSchema: z.ZodType<DamageTypeOrder> = z.lazy(() =>
+  z.object({
+    by: z.nativeEnum(DamageTypeOrderField),
+    direction: z.nativeEnum(OrderByDirection),
+    then_by: DamageTypeOrderSchema.optional()
+  })
+)
+
+export const DAMAGE_TYPE_SORT_FIELD_MAP: Record<DamageTypeOrderField, string> = {
+  [DamageTypeOrderField.NAME]: 'name'
+}
+
+export const DamageTypeArgsSchema = BaseFilterArgsSchema.extend({
+  order: DamageTypeOrderSchema.optional()
+})
 
 export const DamageTypeIndexArgsSchema = BaseIndexArgsSchema
 
 @ArgsType()
-export class DamageTypeArgs extends BaseFilterArgs {}
+export class DamageTypeArgs extends BaseFilterArgs {
+  @Field(() => DamageTypeOrder, {
+    nullable: true,
+    description: 'Specify sorting order for damage types.'
+  })
+  order?: DamageTypeOrder
+}

@@ -19,8 +19,14 @@ import {
 import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
-import { buildMongoSortQuery } from '@/graphql/2014/common/inputs'
-import { BackgroundArgs, BackgroundArgsSchema, BackgroundIndexArgsSchema } from './args'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  BackgroundArgs,
+  BackgroundArgsSchema,
+  BackgroundIndexArgsSchema,
+  BackgroundOrderField,
+  BACKGROUND_SORT_FIELD_MAP
+} from './args'
 
 @Resolver(Background)
 export class BackgroundResolver {
@@ -35,12 +41,13 @@ export class BackgroundResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
+    const sortQuery = buildSortPipeline<BackgroundOrderField>({
+      order: validatedArgs.order,
+      sortFieldMap: BACKGROUND_SORT_FIELD_MAP,
+      defaultSortField: BackgroundOrderField.NAME
     })
 
-    if (sortQuery) {
+    if (Object.keys(sortQuery).length > 0) {
       query.sort(sortQuery)
     }
 
