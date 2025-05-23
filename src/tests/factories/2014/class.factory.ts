@@ -2,7 +2,7 @@ import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
 import type {
   Class,
-  Equipment,
+  ClassEquipment,
   Spellcasting,
   SpellcastingInfo,
   MultiClassing,
@@ -12,7 +12,7 @@ import { apiReferenceFactory, choiceFactory, createIndex, createUrl } from './co
 
 // --- Nested Factories --- //
 
-const equipmentFactory = Factory.define<Equipment>(({ params }) => {
+const equipmentFactory = Factory.define<ClassEquipment>(({ params }) => {
   const builtEquipmentRef = apiReferenceFactory.build(params.equipment)
   return {
     equipment: {

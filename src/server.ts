@@ -1,3 +1,4 @@
+import 'reflect-metadata' // Must be imported first
 import apiRoutes from './routes/api'
 import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
@@ -11,7 +12,8 @@ import morgan from 'morgan'
 import docsController from './controllers/docsController'
 import path from 'path'
 import rateLimit from 'express-rate-limit'
-import schema2014 from './graphql/2014/schema'
+import { buildSchema } from 'type-graphql'
+import { resolvers } from './graphql/2014/resolvers'
 
 const __filename = fileURLToPath(import.meta.url)
 
@@ -47,8 +49,15 @@ export default async () => {
 
   app.use(limiter)
 
+  console.log('Building TypeGraphQL schema...')
+  const schema = await buildSchema({
+    resolvers: resolvers,
+    validate: { forbidUnknownValues: false }
+  })
+  console.log('TypeGraphQL schema built successfully.')
+
   console.log('Setting up Apollo GraphQL server')
-  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
+  const apolloMiddleware2014 = await createApolloMiddleware(schema)
   await apolloMiddleware2014.start()
   app.all('/graphql', (_req, res) => res.redirect(301, '/graphql/2014'))
   app.use(
