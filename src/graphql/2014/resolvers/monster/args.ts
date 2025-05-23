@@ -22,6 +22,19 @@ export enum MonsterOrderField {
   CHARISMA = 'charisma'
 }
 
+export const MONSTER_SORT_FIELD_MAP: Record<MonsterOrderField, string> = {
+  [MonsterOrderField.NAME]: 'name',
+  [MonsterOrderField.TYPE]: 'type',
+  [MonsterOrderField.SIZE]: 'size',
+  [MonsterOrderField.CHALLENGE_RATING]: 'challenge_rating',
+  [MonsterOrderField.STRENGTH]: 'strength',
+  [MonsterOrderField.DEXTERITY]: 'dexterity',
+  [MonsterOrderField.CONSTITUTION]: 'constitution',
+  [MonsterOrderField.INTELLIGENCE]: 'intelligence',
+  [MonsterOrderField.WISDOM]: 'wisdom',
+  [MonsterOrderField.CHARISMA]: 'charisma'
+}
+
 registerEnumType(MonsterOrderField, {
   name: 'MonsterOrderField',
   description: 'Fields to sort Monsters by'
@@ -46,19 +59,6 @@ export const MonsterOrderSchema: z.ZodType<MonsterOrder> = z.lazy(() =>
     then_by: MonsterOrderSchema.optional()
   })
 )
-
-export const MONSTER_SORT_FIELD_MAP: Record<MonsterOrderField, string> = {
-  [MonsterOrderField.NAME]: 'name',
-  [MonsterOrderField.TYPE]: 'type',
-  [MonsterOrderField.SIZE]: 'size',
-  [MonsterOrderField.CHALLENGE_RATING]: 'challenge_rating',
-  [MonsterOrderField.STRENGTH]: 'strength',
-  [MonsterOrderField.DEXTERITY]: 'dexterity',
-  [MonsterOrderField.CONSTITUTION]: 'constitution',
-  [MonsterOrderField.INTELLIGENCE]: 'intelligence',
-  [MonsterOrderField.WISDOM]: 'wisdom',
-  [MonsterOrderField.CHARISMA]: 'charisma'
-}
 
 export const MonsterArgsSchema = BaseFilterArgsSchema.extend({
   type: z.string().optional(),

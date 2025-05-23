@@ -12,6 +12,10 @@ export enum DamageTypeOrderField {
   NAME = 'name'
 }
 
+export const DAMAGE_TYPE_SORT_FIELD_MAP: Record<DamageTypeOrderField, string> = {
+  [DamageTypeOrderField.NAME]: 'name'
+}
+
 registerEnumType(DamageTypeOrderField, {
   name: 'DamageTypeOrderField',
   description: 'Fields to sort Damage Types by'
@@ -36,10 +40,6 @@ export const DamageTypeOrderSchema: z.ZodType<DamageTypeOrder> = z.lazy(() =>
     then_by: DamageTypeOrderSchema.optional()
   })
 )
-
-export const DAMAGE_TYPE_SORT_FIELD_MAP: Record<DamageTypeOrderField, string> = {
-  [DamageTypeOrderField.NAME]: 'name'
-}
 
 export const DamageTypeArgsSchema = BaseFilterArgsSchema.extend({
   order: DamageTypeOrderSchema.optional()

@@ -12,6 +12,10 @@ export enum SubclassOrderField {
   NAME = 'name'
 }
 
+export const SUBCLASS_SORT_FIELD_MAP: Record<SubclassOrderField, string> = {
+  [SubclassOrderField.NAME]: 'name'
+}
+
 registerEnumType(SubclassOrderField, {
   name: 'SubclassOrderField',
   description: 'Fields to sort Subclasses by'
@@ -37,10 +41,6 @@ export const SubclassOrderSchema: z.ZodType<SubclassOrder> = z.lazy(() =>
   })
 )
 
-export const SUBCLASS_SORT_FIELD_MAP: Record<SubclassOrderField, string> = {
-  [SubclassOrderField.NAME]: 'name'
-}
-
 export const SubclassArgsSchema = BaseFilterArgsSchema.extend({
   order: SubclassOrderSchema.optional()
 })
@@ -51,8 +51,7 @@ export const SubclassIndexArgsSchema = BaseIndexArgsSchema
 export class SubclassArgs extends BaseFilterArgs {
   @Field(() => SubclassOrder, {
     nullable: true,
-    description:
-      'Specify sorting order for subclasses. Allows nested sorting. Defaults to NAME ascending.'
+    description: 'Specify sorting order for subclasses.'
   })
   order?: SubclassOrder
 }

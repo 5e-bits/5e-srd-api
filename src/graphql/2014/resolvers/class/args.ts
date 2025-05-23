@@ -14,6 +14,11 @@ export enum ClassOrderField {
   HIT_DIE = 'hit_die'
 }
 
+export const CLASS_SORT_FIELD_MAP: Record<ClassOrderField, string> = {
+  [ClassOrderField.NAME]: 'name',
+  [ClassOrderField.HIT_DIE]: 'hit_die'
+}
+
 registerEnumType(ClassOrderField, {
   name: 'ClassOrderField',
   description: 'Fields to sort Classes by'
@@ -38,11 +43,6 @@ export const ClassOrderSchema: z.ZodType<ClassOrder> = z.lazy(() =>
     then_by: ClassOrderSchema.optional()
   })
 )
-
-export const CLASS_SORT_FIELD_MAP: Record<ClassOrderField, string> = {
-  [ClassOrderField.NAME]: 'name',
-  [ClassOrderField.HIT_DIE]: 'hit_die'
-}
 
 export const ClassArgsSchema = BaseFilterArgsSchema.extend({
   hit_die: NumberFilterInputSchema.optional(),

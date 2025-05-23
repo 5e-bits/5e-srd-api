@@ -12,6 +12,10 @@ export enum MagicSchoolOrderField {
   NAME = 'name'
 }
 
+export const MAGIC_SCHOOL_SORT_FIELD_MAP: Record<MagicSchoolOrderField, string> = {
+  [MagicSchoolOrderField.NAME]: 'name'
+}
+
 registerEnumType(MagicSchoolOrderField, {
   name: 'MagicSchoolOrderField',
   description: 'Fields to sort Magic Schools by'
@@ -36,10 +40,6 @@ export const MagicSchoolOrderSchema: z.ZodType<MagicSchoolOrder> = z.lazy(() =>
     then_by: MagicSchoolOrderSchema.optional()
   })
 )
-
-export const MAGIC_SCHOOL_SORT_FIELD_MAP: Record<MagicSchoolOrderField, string> = {
-  [MagicSchoolOrderField.NAME]: 'name'
-}
 
 export const MagicSchoolArgsSchema = BaseFilterArgsSchema.extend({
   order: MagicSchoolOrderSchema.optional()

@@ -12,6 +12,10 @@ export enum RuleSectionOrderField {
   NAME = 'name'
 }
 
+export const RULE_SECTION_SORT_FIELD_MAP: Record<RuleSectionOrderField, string> = {
+  [RuleSectionOrderField.NAME]: 'name'
+}
+
 registerEnumType(RuleSectionOrderField, {
   name: 'RuleSectionOrderField',
   description: 'Fields to sort Rule Sections by'
@@ -36,10 +40,6 @@ export const RuleSectionOrderSchema: z.ZodType<RuleSectionOrder> = z.lazy(() =>
     then_by: RuleSectionOrderSchema.optional()
   })
 )
-
-export const RULE_SECTION_SORT_FIELD_MAP: Record<RuleSectionOrderField, string> = {
-  [RuleSectionOrderField.NAME]: 'name'
-}
 
 export const RuleSectionArgsSchema = BaseFilterArgsSchema.extend({
   order: RuleSectionOrderSchema.optional()

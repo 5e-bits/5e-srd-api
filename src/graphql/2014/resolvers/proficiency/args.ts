@@ -13,6 +13,11 @@ export enum ProficiencyOrderField {
   TYPE = 'type'
 }
 
+export const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
+  [ProficiencyOrderField.NAME]: 'name',
+  [ProficiencyOrderField.TYPE]: 'type'
+}
+
 registerEnumType(ProficiencyOrderField, {
   name: 'ProficiencyOrderField',
   description: 'Fields to sort Proficiencies by'
@@ -37,11 +42,6 @@ export const ProficiencyOrderSchema: z.ZodType<ProficiencyOrder> = z.lazy(() =>
     then_by: ProficiencyOrderSchema.optional()
   })
 )
-
-export const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
-  [ProficiencyOrderField.NAME]: 'name',
-  [ProficiencyOrderField.TYPE]: 'type'
-}
 
 export const ProficiencyArgsSchema = BaseFilterArgsSchema.extend({
   class: z.array(z.string()).optional(),

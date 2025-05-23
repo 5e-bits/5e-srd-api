@@ -15,6 +15,12 @@ export enum LevelOrderField {
   SUBCLASS = 'subclass'
 }
 
+export const LEVEL_SORT_FIELD_MAP: Record<LevelOrderField, string> = {
+  [LevelOrderField.LEVEL]: 'level',
+  [LevelOrderField.CLASS]: 'class.name',
+  [LevelOrderField.SUBCLASS]: 'subclass.name'
+}
+
 registerEnumType(LevelOrderField, {
   name: 'LevelOrderField',
   description: 'Fields to sort Levels by'
@@ -39,12 +45,6 @@ export const LevelOrderSchema: z.ZodType<LevelOrder> = z.lazy(() =>
     then_by: LevelOrderSchema.optional()
   })
 )
-
-export const LEVEL_SORT_FIELD_MAP: Record<LevelOrderField, string> = {
-  [LevelOrderField.LEVEL]: 'level',
-  [LevelOrderField.CLASS]: 'class.name',
-  [LevelOrderField.SUBCLASS]: 'subclass.name'
-}
 
 export const LevelArgsSchema = BasePaginationArgsSchema.extend({
   class: z.array(z.string()).optional(),

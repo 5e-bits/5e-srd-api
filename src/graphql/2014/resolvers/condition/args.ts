@@ -12,6 +12,10 @@ export enum ConditionOrderField {
   NAME = 'name'
 }
 
+export const CONDITION_SORT_FIELD_MAP: Record<ConditionOrderField, string> = {
+  [ConditionOrderField.NAME]: 'name'
+}
+
 registerEnumType(ConditionOrderField, {
   name: 'ConditionOrderField',
   description: 'Fields to sort Conditions by'
@@ -36,10 +40,6 @@ export const ConditionOrderSchema: z.ZodType<ConditionOrder> = z.lazy(() =>
     then_by: ConditionOrderSchema.optional()
   })
 )
-
-export const CONDITION_SORT_FIELD_MAP: Record<ConditionOrderField, string> = {
-  [ConditionOrderField.NAME]: 'name'
-}
 
 export const ConditionArgsSchema = BaseFilterArgsSchema.extend({
   order: ConditionOrderSchema.optional()

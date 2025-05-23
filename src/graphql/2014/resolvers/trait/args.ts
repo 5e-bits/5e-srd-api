@@ -12,6 +12,10 @@ export enum TraitOrderField {
   NAME = 'name'
 }
 
+export const TRAIT_SORT_FIELD_MAP: Record<TraitOrderField, string> = {
+  [TraitOrderField.NAME]: 'name'
+}
+
 registerEnumType(TraitOrderField, {
   name: 'TraitOrderField',
   description: 'Fields to sort Traits by'
@@ -37,10 +41,6 @@ export const TraitOrderSchema: z.ZodType<TraitOrder> = z.lazy(() =>
   })
 )
 
-export const TRAIT_SORT_FIELD_MAP: Record<TraitOrderField, string> = {
-  [TraitOrderField.NAME]: 'name'
-}
-
 export const TraitArgsSchema = BaseFilterArgsSchema.extend({
   order: TraitOrderSchema.optional()
 })
@@ -51,8 +51,7 @@ export const TraitIndexArgsSchema = BaseIndexArgsSchema
 export class TraitArgs extends BaseFilterArgs {
   @Field(() => TraitOrder, {
     nullable: true,
-    description:
-      'Specify sorting order for traits. Allows nested sorting. Defaults to NAME ascending.'
+    description: 'Specify sorting order for traits.'
   })
   order?: TraitOrder
 }

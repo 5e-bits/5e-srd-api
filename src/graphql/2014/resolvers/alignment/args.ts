@@ -12,6 +12,10 @@ export enum AlignmentOrderField {
   NAME = 'name'
 }
 
+export const ALIGNMENT_SORT_FIELD_MAP: Record<AlignmentOrderField, string> = {
+  [AlignmentOrderField.NAME]: 'name'
+}
+
 registerEnumType(AlignmentOrderField, {
   name: 'AlignmentOrderField',
   description: 'Fields to sort Alignments by'
@@ -36,10 +40,6 @@ export const AlignmentOrderSchema: z.ZodType<AlignmentOrder> = z.lazy(() =>
     then_by: AlignmentOrderSchema.optional()
   })
 )
-
-export const ALIGNMENT_SORT_FIELD_MAP: Record<AlignmentOrderField, string> = {
-  [AlignmentOrderField.NAME]: 'name'
-}
 
 export const AlignmentArgsSchema = BaseFilterArgsSchema.extend({
   order: AlignmentOrderSchema.optional()

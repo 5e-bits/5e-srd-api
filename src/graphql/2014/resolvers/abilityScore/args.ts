@@ -13,6 +13,11 @@ export enum AbilityScoreOrderField {
   FULL_NAME = 'full_name'
 }
 
+export const ABILITY_SCORE_SORT_FIELD_MAP: Record<AbilityScoreOrderField, string> = {
+  [AbilityScoreOrderField.NAME]: 'name',
+  [AbilityScoreOrderField.FULL_NAME]: 'full_name'
+}
+
 registerEnumType(AbilityScoreOrderField, {
   name: 'AbilityScoreOrderField',
   description: 'Fields to sort Ability Scores by'
@@ -37,11 +42,6 @@ export const AbilityScoreOrderSchema: z.ZodType<AbilityScoreOrder> = z.lazy(() =
     then_by: AbilityScoreOrderSchema.optional()
   })
 )
-
-export const ABILITY_SCORE_SORT_FIELD_MAP: Record<AbilityScoreOrderField, string> = {
-  [AbilityScoreOrderField.NAME]: 'name',
-  [AbilityScoreOrderField.FULL_NAME]: 'full_name'
-}
 
 export const AbilityScoreArgsSchema = BaseFilterArgsSchema.extend({
   full_name: z.string().optional(),

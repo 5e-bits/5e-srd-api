@@ -14,6 +14,12 @@ export enum LanguageOrderField {
   SCRIPT = 'script'
 }
 
+export const LANGUAGE_SORT_FIELD_MAP: Record<LanguageOrderField, string> = {
+  [LanguageOrderField.NAME]: 'name',
+  [LanguageOrderField.TYPE]: 'type',
+  [LanguageOrderField.SCRIPT]: 'script'
+}
+
 registerEnumType(LanguageOrderField, {
   name: 'LanguageOrderField',
   description: 'Fields to sort Languages by'
@@ -38,12 +44,6 @@ export const LanguageOrderSchema: z.ZodType<LanguageOrder> = z.lazy(() =>
     then_by: LanguageOrderSchema.optional()
   })
 )
-
-export const LANGUAGE_SORT_FIELD_MAP: Record<LanguageOrderField, string> = {
-  [LanguageOrderField.NAME]: 'name',
-  [LanguageOrderField.TYPE]: 'type',
-  [LanguageOrderField.SCRIPT]: 'script'
-}
 
 export const LanguageArgsSchema = BaseFilterArgsSchema.extend({
   type: z.string().optional(),

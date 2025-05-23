@@ -16,6 +16,13 @@ export enum FeatureOrderField {
   SUBCLASS = 'subclass'
 }
 
+export const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
+  [FeatureOrderField.NAME]: 'name',
+  [FeatureOrderField.LEVEL]: 'level',
+  [FeatureOrderField.CLASS]: 'class.name',
+  [FeatureOrderField.SUBCLASS]: 'subclass.name'
+}
+
 registerEnumType(FeatureOrderField, {
   name: 'FeatureOrderField',
   description: 'Fields to sort Features by'
@@ -40,13 +47,6 @@ export const FeatureOrderSchema: z.ZodType<FeatureOrder> = z.lazy(() =>
     then_by: FeatureOrderSchema.optional()
   })
 )
-
-export const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
-  [FeatureOrderField.NAME]: 'name',
-  [FeatureOrderField.LEVEL]: 'level',
-  [FeatureOrderField.CLASS]: 'class.name',
-  [FeatureOrderField.SUBCLASS]: 'subclass.name'
-}
 
 export const FeatureArgsSchema = BaseFilterArgsSchema.extend({
   level: NumberFilterInputSchema.optional(),

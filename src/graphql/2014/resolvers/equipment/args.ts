@@ -14,6 +14,12 @@ export enum EquipmentOrderField {
   COST_QUANTITY = 'cost_quantity'
 }
 
+export const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
+  [EquipmentOrderField.NAME]: 'name',
+  [EquipmentOrderField.WEIGHT]: 'weight',
+  [EquipmentOrderField.COST_QUANTITY]: 'cost.quantity'
+}
+
 registerEnumType(EquipmentOrderField, {
   name: 'EquipmentOrderField',
   description: 'Fields to sort Equipment by'
@@ -38,12 +44,6 @@ export const EquipmentOrderSchema: z.ZodType<EquipmentOrder> = z.lazy(() =>
     then_by: EquipmentOrderSchema.optional() // Simplified
   })
 )
-
-export const EQUIPMENT_SORT_FIELD_MAP: Record<EquipmentOrderField, string> = {
-  [EquipmentOrderField.NAME]: 'name',
-  [EquipmentOrderField.WEIGHT]: 'weight',
-  [EquipmentOrderField.COST_QUANTITY]: 'cost.quantity'
-}
 
 export const EquipmentArgsSchema = BaseFilterArgsSchema.extend({
   equipment_category: z.array(z.string()).optional(),

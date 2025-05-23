@@ -14,6 +14,12 @@ export enum MagicItemOrderField {
   RARITY = 'rarity'
 }
 
+export const MAGIC_ITEM_SORT_FIELD_MAP: Record<MagicItemOrderField, string> = {
+  [MagicItemOrderField.NAME]: 'name',
+  [MagicItemOrderField.EQUIPMENT_CATEGORY]: 'equipment_category.name',
+  [MagicItemOrderField.RARITY]: 'rarity.name'
+}
+
 registerEnumType(MagicItemOrderField, {
   name: 'MagicItemOrderField',
   description: 'Fields to sort Magic Items by'
@@ -38,12 +44,6 @@ export const MagicItemOrderSchema: z.ZodType<MagicItemOrder> = z.lazy(() =>
     then_by: MagicItemOrderSchema.optional()
   })
 )
-
-export const MAGIC_ITEM_SORT_FIELD_MAP: Record<MagicItemOrderField, string> = {
-  [MagicItemOrderField.NAME]: 'name',
-  [MagicItemOrderField.EQUIPMENT_CATEGORY]: 'equipment_category.name',
-  [MagicItemOrderField.RARITY]: 'rarity.name'
-}
 
 export const MagicItemArgsSchema = BaseFilterArgsSchema.extend({
   equipment_category: z.array(z.string()).optional(),

@@ -12,6 +12,10 @@ export enum FeatOrderField {
   NAME = 'name'
 }
 
+export const FEAT_SORT_FIELD_MAP: Record<FeatOrderField, string> = {
+  [FeatOrderField.NAME]: 'name'
+}
+
 registerEnumType(FeatOrderField, {
   name: 'FeatOrderField',
   description: 'Fields to sort Feats by'
@@ -36,10 +40,6 @@ export const FeatOrderSchema: z.ZodType<FeatOrder> = z.lazy(() =>
     then_by: FeatOrderSchema.optional()
   })
 )
-
-export const FEAT_SORT_FIELD_MAP: Record<FeatOrderField, string> = {
-  [FeatOrderField.NAME]: 'name'
-}
 
 export const FeatArgsSchema = BaseFilterArgsSchema.extend({
   order: FeatOrderSchema.optional()

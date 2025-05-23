@@ -12,6 +12,10 @@ export enum EquipmentCategoryOrderField {
   NAME = 'name'
 }
 
+export const EQUIPMENT_CATEGORY_SORT_FIELD_MAP: Record<EquipmentCategoryOrderField, string> = {
+  [EquipmentCategoryOrderField.NAME]: 'name'
+}
+
 registerEnumType(EquipmentCategoryOrderField, {
   name: 'EquipmentCategoryOrderField',
   description: 'Fields to sort Equipment Categories by'
@@ -36,10 +40,6 @@ export const EquipmentCategoryOrderSchema: z.ZodType<EquipmentCategoryOrder> = z
     then_by: EquipmentCategoryOrderSchema.optional()
   })
 )
-
-export const EQUIPMENT_CATEGORY_SORT_FIELD_MAP: Record<EquipmentCategoryOrderField, string> = {
-  [EquipmentCategoryOrderField.NAME]: 'name'
-}
 
 export const EquipmentCategoryArgsSchema = BaseFilterArgsSchema.extend({
   order: EquipmentCategoryOrderSchema.optional()

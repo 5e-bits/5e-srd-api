@@ -1,16 +1,21 @@
-import { ArgsType, Field, registerEnumType, InputType } from 'type-graphql'
+import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/2014/common/args'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
 
 export enum SkillOrderField {
   NAME = 'name',
   ABILITY_SCORE = 'ability_score'
+}
+
+export const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
+  [SkillOrderField.NAME]: 'name',
+  [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'
 }
 
 registerEnumType(SkillOrderField, {
@@ -38,11 +43,6 @@ export const SkillOrderSchema: z.ZodType<SkillOrder> = z.lazy(() =>
   })
 )
 
-export const SKILL_SORT_FIELD_MAP: Record<SkillOrderField, string> = {
-  [SkillOrderField.NAME]: 'name',
-  [SkillOrderField.ABILITY_SCORE]: 'ability_score.name'
-}
-
 export const SkillArgsSchema = BaseFilterArgsSchema.extend({
   ability_score: z.array(z.string()).optional(),
   order: SkillOrderSchema.optional()
@@ -60,8 +60,7 @@ export class SkillArgs extends BaseFilterArgs {
 
   @Field(() => SkillOrder, {
     nullable: true,
-    description:
-      'Specify sorting order for skills. Allows nested sorting. Defaults to NAME ascending.'
+    description: 'Specify sorting order for skills.'
   })
   order?: SkillOrder
 }

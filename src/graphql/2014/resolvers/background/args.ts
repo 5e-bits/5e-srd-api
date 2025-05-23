@@ -12,6 +12,10 @@ export enum BackgroundOrderField {
   NAME = 'name'
 }
 
+export const BACKGROUND_SORT_FIELD_MAP: Record<BackgroundOrderField, string> = {
+  [BackgroundOrderField.NAME]: 'name'
+}
+
 registerEnumType(BackgroundOrderField, {
   name: 'BackgroundOrderField',
   description: 'Fields to sort Backgrounds by'
@@ -36,10 +40,6 @@ export const BackgroundOrderSchema: z.ZodType<BackgroundOrder> = z.lazy(() =>
     then_by: BackgroundOrderSchema.optional()
   })
 )
-
-export const BACKGROUND_SORT_FIELD_MAP: Record<BackgroundOrderField, string> = {
-  [BackgroundOrderField.NAME]: 'name'
-}
 
 export const BackgroundArgsSchema = BaseFilterArgsSchema.extend({
   order: BackgroundOrderSchema.optional()

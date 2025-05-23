@@ -39,6 +39,13 @@ export enum SpellOrderField {
   AREA_OF_EFFECT_SIZE = 'area_of_effect_size' // Matches old API
 }
 
+export const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
+  [SpellOrderField.NAME]: 'name',
+  [SpellOrderField.LEVEL]: 'level',
+  [SpellOrderField.SCHOOL]: 'school.name',
+  [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
+}
+
 registerEnumType(SpellOrderField, {
   name: 'SpellOrderField',
   description: 'Fields to sort Spells by'
@@ -63,14 +70,6 @@ export const SpellOrderSchema: z.ZodType<SpellOrder> = z.lazy(() =>
     then_by: SpellOrderSchema.optional()
   })
 )
-
-// Map GraphQL SpellOrderField to MongoDB field name
-export const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
-  [SpellOrderField.NAME]: 'name',
-  [SpellOrderField.LEVEL]: 'level',
-  [SpellOrderField.SCHOOL]: 'school.name',
-  [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
-}
 
 export const SpellArgsSchema = BaseFilterArgsSchema.extend({
   level: z.array(z.number().int().min(0).max(9)).optional(),
@@ -160,8 +159,7 @@ export class SpellArgs extends BaseFilterArgs {
 
   @Field(() => SpellOrder, {
     nullable: true,
-    description:
-      'Specify sorting order for spells. Allows nested sorting. Defaults to NAME ascending.'
+    description: 'Specify sorting order for spells.'
   })
   order?: SpellOrder
 }

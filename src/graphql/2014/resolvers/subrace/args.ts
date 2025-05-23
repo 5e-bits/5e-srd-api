@@ -12,6 +12,10 @@ export enum SubraceOrderField {
   NAME = 'name'
 }
 
+export const SUBRACE_SORT_FIELD_MAP: Record<SubraceOrderField, string> = {
+  [SubraceOrderField.NAME]: 'name'
+}
+
 registerEnumType(SubraceOrderField, {
   name: 'SubraceOrderField',
   description: 'Fields to sort Subraces by'
@@ -37,10 +41,6 @@ export const SubraceOrderSchema: z.ZodType<SubraceOrder> = z.lazy(() =>
   })
 )
 
-export const SUBRACE_SORT_FIELD_MAP: Record<SubraceOrderField, string> = {
-  [SubraceOrderField.NAME]: 'name'
-}
-
 export const SubraceArgsSchema = BaseFilterArgsSchema.extend({
   order: SubraceOrderSchema.optional()
 })
@@ -51,8 +51,7 @@ export const SubraceIndexArgsSchema = BaseIndexArgsSchema
 export class SubraceArgs extends BaseFilterArgs {
   @Field(() => SubraceOrder, {
     nullable: true,
-    description:
-      'Specify sorting order for subraces. Allows nested sorting. Defaults to NAME ascending.'
+    description: 'Specify sorting order for subraces.'
   })
   order?: SubraceOrder
 }

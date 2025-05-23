@@ -13,6 +13,10 @@ export enum RaceOrderField {
   NAME = 'name'
 }
 
+export const RACE_SORT_FIELD_MAP: Record<RaceOrderField, string> = {
+  [RaceOrderField.NAME]: 'name'
+}
+
 registerEnumType(RaceOrderField, {
   name: 'RaceOrderField',
   description: 'Fields to sort Races by'
@@ -37,11 +41,6 @@ export const RaceOrderSchema: z.ZodType<RaceOrder> = z.lazy(() =>
     then_by: RaceOrderSchema.optional()
   })
 )
-
-export const RACE_SORT_FIELD_MAP: Record<RaceOrderField, string> = {
-  [RaceOrderField.NAME]: 'name'
-  // Add mappings for other sortable fields here
-}
 
 export const RaceArgsSchema = BaseFilterArgsSchema.extend({
   ability_bonus: z.array(z.string()).optional(),

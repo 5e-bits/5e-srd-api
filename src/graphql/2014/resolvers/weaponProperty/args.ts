@@ -12,6 +12,10 @@ export enum WeaponPropertyOrderField {
   NAME = 'name'
 }
 
+export const WEAPON_PROPERTY_SORT_FIELD_MAP: Record<WeaponPropertyOrderField, string> = {
+  [WeaponPropertyOrderField.NAME]: 'name'
+}
+
 registerEnumType(WeaponPropertyOrderField, {
   name: 'WeaponPropertyOrderField',
   description: 'Fields to sort Weapon Properties by'
@@ -37,10 +41,6 @@ export const WeaponPropertyOrderSchema: z.ZodType<WeaponPropertyOrder> = z.lazy(
   })
 )
 
-export const WEAPON_PROPERTY_SORT_FIELD_MAP: Record<WeaponPropertyOrderField, string> = {
-  [WeaponPropertyOrderField.NAME]: 'name'
-}
-
 export const WeaponPropertyArgsSchema = BaseFilterArgsSchema.extend({
   order: WeaponPropertyOrderSchema.optional()
 })
@@ -51,8 +51,7 @@ export const WeaponPropertyIndexArgsSchema = BaseIndexArgsSchema
 export class WeaponPropertyArgs extends BaseFilterArgs {
   @Field(() => WeaponPropertyOrder, {
     nullable: true,
-    description:
-      'Specify sorting order for weapon properties. Allows nested sorting. Defaults to NAME ascending.'
+    description: 'Specify sorting order for weapon properties.'
   })
   order?: WeaponPropertyOrder
 }
