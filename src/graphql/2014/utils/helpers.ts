@@ -1,8 +1,4 @@
 import { LevelValue } from '@/graphql/2014/common/types'
-import { createRequire } from 'module'
-
-// Create a require function relative to the current module
-export const customRequire = createRequire(import.meta.url)
 
 /**
  * Converts a Record<number, string> or Record<string, string> (where keys are number strings)

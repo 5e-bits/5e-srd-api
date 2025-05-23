@@ -7,7 +7,6 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Class } from './class'
 import { Subclass } from './subclass'
 import { Spell } from './spell'
-import { FeaturePrerequisiteUnion } from '@/graphql/2014/types/featureTypes'
 
 // Export nested classes
 @ObjectType({ description: 'Prerequisite based on character level' })
@@ -91,11 +90,7 @@ export class Feature {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @Field(() => [FeaturePrerequisiteUnion], {
-    nullable: true,
-    description:
-      'Prerequisites that must be met for this feature (specific type resolved by union).'
-  })
+  // Handled by FeatureResolver
   @prop({ type: () => [Object] })
   public prerequisites?: Prerequisite[]
 

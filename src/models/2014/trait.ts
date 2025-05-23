@@ -10,9 +10,6 @@ import { Race } from './race'
 import { Subrace } from './subrace'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
-import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
-import { LevelValue } from '@/graphql/2014/common/types'
-import { TraitChoice, SpellChoice } from '@/graphql/2014/types/traitTypes'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -21,10 +18,7 @@ export class ActionDamage {
   @prop({ type: () => APIReference })
   public damage_type!: APIReference
 
-  @Field(() => [LevelValue], {
-    nullable: true,
-    description: 'Damage scaling based on character level.'
-  })
+  // Handled by ActionDamageResolver
   @prop({ type: () => Object })
   public damage_at_character_level?: Record<string, string>
 }
@@ -43,10 +37,12 @@ export class Usage {
 @ObjectType({ description: 'DC details for a trait action (lacks dc_value).' })
 export class TraitActionDC {
   @Field(() => AbilityScore, { description: 'The ability score associated with this DC.' })
-  dc_type!: APIReference
+  @prop({ type: () => APIReference, required: true })
+  public dc_type!: APIReference
 
   @Field(() => String, { description: 'The result of a successful save against this DC.' })
-  success_type!: 'none' | 'half' | 'other'
+  @prop({ type: () => String, required: true })
+  public success_type!: 'none' | 'half' | 'other'
 }
 
 @ObjectType({ description: 'Represents an action associated with a trait (like a breath weapon).' })
@@ -82,18 +78,15 @@ export class Action {
 
 @ObjectType({ description: 'Details specific to certain traits.' })
 export class TraitSpecific {
-  @Field(() => TraitChoice, { nullable: true, description: 'Options for subtraits.' })
+  // Handled by TraitSpecificResolver
   @prop({ type: () => Choice })
   public subtrait_options?: Choice
 
-  @Field(() => SpellChoice, { nullable: true, description: 'Options for spells.' })
+  // Handled by TraitSpecificResolver
   @prop({ type: () => Choice })
   public spell_options?: Choice
 
-  @Field(() => DamageType, {
-    nullable: true,
-    description: 'Specific damage type associated with the trait.'
-  })
+  // Handled by TraitSpecificResolver
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
@@ -129,17 +122,11 @@ export class Trait {
   @prop({ type: () => [APIReference] })
   public proficiencies?: APIReference[]
 
-  @Field(() => ProficiencyChoice, {
-    nullable: true,
-    description: 'Proficiencies that can be chosen from this trait.'
-  })
+  // Handled by TraitResolver
   @prop({ type: () => Choice })
   public proficiency_choices?: Choice
 
-  @Field(() => LanguageChoice, {
-    nullable: true,
-    description: 'Languages typically spoken by this trait.'
-  })
+  // Handled by TraitResolver
   @prop({ type: () => Choice })
   public language_options?: Choice
 

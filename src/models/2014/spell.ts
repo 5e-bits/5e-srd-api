@@ -9,7 +9,6 @@ import { MagicSchool } from './magicSchool'
 import { Subclass } from './subclass'
 import { DamageType } from './damageType'
 import { AbilityScore } from './abilityScore'
-import { LevelValue } from '@/graphql/2014/common/types'
 
 @ObjectType({ description: 'Details about spell damage' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -18,17 +17,11 @@ export class SpellDamage {
   @prop({ type: () => APIReference })
   public damage_type?: APIReference
 
-  @Field(() => [LevelValue], {
-    nullable: true,
-    description: 'Damage dealt at specific spell slot levels.'
-  })
+  // Handled by SpellDamageResolver
   @prop({ mapProp: true, type: () => Object, default: undefined })
   public damage_at_slot_level?: Record<number, string>
 
-  @Field(() => [LevelValue], {
-    nullable: true,
-    description: 'Damage dealt based on character level.'
-  })
+  // Handled by SpellDamageResolver
   @prop({ mapProp: true, type: () => Object, default: undefined })
   public damage_at_character_level?: Record<number, string>
 }
@@ -100,10 +93,7 @@ export class Spell {
   @prop({ required: true, index: true, type: () => String })
   public duration!: string
 
-  @Field(() => [LevelValue], {
-    nullable: true,
-    description: 'Healing amount based on spell slot level.'
-  })
+  // Handled by SpellResolver
   @prop({ type: () => Object })
   public heal_at_slot_level?: Record<number, string>
 

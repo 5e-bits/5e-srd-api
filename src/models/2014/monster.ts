@@ -6,15 +6,8 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int, Float } from 'type-graphql'
 import { Condition } from './condition'
 import { AbilityScore } from './abilityScore'
-import {
-  MonsterArmorClassUnion,
-  DamageOrDamageChoiceUnion
-} from '@/graphql/2014/types/monsterTypes'
-import { SpellSlotCount } from '@/graphql/2014/common/types'
-import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import { Proficiency } from './proficiency'
 import { Spell } from './spell'
-import { BreathChoice, ActionChoice } from '@/graphql/2014/types/monsterTypes'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import { Damage } from '@/models/2014/common/damage'
 
@@ -63,10 +56,7 @@ export class MonsterAction {
   @prop({ index: true, type: () => Number })
   public attack_bonus?: number
 
-  @Field(() => [DamageOrDamageChoiceUnion], {
-    nullable: true,
-    description: 'The damage for the action.'
-  })
+  // Handled by MonsterActionResolver
   @prop({ type: () => [Object] })
   public damage?: (Damage | Choice)[]
 
@@ -77,7 +67,7 @@ export class MonsterAction {
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 
-  @Field(() => BreathChoice, { nullable: true, description: 'The breath options for the action.' })
+  // Handled by MonsterActionResolver
   @prop({ type: () => Choice })
   public options?: Choice
 
@@ -93,10 +83,7 @@ export class MonsterAction {
   @prop({ type: () => [ActionOption] })
   public actions?: ActionOption[]
 
-  @Field(() => ActionChoice, {
-    nullable: true,
-    description: 'The action options for the action.'
-  })
+  // Handled by MonsterActionResolver
   @prop({ type: () => Choice })
   public action_options?: Choice
 }
@@ -147,10 +134,7 @@ export class ArmorClassArmor {
   @prop({ required: true, index: true, type: () => Number })
   public value!: number
 
-  @Field(() => [Armor], {
-    nullable: true,
-    description: 'Specific armor(s) worn, if any. Resolved via resolver.'
-  })
+  // Handled by MonsterArmorClassResolver
   @prop({ type: () => [APIReference] })
   public armor?: APIReference[]
 
@@ -359,10 +343,7 @@ export class SpecialAbilitySpellcasting {
   @prop({ index: true, type: () => String })
   public school?: string
 
-  @Field(() => [SpellSlotCount], {
-    nullable: true,
-    description: 'Spell slots available per spell level.'
-  })
+  // Handled by MonsterSpellcastingResolver
   @prop({ type: () => Object, default: undefined })
   public slots?: Record<string, number>
 
@@ -438,7 +419,7 @@ export class MonsterSpeed {
   public walk?: string
 }
 
-@ObjectType({ description: 'Represents a creature in the D&D SRD' })
+@ObjectType({ description: 'A D&D monster.' })
 @srdModelOptions('2014-monsters')
 export class Monster {
   @Field(() => [MonsterAction], { nullable: true, description: 'The actions for the monster.' })
@@ -449,10 +430,7 @@ export class Monster {
   @prop({ required: true, index: true, type: () => String })
   public alignment!: string
 
-  // Comment removed as ArmorClass union is now defined and used
-  @Field(() => [MonsterArmorClassUnion], {
-    description: "List of AC components that contribute to the monster's AC."
-  })
+  // Handled by MonsterArmorClassResolver
   @prop({ type: () => [Object], required: true })
   public armor_class!: Array<
     ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition

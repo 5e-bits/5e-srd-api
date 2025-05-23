@@ -11,7 +11,9 @@ export class AbilityScoreResolver {
   @Query(() => [AbilityScore], {
     description: 'Gets all ability scores, optionally filtered by name and sorted.'
   })
-  async abilityScores(@Args() args: AbilityScoreArgs): Promise<AbilityScore[]> {
+  async abilityScores(
+    @Args(() => AbilityScoreArgs) args: AbilityScoreArgs
+  ): Promise<AbilityScore[]> {
     const validatedArgs = AbilityScoreArgsSchema.parse(args)
 
     const query = AbilityScoreModel.find()
@@ -54,7 +56,7 @@ export class AbilityScoreResolver {
     nullable: true,
     description: 'Gets a single ability score by index.'
   })
-  async abilityScore(@Arg('index') indexInput: string): Promise<AbilityScore | null> {
+  async abilityScore(@Arg('index', () => String) indexInput: string): Promise<AbilityScore | null> {
     const { index } = AbilityScoreIndexArgsSchema.parse({ index: indexInput })
     return AbilityScoreModel.findOne({ index }).lean()
   }

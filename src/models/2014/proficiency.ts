@@ -1,11 +1,10 @@
+import { ObjectType, Field } from 'type-graphql'
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field } from 'type-graphql'
 import { Class } from './class'
 import { Race } from './race'
-import { ProficiencyReference } from '@/graphql/2014/types/proficiencyTypes'
 
 @ObjectType({
   description: 'Represents a skill, tool, weapon, armor, or saving throw proficiency.'
@@ -28,10 +27,6 @@ export class Proficiency {
   @prop({ type: () => [APIReference] })
   public races?: APIReference[]
 
-  @Field(() => ProficiencyReference, {
-    description:
-      'The specific skill, ability score, equipment, or equipment category related to this proficiency.'
-  })
   @prop({ type: () => APIReference })
   public reference!: APIReference
 

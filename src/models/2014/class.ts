@@ -7,15 +7,12 @@ import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { AbilityScore } from './abilityScore'
 import { Subclass } from './subclass'
-import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { Level } from './level'
 import { Spell } from './spell'
-import { ProficiencyChoice, PrerequisiteChoice } from '@/graphql/2014/common/choiceTypes'
-import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
-  @Field(() => AnyEquipment, { description: 'The resolved equipment item.' })
+  // Handled by ClassEquipmentResolver (or ClassResolver)
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
@@ -52,11 +49,11 @@ export class Spellcasting {
 
 @ObjectType({ description: 'Prerequisite for multi-classing' })
 export class MultiClassingPrereq {
-  @Field(() => AbilityScore, { nullable: true, description: 'The ability score required.' }) // Add Field
+  @Field(() => AbilityScore, { nullable: true, description: 'The ability score required.' })
   @prop({ type: () => APIReference })
   public ability_score!: APIReference
 
-  @Field(() => Int, { description: 'The minimum score required.' }) // Add Field
+  @Field(() => Int, { description: 'The minimum score required.' })
   @prop({ required: true, index: true, type: () => Number })
   public minimum_score!: number
 }
@@ -70,10 +67,7 @@ export class MultiClassing {
   @prop({ type: () => [MultiClassingPrereq], default: undefined })
   public prerequisites?: MultiClassingPrereq[]
 
-  @Field(() => PrerequisiteChoice, {
-    nullable: true,
-    description: 'Optional prerequisites for multi-classing.'
-  })
+  // Handled by MultiClassingResolver
   @prop({ type: () => Choice, default: undefined })
   public prerequisite_options?: Choice
 
@@ -84,10 +78,7 @@ export class MultiClassing {
   @prop({ type: () => [APIReference], default: undefined })
   public proficiencies?: APIReference[]
 
-  @Field(() => [ProficiencyChoice], {
-    nullable: true,
-    description: 'Proficiency choices gained when multi-classing into this class.'
-  })
+  // Handled by MultiClassingResolver
   @prop({ type: () => [Choice], default: undefined })
   public proficiency_choices?: Choice[]
 }
@@ -127,9 +118,7 @@ export class Class {
   @prop({ type: () => [APIReference] })
   public proficiencies!: APIReference[]
 
-  @Field(() => [ProficiencyChoice], {
-    description: 'Proficiency choices for this class.'
-  })
+  // Handled by ClassResolver
   @prop({ type: () => [Choice] })
   public proficiency_choices!: Choice[]
 
@@ -158,10 +147,7 @@ export class Class {
   @prop({ type: () => [ClassEquipment] })
   public starting_equipment!: ClassEquipment[]
 
-  @Field(() => [StartingEquipmentChoice], {
-    nullable: true,
-    description: 'Options for starting equipment, if any.'
-  })
+  // Handled by ClassResolver
   @prop({ type: () => [Choice] })
   public starting_equipment_options!: Choice[]
 

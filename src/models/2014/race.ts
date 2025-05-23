@@ -9,11 +9,6 @@ import { Language } from './language'
 import { Proficiency } from './proficiency'
 import { Subrace } from './subrace'
 import { Trait } from './trait'
-import {
-  LanguageChoice,
-  ProficiencyChoice,
-  AbilityScoreBonusChoice
-} from '@/graphql/2014/common/choiceTypes'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {
@@ -36,10 +31,7 @@ export class Race {
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => AbilityScoreBonusChoice, {
-    nullable: true,
-    description: 'The ability bonus options of the race.'
-  })
+  // Handled by RaceResolver
   @prop({ type: () => Choice, required: false, index: true })
   public ability_bonus_options?: Choice
 
@@ -59,10 +51,7 @@ export class Race {
   @prop({ required: true, index: true, type: () => String })
   public language_desc!: string
 
-  @Field(() => LanguageChoice, {
-    nullable: true,
-    description: 'Languages typically spoken by this race.'
-  })
+  // Handled by RaceResolver
   @prop({ type: () => Choice })
   public language_options?: Choice
 
@@ -96,10 +85,7 @@ export class Race {
   @prop({ type: () => [APIReference] })
   public starting_proficiencies?: APIReference[]
 
-  @Field(() => ProficiencyChoice, {
-    nullable: true,
-    description: 'Proficiencies granted by this race at start.'
-  })
+  // Handled by RaceResolver
   @prop({ type: () => Choice })
   public starting_proficiency_options?: Choice
 

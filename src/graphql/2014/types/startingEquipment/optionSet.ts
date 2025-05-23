@@ -1,13 +1,10 @@
 import { ObjectType, Field, createUnionType } from 'type-graphql'
-import type { EquipmentCategory } from '@/models/2014/equipmentCategory'
+import { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import {
   CountedReferenceOption,
   MultipleItemsOption,
   EquipmentCategoryChoiceOption
 } from './common'
-
-import { createRequire } from 'module'
-const customRequire = createRequire(import.meta.url)
 
 @ObjectType({
   description: 'A set of equipment choices derived directly from an equipment category.'
@@ -18,7 +15,7 @@ export class EquipmentCategorySet {
   })
   option_set_type!: string
 
-  @Field(() => customRequire('../../../../models/2014/equipmentCategory').EquipmentCategory, {
+  @Field(() => EquipmentCategory, {
     description: 'The equipment category to choose from.'
   })
   equipment_category!: EquipmentCategory

@@ -6,9 +6,6 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Int } from 'type-graphql'
 import { Proficiency } from './proficiency'
 import { Equipment } from './equipment'
-import { StringChoice, LanguageChoice } from '@/graphql/2014/common/choiceTypes'
-import { IdealChoice } from '@/graphql/2014/types/backgroundTypes'
-import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
@@ -51,7 +48,7 @@ export class Background {
   @prop({ type: () => [APIReference] })
   public starting_proficiencies!: APIReference[]
 
-  @Field(() => LanguageChoice, { description: 'Options for language choices.', nullable: true })
+  // Handled by BackgroundResolver
   @prop({ type: () => Choice })
   public language_options!: Choice
 
@@ -62,10 +59,7 @@ export class Background {
   @prop({ type: () => [EquipmentRef] })
   public starting_equipment!: EquipmentRef[]
 
-  @Field(() => [StartingEquipmentChoice], {
-    nullable: true,
-    description: 'Options for starting equipment, if any.'
-  })
+  // Handled by BackgroundResolver
   @prop({ type: () => [Choice], index: true })
   public starting_equipment_options!: Choice[]
 
@@ -73,24 +67,19 @@ export class Background {
   @prop({ type: () => BackgroundFeature })
   public feature!: BackgroundFeature
 
-  @Field(() => StringChoice, {
-    description: 'Options for character personality traits.'
-  })
+  // Handled by BackgroundResolver
   @prop({ type: () => Choice })
   public personality_traits!: Choice
 
-  @Field(() => IdealChoice, {
-    description: 'Options for character ideals.',
-    nullable: true
-  })
+  // Handled by BackgroundResolver
   @prop({ type: () => Choice })
   public ideals!: Choice
 
-  @Field(() => StringChoice, { description: 'Options for character bonds.' })
+  // Handled by BackgroundResolver
   @prop({ type: () => Choice })
   public bonds!: Choice
 
-  @Field(() => StringChoice, { description: 'Options for character flaws.' })
+  // Handled by BackgroundResolver
   @prop({ type: () => Choice })
   public flaws!: Choice
 

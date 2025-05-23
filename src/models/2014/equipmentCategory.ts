@@ -3,16 +3,13 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { APIReference } from '@/models/2014/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field } from 'type-graphql'
-import { EquipmentOrMagicItem } from '@/graphql/2014/common/unions'
 
 @ObjectType({
   description: 'A category for grouping equipment (e.g., Weapon, Armor, Adventuring Gear).'
 })
 @srdModelOptions('2014-equipment-categories')
 export class EquipmentCategory {
-  @Field(() => [EquipmentOrMagicItem], {
-    description: 'List of equipment items belonging to this category.'
-  })
+  // Handled by EquipmentCategoryResolver
   @prop({ type: () => [APIReference], index: true })
   public equipment!: APIReference[]
 

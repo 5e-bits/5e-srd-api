@@ -1,14 +1,13 @@
 import { ObjectType, Field, Int } from 'type-graphql'
-import { customRequire } from '../utils/helpers'
-import type { Trait } from '@/models/2014/trait'
-import type { Spell } from '@/models/2014/spell'
+import { Trait } from '@/models/2014/trait'
+import { Spell } from '@/models/2014/spell'
 
 @ObjectType({ description: 'Represents a reference to a Trait within a choice option set.' })
 export class TraitChoiceOption {
   @Field(() => String, { description: 'The type of this option (e.g., "reference").' })
   option_type!: string
 
-  @Field(() => customRequire('../../../models/2014/trait').Trait, {
+  @Field(() => Trait, {
     description: 'The resolved Trait object.'
   })
   item!: Trait
@@ -42,7 +41,7 @@ export class SpellChoiceOption {
   @Field(() => String, { description: 'The type of this option (e.g., "reference").' })
   option_type!: string
 
-  @Field(() => customRequire('../../../models/2014/spell').Spell, {
+  @Field(() => Spell, {
     description: 'The resolved Spell object.'
   })
   item!: Spell

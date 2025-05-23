@@ -6,7 +6,6 @@ import { ObjectType, Field } from 'type-graphql'
 import { Class } from './class'
 import { Level } from './level'
 import { Spell } from './spell'
-import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/types/subclassTypes'
 
 @ObjectType({ description: 'Prerequisite for a subclass spell' })
 export class Prerequisite {
@@ -25,9 +24,7 @@ export class Prerequisite {
 
 @ObjectType({ description: 'Spell gained by a subclass' })
 export class SubclassSpell {
-  @Field(() => [SubclassSpellPrerequisiteUnion], {
-    description: 'Prerequisites (Level or Feature) that must be met for this spell.'
-  })
+  // Handled by SubclassSpellResolver
   @prop({ type: () => [Prerequisite], required: true })
   public prerequisites!: Prerequisite[]
 

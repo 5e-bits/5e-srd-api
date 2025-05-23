@@ -5,7 +5,6 @@ import { srdModelOptions } from '@/util/modelOptions'
 import { ObjectType, Field, Float, Int } from 'type-graphql'
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import { IEquipment } from '@/graphql/2014/common/interfaces'
-import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { Damage } from '@/models/2014/common/damage'
 
 @ObjectType({ description: 'Details about armor class.' })
@@ -25,7 +24,7 @@ export class ArmorClass {
 
 @ObjectType({ description: 'An item and its quantity within a container or bundle.' })
 export class Content {
-  @Field(() => AnyEquipment, { description: 'The resolved equipment item.' })
+  // Handled by ContentFieldResolver
   @prop({ type: () => APIReference })
   public item!: APIReference
 
