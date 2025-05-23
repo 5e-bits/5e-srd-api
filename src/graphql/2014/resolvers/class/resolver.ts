@@ -35,7 +35,7 @@ export class ClassResolver {
   @Query(() => [Class], {
     description: 'Gets all classes, optionally filtering by name or hit die and sorted.'
   })
-  async classes(@Args() args: ClassArgs): Promise<Class[]> {
+  async classes(@Args(() => ClassArgs) args: ClassArgs): Promise<Class[]> {
     const validatedArgs = ClassArgsSchema.parse(args)
 
     const query = ClassModel.find()

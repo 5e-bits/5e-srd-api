@@ -10,7 +10,7 @@ export class AlignmentResolver {
   @Query(() => [Alignment], {
     description: 'Gets all alignments, optionally filtered by name and sorted.'
   })
-  async alignments(@Args() args: AlignmentArgs): Promise<Alignment[]> {
+  async alignments(@Args(() => AlignmentArgs) args: AlignmentArgs): Promise<Alignment[]> {
     const validatedArgs = AlignmentArgsSchema.parse(args)
 
     const query = AlignmentModel.find()
@@ -39,7 +39,7 @@ export class AlignmentResolver {
   }
 
   @Query(() => Alignment, { nullable: true, description: 'Gets a single alignment by index.' })
-  async alignment(@Arg('index') indexInput: string): Promise<Alignment | null> {
+  async alignment(@Arg('index', () => String) indexInput: string): Promise<Alignment | null> {
     const { index } = AlignmentIndexArgsSchema.parse({ index: indexInput })
     return AlignmentModel.findOne({ index }).lean()
   }

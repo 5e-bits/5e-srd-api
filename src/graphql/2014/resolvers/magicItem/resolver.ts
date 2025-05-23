@@ -17,7 +17,7 @@ export class MagicItemResolver {
   @Query(() => [MagicItem], {
     description: 'Gets all magic items, optionally filtered and sorted.'
   })
-  async magicItems(@Args() args: MagicItemArgs): Promise<MagicItem[]> {
+  async magicItems(@Args(() => MagicItemArgs) args: MagicItemArgs): Promise<MagicItem[]> {
     const validatedArgs = MagicItemArgsSchema.parse(args)
 
     let query = MagicItemModel.find()

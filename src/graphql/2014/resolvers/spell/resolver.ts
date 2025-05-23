@@ -25,7 +25,7 @@ registerEnumType(SpellOrderField, {
 @Resolver(Spell)
 export class SpellResolver {
   @Query(() => [Spell], { description: 'Gets all spells, optionally filtered and sorted.' })
-  async spells(@Args() args: SpellArgs): Promise<Spell[]> {
+  async spells(@Args(() => SpellArgs) args: SpellArgs): Promise<Spell[]> {
     const validatedArgs = SpellArgsSchema.parse(args)
 
     const query = SpellModel.find()
@@ -104,7 +104,7 @@ export class SpellResolver {
   }
 
   @Query(() => Spell, { nullable: true, description: 'Gets a single spell by its index.' })
-  async spell(@Arg('index') indexInput: string): Promise<Spell | null> {
+  async spell(@Arg('index', () => String) indexInput: string): Promise<Spell | null> {
     const { index } = SpellIndexArgsSchema.parse({ index: indexInput })
     return SpellModel.findOne({ index }).lean()
   }

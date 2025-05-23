@@ -9,7 +9,7 @@ export class MagicSchoolResolver {
   @Query(() => [MagicSchool], {
     description: 'Gets all magic schools, optionally filtered by name and sorted by name.'
   })
-  async magicSchools(@Args() args: MagicSchoolArgs): Promise<MagicSchool[]> {
+  async magicSchools(@Args(() => MagicSchoolArgs) args: MagicSchoolArgs): Promise<MagicSchool[]> {
     const validatedArgs = MagicSchoolArgsSchema.parse(args)
     const query = MagicSchoolModel.find()
 
@@ -40,7 +40,7 @@ export class MagicSchoolResolver {
     nullable: true,
     description: 'Gets a single magic school by index.'
   })
-  async magicSchool(@Arg('index') indexInput: string): Promise<MagicSchool | null> {
+  async magicSchool(@Arg('index', () => String) indexInput: string): Promise<MagicSchool | null> {
     const { index } = MagicSchoolIndexArgsSchema.parse({ index: indexInput })
     return MagicSchoolModel.findOne({ index }).lean()
   }

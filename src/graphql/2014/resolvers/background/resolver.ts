@@ -27,7 +27,7 @@ export class BackgroundResolver {
   @Query(() => [Background], {
     description: 'Gets all backgrounds, optionally filtered by name and sorted by name.'
   })
-  async backgrounds(@Args() args: BackgroundArgs): Promise<Background[]> {
+  async backgrounds(@Args(() => BackgroundArgs) args: BackgroundArgs): Promise<Background[]> {
     const validatedArgs = BackgroundArgsSchema.parse(args)
     const query = BackgroundModel.find()
 
@@ -55,7 +55,7 @@ export class BackgroundResolver {
   }
 
   @Query(() => Background, { nullable: true, description: 'Gets a single background by index.' })
-  async background(@Arg('index') indexInput: string): Promise<Background | null> {
+  async background(@Arg('index', () => String) indexInput: string): Promise<Background | null> {
     const { index } = BackgroundIndexArgsSchema.parse({ index: indexInput })
     return BackgroundModel.findOne({ index }).lean()
   }

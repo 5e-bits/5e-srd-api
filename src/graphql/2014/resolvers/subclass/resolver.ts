@@ -15,7 +15,7 @@ export class SubclassResolver {
   @Query(() => [Subclass], {
     description: 'Gets all subclasses, optionally filtered by name and sorted.'
   })
-  async subclasses(@Args() args: SubclassArgs): Promise<Subclass[]> {
+  async subclasses(@Args(() => SubclassArgs) args: SubclassArgs): Promise<Subclass[]> {
     const validatedArgs = SubclassArgsSchema.parse(args)
 
     const query = SubclassModel.find()
@@ -44,7 +44,7 @@ export class SubclassResolver {
   }
 
   @Query(() => Subclass, { nullable: true, description: 'Gets a single subclass by its index.' })
-  async subclass(@Arg('index') indexInput: string): Promise<Subclass | null> {
+  async subclass(@Arg('index', () => String) indexInput: string): Promise<Subclass | null> {
     const { index } = SubclassIndexArgsSchema.parse({ index: indexInput })
     return SubclassModel.findOne({ index }).lean()
   }

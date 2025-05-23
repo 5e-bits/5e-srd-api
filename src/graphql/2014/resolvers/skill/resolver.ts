@@ -17,7 +17,7 @@ export class SkillResolver {
   @Query(() => [Skill], {
     description: 'Gets all skills, optionally filtered by name and sorted by name.'
   })
-  async skills(@Args() args: SkillArgs): Promise<Skill[]> {
+  async skills(@Args(() => SkillArgs) args: SkillArgs): Promise<Skill[]> {
     const validatedArgs = SkillArgsSchema.parse(args)
 
     const query = SkillModel.find()
@@ -56,7 +56,7 @@ export class SkillResolver {
   }
 
   @Query(() => Skill, { nullable: true, description: 'Gets a single skill by index.' })
-  async skill(@Arg('index') indexInput: string): Promise<Skill | null> {
+  async skill(@Arg('index', () => String) indexInput: string): Promise<Skill | null> {
     const { index } = SkillIndexArgsSchema.parse({ index: indexInput })
     return SkillModel.findOne({ index }).lean()
   }

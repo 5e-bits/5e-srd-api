@@ -24,7 +24,9 @@ export class EquipmentResolver {
   @Query(() => [AnyEquipment], {
     description: 'Gets all equipment, optionally filtered and sorted.'
   })
-  async equipments(@Args() args: EquipmentArgs): Promise<Array<typeof AnyEquipment>> {
+  async equipments(
+    @Args(() => EquipmentArgs) args: EquipmentArgs
+  ): Promise<Array<typeof AnyEquipment>> {
     const validatedArgs = EquipmentArgsSchema.parse(args)
     const query = EquipmentModel.find()
     const filters: any[] = []

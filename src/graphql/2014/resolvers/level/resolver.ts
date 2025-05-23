@@ -32,7 +32,7 @@ export class LevelResolver {
   }
 
   @Query(() => [Level], { description: 'Gets all levels, optionally filtered and sorted.' })
-  async levels(@Args() args: LevelArgs): Promise<Level[]> {
+  async levels(@Args(() => LevelArgs) args: LevelArgs): Promise<Level[]> {
     const validatedArgs = LevelArgsSchema.parse(args)
 
     let query = LevelModel.find()

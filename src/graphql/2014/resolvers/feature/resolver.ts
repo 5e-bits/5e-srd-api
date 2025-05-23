@@ -26,7 +26,7 @@ export class FeatureResolver {
   @Query(() => [Feature], {
     description: 'Gets all features, optionally filtered and sorted.'
   })
-  async features(@Args() args: FeatureArgs): Promise<Feature[]> {
+  async features(@Args(() => FeatureArgs) args: FeatureArgs): Promise<Feature[]> {
     const validatedArgs = FeatureArgsSchema.parse(args)
 
     const query = FeatureModel.find()

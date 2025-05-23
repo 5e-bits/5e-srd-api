@@ -9,7 +9,9 @@ export class WeaponPropertyResolver {
   @Query(() => [WeaponProperty], {
     description: 'Gets all weapon properties, optionally filtered by name and sorted by name.'
   })
-  async weaponProperties(@Args() args: WeaponPropertyArgs): Promise<WeaponProperty[]> {
+  async weaponProperties(
+    @Args(() => WeaponPropertyArgs) args: WeaponPropertyArgs
+  ): Promise<WeaponProperty[]> {
     const validatedArgs = WeaponPropertyArgsSchema.parse(args)
     const query = WeaponPropertyModel.find()
 
@@ -40,7 +42,9 @@ export class WeaponPropertyResolver {
     nullable: true,
     description: 'Gets a single weapon property by index.'
   })
-  async weaponProperty(@Arg('index') indexInput: string): Promise<WeaponProperty | null> {
+  async weaponProperty(
+    @Arg('index', () => String) indexInput: string
+  ): Promise<WeaponProperty | null> {
     const { index } = WeaponPropertyIndexArgsSchema.parse({ index: indexInput })
     return WeaponPropertyModel.findOne({ index }).lean()
   }

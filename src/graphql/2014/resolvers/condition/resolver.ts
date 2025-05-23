@@ -9,7 +9,7 @@ export class ConditionResolver {
   @Query(() => [Condition], {
     description: 'Gets all conditions, optionally filtered by name and sorted by name.'
   })
-  async conditions(@Args() args: ConditionArgs): Promise<Condition[]> {
+  async conditions(@Args(() => ConditionArgs) args: ConditionArgs): Promise<Condition[]> {
     const validatedArgs = ConditionArgsSchema.parse(args)
     const query = ConditionModel.find()
 
@@ -37,7 +37,7 @@ export class ConditionResolver {
   }
 
   @Query(() => Condition, { nullable: true, description: 'Gets a single condition by index.' })
-  async condition(@Arg('index') indexInput: string): Promise<Condition | null> {
+  async condition(@Arg('index', () => String) indexInput: string): Promise<Condition | null> {
     const { index } = ConditionIndexArgsSchema.parse({ index: indexInput })
     return ConditionModel.findOne({ index }).lean()
   }

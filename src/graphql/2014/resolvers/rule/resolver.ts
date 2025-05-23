@@ -11,7 +11,7 @@ export class RuleResolver {
   @Query(() => [Rule], {
     description: 'Gets all rules, optionally filtered by name and sorted by name.'
   })
-  async rules(@Args() args: RuleArgs): Promise<Rule[]> {
+  async rules(@Args(() => RuleArgs) args: RuleArgs): Promise<Rule[]> {
     const validatedArgs = RuleArgsSchema.parse(args)
     const query = RuleModel.find()
 
@@ -39,7 +39,7 @@ export class RuleResolver {
   }
 
   @Query(() => Rule, { nullable: true, description: 'Gets a single rule by index.' })
-  async rule(@Arg('index') indexInput: string): Promise<Rule | null> {
+  async rule(@Arg('index', () => String) indexInput: string): Promise<Rule | null> {
     const { index } = RuleIndexArgsSchema.parse({ index: indexInput })
     return RuleModel.findOne({ index }).lean()
   }

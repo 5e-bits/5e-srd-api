@@ -9,7 +9,7 @@ export class RuleSectionResolver {
   @Query(() => [RuleSection], {
     description: 'Gets all rule sections, optionally filtered by name and sorted by name.'
   })
-  async ruleSections(@Args() args: RuleSectionArgs): Promise<RuleSection[]> {
+  async ruleSections(@Args(() => RuleSectionArgs) args: RuleSectionArgs): Promise<RuleSection[]> {
     const validatedArgs = RuleSectionArgsSchema.parse(args)
     const query = RuleSectionModel.find()
 
@@ -40,7 +40,7 @@ export class RuleSectionResolver {
     nullable: true,
     description: 'Gets a single rule section by index.'
   })
-  async ruleSection(@Arg('index') indexInput: string): Promise<RuleSection | null> {
+  async ruleSection(@Arg('index', () => String) indexInput: string): Promise<RuleSection | null> {
     const { index } = RuleSectionIndexArgsSchema.parse({ index: indexInput })
     return RuleSectionModel.findOne({ index }).lean()
   }

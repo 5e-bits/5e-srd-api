@@ -53,7 +53,7 @@ export class MonsterResolver {
   @Query(() => [Monster], {
     description: 'Gets all monsters, optionally filtered and sorted.'
   })
-  async monsters(@Args() args: MonsterArgs): Promise<Monster[]> {
+  async monsters(@Args(() => MonsterArgs) args: MonsterArgs): Promise<Monster[]> {
     const validatedArgs = MonsterArgsSchema.parse(args)
     let query = MonsterModel.find()
     const filters: any[] = []

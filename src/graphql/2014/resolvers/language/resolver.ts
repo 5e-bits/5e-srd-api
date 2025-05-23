@@ -24,7 +24,7 @@ export class LanguageResolver {
   }
 
   @Query(() => [Language], { description: 'Gets all languages, optionally filtered and sorted.' })
-  async languages(@Args() args: LanguageArgs): Promise<Language[]> {
+  async languages(@Args(() => LanguageArgs) args: LanguageArgs): Promise<Language[]> {
     const validatedArgs = LanguageArgsSchema.parse(args)
 
     const query = LanguageModel.find()

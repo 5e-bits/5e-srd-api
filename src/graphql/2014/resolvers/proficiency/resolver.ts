@@ -23,7 +23,7 @@ export class ProficiencyResolver {
   @Query(() => [Proficiency], {
     description: 'Query all Proficiencies, optionally filtered and sorted.'
   })
-  async proficiencies(@Args() args: ProficiencyArgs): Promise<Proficiency[]> {
+  async proficiencies(@Args(() => ProficiencyArgs) args: ProficiencyArgs): Promise<Proficiency[]> {
     const validatedArgs = ProficiencyArgsSchema.parse(args)
 
     let query = ProficiencyModel.find()

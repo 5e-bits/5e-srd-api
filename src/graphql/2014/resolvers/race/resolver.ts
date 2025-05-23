@@ -25,7 +25,7 @@ import { RaceArgs, RaceArgsSchema, RaceIndexArgsSchema } from './args'
 @Resolver(() => Race)
 export class RaceResolver {
   @Query(() => [Race], { description: 'Gets all races, optionally filtered by name and sorted.' })
-  async races(@Args() args: RaceArgs): Promise<Race[]> {
+  async races(@Args(() => RaceArgs) args: RaceArgs): Promise<Race[]> {
     const validatedArgs = RaceArgsSchema.parse(args)
 
     const query = RaceModel.find()
@@ -77,7 +77,7 @@ export class RaceResolver {
   }
 
   @Query(() => Race, { nullable: true, description: 'Gets a single race by its index.' })
-  async race(@Arg('index') indexInput: string): Promise<Race | null> {
+  async race(@Arg('index', () => String) indexInput: string): Promise<Race | null> {
     const { index } = RaceIndexArgsSchema.parse({ index: indexInput })
     return RaceModel.findOne({ index }).lean()
   }

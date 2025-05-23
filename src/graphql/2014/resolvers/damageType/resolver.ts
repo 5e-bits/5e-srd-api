@@ -9,7 +9,7 @@ export class DamageTypeResolver {
   @Query(() => [DamageType], {
     description: 'Gets all damage types, optionally filtered by name and sorted by name.'
   })
-  async damageTypes(@Args() args: DamageTypeArgs): Promise<DamageType[]> {
+  async damageTypes(@Args(() => DamageTypeArgs) args: DamageTypeArgs): Promise<DamageType[]> {
     const validatedArgs = DamageTypeArgsSchema.parse(args)
     const query = DamageTypeModel.find()
 
@@ -37,7 +37,7 @@ export class DamageTypeResolver {
   }
 
   @Query(() => DamageType, { nullable: true, description: 'Gets a single damage type by index.' })
-  async damageType(@Arg('index') indexInput: string): Promise<DamageType | null> {
+  async damageType(@Arg('index', () => String) indexInput: string): Promise<DamageType | null> {
     const { index } = DamageTypeIndexArgsSchema.parse({ index: indexInput })
     return DamageTypeModel.findOne({ index }).lean()
   }

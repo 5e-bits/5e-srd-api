@@ -16,7 +16,9 @@ export class EquipmentCategoryResolver {
   @Query(() => [EquipmentCategory], {
     description: 'Gets all equipment categories, optionally filtered by name and sorted by name.'
   })
-  async equipmentCategories(@Args() args: EquipmentCategoryArgs): Promise<EquipmentCategory[]> {
+  async equipmentCategories(
+    @Args(() => EquipmentCategoryArgs) args: EquipmentCategoryArgs
+  ): Promise<EquipmentCategory[]> {
     const validatedArgs = EquipmentCategoryArgsSchema.parse(args)
     const query = EquipmentCategoryModel.find()
 
@@ -47,7 +49,9 @@ export class EquipmentCategoryResolver {
     nullable: true,
     description: 'Gets a single equipment category by index.'
   })
-  async equipmentCategory(@Arg('index') indexInput: string): Promise<EquipmentCategory | null> {
+  async equipmentCategory(
+    @Arg('index', () => String) indexInput: string
+  ): Promise<EquipmentCategory | null> {
     const { index } = EquipmentCategoryIndexArgsSchema.parse({ index: indexInput })
     return EquipmentCategoryModel.findOne({ index }).lean()
   }

@@ -21,7 +21,7 @@ export class SubraceResolver {
   @Query(() => [Subrace], {
     description: 'Gets all subraces, optionally filtered by name and sorted by name.'
   })
-  async subraces(@Args() args: SubraceArgs): Promise<Subrace[]> {
+  async subraces(@Args(() => SubraceArgs) args: SubraceArgs): Promise<Subrace[]> {
     const validatedArgs = SubraceArgsSchema.parse(args)
     const query = SubraceModel.find()
 
@@ -49,7 +49,7 @@ export class SubraceResolver {
   }
 
   @Query(() => Subrace, { nullable: true, description: 'Gets a single subrace by index.' })
-  async subrace(@Arg('index') indexInput: string): Promise<Subrace | null> {
+  async subrace(@Arg('index', () => String) indexInput: string): Promise<Subrace | null> {
     const { index } = SubraceIndexArgsSchema.parse({ index: indexInput })
     return SubraceModel.findOne({ index }).lean()
   }

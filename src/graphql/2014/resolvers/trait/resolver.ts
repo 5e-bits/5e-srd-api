@@ -33,7 +33,7 @@ export class TraitResolver {
   @Query(() => [Trait], {
     description: 'Gets all traits, optionally filtered by name and sorted by name.'
   })
-  async traits(@Args() args: TraitArgs): Promise<Trait[]> {
+  async traits(@Args(() => TraitArgs) args: TraitArgs): Promise<Trait[]> {
     const validatedArgs = TraitArgsSchema.parse(args)
     const query = TraitModel.find()
 
@@ -61,7 +61,7 @@ export class TraitResolver {
   }
 
   @Query(() => Trait, { nullable: true, description: 'Gets a single trait by index.' })
-  async trait(@Arg('index') indexInput: string): Promise<Trait | null> {
+  async trait(@Arg('index', () => String) indexInput: string): Promise<Trait | null> {
     const { index } = TraitIndexArgsSchema.parse({ index: indexInput })
     return TraitModel.findOne({ index }).lean()
   }

@@ -11,7 +11,7 @@ export class FeatResolver {
   @Query(() => [Feat], {
     description: 'Gets all feats, optionally filtered by name and sorted by name.'
   })
-  async feats(@Args() args: FeatArgs): Promise<Feat[]> {
+  async feats(@Args(() => FeatArgs) args: FeatArgs): Promise<Feat[]> {
     const validatedArgs = FeatArgsSchema.parse(args)
     const query = FeatModel.find()
 
@@ -39,7 +39,7 @@ export class FeatResolver {
   }
 
   @Query(() => Feat, { nullable: true, description: 'Gets a single feat by index.' })
-  async feat(@Arg('index') indexInput: string): Promise<Feat | null> {
+  async feat(@Arg('index', () => String) indexInput: string): Promise<Feat | null> {
     const { index } = FeatIndexArgsSchema.parse({ index: indexInput })
     return FeatModel.findOne({ index }).lean()
   }
