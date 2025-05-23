@@ -47,6 +47,7 @@ import {
   MONSTER_SORT_FIELD_MAP,
   MonsterOrderField
 } from './args'
+import { MonsterArmorClassUnion } from '@/graphql/2014/types/monsterTypes'
 
 @Resolver(Monster)
 export class MonsterResolver {
@@ -152,6 +153,11 @@ export class MonsterResolver {
   async forms(@Root() monster: Monster): Promise<APIReference[] | null> {
     if (!monster.forms) return null
     return resolveMultipleReferences(monster.forms, MonsterModel)
+  }
+
+  @FieldResolver(() => [MonsterArmorClassUnion], { name: 'armor_class' })
+  async armor_class(@Root() monster: Monster): Promise<Array<typeof MonsterArmorClassUnion>> {
+    return monster.armor_class as Array<typeof MonsterArmorClassUnion>
   }
 }
 

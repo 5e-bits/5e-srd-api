@@ -431,7 +431,13 @@ export class Monster {
   public alignment!: string
 
   // Handled by MonsterArmorClassResolver
-  @prop({ type: () => [Object], required: true })
+  @prop({
+    type: () =>
+      Array<
+        ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
+      >,
+    required: true
+  })
   public armor_class!: Array<
     ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
   >
