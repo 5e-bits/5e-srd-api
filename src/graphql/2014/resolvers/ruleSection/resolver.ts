@@ -17,13 +17,15 @@ export class RuleSectionResolver {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    const sortQuery = buildMongoSortQuery({
-      orderDirection: validatedArgs.order_direction,
-      defaultSortField: 'name'
-    })
+    if (validatedArgs.order_direction) {
+      const sortQuery = buildMongoSortQuery({
+        orderDirection: validatedArgs.order_direction,
+        defaultSortField: 'name'
+      })
 
-    if (sortQuery) {
-      query.sort(sortQuery)
+      if (sortQuery) {
+        query.sort(sortQuery)
+      }
     }
 
     if (validatedArgs.skip) {
