@@ -1,5 +1,10 @@
 import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import ClassModel, { Class, MultiClassing, MultiClassingPrereq } from '@/models/2014/class'
+import ClassModel, {
+  Class,
+  MultiClassing,
+  MultiClassingPrereq,
+  ClassEquipment
+} from '@/models/2014/class'
 import { buildMongoQueryFromNumberFilter, buildMongoSortQuery } from '@/graphql/2014/common/inputs'
 import { escapeRegExp } from '@/util'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
@@ -29,6 +34,8 @@ import {
   ClassOrderField,
   CLASS_SORT_FIELD_MAP
 } from './args'
+import EquipmentModel from '@/models/2014/equipment'
+import { AnyEquipment } from '@/graphql/2014/common/unions'
 
 @Resolver(Class)
 export class ClassResolver {
@@ -153,6 +160,14 @@ export class MultiClassingPrereqResolver {
   @FieldResolver(() => AbilityScore)
   async ability_score(@Root() prerequisite: MultiClassingPrereq): Promise<APIReference | null> {
     return resolveSingleReference(prerequisite.ability_score, AbilityScoreModel)
+  }
+}
+
+@Resolver(ClassEquipment)
+export class ClassEquipmentResolver {
+  @FieldResolver(() => AnyEquipment, { nullable: true })
+  async equipment(@Root() classEquipment: ClassEquipment): Promise<typeof AnyEquipment | null> {
+    return resolveSingleReference(classEquipment.equipment, EquipmentModel)
   }
 }
 

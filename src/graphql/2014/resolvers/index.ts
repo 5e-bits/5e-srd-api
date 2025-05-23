@@ -2,7 +2,12 @@
 import { AbilityScoreResolver } from './abilityScore/resolver'
 import { AlignmentResolver } from './alignment/resolver'
 import { BackgroundResolver, EquipmentRefResolver } from './background/resolver'
-import { ClassResolver, MultiClassingResolver, MultiClassingPrereqResolver } from './class/resolver'
+import {
+  ClassResolver,
+  MultiClassingResolver,
+  MultiClassingPrereqResolver,
+  ClassEquipmentResolver
+} from './class/resolver'
 import { ConditionResolver } from './condition/resolver'
 import { DamageTypeResolver } from './damageType/resolver'
 import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
@@ -79,6 +84,7 @@ const fieldResolvers = [
   // Class
   MultiClassingResolver,
   MultiClassingPrereqResolver,
+  ClassEquipmentResolver,
   // Subclass
   SubclassSpellResolver,
   // Spell

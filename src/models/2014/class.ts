@@ -12,7 +12,7 @@ import { Spell } from './spell'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
-  // Handled by ClassEquipmentResolver (or ClassResolver)
+  // Handled by ClassEquipmentResolver
   @prop({ type: () => APIReference })
   public equipment!: APIReference
 
