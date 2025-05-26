@@ -87,7 +87,7 @@
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.16",
-    "typedoc": "^0.28.3",
+    "typedoc": "^0.28.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.23.0",
     "vitest": "^3.1.3"
