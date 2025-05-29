@@ -29,6 +29,7 @@ import {
   BreathOption
 } from '@/models/2014/common/choice'
 import { Damage } from '@/models/2014/common/damage'
+import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import {
   DamageChoice,
   ActionChoice,
@@ -193,6 +194,17 @@ export class MonsterProficiencyResolver {
   @FieldResolver(() => Proficiency, { name: 'proficiency' })
   async proficiency(@Root() monsterProficiency: MonsterProficiency): Promise<Proficiency | null> {
     return resolveSingleReference(monsterProficiency.proficiency, ProficiencyModel)
+  }
+}
+
+@Resolver(DifficultyClass)
+export class DifficultyClassResolver {
+  @FieldResolver(() => AbilityScore, {
+    name: 'dc_type',
+    description: 'The ability score associated with this DC, resolved from its API reference.'
+  })
+  async dc_type(@Root() difficultyClass: DifficultyClass): Promise<AbilityScore | null> {
+    return resolveSingleReference(difficultyClass.dc_type as APIReference, AbilityScoreModel)
   }
 }
 
