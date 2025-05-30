@@ -195,6 +195,7 @@ class-spells-path:
       - Class Resource Lists
     parameters:
       - $ref: '../../parameters/2014/combined.yml#/class-index'
+      - $ref: '../../parameters/2014/combined.yml#/level-filter'
     responses:
       '200':
         description: OK
