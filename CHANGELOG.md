@@ -1,3 +1,10 @@
+# [3.24.0](https://github.com/5e-bits/5e-srd-api/compare/v3.23.7...v3.24.0) (2025-05-30)
+
+
+### Features
+
+* **class:** Add `level` query for class spells for filtering spell level ([#776](https://github.com/5e-bits/5e-srd-api/issues/776)) ([0c41457](https://github.com/5e-bits/5e-srd-api/commit/0c414571ea409c37c15d1b82d1da86844cf18ba9))
+
 ## [3.23.7](https://github.com/5e-bits/5e-srd-api/compare/v3.23.6...v3.23.7) (2025-05-08)
 
 
