@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
-import { ShowParamsSchema, LevelParamsSchema, ClassLevelsQuerySchema } from '@/schemas/schemas'
+import {
+  ShowParamsSchema,
+  LevelParamsSchema,
+  ClassLevelsQuerySchema,
+  SpellIndexQuerySchema
+} from '@/schemas/schemas'
 
 import { ResourceList, escapeRegExp } from '@/util'
 
@@ -172,14 +177,23 @@ export const showSpellcastingForClass = async (req: Request, res: Response, next
 
 export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Validate path parameters
     const validatedParams = ShowParamsSchema.safeParse(req.params)
+    const validatedQuery = SpellIndexQuerySchema.safeParse(req.query)
+
     if (!validatedParams.success) {
       return res
         .status(400)
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
+
+    if (!validatedQuery.success) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
+    }
+
     const { index } = validatedParams.data
+    const { level } = validatedQuery.data
 
     // Check if class exists first
     const classExists = await Class.findOne({ index }).lean()
@@ -188,8 +202,15 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
     }
 
     const urlString = '/api/2014/classes/' + index
+    const findQuery: { 'classes.url': string; level?: { $in: string[] } } = {
+      'classes.url': urlString
+    }
 
-    const data = await Spell.find({ 'classes.url': urlString })
+    if (level !== undefined) {
+      findQuery.level = { $in: level }
+    }
+
+    const data = await Spell.find(findQuery)
       .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' })
     return res.status(200).json(ResourceList(data))
