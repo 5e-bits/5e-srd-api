@@ -37,7 +37,6 @@ export default tseslint.config(
       }
     },
     rules: {
-      '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'warn',
       'import-x/order': [
@@ -57,6 +56,7 @@ export default tseslint.config(
           pathGroupsExcludedImportTypes: ['builtin', 'external', 'object', 'type']
         }
       ],
+      'import-x/no-duplicates': 'error',
       'import-x/no-named-as-default': 'off',
       'import-x/no-named-as-default-member': 'off'
     },

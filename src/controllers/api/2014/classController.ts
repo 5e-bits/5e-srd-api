@@ -1,10 +1,9 @@
-import { NextFunction,Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import SimpleController from '@/controllers/simpleController'
 import Class from '@/models/2014/class'
 import Feature from '@/models/2014/feature'
 import Level from '@/models/2014/level'
-import LevelModel from '@/models/2014/level'
 import Proficiency from '@/models/2014/proficiency'
 import Spell from '@/models/2014/spell'
 import Subclass from '@/models/2014/subclass'
@@ -14,7 +13,7 @@ import {
   ShowParamsSchema,
   SpellIndexQuerySchema
 } from '@/schemas/schemas'
-import { escapeRegExp,ResourceList } from '@/util'
+import { escapeRegExp, ResourceList } from '@/util'
 
 const simpleController = new SimpleController(Class)
 interface ShowLevelsForClassQuery {
@@ -234,7 +233,7 @@ export const showSpellsForClassAndLevel = async (
     const { index, level: classLevel } = validatedParams.data
 
     // Find the level data for the class
-    const levelData = await LevelModel.findOne({ 'class.index': index, level: classLevel }).lean()
+    const levelData = await Level.findOne({ 'class.index': index, level: classLevel }).lean()
 
     let maxSpellLevel = -1 // Default to -1 indicating no spellcasting ability found
 
