@@ -1,7 +1,8 @@
-import { prop, getModelForClass } from '@typegoose/typegoose'
+import { getModelForClass,prop } from '@typegoose/typegoose'
+
 import { APIReference } from '@/models/2014/common/apiReference'
-import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import { Damage } from '@/models/2014/common/damage'
+import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 
 // Option Set Classes
 export class OptionSet {

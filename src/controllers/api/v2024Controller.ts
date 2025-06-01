@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction,Request, Response } from 'express'
+
 import Collection from '@/models/2024/collection'
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {

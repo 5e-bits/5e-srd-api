@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { Rule } from '@/models/2014/rule'
+
 import { apiReferenceFactory } from './common.factory' // Import common factory
 
 export const ruleFactory = Factory.define<Rule>(({ sequence }) => {

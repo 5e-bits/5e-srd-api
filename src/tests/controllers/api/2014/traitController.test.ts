@@ -1,14 +1,14 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
+import { describe, expect, it, vi } from 'vitest'
 
-import TraitModel from '@/models/2014/trait'
 import TraitController from '@/controllers/api/2014/traitController'
+import TraitModel from '@/models/2014/trait'
 import { traitFactory } from '@/tests/factories/2014/trait.factory'
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
-  setupModelCleanup,
   setupIsolatedDatabase,
+  setupModelCleanup,
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 

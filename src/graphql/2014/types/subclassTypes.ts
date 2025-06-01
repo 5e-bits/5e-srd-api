@@ -1,6 +1,7 @@
 import { createUnionType } from 'type-graphql'
-import { Level } from '@/models/2014/level'
+
 import { Feature } from '@/models/2014/feature'
+import { Level } from '@/models/2014/level'
 
 export const SubclassSpellPrerequisiteUnion = createUnionType({
   name: 'SubclassSpellPrerequisite',

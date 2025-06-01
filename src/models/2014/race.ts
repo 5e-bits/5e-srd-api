@@ -1,9 +1,11 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { Choice } from '@/models/2014/common/choice'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field, Int } from 'type-graphql'
+
 import { AbilityScore } from './abilityScore'
 import { Language } from './language'
 import { Proficiency } from './proficiency'

@@ -1,26 +1,23 @@
 import {
-  StartingEquipmentChoice,
-  EquipmentCategorySet,
-  EquipmentOptionSet,
-  CountedReferenceOption as ResolvedCountedReferenceOption,
-  EquipmentCategoryChoiceOption,
-  MultipleItemsOption,
-  ProficiencyPrerequisite as ResolvedProficiencyPrerequisite
-} from '../types/startingEquipment'
-
-import {
   Choice,
-  OptionSet,
-  EquipmentCategoryOptionSet,
-  OptionsArrayOptionSet,
-  CountedReferenceOption,
   ChoiceOption,
-  MultipleOption
-} from '@/models/2014/common/choice'
-
+  CountedReferenceOption,
+  EquipmentCategoryOptionSet,
+  MultipleOption,
+  OptionsArrayOptionSet,
+  OptionSet} from '@/models/2014/common/choice'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+
+import {
+  CountedReferenceOption as ResolvedCountedReferenceOption,
+  EquipmentCategoryChoiceOption,
+  EquipmentCategorySet,
+  EquipmentOptionSet,
+  MultipleItemsOption,
+  ProficiencyPrerequisite as ResolvedProficiencyPrerequisite,
+  StartingEquipmentChoice} from '../types/startingEquipment'
 
 interface ProficiencyPrerequisite {
   type: string

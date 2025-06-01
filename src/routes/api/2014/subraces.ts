@@ -1,5 +1,6 @@
-import * as SubraceController from '@/controllers/api/2014/subraceController'
 import * as express from 'express'
+
+import * as SubraceController from '@/controllers/api/2014/subraceController'
 
 const router = express.Router()
 

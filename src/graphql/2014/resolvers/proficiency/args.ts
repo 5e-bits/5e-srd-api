@@ -1,5 +1,6 @@
-import { ArgsType, Field, registerEnumType, InputType } from 'type-graphql'
+import { ArgsType, Field, InputType,registerEnumType } from 'type-graphql'
 import { z } from 'zod'
+
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,

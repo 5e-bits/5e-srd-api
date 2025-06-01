@@ -1,16 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here based on spell test
+import { describe, expect, it, vi } from 'vitest'
 
-import MagicItemModel from '@/models/2014/magicItem'
 import * as MagicItemController from '@/controllers/api/2014/magicItemController'
+import MagicItemModel from '@/models/2014/magicItem'
 import { magicItemFactory } from '@/tests/factories/2014/magicItem.factory'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here based on spell test
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

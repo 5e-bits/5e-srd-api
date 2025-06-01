@@ -1,14 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  WEAPON_PROPERTY_SORT_FIELD_MAP,
   WeaponPropertyArgs,
   WeaponPropertyArgsSchema,
   WeaponPropertyIndexArgsSchema,
-  WeaponPropertyOrderField,
-  WEAPON_PROPERTY_SORT_FIELD_MAP
-} from './args'
+  WeaponPropertyOrderField} from './args'
 
 @Resolver(WeaponProperty)
 export class WeaponPropertyResolver {

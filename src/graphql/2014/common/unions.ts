@@ -1,8 +1,10 @@
 import { createUnionType } from 'type-graphql'
-import { MagicItem } from '@/models/2014/magicItem'
-import { Armor, Weapon, Tool, Gear, Pack, Ammunition, Vehicle } from './equipmentTypes'
-import { Proficiency } from '@/models/2014/proficiency'
+
 import { ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
+import { MagicItem } from '@/models/2014/magicItem'
+import { Proficiency } from '@/models/2014/proficiency'
+
+import { Ammunition, Armor, Gear, Pack, Tool, Vehicle,Weapon } from './equipmentTypes'
 
 function resolveEquipmentType(
   value: any

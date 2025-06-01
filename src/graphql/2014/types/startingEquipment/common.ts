@@ -1,6 +1,8 @@
-import { ObjectType, Field, Int, createUnionType } from 'type-graphql'
+import { createUnionType,Field, Int, ObjectType } from 'type-graphql'
+
 import { Equipment } from '@/models/2014/equipment'
 import { Proficiency } from '@/models/2014/proficiency'
+
 import { EquipmentCategorySet } from './optionSet'
 
 @ObjectType({

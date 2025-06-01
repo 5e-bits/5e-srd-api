@@ -1,5 +1,6 @@
-import * as RaceController from '@/controllers/api/2014/raceController'
 import * as express from 'express'
+
+import * as RaceController from '@/controllers/api/2014/raceController'
 
 const router = express.Router()
 

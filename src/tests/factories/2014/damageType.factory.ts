@@ -1,5 +1,6 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { DamageType } from '@/models/2014/damageType'
 
 export const damageTypeFactory = Factory.define<DamageType>(({ sequence }) => {

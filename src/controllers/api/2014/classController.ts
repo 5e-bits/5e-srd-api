@@ -1,21 +1,20 @@
-import { Request, Response, NextFunction } from 'express'
-import {
-  ShowParamsSchema,
-  LevelParamsSchema,
-  ClassLevelsQuerySchema,
-  SpellIndexQuerySchema
-} from '@/schemas/schemas'
+import { NextFunction,Request, Response } from 'express'
 
-import { ResourceList, escapeRegExp } from '@/util'
-
+import SimpleController from '@/controllers/simpleController'
 import Class from '@/models/2014/class'
 import Feature from '@/models/2014/feature'
 import Level from '@/models/2014/level'
+import LevelModel from '@/models/2014/level'
 import Proficiency from '@/models/2014/proficiency'
-import SimpleController from '@/controllers/simpleController'
 import Spell from '@/models/2014/spell'
 import Subclass from '@/models/2014/subclass'
-import LevelModel from '@/models/2014/level'
+import {
+  ClassLevelsQuerySchema,
+  LevelParamsSchema,
+  ShowParamsSchema,
+  SpellIndexQuerySchema
+} from '@/schemas/schemas'
+import { escapeRegExp,ResourceList } from '@/util'
 
 const simpleController = new SimpleController(Class)
 interface ShowLevelsForClassQuery {

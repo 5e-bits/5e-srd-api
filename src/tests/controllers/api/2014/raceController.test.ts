@@ -1,21 +1,21 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
+import { describe, expect, it, vi } from 'vitest'
+
 import * as RaceController from '@/controllers/api/2014/raceController'
 import ProficiencyModel from '@/models/2014/proficiency'
 import RaceModel from '@/models/2014/race'
 import SubraceModel from '@/models/2014/subrace'
 import TraitModel from '@/models/2014/trait'
+import { proficiencyFactory } from '@/tests/factories/2014/proficiency.factory'
 import { raceFactory } from '@/tests/factories/2014/race.factory'
 import { subraceFactory } from '@/tests/factories/2014/subrace.factory'
 import { traitFactory } from '@/tests/factories/2014/trait.factory'
-import { proficiencyFactory } from '@/tests/factories/2014/proficiency.factory'
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

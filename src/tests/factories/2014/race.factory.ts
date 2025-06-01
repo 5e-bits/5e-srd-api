@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import type { Race, RaceAbilityBonus } from '@/models/2014/race'
+
 import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 // Factory for the nested RaceAbilityBonus

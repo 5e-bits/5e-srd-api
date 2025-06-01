@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
+import { describe, expect, it, vi } from 'vitest'
 
-import RuleModel from '@/models/2014/rule' // Use Model suffix
 // Import specific functions from the correct controller file
 import * as RuleController from '@/controllers/api/2014/ruleController'
+import RuleModel from '@/models/2014/rule' // Use Model suffix
 import { ruleFactory } from '@/tests/factories/2014/rule.factory' // Updated path
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,

@@ -1,22 +1,23 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
-import { escapeRegExp } from '@/util'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { LevelValue } from '@/graphql/2014/common/types'
+import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import ClassModel, { Class } from '@/models/2014/class'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
+import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
-import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
-import { LevelValue } from '@/graphql/2014/common/types'
-import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { escapeRegExp } from '@/util'
+
 import {
+  SPELL_SORT_FIELD_MAP,
   SpellArgs,
   SpellArgsSchema,
   SpellIndexArgsSchema,
-  SpellOrderField,
-  SPELL_SORT_FIELD_MAP
-} from './args'
+  SpellOrderField} from './args'
 
 @Resolver(Spell)
 export class SpellResolver {

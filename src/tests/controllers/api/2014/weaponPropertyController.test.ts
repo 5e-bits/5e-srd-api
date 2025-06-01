@@ -1,15 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
-import WeaponPropertyModel from '@/models/2014/weaponProperty'
+import { describe, expect, it, vi } from 'vitest'
+
 import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController'
+import WeaponPropertyModel from '@/models/2014/weaponProperty'
 import { weaponPropertyFactory } from '@/tests/factories/2014/weaponProperty.factory'
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

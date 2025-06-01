@@ -1,8 +1,10 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field } from 'type-graphql'
+
 import { EquipmentCategory } from './equipmentCategory'
 
 @ObjectType({ description: 'Rarity level of a magic item.' })

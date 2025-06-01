@@ -1,5 +1,6 @@
-import * as RuleController from '@/controllers/api/2014/ruleController'
 import * as express from 'express'
+
+import * as RuleController from '@/controllers/api/2014/ruleController'
 
 const router = express.Router()
 

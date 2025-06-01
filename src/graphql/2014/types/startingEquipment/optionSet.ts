@@ -1,10 +1,11 @@
-import { ObjectType, Field, createUnionType } from 'type-graphql'
+import { createUnionType,Field, ObjectType } from 'type-graphql'
+
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
+
 import {
   CountedReferenceOption,
-  MultipleItemsOption,
-  EquipmentCategoryChoiceOption
-} from './common'
+  EquipmentCategoryChoiceOption,
+  MultipleItemsOption} from './common'
 
 @ObjectType({
   description: 'A set of equipment choices derived directly from an equipment category.'

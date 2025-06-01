@@ -1,14 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  DAMAGE_TYPE_SORT_FIELD_MAP,
   DamageTypeArgs,
   DamageTypeArgsSchema,
   DamageTypeIndexArgsSchema,
-  DamageTypeOrderField,
-  DAMAGE_TYPE_SORT_FIELD_MAP
-} from './args'
+  DamageTypeOrderField} from './args'
 
 @Resolver(DamageType)
 export class DamageTypeResolver {

@@ -1,17 +1,15 @@
+import awsS3Client from './awsS3Client'
 import { ResourceList } from './data'
 import { bugsnagApiKey, mongodbUri } from './environmentVariables'
-
-import { escapeRegExp } from './regex'
 import prewarmCache from './prewarmCache'
 import redisClient from './RedisClient'
-import awsS3Client from './awsS3Client'
+import { escapeRegExp } from './regex'
 
 export {
+  awsS3Client,
   bugsnagApiKey,
-  mongodbUri,
-  redisClient,
-  prewarmCache,
   escapeRegExp,
-  ResourceList,
-  awsS3Client
-}
+  mongodbUri,
+  prewarmCache,
+  redisClient,
+  ResourceList}

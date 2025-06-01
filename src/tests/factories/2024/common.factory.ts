@@ -1,12 +1,13 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import {
   APIReference,
   AreaOfEffect,
-  DifficultyClass,
-  Damage,
-  OptionsArrayOptionSet,
   Choice,
+  Damage,
+  DifficultyClass,
+  OptionsArrayOptionSet,
   StringOption
 } from '@/models/2024/common'
 

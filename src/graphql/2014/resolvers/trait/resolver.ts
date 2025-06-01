@@ -1,38 +1,37 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
-import {
-  TraitChoice,
-  SpellChoice,
-  TraitChoiceOptionSet,
-  TraitChoiceOption,
-  SpellChoiceOptionSet,
-  SpellChoiceOption
-} from '@/graphql/2014/types/traitTypes'
-import { escapeRegExp } from '@/util'
-import RaceModel, { Race } from '@/models/2014/race'
-import SubraceModel, { Subrace } from '@/models/2014/subrace'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
-import SpellModel from '@/models/2014/spell'
-import {
-  resolveMultipleReferences,
-  resolveSingleReference,
-  resolveLanguageChoice,
-  resolveProficiencyChoice,
-  resolveReferenceOptionArray
-} from '@/graphql/2014/utils/resolvers'
-import { LevelValue } from '@/graphql/2014/common/types'
-import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
-import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
-import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
 import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
+import { LevelValue } from '@/graphql/2014/common/types'
 import {
+  SpellChoice,
+  SpellChoiceOption,
+  SpellChoiceOptionSet,
+  TraitChoice,
+  TraitChoiceOption,
+  TraitChoiceOptionSet} from '@/graphql/2014/types/traitTypes'
+import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
+import {
+  resolveLanguageChoice,
+  resolveMultipleReferences,
+  resolveProficiencyChoice,
+  resolveReferenceOptionArray,
+  resolveSingleReference} from '@/graphql/2014/utils/resolvers'
+import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
+import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import RaceModel, { Race } from '@/models/2014/race'
+import SpellModel from '@/models/2014/spell'
+import SubraceModel, { Subrace } from '@/models/2014/subrace'
+import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
+import { escapeRegExp } from '@/util'
+
+import {
+  TRAIT_SORT_FIELD_MAP,
   TraitArgs,
   TraitArgsSchema,
   TraitIndexArgsSchema,
-  TraitOrderField,
-  TRAIT_SORT_FIELD_MAP
-} from './args'
+  TraitOrderField} from './args'
 
 @Resolver(Trait)
 export class TraitResolver {

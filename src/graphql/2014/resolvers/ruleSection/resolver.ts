@@ -1,14 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  RULE_SECTION_SORT_FIELD_MAP,
   RuleSectionArgs,
   RuleSectionArgsSchema,
   RuleSectionIndexArgsSchema,
-  RuleSectionOrderField,
-  RULE_SECTION_SORT_FIELD_MAP
-} from './args'
+  RuleSectionOrderField} from './args'
 
 @Resolver(RuleSection)
 export class RuleSectionResolver {

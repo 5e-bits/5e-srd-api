@@ -1,14 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import LanguageModel, { Language } from '@/models/2014/language'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  LANGUAGE_SORT_FIELD_MAP,
   LanguageArgs,
   LanguageArgsSchema,
   LanguageIndexArgsSchema,
-  LanguageOrderField,
-  LANGUAGE_SORT_FIELD_MAP
-} from './args'
+  LanguageOrderField} from './args'
 
 @Resolver(Language)
 export class LanguageResolver {

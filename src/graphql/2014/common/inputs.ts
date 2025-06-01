@@ -1,5 +1,6 @@
-import { InputType, Field, Int } from 'type-graphql'
+import { Field, InputType, Int } from 'type-graphql'
 import { z } from 'zod'
+
 import { OrderByDirection } from './enums'
 
 // Zod schema for NumberRangeFilterInput

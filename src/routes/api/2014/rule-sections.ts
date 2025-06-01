@@ -1,5 +1,6 @@
-import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
 import * as express from 'express'
+
+import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
 
 const router = express.Router()
 

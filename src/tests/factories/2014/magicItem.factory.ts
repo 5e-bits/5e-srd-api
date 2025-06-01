@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import type { MagicItem, Rarity } from '@/models/2014/magicItem'
+
 import { apiReferenceFactory, createIndex, createUrl } from './common.factory'
 
 // --- Rarity Factory ---

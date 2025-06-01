@@ -1,8 +1,10 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field, Float,Int, ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field, Int, Float } from 'type-graphql'
+
 import { Class } from './class'
 import { Feature } from './feature'
 import { Subclass } from './subclass'

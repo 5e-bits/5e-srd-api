@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import type { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
+
 import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 // Factory for the nested SubraceAbilityBonus

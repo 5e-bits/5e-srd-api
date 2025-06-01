@@ -1,15 +1,17 @@
 import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Choice } from './common/choice'
-import { AreaOfEffect } from '@/models/2014/common/areaOfEffect'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
+import { AreaOfEffect } from '@/models/2014/common/areaOfEffect'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field, Int } from 'type-graphql'
+
+import { AbilityScore } from './abilityScore'
+import { Choice } from './common/choice'
+import { DamageType } from './damageType'
 import { Proficiency } from './proficiency'
 import { Race } from './race'
 import { Subrace } from './subrace'
-import { DamageType } from './damageType'
-import { AbilityScore } from './abilityScore'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })

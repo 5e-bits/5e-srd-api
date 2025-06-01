@@ -1,17 +1,16 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
-import SpellModel from '@/models/2014/spell'
-import * as SpellController from '@/controllers/api/2014/spellController'
-import { spellFactory } from '@/tests/factories/2014/spell.factory'
+import { describe, expect, it, vi } from 'vitest'
 
+import * as SpellController from '@/controllers/api/2014/spellController'
+import SpellModel from '@/models/2014/spell'
+import { spellFactory } from '@/tests/factories/2014/spell.factory'
+import { mockNext as defaultMockNext } from '@/tests/support'
 // Import the DB helper functions
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

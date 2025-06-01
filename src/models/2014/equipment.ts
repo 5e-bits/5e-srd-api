@@ -1,11 +1,12 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { APIReference } from '@/models/2014/common/apiReference'
-import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field, Float, Int } from 'type-graphql'
-import { EquipmentCategory } from '@/models/2014/equipmentCategory'
+import { Field, Float, Int,ObjectType } from 'type-graphql'
+
 import { IEquipment } from '@/graphql/2014/common/interfaces'
+import { APIReference } from '@/models/2014/common/apiReference'
 import { Damage } from '@/models/2014/common/damage'
+import { EquipmentCategory } from '@/models/2014/equipmentCategory'
+import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'Details about armor class.' })
 export class ArmorClass {

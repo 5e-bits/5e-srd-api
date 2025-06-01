@@ -1,6 +1,6 @@
-import { beforeAll, afterAll, beforeEach, vi } from 'vitest'
-import mongoose, { type Model, type Document } from 'mongoose'
 import crypto from 'crypto'
+import mongoose, { type Document,type Model } from 'mongoose'
+import { afterAll, beforeAll, beforeEach, vi } from 'vitest'
 
 /**
  * Generates a unique MongoDB URI for test isolation.

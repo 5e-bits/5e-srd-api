@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express'
-import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
+import { NextFunction,Request, Response } from 'express'
 
-import { ResourceList, escapeRegExp, redisClient } from '@/util'
 import MagicItem from '@/models/2014/magicItem'
+import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
+import { escapeRegExp, redisClient,ResourceList } from '@/util'
 
 interface IndexQuery {
   name?: { $regex: RegExp };

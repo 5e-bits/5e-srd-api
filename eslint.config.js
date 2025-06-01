@@ -1,50 +1,46 @@
 // @ts-check
 
 import eslint from '@eslint/js'
+import stylistic from '@stylistic/eslint-plugin'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import stylistic from '@stylistic/eslint-plugin-ts'
-import eslintConfigPrettier from 'eslint-config-prettier'
 
-export default [
+export default tseslint.config(
   {
-    name: 'base ignore',
+    name: 'base-ignore',
     ignores: ['**/coverage/**', '**/dist/**', '**/node_modules/**']
   },
   eslint.configs.recommended,
+  // Main TypeScript and JS linting configuration
   {
-    name: 'javascript',
-    files: ['**/*.js'],
-    languageOptions: {
-      globals: {
-        ...globals.jquery,
-        ...globals.browser
-      }
-    }
-  },
-  ...tseslint.configs.recommended,
-  {
-    name: 'typescript',
-    files: ['**/*.ts'],
+    name: 'typescript-and-sorting',
+    files: ['**/*.ts', '**/*.js'],
+    extends: [...tseslint.configs.recommended],
     plugins: {
-      '@stylistic/ts': stylistic
+      '@stylistic': stylistic,
+      'simple-import-sort': simpleImportSort
     },
     languageOptions: {
-      parser: tseslint.parser,
       parserOptions: {
-        projectService: true,
+        project: true,
         tsconfigRootDir: import.meta.dirname
       },
       globals: {
-        ...globals.node
+        ...globals.node,
+        ...globals.browser,
+        ...globals.jquery
       }
     },
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/strict-boolean-expressions': 'warn'
+      '@typescript-eslint/strict-boolean-expressions': 'warn',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error'
     }
   },
   eslintConfigPrettier
-]
+)

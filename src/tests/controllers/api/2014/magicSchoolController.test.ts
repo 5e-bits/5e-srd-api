@@ -1,16 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
+import { describe, expect, it, vi } from 'vitest'
 
-import MagicSchoolModel from '@/models/2014/magicSchool' // Use Model suffix
 import MagicSchoolController from '@/controllers/api/2014/magicSchoolController'
+import MagicSchoolModel from '@/models/2014/magicSchool' // Use Model suffix
 import { magicSchoolFactory } from '@/tests/factories/2014/magicSchool.factory' // Updated path
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 import {
   generateUniqueDbUri,
-  teardownIsolatedDatabase,
   setupIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

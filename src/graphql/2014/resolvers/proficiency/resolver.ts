@@ -1,22 +1,23 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import { escapeRegExp } from '@/util'
-import ClassModel, { Class } from '@/models/2014/class'
-import RaceModel, { Race } from '@/models/2014/race'
-import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { ProficiencyReference } from '@/graphql/2014/types/proficiencyTypes'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import ClassModel, { Class } from '@/models/2014/class'
 import EquipmentModel from '@/models/2014/equipment'
 import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
-import AbilityScoreModel from '@/models/2014/abilityScore'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import RaceModel, { Race } from '@/models/2014/race'
 import SkillModel from '@/models/2014/skill'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { escapeRegExp } from '@/util'
+
 import {
+  PROFICIENCY_SORT_FIELD_MAP,
   ProficiencyArgs,
   ProficiencyArgsSchema,
   ProficiencyIndexArgsSchema,
-  ProficiencyOrderField,
-  PROFICIENCY_SORT_FIELD_MAP
-} from './args'
+  ProficiencyOrderField} from './args'
 
 @Resolver(Proficiency)
 export class ProficiencyResolver {

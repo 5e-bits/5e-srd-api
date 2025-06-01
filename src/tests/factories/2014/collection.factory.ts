@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import type { Collection } from '@/models/2014/collection'
+
 import { createIndex } from './common.factory'
 
 // Factory only needs to define properties present in the Collection model

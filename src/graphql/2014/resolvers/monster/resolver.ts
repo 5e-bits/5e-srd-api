@@ -1,55 +1,54 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import MonsterModel, {
-  Monster,
-  ArmorClassArmor,
-  ArmorClassSpell,
-  ArmorClassCondition,
-  MonsterProficiency,
-  SpecialAbilitySpellcasting,
-  SpecialAbilitySpell,
-  MonsterAction
-} from '@/models/2014/monster'
-import { escapeRegExp } from '@/util'
-import { APIReference } from '@/models/2014/common/apiReference'
-import ConditionModel, { Condition } from '@/models/2014/condition'
-import { resolveMultipleReferences, resolveSingleReference } from '../../utils/resolvers'
-import EquipmentModel from '@/models/2014/equipment'
-import SpellModel, { Spell } from '@/models/2014/spell'
-import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { SpellSlotCount } from '@/graphql/2014/common/types'
 import { DamageOrDamageChoiceUnion } from '@/graphql/2014/types/monsterTypes'
 import {
-  Choice,
-  OptionsArrayOptionSet,
-  DamageOption,
+  ActionChoice,
+  ActionChoiceOption,
+  BreathChoice,
+  BreathChoiceOption,
+  DamageChoice,
+  DamageChoiceOption,
+  MultipleActionChoiceOption} from '@/graphql/2014/types/monsterTypes'
+import { MonsterArmorClassUnion } from '@/graphql/2014/types/monsterTypes'
+import { normalizeCount } from '@/graphql/2014/utils/helpers'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import { APIReference } from '@/models/2014/common/apiReference'
+import {
   ActionOption,
-  BreathOption
-} from '@/models/2014/common/choice'
+  BreathOption,
+  Choice,
+  DamageOption,
+  OptionsArrayOptionSet} from '@/models/2014/common/choice'
 import { Damage } from '@/models/2014/common/damage'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
+import ConditionModel, { Condition } from '@/models/2014/condition'
+import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
+import EquipmentModel from '@/models/2014/equipment'
+import MonsterModel, {
+  ArmorClassArmor,
+  ArmorClassCondition,
+  ArmorClassSpell,
+  Monster,
+  MonsterAction,
+  MonsterProficiency,
+  SpecialAbilitySpell,
+  SpecialAbilitySpellcasting} from '@/models/2014/monster'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import SpellModel, { Spell } from '@/models/2014/spell'
+import { escapeRegExp } from '@/util'
+
+import { resolveMultipleReferences, resolveSingleReference } from '../../utils/resolvers'
 import {
-  DamageChoice,
-  ActionChoice,
-  BreathChoice,
-  DamageChoiceOption,
-  ActionChoiceOption,
-  MultipleActionChoiceOption,
-  BreathChoiceOption
-} from '@/graphql/2014/types/monsterTypes'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { normalizeCount } from '@/graphql/2014/utils/helpers'
-import {
+  MONSTER_SORT_FIELD_MAP,
   MonsterArgs,
   MonsterArgsSchema,
   MonsterIndexArgsSchema,
-  MONSTER_SORT_FIELD_MAP,
   MonsterOrderField
 } from './args'
-import { MonsterArmorClassUnion } from '@/graphql/2014/types/monsterTypes'
 
 @Resolver(Monster)
 export class MonsterResolver {

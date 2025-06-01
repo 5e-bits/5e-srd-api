@@ -1,19 +1,19 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import LevelModel, { Level } from '@/models/2014/level'
-import ClassModel, { Class } from '@/models/2014/class'
-import SubclassModel, { Subclass } from '@/models/2014/subclass'
-import FeatureModel, { Feature } from '@/models/2014/feature'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import ClassModel, { Class } from '@/models/2014/class'
+import FeatureModel, { Feature } from '@/models/2014/feature'
+import LevelModel, { Level } from '@/models/2014/level'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
+
 import {
+  LEVEL_SORT_FIELD_MAP,
   LevelArgs,
   LevelArgsSchema,
   LevelIndexArgsSchema,
-  LevelOrderField,
-  LEVEL_SORT_FIELD_MAP
-} from './args'
+  LevelOrderField} from './args'
 
 @Resolver(Level)
 export class LevelResolver {

@@ -1,14 +1,16 @@
 import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { AreaOfEffect } from '@/models/2014/common/areaOfEffect'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field, Int } from 'type-graphql'
+
+import { AbilityScore } from './abilityScore'
 import { Class } from './class'
+import { DamageType } from './damageType'
 import { MagicSchool } from './magicSchool'
 import { Subclass } from './subclass'
-import { DamageType } from './damageType'
-import { AbilityScore } from './abilityScore'
 
 @ObjectType({ description: 'Details about spell damage' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })

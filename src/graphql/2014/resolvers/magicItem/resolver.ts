@@ -1,16 +1,17 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { resolveMultipleReferences,resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { escapeRegExp } from '@/util'
-import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import { resolveSingleReference, resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  MAGIC_ITEM_SORT_FIELD_MAP,
   MagicItemArgs,
   MagicItemArgsSchema,
   MagicItemIndexArgsSchema,
-  MagicItemOrderField,
-  MAGIC_ITEM_SORT_FIELD_MAP
-} from './args'
+  MagicItemOrderField} from './args'
 
 @Resolver(MagicItem)
 export class MagicItemResolver {

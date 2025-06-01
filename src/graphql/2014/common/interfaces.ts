@@ -1,4 +1,5 @@
-import { InterfaceType, Field, Float } from 'type-graphql'
+import { Field, Float,InterfaceType } from 'type-graphql'
+
 import { Cost } from '@/models/2014/equipment'
 
 @InterfaceType({

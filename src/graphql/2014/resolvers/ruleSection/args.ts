@@ -1,11 +1,12 @@
 import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
+
 import {
   BaseFilterArgs,
+  BaseFilterArgsSchema,
   BaseIndexArgsSchema,
-  BaseOrderInterface,
-  BaseFilterArgsSchema
-} from '@/graphql/2014/common/args'
+  BaseOrderInterface} from '@/graphql/2014/common/args'
+
 import { OrderByDirection } from '../../common/enums'
 
 export enum RuleSectionOrderField {

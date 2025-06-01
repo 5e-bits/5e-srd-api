@@ -1,9 +1,11 @@
-import { ObjectType, Field, Int } from 'type-graphql'
-import { IEquipment } from './interfaces'
-import { Equipment, ArmorClass, Range, ThrowRange, Content, Speed } from '@/models/2014/equipment'
-import { Damage } from '@/models/2014/common/damage'
-import { WeaponProperty } from '@/models/2014/weaponProperty'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
+import { Damage } from '@/models/2014/common/damage'
+import { ArmorClass, Content, Equipment, Range, Speed,ThrowRange } from '@/models/2014/equipment'
+import { WeaponProperty } from '@/models/2014/weaponProperty'
+
+import { IEquipment } from './interfaces'
 
 @ObjectType({ description: 'Represents Armor equipment', implements: IEquipment })
 export class Armor extends Equipment {

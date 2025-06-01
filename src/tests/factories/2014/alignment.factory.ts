@@ -1,5 +1,6 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { Alignment } from '@/models/2014/alignment'
 
 export const alignmentFactory = Factory.define<Alignment>(({ sequence, params }) => {
