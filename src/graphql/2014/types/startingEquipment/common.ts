@@ -1,9 +1,8 @@
-import { createUnionType,Field, Int, ObjectType } from 'type-graphql'
+import { createUnionType, Field, Int, ObjectType } from 'type-graphql'
 
 import { Equipment } from '@/models/2014/equipment'
+import { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import { Proficiency } from '@/models/2014/proficiency'
-
-import { EquipmentCategorySet } from './optionSet'
 
 @ObjectType({
   description: 'A prerequisite for an equipment option, typically requiring a specific proficiency.'
@@ -34,6 +33,22 @@ export class CountedReferenceOption {
     description: 'Prerequisites for choosing this option.'
   })
   prerequisites?: ProficiencyPrerequisite[]
+}
+
+// Definition for EquipmentCategorySet, moved from optionSet.ts and placed before its usage
+@ObjectType({
+  description: 'A set of equipment choices derived directly from an equipment category.'
+})
+export class EquipmentCategorySet {
+  @Field(() => String, {
+    description: "Indicates the type of option set, e.g., 'equipment_category'."
+  })
+  option_set_type!: string
+
+  @Field(() => EquipmentCategory, {
+    description: 'The equipment category to choose from.'
+  })
+  equipment_category!: EquipmentCategory
 }
 
 // Describes the details of a choice that is specifically from an equipment category.

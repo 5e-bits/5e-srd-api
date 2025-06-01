@@ -1,26 +1,13 @@
-import { createUnionType,Field, ObjectType } from 'type-graphql'
+import { createUnionType, Field, ObjectType } from 'type-graphql'
 
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
 
 import {
   CountedReferenceOption,
   EquipmentCategoryChoiceOption,
-  MultipleItemsOption} from './common'
-
-@ObjectType({
-  description: 'A set of equipment choices derived directly from an equipment category.'
-})
-export class EquipmentCategorySet {
-  @Field(() => String, {
-    description: "Indicates the type of option set, e.g., 'equipment_category'."
-  })
-  option_set_type!: string
-
-  @Field(() => EquipmentCategory, {
-    description: 'The equipment category to choose from.'
-  })
-  equipment_category!: EquipmentCategory
-}
+  EquipmentCategorySet,
+  MultipleItemsOption
+} from './common'
 
 @ObjectType({ description: 'A set of explicitly listed equipment options.' })
 export class EquipmentOptionSet {

@@ -1,6 +1,7 @@
-import { Field, Int,ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql'
 
-import { EquipmentCategorySet, EquipmentOptionSet, StartingEquipmentFromUnion } from './optionSet'
+import { EquipmentCategorySet } from './common'
+import { EquipmentOptionSet, StartingEquipmentFromUnion } from './optionSet'
 
 @ObjectType({ description: 'Represents a choice for starting equipment.' })
 export class StartingEquipmentChoice {
