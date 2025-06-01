@@ -1,7 +1,5 @@
 import { createUnionType, Field, ObjectType } from 'type-graphql'
 
-import { EquipmentCategory } from '@/models/2014/equipmentCategory'
-
 import {
   CountedReferenceOption,
   EquipmentCategoryChoiceOption,

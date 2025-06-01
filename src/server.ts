@@ -11,7 +11,6 @@ import rateLimit from 'express-rate-limit'
 import morgan from 'morgan'
 import { buildSchema } from 'type-graphql'
 
-
 import docsController from './controllers/docsController'
 import { resolvers } from './graphql/2014/resolvers'
 import { createApolloMiddleware } from './middleware/apolloServer'
@@ -84,8 +83,6 @@ export default async () => {
     app.use(bugsnagMiddleware.errorHandler)
   }
 
-  if (errorHandlerMiddleware) {
-    app.use(errorHandlerMiddleware)
-  }
+  app.use(errorHandlerMiddleware)
   return app
 }

@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import mongoose, { type Document,type Model } from 'mongoose'
+import mongoose, { type Model } from 'mongoose'
 import { afterAll, beforeAll, beforeEach, vi } from 'vitest'
 
 /**
