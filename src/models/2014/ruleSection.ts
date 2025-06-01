@@ -1,7 +1,8 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field,ObjectType } from 'type-graphql'
+
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field } from 'type-graphql'
 
 @ObjectType({ description: 'Represents a named section of the SRD rules document.' })
 @srdModelOptions('2014-rule-sections')

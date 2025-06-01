@@ -1,23 +1,20 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
+import { describe, expect, it, vi } from 'vitest'
 
 import * as SubclassController from '@/controllers/api/2014/subclassController'
-import SubclassModel from '@/models/2014/subclass'
-import LevelModel from '@/models/2014/level'
 import FeatureModel from '@/models/2014/feature'
-
-import { subclassFactory } from '@/tests/factories/2014/subclass.factory'
-import { levelFactory } from '@/tests/factories/2014/level.factory'
-import { featureFactory } from '@/tests/factories/2014/feature.factory'
+import LevelModel from '@/models/2014/level'
+import SubclassModel from '@/models/2014/subclass'
 import { apiReferenceFactory } from '@/tests/factories/2014/common.factory'
-
+import { featureFactory } from '@/tests/factories/2014/feature.factory'
+import { levelFactory } from '@/tests/factories/2014/level.factory'
+import { subclassFactory } from '@/tests/factories/2014/subclass.factory'
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

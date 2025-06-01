@@ -1,33 +1,35 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
 import mongoose from 'mongoose'
-import type {
-  MonsterAction,
-  ActionOption,
-  ActionUsage,
-  ArmorClassDex,
-  ArmorClassNatural,
-  ArmorClassArmor,
-  ArmorClassSpell,
-  ArmorClassCondition,
-  LegendaryAction,
-  MonsterProficiency,
-  Reaction,
-  Sense,
-  SpecialAbility,
-  SpecialAbilitySpell,
-  SpecialAbilitySpellcasting,
-  SpecialAbilityUsage,
-  MonsterSpeed,
-  Monster,
-  MonsterDocument
-} from '@/models/2014/monster'
+
 import {
   apiReferenceFactory,
   choiceFactory,
   damageFactory,
   difficultyClassFactory
 } from './common.factory'
+
+import type {
+  ActionOption,
+  ActionUsage,
+  ArmorClassArmor,
+  ArmorClassCondition,
+  ArmorClassDex,
+  ArmorClassNatural,
+  ArmorClassSpell,
+  LegendaryAction,
+  Monster,
+  MonsterAction,
+  MonsterDocument,
+  MonsterProficiency,
+  MonsterSpeed,
+  Reaction,
+  Sense,
+  SpecialAbility,
+  SpecialAbilitySpell,
+  SpecialAbilitySpellcasting,
+  SpecialAbilityUsage} from '@/models/2014/monster'
+
 
 // Factory for ActionUsage
 const actionUsageFactory = Factory.define<ActionUsage>(() => ({

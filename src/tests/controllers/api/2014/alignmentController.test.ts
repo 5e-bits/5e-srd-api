@@ -1,16 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
+import { describe, expect, it, vi } from 'vitest'
 
-import AlignmentModel from '@/models/2014/alignment'
 import AlignmentController from '@/controllers/api/2014/alignmentController'
+import AlignmentModel from '@/models/2014/alignment'
 import { alignmentFactory } from '@/tests/factories/2014/alignment.factory'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

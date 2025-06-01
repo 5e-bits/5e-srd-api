@@ -1,5 +1,6 @@
-import * as SpellController from '@/controllers/api/2014/spellController'
 import * as express from 'express'
+
+import * as SpellController from '@/controllers/api/2014/spellController'
 
 const router = express.Router()
 

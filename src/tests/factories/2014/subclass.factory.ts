@@ -1,7 +1,10 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import type { Prerequisite, Subclass, SubclassSpell } from '@/models/2014/subclass'
+import { Factory } from 'fishery'
+
 import { apiReferenceFactory, createIndex, createUrl } from './common.factory'
+
+import type { Prerequisite, Subclass, SubclassSpell } from '@/models/2014/subclass'
+
 
 // --- Prerequisite Factory ---
 const prerequisiteFactory = Factory.define<Prerequisite>(({ params }) => ({

@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { Trait } from '@/models/2014/trait'
+
 import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 export const traitFactory = Factory.define<Trait>(({ sequence }) => {

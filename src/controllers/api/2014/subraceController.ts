@@ -1,10 +1,11 @@
-import { Request, Response, NextFunction } from 'express'
-import { ShowParamsSchema } from '@/schemas/schemas'
-import Proficiency from '@/models/2014/proficiency'
-import { ResourceList } from '@/util/data'
+import { NextFunction,Request, Response } from 'express'
+
 import SimpleController from '@/controllers/simpleController'
+import Proficiency from '@/models/2014/proficiency'
 import Subrace from '@/models/2014/subrace'
 import Trait from '@/models/2014/trait'
+import { ShowParamsSchema } from '@/schemas/schemas'
+import { ResourceList } from '@/util/data'
 
 const simpleController = new SimpleController(Subrace)
 

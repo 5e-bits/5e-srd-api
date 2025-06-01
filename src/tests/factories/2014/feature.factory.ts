@@ -1,12 +1,13 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import {
   Feature,
-  LevelPrerequisite,
   FeaturePrerequisite,
-  SpellPrerequisite,
-  FeatureSpecific
-} from '@/models/2014/feature'
+  FeatureSpecific,
+  LevelPrerequisite,
+  SpellPrerequisite} from '@/models/2014/feature'
+
 import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 // --- Sub-factories ---

@@ -1,15 +1,17 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
+import { apiReferenceFactory } from './common.factory'
+
 import type {
-  Level,
   ClassSpecific,
-  LevelSpellcasting,
-  SubclassSpecific,
   ClassSpecificCreatingSpellSlot,
   ClassSpecificMartialArt,
-  ClassSpecificSneakAttack
-} from '@/models/2014/level'
-import { apiReferenceFactory } from './common.factory'
+  ClassSpecificSneakAttack,
+  Level,
+  LevelSpellcasting,
+  SubclassSpecific} from '@/models/2014/level'
+
 
 const createIndex = (base: string, level: number): string => `${base}-${level}`
 const createUrl = (resource: string, index: string): string => `/api/${resource}/${index}`

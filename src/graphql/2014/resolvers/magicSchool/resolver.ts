@@ -1,14 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  MAGIC_SCHOOL_SORT_FIELD_MAP,
   MagicSchoolArgs,
   MagicSchoolArgsSchema,
   MagicSchoolIndexArgsSchema,
-  MagicSchoolOrderField,
-  MAGIC_SCHOOL_SORT_FIELD_MAP
-} from './args'
+  MagicSchoolOrderField} from './args'
 
 @Resolver(MagicSchool)
 export class MagicSchoolResolver {

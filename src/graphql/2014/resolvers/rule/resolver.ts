@@ -1,16 +1,17 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
 import RuleModel, { Rule } from '@/models/2014/rule'
 import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 import { escapeRegExp } from '@/util'
-import { resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  RULE_SORT_FIELD_MAP,
   RuleArgs,
   RuleArgsSchema,
   RuleIndexArgsSchema,
-  RuleOrderField,
-  RULE_SORT_FIELD_MAP
-} from './args'
+  RuleOrderField} from './args'
 
 @Resolver(Rule)
 export class RuleResolver {

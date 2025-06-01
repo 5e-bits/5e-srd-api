@@ -1,8 +1,9 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field } from 'type-graphql'
 
 @ObjectType({
   description: 'A category for grouping equipment (e.g., Weapon, Armor, Adventuring Gear).'

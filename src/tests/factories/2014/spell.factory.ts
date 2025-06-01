@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { Spell, SpellDamage, SpellDC } from '@/models/2014/spell'
+
 import { apiReferenceFactory, areaOfEffectFactory } from './common.factory'
 
 // --- Sub-factories (Placeholders/Simple Defaults) ---

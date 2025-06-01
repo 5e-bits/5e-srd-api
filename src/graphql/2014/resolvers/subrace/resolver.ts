@@ -1,26 +1,26 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
-import { escapeRegExp } from '@/util'
-import RaceModel, { Race } from '@/models/2014/race'
-import TraitModel, { Trait } from '@/models/2014/trait'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
+import {
+  resolveLanguageChoice,
+  resolveMultipleReferences,
+  resolveSingleReference} from '@/graphql/2014/utils/resolvers'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import { Choice } from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import RaceModel, { Race } from '@/models/2014/race'
+import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
+import TraitModel, { Trait } from '@/models/2014/trait'
+import { escapeRegExp } from '@/util'
+
 import {
-  resolveMultipleReferences,
-  resolveSingleReference,
-  resolveLanguageChoice
-} from '@/graphql/2014/utils/resolvers'
-import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
-import { Choice } from '@/models/2014/common/choice'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import {
+  SUBRACE_SORT_FIELD_MAP,
   SubraceArgs,
   SubraceArgsSchema,
   SubraceIndexArgsSchema,
-  SubraceOrderField,
-  SUBRACE_SORT_FIELD_MAP
-} from './args'
+  SubraceOrderField} from './args'
 
 @Resolver(Subrace)
 export class SubraceResolver {

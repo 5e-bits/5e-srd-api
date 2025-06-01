@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+
 import { awsRegion } from '@/util/environmentVariables'
 
 const BUCKET_NAME = 'dnd-5e-api-images'

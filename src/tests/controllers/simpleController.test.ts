@@ -1,17 +1,16 @@
-import { describe, it, expect, beforeAll, vi } from 'vitest'
 import { type Model } from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
+import SimpleController from '@/controllers/simpleController'
 import AbilityScoreModel from '@/models/2014/abilityScore' // Use Model suffix convention
 import { abilityScoreFactory } from '@/tests/factories/2014/abilityScore.factory' // Import factory
-import SimpleController from '@/controllers/simpleController'
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express'
-import { NameDescQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
-import { ResourceList, escapeRegExp, redisClient } from '@/util'
+import { NextFunction,Request, Response } from 'express'
 
 import RuleSection from '@/models/2014/ruleSection'
+import { NameDescQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
+import { escapeRegExp, redisClient,ResourceList } from '@/util'
 
 interface IndexQuery {
   name?: { $regex: RegExp };

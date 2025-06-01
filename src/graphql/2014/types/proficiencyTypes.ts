@@ -1,7 +1,8 @@
 import { createUnionType } from 'type-graphql'
+
+import { AbilityScore } from '@/models/2014/abilityScore'
 import { Equipment } from '@/models/2014/equipment'
 import { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import { AbilityScore } from '@/models/2014/abilityScore'
 import { Skill } from '@/models/2014/skill'
 
 export const ProficiencyReference = createUnionType({

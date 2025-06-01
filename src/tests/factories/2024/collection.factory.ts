@@ -1,7 +1,10 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import type { Collection2024 } from '@/models/2024/collection'
+import { Factory } from 'fishery'
+
 import { createIndex } from './common.factory'
+
+import type { Collection2024 } from '@/models/2024/collection'
+
 
 // Factory only needs to define properties present in the Collection model
 export const collectionFactory = Factory.define<Omit<Collection2024, '_id' | 'collectionName'>>(

@@ -1,20 +1,20 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/types/subclassTypes'
+import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import ClassModel, { Class } from '@/models/2014/class'
+import FeatureModel, { Feature } from '@/models/2014/feature'
+import LevelModel, { Level } from '@/models/2014/level'
 import SubclassModel, { Subclass, SubclassSpell } from '@/models/2014/subclass'
 import { escapeRegExp } from '@/util'
-import ClassModel, { Class } from '@/models/2014/class'
-import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
-import LevelModel, { Level } from '@/models/2014/level'
-import { Feature } from '@/models/2014/feature'
-import FeatureModel from '@/models/2014/feature'
-import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/types/subclassTypes'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  SUBCLASS_SORT_FIELD_MAP,
   SubclassArgs,
   SubclassArgsSchema,
   SubclassIndexArgsSchema,
-  SubclassOrderField,
-  SUBCLASS_SORT_FIELD_MAP
-} from './args'
+  SubclassOrderField} from './args'
 
 @Resolver(Subclass)
 export class SubclassResolver {

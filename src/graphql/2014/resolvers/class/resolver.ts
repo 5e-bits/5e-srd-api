@@ -1,42 +1,41 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import ClassModel, {
-  Class,
-  MultiClassing,
-  MultiClassingPrereq,
-  ClassEquipment
-} from '@/models/2014/class'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import {
+  PrerequisiteChoice,
+  PrerequisiteChoiceOption,
+  PrerequisiteChoiceOptionSet,
+  ProficiencyChoice} from '@/graphql/2014/common/choiceTypes'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { escapeRegExp } from '@/util'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import { AnyEquipment } from '@/graphql/2014/common/unions'
+import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import {
   resolveMultipleReferences,
   resolveProficiencyChoiceArray,
   resolveSingleReference
 } from '@/graphql/2014/utils/resolvers'
-import { APIReference } from '@/models/2014/common/apiReference'
-import LevelModel, { Level } from '@/models/2014/level'
-import SpellModel, { Spell } from '@/models/2014/spell'
-import {
-  ProficiencyChoice,
-  PrerequisiteChoice,
-  PrerequisiteChoiceOption,
-  PrerequisiteChoiceOptionSet
-} from '@/graphql/2014/common/choiceTypes'
-import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
+import ClassModel, {
+  Class,
+  ClassEquipment,
+  MultiClassing,
+  MultiClassingPrereq} from '@/models/2014/class'
+import { APIReference } from '@/models/2014/common/apiReference'
 import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common/choice'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import EquipmentModel from '@/models/2014/equipment'
+import LevelModel, { Level } from '@/models/2014/level'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import SpellModel, { Spell } from '@/models/2014/spell'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import { escapeRegExp } from '@/util'
+
 import {
+  CLASS_SORT_FIELD_MAP,
   ClassArgs,
   ClassArgsSchema,
   ClassIndexArgsSchema,
-  ClassOrderField,
-  CLASS_SORT_FIELD_MAP
-} from './args'
-import EquipmentModel from '@/models/2014/equipment'
-import { AnyEquipment } from '@/graphql/2014/common/unions'
+  ClassOrderField} from './args'
 
 @Resolver(Class)
 export class ClassResolver {

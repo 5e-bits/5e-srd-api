@@ -1,10 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
+import { describe, expect, it, vi } from 'vitest'
 
-import FeatModel from '@/models/2014/feat' // Use Model suffix
 import FeatController from '@/controllers/api/2014/featController'
+import FeatModel from '@/models/2014/feat' // Use Model suffix
 import { featFactory } from '@/tests/factories/2014/feat.factory' // Import factory
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,

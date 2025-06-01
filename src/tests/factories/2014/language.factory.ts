@@ -1,5 +1,6 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { Language } from '@/models/2014/language'
 
 const languageTypes = ['Standard', 'Exotic']

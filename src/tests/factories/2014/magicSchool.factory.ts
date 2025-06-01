@@ -1,5 +1,6 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { MagicSchool } from '@/models/2014/magicSchool'
 
 export const magicSchoolFactory = Factory.define<MagicSchool>(({ sequence }) => {

@@ -1,18 +1,19 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import EquipmentModel, { Equipment, Content } from '@/models/2014/equipment'
-import { escapeRegExp } from '@/util'
-import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import { APIReference } from '@/models/2014/common/apiReference'
-import { AnyEquipment } from '@/graphql/2014/common/unions'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import EquipmentModel, { Content,Equipment } from '@/models/2014/equipment'
+import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
+import { escapeRegExp } from '@/util'
+
 import {
+  EQUIPMENT_SORT_FIELD_MAP,
   EquipmentArgs,
   EquipmentArgsSchema,
   EquipmentIndexArgsSchema,
-  EquipmentOrderField,
-  EQUIPMENT_SORT_FIELD_MAP
-} from './args'
+  EquipmentOrderField} from './args'
 
 @Resolver(Equipment)
 export class EquipmentResolver {

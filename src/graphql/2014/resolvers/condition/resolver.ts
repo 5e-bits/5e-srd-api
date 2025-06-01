@@ -1,14 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import ConditionModel, { Condition } from '@/models/2014/condition'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  CONDITION_SORT_FIELD_MAP,
   ConditionArgs,
   ConditionArgsSchema,
   ConditionIndexArgsSchema,
-  ConditionOrderField,
-  CONDITION_SORT_FIELD_MAP
-} from './args'
+  ConditionOrderField} from './args'
 
 @Resolver(Condition)
 export class ConditionResolver {

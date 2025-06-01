@@ -1,11 +1,11 @@
+import { S3Client, S3ClientConfig } from '@aws-sdk/client-s3'
+
 import {
+  awsAccessKeyId,
   awsConfigEnv,
   awsRegion,
-  awsAccessKeyId,
   awsSecretAccessKey
 } from '@/util/environmentVariables'
-
-import { S3Client, S3ClientConfig } from '@aws-sdk/client-s3'
 
 const awsS3ClientConfigs = {
   prod: {

@@ -1,6 +1,7 @@
-import { ObjectType, Field, Int } from 'type-graphql'
-import { Trait } from '@/models/2014/trait'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { Spell } from '@/models/2014/spell'
+import { Trait } from '@/models/2014/trait'
 
 @ObjectType({ description: 'Represents a reference to a Trait within a choice option set.' })
 export class TraitChoiceOption {

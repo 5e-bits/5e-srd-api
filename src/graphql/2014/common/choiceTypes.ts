@@ -1,7 +1,9 @@
-import { ObjectType, Field, Int } from 'type-graphql'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { AbilityScore } from '@/models/2014/abilityScore'
-import { Proficiency } from '@/models/2014/proficiency'
 import { Language } from '@/models/2014/language'
+import { Proficiency } from '@/models/2014/proficiency'
+
 import { ProficiencyChoiceItem } from './unions'
 
 // --- Generic String Choice Types ---

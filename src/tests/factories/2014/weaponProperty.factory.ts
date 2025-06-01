@@ -1,5 +1,6 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import type { WeaponProperty } from '@/models/2014/weaponProperty'
 
 export const weaponPropertyFactory = Factory.define<WeaponProperty>(

@@ -1,6 +1,8 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { AbilityScore2024 } from '@/models/2024/abilityScore'
+
 import { apiReferenceFactory } from './common.factory'
 
 // Define the factory using fishery

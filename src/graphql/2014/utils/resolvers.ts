@@ -1,24 +1,23 @@
-import { APIReference } from '@/models/2014/common/apiReference'
 import { ReturnModelType } from '@typegoose/typegoose'
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types'
+
 import {
-  Choice,
-  OptionsArrayOptionSet,
-  StringOption,
-  ReferenceOption,
-  ChoiceOption
-} from '@/models/2014/common/choice'
-import {
-  StringChoice,
-  StringChoiceOption,
-  StringChoiceOptionSet,
   LanguageChoice,
-  LanguageChoiceOptionSet,
   LanguageChoiceOption,
+  LanguageChoiceOptionSet,
   ProficiencyChoice,
   ProficiencyChoiceOption,
-  ProficiencyChoiceOptionSet
-} from '@/graphql/2014/common/choiceTypes'
+  ProficiencyChoiceOptionSet,
+  StringChoice,
+  StringChoiceOption,
+  StringChoiceOptionSet} from '@/graphql/2014/common/choiceTypes'
+import { APIReference } from '@/models/2014/common/apiReference'
+import {
+  Choice,
+  ChoiceOption,
+  OptionsArrayOptionSet,
+  ReferenceOption,
+  StringOption} from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 

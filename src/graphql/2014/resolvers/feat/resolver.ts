@@ -1,16 +1,17 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import FeatModel, { Feat, Prerequisite } from '@/models/2014/feat'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+
 import {
+  FEAT_SORT_FIELD_MAP,
   FeatArgs,
   FeatArgsSchema,
   FeatIndexArgsSchema,
-  FeatOrderField,
-  FEAT_SORT_FIELD_MAP
-} from './args'
+  FeatOrderField} from './args'
 
 @Resolver(Feat)
 export class FeatResolver {

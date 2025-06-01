@@ -1,7 +1,10 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import type { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
+import { Factory } from 'fishery'
+
 import { apiReferenceFactory, choiceFactory } from './common.factory'
+
+import type { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
+
 
 // Factory for the nested SubraceAbilityBonus
 const subraceAbilityBonusFactory = Factory.define<SubraceAbilityBonus>(({ associations }) => ({

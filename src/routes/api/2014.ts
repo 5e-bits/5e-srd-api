@@ -1,11 +1,15 @@
+import express from 'express'
+
+import { index } from '@/controllers/api/v2014Controller'
+
 import AbilityScoresHandler from './2014/abilityScores'
 import AlignmentsHandler from './2014/alignments'
 import BackgroundsHandler from './2014/backgrounds'
 import ClassesHandler from './2014/classes'
 import ConditionsHandler from './2014/conditions'
 import DamageTypesHandler from './2014/damageTypes'
-import EquipmentCategoriesHandler from './2014/equipmentCategories'
 import EquipmentHandler from './2014/equipment'
+import EquipmentCategoriesHandler from './2014/equipmentCategories'
 import FeatsHandler from './2014/feats'
 import FeaturesHandler from './2014/features'
 import ImageHandler from './2014/images'
@@ -23,9 +27,6 @@ import SubclassesHandler from './2014/subclasses'
 import SubracesHandler from './2014/subraces'
 import TraitsHandler from './2014/traits'
 import WeaponPropertiesHandler from './2014/weaponProperties'
-
-import express from 'express'
-import { index } from '@/controllers/api/v2014Controller'
 
 const router = express.Router()
 

@@ -1,16 +1,17 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { resolveMultipleReferences } from '@/graphql/2014/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import SkillModel, { Skill } from '@/models/2014/skill'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+
 import {
+  ABILITY_SCORE_SORT_FIELD_MAP,
   AbilityScoreArgs,
   AbilityScoreArgsSchema,
   AbilityScoreIndexArgsSchema,
-  AbilityScoreOrderField,
-  ABILITY_SCORE_SORT_FIELD_MAP
-} from './args'
+  AbilityScoreOrderField} from './args'
 
 @Resolver(AbilityScore)
 export class AbilityScoreResolver {

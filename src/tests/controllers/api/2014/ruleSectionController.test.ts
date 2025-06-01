@@ -1,16 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
+import { describe, expect, it, vi } from 'vitest'
 
-import RuleSectionModel from '@/models/2014/ruleSection' // Use Model suffix
 import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
+import RuleSectionModel from '@/models/2014/ruleSection' // Use Model suffix
 import { ruleSectionFactory } from '@/tests/factories/2014/ruleSection.factory' // Updated path
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

@@ -1,10 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support'
+import { describe, expect, it, vi } from 'vitest'
 
-import ConditionModel from '@/models/2014/condition'
 import ConditionController from '@/controllers/api/2014/conditionController'
+import ConditionModel from '@/models/2014/condition'
 import { conditionFactory } from '@/tests/factories/2014/condition.factory'
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,

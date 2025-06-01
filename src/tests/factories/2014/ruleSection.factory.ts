@@ -1,5 +1,6 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
 import { RuleSection } from '@/models/2014/ruleSection'
 
 export const ruleSectionFactory = Factory.define<RuleSection>(({ sequence }) => {

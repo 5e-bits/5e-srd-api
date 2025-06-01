@@ -1,14 +1,16 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { Choice } from '@/models/2014/common/choice'
 import { srdModelOptions } from '@/util/modelOptions'
-import { ObjectType, Field, Int } from 'type-graphql'
-import { Proficiency } from './proficiency'
+
 import { AbilityScore } from './abilityScore'
-import { Subclass } from './subclass'
 import { Level } from './level'
+import { Proficiency } from './proficiency'
 import { Spell } from './spell'
+import { Subclass } from './subclass'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {

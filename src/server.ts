@@ -1,19 +1,23 @@
 import 'reflect-metadata' // Must be imported first
-import apiRoutes from './routes/api'
+
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+import { expressMiddleware } from '@apollo/server/express4'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import express from 'express'
+import rateLimit from 'express-rate-limit'
+import morgan from 'morgan'
+import { buildSchema } from 'type-graphql'
+
+
+import docsController from './controllers/docsController'
+import { resolvers } from './graphql/2014/resolvers'
+import { createApolloMiddleware } from './middleware/apolloServer'
 import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
-import cors from 'cors'
-import bodyParser from 'body-parser'
-import { createApolloMiddleware } from './middleware/apolloServer'
-import { expressMiddleware } from '@apollo/server/express4'
-import express from 'express'
-import { fileURLToPath } from 'url'
-import morgan from 'morgan'
-import docsController from './controllers/docsController'
-import path from 'path'
-import rateLimit from 'express-rate-limit'
-import { buildSchema } from 'type-graphql'
-import { resolvers } from './graphql/2014/resolvers'
+import apiRoutes from './routes/api'
 
 const __filename = fileURLToPath(import.meta.url)
 

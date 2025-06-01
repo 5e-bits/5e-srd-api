@@ -1,10 +1,12 @@
+import { getModelForClass } from '@typegoose/typegoose'
+
 import MagicItem from '@/models/2014/magicItem'
 import Monster from '@/models/2014/monster'
-import { ResourceList } from './data'
 import Rule from '@/models/2014/rule'
 import RuleSection from '@/models/2014/ruleSection'
 import Spell from '@/models/2014/spell'
-import { getModelForClass } from '@typegoose/typegoose'
+
+import { ResourceList } from './data'
 import redisClient from './RedisClient'
 
 type PrewarmData = {

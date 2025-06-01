@@ -1,10 +1,10 @@
-import { mongodbUri, redisClient } from '@/util'
-
 import { Application } from 'express'
-import createApp from '@/server'
-import { afterEach, afterAll, beforeAll, describe, it, expect, vi } from 'vitest'
 import mongoose from 'mongoose'
 import request from 'supertest'
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
+
+import createApp from '@/server'
+import { mongodbUri, redisClient } from '@/util'
 
 let app: Application
 let server: any

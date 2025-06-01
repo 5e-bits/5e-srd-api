@@ -1,17 +1,18 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import { escapeRegExp } from '@/util'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { EquipmentOrMagicItem } from '@/graphql/2014/common/unions'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { escapeRegExp } from '@/util'
+
 import {
+  EQUIPMENT_CATEGORY_SORT_FIELD_MAP,
   EquipmentCategoryArgs,
   EquipmentCategoryArgsSchema,
   EquipmentCategoryIndexArgsSchema,
-  EquipmentCategoryOrderField,
-  EQUIPMENT_CATEGORY_SORT_FIELD_MAP
-} from './args'
+  EquipmentCategoryOrderField} from './args'
 
 @Resolver(EquipmentCategory)
 export class EquipmentCategoryResolver {

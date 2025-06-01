@@ -1,7 +1,10 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import type { Race, RaceAbilityBonus } from '@/models/2014/race'
+import { Factory } from 'fishery'
+
 import { apiReferenceFactory, choiceFactory } from './common.factory'
+
+import type { Race, RaceAbilityBonus } from '@/models/2014/race'
+
 
 // Factory for the nested RaceAbilityBonus
 const raceAbilityBonusFactory = Factory.define<RaceAbilityBonus>(({ associations }) => ({

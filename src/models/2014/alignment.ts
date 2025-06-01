@@ -1,6 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { ObjectType, Field } from 'type-graphql'
+import { Field,ObjectType } from 'type-graphql'
 
 import { srdModelOptions } from '@/util/modelOptions'
 

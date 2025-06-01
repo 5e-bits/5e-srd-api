@@ -1,15 +1,14 @@
-import { describe, it, expect, vi } from 'vitest'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
+import { describe, expect, it, vi } from 'vitest'
 
 import deprecatedApiController from '@/controllers/apiController'
 import CollectionModel from '@/models/2014/collection' // Use Model suffix convention
+import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
-  teardownIsolatedDatabase,
-  setupModelCleanup
-} from '@/tests/support/db'
+  setupModelCleanup,
+  teardownIsolatedDatabase} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

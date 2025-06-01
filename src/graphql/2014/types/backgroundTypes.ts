@@ -1,4 +1,5 @@
-import { ObjectType, Field, Int } from 'type-graphql'
+import { Field, Int,ObjectType } from 'type-graphql'
+
 import { Alignment } from '@/models/2014/alignment'
 
 // --- Background Ideal Choice Types ---

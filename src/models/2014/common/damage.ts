@@ -1,5 +1,6 @@
 import { prop } from '@typegoose/typegoose'
-import { ObjectType, Field } from 'type-graphql'
+import { Field,ObjectType } from 'type-graphql'
+
 import { APIReference } from '@/models/2014/common/apiReference'
 import { DamageType } from '@/models/2014/damageType'
 

@@ -1,7 +1,10 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import type { MagicItem, Rarity } from '@/models/2014/magicItem'
+import { Factory } from 'fishery'
+
 import { apiReferenceFactory, createIndex, createUrl } from './common.factory'
+
+import type { MagicItem, Rarity } from '@/models/2014/magicItem'
+
 
 // --- Rarity Factory ---
 const rarityFactory = Factory.define<Rarity>(() => ({

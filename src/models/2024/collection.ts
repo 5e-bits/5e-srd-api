@@ -1,5 +1,6 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
+
 import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2024-collections')

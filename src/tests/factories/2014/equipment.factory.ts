@@ -1,15 +1,17 @@
-import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
+import { Factory } from 'fishery'
+
+import { Damage } from '@/models/2014/common/damage'
 import {
-  Equipment,
   ArmorClass,
   Content,
   Cost,
+  Equipment,
   Range,
   Speed,
   ThrowRange
 } from '@/models/2014/equipment'
-import { Damage } from '@/models/2014/common/damage'
+
 import { apiReferenceFactory } from './common.factory'
 
 // --- Sub-factories (Simple defaults/placeholders) ---

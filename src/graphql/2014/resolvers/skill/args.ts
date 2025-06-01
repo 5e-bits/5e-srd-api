@@ -1,12 +1,13 @@
 import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
+
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/2014/common/args'
+import { OrderByDirection } from '@/graphql/2014/common/enums'
 
 export enum SkillOrderField {
   NAME = 'name',

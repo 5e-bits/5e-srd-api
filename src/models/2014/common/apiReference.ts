@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose'
-import { ObjectType, Field } from 'type-graphql'
+import { Field,ObjectType } from 'type-graphql'
 
 // Base class representing a reference to another resource
 @ObjectType({ description: 'Reference to another API resource' })

@@ -1,5 +1,6 @@
-import AbilityScoreController from '@/controllers/api/2024/abilityScoreController'
 import express from 'express'
+
+import AbilityScoreController from '@/controllers/api/2024/abilityScoreController'
 
 const router = express.Router()
 

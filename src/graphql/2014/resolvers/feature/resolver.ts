@@ -1,26 +1,27 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { FeaturePrerequisiteUnion } from '@/graphql/2014/types/featureTypes'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import ClassModel, { Class } from '@/models/2014/class'
 import FeatureModel, {
   Feature,
+  FeaturePrerequisite,
   FeatureSpecific,
   LevelPrerequisite,
-  FeaturePrerequisite,
   SpellPrerequisite
 } from '@/models/2014/feature'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { escapeRegExp } from '@/util'
-import ClassModel, { Class } from '@/models/2014/class'
-import SubclassModel, { Subclass } from '@/models/2014/subclass'
-import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import SpellModel from '@/models/2014/spell'
-import { FeaturePrerequisiteUnion } from '@/graphql/2014/types/featureTypes'
+import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import { escapeRegExp } from '@/util'
+
 import {
+  FEATURE_SORT_FIELD_MAP,
   FeatureArgs,
   FeatureArgsSchema,
   FeatureIndexArgsSchema,
-  FeatureOrderField,
-  FEATURE_SORT_FIELD_MAP
-} from './args'
+  FeatureOrderField} from './args'
 
 @Resolver(Feature)
 export class FeatureResolver {

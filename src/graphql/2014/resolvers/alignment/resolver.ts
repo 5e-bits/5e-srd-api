@@ -1,15 +1,15 @@
-import { Resolver, Query, Arg, Args } from 'type-graphql'
+import { Arg, Args,Query, Resolver } from 'type-graphql'
+
+import { buildSortPipeline } from '@/graphql/2014/common/args'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import { escapeRegExp } from '@/util'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 
 import {
+  ALIGNMENT_SORT_FIELD_MAP,
   AlignmentArgs,
   AlignmentArgsSchema,
   AlignmentIndexArgsSchema,
-  AlignmentOrderField,
-  ALIGNMENT_SORT_FIELD_MAP
-} from './args'
+  AlignmentOrderField} from './args'
 
 @Resolver(Alignment)
 export class AlignmentResolver {

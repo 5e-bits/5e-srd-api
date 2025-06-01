@@ -1,32 +1,31 @@
-import { Resolver, Query, Arg, Args, FieldResolver, Root } from 'type-graphql'
-import BackgroundModel, { Background, EquipmentRef } from '@/models/2014/background'
-import { escapeRegExp } from '@/util'
+import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
-import EquipmentModel, { Equipment } from '@/models/2014/equipment'
-import AlignmentModel, { Alignment } from '@/models/2014/alignment'
-import {
-  resolveMultipleReferences,
-  resolveSingleReference,
-  resolveStringChoice,
-  resolveLanguageChoice
-} from '@/graphql/2014/utils/resolvers'
-import { StringChoice, LanguageChoice } from '@/graphql/2014/common/choiceTypes'
+import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { LanguageChoice,StringChoice } from '@/graphql/2014/common/choiceTypes'
 import {
   IdealChoice,
   IdealOption as ResolvedIdealOption
 } from '@/graphql/2014/types/backgroundTypes'
-import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
-import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
+  resolveLanguageChoice,
+  resolveMultipleReferences,
+  resolveSingleReference,
+  resolveStringChoice} from '@/graphql/2014/utils/resolvers'
+import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
+import AlignmentModel, { Alignment } from '@/models/2014/alignment'
+import BackgroundModel, { Background, EquipmentRef } from '@/models/2014/background'
+import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common/choice'
+import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import { escapeRegExp } from '@/util'
+
+import {
+  BACKGROUND_SORT_FIELD_MAP,
   BackgroundArgs,
   BackgroundArgsSchema,
   BackgroundIndexArgsSchema,
-  BackgroundOrderField,
-  BACKGROUND_SORT_FIELD_MAP
-} from './args'
+  BackgroundOrderField} from './args'
 
 @Resolver(Background)
 export class BackgroundResolver {
