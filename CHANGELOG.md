@@ -1,3 +1,38 @@
+# [4.0.0](https://github.com/5e-bits/5e-srd-api/compare/v3.24.0...v4.0.0) (2025-06-01)
+
+
+* feat(graphql)!: Migrate to typegraphql ([#752](https://github.com/5e-bits/5e-srd-api/issues/752)) ([6bb9e75](https://github.com/5e-bits/5e-srd-api/commit/6bb9e755ea0e35aebe8f2f3bdae0362fa77694e6))
+
+
+### BREAKING CHANGES
+
+* Some fields are now different but more consistent
+across the graphql endpoints.
+
+## What does this do?
+
+* Completely rewrites our entire GraphQL endpoint using `type-graphql`
+and `zod`
+* Fixes migration errors from the typegoose migration
+
+## How was it tested?
+
+Locally, there are numerous side-by-side comparisons with production.
+But it is possible I missed something.
+
+## Is there a Github issue this is resolving?
+
+Nope. I'm just insane.
+
+## Was any impacted documentation updated to reflect this change?
+
+Luckily, GraphQL introspection is self-documenting.
+
+## Here's a fun image for your troubles
+
+
+![image](https://github.com/user-attachments/assets/22bfa110-aeac-4625-99c6-d57bbc00c4d1)
+
 # [3.24.0](https://github.com/5e-bits/5e-srd-api/compare/v3.23.7...v3.24.0) (2025-05-30)
 
 
