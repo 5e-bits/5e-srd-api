@@ -4,16 +4,14 @@ import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { SpellSlotCount } from '@/graphql/2014/common/types'
-import { DamageOrDamageChoiceUnion } from '@/graphql/2014/types/monsterTypes'
-import {
+import { DamageOrDamageChoiceUnion,
   ActionChoice,
   ActionChoiceOption,
   BreathChoice,
   BreathChoiceOption,
   DamageChoice,
   DamageChoiceOption,
-  MultipleActionChoiceOption} from '@/graphql/2014/types/monsterTypes'
-import { MonsterArmorClassUnion } from '@/graphql/2014/types/monsterTypes'
+  MultipleActionChoiceOption, MonsterArmorClassUnion  } from '@/graphql/2014/types/monsterTypes'
 import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { APIReference } from '@/models/2014/common/apiReference'
@@ -41,7 +39,6 @@ import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import { escapeRegExp } from '@/util'
 
-import { resolveMultipleReferences, resolveSingleReference } from '../../utils/resolvers'
 import {
   MONSTER_SORT_FIELD_MAP,
   MonsterArgs,
@@ -49,6 +46,7 @@ import {
   MonsterIndexArgsSchema,
   MonsterOrderField
 } from './args'
+import { resolveMultipleReferences, resolveSingleReference } from '../../utils/resolvers'
 
 @Resolver(Monster)
 export class MonsterResolver {

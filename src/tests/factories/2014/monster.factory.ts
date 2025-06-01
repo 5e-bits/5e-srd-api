@@ -2,6 +2,13 @@ import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 import mongoose from 'mongoose'
 
+import {
+  apiReferenceFactory,
+  choiceFactory,
+  damageFactory,
+  difficultyClassFactory
+} from './common.factory'
+
 import type {
   ActionOption,
   ActionUsage,
@@ -23,12 +30,6 @@ import type {
   SpecialAbilitySpellcasting,
   SpecialAbilityUsage} from '@/models/2014/monster'
 
-import {
-  apiReferenceFactory,
-  choiceFactory,
-  damageFactory,
-  difficultyClassFactory
-} from './common.factory'
 
 // Factory for ActionUsage
 const actionUsageFactory = Factory.define<ActionUsage>(() => ({

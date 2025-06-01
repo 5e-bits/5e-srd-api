@@ -1,9 +1,10 @@
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
+import { apiReferenceFactory, createIndex, createUrl } from './common.factory' // Import common factory for APIReference and choiceFactory
+
 import type { Feat, Prerequisite } from '@/models/2014/feat'
 
-import { apiReferenceFactory, createIndex, createUrl } from './common.factory' // Import common factory for APIReference and choiceFactory
 
 // --- Prerequisite Factory ---
 const prerequisiteFactory = Factory.define<Prerequisite>(({ params }) => {

@@ -1,14 +1,16 @@
 import 'reflect-metadata' // Must be imported first
 
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 import { expressMiddleware } from '@apollo/server/express4'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan'
-import path from 'path'
 import { buildSchema } from 'type-graphql'
-import { fileURLToPath } from 'url'
+
 
 import docsController from './controllers/docsController'
 import { resolvers } from './graphql/2014/resolvers'

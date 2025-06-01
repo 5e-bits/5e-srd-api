@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
+import { apiReferenceFactory, choiceFactory, createIndex, createUrl } from './common.factory'
+
 import type {
   Class,
   ClassEquipment,
@@ -9,7 +11,6 @@ import type {
   Spellcasting,
   SpellcastingInfo} from '@/models/2014/class'
 
-import { apiReferenceFactory, choiceFactory, createIndex, createUrl } from './common.factory'
 
 // --- Nested Factories --- //
 

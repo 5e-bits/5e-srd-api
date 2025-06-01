@@ -1,15 +1,14 @@
-import { NextFunction,Request, Response } from 'express'
-
-import { ShowParamsSchema,SpellIndexQuerySchema } from '@/schemas/schemas'
-import { escapeRegExp, redisClient,ResourceList } from '@/util'
-
-interface IndexQuery {
-  'name'?: { $regex: RegExp };
-  'level'?: { $in: string[] };
-  'school.name'?: { $in: RegExp[] };
-}
+import { NextFunction, Request, Response } from 'express'
 
 import Spell from '@/models/2014/spell'
+import { ShowParamsSchema, SpellIndexQuerySchema } from '@/schemas/schemas'
+import { escapeRegExp, redisClient, ResourceList } from '@/util'
+
+interface IndexQuery {
+  name?: { $regex: RegExp }
+  level?: { $in: string[] }
+  'school.name'?: { $in: RegExp[] }
+}
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
   try {

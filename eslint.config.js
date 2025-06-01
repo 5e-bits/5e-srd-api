@@ -1,9 +1,8 @@
-// @ts-check
-
 import eslint from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier'
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
+import { importX } from 'eslint-plugin-import-x'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
@@ -15,12 +14,16 @@ export default tseslint.config(
   eslint.configs.recommended,
   // Main TypeScript and JS linting configuration
   {
-    name: 'typescript-and-sorting',
+    name: 'typescript-and-imports-x',
     files: ['**/*.ts', '**/*.js'],
-    extends: [...tseslint.configs.recommended],
+    extends: [
+      ...tseslint.configs.recommended,
+      importX.flatConfigs.recommended,
+      importX.flatConfigs.typescript
+    ],
     plugins: {
       '@stylistic': stylistic,
-      'simple-import-sort': simpleImportSort
+      'import-x': importX
     },
     languageOptions: {
       parserOptions: {
@@ -38,9 +41,34 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'warn',
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error'
+      'import-x/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling', 'index'],
+            'object',
+            'type'
+          ],
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+          pathGroups: [{ pattern: '@/**', group: 'internal', position: 'after' }],
+          pathGroupsExcludedImportTypes: ['builtin', 'external', 'object', 'type']
+        }
+      ],
+      'import-x/no-named-as-default': 'off',
+      'import-x/no-named-as-default-member': 'off'
+    },
+    settings: {
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
+          alwaysTryTypes: true,
+          project: './tsconfig.json'
+        })
+      ]
     }
   },
-  eslintConfigPrettier
+  eslintConfigPrettier // MUST BE LAST
 )
