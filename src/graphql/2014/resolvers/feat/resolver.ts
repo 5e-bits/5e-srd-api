@@ -11,7 +11,8 @@ import {
   FeatArgs,
   FeatArgsSchema,
   FeatIndexArgsSchema,
-  FeatOrderField} from './args'
+  FeatOrderField
+} from './args'
 
 @Resolver(Feat)
 export class FeatResolver {
@@ -22,7 +23,7 @@ export class FeatResolver {
     const validatedArgs = FeatArgsSchema.parse(args)
     const query = FeatModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

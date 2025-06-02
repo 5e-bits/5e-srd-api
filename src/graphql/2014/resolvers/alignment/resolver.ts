@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
@@ -9,7 +9,8 @@ import {
   AlignmentArgs,
   AlignmentArgsSchema,
   AlignmentIndexArgsSchema,
-  AlignmentOrderField} from './args'
+  AlignmentOrderField
+} from './args'
 
 @Resolver(Alignment)
 export class AlignmentResolver {
@@ -21,7 +22,7 @@ export class AlignmentResolver {
 
     const query = AlignmentModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

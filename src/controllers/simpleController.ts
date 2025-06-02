@@ -1,12 +1,12 @@
 import { ReturnModelType } from '@typegoose/typegoose'
-import { NextFunction,Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
 import { escapeRegExp } from '@/util/regex'
 
 interface IndexQuery {
-  name?: { $regex: RegExp };
+  name?: { $regex: RegExp }
 }
 
 class SimpleController {
@@ -63,7 +63,7 @@ class SimpleController {
 
       // Use validated index in the query
       const data = await this.Schema.findOne({ index })
-      if (!data) return next()
+      if (data === null) return next()
       res.status(200).json(data)
     } catch (err) {
       next(err)

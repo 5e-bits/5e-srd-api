@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
@@ -9,7 +9,8 @@ import {
   DamageTypeArgs,
   DamageTypeArgsSchema,
   DamageTypeIndexArgsSchema,
-  DamageTypeOrderField} from './args'
+  DamageTypeOrderField
+} from './args'
 
 @Resolver(DamageType)
 export class DamageTypeResolver {
@@ -20,7 +21,7 @@ export class DamageTypeResolver {
     const validatedArgs = DamageTypeArgsSchema.parse(args)
     const query = DamageTypeModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

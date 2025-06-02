@@ -5,15 +5,17 @@ import {
   AbilityScoreBonusChoice,
   AbilityScoreBonusChoiceOption,
   LanguageChoice,
-  ProficiencyChoice} from '@/graphql/2014/common/choiceTypes'
+  ProficiencyChoice
+} from '@/graphql/2014/common/choiceTypes'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import {
   resolveLanguageChoice,
   resolveMultipleReferences,
   resolveProficiencyChoice,
-  resolveSingleReference} from '@/graphql/2014/utils/resolvers'
+  resolveSingleReference
+} from '@/graphql/2014/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import { AbilityBonusOption,Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
+import { AbilityBonusOption, Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
@@ -26,7 +28,8 @@ import {
   RaceArgs,
   RaceArgsSchema,
   RaceIndexArgsSchema,
-  RaceOrderField} from './args'
+  RaceOrderField
+} from './args'
 
 @Resolver(() => Race)
 export class RaceResolver {
@@ -37,19 +40,19 @@ export class RaceResolver {
     const query = RaceModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (validatedArgs.ability_bonus?.length) {
+    if (validatedArgs.ability_bonus && validatedArgs.ability_bonus.length > 0) {
       filters.push({ 'ability_bonuses.ability_score.index': { $in: validatedArgs.ability_bonus } })
     }
 
-    if (validatedArgs.size?.length) {
+    if (validatedArgs.size && validatedArgs.size.length > 0) {
       filters.push({ size: { $in: validatedArgs.size } })
     }
 
-    if (validatedArgs.language?.length) {
+    if (validatedArgs.language && validatedArgs.language.length > 0) {
       filters.push({ 'languages.index': { $in: validatedArgs.language } })
     }
 
@@ -151,7 +154,7 @@ async function resolveAbilityScoreBonusChoice(
         TargetAbilityScoreModel
       )
 
-      if (abilityScore) {
+      if (abilityScore !== null) {
         resolvedOptions.push({
           option_type: option.option_type,
           ability_score: abilityScore as AbilityScore,

@@ -9,14 +9,16 @@ import {
   SpellChoiceOptionSet,
   TraitChoice,
   TraitChoiceOption,
-  TraitChoiceOptionSet} from '@/graphql/2014/types/traitTypes'
+  TraitChoiceOptionSet
+} from '@/graphql/2014/types/traitTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
 import {
   resolveLanguageChoice,
   resolveMultipleReferences,
   resolveProficiencyChoice,
   resolveReferenceOptionArray,
-  resolveSingleReference} from '@/graphql/2014/utils/resolvers'
+  resolveSingleReference
+} from '@/graphql/2014/utils/resolvers'
 import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
@@ -31,7 +33,8 @@ import {
   TraitArgs,
   TraitArgsSchema,
   TraitIndexArgsSchema,
-  TraitOrderField} from './args'
+  TraitOrderField
+} from './args'
 
 @Resolver(Trait)
 export class TraitResolver {
@@ -42,7 +45,7 @@ export class TraitResolver {
     const validatedArgs = TraitArgsSchema.parse(args)
     const query = TraitModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

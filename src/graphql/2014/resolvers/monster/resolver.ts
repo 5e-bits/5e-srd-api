@@ -4,14 +4,17 @@ import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { SpellSlotCount } from '@/graphql/2014/common/types'
-import { DamageOrDamageChoiceUnion,
+import {
+  DamageOrDamageChoiceUnion,
   ActionChoice,
   ActionChoiceOption,
   BreathChoice,
   BreathChoiceOption,
   DamageChoice,
   DamageChoiceOption,
-  MultipleActionChoiceOption, MonsterArmorClassUnion  } from '@/graphql/2014/types/monsterTypes'
+  MultipleActionChoiceOption,
+  MonsterArmorClassUnion
+} from '@/graphql/2014/types/monsterTypes'
 import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { APIReference } from '@/models/2014/common/apiReference'
@@ -20,7 +23,8 @@ import {
   BreathOption,
   Choice,
   DamageOption,
-  OptionsArrayOptionSet} from '@/models/2014/common/choice'
+  OptionsArrayOptionSet
+} from '@/models/2014/common/choice'
 import { Damage } from '@/models/2014/common/damage'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import ConditionModel, { Condition } from '@/models/2014/condition'
@@ -34,7 +38,8 @@ import MonsterModel, {
   MonsterAction,
   MonsterProficiency,
   SpecialAbilitySpell,
-  SpecialAbilitySpellcasting} from '@/models/2014/monster'
+  SpecialAbilitySpellcasting
+} from '@/models/2014/monster'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import { escapeRegExp } from '@/util'
@@ -58,13 +63,13 @@ export class MonsterResolver {
     let query = MonsterModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
-    if (validatedArgs.type) {
+    if (validatedArgs.type != null && validatedArgs.type !== '') {
       filters.push({ type: { $regex: new RegExp(`^${escapeRegExp(validatedArgs.type)}$`, 'i') } })
     }
-    if (validatedArgs.subtype) {
+    if (validatedArgs.subtype != null && validatedArgs.subtype !== '') {
       filters.push({
         subtype: { $regex: new RegExp(`^${escapeRegExp(validatedArgs.subtype)}$`, 'i') }
       })
@@ -73,7 +78,7 @@ export class MonsterResolver {
       const crQuery = buildMongoQueryFromNumberFilter(validatedArgs.challenge_rating)
       if (crQuery) filters.push({ challenge_rating: crQuery })
     }
-    if (validatedArgs.size) {
+    if (validatedArgs.size != null && validatedArgs.size !== '') {
       filters.push({ size: validatedArgs.size })
     }
 
@@ -306,7 +311,7 @@ async function resolveBreathChoice(
               damageItem.damage_type,
               DamageTypeModel
             )
-            if (resolvedDamageType) {
+            if (resolvedDamageType !== null) {
               return {
                 damage_dice: damageItem.damage_dice,
                 damage_type: resolvedDamageType as DamageType
@@ -353,7 +358,7 @@ async function resolveDamageChoice(
     if (option.option_type === 'damage') {
       const damageOption = option as DamageOption
       const damageType = await resolveSingleReference(damageOption.damage_type, DamageTypeModel)
-      if (damageType) {
+      if (damageType !== null) {
         const resolvedOption: DamageChoiceOption = {
           option_type: damageOption.option_type,
           damage: {

@@ -12,7 +12,8 @@ import {
   EquipmentCategoryArgs,
   EquipmentCategoryArgsSchema,
   EquipmentCategoryIndexArgsSchema,
-  EquipmentCategoryOrderField} from './args'
+  EquipmentCategoryOrderField
+} from './args'
 
 @Resolver(EquipmentCategory)
 export class EquipmentCategoryResolver {
@@ -25,7 +26,7 @@ export class EquipmentCategoryResolver {
     const validatedArgs = EquipmentCategoryArgsSchema.parse(args)
     const query = EquipmentCategoryModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

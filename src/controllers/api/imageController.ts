@@ -20,12 +20,12 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
       return res.status(s3Response.status).send(await s3Response.text())
     }
 
-    res.setHeader(
-      'Content-Type',
-      s3Response.headers.get('content-type') || 'application/octet-stream'
-    )
+    const contentTypeFromHeader = s3Response.headers.get('content-type')
+    const actualContentType =
+      contentTypeFromHeader != null ? contentTypeFromHeader : 'application/octet-stream'
+    res.setHeader('Content-Type', actualContentType)
     const contentLength = s3Response.headers.get('content-length')
-    if (contentLength !== null) {
+    if (typeof contentLength === 'string' && contentLength) {
       res.setHeader('Content-Length', contentLength)
     }
 

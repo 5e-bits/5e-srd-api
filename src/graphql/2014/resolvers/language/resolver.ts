@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import LanguageModel, { Language } from '@/models/2014/language'
@@ -9,7 +9,8 @@ import {
   LanguageArgs,
   LanguageArgsSchema,
   LanguageIndexArgsSchema,
-  LanguageOrderField} from './args'
+  LanguageOrderField
+} from './args'
 
 @Resolver(Language)
 export class LanguageResolver {
@@ -26,11 +27,11 @@ export class LanguageResolver {
     const query = LanguageModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (validatedArgs.type) {
+    if (validatedArgs.type != null && validatedArgs.type !== '') {
       filters.push({ type: { $regex: new RegExp(escapeRegExp(validatedArgs.type), 'i') } })
     }
 

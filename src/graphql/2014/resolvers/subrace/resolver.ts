@@ -5,7 +5,8 @@ import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import {
   resolveLanguageChoice,
   resolveMultipleReferences,
-  resolveSingleReference} from '@/graphql/2014/utils/resolvers'
+  resolveSingleReference
+} from '@/graphql/2014/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import { Choice } from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
@@ -20,7 +21,8 @@ import {
   SubraceArgs,
   SubraceArgsSchema,
   SubraceIndexArgsSchema,
-  SubraceOrderField} from './args'
+  SubraceOrderField
+} from './args'
 
 @Resolver(Subrace)
 export class SubraceResolver {
@@ -31,7 +33,7 @@ export class SubraceResolver {
     const validatedArgs = SubraceArgsSchema.parse(args)
     const query = SubraceModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

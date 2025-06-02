@@ -10,14 +10,16 @@ import {
   ProficiencyChoiceOptionSet,
   StringChoice,
   StringChoiceOption,
-  StringChoiceOptionSet} from '@/graphql/2014/common/choiceTypes'
+  StringChoiceOptionSet
+} from '@/graphql/2014/common/choiceTypes'
 import { APIReference } from '@/models/2014/common/apiReference'
 import {
   Choice,
   ChoiceOption,
   OptionsArrayOptionSet,
   ReferenceOption,
-  StringOption} from '@/models/2014/common/choice'
+  StringOption
+} from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 
@@ -25,7 +27,7 @@ export async function resolveSingleReference<T>(
   reference: APIReference | null | undefined,
   TargetModel: ReturnModelType<AnyParamConstructor<T>>
 ): Promise<any | null> {
-  if (!reference?.index) {
+  if (reference == null || reference.index == null || reference.index === '') {
     return null
   }
   return TargetModel.findOne({ index: reference.index }).lean() as any
@@ -55,7 +57,7 @@ export async function resolveReferenceOptionArray<
   for (const dbOption of optionsArraySet.options) {
     const dbRefOpt = dbOption as ReferenceOption
     const resolvedItem = await resolveSingleReference(dbRefOpt.item, ItemModel)
-    if (resolvedItem) {
+    if (resolvedItem !== null) {
       resolvedEmbeddedOptions.push(createGqlOption(resolvedItem as TItem, dbRefOpt.option_type))
     }
   }
@@ -144,7 +146,7 @@ export async function resolveProficiencyChoice(
       // Handle regular proficiency reference
       const dbRefOpt = dbOption as ReferenceOption
       const resolvedItem = await resolveSingleReference(dbRefOpt.item, ProficiencyModel)
-      if (resolvedItem) {
+      if (resolvedItem !== null) {
         gqlEmbeddedOptions.push({
           option_type: dbRefOpt.option_type,
           item: resolvedItem as Proficiency

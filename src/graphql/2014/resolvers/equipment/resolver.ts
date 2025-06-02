@@ -4,7 +4,7 @@ import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import { APIReference } from '@/models/2014/common/apiReference'
-import EquipmentModel, { Content,Equipment } from '@/models/2014/equipment'
+import EquipmentModel, { Content, Equipment } from '@/models/2014/equipment'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { escapeRegExp } from '@/util'
 
@@ -13,7 +13,8 @@ import {
   EquipmentArgs,
   EquipmentArgsSchema,
   EquipmentIndexArgsSchema,
-  EquipmentOrderField} from './args'
+  EquipmentOrderField
+} from './args'
 
 @Resolver(Equipment)
 export class EquipmentResolver {
@@ -27,7 +28,7 @@ export class EquipmentResolver {
     const query = EquipmentModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

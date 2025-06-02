@@ -1,7 +1,7 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { resolveMultipleReferences,resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
 import { escapeRegExp } from '@/util'
@@ -11,7 +11,8 @@ import {
   MagicItemArgs,
   MagicItemArgsSchema,
   MagicItemIndexArgsSchema,
-  MagicItemOrderField} from './args'
+  MagicItemOrderField
+} from './args'
 
 @Resolver(MagicItem)
 export class MagicItemResolver {
@@ -24,7 +25,7 @@ export class MagicItemResolver {
     let query = MagicItemModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

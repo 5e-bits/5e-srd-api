@@ -17,7 +17,8 @@ import {
   ProficiencyArgs,
   ProficiencyArgsSchema,
   ProficiencyIndexArgsSchema,
-  ProficiencyOrderField} from './args'
+  ProficiencyOrderField
+} from './args'
 
 @Resolver(Proficiency)
 export class ProficiencyResolver {
@@ -30,19 +31,19 @@ export class ProficiencyResolver {
     let query = ProficiencyModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (validatedArgs.class?.length) {
+    if (validatedArgs.class && validatedArgs.class.length > 0) {
       filters.push({ 'classes.index': { $in: validatedArgs.class } })
     }
 
-    if (validatedArgs.race?.length) {
+    if (validatedArgs.race && validatedArgs.race.length > 0) {
       filters.push({ 'races.index': { $in: validatedArgs.race } })
     }
 
-    if (validatedArgs.type?.length) {
+    if (validatedArgs.type && validatedArgs.type.length > 0) {
       filters.push({ type: { $in: validatedArgs.type } })
     }
 

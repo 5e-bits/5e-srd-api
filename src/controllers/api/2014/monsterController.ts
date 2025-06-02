@@ -1,12 +1,12 @@
-import { NextFunction,Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import Monster from '@/models/2014/monster'
 import { MonsterIndexQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
-import { escapeRegExp, redisClient,ResourceList } from '@/util'
+import { escapeRegExp, redisClient, ResourceList } from '@/util'
 
 interface IndexQuery {
-  name?: { $regex: RegExp };
-  challenge_rating?: { $in: number[] };
+  name?: { $regex: RegExp }
+  challenge_rating?: { $in: number[] }
 }
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,7 +31,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
     const redisKey = req.originalUrl
     const data = await redisClient.get(redisKey)
 
-    if (data) {
+    if (data !== null) {
       res.status(200).json(JSON.parse(data))
     } else {
       const data = await Monster.find(searchQueries)

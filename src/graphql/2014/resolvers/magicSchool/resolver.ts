@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
@@ -9,7 +9,8 @@ import {
   MagicSchoolArgs,
   MagicSchoolArgsSchema,
   MagicSchoolIndexArgsSchema,
-  MagicSchoolOrderField} from './args'
+  MagicSchoolOrderField
+} from './args'
 
 @Resolver(MagicSchool)
 export class MagicSchoolResolver {
@@ -20,7 +21,7 @@ export class MagicSchoolResolver {
     const validatedArgs = MagicSchoolArgsSchema.parse(args)
     const query = MagicSchoolModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
