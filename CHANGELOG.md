@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/5e-bits/5e-srd-api/compare/v4.0.0...v4.0.1) (2025-06-02)
+
+
+### Bug Fixes
+
+* **lint:** Fix simple linting rules ([#778](https://github.com/5e-bits/5e-srd-api/issues/778)) ([3c6cc95](https://github.com/5e-bits/5e-srd-api/commit/3c6cc95753f3f485a58f2e2dfe93cebd1de614d2))
+
 # [4.0.0](https://github.com/5e-bits/5e-srd-api/compare/v3.24.0...v4.0.0) (2025-06-01)
 
 
