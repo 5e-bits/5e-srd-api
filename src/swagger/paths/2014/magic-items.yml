@@ -13,18 +13,18 @@ get:
         Available values can be found in the resource list for this endpoint.
       schema:
         type: string
-      example: "adamantine-armor"
+      example: 'adamantine-armor'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/MagicItem"
+            $ref: '../../schemas/2014/combined.yml#/MagicItem'
           example:
             index: adamantine-armor
             name: Adamantine Armor
-            url: "/api/2014/magic-items/adamantine-armor"
+            url: '/api/2014/magic-items/adamantine-armor'
             desc:
               - Armor (medium or heavy, but not hide), uncommon
               - This suit of armor is reinforced with adamantine, one of the hardest substances
@@ -33,7 +33,7 @@ get:
             equipment_category:
               index: armor
               name: Armor
-              url: "/api/2014/equipment-categories/armor"
+              url: '/api/2014/equipment-categories/armor'
             rarity:
               name: Uncommon
             variants: []

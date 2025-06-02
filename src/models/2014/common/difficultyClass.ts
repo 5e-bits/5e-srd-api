@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose'
-import { Field, Int,ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql'
 
 import { AbilityScore } from '../abilityScore' // Path to AbilityScore model
 import { APIReference } from './apiReference' // Assuming apiReference.ts is in the same directory

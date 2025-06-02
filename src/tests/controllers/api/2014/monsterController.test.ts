@@ -10,7 +10,8 @@ import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
   setupModelCleanup,
-  teardownIsolatedDatabase} from '@/tests/support/db'
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
 // Remove redis mock - Integration tests will hit the real DB
 // vi.mock('@/util', ...)

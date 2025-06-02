@@ -5,7 +5,6 @@ import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 import type { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
 
-
 // Factory for the nested SubraceAbilityBonus
 const subraceAbilityBonusFactory = Factory.define<SubraceAbilityBonus>(({ associations }) => ({
   ability_score: associations.ability_score ?? apiReferenceFactory.build(),

@@ -1,56 +1,56 @@
 ability-score-index:
-  $ref: "./path/ability-scores.yml"
+  $ref: './path/ability-scores.yml'
 alignment-index:
-  $ref: "./path/alignments.yml"
+  $ref: './path/alignments.yml'
 language-index:
-  $ref: "./path/languages.yml"
+  $ref: './path/languages.yml'
 proficiency-index:
-  $ref: "./path/proficiencies.yml"
+  $ref: './path/proficiencies.yml'
 skill-index:
-  $ref: "./path/skills.yml"
+  $ref: './path/skills.yml'
 class-index:
-  $ref: "./path/classes.yml#/class-index"
+  $ref: './path/classes.yml#/class-index'
 background-index:
-  $ref: "./path/backgrounds.yml"
+  $ref: './path/backgrounds.yml'
 weapon-property-index:
-  $ref: "./path/weapon-properties.yml"
+  $ref: './path/weapon-properties.yml'
 class-level:
-  $ref: "./path/classes.yml#/class-level"
+  $ref: './path/classes.yml#/class-level'
 spell-level:
-  $ref: "./path/classes.yml#/spell-level"
+  $ref: './path/classes.yml#/spell-level'
 condition-index:
-  $ref: "./path/conditions.yml"
+  $ref: './path/conditions.yml'
 damage-type-index:
-  $ref: "./path/damage-types.yml"
+  $ref: './path/damage-types.yml'
 magic-school-index:
-  $ref: "./path/magic-schools.yml"
+  $ref: './path/magic-schools.yml'
 equipment-index:
-  $ref: "./path/equipment.yml"
+  $ref: './path/equipment.yml'
 feature-index:
-  $ref: "./path/features.yml"
+  $ref: './path/features.yml'
 rule-index:
-  $ref: "./path/rules.yml"
+  $ref: './path/rules.yml'
 rule-section-index:
-  $ref: "./path/rule-sections.yml"
+  $ref: './path/rule-sections.yml'
 race-index:
-  $ref: "./path/races.yml"
+  $ref: './path/races.yml'
 subclass-index:
-  $ref: "./path/subclasses.yml"
+  $ref: './path/subclasses.yml'
 subrace-index:
-  $ref: "./path/subraces.yml"
+  $ref: './path/subraces.yml'
 trait-index:
-  $ref: "./path/traits.yml"
+  $ref: './path/traits.yml'
 monster-index:
-  $ref: "./path/monsters.yml"
+  $ref: './path/monsters.yml'
 spell-index:
-  $ref: "./path/spells.yml"
+  $ref: './path/spells.yml'
 level-filter:
-  $ref: "./query/spells.yml#/level-filter"
+  $ref: './query/spells.yml#/level-filter'
 school-filter:
-  $ref: "./query/spells.yml#/school-filter"
+  $ref: './query/spells.yml#/school-filter'
 challenge-rating-filter:
-  $ref: "./query/monsters.yml#/challenge-rating-filter"
+  $ref: './query/monsters.yml#/challenge-rating-filter'
 levels-subclass-filter:
-  $ref: "./query/classes.yml#/levels-subclass-filter"
+  $ref: './query/classes.yml#/levels-subclass-filter'
 base-endpoint-index:
-  $ref: "./path/common.yml"
+  $ref: './path/common.yml'

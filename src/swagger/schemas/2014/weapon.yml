@@ -2,20 +2,20 @@ weapon-model:
   description: |
     `Weapon`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'
     - type: object
       properties:
         equipment_category:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'
         weapon_category:
-          description: "The category of weapon this falls into."
+          description: 'The category of weapon this falls into.'
           type: string
         weapon_range:
-          description: "Whether this is a Melee or Ranged weapon."
+          description: 'Whether this is a Melee or Ranged weapon.'
           type: string
         category_range:
-          description: "A combination of weapon_category and weapon_range."
+          description: 'A combination of weapon_category and weapon_range.'
           type: string
         range:
           type: object
@@ -27,21 +27,21 @@ weapon-model:
               description: "The weapon's long range in feet."
               type: number
         damage:
-          $ref: "./combined.yml#/Damage"
+          $ref: './combined.yml#/Damage'
         two_handed_damage:
-          $ref: "./combined.yml#/Damage"
+          $ref: './combined.yml#/Damage'
         properties:
-          description: "A list of the properties this weapon has."
+          description: 'A list of the properties this weapon has.'
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
         cost:
-          $ref: "./combined.yml#/Cost"
+          $ref: './combined.yml#/Cost'
         weight:
-          description: "How much the equipment weighs."
+          description: 'How much the equipment weighs.'
           type: number
 weapon-property-model:
   description: WeaponProperty
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'

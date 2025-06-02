@@ -1,5 +1,5 @@
 get:
-  summary: "Get a condition by index."
+  summary: 'Get a condition by index.'
   description: |
     # Condition
 
@@ -10,18 +10,18 @@ get:
   tags:
     - Game Mechanics
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/condition-index"
+    - $ref: '../../parameters/2014/combined.yml#/condition-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Condition"
+            $ref: '../../schemas/2014/combined.yml#/Condition'
           example:
             index: blinded
             name: Blinded
-            url: "/api/2014/conditions/blinded"
+            url: '/api/2014/conditions/blinded'
             desc:
               - "- A blinded creature can't see and automatically fails any ability check that requires
                 sight."

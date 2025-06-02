@@ -27,7 +27,7 @@
   ],
   "exclude": ["node_modules"],
   "ts-node": {
-    "esm": true,
+    "esm": true
   },
   "typedocOptions": {
     "entryPoints": ["src/models/index.ts"],

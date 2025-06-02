@@ -1,11 +1,11 @@
-import { NextFunction,Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import MagicItem from '@/models/2014/magicItem'
 import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
-import { escapeRegExp, redisClient,ResourceList } from '@/util'
+import { escapeRegExp, redisClient, ResourceList } from '@/util'
 
 interface IndexQuery {
-  name?: { $regex: RegExp };
+  name?: { $regex: RegExp }
 }
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {

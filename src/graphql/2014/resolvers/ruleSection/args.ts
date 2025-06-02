@@ -5,7 +5,8 @@ import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
-  BaseOrderInterface} from '@/graphql/2014/common/args'
+  BaseOrderInterface
+} from '@/graphql/2014/common/args'
 
 import { OrderByDirection } from '../../common/enums'
 

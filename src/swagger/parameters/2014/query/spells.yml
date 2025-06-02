@@ -11,7 +11,7 @@ level-filter:
     single-value:
       value: [1]
     multiple-value:
-      value: [1,2]
+      value: [1, 2]
 school-filter:
   name: school
   in: query
@@ -25,6 +25,6 @@ school-filter:
     single-value:
       value: [illusion]
     multiple-value:
-      value: [evocation,illusion]
+      value: [evocation, illusion]
     partial-value:
       value: [illu]

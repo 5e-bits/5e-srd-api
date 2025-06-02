@@ -7,19 +7,19 @@ get:
   tags:
     - Character Data
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/language-index"
+    - $ref: '../../parameters/2014/combined.yml#/language-index'
   responses:
-    "200":
-      description: "OK"
+    '200':
+      description: 'OK'
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Language"
+            $ref: '../../schemas/2014/combined.yml#/Language'
           example:
             index: elvish
             name: Elvish
-            url: "/api/2014/languages/elvish"
-            desc: "Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires."
+            url: '/api/2014/languages/elvish'
+            desc: 'Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.'
             type: Standard
             script: Elvish
             typical_speakers:

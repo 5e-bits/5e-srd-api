@@ -6,10 +6,11 @@ import {
   ClassEquipmentResolver,
   ClassResolver,
   MultiClassingPrereqResolver,
-  MultiClassingResolver} from './class/resolver'
+  MultiClassingResolver
+} from './class/resolver'
 import { ConditionResolver } from './condition/resolver'
 import { DamageTypeResolver } from './damageType/resolver'
-import { ContentFieldResolver,EquipmentResolver } from './equipment/resolver'
+import { ContentFieldResolver, EquipmentResolver } from './equipment/resolver'
 import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
 import { FeatResolver, PrerequisiteResolver } from './feat/resolver'
 import { FeatureResolver, FeatureSpecificResolver } from './feature/resolver'
@@ -26,16 +27,17 @@ import {
   MonsterProficiencyResolver,
   MonsterResolver,
   SpecialAbilitySpellcastingResolver,
-  SpecialAbilitySpellResolver} from './monster/resolver'
+  SpecialAbilitySpellResolver
+} from './monster/resolver'
 import { ProficiencyResolver } from './proficiency/resolver'
-import { RaceAbilityBonusResolver,RaceResolver } from './race/resolver'
+import { RaceAbilityBonusResolver, RaceResolver } from './race/resolver'
 import { RuleResolver } from './rule/resolver'
 import { RuleSectionResolver } from './ruleSection/resolver'
 import { SkillResolver } from './skill/resolver'
-import { SpellDamageResolver,SpellResolver } from './spell/resolver'
+import { SpellDamageResolver, SpellResolver } from './spell/resolver'
 import { SubclassResolver, SubclassSpellResolver } from './subclass/resolver'
-import { SubraceAbilityBonusResolver,SubraceResolver } from './subrace/resolver'
-import { ActionDamageResolver,TraitResolver, TraitSpecificResolver } from './trait/resolver'
+import { SubraceAbilityBonusResolver, SubraceResolver } from './subrace/resolver'
+import { ActionDamageResolver, TraitResolver, TraitSpecificResolver } from './trait/resolver'
 import { WeaponPropertyResolver } from './weaponProperty/resolver'
 
 const collectionResolvers = [

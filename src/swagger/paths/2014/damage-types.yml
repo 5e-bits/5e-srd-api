@@ -1,5 +1,5 @@
 get:
-  summary: "Get a damage type by index."
+  summary: 'Get a damage type by index.'
   description: |
     # Damage type
 
@@ -9,17 +9,17 @@ get:
   tags:
     - Game Mechanics
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/damage-type-index"
+    - $ref: '../../parameters/2014/combined.yml#/damage-type-index'
   responses:
-    "200":
-      description: "OK"
+    '200':
+      description: 'OK'
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/DamageType"
+            $ref: '../../schemas/2014/combined.yml#/DamageType'
           example:
             index: acid
             name: Acid
-            url: "/api/2014/damage-types/acid"
+            url: '/api/2014/damage-types/acid'
             desc:
               - "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage."

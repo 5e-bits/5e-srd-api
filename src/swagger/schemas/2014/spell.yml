@@ -47,7 +47,7 @@ spell-model:
         attack_type:
           description: 'Attack type of the spell.'
           type: string
-        damage: 
+        damage:
           oneOf:
             - $ref: './combined.yml#/DamageAtCharacterLevel'
             - $ref: './combined.yml#/DamageAtSlotLevel'
@@ -78,7 +78,7 @@ damage-at-slot-level-model:
   description: |
     'Spell Damage'
   type: object
-  properties: 
+  properties:
     damage_at_slot_level:
       type: object
       additionalProperties: true

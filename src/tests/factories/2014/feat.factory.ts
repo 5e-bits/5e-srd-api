@@ -5,7 +5,6 @@ import { apiReferenceFactory, createIndex, createUrl } from './common.factory' /
 
 import type { Feat, Prerequisite } from '@/models/2014/feat'
 
-
 // --- Prerequisite Factory ---
 const prerequisiteFactory = Factory.define<Prerequisite>(({ params }) => {
   // Build dependency first

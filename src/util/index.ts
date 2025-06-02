@@ -12,4 +12,5 @@ export {
   mongodbUri,
   prewarmCache,
   redisClient,
-  ResourceList}
+  ResourceList
+}

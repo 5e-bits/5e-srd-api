@@ -1,21 +1,21 @@
 description: |
   `Feature`
 allOf:
-  - $ref: "./combined.yml#/APIReference"
-  - $ref: "./combined.yml#/ResourceDescription"
+  - $ref: './combined.yml#/APIReference'
+  - $ref: './combined.yml#/ResourceDescription'
   - type: object
     properties:
       level:
-        description: "The level this feature is gained."
+        description: 'The level this feature is gained.'
         type: number
       class:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'
       subclass:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'
       parent:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'
       prerequisites:
-        description: "The prerequisites for this feature."
+        description: 'The prerequisites for this feature.'
         type: array
         items:
           anyOf:
@@ -38,26 +38,26 @@ allOf:
                 spell:
                   type: string
         example:
-          - type: "level"
+          - type: 'level'
             level: 3
-          - type: "feature"
-            feature: "martial-archetype"
-          - type: "spell"
-            spell: "shield"
+          - type: 'feature'
+            feature: 'martial-archetype'
+          - type: 'spell'
+            spell: 'shield'
       feature_specific:
-        description: "Information specific to this feature."
+        description: 'Information specific to this feature.'
         type: object
         properties:
           subfeature_options:
-            $ref: "./combined.yml#/Choice"
+            $ref: './combined.yml#/Choice'
           expertise_options:
-            $ref: "./combined.yml#/Choice"
+            $ref: './combined.yml#/Choice'
           terrain_type_options:
-            $ref: "./combined.yml#/Choice"
+            $ref: './combined.yml#/Choice'
           enemy_type_options:
-            $ref: "./combined.yml#/Choice"
+            $ref: './combined.yml#/Choice'
           invocations:
             type: array
             items:
-              $ref: "./combined.yml#/APIReference"
+              $ref: './combined.yml#/APIReference'
         additionalProperties: true

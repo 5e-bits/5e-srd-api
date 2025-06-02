@@ -1,21 +1,21 @@
 get:
-  summary: "Get a rule section by index."
+  summary: 'Get a rule section by index.'
   description: Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.
   tags:
     - Rules
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/rule-section-index"
+    - $ref: '../../parameters/2014/combined.yml#/rule-section-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/RuleSection"
+            $ref: '../../schemas/2014/combined.yml#/RuleSection'
           example:
             index: time
             name: Time
-            url: "/api/2014/rule-sections/time"
+            url: '/api/2014/rule-sections/time'
             desc: |
               ## Time
 

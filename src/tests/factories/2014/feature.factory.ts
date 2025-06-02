@@ -6,7 +6,8 @@ import {
   FeaturePrerequisite,
   FeatureSpecific,
   LevelPrerequisite,
-  SpellPrerequisite} from '@/models/2014/feature'
+  SpellPrerequisite
+} from '@/models/2014/feature'
 
 import { apiReferenceFactory, choiceFactory } from './common.factory'
 

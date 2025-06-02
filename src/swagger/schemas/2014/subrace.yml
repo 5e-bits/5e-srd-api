@@ -1,36 +1,36 @@
 description: |
   `Subrace`
 allOf:
-  - $ref: "./combined.yml#/APIReference"
+  - $ref: './combined.yml#/APIReference'
   - type: object
     properties:
       desc:
-          description: Description of the subrace.
-          type: string
+        description: Description of the subrace.
+        type: string
       race:
-        description: "Parent race for the subrace."
+        description: 'Parent race for the subrace.'
         allOf:
-          - $ref: "./combined.yml#/APIReference"
+          - $ref: './combined.yml#/APIReference'
       ability_bonuses:
-        description: "Additional ability bonuses for the subrace."
+        description: 'Additional ability bonuses for the subrace.'
         type: array
         items:
-          $ref: "./combined.yml#/AbilityBonus"
+          $ref: './combined.yml#/AbilityBonus'
       starting_proficiencies:
-        description: "Starting proficiencies for all new characters of the subrace."
+        description: 'Starting proficiencies for all new characters of the subrace.'
         type: array
         items:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'
       languages:
-        description: "Starting languages for all new characters of the subrace."
+        description: 'Starting languages for all new characters of the subrace.'
         type: array
         items:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'
       language_options:
-        description: "Starting languages to choose from for the subrace."
-        $ref: "./combined.yml#/Choice"
+        description: 'Starting languages to choose from for the subrace.'
+        $ref: './combined.yml#/Choice'
       racial_traits:
-        description: "List of traits that for the subrace."
+        description: 'List of traits that for the subrace.'
         type: array
         items:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'

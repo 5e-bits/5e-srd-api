@@ -6,22 +6,22 @@ subclass-path:
     tags:
       - Subclasses
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subclass-index"
+      - $ref: '../../parameters/2014/combined.yml#/subclass-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/Subclass"
+              $ref: '../../schemas/2014/combined.yml#/Subclass'
             example:
               index: fiend
               name: Fiend
-              url: "/api/2014/subclasses/fiend"
+              url: '/api/2014/subclasses/fiend'
               class:
                 index: warlock
                 name: Warlock
-                url: "/api/2014/classes/warlock"
+                url: '/api/2014/classes/warlock'
               desc:
                 - You have made a pact with a fiend from the lower planes of existence, a being whose
                   aims are evil, even if you strive against those aims. Such beings desire the corruption
@@ -34,134 +34,134 @@ subclass-path:
                     - index: warlock-1
                       name: Warlock 1
                       type: level
-                      url: "/api/2014/classes/warlock/levels/1"
+                      url: '/api/2014/classes/warlock/levels/1'
                   spell:
                     index: burning-hands
                     name: Burning Hands
-                    url: "/api/2014/spells/burning-hands"
+                    url: '/api/2014/spells/burning-hands'
                 - prerequisites:
                     - index: warlock-1
                       name: Warlock 1
                       type: level
-                      url: "/api/2014/classes/warlock/levels/1"
+                      url: '/api/2014/classes/warlock/levels/1'
                   spell:
                     index: command
                     name: Command
-                    url: "/api/2014/spells/command"
+                    url: '/api/2014/spells/command'
                 - prerequisites:
                     - index: warlock-3
                       name: Warlock 3
                       type: level
-                      url: "/api/2014/classes/warlock/levels/3"
+                      url: '/api/2014/classes/warlock/levels/3'
                   spell:
                     index: blindness-deafness
                     name: Blindness/Deafness
-                    url: "/api/2014/spells/blindness-deafness"
+                    url: '/api/2014/spells/blindness-deafness'
                 - prerequisites:
                     - index: warlock-3
                       name: Warlock 3
                       type: level
-                      url: "/api/2014/classes/warlock/levels/3"
+                      url: '/api/2014/classes/warlock/levels/3'
                   spell:
                     index: scorching-ray
                     name: Scorching Ray
-                    url: "/api/2014/spells/scorching-ray"
+                    url: '/api/2014/spells/scorching-ray'
                 - prerequisites:
                     - index: warlock-5
                       name: Warlock 5
                       type: level
-                      url: "/api/2014/classes/warlock/levels/5"
+                      url: '/api/2014/classes/warlock/levels/5'
                   spell:
                     index: fireball
                     name: Fireball
-                    url: "/api/2014/spells/fireball"
+                    url: '/api/2014/spells/fireball'
                 - prerequisites:
                     - index: warlock-5
                       name: Warlock 5
                       type: level
-                      url: "/api/2014/classes/warlock/levels/5"
+                      url: '/api/2014/classes/warlock/levels/5'
                   spell:
                     index: stinking-cloud
                     name: Stinking Cloud
-                    url: "/api/2014/spells/stinking-cloud"
+                    url: '/api/2014/spells/stinking-cloud'
                 - prerequisites:
                     - index: warlock-7
                       name: Warlock 7
                       type: level
-                      url: "/api/2014/classes/warlock/levels/7"
+                      url: '/api/2014/classes/warlock/levels/7'
                   spell:
                     index: fire-shield
                     name: Fire Shield
-                    url: "/api/2014/spells/fire-shield"
+                    url: '/api/2014/spells/fire-shield'
                 - prerequisites:
                     - index: warlock-7
                       name: Warlock 7
                       type: level
-                      url: "/api/2014/classes/warlock/levels/7"
+                      url: '/api/2014/classes/warlock/levels/7'
                   spell:
                     index: wall-of-fire
                     name: Wall of Fire
-                    url: "/api/2014/spells/wall-of-fire"
+                    url: '/api/2014/spells/wall-of-fire'
                 - prerequisites:
                     - index: warlock-9
                       name: Warlock 9
                       type: level
-                      url: "/api/2014/classes/warlock/levels/9"
+                      url: '/api/2014/classes/warlock/levels/9'
                   spell:
                     index: flame-strike
                     name: Flame Strike
-                    url: "/api/2014/spells/flame-strike"
+                    url: '/api/2014/spells/flame-strike'
                 - prerequisites:
                     - index: warlock-9
                       name: Warlock 9
                       type: level
-                      url: "/api/2014/classes/warlock/levels/9"
+                      url: '/api/2014/classes/warlock/levels/9'
                   spell:
                     index: hallow
                     name: Hallow
-                    url: "/api/2014/spells/hallow"
+                    url: '/api/2014/spells/hallow'
               subclass_flavor: Otherworldly Patron
-              subclass_levels: "/api/2014/subclasses/fiend/levels"
+              subclass_levels: '/api/2014/subclasses/fiend/levels'
 # /api/2014/subclasses/{index}/features:
 subclass-features-path:
   get:
-    summary: "Get features available for a subclass."
+    summary: 'Get features available for a subclass.'
     tags:
       - Subclasses
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subclass-index"
+      - $ref: '../../parameters/2014/combined.yml#/subclass-index'
     responses:
-      "200":
-        description: "List of features for the subclass."
+      '200':
+        description: 'List of features for the subclass.'
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"
+              $ref: '../../schemas/2014/combined.yml#/APIReferenceList'
 # /api/2014/subclasses/{index}/levels:
 subclass-levels-path:
   get:
-    summary: "Get all level resources for a subclass."
+    summary: 'Get all level resources for a subclass.'
     tags:
       - Subclasses
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subclass-index"
+      - $ref: '../../parameters/2014/combined.yml#/subclass-index'
     responses:
-      "200":
-        description: "List of level resource for the subclass."
+      '200':
+        description: 'List of level resource for the subclass.'
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: "../../schemas/2014/combined.yml#/SubclassLevelResource"
+                $ref: '../../schemas/2014/combined.yml#/SubclassLevelResource'
 # /api/2014/subclasses/{index}/levels/{subclass_level}:
 subclass-level-path:
   get:
-    summary: "Get level resources for a subclass and level."
+    summary: 'Get level resources for a subclass and level.'
     tags:
       - Subclasses
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subclass-index"
+      - $ref: '../../parameters/2014/combined.yml#/subclass-index'
       - name: subclass_level
         in: path
         required: true
@@ -171,36 +171,36 @@ subclass-level-path:
           maximum: 20
         example: 6
     responses:
-      "200":
-        description: "Level resource for the subclass and level."
+      '200':
+        description: 'Level resource for the subclass and level.'
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/SubclassLevel"
+              $ref: '../../schemas/2014/combined.yml#/SubclassLevel'
             example:
               index: devotion-3
-              url: "/api/2014/subclasses/devotion/levels/3"
+              url: '/api/2014/subclasses/devotion/levels/3'
               class:
                 index: paladin
                 name: Paladin
-                url: "/api/2014/classes/paladin"
+                url: '/api/2014/classes/paladin'
               features:
                 - index: channel-divinity
                   name: Channel Divinity
-                  url: "/api/2014/features/channel-divinity"
+                  url: '/api/2014/features/channel-divinity'
               level: 3
               subclass:
                 index: devotion
                 name: Devotion
-                url: "/api/2014/subclasses/devotion"
+                url: '/api/2014/subclasses/devotion'
 # /api/2014/subclasses/{index}/levels/{subclass_level}/features:
 subclass-level-features-path:
   get:
-    summary: "Get features of the requested spell level available to the class."
+    summary: 'Get features of the requested spell level available to the class.'
     tags:
       - Subclasses
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subclass-index"
+      - $ref: '../../parameters/2014/combined.yml#/subclass-index'
       - name: subclass_level
         in: path
         required: true
@@ -210,9 +210,9 @@ subclass-level-features-path:
           maximum: 20
         example: 6
     responses:
-      "200":
-        description: "List of features for the subclass and level."
+      '200':
+        description: 'List of features for the subclass and level.'
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"
+              $ref: '../../schemas/2014/combined.yml#/APIReferenceList'
