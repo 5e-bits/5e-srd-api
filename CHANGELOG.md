@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/5e-bits/5e-srd-api/compare/v4.0.1...v4.0.2) (2025-06-02)
+
+
+### Bug Fixes
+
+* **prettier:** Run prettier against everything ([#780](https://github.com/5e-bits/5e-srd-api/issues/780)) ([01905b2](https://github.com/5e-bits/5e-srd-api/commit/01905b2be462990966e7790b2897aebb1cbe578a))
+
 ## [4.0.1](https://github.com/5e-bits/5e-srd-api/compare/v4.0.0...v4.0.1) (2025-06-02)
 
 
