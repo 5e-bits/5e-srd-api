@@ -94,7 +94,7 @@
     "tsc-alias": "^1.8.16",
     "typedoc": "^0.28.5",
     "typescript": "^5.0.0",
-    "typescript-eslint": "^8.23.0",
+    "typescript-eslint": "^8.33.0",
     "vitest": "^3.1.3"
   }
 }
