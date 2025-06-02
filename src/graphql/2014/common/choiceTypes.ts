@@ -1,4 +1,4 @@
-import { Field, Int,ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql'
 
 import { AbilityScore } from '@/models/2014/abilityScore'
 import { Language } from '@/models/2014/language'

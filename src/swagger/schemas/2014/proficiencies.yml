@@ -1,7 +1,7 @@
 description: |
   `Proficiency`
 allOf:
-  - $ref: "./combined.yml#/APIReference"
+  - $ref: './combined.yml#/APIReference'
   - type: object
     properties:
       type:
@@ -11,14 +11,14 @@ allOf:
         description: Classes that start with this proficiency.
         type: array
         items:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'
       races:
         description: Races that start with this proficiency.
         type: array
         items:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'
       reference:
         description: |
           `APIReference` to the full description of the related resource.
         allOf:
-          - $ref: "./combined.yml#/APIReference"
+          - $ref: './combined.yml#/APIReference'

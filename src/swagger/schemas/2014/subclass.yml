@@ -2,7 +2,7 @@ spell-prerequisite:
   description: |
     `SpellPrerequisite`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
+    - $ref: './combined.yml#/APIReference'
     - type: object
       properties:
         type:
@@ -13,12 +13,12 @@ subclass-model:
   description: |
     `Subclass`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'
     - type: object
       properties:
         class:
-          $ref: "./combined.yml#/APIReference"
+          $ref: './combined.yml#/APIReference'
         subclass_flavor:
           description: Lore-friendly flavor text for a classes respective subclass.
           type: string
@@ -33,9 +33,9 @@ subclass-model:
               prerequisites:
                 type: array
                 items:
-                  $ref: "./combined.yml#/SpellPrerequisite"
+                  $ref: './combined.yml#/SpellPrerequisite'
               spell:
-                $ref: "./combined.yml#/APIReference"
+                $ref: './combined.yml#/APIReference'
 
 subclass-level-resource-model:
   type: object
@@ -49,38 +49,38 @@ subclass-level-resource-model:
     features:
       type: array
       items:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'
     class:
-      $ref: "./combined.yml#/APIReference"
+      $ref: './combined.yml#/APIReference'
     subclass:
-      $ref: "./combined.yml#/APIReference"
+      $ref: './combined.yml#/APIReference'
 subclass-level-model:
   description: |
     `SubclassLevel`
   type: object
   properties:
     index:
-      description: "Resource index for shorthand searching."
+      description: 'Resource index for shorthand searching.'
       type: string
     url:
-      description: "URL of the referenced resource."
+      description: 'URL of the referenced resource.'
       type: string
     level:
-      description: "Number value for the current level object."
+      description: 'Number value for the current level object.'
       type: number
     ability_score_bonuses:
-      description: "Total number of ability score bonuses gained, added from previous levels."
+      description: 'Total number of ability score bonuses gained, added from previous levels.'
       type: number
     prof_bonus:
-      description: "Proficiency bonus for this class at the specified level."
+      description: 'Proficiency bonus for this class at the specified level.'
       type: number
     features:
       description: List of features gained at this level.
       type: array
       items:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'
     spellcasting:
-      description: "Summary of spells known at this level."
+      description: 'Summary of spells known at this level.'
       type: object
       properties:
         cantrips_known:
@@ -106,5 +106,5 @@ subclass-level-model:
         spell_slots_level_9:
           type: number
     classspecific:
-      description: "Class specific information such as dice values for bard songs and number of warlock invocations."
+      description: 'Class specific information such as dice values for bard songs and number of warlock invocations.'
       additionalProperties: {}

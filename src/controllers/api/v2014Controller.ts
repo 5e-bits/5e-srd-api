@@ -1,4 +1,4 @@
-import { NextFunction,Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import Collection from '@/models/2014/collection'
 

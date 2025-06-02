@@ -6,63 +6,63 @@ subraces-path:
     tags:
       - Subraces
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subrace-index"
+      - $ref: '../../parameters/2014/combined.yml#/subrace-index'
     responses:
-      "200":
+      '200':
         description: OK
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/Subrace"
+              $ref: '../../schemas/2014/combined.yml#/Subrace'
             example:
               index: hill-dwarf
               name: Hill Dwarf
-              url: "/api/2014/subraces/hill-dwarf"
+              url: '/api/2014/subraces/hill-dwarf'
               ability_bonuses:
                 - ability_score:
                     index: wis
                     name: WIS
-                    url: "/api/2014/ability-scores/wis"
+                    url: '/api/2014/ability-scores/wis'
                   bonus: 1
               desc: As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.
               languages: []
               race:
                 index: dwarf
                 name: Dwarf
-                url: "/api/2014/races/dwarf"
+                url: '/api/2014/races/dwarf'
               racial_traits:
                 - index: dwarven-toughness
                   name: Dwarven Toughness
-                  url: "/api/2014/traits/dwarven-toughness"
+                  url: '/api/2014/traits/dwarven-toughness'
               starting_proficiencies: []
 
 # /api/2014/subraces/{index}/proficiencies
 subrace-proficiencies-path:
   get:
-    summary: "Get proficiences available for a subrace."
+    summary: 'Get proficiences available for a subrace.'
     tags:
       - Subraces
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subrace-index"
+      - $ref: '../../parameters/2014/combined.yml#/subrace-index'
     responses:
-      "200":
-        description: "List of proficiences for the subrace."
+      '200':
+        description: 'List of proficiences for the subrace.'
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"
+              $ref: '../../schemas/2014/combined.yml#/APIReferenceList'
 # /api/2014/subraces/{index}/traits
 subrace-traits-path:
   get:
-    summary: "Get traits available for a subrace."
+    summary: 'Get traits available for a subrace.'
     tags:
       - Subraces
     parameters:
-      - $ref: "../../parameters/2014/combined.yml#/subrace-index"
+      - $ref: '../../parameters/2014/combined.yml#/subrace-index'
     responses:
-      "200":
-        description: "List of traits for the subrace."
+      '200':
+        description: 'List of traits for the subrace.'
         content:
           application/json:
             schema:
-              $ref: "../../schemas/2014/combined.yml#/APIReferenceList"
+              $ref: '../../schemas/2014/combined.yml#/APIReferenceList'

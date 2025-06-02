@@ -1,10 +1,10 @@
-import { NextFunction,Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import SimpleController from '@/controllers/simpleController'
 import Feature from '@/models/2014/feature'
 import Level from '@/models/2014/level'
 import Subclass from '@/models/2014/subclass'
-import { LevelParamsSchema,ShowParamsSchema } from '@/schemas/schemas'
+import { LevelParamsSchema, ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
 
 const simpleController = new SimpleController(Subclass)
@@ -93,7 +93,7 @@ export const showFeaturesForSubclassAndLevel = async (
     const urlString = '/api/2014/subclasses/' + index
 
     const data = await Feature.find({
-      'level': level,
+      level: level,
       'subclass.url': urlString
     })
       .select({ index: 1, name: 1, url: 1, _id: 0 })

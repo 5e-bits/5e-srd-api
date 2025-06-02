@@ -4,7 +4,7 @@ import { ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
 import { MagicItem } from '@/models/2014/magicItem'
 import { Proficiency } from '@/models/2014/proficiency'
 
-import { Ammunition, Armor, Gear, Pack, Tool, Vehicle,Weapon } from './equipmentTypes'
+import { Ammunition, Armor, Gear, Pack, Tool, Vehicle, Weapon } from './equipmentTypes'
 
 function resolveEquipmentType(
   value: any

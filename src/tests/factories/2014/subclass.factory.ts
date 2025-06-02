@@ -5,7 +5,6 @@ import { apiReferenceFactory, createIndex, createUrl } from './common.factory'
 
 import type { Prerequisite, Subclass, SubclassSpell } from '@/models/2014/subclass'
 
-
 // --- Prerequisite Factory ---
 const prerequisiteFactory = Factory.define<Prerequisite>(({ params }) => ({
   index: params.index ?? createIndex(faker.word.adjective()),

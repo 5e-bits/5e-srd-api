@@ -1,5 +1,5 @@
 get:
-  summary: "Get a rule by index."
+  summary: 'Get a rule by index.'
   description: |
     # Rule
 
@@ -9,18 +9,18 @@ get:
   tags:
     - Rules
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/rule-index"
+    - $ref: '../../parameters/2014/combined.yml#/rule-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Rule"
+            $ref: '../../schemas/2014/combined.yml#/Rule'
           example:
             index: using-ability-scores
             name: Using Ability Scores
-            url: "/api/2014/rules/using-ability-scores"
+            url: '/api/2014/rules/using-ability-scores'
             desc: |
               # Using Ability Scores
 
@@ -44,19 +44,19 @@ get:
             subsections:
               - index: ability-scores-and-modifiers
                 name: Ability Scores and Modifiers
-                url: "/api/2014/rule-sections/ability-scores-and-modifiers"
+                url: '/api/2014/rule-sections/ability-scores-and-modifiers'
               - index: advantage-and-disadvantage
                 name: Advantage and Disadvantage
-                url: "/api/2014/rule-sections/advantage-and-disadvantage"
+                url: '/api/2014/rule-sections/advantage-and-disadvantage'
               - index: proficiency-bonus
                 name: Proficiency Bonus
-                url: "/api/2014/rule-sections/proficiency-bonus"
+                url: '/api/2014/rule-sections/proficiency-bonus'
               - index: ability-checks
                 name: Ability Checks
-                url: "/api/2014/rule-sections/ability-checks"
+                url: '/api/2014/rule-sections/ability-checks'
               - index: using-each-ability
                 name: Using Each Ability
-                url: "/api/2014/rule-sections/using-each-ability"
+                url: '/api/2014/rule-sections/using-each-ability'
               - index: saving-throws
                 name: Saving Throws
-                url: "/api/2014/rule-sections/saving-throws"
+                url: '/api/2014/rule-sections/saving-throws'

@@ -2,24 +2,24 @@ ability-score-model:
   description: |
     `AbilityScore`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'
     - type: object
       properties:
         full_name:
-          description: "Full name of the ability score."
+          description: 'Full name of the ability score.'
           type: string
         skills:
-          description: "List of skills that use this ability score."
+          description: 'List of skills that use this ability score.'
           type: array
           items:
-            $ref: "./combined.yml#/APIReference"
+            $ref: './combined.yml#/APIReference'
 
 AbilityBonus:
   type: object
   properties:
     bonus:
-      description: "Bonus amount for this ability score."
+      description: 'Bonus amount for this ability score.'
       type: number
     ability_score:
-      $ref: "./combined.yml#/APIReference"
+      $ref: './combined.yml#/APIReference'

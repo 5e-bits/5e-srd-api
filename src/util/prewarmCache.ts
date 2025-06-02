@@ -10,8 +10,8 @@ import { ResourceList } from './data'
 import redisClient from './RedisClient'
 
 type PrewarmData = {
-  Schema: ReturnType<typeof getModelForClass>;
-  endpoint: string;
+  Schema: ReturnType<typeof getModelForClass>
+  endpoint: string
 }
 
 const prewarmCache = async () => {

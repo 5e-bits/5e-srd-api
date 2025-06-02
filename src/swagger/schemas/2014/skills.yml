@@ -1,9 +1,9 @@
 description: |
   `Skill`
 allOf:
-  - $ref: "./combined.yml#/APIReference"
-  - $ref: "./combined.yml#/ResourceDescription"
+  - $ref: './combined.yml#/APIReference'
+  - $ref: './combined.yml#/ResourceDescription'
   - type: object
     properties:
       ability_score:
-        $ref: "./combined.yml#/APIReference"
+        $ref: './combined.yml#/APIReference'

@@ -13,34 +13,34 @@ get:
         Available values can be found in the resource list for this endpoint.
       schema:
         type: string
-      example: "waterborne-vehicles"
+      example: 'waterborne-vehicles'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/EquipmentCategory"
+            $ref: '../../schemas/2014/combined.yml#/EquipmentCategory'
           example:
             index: waterborne-vehicles
             name: Waterborne Vehicles
-            url: "/api/2014/equipment-categories/waterborne-vehicles"
+            url: '/api/2014/equipment-categories/waterborne-vehicles'
             equipment:
               - index: galley
                 name: Galley
-                url: "/api/2014/equipment/galley"
+                url: '/api/2014/equipment/galley'
               - index: keelboat
                 name: Keelboat
-                url: "/api/2014/equipment/keelboat"
+                url: '/api/2014/equipment/keelboat'
               - index: longship
                 name: Longship
-                url: "/api/2014/equipment/longship"
+                url: '/api/2014/equipment/longship'
               - index: rowboat
                 name: Rowboat
-                url: "/api/2014/equipment/rowboat"
+                url: '/api/2014/equipment/rowboat'
               - index: sailing-ship
                 name: Sailing ship
-                url: "/api/2014/equipment/sailing-ship"
+                url: '/api/2014/equipment/sailing-ship'
               - index: warship
                 name: Warship
-                url: "/api/2014/equipment/warship"
+                url: '/api/2014/equipment/warship'

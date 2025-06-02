@@ -1,4 +1,4 @@
-import { Field, Int,ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql'
 
 @ObjectType({ description: 'A key-value pair representing a value at a specific level.' })
 export class LevelValue {

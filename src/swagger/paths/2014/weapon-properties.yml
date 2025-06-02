@@ -1,20 +1,20 @@
 get:
-  summary: "Get a weapon property by index."
+  summary: 'Get a weapon property by index.'
   tags:
     - Equipment
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/weapon-property-index"
+    - $ref: '../../parameters/2014/combined.yml#/weapon-property-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/WeaponProperty"
+            $ref: '../../schemas/2014/combined.yml#/WeaponProperty'
           example:
             index: ammunition
             name: Ammunition
-            url: "/api/2014/weapon-properties/ammunition"
+            url: '/api/2014/weapon-properties/ammunition'
             desc:
               - You can use a weapon that has the ammunition property to make a ranged attack only
                 if you have ammunition to fire from the weapon. Each time you attack with the weapon,

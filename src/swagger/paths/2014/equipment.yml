@@ -1,5 +1,5 @@
 get:
-  summary: "Get an equipment item by index."
+  summary: 'Get an equipment item by index.'
   description: |
     # Equipment
 
@@ -10,14 +10,14 @@ get:
   tags:
     - Equipment
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/equipment-index"
+    - $ref: '../../parameters/2014/combined.yml#/equipment-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Equipment"
+            $ref: '../../schemas/2014/combined.yml#/Equipment'
           example:
             category_range: Simple Melee
             contents: []
@@ -29,26 +29,26 @@ get:
               damage_type:
                 index: bludgeoning
                 name: Bludgeoning
-                url: "/api/2014/damage-types/bludgeoning"
+                url: '/api/2014/damage-types/bludgeoning'
             desc: []
             equipment_category:
               index: weapon
               name: Weapon
-              url: "/api/2014/equipment-categories/weapon"
+              url: '/api/2014/equipment-categories/weapon'
             index: club
             name: Club
             properties:
               - index: light
                 name: Light
-                url: "/api/2014/weapon-properties/light"
+                url: '/api/2014/weapon-properties/light'
               - index: monk
                 name: Monk
-                url: "/api/2014/weapon-properties/monk"
+                url: '/api/2014/weapon-properties/monk'
             range:
               long:
               normal: 5
             special: []
-            url: "/api/2014/equipment/club"
+            url: '/api/2014/equipment/club'
             weapon_category: Simple
             weapon_range: Melee
             weight: 2

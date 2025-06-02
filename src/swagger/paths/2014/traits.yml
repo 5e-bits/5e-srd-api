@@ -1,20 +1,20 @@
 get:
-  summary: "Get a trait by index."
+  summary: 'Get a trait by index.'
   tags:
     - Traits
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/trait-index"
+    - $ref: '../../parameters/2014/combined.yml#/trait-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Trait"
+            $ref: '../../schemas/2014/combined.yml#/Trait'
           example:
             index: trance
             name: Trance
-            url: "/api/2014/traits/trance"
+            url: '/api/2014/traits/trance'
             desc:
               - Elves do not need to sleep. Instead, they meditate deeply, remaining semiconscious,
                 for 4 hours a day. (The Common word for such meditation is "trance.") While meditating,
@@ -25,5 +25,5 @@ get:
             races:
               - index: elf
                 name: Elf
-                url: "/api/2014/races/elf"
+                url: '/api/2014/races/elf'
             subraces: []

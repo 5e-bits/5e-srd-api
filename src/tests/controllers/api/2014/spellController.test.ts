@@ -10,7 +10,8 @@ import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
   setupModelCleanup,
-  teardownIsolatedDatabase} from '@/tests/support/db'
+  teardownIsolatedDatabase
+} from '@/tests/support/db'
 
 const mockNext = vi.fn(defaultMockNext)
 

@@ -10,16 +10,16 @@ get:
   tags:
     - Game Mechanics
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/magic-school-index"
+    - $ref: '../../parameters/2014/combined.yml#/magic-school-index'
   responses:
-    "200":
+    '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/MagicSchool"
+            $ref: '../../schemas/2014/combined.yml#/MagicSchool'
           example:
             index: conjuration
             name: Conjuration
-            url: "/api/2014/magic-schools/conjuration"
+            url: '/api/2014/magic-schools/conjuration'
             desc: "Conjuration spells involve the transportation of objects and creatures from one location to another. Some spells summon creatures or objects to the caster's side, whereas others allow the caster to teleport to another location. Some conjurations create objects or effects out of nothing."

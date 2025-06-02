@@ -5,7 +5,8 @@ import {
   EquipmentCategoryOptionSet,
   MultipleOption,
   OptionsArrayOptionSet,
-  OptionSet} from '@/models/2014/common/choice'
+  OptionSet
+} from '@/models/2014/common/choice'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
@@ -17,7 +18,8 @@ import {
   EquipmentOptionSet,
   MultipleItemsOption,
   ProficiencyPrerequisite as ResolvedProficiencyPrerequisite,
-  StartingEquipmentChoice} from '../types/startingEquipment'
+  StartingEquipmentChoice
+} from '../types/startingEquipment'
 
 interface ProficiencyPrerequisite {
   type: string

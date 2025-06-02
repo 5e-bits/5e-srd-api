@@ -7,22 +7,22 @@ get:
   tags:
     - Character Data
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/skill-index"
+    - $ref: '../../parameters/2014/combined.yml#/skill-index'
   responses:
-    "200":
-      description: "OK"
+    '200':
+      description: 'OK'
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Skill"
+            $ref: '../../schemas/2014/combined.yml#/Skill'
           example:
             index: acrobatics
             name: Acrobatics
-            url: "/api/2014/skills/acrobatics"
+            url: '/api/2014/skills/acrobatics'
             ability_score:
               index: dex
               name: DEX
-              url: "/api/2014/ability-scores/dex"
+              url: '/api/2014/ability-scores/dex'
             desc:
               - Your Dexterity (Acrobatics) check covers your attempt to stay on your feet in a
                 tricky situation, such as when you're trying to run across a sheet of ice, balance

@@ -1,7 +1,7 @@
 description: |
   `Alignment`
 allOf:
-  - $ref: "./combined.yml#/APIReference"
+  - $ref: './combined.yml#/APIReference'
   - type: object
     properties:
       desc:

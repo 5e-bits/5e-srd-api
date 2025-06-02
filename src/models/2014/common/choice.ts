@@ -1,4 +1,4 @@
-import { getModelForClass,prop } from '@typegoose/typegoose'
+import { getModelForClass, prop } from '@typegoose/typegoose'
 
 import { APIReference } from '@/models/2014/common/apiReference'
 import { Damage } from '@/models/2014/common/damage'

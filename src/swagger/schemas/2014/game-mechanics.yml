@@ -2,19 +2,19 @@ damage-type-model:
   description: |
     `DamageType`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'
 condition-model:
   description: |
     `Condition`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
-    - $ref: "./combined.yml#/ResourceDescription"
+    - $ref: './combined.yml#/APIReference'
+    - $ref: './combined.yml#/ResourceDescription'
 magic-school-model:
   description: |
     `MagicSchool`
   allOf:
-    - $ref: "./combined.yml#/APIReference"
+    - $ref: './combined.yml#/APIReference'
     - type: object
       properties:
         desc:

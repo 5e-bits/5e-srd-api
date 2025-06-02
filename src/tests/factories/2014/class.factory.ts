@@ -9,8 +9,8 @@ import type {
   MultiClassing,
   MultiClassingPrereq,
   Spellcasting,
-  SpellcastingInfo} from '@/models/2014/class'
-
+  SpellcastingInfo
+} from '@/models/2014/class'
 
 // --- Nested Factories --- //
 

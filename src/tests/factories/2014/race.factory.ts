@@ -5,7 +5,6 @@ import { apiReferenceFactory, choiceFactory } from './common.factory'
 
 import type { Race, RaceAbilityBonus } from '@/models/2014/race'
 
-
 // Factory for the nested RaceAbilityBonus
 const raceAbilityBonusFactory = Factory.define<RaceAbilityBonus>(({ associations }) => ({
   ability_score: associations.ability_score ?? apiReferenceFactory.build(),

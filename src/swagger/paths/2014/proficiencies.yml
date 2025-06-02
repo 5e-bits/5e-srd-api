@@ -1,5 +1,5 @@
 get:
-  summary: "Get a proficiency by index."
+  summary: 'Get a proficiency by index.'
   description: |
     # Proficiency
 
@@ -7,34 +7,34 @@ get:
   tags:
     - Character Data
   parameters:
-    - $ref: "../../parameters/2014/combined.yml#/proficiency-index"
+    - $ref: '../../parameters/2014/combined.yml#/proficiency-index'
   responses:
-    "200":
-      description: "OK"
+    '200':
+      description: 'OK'
       content:
         application/json:
           schema:
-            $ref: "../../schemas/2014/combined.yml#/Proficiency"
+            $ref: '../../schemas/2014/combined.yml#/Proficiency'
           example:
             index: medium-armor
             name: Medium Armor
-            url: "/api/2014/proficiencies/medium-armor"
+            url: '/api/2014/proficiencies/medium-armor'
             type: Armor
             classes:
               - index: barbarian
                 name: Barbarian
-                url: "/api/2014/classes/barbarian"
+                url: '/api/2014/classes/barbarian'
               - index: cleric
                 name: Cleric
-                url: "/api/2014/classes/cleric"
+                url: '/api/2014/classes/cleric'
               - index: druid
                 name: Druid
-                url: "/api/2014/classes/druid"
+                url: '/api/2014/classes/druid'
               - index: ranger
                 name: Ranger
-                url: "/api/2014/classes/ranger"
+                url: '/api/2014/classes/ranger'
             races: []
             reference:
               index: medium-armor
               name: Medium Armor
-              url: "/api/2014/equipment-categories/medium-armor"
+              url: '/api/2014/equipment-categories/medium-armor'

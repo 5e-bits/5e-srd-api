@@ -260,7 +260,7 @@ class-level-spell-model:
         level:
           type: number
           description: 'The level of the spell slot used to cast the spell.'
-        
+
 class-spell-list-model:
   description: |
     `ClassSpellList`

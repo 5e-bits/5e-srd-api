@@ -328,4 +328,4 @@ components:
 
 # Add security definitions
 security:
-  - {}  # Empty security requirement means no authentication required
+  - {} # Empty security requirement means no authentication required

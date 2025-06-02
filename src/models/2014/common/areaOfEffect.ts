@@ -1,5 +1,5 @@
 import { prop } from '@typegoose/typegoose'
-import { Field, Int,ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql'
 
 @ObjectType({ description: 'Defines an area of effect for spells or abilities.' })
 export class AreaOfEffect {

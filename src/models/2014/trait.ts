@@ -1,6 +1,6 @@
 import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int,ObjectType } from 'type-graphql'
+import { Field, Int, ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/2014/common/apiReference'
 import { AreaOfEffect } from '@/models/2014/common/areaOfEffect'
