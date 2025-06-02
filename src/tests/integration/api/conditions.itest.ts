@@ -1,7 +1,7 @@
 import { Application } from 'express'
 import mongoose from 'mongoose'
 import request from 'supertest'
-import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, describe, it, vi } from 'vitest'
 
 import createApp from '@/server'
 import { mongodbUri, redisClient } from '@/util'

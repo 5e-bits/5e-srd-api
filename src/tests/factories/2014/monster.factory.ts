@@ -28,8 +28,8 @@ import type {
   SpecialAbility,
   SpecialAbilitySpell,
   SpecialAbilitySpellcasting,
-  SpecialAbilityUsage} from '@/models/2014/monster'
-
+  SpecialAbilityUsage
+} from '@/models/2014/monster'
 
 // Factory for ActionUsage
 const actionUsageFactory = Factory.define<ActionUsage>(() => ({
@@ -89,26 +89,26 @@ const actionFactory = Factory.define<
 
 // Factory for ArmorClass (Union Type - need specific factories or a generic one)
 // Example for 'natural' type
-const armorClassNaturalFactory = Factory.define<ArmorClassNatural>(() => ({
-  type: 'natural',
-  value: faker.number.int({ min: 10, max: 20 }),
-  desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
-}))
+// const armorClassNaturalFactory = Factory.define<ArmorClassNatural>(() => ({
+//   type: 'natural',
+//   value: faker.number.int({ min: 10, max: 20 }),
+//   desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
+// }))
 
 // Example for 'armor' type
-const armorClassArmorFactory = Factory.define<ArmorClassArmor>(({ associations }) => ({
-  type: 'armor',
-  value: faker.number.int({ min: 12, max: 18 }),
-  armor: associations.armor
-    ? associations.armor
-    : apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 })),
-  desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
-}))
+// const armorClassArmorFactory = Factory.define<ArmorClassArmor>(({ associations }) => ({
+//   type: 'armor',
+//   value: faker.number.int({ min: 12, max: 18 }),
+//   armor: associations.armor
+//     ? associations.armor
+//     : apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 1 })),
+//   desc: faker.datatype.boolean() ? faker.lorem.sentence() : undefined
+// }))
 
 // A helper to create a random ArmorClass type
 const armorClassFactory = Factory.define<
   ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
->(({ transientParams }) => {
+>(() => {
   const type = faker.helpers.arrayElement(['dex', 'natural', 'armor', 'spell', 'condition'])
   const value = faker.number.int({ min: 10, max: 25 })
   const desc = faker.datatype.boolean() ? faker.lorem.sentence() : undefined
@@ -283,7 +283,7 @@ const speedFactory = Factory.define<MonsterSpeed>(() => {
 
 // Factory for Monster - Define return type explicitly as Monster
 const monsterFactory = Factory.define<Monster, any, Monster>(
-  ({ sequence, associations, transientParams }) => {
+  ({ associations, transientParams }) => {
     const size = faker.helpers.arrayElement([
       'Tiny',
       'Small',
