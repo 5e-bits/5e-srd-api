@@ -4,7 +4,7 @@ import ImageController from '@/controllers/api/imageController'
 
 const router = express.Router()
 
-router.get('/*', function (req, res, next) {
+router.get('/*splat', function (req, res, next) {
   ImageController.show(req, res, next)
 })
 

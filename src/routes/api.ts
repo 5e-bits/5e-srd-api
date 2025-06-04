@@ -10,6 +10,6 @@ const router = express.Router()
 router.use('/2014', v2014Handler)
 router.use('/2024', v2024Handler)
 router.use('/images', ImageHandler)
-router.get('*', deprecatedApiController)
+router.get('*splat', deprecatedApiController)
 
 export default router

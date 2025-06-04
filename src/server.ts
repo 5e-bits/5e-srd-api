@@ -3,7 +3,7 @@ import 'reflect-metadata' // Must be imported first
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import { expressMiddleware } from '@apollo/server/express4'
+import { expressMiddleware } from '@as-integrations/express5'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'

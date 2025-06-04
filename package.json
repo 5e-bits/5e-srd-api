@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.12.1",
+    "@as-integrations/express5": "^1.0.0",
     "@aws-sdk/client-s3": "^3.758.0",
     "@bugsnag/js": "^8.0.0",
     "@bugsnag/plugin-express": "^8.2.0",

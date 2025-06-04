@@ -7,7 +7,9 @@ import SkillsHandler from './2024/skills'
 
 const router = express.Router()
 
-router.get('/', index)
+router.get('/', function (req, res, next) {
+  index(req, res, next)
+})
 
 router.use('/ability-scores', AbilityScoresHandler)
 router.use('/skills', SkillsHandler)
