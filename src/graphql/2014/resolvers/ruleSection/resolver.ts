@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
@@ -9,7 +9,8 @@ import {
   RuleSectionArgs,
   RuleSectionArgsSchema,
   RuleSectionIndexArgsSchema,
-  RuleSectionOrderField} from './args'
+  RuleSectionOrderField
+} from './args'
 
 @Resolver(RuleSection)
 export class RuleSectionResolver {
@@ -20,7 +21,7 @@ export class RuleSectionResolver {
     const validatedArgs = RuleSectionArgsSchema.parse(args)
     const query = RuleSectionModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

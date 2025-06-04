@@ -56,7 +56,7 @@ export const ClassLevelsQuerySchema = z.object({
 // Schemas from api/2014/monsterController.ts
 // --- Helper Transformation (for MonsterIndexQuerySchema) ---
 const transformChallengeRating = (val: string | string[] | undefined) => {
-  if (!val) return undefined
+  if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
   // Ensure it's an array, handling both single string and array inputs
   const arr = Array.isArray(val) ? val : [val]
   // Flatten in case of comma-separated strings inside the array, then split
@@ -68,9 +68,5 @@ const transformChallengeRating = (val: string | string[] | undefined) => {
 }
 
 export const MonsterIndexQuerySchema = NameQuerySchema.extend({
-  challenge_rating: z
-    .string()
-    .or(z.string().array())
-    .optional()
-    .transform(transformChallengeRating)
+  challenge_rating: z.string().or(z.string().array()).optional().transform(transformChallengeRating)
 })

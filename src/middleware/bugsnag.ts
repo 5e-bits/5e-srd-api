@@ -4,7 +4,7 @@ import bugsnagExpress from '@bugsnag/plugin-express'
 import { bugsnagApiKey } from '@/util'
 
 const createBugsnagMiddleware = () => {
-  if (!bugsnagApiKey) {
+  if (bugsnagApiKey == null || bugsnagApiKey === '') {
     return null
   }
 

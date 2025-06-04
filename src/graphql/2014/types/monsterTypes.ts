@@ -1,4 +1,4 @@
-import { createUnionType,Field, Int, ObjectType } from 'type-graphql'
+import { createUnionType, Field, Int, ObjectType } from 'type-graphql'
 
 import { Damage } from '@/models/2014/common/damage'
 import { DifficultyClass } from '@/models/2014/common/difficultyClass'
@@ -7,7 +7,8 @@ import {
   ArmorClassCondition,
   ArmorClassDex,
   ArmorClassNatural,
-  ArmorClassSpell} from '@/models/2014/monster'
+  ArmorClassSpell
+} from '@/models/2014/monster'
 
 // --- Breath Choice Types ---
 @ObjectType({ description: 'A single breath option within a breath choice' })
@@ -151,7 +152,7 @@ export const ActionOptionUnion = createUnionType({
 export const DamageOrDamageChoiceUnion = createUnionType({
   name: 'DamageOrDamageChoice',
   types: () => [Damage, DamageChoice],
-  resolveType: (value) => {
+  resolveType: (value: Damage | DamageChoice) => {
     if ('choose' in value) {
       return DamageChoice
     }
@@ -170,7 +171,7 @@ export const MonsterArmorClassUnion = createUnionType({
       ArmorClassCondition
     ] as const,
   resolveType: (value: any) => {
-    if (!value || typeof value.type !== 'string') {
+    if (value == null || typeof value.type !== 'string') {
       console.warn('Cannot resolve MonsterArmorClass: type field is missing or invalid', value)
       throw new Error('Cannot resolve MonsterArmorClass: type field is missing or invalid')
     }

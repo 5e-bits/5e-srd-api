@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import ConditionModel, { Condition } from '@/models/2014/condition'
@@ -9,7 +9,8 @@ import {
   ConditionArgs,
   ConditionArgsSchema,
   ConditionIndexArgsSchema,
-  ConditionOrderField} from './args'
+  ConditionOrderField
+} from './args'
 
 @Resolver(Condition)
 export class ConditionResolver {
@@ -20,7 +21,7 @@ export class ConditionResolver {
     const validatedArgs = ConditionArgsSchema.parse(args)
     const query = ConditionModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

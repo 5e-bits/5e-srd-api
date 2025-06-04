@@ -37,7 +37,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
     const redisKey = req.originalUrl
     const data = await redisClient.get(redisKey)
 
-    if (data) {
+    if (data !== null) {
       res.status(200).json(JSON.parse(data))
     } else {
       const data = await Spell.find(searchQueries)

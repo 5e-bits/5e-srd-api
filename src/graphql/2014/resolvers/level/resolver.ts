@@ -13,7 +13,8 @@ import {
   LevelArgs,
   LevelArgsSchema,
   LevelIndexArgsSchema,
-  LevelOrderField} from './args'
+  LevelOrderField
+} from './args'
 
 @Resolver(Level)
 export class LevelResolver {
@@ -49,11 +50,11 @@ export class LevelResolver {
       }
     }
 
-    if (validatedArgs.ability_score_bonuses) {
+    if (validatedArgs.ability_score_bonuses != null) {
       filters.push({ ability_score_bonuses: validatedArgs.ability_score_bonuses })
     }
 
-    if (validatedArgs.prof_bonus) {
+    if (validatedArgs.prof_bonus != null) {
       filters.push({ prof_bonus: validatedArgs.prof_bonus })
     }
 

@@ -17,7 +17,8 @@ import {
   SpellArgs,
   SpellArgsSchema,
   SpellIndexArgsSchema,
-  SpellOrderField} from './args'
+  SpellOrderField
+} from './args'
 
 @Resolver(Spell)
 export class SpellResolver {
@@ -28,7 +29,7 @@ export class SpellResolver {
     const query = SpellModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
     if (validatedArgs.level && validatedArgs.level.length > 0) {

@@ -1,7 +1,7 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { LanguageChoice,StringChoice } from '@/graphql/2014/common/choiceTypes'
+import { LanguageChoice, StringChoice } from '@/graphql/2014/common/choiceTypes'
 import {
   IdealChoice,
   IdealOption as ResolvedIdealOption
@@ -11,7 +11,8 @@ import {
   resolveLanguageChoice,
   resolveMultipleReferences,
   resolveSingleReference,
-  resolveStringChoice} from '@/graphql/2014/utils/resolvers'
+  resolveStringChoice
+} from '@/graphql/2014/utils/resolvers'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import BackgroundModel, { Background, EquipmentRef } from '@/models/2014/background'
@@ -25,7 +26,8 @@ import {
   BackgroundArgs,
   BackgroundArgsSchema,
   BackgroundIndexArgsSchema,
-  BackgroundOrderField} from './args'
+  BackgroundOrderField
+} from './args'
 
 @Resolver(Background)
 export class BackgroundResolver {
@@ -36,7 +38,7 @@ export class BackgroundResolver {
     const validatedArgs = BackgroundArgsSchema.parse(args)
     const query = BackgroundModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

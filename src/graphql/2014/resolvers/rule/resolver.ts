@@ -11,7 +11,8 @@ import {
   RuleArgs,
   RuleArgsSchema,
   RuleIndexArgsSchema,
-  RuleOrderField} from './args'
+  RuleOrderField
+} from './args'
 
 @Resolver(Rule)
 export class RuleResolver {
@@ -22,7 +23,7 @@ export class RuleResolver {
     const validatedArgs = RuleArgsSchema.parse(args)
     const query = RuleModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

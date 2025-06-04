@@ -11,7 +11,8 @@ import {
   SkillArgs,
   SkillArgsSchema,
   SkillIndexArgsSchema,
-  SkillOrderField} from './args'
+  SkillOrderField
+} from './args'
 
 @Resolver(Skill)
 export class SkillResolver {
@@ -24,7 +25,7 @@ export class SkillResolver {
     const query = SkillModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

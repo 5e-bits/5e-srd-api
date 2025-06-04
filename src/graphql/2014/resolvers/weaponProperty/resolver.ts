@@ -1,4 +1,4 @@
-import { Arg, Args,Query, Resolver } from 'type-graphql'
+import { Arg, Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/2014/common/args'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
@@ -9,7 +9,8 @@ import {
   WeaponPropertyArgs,
   WeaponPropertyArgsSchema,
   WeaponPropertyIndexArgsSchema,
-  WeaponPropertyOrderField} from './args'
+  WeaponPropertyOrderField
+} from './args'
 
 @Resolver(WeaponProperty)
 export class WeaponPropertyResolver {
@@ -22,7 +23,7 @@ export class WeaponPropertyResolver {
     const validatedArgs = WeaponPropertyArgsSchema.parse(args)
     const query = WeaponPropertyModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 

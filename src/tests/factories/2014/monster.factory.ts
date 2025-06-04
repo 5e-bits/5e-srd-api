@@ -56,18 +56,22 @@ const actionFactory = Factory.define<
   const baseAction = {
     name: faker.lorem.words(2),
     desc: faker.lorem.paragraph(),
-    attack_bonus: transientParams.has_attack_bonus
-      ? faker.number.int({ min: 0, max: 10 })
-      : undefined,
+    attack_bonus:
+      transientParams?.has_attack_bonus === true
+        ? faker.number.int({ min: 0, max: 10 })
+        : undefined,
     damage:
       associations.damage ??
-      (transientParams.has_damage
+      (transientParams?.has_damage === true
         ? damageFactory.buildList(faker.number.int({ min: 1, max: 2 }))
         : []),
-    dc: associations.dc ?? (transientParams.has_dc ? difficultyClassFactory.build() : undefined),
+    dc:
+      associations.dc ??
+      (transientParams?.has_dc === true ? difficultyClassFactory.build() : undefined),
     options: undefined, // Assuming Action['options'] is optional or handled elsewhere
     usage:
-      associations.usage ?? (transientParams.has_usage ? actionUsageFactory.build() : undefined)
+      associations.usage ??
+      (transientParams?.has_usage === true ? actionUsageFactory.build() : undefined)
   }
 
   if (generated_multiattack_type === 'actions') {
@@ -371,9 +375,10 @@ const monsterFactory = Factory.define<Monster, any, Monster>(
         associations.legendary_actions ??
         legendaryActionFactory.buildList(faker.number.int({ min: 0, max: 3 })),
       image: faker.datatype.boolean() ? `/api/images/monsters/${slug}.png` : undefined,
-      reactions: transientParams?.has_reactions
-        ? reactionFactory.buildList(faker.number.int({ min: 1, max: 2 }))
-        : undefined,
+      reactions:
+        transientParams?.has_reactions === true
+          ? reactionFactory.buildList(faker.number.int({ min: 1, max: 2 }))
+          : undefined,
       url: `/api/monsters/${slug}`,
       updated_at: faker.date.recent().toISOString()
     }

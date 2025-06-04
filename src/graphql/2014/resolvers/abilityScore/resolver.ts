@@ -11,7 +11,8 @@ import {
   AbilityScoreArgs,
   AbilityScoreArgsSchema,
   AbilityScoreIndexArgsSchema,
-  AbilityScoreOrderField} from './args'
+  AbilityScoreOrderField
+} from './args'
 
 @Resolver(AbilityScore)
 export class AbilityScoreResolver {
@@ -26,11 +27,11 @@ export class AbilityScoreResolver {
     const query = AbilityScoreModel.find()
     const filters: Record<string, any>[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
-    if (validatedArgs.full_name) {
+    if (validatedArgs.full_name != null && validatedArgs.full_name !== '') {
       filters.push({
         full_name: { $regex: new RegExp(escapeRegExp(validatedArgs.full_name), 'i') }
       })

@@ -97,7 +97,7 @@ export function buildSortPipeline<TOrderFieldValue extends string>({
 
   populateSortPipelineRecursive(order)
 
-  if (Object.keys(sortPipeline).length === 0 && defaultSortField) {
+  if (Object.keys(sortPipeline).length === 0 && defaultSortField != null) {
     const defaultFieldKey = String(defaultSortField)
     const defaultMappedField = sortFieldMap[defaultFieldKey]
     if (defaultMappedField) {

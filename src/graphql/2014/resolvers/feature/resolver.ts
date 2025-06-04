@@ -21,7 +21,8 @@ import {
   FeatureArgs,
   FeatureArgsSchema,
   FeatureIndexArgsSchema,
-  FeatureOrderField} from './args'
+  FeatureOrderField
+} from './args'
 
 @Resolver(Feature)
 export class FeatureResolver {
@@ -34,7 +35,7 @@ export class FeatureResolver {
     const query = FeatureModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
     if (validatedArgs.level) {

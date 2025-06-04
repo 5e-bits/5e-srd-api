@@ -5,7 +5,8 @@ import {
   PrerequisiteChoice,
   PrerequisiteChoiceOption,
   PrerequisiteChoiceOptionSet,
-  ProficiencyChoice} from '@/graphql/2014/common/choiceTypes'
+  ProficiencyChoice
+} from '@/graphql/2014/common/choiceTypes'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
@@ -20,7 +21,8 @@ import ClassModel, {
   Class,
   ClassEquipment,
   MultiClassing,
-  MultiClassingPrereq} from '@/models/2014/class'
+  MultiClassingPrereq
+} from '@/models/2014/class'
 import { APIReference } from '@/models/2014/common/apiReference'
 import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common/choice'
 import EquipmentModel from '@/models/2014/equipment'
@@ -35,7 +37,8 @@ import {
   ClassArgs,
   ClassArgsSchema,
   ClassIndexArgsSchema,
-  ClassOrderField} from './args'
+  ClassOrderField
+} from './args'
 
 @Resolver(Class)
 export class ClassResolver {
@@ -48,7 +51,7 @@ export class ClassResolver {
     const query = ClassModel.find()
     const filters: any[] = []
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
@@ -184,7 +187,7 @@ async function resolvePrerequisiteChoice(
     if (opt.option_type === 'score_prerequisite') {
       const scoreOpt = opt as ScorePrerequisiteOption
       const abilityScore = await resolveSingleReference(scoreOpt.ability_score, AbilityScoreModel)
-      if (abilityScore) {
+      if (abilityScore != null) {
         gqlEmbeddedOptions.push({
           option_type: scoreOpt.option_type,
           ability_score: abilityScore as AbilityScore,

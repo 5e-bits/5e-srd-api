@@ -14,7 +14,8 @@ import {
   SubclassArgs,
   SubclassArgsSchema,
   SubclassIndexArgsSchema,
-  SubclassOrderField} from './args'
+  SubclassOrderField
+} from './args'
 
 @Resolver(Subclass)
 export class SubclassResolver {
@@ -26,7 +27,7 @@ export class SubclassResolver {
 
     const query = SubclassModel.find()
 
-    if (validatedArgs.name) {
+    if (validatedArgs.name != null && validatedArgs.name !== '') {
       query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
     }
 
@@ -80,7 +81,7 @@ export class SubclassSpellResolver {
   ): Promise<Array<Level | Feature> | null> {
     const prereqsData = subclassSpell.prerequisites
 
-    if (!prereqsData || prereqsData.length === 0) {
+    if (prereqsData.length === 0) {
       return null
     }
 
@@ -89,12 +90,12 @@ export class SubclassSpellResolver {
     for (const prereq of prereqsData) {
       if (prereq.type === 'level') {
         const level = await LevelModel.findOne({ index: prereq.index }).lean()
-        if (level) {
+        if (level !== null) {
           resolvedPrereqs.push(level)
         }
       } else if (prereq.type === 'feature') {
         const feature = await FeatureModel.findOne({ index: prereq.index }).lean()
-        if (feature) {
+        if (feature !== null) {
           resolvedPrereqs.push(feature)
         }
       }

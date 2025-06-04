@@ -4,7 +4,8 @@ import { NextFunction, Request, Response } from 'express'
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(err.stack)
 
-  res.status(err.status || 404).json({
+  const statusCode = typeof err.status === 'number' ? err.status : 404
+  res.status(statusCode).json({
     message: err.message
   })
 }

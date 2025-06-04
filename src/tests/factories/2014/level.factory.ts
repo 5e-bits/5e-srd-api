@@ -10,8 +10,8 @@ import type {
   ClassSpecificSneakAttack,
   Level,
   LevelSpellcasting,
-  SubclassSpecific} from '@/models/2014/level'
-
+  SubclassSpecific
+} from '@/models/2014/level'
 
 const createIndex = (base: string, level: number): string => `${base}-${level}`
 const createUrl = (resource: string, index: string): string => `/api/${resource}/${index}`
@@ -97,21 +97,24 @@ export const levelFactory = Factory.define<Omit<Level, '_id' | 'collectionName'>
 
     // Build potential complex nested objects - ensuring full structure
     const shouldBuildClassSpecific =
-      params.class_specific !== null && (params.class_specific || faker.datatype.boolean(0.5))
+      params.class_specific !== undefined
+        ? params.class_specific !== null
+        : faker.datatype.boolean(0.5)
     const builtClassSpecific = shouldBuildClassSpecific
       ? classSpecificFactory.build(params.class_specific)
       : undefined
 
     const shouldBuildSpellcasting =
-      params.spellcasting !== null && (params.spellcasting || faker.datatype.boolean(0.5))
+      params.spellcasting !== undefined ? params.spellcasting !== null : faker.datatype.boolean(0.5)
     const builtSpellcasting = shouldBuildSpellcasting
       ? levelSpellcastingFactory.build(params.spellcasting)
       : undefined
 
     const shouldBuildSubclassSpecific =
-      builtSubclass &&
-      params.subclass_specific !== null &&
-      (params.subclass_specific || faker.datatype.boolean(0.3))
+      builtSubclass != null &&
+      (params.subclass_specific !== undefined
+        ? params.subclass_specific !== null
+        : faker.datatype.boolean(0.3))
     const builtSubclassSpecific = shouldBuildSubclassSpecific
       ? subclassSpecificFactory.build(params.subclass_specific)
       : undefined
