@@ -12,8 +12,14 @@ router.get('/:index', function (req, res, next) {
   RaceController.show(req, res, next)
 })
 
-router.get('/:index/subraces', RaceController.showSubracesForRace)
-router.get('/:index/proficiencies', RaceController.showProficienciesForRace)
-router.get('/:index/traits', RaceController.showTraitsForRace)
+router.get('/:index/subraces', function (req, res, next) {
+  RaceController.showSubracesForRace(req, res, next)
+})
+router.get('/:index/proficiencies', function (req, res, next) {
+  RaceController.showProficienciesForRace(req, res, next)
+})
+router.get('/:index/traits', function (req, res, next) {
+  RaceController.showTraitsForRace(req, res, next)
+})
 
 export default router

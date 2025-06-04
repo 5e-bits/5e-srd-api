@@ -30,7 +30,9 @@ import WeaponPropertiesHandler from './2014/weaponProperties'
 
 const router = express.Router()
 
-router.get('/', index)
+router.get('/', function (req, res, next) {
+  index(req, res, next)
+})
 
 router.use('/ability-scores', AbilityScoresHandler)
 router.use('/alignments', AlignmentsHandler)
