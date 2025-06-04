@@ -1,3 +1,6 @@
+import EquipmentModel, { Equipment } from '@/models/2014/equipment'
+import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
+import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import {
   Choice,
   ChoiceOption,
@@ -6,10 +9,7 @@ import {
   MultipleOption,
   OptionsArrayOptionSet,
   OptionSet
-} from '@/models/2014/common/choice'
-import EquipmentModel, { Equipment } from '@/models/2014/equipment'
-import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+} from '@/models/common/choice'
 
 import {
   CountedReferenceOption as ResolvedCountedReferenceOption,

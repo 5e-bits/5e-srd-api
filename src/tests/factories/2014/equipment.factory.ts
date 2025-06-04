@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
-import { Damage } from '@/models/2014/common/damage'
 import {
   ArmorClass,
   Content,
@@ -11,6 +10,7 @@ import {
   Speed,
   ThrowRange
 } from '@/models/2014/equipment'
+import { Damage } from '@/models/common/damage'
 
 import { apiReferenceFactory } from './common.factory'
 

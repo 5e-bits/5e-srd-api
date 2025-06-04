@@ -6,9 +6,8 @@ import {
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
   BaseOrderInterface
-} from '@/graphql/2014/common/args'
-
-import { OrderByDirection } from '../../common/enums'
+} from '@/graphql/common/args'
+import { OrderByDirection } from '@/graphql/common/enums'
 
 export enum RuleOrderField {
   NAME = 'name'

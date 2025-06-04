@@ -6,9 +6,9 @@ import {
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
   BaseOrderInterface
-} from '@/graphql/2014/common/args'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
-import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+} from '@/graphql/common/args'
+import { OrderByDirection } from '@/graphql/common/enums'
+import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 
 export enum ClassOrderField {
   NAME = 'name',

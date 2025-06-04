@@ -3,8 +3,8 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { Field, Int, ObjectType } from 'type-graphql'
 
 import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
-import { APIReference } from '@/models/2014/common/apiReference'
-import { Choice } from '@/models/2014/common/choice'
+import { APIReference } from '@/models/common/apiReference'
+import { Choice } from '@/models/common/choice'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'

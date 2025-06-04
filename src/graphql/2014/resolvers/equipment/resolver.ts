@@ -1,11 +1,11 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
-import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
-import { APIReference } from '@/models/2014/common/apiReference'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import EquipmentModel, { Content, Equipment } from '@/models/2014/equipment'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
+import { APIReference } from '@/models/common/apiReference'
 import { escapeRegExp } from '@/util'
 
 import {

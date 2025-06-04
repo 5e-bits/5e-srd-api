@@ -1,6 +1,6 @@
 import { Arg, Args, Query, Resolver } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { buildSortPipeline } from '@/graphql/common/args'
 import LanguageModel, { Language } from '@/models/2014/language'
 import { escapeRegExp } from '@/util'
 

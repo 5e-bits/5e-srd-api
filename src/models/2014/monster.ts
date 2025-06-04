@@ -2,10 +2,10 @@ import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typeg
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { Field, Float, Int, ObjectType } from 'type-graphql'
 
-import { APIReference } from '@/models/2014/common/apiReference'
-import { Choice } from '@/models/2014/common/choice'
-import { Damage } from '@/models/2014/common/damage'
-import { DifficultyClass } from '@/models/2014/common/difficultyClass'
+import { APIReference } from '@/models/common/apiReference'
+import { Choice } from '@/models/common/choice'
+import { Damage } from '@/models/common/damage'
+import { DifficultyClass } from '@/models/common/difficultyClass'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'

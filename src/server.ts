@@ -12,7 +12,8 @@ import morgan from 'morgan'
 import { buildSchema } from 'type-graphql'
 
 import docsController from './controllers/docsController'
-import { resolvers } from './graphql/2014/resolvers'
+import { resolvers as resolvers2014 } from './graphql/2014/resolvers'
+import { resolvers as resolvers2024 } from './graphql/2024/resolvers'
 import { createApolloMiddleware } from './middleware/apolloServer'
 import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
@@ -53,14 +54,18 @@ export default async () => {
   app.use(limiter)
 
   console.log('Building TypeGraphQL schema...')
-  const schema = await buildSchema({
-    resolvers: resolvers,
+  const schema2014 = await buildSchema({
+    resolvers: resolvers2014,
+    validate: { forbidUnknownValues: false }
+  })
+  const schema2024 = await buildSchema({
+    resolvers: resolvers2024,
     validate: { forbidUnknownValues: false }
   })
   console.log('TypeGraphQL schema built successfully.')
 
   console.log('Setting up Apollo GraphQL server')
-  const apolloMiddleware2014 = await createApolloMiddleware(schema)
+  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
   await apolloMiddleware2014.start()
   app.all('/graphql', (_req, res) => res.redirect(301, '/graphql/2014'))
   app.use(
@@ -68,6 +73,16 @@ export default async () => {
     cors<cors.CorsRequest>(),
     bodyParser.json(),
     expressMiddleware(apolloMiddleware2014, {
+      context: async ({ req }) => ({ token: req.headers.token })
+    })
+  )
+  const apolloMiddleware2024 = await createApolloMiddleware(schema2024)
+  await apolloMiddleware2024.start()
+  app.use(
+    '/graphql/2024',
+    cors<cors.CorsRequest>(),
+    bodyParser.json(),
+    expressMiddleware(apolloMiddleware2024, {
       context: async ({ req }) => ({ token: req.headers.token })
     })
   )

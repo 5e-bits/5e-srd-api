@@ -1,7 +1,5 @@
 import { createUnionType, Field, Int, ObjectType } from 'type-graphql'
 
-import { Damage } from '@/models/2014/common/damage'
-import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import {
   ArmorClassArmor,
   ArmorClassCondition,
@@ -9,6 +7,8 @@ import {
   ArmorClassNatural,
   ArmorClassSpell
 } from '@/models/2014/monster'
+import { Damage } from '@/models/common/damage'
+import { DifficultyClass } from '@/models/common/difficultyClass'
 
 // --- Breath Choice Types ---
 @ObjectType({ description: 'A single breath option within a breath choice' })

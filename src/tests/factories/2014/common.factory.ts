@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
-import { APIReference } from '@/models/2014/common/apiReference'
-import { AreaOfEffect } from '@/models/2014/common/areaOfEffect'
-import { Choice, OptionsArrayOptionSet, StringOption } from '@/models/2014/common/choice'
-import { Damage } from '@/models/2014/common/damage'
-import { DifficultyClass } from '@/models/2014/common/difficultyClass'
+import { APIReference } from '@/models/common/apiReference'
+import { AreaOfEffect } from '@/models/common/areaOfEffect'
+import { Choice, OptionsArrayOptionSet, StringOption } from '@/models/common/choice'
+import { Damage } from '@/models/common/damage'
+import { DifficultyClass } from '@/models/common/difficultyClass'
 
 // --- Helper Functions ---
 export const createIndex = (name: string): string =>

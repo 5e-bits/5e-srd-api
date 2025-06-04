@@ -1,4 +1,4 @@
-import { LevelValue } from '@/graphql/2014/common/types'
+import { LevelValue } from '@/graphql/common/types'
 
 /**
  * Converts a Record<number, string> or Record<string, string> (where keys are number strings)
