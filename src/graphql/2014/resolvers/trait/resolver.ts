@@ -1,8 +1,6 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
-import { LevelValue } from '@/graphql/2014/common/types'
 import {
   SpellChoice,
   SpellChoiceOption,
@@ -12,20 +10,21 @@ import {
   TraitChoiceOptionSet
 } from '@/graphql/2014/types/traitTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
+import { resolveLanguageChoice, resolveProficiencyChoice } from '@/graphql/2014/utils/resolvers'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { LevelValue } from '@/graphql/common/types'
 import {
-  resolveLanguageChoice,
   resolveMultipleReferences,
-  resolveProficiencyChoice,
-  resolveReferenceOptionArray,
-  resolveSingleReference
-} from '@/graphql/2014/utils/resolvers'
-import { Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
+  resolveSingleReference,
+  resolveReferenceOptionArray
+} from '@/graphql/utils/resolvers'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race } from '@/models/2014/race'
 import SpellModel from '@/models/2014/spell'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
+import { Choice, OptionsArrayOptionSet } from '@/models/common/choice'
 import { escapeRegExp } from '@/util'
 
 import {

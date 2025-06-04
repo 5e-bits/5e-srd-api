@@ -1,19 +1,16 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
-import {
-  resolveLanguageChoice,
-  resolveMultipleReferences,
-  resolveSingleReference
-} from '@/graphql/2014/utils/resolvers'
+import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import { Choice } from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race } from '@/models/2014/race'
 import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
+import { Choice } from '@/models/common/choice'
 import { escapeRegExp } from '@/util'
 
 import {

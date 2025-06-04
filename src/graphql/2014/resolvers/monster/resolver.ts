@@ -1,9 +1,8 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { SpellSlotCount } from '@/graphql/2014/common/types'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { SpellSlotCount } from '@/graphql/common/types'
 import {
   DamageOrDamageChoiceUnion,
   ActionChoice,
@@ -16,17 +15,9 @@ import {
   MonsterArmorClassUnion
 } from '@/graphql/2014/types/monsterTypes'
 import { normalizeCount } from '@/graphql/2014/utils/helpers'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import { APIReference } from '@/models/2014/common/apiReference'
-import {
-  ActionOption,
-  BreathOption,
-  Choice,
-  DamageOption,
-  OptionsArrayOptionSet
-} from '@/models/2014/common/choice'
-import { Damage } from '@/models/2014/common/damage'
-import { DifficultyClass } from '@/models/2014/common/difficultyClass'
 import ConditionModel, { Condition } from '@/models/2014/condition'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import EquipmentModel from '@/models/2014/equipment'
@@ -42,6 +33,16 @@ import MonsterModel, {
 } from '@/models/2014/monster'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import SpellModel, { Spell } from '@/models/2014/spell'
+import { APIReference } from '@/models/common/apiReference'
+import {
+  ActionOption,
+  BreathOption,
+  Choice,
+  DamageOption,
+  OptionsArrayOptionSet
+} from '@/models/common/choice'
+import { Damage } from '@/models/common/damage'
+import { DifficultyClass } from '@/models/common/difficultyClass'
 import { escapeRegExp } from '@/util'
 
 import {
@@ -51,7 +52,6 @@ import {
   MonsterIndexArgsSchema,
   MonsterOrderField
 } from './args'
-import { resolveMultipleReferences, resolveSingleReference } from '../../utils/resolvers'
 
 @Resolver(Monster)
 export class MonsterResolver {

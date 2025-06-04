@@ -1,9 +1,9 @@
 import { Field, Int, ObjectType } from 'type-graphql'
 
-import { APIReference } from '@/models/2014/common/apiReference'
-import { Damage } from '@/models/2014/common/damage'
 import { ArmorClass, Content, Equipment, Range, Speed, ThrowRange } from '@/models/2014/equipment'
 import { WeaponProperty } from '@/models/2014/weaponProperty'
+import { APIReference } from '@/models/common/apiReference'
+import { Damage } from '@/models/common/damage'
 
 import { IEquipment } from './interfaces'
 

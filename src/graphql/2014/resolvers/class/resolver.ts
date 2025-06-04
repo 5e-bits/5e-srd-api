@@ -1,21 +1,18 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   PrerequisiteChoice,
   PrerequisiteChoiceOption,
   PrerequisiteChoiceOptionSet,
   ProficiencyChoice
 } from '@/graphql/2014/common/choiceTypes'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
-import {
-  resolveMultipleReferences,
-  resolveProficiencyChoiceArray,
-  resolveSingleReference
-} from '@/graphql/2014/utils/resolvers'
+import { resolveProficiencyChoiceArray } from '@/graphql/2014/utils/resolvers'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ClassModel, {
   Class,
@@ -23,13 +20,13 @@ import ClassModel, {
   MultiClassing,
   MultiClassingPrereq
 } from '@/models/2014/class'
-import { APIReference } from '@/models/2014/common/apiReference'
-import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/2014/common/choice'
 import EquipmentModel from '@/models/2014/equipment'
 import LevelModel, { Level } from '@/models/2014/level'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import SpellModel, { Spell } from '@/models/2014/spell'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
+import { APIReference } from '@/models/common/apiReference'
+import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/common/choice'
 import { escapeRegExp } from '@/util'
 
 import {

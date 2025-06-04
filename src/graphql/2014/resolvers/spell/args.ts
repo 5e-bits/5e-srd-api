@@ -1,14 +1,14 @@
 import { ArgsType, Field, InputType, Int, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 
+import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
   BaseOrderInterface
-} from '@/graphql/2014/common/args'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
-import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/2014/common/inputs'
+} from '@/graphql/common/args'
+import { OrderByDirection } from '@/graphql/common/enums'
 
 const AreaOfEffectFilterInputSchema = z.object({
   type: z.array(z.string()).optional(),

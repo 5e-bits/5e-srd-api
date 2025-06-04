@@ -1,24 +1,25 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { LanguageChoice, StringChoice } from '@/graphql/2014/common/choiceTypes'
+import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import {
   IdealChoice,
   IdealOption as ResolvedIdealOption
 } from '@/graphql/2014/types/backgroundTypes'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
+import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
+import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { StringChoice } from '@/graphql/common/choiceTypes'
 import {
-  resolveLanguageChoice,
   resolveMultipleReferences,
   resolveSingleReference,
   resolveStringChoice
-} from '@/graphql/2014/utils/resolvers'
-import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
+} from '@/graphql/utils/resolvers'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import BackgroundModel, { Background, EquipmentRef } from '@/models/2014/background'
-import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
+import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/common/choice'
 import { escapeRegExp } from '@/util'
 
 import {

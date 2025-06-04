@@ -1,7 +1,7 @@
 import { ArgsType, Field, Int } from 'type-graphql'
 import { z } from 'zod'
 
-import { OrderByDirection } from './enums'
+import { OrderByDirection } from '@/graphql/common/enums'
 
 // --- Pagination ---
 

@@ -2,8 +2,8 @@ import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveSingleReference } from '@/graphql/utils/resolvers'
-import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import SkillModel, { Skill } from '@/models/2014/skill'
+import AbilityScoreModel, { AbilityScore2024 } from '@/models/2024/abilityScore'
+import SkillModel, { Skill2024 } from '@/models/2024/skill'
 import { escapeRegExp } from '@/util'
 
 import {
@@ -14,12 +14,12 @@ import {
   SkillOrderField
 } from './args'
 
-@Resolver(Skill)
+@Resolver(Skill2024)
 export class SkillResolver {
-  @Query(() => [Skill], {
+  @Query(() => [Skill2024], {
     description: 'Gets all skills, optionally filtered by name and sorted by name.'
   })
-  async skills(@Args(() => SkillArgs) args: SkillArgs): Promise<Skill[]> {
+  async skills(@Args(() => SkillArgs) args: SkillArgs): Promise<Skill2024[]> {
     const validatedArgs = SkillArgsSchema.parse(args)
 
     const query = SkillModel.find()
@@ -57,14 +57,14 @@ export class SkillResolver {
     return query.lean()
   }
 
-  @Query(() => Skill, { nullable: true, description: 'Gets a single skill by index.' })
-  async skill(@Arg('index', () => String) indexInput: string): Promise<Skill | null> {
+  @Query(() => Skill2024, { nullable: true, description: 'Gets a single skill by index.' })
+  async skill(@Arg('index', () => String) indexInput: string): Promise<Skill2024 | null> {
     const { index } = SkillIndexArgsSchema.parse({ index: indexInput })
     return SkillModel.findOne({ index }).lean()
   }
 
-  @FieldResolver(() => AbilityScore)
-  async ability_score(@Root() skill: Skill): Promise<AbilityScore | null> {
+  @FieldResolver(() => AbilityScore2024)
+  async ability_score(@Root() skill: Skill2024): Promise<AbilityScore2024 | null> {
     return resolveSingleReference(skill.ability_score, AbilityScoreModel)
   }
 }

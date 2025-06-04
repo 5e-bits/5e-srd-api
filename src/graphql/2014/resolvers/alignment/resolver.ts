@@ -1,6 +1,6 @@
 import { Arg, Args, Query, Resolver } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
+import { buildSortPipeline } from '@/graphql/common/args'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
 import { escapeRegExp } from '@/util'
 

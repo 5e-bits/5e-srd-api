@@ -1,8 +1,8 @@
 import { prop } from '@typegoose/typegoose'
 import { Field, ObjectType } from 'type-graphql'
 
-import { APIReference } from '@/models/2014/common/apiReference'
 import { DamageType } from '@/models/2014/damageType'
+import { APIReference } from '@/models/common/apiReference'
 
 @ObjectType({ description: 'Represents damage dealt by an ability, spell, or weapon.' })
 export class Damage {

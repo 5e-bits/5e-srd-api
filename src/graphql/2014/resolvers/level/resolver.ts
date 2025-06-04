@@ -1,8 +1,8 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import ClassModel, { Class } from '@/models/2014/class'
 import FeatureModel, { Feature } from '@/models/2014/feature'
 import LevelModel, { Level } from '@/models/2014/level'

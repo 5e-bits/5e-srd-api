@@ -2,8 +2,8 @@ import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
-import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import SkillModel, { Skill } from '@/models/2014/skill'
+import AbilityScoreModel, { AbilityScore2024 } from '@/models/2024/abilityScore'
+import SkillModel, { Skill2024 } from '@/models/2024/skill'
 import { escapeRegExp } from '@/util'
 
 import {
@@ -14,14 +14,14 @@ import {
   AbilityScoreOrderField
 } from './args'
 
-@Resolver(AbilityScore)
+@Resolver(AbilityScore2024)
 export class AbilityScoreResolver {
-  @Query(() => [AbilityScore], {
+  @Query(() => [AbilityScore2024], {
     description: 'Gets all ability scores, optionally filtered by name and sorted.'
   })
   async abilityScores(
     @Args(() => AbilityScoreArgs) args: AbilityScoreArgs
-  ): Promise<AbilityScore[]> {
+  ): Promise<AbilityScore2024[]> {
     const validatedArgs = AbilityScoreArgsSchema.parse(args)
 
     const query = AbilityScoreModel.find()
@@ -61,17 +61,19 @@ export class AbilityScoreResolver {
     return query.lean()
   }
 
-  @Query(() => AbilityScore, {
+  @Query(() => AbilityScore2024, {
     nullable: true,
     description: 'Gets a single ability score by index.'
   })
-  async abilityScore(@Arg('index', () => String) indexInput: string): Promise<AbilityScore | null> {
+  async abilityScore(
+    @Arg('index', () => String) indexInput: string
+  ): Promise<AbilityScore2024 | null> {
     const { index } = AbilityScoreIndexArgsSchema.parse({ index: indexInput })
     return AbilityScoreModel.findOne({ index }).lean()
   }
 
-  @FieldResolver(() => [Skill])
-  async skills(@Root() abilityScore: AbilityScore): Promise<Skill[]> {
+  @FieldResolver(() => [Skill2024])
+  async skills(@Root() abilityScore: AbilityScore2024): Promise<Skill2024[]> {
     return resolveMultipleReferences(abilityScore.skills, SkillModel)
   }
 }

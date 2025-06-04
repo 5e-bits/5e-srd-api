@@ -1,26 +1,22 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import {
   AbilityScoreBonusChoice,
   AbilityScoreBonusChoiceOption,
   LanguageChoice,
   ProficiencyChoice
 } from '@/graphql/2014/common/choiceTypes'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/2014/common/inputs'
-import {
-  resolveLanguageChoice,
-  resolveMultipleReferences,
-  resolveProficiencyChoice,
-  resolveSingleReference
-} from '@/graphql/2014/utils/resolvers'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { resolveLanguageChoice, resolveProficiencyChoice } from '@/graphql/2014/utils/resolvers'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import { AbilityBonusOption, Choice, OptionsArrayOptionSet } from '@/models/2014/common/choice'
 import LanguageModel, { Language } from '@/models/2014/language'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
+import { AbilityBonusOption, Choice, OptionsArrayOptionSet } from '@/models/common/choice'
 import { escapeRegExp } from '@/util'
 
 import {
