@@ -1,9 +1,9 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
-import { LevelValue } from '@/graphql/common/types'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
 import { buildSortPipeline } from '@/graphql/common/args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { LevelValue } from '@/graphql/common/types'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import ClassModel, { Class } from '@/models/2014/class'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'

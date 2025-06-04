@@ -1,7 +1,6 @@
 import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 
-import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
@@ -9,6 +8,7 @@ import {
   BaseOrderInterface
 } from '@/graphql/common/args'
 import { OrderByDirection } from '@/graphql/common/enums'
+import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 
 export enum RaceOrderField {
   NAME = 'name'

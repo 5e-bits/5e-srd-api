@@ -6,12 +6,12 @@ import {
   PrerequisiteChoiceOptionSet,
   ProficiencyChoice
 } from '@/graphql/2014/common/choiceTypes'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import { resolveProficiencyChoiceArray } from '@/graphql/2014/utils/resolvers'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
 import { buildSortPipeline } from '@/graphql/common/args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ClassModel, {

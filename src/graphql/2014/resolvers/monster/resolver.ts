@@ -1,8 +1,6 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
-import { SpellSlotCount } from '@/graphql/common/types'
 import {
   DamageOrDamageChoiceUnion,
   ActionChoice,
@@ -16,6 +14,8 @@ import {
 } from '@/graphql/2014/types/monsterTypes'
 import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import { buildSortPipeline } from '@/graphql/common/args'
+import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { SpellSlotCount } from '@/graphql/common/types'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ConditionModel, { Condition } from '@/models/2014/condition'

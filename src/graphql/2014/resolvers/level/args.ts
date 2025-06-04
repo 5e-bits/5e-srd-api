@@ -1,7 +1,6 @@
 import { ArgsType, Field, InputType, Int, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 
-import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 import {
   BaseIndexArgsSchema,
   BaseOrderInterface,
@@ -9,6 +8,7 @@ import {
   BasePaginationArgsSchema
 } from '@/graphql/common/args'
 import { OrderByDirection } from '@/graphql/common/enums'
+import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 
 export enum LevelOrderField {
   LEVEL = 'level',
