@@ -1,3 +1,10 @@
+## [4.0.3](https://github.com/5e-bits/5e-srd-api/compare/v4.0.2...v4.0.3) (2025-06-05)
+
+
+### Bug Fixes
+
+* **graphql:** Fix the endpoint for deprecated graphql endpoint ([#791](https://github.com/5e-bits/5e-srd-api/issues/791)) ([2139389](https://github.com/5e-bits/5e-srd-api/commit/2139389d91bfb264acb1929e36a3ebd9ea5b19c2))
+
 ## [4.0.2](https://github.com/5e-bits/5e-srd-api/compare/v4.0.1...v4.0.2) (2025-06-02)
 
 
