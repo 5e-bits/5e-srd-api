@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/5e-bits/5e-srd-api/compare/v4.0.3...v4.1.0) (2025-06-11)
+
+
+### Features
+
+* **graphql:** Sets up /graphql/2024 endpoint and abstracts shared code ([#790](https://github.com/5e-bits/5e-srd-api/issues/790)) ([acf7780](https://github.com/5e-bits/5e-srd-api/commit/acf7780e301cf1fb2a166eeefd177a8f4225af3b))
+
 ## [4.0.3](https://github.com/5e-bits/5e-srd-api/compare/v4.0.2...v4.0.3) (2025-06-05)
 
 
