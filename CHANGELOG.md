@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/5e-bits/5e-srd-api/compare/v4.1.0...v4.1.1) (2025-06-11)
+
+
+### Bug Fixes
+
+* **graphql:** Spell DC now resolves to Ability Score ([#798](https://github.com/5e-bits/5e-srd-api/issues/798)) ([ddb5c26](https://github.com/5e-bits/5e-srd-api/commit/ddb5c26e7dc1794534bd364bcfa20386793dd35d))
+
 # [4.1.0](https://github.com/5e-bits/5e-srd-api/compare/v4.0.3...v4.1.0) (2025-06-11)
 
 
