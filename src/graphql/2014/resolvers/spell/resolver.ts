@@ -5,10 +5,11 @@ import { buildSortPipeline } from '@/graphql/common/args'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { LevelValue } from '@/graphql/common/types'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
+import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ClassModel, { Class } from '@/models/2014/class'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
-import SpellModel, { Spell, SpellDamage } from '@/models/2014/spell'
+import SpellModel, { Spell, SpellDamage, SpellDC } from '@/models/2014/spell'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { escapeRegExp } from '@/util'
 
@@ -148,5 +149,13 @@ export class SpellDamageResolver {
   })
   async damage_at_character_level(@Root() spellDamage: SpellDamage): Promise<LevelValue[] | null> {
     return mapLevelObjectToArray(spellDamage.damage_at_character_level)
+  }
+}
+
+@Resolver(SpellDC)
+export class SpellDCResolver {
+  @FieldResolver(() => AbilityScore, { nullable: true })
+  async dc_type(@Root() spellDC: SpellDC): Promise<AbilityScore | null> {
+    return resolveSingleReference(spellDC.dc_type, AbilityScoreModel)
   }
 }

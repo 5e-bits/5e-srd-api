@@ -34,7 +34,7 @@ import { RaceAbilityBonusResolver, RaceResolver } from './race/resolver'
 import { RuleResolver } from './rule/resolver'
 import { RuleSectionResolver } from './ruleSection/resolver'
 import { SkillResolver } from './skill/resolver'
-import { SpellDamageResolver, SpellResolver } from './spell/resolver'
+import { SpellDamageResolver, SpellResolver, SpellDCResolver } from './spell/resolver'
 import { SubclassResolver, SubclassSpellResolver } from './subclass/resolver'
 import { SubraceAbilityBonusResolver, SubraceResolver } from './subrace/resolver'
 import { ActionDamageResolver, TraitResolver, TraitSpecificResolver } from './trait/resolver'
@@ -90,6 +90,7 @@ const fieldResolvers = [
   SubclassSpellResolver,
   // Spell
   SpellDamageResolver,
+  SpellDCResolver,
   // Equipment
   ContentFieldResolver,
   // Monster Field Resolvers
