@@ -6,8 +6,8 @@ import {
   BaseFilterArgsSchema,
   BaseIndexArgsSchema,
   BaseOrderInterface
-} from '@/graphql/2014/common/args'
-import { OrderByDirection } from '@/graphql/2014/common/enums'
+} from '@/graphql/common/args'
+import { OrderByDirection } from '@/graphql/common/enums'
 
 export enum TraitOrderField {
   NAME = 'name'

@@ -1,8 +1,8 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { ProficiencyReference } from '@/graphql/2014/types/proficiencyTypes'
-import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import ClassModel, { Class } from '@/models/2014/class'
 import EquipmentModel from '@/models/2014/equipment'

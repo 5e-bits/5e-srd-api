@@ -1,7 +1,7 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
-import { resolveSingleReference } from '@/graphql/2014/utils/resolvers'
+import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import FeatModel, { Feat, Prerequisite } from '@/models/2014/feat'
 import { escapeRegExp } from '@/util'

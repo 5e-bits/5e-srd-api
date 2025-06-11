@@ -1,7 +1,7 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/2014/common/args'
 import { EquipmentOrMagicItem } from '@/graphql/2014/common/unions'
+import { buildSortPipeline } from '@/graphql/common/args'
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import EquipmentCategoryModel, { EquipmentCategory } from '@/models/2014/equipmentCategory'
 import MagicItemModel, { MagicItem } from '@/models/2014/magicItem'
