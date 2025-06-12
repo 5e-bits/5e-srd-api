@@ -3,6 +3,7 @@ import { AlignmentResolver } from './alignment/resolver'
 import { ConditionResolver } from './condition/resolver'
 import { DamageTypeResolver } from './damageType/resolver'
 import { LanguageResolver } from './language/resolver'
+import { MagicSchoolResolver } from './magicSchool/resolver'
 import { SkillResolver } from './skill/resolver'
 
 const collectionResolvers = [
@@ -11,6 +12,7 @@ const collectionResolvers = [
   ConditionResolver,
   DamageTypeResolver,
   LanguageResolver,
+  MagicSchoolResolver,
   SkillResolver
 ] as const
 const fieldResolvers = [] as const
