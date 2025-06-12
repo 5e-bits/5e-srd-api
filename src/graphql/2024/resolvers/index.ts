@@ -5,6 +5,7 @@ import { DamageTypeResolver } from './damageType/resolver'
 import { LanguageResolver } from './language/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
 import { SkillResolver } from './skill/resolver'
+import { WeaponPropertyResolver } from './weaponProperty/resolver'
 
 const collectionResolvers = [
   AbilityScoreResolver,
@@ -13,7 +14,8 @@ const collectionResolvers = [
   DamageTypeResolver,
   LanguageResolver,
   MagicSchoolResolver,
-  SkillResolver
+  SkillResolver,
+  WeaponPropertyResolver
 ] as const
 const fieldResolvers = [] as const
 
