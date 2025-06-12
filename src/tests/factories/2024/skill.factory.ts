@@ -15,7 +15,7 @@ export const skillFactory = Factory.define<Skill2024>(({ sequence }) => {
   return {
     index: index,
     name: name,
-    description: [faker.lorem.paragraph()],
+    description: faker.lorem.paragraph(),
     // Build a default ability score using the common factory
     ability_score: apiReferenceFactory.build({
       index: faker.helpers.arrayElement(['str', 'dex', 'con', 'int', 'wis', 'cha']),
