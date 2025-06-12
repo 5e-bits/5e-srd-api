@@ -3,6 +3,7 @@ import express from 'express'
 import { index } from '@/controllers/api/v2024Controller'
 
 import AbilityScoresHandler from './2024/abilityScores'
+import FeatsHandler from './2024/feats'
 import SkillsHandler from './2024/skills'
 
 const router = express.Router()
@@ -12,6 +13,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.use('/ability-scores', AbilityScoresHandler)
+router.use('/feats', FeatsHandler)
 router.use('/skills', SkillsHandler)
 
 export default router
