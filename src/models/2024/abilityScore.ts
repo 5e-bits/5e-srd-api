@@ -12,11 +12,11 @@ import { srdModelOptions } from '@/util/modelOptions'
 })
 @srdModelOptions('2024-ability-scores')
 export class AbilityScore2024 {
-  @Field(() => [String], {
+  @Field(() => String, {
     description: 'A description of the ability score and its applications.'
   })
-  @prop({ required: true, index: true, type: () => [String] })
-  public description!: string[]
+  @prop({ required: true, index: true, type: () => String })
+  public description!: string
 
   @Field(() => String, { description: 'The full name of the ability score (e.g., Strength).' })
   @prop({ required: true, index: true, type: () => String })

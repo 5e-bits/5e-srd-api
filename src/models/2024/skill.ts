@@ -16,9 +16,9 @@ export class Skill2024 {
   @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference
 
-  @Field(() => [String], { description: 'A description of the skill.' })
-  @prop({ required: true, index: true, type: () => [String] })
-  public description!: string[]
+  @Field(() => String, { description: 'A description of the skill.' })
+  @prop({ required: true, index: true, type: () => String })
+  public description!: string
 
   @Field(() => String, { description: 'The unique identifier for this skill (e.g., athletics).' })
   @prop({ required: true, index: true, type: () => String })

@@ -21,7 +21,7 @@ export const abilityScoreFactory = Factory.define<AbilityScore2024>(
       index,
       name,
       full_name: params.full_name ?? `Full ${name}`,
-      description: params.description ?? [faker.lorem.paragraph()], // Simplified default
+      description: params.description ?? faker.lorem.paragraph(), // Simplified default
       url: params.url ?? `/api/ability-scores/${index}`,
       updated_at: params.updated_at ?? faker.date.recent().toISOString(),
 
