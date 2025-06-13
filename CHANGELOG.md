@@ -1,3 +1,10 @@
+# [4.2.0](https://github.com/5e-bits/5e-srd-api/compare/v4.1.1...v4.2.0) (2025-06-13)
+
+
+### Features
+
+* **2024:** Add a bunch of easy endpoints to 2024 ([#800](https://github.com/5e-bits/5e-srd-api/issues/800)) ([2b4871d](https://github.com/5e-bits/5e-srd-api/commit/2b4871da07bea5f8e9d9e907e37e8c4124254cea))
+
 ## [4.1.1](https://github.com/5e-bits/5e-srd-api/compare/v4.1.0...v4.1.1) (2025-06-11)
 
 
