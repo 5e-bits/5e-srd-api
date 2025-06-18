@@ -3,10 +3,10 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { Skill } from './skill'
-import { field, T } from '@/util/fieldDectorator'
 
 @ObjectType({
   description:
@@ -16,7 +16,7 @@ import { field, T } from '@/util/fieldDectorator'
 export class AbilityScore {
   @field({
     description: 'A description of the ability score and its applications.',
-    type: T.String
+    type: T.List(T.String)
   })
   public desc!: string[]
 
@@ -40,7 +40,7 @@ export class AbilityScore {
 
   @field({
     description: 'Skills associated with this ability score.',
-    type: T.RefList(Skill)
+    type: T.List(T.Ref(Skill))
   })
   public skills!: APIReference[]
 

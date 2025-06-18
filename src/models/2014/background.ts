@@ -4,11 +4,11 @@ import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { Equipment } from './equipment'
 import { Proficiency } from './proficiency'
-import { field, T } from '@/util/fieldDectorator'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
@@ -24,7 +24,7 @@ class BackgroundFeature {
   @field({ description: 'The name of the background feature.', type: T.String })
   public name!: string
 
-  @field({ description: 'The description of the background feature.', type: T.StringList })
+  @field({ description: 'The description of the background feature.', type: T.List(T.String) })
   public desc!: string[]
 }
 
@@ -44,7 +44,7 @@ export class Background {
 
   @field({
     description: 'Proficiencies granted by this background at start.',
-    type: T.RefList(Proficiency)
+    type: T.List(T.Ref(Proficiency))
   })
   public starting_proficiencies!: APIReference[]
 

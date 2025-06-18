@@ -4,15 +4,15 @@ import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
+import { Equipment } from './equipment'
 import { Level } from './level'
 import { Proficiency } from './proficiency'
 import { Spell } from './spell'
 import { Subclass } from './subclass'
-import { field, T } from '@/util/fieldDectorator'
-import { Equipment } from './equipment'
 
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
@@ -26,7 +26,7 @@ export class ClassEquipment {
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  @field({ description: 'Description of the spellcasting ability.', type: T.StringList })
+  @field({ description: 'Description of the spellcasting ability.', type: T.List(T.String) })
   public desc!: string[]
 
   @field({ description: 'Name of the spellcasting ability.', type: T.String })
@@ -69,13 +69,13 @@ export class MultiClassing {
 
   @field({
     description: 'Proficiencies gained when multi-classing into this class.',
-    type: T.RefList(Proficiency),
+    type: T.List(T.Ref(Proficiency)),
     optional: true
   })
   public proficiencies?: APIReference[]
 
   // Handled by MultiClassingResolver
-  @field({ type: T.Model(Choice), optional: true, skipResolver: true })
+  @field({ type: T.List(Choice), optional: true, skipResolver: true })
   public proficiency_choices?: Choice[]
 }
 
@@ -103,7 +103,10 @@ export class Class {
   @field({ description: 'Name of the class', type: T.String })
   public name!: string
 
-  @field({ description: 'Base proficiencies granted by this class.', type: T.RefList(Proficiency) })
+  @field({
+    description: 'Base proficiencies granted by this class.',
+    type: T.List(T.Ref(Proficiency))
+  })
   public proficiencies!: APIReference[]
 
   // Handled by ClassResolver
@@ -112,7 +115,7 @@ export class Class {
 
   @field({
     description: 'Saving throw proficiencies granted by this class.',
-    type: T.RefList(AbilityScore)
+    type: T.List(T.Ref(AbilityScore))
   })
   public saving_throws!: APIReference[]
 
@@ -133,7 +136,7 @@ export class Class {
   @field({ type: T.List(Choice), skipResolver: true })
   public starting_equipment_options!: Choice[]
 
-  @field({ description: 'Available subclasses for this class.', type: T.RefList(Subclass) })
+  @field({ description: 'Available subclasses for this class.', type: T.List(T.Ref(Subclass)) })
   public subclasses!: APIReference[]
 
   @field({

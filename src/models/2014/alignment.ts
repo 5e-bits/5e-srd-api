@@ -2,8 +2,8 @@ import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { ObjectType } from 'type-graphql'
 
-import { srdModelOptions } from '@/util/modelOptions'
 import { field, T } from '@/util/fieldDectorator'
+import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: "Represents a creature's moral and ethical outlook." })
 @srdModelOptions('2014-alignments')

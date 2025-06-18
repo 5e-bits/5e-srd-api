@@ -1,4 +1,3 @@
-import { APIReference } from '@/models/common/apiReference'
 import { prop } from '@typegoose/typegoose'
 import {
   BasePropOptions,
@@ -11,6 +10,8 @@ import {
 import { SchemaTypes } from 'mongoose'
 import { ReturnTypeFuncValue } from 'node_modules/type-graphql/build/typings/decorators/types'
 import { Field, Int as GqlInt, FieldOptions as TypeGraphQLFieldOptions } from 'type-graphql'
+
+import { APIReference } from '@/models/common/apiReference'
 
 type TypegooseOptions =
   | BasePropOptions
@@ -64,6 +65,15 @@ export function field(options: FieldOptions): PropertyDecorator {
 
 type TypeObject = { db: BasePropOptions['type']; gql: ReturnTypeFuncValue }
 
+function isTypeObject(type: unknown): type is TypeObject {
+  return (
+    type !== null &&
+    typeof type === 'object' &&
+    Object.hasOwn(type, 'gql') &&
+    Object.hasOwn(type, 'db')
+  )
+}
+
 /**
  * Creates a field type that is represented as a single APIReference object in the database, but as
  * an object of the given type in the GraphQL API
@@ -73,18 +83,13 @@ function Ref(type: ReturnTypeFuncValue): TypeObject {
 }
 
 /**
- * Creates a field type that is represented as an array of APIReference objects in the database, but
- * as an array of the given type in the GraphQL API
- */
-function RefList(type: ReturnTypeFuncValue): TypeObject {
-  return { db: [APIReference], gql: [type] }
-}
-
-/**
  * Creates a field type that is represented as an array of a given type in both the database and the
  * GraphQL API
  */
-function List(type: ReturnTypeFuncValue): TypeObject {
+function List(type: ReturnTypeFuncValue | TypeObject): TypeObject {
+  if (isTypeObject(type)) {
+    return { db: [type.db], gql: [type.gql] }
+  }
   return { db: [type], gql: [type] }
 }
 
@@ -106,11 +111,8 @@ function Link(type: ReturnTypeFuncValue): TypeObject {
 
 export const T = {
   String: { db: String, gql: String },
-  StringList: { db: [String], gql: [String] },
   Int: { db: SchemaTypes.Int32, gql: GqlInt },
-  IntList: { db: [SchemaTypes.Int32], gql: [GqlInt] },
   Ref,
-  RefList,
   List,
   Model,
   Link
