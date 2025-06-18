@@ -1,6 +1,6 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
@@ -8,26 +8,23 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 import { Equipment } from './equipment'
 import { Proficiency } from './proficiency'
+import { field, T } from '@/util/fieldDectorator'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
-  @Field(() => Equipment, { description: 'The specific equipment referenced.' })
-  @prop({ type: () => APIReference })
+  @field({ description: 'The specific equipment referenced.', type: T.Ref(Equipment) })
   public equipment!: APIReference
 
-  @Field(() => Int, { description: 'The quantity of the referenced equipment.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field({ description: 'The quantity of the referenced equipment.', type: T.Int })
   public quantity!: number
 }
 
 @ObjectType({ description: 'A special feature granted by the background.' })
 class BackgroundFeature {
-  @Field(() => String, { description: 'The name of the background feature.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field({ description: 'The name of the background feature.', type: T.String })
   public name!: string
 
-  @Field(() => [String], { description: 'The description of the background feature.' })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field({ description: 'The description of the background feature.', type: T.StringList })
   public desc!: string[]
 }
 
@@ -36,57 +33,64 @@ class BackgroundFeature {
 })
 @srdModelOptions('2014-backgrounds')
 export class Background {
-  @Field(() => String, {
-    description: 'The unique identifier for this background (e.g., acolyte).'
+  @field({
+    description: 'The unique identifier for this background (e.g., acolyte).',
+    type: T.String
   })
-  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the background (e.g., Acolyte).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field({ description: 'The name of the background (e.g., Acolyte).', type: T.String })
   public name!: string
 
-  @Field(() => [Proficiency], { description: 'Proficiencies granted by this background at start.' })
-  @prop({ type: () => [APIReference] })
+  @field({
+    description: 'Proficiencies granted by this background at start.',
+    type: T.RefList(Proficiency)
+  })
   public starting_proficiencies!: APIReference[]
 
   // Handled by BackgroundResolver
-  @prop({ type: () => Choice })
+  @field({ type: T.Model(Choice), skipResolver: true })
   public language_options!: Choice
 
-  @prop({ required: true, index: true, type: () => String })
+  @field({
+    description: 'The canonical path of this resource in the REST API.',
+    type: T.String
+  })
   public url!: string
 
-  @Field(() => [EquipmentRef], { description: 'Equipment received when choosing this background.' })
-  @prop({ type: () => [EquipmentRef] })
+  @field({
+    description: 'Equipment received when choosing this background.',
+    type: T.List(EquipmentRef)
+  })
   public starting_equipment!: EquipmentRef[]
 
   // Handled by BackgroundResolver
-  @prop({ type: () => [Choice], index: true })
+  @field({ type: T.List(Choice), skipResolver: true })
   public starting_equipment_options!: Choice[]
 
-  @Field(() => BackgroundFeature, { description: 'The feature associated with this background.' })
-  @prop({ type: () => BackgroundFeature })
+  @field({
+    description: 'The feature associated with this background.',
+    type: T.Model(BackgroundFeature)
+  })
   public feature!: BackgroundFeature
 
   // Handled by BackgroundResolver
-  @prop({ type: () => Choice })
+  @field({ type: T.Model(Choice), skipResolver: true })
   public personality_traits!: Choice
 
   // Handled by BackgroundResolver
-  @prop({ type: () => Choice })
+  @field({ type: T.Model(Choice), skipResolver: true })
   public ideals!: Choice
 
   // Handled by BackgroundResolver
-  @prop({ type: () => Choice })
+  @field({ type: T.Model(Choice), skipResolver: true })
   public bonds!: Choice
 
   // Handled by BackgroundResolver
-  @prop({ type: () => Choice })
+  @field({ type: T.Model(Choice), skipResolver: true })
   public flaws!: Choice
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field({ description: 'Timestamp of the last update.', type: T.String })
   public updated_at!: string
 }
 
