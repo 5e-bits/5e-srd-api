@@ -2,6 +2,8 @@ import { AbilityScoreResolver } from './abilityScore/resolver'
 import { AlignmentResolver } from './alignment/resolver'
 import { ConditionResolver } from './condition/resolver'
 import { DamageTypeResolver } from './damageType/resolver'
+import { EquipmentResolver } from './equipment/resolver'
+import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
 import { LanguageResolver } from './language/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
 import { SkillResolver } from './skill/resolver'
@@ -13,6 +15,8 @@ const collectionResolvers = [
   AlignmentResolver,
   ConditionResolver,
   DamageTypeResolver,
+  EquipmentResolver,
+  EquipmentCategoryResolver,
   LanguageResolver,
   MagicSchoolResolver,
   SkillResolver,
