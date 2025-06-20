@@ -26,7 +26,7 @@ export class ClassEquipment {
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  @field(() => T.List(T.String), { description: 'Description of the spellcasting ability.' })
+  @field(() => T.List(String), { description: 'Description of the spellcasting ability.' })
   public desc!: string[]
 
   @field(() => T.String, { description: 'Name of the spellcasting ability.' })
@@ -66,7 +66,7 @@ export class MultiClassing {
   @field(() => T.Model(Choice), { optional: true, skipResolver: true })
   public prerequisite_options?: Choice
 
-  @field(() => T.List(T.Ref(Proficiency)), {
+  @field(() => T.RefList(Proficiency), {
     description: 'Proficiencies gained when multi-classing into this class.',
     optional: true
   })
@@ -80,7 +80,7 @@ export class MultiClassing {
 @ObjectType({ description: 'Represents a character class (e.g., Barbarian, Wizard)' })
 @srdModelOptions('2014-classes')
 export class Class {
-  @field(() => T.Link([[Level]]), {
+  @field(() => T.Link([Level]), {
     description: 'All levels for this class, detailing features and abilities gained.'
   })
   public class_levels!: string
@@ -99,7 +99,7 @@ export class Class {
   @field(() => T.String, { description: 'Name of the class' })
   public name!: string
 
-  @field(() => T.List(T.Ref(Proficiency)), {
+  @field(() => T.RefList(Proficiency), {
     description: 'Base proficiencies granted by this class.'
   })
   public proficiencies!: APIReference[]
@@ -108,7 +108,7 @@ export class Class {
   @field(() => T.List(Choice), { skipResolver: true })
   public proficiency_choices!: Choice[]
 
-  @field(() => T.List(T.Ref(AbilityScore)), {
+  @field(() => T.RefList(AbilityScore), {
     description: 'Saving throw proficiencies granted by this class.'
   })
   public saving_throws!: APIReference[]
@@ -129,14 +129,10 @@ export class Class {
   @field(() => T.List(Choice), { skipResolver: true })
   public starting_equipment_options!: Choice[]
 
-  @field(() => T.List(T.Ref(Subclass)), {
-    description: 'Available subclasses for this class.'
-  })
+  @field(() => T.RefList(Subclass), { description: 'Available subclasses for this class.' })
   public subclasses!: APIReference[]
 
-  @field(() => T.String, {
-    description: 'The canonical path of this resource in the REST API.'
-  })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
   @field(() => T.String, { description: 'Timestamp of the last update' })

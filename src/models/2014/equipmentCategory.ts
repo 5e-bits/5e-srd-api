@@ -1,9 +1,12 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
+
+import { Equipment } from './equipment'
 
 @ObjectType({
   description: 'A category for grouping equipment (e.g., Weapon, Armor, Adventuring Gear).'
@@ -11,22 +14,19 @@ import { srdModelOptions } from '@/util/modelOptions'
 @srdModelOptions('2014-equipment-categories')
 export class EquipmentCategory {
   // Handled by EquipmentCategoryResolver
-  @prop({ type: () => [APIReference], index: true })
+  @field(() => T.RefList(Equipment), { skipResolver: true })
   public equipment!: APIReference[]
 
-  @Field(() => String, { description: 'The unique identifier for this category (e.g., weapon).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The unique identifier for this category (e.g., weapon).' })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the category (e.g., Weapon).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the category (e.g., Weapon).' })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 

@@ -9,7 +9,12 @@ import {
 } from '@typegoose/typegoose/lib/types'
 import { SchemaTypes } from 'mongoose'
 import { ReturnTypeFuncValue } from 'node_modules/type-graphql/build/typings/decorators/types'
-import { Field, Int as GqlInt, FieldOptions as TypeGraphQLFieldOptions } from 'type-graphql'
+import {
+  Field,
+  Int as GqlInt,
+  Float as GqlFloat,
+  FieldOptions as TypeGraphQLFieldOptions
+} from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 
@@ -80,6 +85,14 @@ function Ref(type: ReturnTypeFuncValue): TypeObject {
 }
 
 /**
+ * Creates a field type that is represented as an array of APIReference objects in the database, but
+ * as a list of the given type in the GraphQL API
+ */
+function RefList(type: ReturnTypeFuncValue): TypeObject {
+  return { db: [APIReference], gql: [type] }
+}
+
+/**
  * Creates a field type that is represented as an array of a given type in both the database and the
  * GraphQL API
  */
@@ -107,9 +120,12 @@ function Link(type: ReturnTypeFuncValue): TypeObject {
 }
 
 export const T = {
-  String: { db: String, gql: String },
+  String: { db: SchemaTypes.String, gql: String },
   Int: { db: SchemaTypes.Int32, gql: GqlInt },
+  Float: { db: SchemaTypes.Double, gql: GqlFloat },
+  Bool: { db: SchemaTypes.Boolean, gql: Boolean },
   Ref,
+  RefList,
   List,
   Model,
   Link

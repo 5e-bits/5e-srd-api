@@ -14,14 +14,12 @@ import { Skill } from './skill'
 })
 @srdModelOptions('2014-ability-scores')
 export class AbilityScore {
-  @field(() => T.List(T.String), {
+  @field(() => T.List(String), {
     description: 'A description of the ability score and its applications.'
   })
   public desc!: string[]
 
-  @field(() => T.String, {
-    description: 'The full name of the ability score (e.g., Strength).'
-  })
+  @field(() => T.String, { description: 'The full name of the ability score (e.g., Strength).' })
   public full_name!: string
 
   @field(() => T.String, {
@@ -29,19 +27,15 @@ export class AbilityScore {
   })
   public index!: string
 
-  @field(() => T.String, {
-    description: 'The abbreviated name of the ability score (e.g., STR).'
-  })
+  @field(() => T.String, { description: 'The abbreviated name of the ability score (e.g., STR).' })
   public name!: string
 
-  @field(() => T.List(T.Ref(Skill)), {
+  @field(() => T.RefList(Skill), {
     description: 'Skills associated with this ability score.'
   })
   public skills!: APIReference[]
 
-  @field(() => T.String, {
-    description: 'The canonical path of this resource in the REST API.'
-  })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
   @field(() => T.String, { description: 'Timestamp of the last update.' })

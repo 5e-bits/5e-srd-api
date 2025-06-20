@@ -24,7 +24,7 @@ class BackgroundFeature {
   @field(() => T.String, { description: 'The name of the background feature.' })
   public name!: string
 
-  @field(() => T.List(T.String), { description: 'The description of the background feature.' })
+  @field(() => T.List(String), { description: 'The description of the background feature.' })
   public desc!: string[]
 }
 
@@ -41,7 +41,7 @@ export class Background {
   @field(() => T.String, { description: 'The name of the background (e.g., Acolyte).' })
   public name!: string
 
-  @field(() => T.List(T.Ref(Proficiency)), {
+  @field(() => T.RefList(Proficiency), {
     description: 'Proficiencies granted by this background at start.'
   })
   public starting_proficiencies!: APIReference[]
@@ -50,9 +50,7 @@ export class Background {
   @field(() => T.Model(Choice), { skipResolver: true })
   public language_options!: Choice
 
-  @field(() => T.String, {
-    description: 'The canonical path of this resource in the REST API.'
-  })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
   @field(() => T.List(EquipmentRef), {

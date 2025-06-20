@@ -26,9 +26,7 @@ export class Alignment {
   })
   public name!: string
 
-  @field(() => T.String, {
-    description: 'The canonical path of this resource in the REST API.'
-  })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
   @field(() => T.String, { description: 'Timestamp of the last update.' })
