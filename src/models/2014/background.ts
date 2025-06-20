@@ -12,19 +12,19 @@ import { Proficiency } from './proficiency'
 
 @ObjectType({ description: 'Reference to a piece of equipment with a quantity.' })
 export class EquipmentRef {
-  @field({ description: 'The specific equipment referenced.', type: T.Ref(Equipment) })
+  @field(() => T.Ref(Equipment), { description: 'The specific equipment referenced.' })
   public equipment!: APIReference
 
-  @field({ description: 'The quantity of the referenced equipment.', type: T.Int })
+  @field(() => T.Int, { description: 'The quantity of the referenced equipment.' })
   public quantity!: number
 }
 
 @ObjectType({ description: 'A special feature granted by the background.' })
 class BackgroundFeature {
-  @field({ description: 'The name of the background feature.', type: T.String })
+  @field(() => T.String, { description: 'The name of the background feature.' })
   public name!: string
 
-  @field({ description: 'The description of the background feature.', type: T.List(T.String) })
+  @field(() => T.List(T.String), { description: 'The description of the background feature.' })
   public desc!: string[]
 }
 
@@ -33,64 +33,59 @@ class BackgroundFeature {
 })
 @srdModelOptions('2014-backgrounds')
 export class Background {
-  @field({
-    description: 'The unique identifier for this background (e.g., acolyte).',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The unique identifier for this background (e.g., acolyte).'
   })
   public index!: string
 
-  @field({ description: 'The name of the background (e.g., Acolyte).', type: T.String })
+  @field(() => T.String, { description: 'The name of the background (e.g., Acolyte).' })
   public name!: string
 
-  @field({
-    description: 'Proficiencies granted by this background at start.',
-    type: T.List(T.Ref(Proficiency))
+  @field(() => T.List(T.Ref(Proficiency)), {
+    description: 'Proficiencies granted by this background at start.'
   })
   public starting_proficiencies!: APIReference[]
 
   // Handled by BackgroundResolver
-  @field({ type: T.Model(Choice), skipResolver: true })
+  @field(() => T.Model(Choice), { skipResolver: true })
   public language_options!: Choice
 
-  @field({
-    description: 'The canonical path of this resource in the REST API.',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The canonical path of this resource in the REST API.'
   })
   public url!: string
 
-  @field({
-    description: 'Equipment received when choosing this background.',
-    type: T.List(EquipmentRef)
+  @field(() => T.List(EquipmentRef), {
+    description: 'Equipment received when choosing this background.'
   })
   public starting_equipment!: EquipmentRef[]
 
   // Handled by BackgroundResolver
-  @field({ type: T.List(Choice), skipResolver: true })
+  @field(() => T.List(Choice), { skipResolver: true })
   public starting_equipment_options!: Choice[]
 
-  @field({
-    description: 'The feature associated with this background.',
-    type: T.Model(BackgroundFeature)
+  @field(() => T.Model(BackgroundFeature), {
+    description: 'The feature associated with this background.'
   })
   public feature!: BackgroundFeature
 
   // Handled by BackgroundResolver
-  @field({ type: T.Model(Choice), skipResolver: true })
+  @field(() => T.Model(Choice), { skipResolver: true })
   public personality_traits!: Choice
 
   // Handled by BackgroundResolver
-  @field({ type: T.Model(Choice), skipResolver: true })
+  @field(() => T.Model(Choice), { skipResolver: true })
   public ideals!: Choice
 
   // Handled by BackgroundResolver
-  @field({ type: T.Model(Choice), skipResolver: true })
+  @field(() => T.Model(Choice), { skipResolver: true })
   public bonds!: Choice
 
   // Handled by BackgroundResolver
-  @field({ type: T.Model(Choice), skipResolver: true })
+  @field(() => T.Model(Choice), { skipResolver: true })
   public flaws!: Choice
 
-  @field({ description: 'Timestamp of the last update.', type: T.String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 

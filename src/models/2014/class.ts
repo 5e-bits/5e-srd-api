@@ -17,135 +17,129 @@ import { Subclass } from './subclass'
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
   // Handled by ClassEquipmentResolver
-  @field({ type: T.Ref(Equipment), skipResolver: true })
+  @field(() => T.Ref(Equipment), { skipResolver: true })
   public equipment!: APIReference
 
-  @field({ description: 'Quantity of the equipment item.', type: T.Int })
+  @field(() => T.Int, { description: 'Quantity of the equipment item.' })
   public quantity!: number
 }
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  @field({ description: 'Description of the spellcasting ability.', type: T.List(T.String) })
+  @field(() => T.List(T.String), { description: 'Description of the spellcasting ability.' })
   public desc!: string[]
 
-  @field({ description: 'Name of the spellcasting ability.', type: T.String })
+  @field(() => T.String, { description: 'Name of the spellcasting ability.' })
   public name!: string
 }
 
 @ObjectType({ description: 'Spellcasting details for a class' })
 export class Spellcasting {
-  @field({ description: 'Spellcasting details for the class.', type: T.List(SpellcastingInfo) })
+  @field(() => T.List(SpellcastingInfo), { description: 'Spellcasting details for the class.' })
   public info!: SpellcastingInfo[]
 
-  @field({ description: 'Level of the spellcasting ability.', type: T.Int })
+  @field(() => T.Int, { description: 'Level of the spellcasting ability.' })
   public level!: number
 
-  @field({ description: 'Ability score used for spellcasting.', type: T.Ref(AbilityScore) })
+  @field(() => T.Ref(AbilityScore), { description: 'Ability score used for spellcasting.' })
   public spellcasting_ability!: APIReference
 }
 
 @ObjectType({ description: 'Prerequisite for multi-classing' })
 export class MultiClassingPrereq {
-  @field({ description: 'The ability score required.', type: T.Ref(AbilityScore) })
+  @field(() => T.Ref(AbilityScore), { description: 'The ability score required.' })
   public ability_score!: APIReference
 
-  @field({ description: 'The minimum score required.', type: T.Int })
+  @field(() => T.Int, { description: 'The minimum score required.' })
   public minimum_score!: number
 }
 
 @ObjectType({ description: 'Multi-classing requirements and features for a class' })
 export class MultiClassing {
-  @field({
+  @field(() => T.List(MultiClassingPrereq), {
     description: 'Ability score prerequisites for multi-classing.',
-    type: T.List(MultiClassingPrereq),
     optional: true
   })
   public prerequisites?: MultiClassingPrereq[]
 
   // Handled by MultiClassingResolver
-  @field({ type: T.Model(Choice), optional: true, skipResolver: true })
+  @field(() => T.Model(Choice), { optional: true, skipResolver: true })
   public prerequisite_options?: Choice
 
-  @field({
+  @field(() => T.List(T.Ref(Proficiency)), {
     description: 'Proficiencies gained when multi-classing into this class.',
-    type: T.List(T.Ref(Proficiency)),
     optional: true
   })
   public proficiencies?: APIReference[]
 
   // Handled by MultiClassingResolver
-  @field({ type: T.List(Choice), optional: true, skipResolver: true })
+  @field(() => T.List(Choice), { optional: true, skipResolver: true })
   public proficiency_choices?: Choice[]
 }
 
 @ObjectType({ description: 'Represents a character class (e.g., Barbarian, Wizard)' })
 @srdModelOptions('2014-classes')
 export class Class {
-  @field({
-    description: 'All levels for this class, detailing features and abilities gained.',
-    type: T.Link([[Level]])
+  @field(() => T.Link([[Level]]), {
+    description: 'All levels for this class, detailing features and abilities gained.'
   })
   public class_levels!: string
 
-  @field({
-    description: 'Multi-classing requirements and features for this class.',
-    type: T.Model(MultiClassing)
+  @field(() => T.Model(MultiClassing), {
+    description: 'Multi-classing requirements and features for this class.'
   })
   public multi_classing!: MultiClassing
 
-  @field({ description: 'Hit die size for the class (e.g., 6, 8, 10, 12)', type: T.Int })
+  @field(() => T.Int, { description: 'Hit die size for the class (e.g., 6, 8, 10, 12)' })
   public hit_die!: number
 
-  @field({ description: 'Unique identifier for the class', type: T.String })
+  @field(() => T.String, { description: 'Unique identifier for the class' })
   public index!: string
 
-  @field({ description: 'Name of the class', type: T.String })
+  @field(() => T.String, { description: 'Name of the class' })
   public name!: string
 
-  @field({
-    description: 'Base proficiencies granted by this class.',
-    type: T.List(T.Ref(Proficiency))
+  @field(() => T.List(T.Ref(Proficiency)), {
+    description: 'Base proficiencies granted by this class.'
   })
   public proficiencies!: APIReference[]
 
   // Handled by ClassResolver
-  @field({ type: T.List(Choice), skipResolver: true })
+  @field(() => T.List(Choice), { skipResolver: true })
   public proficiency_choices!: Choice[]
 
-  @field({
-    description: 'Saving throw proficiencies granted by this class.',
-    type: T.List(T.Ref(AbilityScore))
+  @field(() => T.List(T.Ref(AbilityScore)), {
+    description: 'Saving throw proficiencies granted by this class.'
   })
   public saving_throws!: APIReference[]
 
-  @field({
+  @field(() => T.Model(Spellcasting), {
     description: 'Spellcasting details for the class.',
-    type: T.Model(Spellcasting),
     optional: true
   })
   public spellcasting?: Spellcasting
 
-  @field({ description: 'Spells available to this class.', type: T.Link([Spell]) })
+  @field(() => T.Link([Spell]), { description: 'Spells available to this class.' })
   public spells!: string
 
-  @field({ description: 'Starting equipment for the class.', type: T.List(ClassEquipment) })
+  @field(() => T.List(ClassEquipment), { description: 'Starting equipment for the class.' })
   public starting_equipment!: ClassEquipment[]
 
   // Handled by ClassResolver
-  @field({ type: T.List(Choice), skipResolver: true })
+  @field(() => T.List(Choice), { skipResolver: true })
   public starting_equipment_options!: Choice[]
 
-  @field({ description: 'Available subclasses for this class.', type: T.List(T.Ref(Subclass)) })
+  @field(() => T.List(T.Ref(Subclass)), {
+    description: 'Available subclasses for this class.'
+  })
   public subclasses!: APIReference[]
 
-  @field({
-    description: 'The canonical path of this resource in the REST API.',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The canonical path of this resource in the REST API.'
   })
   public url!: string
 
-  @field({ description: 'Timestamp of the last update', type: T.String })
+  @field(() => T.String, { description: 'Timestamp of the last update' })
   public updated_at!: string
 }
 

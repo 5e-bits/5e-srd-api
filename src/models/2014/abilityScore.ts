@@ -14,43 +14,37 @@ import { Skill } from './skill'
 })
 @srdModelOptions('2014-ability-scores')
 export class AbilityScore {
-  @field({
-    description: 'A description of the ability score and its applications.',
-    type: T.List(T.String)
+  @field(() => T.List(T.String), {
+    description: 'A description of the ability score and its applications.'
   })
   public desc!: string[]
 
-  @field({
-    description: 'The full name of the ability score (e.g., Strength).',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The full name of the ability score (e.g., Strength).'
   })
   public full_name!: string
 
-  @field({
-    description: 'The unique identifier for this ability score (e.g., str).',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The unique identifier for this ability score (e.g., str).'
   })
   public index!: string
 
-  @field({
-    description: 'The abbreviated name of the ability score (e.g., STR).',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The abbreviated name of the ability score (e.g., STR).'
   })
   public name!: string
 
-  @field({
-    description: 'Skills associated with this ability score.',
-    type: T.List(T.Ref(Skill))
+  @field(() => T.List(T.Ref(Skill)), {
+    description: 'Skills associated with this ability score.'
   })
   public skills!: APIReference[]
 
-  @field({
-    description: 'The canonical path of this resource in the REST API.',
-    type: T.String
+  @field(() => T.String, {
+    description: 'The canonical path of this resource in the REST API.'
   })
   public url!: string
 
-  @field({ description: 'Timestamp of the last update.', type: T.String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 

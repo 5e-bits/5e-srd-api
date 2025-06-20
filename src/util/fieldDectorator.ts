@@ -24,7 +24,6 @@ type TypegooseOptions =
 type FieldOptions = AutoResolvedFieldOptions | ManualResolvedFieldOptions
 
 type BaseFieldOptions = {
-  type: TypeObject
   optional?: boolean
   index?: boolean
   typegoose?: TypegooseOptions
@@ -44,17 +43,15 @@ function isAutoResolvedFieldOptions(options: FieldOptions): options is AutoResol
   return options.skipResolver !== true
 }
 
-export function field(options: FieldOptions): PropertyDecorator {
+export function field(type: () => TypeObject, options: FieldOptions): PropertyDecorator {
   const required = options.optional !== true
   const index = options.index ?? true
 
-  const { db: dbType, gql: gqlType } = options.type
-
   return (...args) => {
-    prop({ type: () => dbType, index, required, ...options.typegoose })(...args)
+    prop({ type: () => type().db, index, required, ...options.typegoose })(...args)
 
     if (isAutoResolvedFieldOptions(options)) {
-      Field(() => gqlType, {
+      Field(() => type().gql, {
         description: options.description,
         nullable: !required,
         ...options.typeGraphQL
