@@ -128,7 +128,7 @@ export class Equipment implements IEquipment {
   @field(() => T.String, { skipResolver: true, optional: true })
   public image?: string
 
-  @field(() => T.Ref(WeaponProperty), { skipResolver: true, optional: true })
+  @field(() => T.RefList(WeaponProperty), { skipResolver: true, optional: true })
   public properties?: APIReference[]
 
   @field(() => T.Int, { skipResolver: true, optional: true })
