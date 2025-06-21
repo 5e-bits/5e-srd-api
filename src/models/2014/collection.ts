@@ -1,11 +1,12 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @srdModelOptions('2014-collections')
 export class Collection {
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { skipResolver: true })
   public index!: string
 }
 
