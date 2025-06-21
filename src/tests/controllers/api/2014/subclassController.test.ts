@@ -178,8 +178,6 @@ describe('SubclassController', () => {
       expect(responseData).toBeInstanceOf(Array)
       expect(responseData).toHaveLength(3) // Only the 3 levels for this subclass
       // Check if the returned levels match the ones created for the subclass
-      console.log("##DATA")
-      console.log(responseData)
       expect(responseData).toEqual(
         expect.arrayContaining([
           expect.objectContaining({

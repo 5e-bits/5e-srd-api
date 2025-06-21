@@ -1,8 +1,9 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { Class } from './class'
@@ -11,27 +12,26 @@ import { Spell } from './spell'
 
 @ObjectType({ description: 'Prerequisite for a subclass spell' })
 export class Prerequisite {
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { skipResolver: true })
   public index!: string
 
-  @prop({ required: true, type: () => String })
+  @field(() => T.String, { skipResolver: true })
   public name!: string
 
-  @prop({ required: true, type: () => String })
+  @field(() => T.String, { skipResolver: true })
   public type!: string
 
-  @prop({ required: true, type: () => String })
+  @field(() => T.String, { skipResolver: true })
   public url!: string
 }
 
 @ObjectType({ description: 'Spell gained by a subclass' })
 export class SubclassSpell {
   // Handled by SubclassSpellResolver
-  @prop({ type: () => [Prerequisite], required: true })
+  @field(() => T.List(Prerequisite), { skipResolver: true })
   public prerequisites!: Prerequisite[]
 
-  @Field(() => Spell, { description: 'The spell gained.' })
-  @prop({ type: () => APIReference, required: true })
+  @field(() => T.Ref(Spell), { description: 'The spell gained.' })
   public spell!: APIReference
 }
 
@@ -40,45 +40,36 @@ export class SubclassSpell {
 })
 @srdModelOptions('2014-subclasses')
 export class Subclass {
-  @Field(() => Class, { nullable: true, description: 'The parent class for this subclass.' })
-  @prop({ type: () => APIReference, required: true })
+  @field(() => T.Ref(Class), { description: 'The parent class for this subclass.', optional: true })
   public class!: APIReference
 
-  @Field(() => [String], { description: 'Description of the subclass' })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field(() => T.List(String), { description: 'Description of the subclass' })
   public desc!: string[]
 
-  @Field(() => String, { description: 'Unique identifier for the subclass' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Unique identifier for the subclass' })
   public index!: string
 
-  @Field(() => String, { description: 'Name of the subclass' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Name of the subclass' })
   public name!: string
 
-  @Field(() => [SubclassSpell], {
-    nullable: true,
-    description: 'Spells specific to this subclass.'
+  @field(() => T.List(SubclassSpell), {
+    description: 'Spells specific to this subclass.',
+    optional: true
   })
-  @prop({ type: () => [SubclassSpell] })
   public spells?: SubclassSpell[]
 
-  @Field(() => String, { description: 'Flavor text describing the subclass' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Flavor text describing the subclass' })
   public subclass_flavor!: string
 
-  @Field(() => [Level], {
-    nullable: true,
+  @field(() => T.Link([Level]), {
     description: 'Features and abilities gained by level for this subclass.'
   })
-  @prop({ required: true, index: true, type: () => String })
   public subclass_levels!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 

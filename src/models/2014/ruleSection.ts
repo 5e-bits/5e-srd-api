@@ -1,31 +1,28 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'Represents a named section of the SRD rules document.' })
 @srdModelOptions('2014-rule-sections')
 export class RuleSection {
-  @Field(() => String, { description: 'A description of the rule section.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'A description of the rule section.' })
   public desc!: string
 
-  @Field(() => String, {
+  @field(() => T.String, {
     description: 'The unique identifier for this rule section (e.g., ability-checks).'
   })
-  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the rule section (e.g., Ability Checks).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the rule section (e.g., Ability Checks).' })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 

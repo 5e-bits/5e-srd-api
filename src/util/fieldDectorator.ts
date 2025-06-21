@@ -122,7 +122,7 @@ function Link(type: ReturnTypeFuncValue): TypeObject {
 export const T = {
   String: { db: SchemaTypes.String, gql: String },
   Int: { db: SchemaTypes.Int32, gql: GqlInt },
-  Float: { db: SchemaTypes.Double, gql: GqlFloat },
+  Float: { db: Number, gql: GqlFloat },
   Bool: { db: SchemaTypes.Boolean, gql: Boolean },
   Ref,
   RefList,
