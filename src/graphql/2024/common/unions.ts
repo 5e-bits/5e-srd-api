@@ -2,11 +2,11 @@ import { createUnionType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 
-import { Ammunition, AdventuringGear, Weapon } from './equipmentTypes'
+import { Ammunition, AdventuringGear, Armor, Weapon } from './equipmentTypes'
 
 function resolveEquipmentType(
   value: any
-): typeof Weapon | typeof AdventuringGear | typeof Ammunition | null {
+): typeof Weapon | typeof AdventuringGear | typeof Ammunition | typeof Armor | null {
   if (
     value.equipment_categories?.some((category: APIReference) => category.index === 'weapon') ===
     true
@@ -27,13 +27,19 @@ function resolveEquipmentType(
   ) {
     return AdventuringGear
   }
+  if (
+    value.equipment_categories?.some((category: APIReference) => category.index === 'armor') ===
+    true
+  ) {
+    return Armor
+  }
   return null
 }
 
 export const AnyEquipment = createUnionType({
   name: 'AnyEquipment',
   types: () => {
-    return [Weapon, AdventuringGear, Ammunition] as const
+    return [Weapon, AdventuringGear, Ammunition, Armor] as const
   },
   resolveType: (value) => {
     const equipmentType = resolveEquipmentType(value)
