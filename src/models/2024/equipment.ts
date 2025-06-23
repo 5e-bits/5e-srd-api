@@ -7,6 +7,21 @@ import { APIReference } from '@/models/common/apiReference'
 import { Damage } from '@/models/common/damage'
 import { srdModelOptions } from '@/util/modelOptions'
 
+@ObjectType({ description: 'Details about armor class.' })
+export class ArmorClass {
+  @Field(() => Int, { description: 'Base armor class value.' })
+  @prop({ required: true, index: true, type: () => Number })
+  public base!: number
+
+  @Field(() => Boolean, { description: 'Indicates if Dexterity bonus applies.' })
+  @prop({ required: true, index: true, type: () => Boolean })
+  public dex_bonus!: boolean
+
+  @Field(() => Int, { nullable: true, description: 'Maximum Dexterity bonus allowed.' })
+  @prop({ index: true, type: () => Number })
+  public max_bonus?: number
+}
+
 @ObjectType({ description: 'Cost of an item in coinage.' })
 export class Cost {
   @Field(() => Int, { description: 'The quantity of coins.' })
@@ -68,6 +83,9 @@ export class Equipment2024 {
   @prop({ index: true, type: () => APIReference })
   public ammunition?: APIReference
 
+  @prop({ type: () => ArmorClass })
+  public armor_class?: ArmorClass
+
   @Field(() => Cost, { description: 'Cost of the equipment in coinage.' })
   @prop({ type: () => Cost })
   public cost!: Cost
@@ -78,6 +96,12 @@ export class Equipment2024 {
 
   @prop({ type: () => Damage })
   public damage?: Damage
+
+  @prop({ index: true, type: () => String })
+  public doff_time?: string
+
+  @prop({ index: true, type: () => String })
+  public don_time?: string
 
   @prop({ index: true, type: () => String })
   public image?: string
@@ -96,6 +120,12 @@ export class Equipment2024 {
 
   @prop({ type: () => Range })
   public range?: Range
+
+  @prop({ index: true, type: () => Boolean })
+  public stealth_disadvantage?: boolean
+
+  @prop({ index: true, type: () => Number })
+  public str_minimum?: number
 
   @prop({ type: () => ThrowRange })
   public throw_range?: ThrowRange
