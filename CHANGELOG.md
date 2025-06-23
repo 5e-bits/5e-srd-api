@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/5e-bits/5e-srd-api/compare/v4.2.0...v4.2.1) (2025-06-23)
+
+
+### Bug Fixes
+
+* **races:** Language options is optional for graphql ([#807](https://github.com/5e-bits/5e-srd-api/issues/807)) ([2715e0f](https://github.com/5e-bits/5e-srd-api/commit/2715e0f457cc1404b870e4284b53e2ca227a8355))
+
 # [4.2.0](https://github.com/5e-bits/5e-srd-api/compare/v4.1.1...v4.2.0) (2025-06-13)
 
 
