@@ -16,8 +16,14 @@ import {
   ReferenceOption
 } from '@/models/common/choice'
 
-export async function resolveLanguageChoice(choiceData: Choice): Promise<LanguageChoice | null> {
+export async function resolveLanguageChoice(
+  choiceData: Choice | null
+): Promise<LanguageChoice | null> {
   const gqlEmbeddedOptions: LanguageChoiceOption[] = []
+
+  if (!choiceData) {
+    return null
+  }
 
   if (choiceData.from.option_set_type === 'resource_list') {
     const allItems = (await LanguageModel.find({}).lean()) as Language[]
