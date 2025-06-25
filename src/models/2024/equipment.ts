@@ -22,6 +22,17 @@ export class ArmorClass {
   public max_bonus?: number
 }
 
+@ObjectType({ description: 'An item and its quantity within a container or bundle.' })
+export class Content {
+  // Handled by ContentFieldResolver
+  @prop({ type: () => APIReference })
+  public item!: APIReference
+
+  @Field(() => Int, { description: 'The quantity of the item.' })
+  @prop({ required: true, index: true, type: () => Number })
+  public quantity!: number
+}
+
 @ObjectType({ description: 'Cost of an item in coinage.' })
 export class Cost {
   @Field(() => Int, { description: 'The quantity of coins.' })
@@ -85,6 +96,10 @@ export class Equipment2024 {
 
   @prop({ type: () => ArmorClass })
   public armor_class?: ArmorClass
+
+  @Field(() => [Content], { nullable: true, description: 'Items contained within the equipment.' })
+  @prop({ type: () => [Content] })
+  public contents?: Content[]
 
   @Field(() => Cost, { description: 'Cost of the equipment in coinage.' })
   @prop({ type: () => Cost })

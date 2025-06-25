@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from 'type-graphql'
 
-import { ArmorClass, Equipment2024, Range, ThrowRange } from '@/models/2024/equipment'
+import { ArmorClass, Content, Equipment2024, Range, ThrowRange } from '@/models/2024/equipment'
 import { WeaponProperty2024 } from '@/models/2024/weaponProperty'
 import { APIReference } from '@/models/common/apiReference'
 import { Damage } from '@/models/common/damage'
@@ -63,6 +63,15 @@ export class Weapon extends Equipment2024 {
 
 @ObjectType({ description: 'Represents Gear equipment (general purpose)', implements: IEquipment })
 export class AdventuringGear extends Equipment2024 {}
+
+@ObjectType({
+  description: "Represents Gear that contains other items (e.g., Explorer's Pack)",
+  implements: IEquipment
+})
+export class Pack extends AdventuringGear {
+  @Field(() => [Content], { nullable: true, description: 'Items contained within the pack.' })
+  declare contents?: Content[]
+}
 
 @ObjectType({ description: 'Represents Ammunition equipment', implements: IEquipment })
 export class Ammunition extends AdventuringGear {
