@@ -21,13 +21,6 @@ function resolveEquipmentType(
     return Ammunition
   }
   if (
-    value.equipment_categories?.some(
-      (category: APIReference) => category.index === 'adventuring-gear'
-    ) === true
-  ) {
-    return AdventuringGear
-  }
-  if (
     value.equipment_categories?.some((category: APIReference) => category.index === 'armor') ===
     true
   ) {
@@ -39,6 +32,13 @@ function resolveEquipmentType(
     ) === true
   ) {
     return Pack
+  }
+  if (
+    value.equipment_categories?.some(
+      (category: APIReference) => category.index === 'adventuring-gear'
+    ) === true
+  ) {
+    return AdventuringGear
   }
   return null
 }
