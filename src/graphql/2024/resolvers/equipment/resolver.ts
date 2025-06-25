@@ -2,9 +2,10 @@ import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { AnyEquipment } from '@/graphql/2024/common/unions'
 import { buildSortPipeline } from '@/graphql/common/args'
-import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
-import EquipmentModel, { Equipment2024 } from '@/models/2024/equipment'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
+import EquipmentModel, { Content, Equipment2024 } from '@/models/2024/equipment'
 import WeaponPropertyModel, { WeaponProperty2024 } from '@/models/2024/weaponProperty'
+import { APIReference } from '@/models/common/apiReference'
 import { escapeRegExp } from '@/util'
 
 import {
@@ -73,5 +74,20 @@ export class EquipmentResolver {
   async properties(@Root() equipment: Equipment2024): Promise<WeaponProperty2024[] | null> {
     if (!equipment.properties) return null
     return resolveMultipleReferences(equipment.properties, WeaponPropertyModel)
+  }
+}
+
+@Resolver(Content)
+export class ContentFieldResolver {
+  @FieldResolver(() => AnyEquipment, {
+    nullable: true,
+    description: 'Resolves the APIReference to the actual Equipment.'
+  })
+  async item(@Root() content: Content): Promise<typeof AnyEquipment | null> {
+    const itemRef: APIReference = content.item
+
+    if (!itemRef?.index) return null
+
+    return resolveSingleReference(itemRef, EquipmentModel)
   }
 }

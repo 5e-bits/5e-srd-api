@@ -2,7 +2,7 @@ import { AbilityScoreResolver } from './abilityScore/resolver'
 import { AlignmentResolver } from './alignment/resolver'
 import { ConditionResolver } from './condition/resolver'
 import { DamageTypeResolver } from './damageType/resolver'
-import { EquipmentResolver } from './equipment/resolver'
+import { ContentFieldResolver, EquipmentResolver } from './equipment/resolver'
 import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
 import { LanguageResolver } from './language/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
@@ -23,6 +23,6 @@ const collectionResolvers = [
   WeaponMasteryPropertyResolver,
   WeaponPropertyResolver
 ] as const
-const fieldResolvers = [] as const
+const fieldResolvers = [ContentFieldResolver] as const
 
 export const resolvers = [...collectionResolvers, ...fieldResolvers] as const
