@@ -11,8 +11,7 @@ import { AbilityScore } from './abilityScore'
 @ObjectType({ description: 'A prerequisite for taking a feat, usually a minimum ability score.' })
 export class Prerequisite {
   @field(() => T.Ref(AbilityScore), {
-    description: 'The ability score required for this prerequisite.',
-    optional: true
+    description: 'The ability score required for this prerequisite.'
   })
   public ability_score!: APIReference
 

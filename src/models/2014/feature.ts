@@ -65,7 +65,7 @@ export class FeatureSpecific {
 @ObjectType({ description: 'Represents a class or subclass feature.' })
 @srdModelOptions('2014-features')
 export class Feature {
-  @field(() => T.Ref(Class), { description: 'The class that gains this feature.', optional: true })
+  @field(() => T.Ref(Class), { description: 'The class that gains this feature.' })
   public class!: APIReference
 
   @field(() => T.List(String), { description: 'Description of the feature.' })

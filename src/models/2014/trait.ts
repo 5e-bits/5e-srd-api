@@ -17,7 +17,7 @@ import { Choice } from '../common/choice'
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class ActionDamage {
-  @field(() => T.Ref(DamageType), { description: 'The type of damage dealt.', optional: true })
+  @field(() => T.Ref(DamageType), { description: 'The type of damage dealt.' })
   public damage_type!: APIReference
 
   // Handled by ActionDamageResolver
@@ -122,13 +122,10 @@ export class Trait {
   @field(() => T.Model(Choice), { optional: true, skipResolver: true })
   public language_options?: Choice
 
-  @field(() => T.RefList(Race), { description: 'Races that possess this trait.', optional: true })
+  @field(() => T.RefList(Race), { description: 'Races that possess this trait.' })
   public races!: APIReference[]
 
-  @field(() => T.RefList(Subrace), {
-    description: 'Subraces that possess this trait.',
-    optional: true
-  })
+  @field(() => T.RefList(Subrace), { description: 'Subraces that possess this trait.' })
   public subraces!: APIReference[]
 
   @field(() => T.Ref(Trait), {
