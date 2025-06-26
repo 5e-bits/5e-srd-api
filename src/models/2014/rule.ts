@@ -1,8 +1,9 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { RuleSection } from './ruleSection'
@@ -10,29 +11,26 @@ import { RuleSection } from './ruleSection'
 @ObjectType({ description: 'A specific rule from the SRD.' })
 @srdModelOptions('2014-rules')
 export class Rule {
-  @Field(() => String, { description: 'A description of the rule.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'A description of the rule.' })
   public desc!: string
 
-  @Field(() => String, { description: 'The unique identifier for this rule (e.g., adventuring).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'The unique identifier for this rule (e.g., adventuring).'
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the rule (e.g., Adventuring).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the rule (e.g., Adventuring).' })
   public name!: string
 
-  @Field(() => [RuleSection], {
+  @field(() => T.RefList(RuleSection), {
     description: 'Subsections clarifying or detailing this rule.'
   })
-  @prop({ type: () => [APIReference], index: true })
   public subsections!: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 

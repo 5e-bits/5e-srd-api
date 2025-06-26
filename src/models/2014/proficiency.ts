@@ -1,8 +1,9 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { Class } from './class'
@@ -13,36 +14,36 @@ import { Race } from './race'
 })
 @srdModelOptions('2014-proficiencies')
 export class Proficiency {
-  @Field(() => [Class], { nullable: true, description: 'Classes that grant this proficiency.' })
-  @prop({ type: () => [APIReference] })
+  @field(() => T.RefList(Class), {
+    description: 'Classes that grant this proficiency.',
+    optional: true
+  })
   public classes?: APIReference[]
 
-  @Field(() => String, { description: 'Unique identifier for this proficiency.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Unique identifier for this proficiency.' })
   public index!: string
 
-  @Field(() => String, { description: 'Name of the proficiency.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Name of the proficiency.' })
   public name!: string
 
-  @Field(() => [Race], { nullable: true, description: 'Races that grant this proficiency.' })
-  @prop({ type: () => [APIReference] })
+  @field(() => T.RefList(Race), {
+    description: 'Races that grant this proficiency.',
+    optional: true
+  })
   public races?: APIReference[]
 
-  @prop({ type: () => APIReference })
+  @field(() => T.Ref(Proficiency), { skipResolver: true })
   public reference!: APIReference
 
-  @Field(() => String, {
+  @field(() => T.String, {
     description: 'Category of proficiency (e.g., Armor, Weapons, Saving Throws, Skills).'
   })
-  @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update' })
   public updated_at!: string
 }
 
