@@ -70,7 +70,7 @@
     "@types/node": "^22.15.29",
     "@types/shelljs": "^0.8.11",
     "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.0",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.2",
