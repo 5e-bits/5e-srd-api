@@ -34,7 +34,6 @@ subraces-path:
                 - index: dwarven-toughness
                   name: Dwarven Toughness
                   url: '/api/2014/traits/dwarven-toughness'
-              starting_proficiencies: []
 
 # /api/2014/subraces/{index}/proficiencies
 subrace-proficiencies-path:

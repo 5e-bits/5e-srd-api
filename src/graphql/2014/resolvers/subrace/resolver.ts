@@ -74,16 +74,6 @@ export class SubraceResolver {
   async racial_traits(@Root() subrace: Subrace): Promise<Trait[]> {
     return resolveMultipleReferences(subrace.racial_traits, TraitModel)
   }
-
-  @FieldResolver(() => [Proficiency], { nullable: true })
-  async starting_proficiencies(@Root() subrace: Subrace): Promise<Proficiency[]> {
-    return resolveMultipleReferences(subrace.starting_proficiencies, ProficiencyModel)
-  }
-
-  @FieldResolver(() => LanguageChoice, { nullable: true })
-  async language_options(@Root() subrace: Subrace): Promise<LanguageChoice | null> {
-    return resolveLanguageChoice(subrace.language_options as Choice)
-  }
 }
 @Resolver(SubraceAbilityBonus)
 export class SubraceAbilityBonusResolver {

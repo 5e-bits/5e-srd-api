@@ -51,13 +51,6 @@ export class Subrace {
   @prop({ type: () => [APIReference] })
   public languages?: APIReference[]
 
-  @Field(() => LanguageChoice, {
-    nullable: true,
-    description: 'Languages typically spoken by this subrace.'
-  })
-  @prop({ type: () => Choice })
-  public language_options?: Choice
-
   @Field(() => String, { description: 'The name of the subrace (e.g., High Elf).' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
@@ -72,13 +65,6 @@ export class Subrace {
   })
   @prop({ type: () => [APIReference] })
   public racial_traits!: APIReference[]
-
-  @Field(() => [Proficiency], {
-    nullable: true,
-    description: 'Proficiencies granted by this subrace.'
-  })
-  @prop({ type: () => [APIReference] })
-  public starting_proficiencies?: APIReference[]
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
