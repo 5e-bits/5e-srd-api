@@ -3,8 +3,7 @@ import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 import {
   AbilityScoreBonusChoice,
   AbilityScoreBonusChoiceOption,
-  LanguageChoice,
-  ProficiencyChoice
+  LanguageChoice
 } from '@/graphql/2014/common/choiceTypes'
 import { resolveLanguageChoice, resolveProficiencyChoice } from '@/graphql/2014/utils/resolvers'
 import { buildSortPipeline } from '@/graphql/common/args'
@@ -12,7 +11,6 @@ import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import LanguageModel, { Language } from '@/models/2014/language'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
-import { apiReferenceFactory, choiceFactory } from './common.factory'
+import { apiReferenceFactory } from './common.factory'
 
 import type { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
 
