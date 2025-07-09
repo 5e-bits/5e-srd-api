@@ -25,13 +25,6 @@ export const subraceFactory = Factory.define<Subrace>(
         apiReferenceFactory.build({}, { transient: { resourceType: 'races' } }),
       desc: faker.lorem.paragraph(),
       ability_bonuses: subraceAbilityBonusFactory.buildList(faker.number.int({ min: 1, max: 2 })),
-      languages:
-        associations.languages ??
-        apiReferenceFactory.buildList(
-          faker.number.int({ min: 0, max: 1 }),
-          {},
-          { transient: { resourceType: 'languages' } }
-        ),
       racial_traits:
         associations.racial_traits ??
         apiReferenceFactory.buildList(

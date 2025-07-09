@@ -16,11 +16,6 @@ allOf:
         type: array
         items:
           $ref: './combined.yml#/AbilityBonus'
-      languages:
-        description: 'Starting languages for all new characters of the subrace.'
-        type: array
-        items:
-          $ref: './combined.yml#/APIReference'
       racial_traits:
         description: 'List of traits that for the subrace.'
         type: array

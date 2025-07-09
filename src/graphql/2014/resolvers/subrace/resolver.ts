@@ -65,11 +65,6 @@ export class SubraceResolver {
     return resolveSingleReference(subrace.race, RaceModel)
   }
 
-  @FieldResolver(() => [Language], { nullable: true })
-  async languages(@Root() subrace: Subrace): Promise<Language[]> {
-    return resolveMultipleReferences(subrace.languages, LanguageModel)
-  }
-
   @FieldResolver(() => [Trait], { nullable: true })
   async racial_traits(@Root() subrace: Subrace): Promise<Trait[]> {
     return resolveMultipleReferences(subrace.racial_traits, TraitModel)

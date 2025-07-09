@@ -44,13 +44,6 @@ export class Subrace {
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => [Language], {
-    nullable: true,
-    description: 'Additional languages granted by this subrace.'
-  })
-  @prop({ type: () => [APIReference] })
-  public languages?: APIReference[]
-
   @Field(() => String, { description: 'The name of the subrace (e.g., High Elf).' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
