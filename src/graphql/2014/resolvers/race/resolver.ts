@@ -93,11 +93,6 @@ export class RaceResolver {
     return resolveMultipleReferences(race.languages, LanguageModel)
   }
 
-  @FieldResolver(() => [Proficiency], { nullable: true })
-  async starting_proficiencies(@Root() race: Race): Promise<Proficiency[]> {
-    return resolveMultipleReferences(race.starting_proficiencies, ProficiencyModel)
-  }
-
   @FieldResolver(() => [Subrace], { nullable: true })
   async subraces(@Root() race: Race): Promise<Subrace[]> {
     return resolveMultipleReferences(race.subraces, SubraceModel)
@@ -111,11 +106,6 @@ export class RaceResolver {
   @FieldResolver(() => LanguageChoice, { nullable: true })
   async language_options(@Root() race: Race): Promise<LanguageChoice | null> {
     return resolveLanguageChoice(race.language_options as Choice)
-  }
-
-  @FieldResolver(() => ProficiencyChoice, { nullable: true })
-  async starting_proficiency_options(@Root() race: Race): Promise<ProficiencyChoice | null> {
-    return resolveProficiencyChoice(race.starting_proficiency_options)
   }
 
   @FieldResolver(() => AbilityScoreBonusChoice, { nullable: true })
