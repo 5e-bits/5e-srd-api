@@ -5,7 +5,7 @@ import {
   AbilityScoreBonusChoiceOption,
   LanguageChoice
 } from '@/graphql/2014/common/choiceTypes'
-import { resolveLanguageChoice, resolveProficiencyChoice } from '@/graphql/2014/utils/resolvers'
+import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
 import { buildSortPipeline } from '@/graphql/common/args'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
