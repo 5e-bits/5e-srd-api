@@ -72,7 +72,7 @@
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.36.0",
-    "eslint": "^9.27.0",
+    "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-import-resolver-typescript": "^4.4.2",
     "eslint-plugin-ejs": "^0.0.2",
