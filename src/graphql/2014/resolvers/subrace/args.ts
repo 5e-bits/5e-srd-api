@@ -42,7 +42,8 @@ export const SubraceOrderSchema: z.ZodType<SubraceOrder> = z.lazy(() =>
   })
 )
 
-export const SubraceArgsSchema = BaseFilterArgsSchema.extend({
+export const SubraceArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: SubraceOrderSchema.optional()
 })
 

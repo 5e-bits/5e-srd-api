@@ -42,7 +42,8 @@ export const MagicSchoolOrderSchema: z.ZodType<MagicSchoolOrder> = z.lazy(() =>
   })
 )
 
-export const MagicSchoolArgsSchema = BaseFilterArgsSchema.extend({
+export const MagicSchoolArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: MagicSchoolOrderSchema.optional()
 })
 

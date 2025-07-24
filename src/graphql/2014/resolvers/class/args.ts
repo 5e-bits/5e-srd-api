@@ -45,7 +45,8 @@ export const ClassOrderSchema: z.ZodType<ClassOrder> = z.lazy(() =>
   })
 )
 
-export const ClassArgsSchema = BaseFilterArgsSchema.extend({
+export const ClassArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   hit_die: NumberFilterInputSchema.optional(),
   order: ClassOrderSchema.optional()
 })

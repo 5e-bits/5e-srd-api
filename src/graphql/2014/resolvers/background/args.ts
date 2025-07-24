@@ -42,7 +42,8 @@ export const BackgroundOrderSchema: z.ZodType<BackgroundOrder> = z.lazy(() =>
   })
 )
 
-export const BackgroundArgsSchema = BaseFilterArgsSchema.extend({
+export const BackgroundArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: BackgroundOrderSchema.optional()
 })
 

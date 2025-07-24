@@ -46,7 +46,8 @@ export const LanguageOrderSchema: z.ZodType<LanguageOrder> = z.lazy(() =>
   })
 )
 
-export const LanguageArgsSchema = BaseFilterArgsSchema.extend({
+export const LanguageArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   type: z.string().optional(),
   script: z.array(z.string()).optional(),
   order: LanguageOrderSchema.optional()

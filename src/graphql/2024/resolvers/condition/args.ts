@@ -42,7 +42,8 @@ export const ConditionOrderSchema: z.ZodType<ConditionOrder> = z.lazy(() =>
   })
 )
 
-export const ConditionArgsSchema = BaseFilterArgsSchema.extend({
+export const ConditionArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: ConditionOrderSchema.optional()
 })
 

@@ -42,7 +42,8 @@ export const TraitOrderSchema: z.ZodType<TraitOrder> = z.lazy(() =>
   })
 )
 
-export const TraitArgsSchema = BaseFilterArgsSchema.extend({
+export const TraitArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: TraitOrderSchema.optional()
 })
 

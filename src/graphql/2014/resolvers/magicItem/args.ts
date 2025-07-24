@@ -46,7 +46,8 @@ export const MagicItemOrderSchema: z.ZodType<MagicItemOrder> = z.lazy(() =>
   })
 )
 
-export const MagicItemArgsSchema = BaseFilterArgsSchema.extend({
+export const MagicItemArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   equipment_category: z.array(z.string()).optional(),
   rarity: z.array(z.string()).optional(),
   order: MagicItemOrderSchema.optional()

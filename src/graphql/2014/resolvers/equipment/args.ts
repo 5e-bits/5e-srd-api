@@ -46,7 +46,8 @@ export const EquipmentOrderSchema: z.ZodType<EquipmentOrder> = z.lazy(() =>
   })
 )
 
-export const EquipmentArgsSchema = BaseFilterArgsSchema.extend({
+export const EquipmentArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   equipment_category: z.array(z.string()).optional(),
   order: EquipmentOrderSchema.optional()
 })

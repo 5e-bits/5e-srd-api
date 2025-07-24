@@ -72,7 +72,8 @@ export const SpellOrderSchema: z.ZodType<SpellOrder> = z.lazy(() =>
   })
 )
 
-export const SpellArgsSchema = BaseFilterArgsSchema.extend({
+export const SpellArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   level: z.array(z.number().int().min(0).max(9)).optional(),
   school: z.array(z.string()).optional(),
   class: z.array(z.string()).optional(),
