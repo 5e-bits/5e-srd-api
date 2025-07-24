@@ -42,7 +42,8 @@ export const DamageTypeOrderSchema: z.ZodType<DamageTypeOrder> = z.lazy(() =>
   })
 )
 
-export const DamageTypeArgsSchema = BaseFilterArgsSchema.extend({
+export const DamageTypeArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: DamageTypeOrderSchema.optional()
 })
 

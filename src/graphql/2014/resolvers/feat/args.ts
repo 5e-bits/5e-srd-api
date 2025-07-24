@@ -42,7 +42,8 @@ export const FeatOrderSchema: z.ZodType<FeatOrder> = z.lazy(() =>
   })
 )
 
-export const FeatArgsSchema = BaseFilterArgsSchema.extend({
+export const FeatArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: FeatOrderSchema.optional()
 })
 

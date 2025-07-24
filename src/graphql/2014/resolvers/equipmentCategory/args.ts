@@ -42,7 +42,8 @@ export const EquipmentCategoryOrderSchema: z.ZodType<EquipmentCategoryOrder> = z
   })
 )
 
-export const EquipmentCategoryArgsSchema = BaseFilterArgsSchema.extend({
+export const EquipmentCategoryArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: EquipmentCategoryOrderSchema.optional()
 })
 

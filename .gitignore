@@ -49,3 +49,6 @@ collection.postman.json
 
 # Docker
 docker-compose.override.yml
+
+# Claude
+.claude

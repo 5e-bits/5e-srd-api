@@ -42,7 +42,8 @@ export const WeaponPropertyOrderSchema: z.ZodType<WeaponPropertyOrder> = z.lazy(
   })
 )
 
-export const WeaponPropertyArgsSchema = BaseFilterArgsSchema.extend({
+export const WeaponPropertyArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: WeaponPropertyOrderSchema.optional()
 })
 

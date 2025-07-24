@@ -44,7 +44,8 @@ export const AbilityScoreOrderSchema: z.ZodType<AbilityScoreOrder> = z.lazy(() =
   })
 )
 
-export const AbilityScoreArgsSchema = BaseFilterArgsSchema.extend({
+export const AbilityScoreArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   full_name: z.string().optional(),
   order: AbilityScoreOrderSchema.optional()
 })

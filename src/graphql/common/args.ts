@@ -27,11 +27,10 @@ export class BasePaginationArgs {
 
 // --- Filtering & Sorting by Name (includes Pagination) ---
 
-export const BaseFilterArgsSchema = z
-  .object({
-    name: z.string().optional()
-  })
-  .merge(BasePaginationArgsSchema)
+export const BaseFilterArgsSchema = z.object({
+  ...BasePaginationArgsSchema.shape,
+  name: z.string().optional()
+})
 
 @ArgsType()
 export class BaseFilterArgs extends BasePaginationArgs {

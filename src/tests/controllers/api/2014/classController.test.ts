@@ -442,7 +442,7 @@ describe('ClassController', () => {
       expect(responseData.error).toBe('Invalid query parameters')
       expect(responseData.details).toBeInstanceOf(Array)
       expect(responseData.details[0].path).toEqual(['level'])
-      expect(responseData.details[0].message).toBe('Invalid')
+      expect(responseData.details[0].message).toContain('Invalid')
       expect(mockNext).not.toHaveBeenCalled()
     })
 
@@ -462,7 +462,7 @@ describe('ClassController', () => {
       expect(responseData.error).toBe('Invalid query parameters')
       expect(responseData.details).toBeInstanceOf(Array)
       expect(responseData.details[0].path).toEqual(['level', 1])
-      expect(responseData.details[0].message).toBe('Invalid')
+      expect(responseData.details[0].message).toContain('Invalid')
       expect(mockNext).not.toHaveBeenCalled()
     })
 

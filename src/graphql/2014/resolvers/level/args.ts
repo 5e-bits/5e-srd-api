@@ -47,7 +47,8 @@ export const LevelOrderSchema: z.ZodType<LevelOrder> = z.lazy(() =>
   })
 )
 
-export const LevelArgsSchema = BasePaginationArgsSchema.extend({
+export const LevelArgsSchema = z.object({
+  ...BasePaginationArgsSchema.shape,
   class: z.array(z.string()).optional(),
   subclass: z.array(z.string()).optional(),
   level: NumberFilterInputSchema.optional(),

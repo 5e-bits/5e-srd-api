@@ -42,7 +42,8 @@ export const AlignmentOrderSchema: z.ZodType<AlignmentOrder> = z.lazy(() =>
   })
 )
 
-export const AlignmentArgsSchema = BaseFilterArgsSchema.extend({
+export const AlignmentArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: AlignmentOrderSchema.optional()
 })
 

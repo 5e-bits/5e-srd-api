@@ -49,7 +49,8 @@ export const FeatureOrderSchema: z.ZodType<FeatureOrder> = z.lazy(() =>
   })
 )
 
-export const FeatureArgsSchema = BaseFilterArgsSchema.extend({
+export const FeatureArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   level: NumberFilterInputSchema.optional(),
   class: z.array(z.string()).optional(),
   subclass: z.array(z.string()).optional(),

@@ -61,7 +61,8 @@ export const MonsterOrderSchema: z.ZodType<MonsterOrder> = z.lazy(() =>
   })
 )
 
-export const MonsterArgsSchema = BaseFilterArgsSchema.extend({
+export const MonsterArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   type: z.string().optional(),
   subtype: z.string().optional(),
   challenge_rating: NumberFilterInputSchema.optional(),

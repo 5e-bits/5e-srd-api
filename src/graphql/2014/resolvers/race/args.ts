@@ -43,7 +43,8 @@ export const RaceOrderSchema: z.ZodType<RaceOrder> = z.lazy(() =>
   })
 )
 
-export const RaceArgsSchema = BaseFilterArgsSchema.extend({
+export const RaceArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   ability_bonus: z.array(z.string()).optional(),
   size: z.array(z.string()).optional(),
   language: z.array(z.string()).optional(),

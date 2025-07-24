@@ -44,7 +44,8 @@ export const SkillOrderSchema: z.ZodType<SkillOrder> = z.lazy(() =>
   })
 )
 
-export const SkillArgsSchema = BaseFilterArgsSchema.extend({
+export const SkillArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   ability_score: z.array(z.string()).optional(),
   order: SkillOrderSchema.optional()
 })

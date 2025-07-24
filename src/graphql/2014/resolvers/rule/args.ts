@@ -42,7 +42,8 @@ export const RuleOrderSchema: z.ZodType<RuleOrder> = z.lazy(() =>
   })
 )
 
-export const RuleArgsSchema = BaseFilterArgsSchema.extend({
+export const RuleArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: RuleOrderSchema.optional()
 })
 

@@ -47,7 +47,8 @@ export const WeaponMasteryPropertyOrderSchema: z.ZodType<WeaponMasteryPropertyOr
   })
 )
 
-export const WeaponMasteryPropertyArgsSchema = BaseFilterArgsSchema.extend({
+export const WeaponMasteryPropertyArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   order: WeaponMasteryPropertyOrderSchema.optional()
 })
 

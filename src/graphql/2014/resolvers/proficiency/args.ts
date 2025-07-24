@@ -44,7 +44,8 @@ export const ProficiencyOrderSchema: z.ZodType<ProficiencyOrder> = z.lazy(() =>
   })
 )
 
-export const ProficiencyArgsSchema = BaseFilterArgsSchema.extend({
+export const ProficiencyArgsSchema = z.object({
+  ...BaseFilterArgsSchema.shape,
   class: z.array(z.string()).optional(),
   race: z.array(z.string()).optional(),
   type: z.array(z.string()).optional(),
