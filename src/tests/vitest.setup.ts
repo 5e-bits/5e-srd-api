@@ -27,7 +27,7 @@ vi.mock('@/util', async (importOriginal) => {
 
   return {
     ...actual, // Keep all other exports from the original module
-    redisClient: mockRedisClient // Replace redisClient with our mock
+    redisClient: mockRedisClient // Replace redisClient with our mock (never null in tests)
   }
 })
 

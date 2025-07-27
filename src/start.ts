@@ -1,27 +1,34 @@
-import mongoose from 'mongoose'
+import 'dotenv/config'
 
 import createApp from './server'
-import { mongodbUri, prewarmCache, redisClient } from './util'
+import { databaseService } from './util/databaseService'
+import { prewarmCache, redisClient } from './util'
 
 const start = async () => {
-  console.log('Setting up MongoDB')
-  // Mongoose: the `strictQuery` option will be switched back to `false` by
-  // default in Mongoose 7, when we update to Mongoose 7 we can remove this.
-  mongoose.set('strictQuery', false)
+  console.log('Setting up MongoDB Atlas connection')
 
-  await mongoose.connect(mongodbUri)
-  console.log('Database connection ready')
+  // Debug: Log environment variables
+  console.log('NODE_ENV:', process.env.NODE_ENV)
+  console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Set' : 'Not set')
+  console.log('TEST_MONGODB_URI:', process.env.TEST_MONGODB_URI ? 'Set' : 'Not set')
 
-  redisClient.on('error', (err) => console.log('Redis Client Error', err))
+  // Connect to MongoDB Atlas
+  await databaseService.connect()
 
-  await redisClient.connect()
-  console.log('Redis connection ready')
+  // Connect to Redis
+  try {
+    await redisClient.connect()
+    console.log('✅ Redis connection ready')
 
-  console.log('Flushing Redis')
-  await redisClient.flushAll()
+    console.log('Flushing Redis')
+    await redisClient.flushAll()
 
-  console.log('Prewarm Redis')
-  await prewarmCache()
+    console.log('Prewarm Redis')
+    await prewarmCache()
+  } catch (error) {
+    console.log('⚠️  Redis connection failed, continuing without caching')
+    console.log('Redis error:', error instanceof Error ? error.message : String(error))
+  }
 
   console.log('Setting up Express server')
   const app = await createApp()

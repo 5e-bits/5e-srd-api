@@ -5,8 +5,14 @@ import deprecatedApiController from '@/controllers/apiController'
 import v2014Handler from './api/2014'
 import v2024Handler from './api/2024'
 import ImageHandler from './api/images'
+import mongoRoutes from './api/mongoRoutes'
+
 const router = express.Router()
 
+// MongoDB Atlas routes (new dynamic system)
+router.use('/', mongoRoutes)
+
+// Legacy routes (keep for backward compatibility)
 router.use('/2014', v2014Handler)
 router.use('/2024', v2024Handler)
 router.use('/images', ImageHandler)

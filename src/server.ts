@@ -12,6 +12,7 @@ import morgan from 'morgan'
 import { buildSchema } from 'type-graphql'
 
 import docsController from './controllers/docsController'
+import { healthCheck, detailedHealthCheck } from './controllers/healthController'
 import { resolvers as resolvers2014 } from './graphql/2014/resolvers'
 import { resolvers as resolvers2024 } from './graphql/2024/resolvers'
 import { createApolloMiddleware } from './middleware/apolloServer'
@@ -100,6 +101,8 @@ export default async () => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
   })
   app.get('/docs', docsController)
+  app.get('/health', healthCheck)
+  app.get('/health/detailed', detailedHealthCheck)
   app.use('/api', apiRoutes)
 
   if (bugsnagMiddleware?.errorHandler) {

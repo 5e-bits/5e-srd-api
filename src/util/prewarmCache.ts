@@ -37,12 +37,19 @@ const prewarmCache = async () => {
       endpoint: '/api/2014/rule-sections'
     }
   ]
+  
   for (const element of toPrewarm) {
-    const data = await element.Schema.find()
-      .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
-      .sort({ index: 'asc' })
-    const jsonData = ResourceList(data)
-    await redisClient.set(element.endpoint, JSON.stringify(jsonData))
+    if (redisClient) {
+      try {
+        const data = await element.Schema.find()
+          .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
+          .sort({ index: 'asc' })
+        const jsonData = ResourceList(data)
+        await redisClient.set(element.endpoint, JSON.stringify(jsonData))
+      } catch (error) {
+        console.log(`Failed to prewarm cache for ${element.endpoint}:`, error instanceof Error ? error.message : String(error))
+      }
+    }
   }
 }
 

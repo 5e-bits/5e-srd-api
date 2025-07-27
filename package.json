@@ -21,7 +21,10 @@
     "test": "npm run test:unit && npm run test:integration:local",
     "test:unit": "vitest run",
     "test:integration": "vitest run --config ./vitest.config.integration.ts",
-    "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api npm run test:integration"
+    "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api npm run test:integration",
+    "redis:start": "redis-server",
+    "redis:stop": "pkill redis-server",
+    "dev:with-redis": "redis-server & npm run dev"
   },
   "dependencies": {
     "@apollo/server": "^4.12.1",
