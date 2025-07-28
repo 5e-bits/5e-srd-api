@@ -52,3 +52,9 @@ docker-compose.override.yml
 
 # Claude
 .claude
+
+# Redis
+dump.rdb
+*.rdb
+*.aof
+redis-data/
