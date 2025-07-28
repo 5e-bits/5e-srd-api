@@ -25,7 +25,12 @@
     "vitest.config.integration.ts",
     "eslint.config.js"
   ],
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules",
+    "src/tests/**/*",
+    "src/**/*.test.ts",
+    "src/**/*.itest.ts"
+  ],
   "ts-node": {
     "esm": true
   },
