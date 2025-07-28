@@ -54,7 +54,9 @@
     "serve-favicon": "^2.5.0",
     "type-graphql": "^2.0.0-rc.2",
     "zod": "^4.0.7",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^6.0.1",
+    "tsc-alias": "^1.8.16"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
@@ -90,12 +92,10 @@
     "nodemon": "^3.1.10",
     "openapi-to-postmanv2": "^5.0.0",
     "prettier": "^3.6.0",
-    "rimraf": "^6.0.1",
     "semantic-release": "^24.2.7",
     "shelljs": "^0.10.0",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
-    "tsc-alias": "^1.8.16",
     "typedoc": "^0.28.7",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.38.0",
