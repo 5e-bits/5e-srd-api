@@ -1,11 +1,20 @@
 import { Field, Int, ObjectType } from 'type-graphql'
 
-import { ArmorClass, Content, Equipment2024, Range, ThrowRange } from '@/models/2024/equipment'
+import { AbilityScore2024 } from '@/models/2024/abilityScore'
+import {
+  ArmorClass,
+  Content,
+  Equipment2024,
+  Range,
+  ThrowRange,
+  Utilize
+} from '@/models/2024/equipment'
 import { WeaponProperty2024 } from '@/models/2024/weaponProperty'
 import { APIReference } from '@/models/common/apiReference'
 import { Damage } from '@/models/common/damage'
 
 import { IEquipment } from './interfaces'
+import { AnyEquipment } from './unions'
 
 @ObjectType({ description: 'Represents Armor equipment', implements: IEquipment })
 export class Armor extends Equipment2024 {
@@ -33,15 +42,6 @@ export class Armor extends Equipment2024 {
 
 @ObjectType({ description: 'Represents Weapon equipment', implements: IEquipment })
 export class Weapon extends Equipment2024 {
-  @Field(() => String, { description: 'Category of weapon (e.g., Simple, Martial).' })
-  declare weapon_category: string
-
-  @Field(() => String, { description: 'Range classification of weapon (e.g., Melee, Ranged).' })
-  declare weapon_range: string
-
-  @Field(() => String, { description: 'Range category for weapons (e.g., Melee, Ranged).' })
-  declare category_range: string
-
   @Field(() => Damage, { nullable: true, description: 'Primary damage dealt by the weapon.' })
   declare damage?: Damage
 
@@ -80,4 +80,22 @@ export class Ammunition extends AdventuringGear {
 
   @Field(() => Equipment2024, { nullable: true, description: 'Storage of the ammunition.' })
   declare storage?: APIReference
+}
+
+@ObjectType({ description: 'Represents Tool equipment', implements: IEquipment })
+export class Tool extends Equipment2024 {
+  @Field(() => AbilityScore2024, {
+    nullable: true,
+    description: 'Ability score required to use the tool.'
+  })
+  declare ability?: APIReference
+
+  @Field(() => [AnyEquipment], {
+    nullable: true,
+    description: 'Equipment that can be crafted with the tool.'
+  })
+  declare craft?: APIReference[]
+
+  @Field(() => [Utilize], { nullable: true, description: 'How to utilize the tool.' })
+  declare utilize?: Utilize[]
 }

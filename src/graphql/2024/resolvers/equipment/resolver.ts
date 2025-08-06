@@ -1,8 +1,10 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
+import { Tool } from '@/graphql/2024/common/equipmentTypes'
 import { AnyEquipment } from '@/graphql/2024/common/unions'
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
+import AbilityScoreModel, { AbilityScore2024 } from '@/models/2024/abilityScore'
 import EquipmentModel, { Content, Equipment2024 } from '@/models/2024/equipment'
 import WeaponPropertyModel, { WeaponProperty2024 } from '@/models/2024/weaponProperty'
 import { APIReference } from '@/models/common/apiReference'
@@ -56,7 +58,7 @@ export class EquipmentResolver {
       query.limit(validatedArgs.limit)
     }
 
-    return query.lean()
+    return await query.lean()
   }
 
   @Query(() => AnyEquipment, {
@@ -89,5 +91,20 @@ export class ContentFieldResolver {
     if (!itemRef?.index) return null
 
     return resolveSingleReference(itemRef, EquipmentModel)
+  }
+}
+
+@Resolver(() => Tool)
+export class ToolResolver {
+  @FieldResolver(() => AbilityScore2024, { nullable: true })
+  async ability(@Root() tool: Tool): Promise<AbilityScore2024 | null> {
+    if (!tool.ability) return null
+    return resolveSingleReference(tool.ability, AbilityScoreModel)
+  }
+
+  @FieldResolver(() => [AnyEquipment], { nullable: true })
+  async craft(@Root() tool: Tool): Promise<Array<typeof AnyEquipment> | null> {
+    if (!tool.craft) return null
+    return resolveMultipleReferences(tool.craft, EquipmentModel)
   }
 }

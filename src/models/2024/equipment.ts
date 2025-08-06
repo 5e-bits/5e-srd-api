@@ -5,6 +5,7 @@ import { Field, Float, Int, ObjectType } from 'type-graphql'
 import { EquipmentCategory2024 } from '@/models/2024/equipmentCategory'
 import { APIReference } from '@/models/common/apiReference'
 import { Damage } from '@/models/common/damage'
+import { DifficultyClass } from '@/models/common/difficultyClass'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'Details about armor class.' })
@@ -66,6 +67,17 @@ export class ThrowRange {
   public normal!: number
 }
 
+@ObjectType({ description: 'How to utilize a tool.' })
+export class Utilize {
+  @Field(() => String, { description: 'The name of the action.' })
+  @prop({ required: true, index: true, type: () => String })
+  public name!: string
+
+  @Field(() => DifficultyClass, { description: 'The DC of the action.' })
+  @prop({ type: () => DifficultyClass })
+  public dc!: DifficultyClass
+}
+
 @ObjectType({
   description: 'Base Equipment class for common fields, potentially used in Unions.'
 })
@@ -97,7 +109,6 @@ export class Equipment2024 {
   @prop({ type: () => ArmorClass })
   public armor_class?: ArmorClass
 
-  @Field(() => [Content], { nullable: true, description: 'Items contained within the equipment.' })
   @prop({ type: () => [Content] })
   public contents?: Content[]
 
@@ -108,6 +119,12 @@ export class Equipment2024 {
   @Field(() => Float, { nullable: true, description: 'Weight of the equipment in pounds.' })
   @prop({ index: true, type: () => Number })
   public weight?: number
+
+  @prop({ index: true, type: () => APIReference })
+  public ability?: APIReference
+
+  @prop({ index: true, type: () => [APIReference] })
+  public craft?: APIReference[]
 
   @prop({ type: () => Damage })
   public damage?: Damage
@@ -147,6 +164,9 @@ export class Equipment2024 {
 
   @prop({ type: () => Damage })
   public two_handed_damage?: Damage
+
+  @prop({ index: true, type: () => [Utilize] })
+  public utilize?: Utilize[]
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
