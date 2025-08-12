@@ -80,7 +80,7 @@
     "eslint-plugin-prettier": "^5.5.3",
     "fishery": "^2.3.1",
     "fs-extra": "^11.3.0",
-    "globals": "^16.0.0",
+    "globals": "^16.3.0",
     "mongodb-memory-server": "^10.1.4",
     "node-mocks-http": "^1.17.2",
     "nodemon": "^3.1.10",
