@@ -3,16 +3,14 @@ import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 import {
   AbilityScoreBonusChoice,
   AbilityScoreBonusChoiceOption,
-  LanguageChoice,
-  ProficiencyChoice
+  LanguageChoice
 } from '@/graphql/2014/common/choiceTypes'
-import { resolveLanguageChoice, resolveProficiencyChoice } from '@/graphql/2014/utils/resolvers'
+import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
 import { buildSortPipeline } from '@/graphql/common/args'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import LanguageModel, { Language } from '@/models/2014/language'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
@@ -93,11 +91,6 @@ export class RaceResolver {
     return resolveMultipleReferences(race.languages, LanguageModel)
   }
 
-  @FieldResolver(() => [Proficiency], { nullable: true })
-  async starting_proficiencies(@Root() race: Race): Promise<Proficiency[]> {
-    return resolveMultipleReferences(race.starting_proficiencies, ProficiencyModel)
-  }
-
   @FieldResolver(() => [Subrace], { nullable: true })
   async subraces(@Root() race: Race): Promise<Subrace[]> {
     return resolveMultipleReferences(race.subraces, SubraceModel)
@@ -111,11 +104,6 @@ export class RaceResolver {
   @FieldResolver(() => LanguageChoice, { nullable: true })
   async language_options(@Root() race: Race): Promise<LanguageChoice | null> {
     return resolveLanguageChoice(race.language_options as Choice)
-  }
-
-  @FieldResolver(() => ProficiencyChoice, { nullable: true })
-  async starting_proficiency_options(@Root() race: Race): Promise<ProficiencyChoice | null> {
-    return resolveProficiencyChoice(race.starting_proficiency_options)
   }
 
   @FieldResolver(() => AbilityScoreBonusChoice, { nullable: true })

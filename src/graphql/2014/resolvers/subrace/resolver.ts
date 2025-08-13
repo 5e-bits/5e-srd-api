@@ -1,16 +1,11 @@
 import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
-import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
-import LanguageModel, { Language } from '@/models/2014/language'
-import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race } from '@/models/2014/race'
 import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
-import { Choice } from '@/models/common/choice'
 import { escapeRegExp } from '@/util'
 
 import {
@@ -65,24 +60,9 @@ export class SubraceResolver {
     return resolveSingleReference(subrace.race, RaceModel)
   }
 
-  @FieldResolver(() => [Language], { nullable: true })
-  async languages(@Root() subrace: Subrace): Promise<Language[]> {
-    return resolveMultipleReferences(subrace.languages, LanguageModel)
-  }
-
   @FieldResolver(() => [Trait], { nullable: true })
   async racial_traits(@Root() subrace: Subrace): Promise<Trait[]> {
     return resolveMultipleReferences(subrace.racial_traits, TraitModel)
-  }
-
-  @FieldResolver(() => [Proficiency], { nullable: true })
-  async starting_proficiencies(@Root() subrace: Subrace): Promise<Proficiency[]> {
-    return resolveMultipleReferences(subrace.starting_proficiencies, ProficiencyModel)
-  }
-
-  @FieldResolver(() => LanguageChoice, { nullable: true })
-  async language_options(@Root() subrace: Subrace): Promise<LanguageChoice | null> {
-    return resolveLanguageChoice(subrace.language_options as Choice)
   }
 }
 @Resolver(SubraceAbilityBonus)
