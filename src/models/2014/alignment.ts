@@ -1,39 +1,35 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: "Represents a creature's moral and ethical outlook." })
 @srdModelOptions('2014-alignments')
 export class Alignment {
-  @Field(() => String, { description: 'A brief description of the alignment.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'A brief description of the alignment.' })
   public desc!: string
 
-  @Field(() => String, {
+  @field(() => T.String, {
     description: 'A shortened representation of the alignment (e.g., LG, CE).'
   })
-  @prop({ required: true, index: true, type: () => String })
   public abbreviation!: string
 
-  @Field(() => String, {
+  @field(() => T.String, {
     description: 'The unique identifier for this alignment (e.g., lawful-good).'
   })
-  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => String, {
+  @field(() => T.String, {
     description: 'The name of the alignment (e.g., Lawful Good, Chaotic Evil).'
   })
-  @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 
