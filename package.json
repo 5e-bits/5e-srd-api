@@ -7,11 +7,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build:ts": "tsc && tsc-alias",
+    "build:ts": "node --max-old-space-size=2048 ./node_modules/.bin/tsc && tsc-alias",
     "build": "npm-run-all --sequential clean bundle-swagger build:ts copy-assets",
     "clean": "rimraf dist/*",
     "copy-assets": "mkdir -p dist && cp -R src/css dist/src && cp -R src/public dist/src",
-    "start": "npm run build && node dist/src/start.js",
+    "start": "npm run build && node --max-old-space-size=1024 dist/src/start.js",
     "dev": "nodemon npm run start",
     "lint": "eslint . --config eslint.config.js",
     "lint:fix": "eslint . --config eslint.config.js --fix",
