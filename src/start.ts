@@ -34,13 +34,26 @@ const start = async () => {
   const app = await createApp()
 
   console.log('Starting server...')
-  const port = process.env.PORT ?? 3000
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}! 🚀`)
+  const port = parseInt(process.env.PORT ?? '3000', 10)
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`🚀 Server listening on 0.0.0.0:${port}`)
+    console.log(`📡 Health check available at: http://0.0.0.0:${port}/health`)
   })
 }
 
 start().catch((err) => {
-  console.error(err)
+  console.error('❌ Failed to start server:', err)
+  process.exit(1)
+})
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason)
+  process.exit(1)
+})
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+  console.error('❌ Uncaught Exception:', error)
   process.exit(1)
 })
