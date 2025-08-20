@@ -2,14 +2,10 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { Field, Int, ObjectType } from 'type-graphql'
 
-import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import { APIReference } from '@/models/common/apiReference'
-import { Choice } from '@/models/common/choice'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
-import { Language } from './language'
-import { Proficiency } from './proficiency'
 import { Race } from './race'
 import { Trait } from './trait'
 
@@ -44,20 +40,6 @@ export class Subrace {
   @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => [Language], {
-    nullable: true,
-    description: 'Additional languages granted by this subrace.'
-  })
-  @prop({ type: () => [APIReference] })
-  public languages?: APIReference[]
-
-  @Field(() => LanguageChoice, {
-    nullable: true,
-    description: 'Languages typically spoken by this subrace.'
-  })
-  @prop({ type: () => Choice })
-  public language_options?: Choice
-
   @Field(() => String, { description: 'The name of the subrace (e.g., High Elf).' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
@@ -72,13 +54,6 @@ export class Subrace {
   })
   @prop({ type: () => [APIReference] })
   public racial_traits!: APIReference[]
-
-  @Field(() => [Proficiency], {
-    nullable: true,
-    description: 'Proficiencies granted by this subrace.'
-  })
-  @prop({ type: () => [APIReference] })
-  public starting_proficiencies?: APIReference[]
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string
