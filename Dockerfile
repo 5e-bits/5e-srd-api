@@ -1,5 +1,5 @@
 # ---- Builder Stage ----
-FROM node:22-alpine AS builder
+FROM --platform=linux/amd64 node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -16,12 +16,15 @@ RUN npm ci
 # .dockerignore will handle exclusions like node_modules, dist, etc.
 COPY . .
 
+# Copy .env file if it exists (for build-time variables)
+COPY .env* ./
+
 # Build the application
 # This uses tsconfig.json to output to ./dist
 RUN npm run build
 
 # ---- Final Stage ----
-FROM node:22-alpine
+FROM --platform=linux/amd64 node:22-alpine
 
 WORKDIR /app
 
@@ -57,4 +60,4 @@ COPY --from=builder /app/tsconfig.json ./
 EXPOSE 3000
 
 # Start the main process.
-CMD ["node", "--experimental-specifier-resolution=node", "dist/src/start.js"]
+CMD ["node", "--experimental-specifier-resolution=node", "dist/start.js"]

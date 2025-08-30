@@ -36,6 +36,9 @@
     "esm": true
   },
   "tsc-alias": {
-    "resolveFullPaths": true
+    "resolveFullPaths": false,
+    "replacers": {
+      "@/(.*)": "./$1"
+    }
   }
 }

@@ -11,6 +11,8 @@ services:
       - '6379:6379'
 
   api:
+    env_file:
+      - .env
     environment:
       MONGODB_URI: mongodb://db/5e-database
       REDIS_URL: redis://cache:6379

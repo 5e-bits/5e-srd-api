@@ -1,18 +1,16 @@
-/node_modules/
-dist
-
-# Git / VCS
-.git/
-
-# Editor / IDE
-.vscode/
-
-# Environment / Secrets
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
 .env
-
-# Logs
+.nyc_output
+coverage
+.nyc_output
 *.log
-npm-debug.log*
-
-# OS generated files
 .DS_Store
+.vscode
+.idea
+*.swp
+*.swo
+*~
