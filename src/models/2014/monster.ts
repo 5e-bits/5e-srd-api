@@ -1,580 +1,519 @@
-import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Float, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
 import { Damage } from '@/models/common/damage'
 import { DifficultyClass } from '@/models/common/difficultyClass'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
 import { Condition } from './condition'
+import { Equipment } from './equipment'
 import { Proficiency } from './proficiency'
 import { Spell } from './spell'
 
 // Export all nested classes/types
 @ObjectType({ description: 'Option within a monster action' })
 export class ActionOption {
-  @Field(() => String, { description: 'The name of the action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the action.' })
   public action_name!: string
 
-  @Field(() => String, { description: 'Number of times the action can be used.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Number of times the action can be used.' })
   public count!: number | string
 
-  @Field(() => String, { description: 'The type of action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The type of action.' })
   public type!: 'melee' | 'ranged' | 'ability' | 'magic'
 }
 
 @ObjectType({ description: 'Usage details for a monster action or ability' })
 export class ActionUsage {
-  @Field(() => String, { description: 'The type of action usage.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The type of action usage.' })
   public type!: string
 
-  @Field(() => String, { nullable: true, description: 'The dice roll for the action usage.' })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: 'The dice roll for the action usage.', optional: true })
   public dice?: string
 
-  @Field(() => Int, { nullable: true, description: 'The minimum value for the action usage.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.String, { description: 'The minimum value for the action usage.', optional: true })
   public min_value?: number
 }
 
 @ObjectType({ description: 'An action a monster can perform' })
 export class MonsterAction {
-  @Field(() => String, { description: 'The name of the action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the action.' })
   public name!: string
 
-  @Field(() => String, { description: 'The description of the action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The description of the action.' })
   public desc!: string
 
-  @Field(() => Int, { nullable: true, description: 'The attack bonus for the action.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The attack bonus for the action.', optional: true })
   public attack_bonus?: number
 
   // Handled by MonsterActionResolver
-  @prop({ type: () => [Object] })
+  @field(() => T.List(Object), { skipResolver: true })
   public damage?: (Damage | Choice)[]
 
-  @Field(() => DifficultyClass, {
-    nullable: true,
-    description: 'The difficulty class for the action.'
+  @field(() => T.Model(DifficultyClass), {
+    description: 'The difficulty class for the action.',
+    optional: true
   })
-  @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 
   // Handled by MonsterActionResolver
-  @prop({ type: () => Choice })
+  @field(() => T.Model(Choice), { optional: true, skipResolver: true })
   public options?: Choice
 
-  @Field(() => ActionUsage, { nullable: true, description: 'The usage for the action.' })
-  @prop({ type: () => ActionUsage })
+  @field(() => T.Model(ActionUsage), { description: 'The usage for the action.', optional: true })
   public usage?: ActionUsage
 
-  @Field(() => String, { nullable: true, description: 'The type of multiattack for the action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The type of multiattack for the action.', optional: true })
   public multiattack_type?: 'actions' | 'action_options'
 
-  @Field(() => [ActionOption], { nullable: true, description: 'The actions for the action.' })
-  @prop({ type: () => [ActionOption] })
+  @field(() => T.List(ActionOption), { description: 'The actions for the action.', optional: true })
   public actions?: ActionOption[]
 
   // Handled by MonsterActionResolver
-  @prop({ type: () => Choice })
+  @field(() => T.Model(Choice), { skipResolver: true })
   public action_options?: Choice
 }
 
+type ArmorClass =
+  | ArmorClassDex
+  | ArmorClassNatural
+  | ArmorClassArmor
+  | ArmorClassSpell
+  | ArmorClassCondition
+
 @ObjectType({ description: 'Monster Armor Class component: Dexterity based' })
 export class ArmorClassDex {
-  @Field(() => String, { description: "Type of AC component: 'dex'" })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "Type of AC component: 'dex'" })
   public type!: 'dex'
 
-  @Field(() => Int, { description: 'AC value from dexterity.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'AC value from dexterity.' })
   public value!: number
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Optional description for this AC component.'
+  @field(() => T.String, {
+    description: 'Optional description for this AC component.',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Natural armor' })
 export class ArmorClassNatural {
-  @Field(() => String, { description: "Type of AC component: 'natural'" })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "Type of AC component: 'natural'" })
   public type!: 'natural'
 
-  @Field(() => Int, { description: 'AC value from natural armor.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'AC value from natural armor.' })
   public value!: number
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Optional description for this AC component.'
+  @field(() => T.String, {
+    description: 'Optional description for this AC component.',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Armor worn' })
 export class ArmorClassArmor {
-  @Field(() => String, { description: "Type of AC component: 'armor'" })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "Type of AC component: 'armor'" })
   public type!: 'armor'
 
-  @Field(() => Int, { description: 'AC value from worn armor.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'AC value from worn armor.' })
   public value!: number
 
   // Handled by MonsterArmorClassResolver
-  @prop({ type: () => [APIReference] })
+  @field(() => T.Ref(Equipment), { skipResolver: true })
   public armor?: APIReference[]
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Optional description for this AC component.'
+  @field(() => T.String, {
+    description: 'Optional description for this AC component.',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Spell effect' })
 export class ArmorClassSpell {
-  @Field(() => String, { description: "Type of AC component: 'spell'" })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "Type of AC component: 'spell'" })
   public type!: 'spell'
 
-  @Field(() => Int, { description: 'AC value from spell effect.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'AC value from spell effect.' })
   public value!: number
 
-  @Field(() => Spell, {
+  @field(() => T.Ref(Spell), {
     description: 'The spell providing the AC bonus. Resolved via resolver.'
   })
-  @prop({ type: () => APIReference })
   public spell!: APIReference
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Optional description for this AC component.'
+  @field(() => T.String, {
+    description: 'Optional description for this AC component.',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Monster Armor Class component: Condition effect' })
 export class ArmorClassCondition {
-  @Field(() => String, { description: "Type of AC component: 'condition'" })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "Type of AC component: 'condition'" })
   public type!: 'condition'
 
-  @Field(() => Int, { description: 'AC value from condition effect.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'AC value from condition effect.' })
   public value!: number
 
-  @Field(() => Condition, {
+  @field(() => T.Ref(Condition), {
     description: 'The condition providing the AC bonus. Resolved via resolver.'
   })
-  @prop({ type: () => APIReference })
   public condition!: APIReference
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Optional description for this AC component.'
+  @field(() => T.String, {
+    description: 'Optional description for this AC component.',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'A legendary action a monster can perform' })
 export class LegendaryAction {
-  @Field(() => String, { description: 'The name of the legendary action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the legendary action.' })
   public name!: string
 
-  @Field(() => String, { description: 'The description of the legendary action.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The description of the legendary action.' })
   public desc!: string
 
-  @Field(() => Int, { nullable: true, description: 'The attack bonus for the legendary action.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The attack bonus for the legendary action.', optional: true })
   public attack_bonus?: number
 
-  @Field(() => [Damage], { nullable: true, description: 'The damage for the legendary action.' })
-  @prop({ type: () => [Damage] })
+  @field(() => T.List(Damage), {
+    description: 'The damage for the legendary action.',
+    optional: true
+  })
   public damage?: Damage[]
 
-  @Field(() => DifficultyClass, {
-    nullable: true,
-    description: 'The difficulty class for the legendary action.'
+  @field(() => T.Model(DifficultyClass), {
+    description: 'The difficulty class for the legendary action.',
+    optional: true
   })
-  @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 }
 
 @ObjectType({ description: "A monster's specific proficiency and its bonus value." })
 export class MonsterProficiency {
-  @Field(() => Proficiency, {
+  @field(() => T.Ref(Proficiency), {
     description: 'The specific proficiency (e.g., Saving Throw: STR, Skill: Athletics).'
   })
-  @prop({ type: () => APIReference })
   public proficiency!: APIReference
 
-  @Field(() => Int, { description: 'The proficiency bonus value for this monster.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The proficiency bonus value for this monster.' })
   public value!: number
 }
 
 @ObjectType({ description: 'A reaction a monster can perform' })
 export class Reaction {
-  @Field(() => String, { description: 'The name of the reaction.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the reaction.' })
   public name!: string
 
-  @Field(() => String, { description: 'The description of the reaction.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The description of the reaction.' })
   public desc!: string
 
-  @Field(() => DifficultyClass, {
-    nullable: true,
-    description: 'The difficulty class for the reaction.'
+  @field(() => T.Model(DifficultyClass), {
+    description: 'The difficulty class for the reaction.',
+    optional: true
   })
-  @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 }
 
 @ObjectType({ description: 'Monster senses details' })
 export class Sense {
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, {
+    description: "The creature's blindsight range, e.g. '30 ft.'.",
+    optional: true
+  })
   public blindsight?: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, {
+    description: "The creature's darkvision range, e.g. '120 ft.'.",
+    optional: true
+  })
   public darkvision?: string
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The creature's passive Wisdom (Perception) score." })
   public passive_perception!: number
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, {
+    description: "The creature's tremorsense range, e.g. '60 ft.'.",
+    optional: true
+  })
   public tremorsense?: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, {
+    description: "The creature's truesight range, e.g. '120 ft.'.",
+    optional: true
+  })
   public truesight?: string
 }
 
 @ObjectType({ description: 'Usage details for a special ability' })
 export class SpecialAbilityUsage {
-  @Field(() => String, { description: 'The type of usage for the special ability.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The type of usage for the special ability.' })
   public type!: string
 
-  @Field(() => Int, {
-    nullable: true,
-    description: 'The number of times the special ability can be used.'
+  @field(() => T.Int, {
+    description: 'The number of times the special ability can be used.',
+    optional: true
   })
-  @prop({ index: true, type: () => Number })
   public times?: number
 
-  @Field(() => [String], {
-    nullable: true,
-    description: 'The types of rest the special ability can be used on.'
+  @field(() => T.List(String), {
+    description: 'The types of rest the special ability can be used on.',
+    optional: true
   })
-  @prop({ type: () => [String] })
   public rest_types?: string[]
 }
 
 @ObjectType({ description: "A spell within a monster's special ability spellcasting" })
 export class SpecialAbilitySpell {
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the spell.' })
   public name!: string
 
-  @Field(() => Int, { description: 'The level of the spell.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The level of the spell.' })
   public level!: number
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'The canonical path of the spell resource in the REST API.'
+  })
   public url!: string
 
-  @Field(() => String, { nullable: true, description: 'The notes for the spell.' })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: 'The notes for the spell.', optional: true })
   public notes?: string
 
-  @Field(() => SpecialAbilityUsage, { nullable: true, description: 'The usage for the spell.' })
-  @prop({ type: () => SpecialAbilityUsage })
+  @field(() => T.Model(SpecialAbilityUsage), {
+    description: 'The usage for the spell.',
+    optional: true
+  })
   public usage?: SpecialAbilityUsage
 }
 
 @ObjectType({ description: 'Spellcasting details for a monster special ability' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpecialAbilitySpellcasting {
-  @Field(() => Int, { nullable: true, description: 'The level of the spellcasting.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The level of the spellcasting.', optional: true })
   public level?: number
 
-  @Field(() => AbilityScore, { description: 'The ability for the spellcasting.' })
-  @prop({ type: () => APIReference })
+  @field(() => T.Ref(AbilityScore), { description: 'The ability for the spellcasting.' })
   public ability!: APIReference
 
-  @Field(() => Int, { nullable: true, description: 'The difficulty class for the spellcasting.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The difficulty class for the spellcasting.', optional: true })
   public dc?: number
 
-  @Field(() => Int, { nullable: true, description: 'The modifier for the spellcasting.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The modifier for the spellcasting.', optional: true })
   public modifier?: number
 
-  @Field(() => [String], { description: 'The components required for the spellcasting.' })
-  @prop({ type: () => [String] })
+  @field(() => T.List(String), { description: 'The components required for the spellcasting.' })
   public components_required!: string[]
 
-  @Field(() => String, { nullable: true, description: 'The school of the spellcasting.' })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: 'The school of the spellcasting.', optional: true })
   public school?: string
 
   // Handled by MonsterSpellcastingResolver
-  @prop({ type: () => Object, default: undefined })
+  @field(() => T.Model(Object), { skipResolver: true })
   public slots?: Record<string, number>
 
-  @Field(() => [SpecialAbilitySpell], { description: 'The spells for the spellcasting.' })
-  @prop({ type: () => [SpecialAbilitySpell] })
+  @field(() => T.List(SpecialAbilitySpell), { description: 'The spells for the spellcasting.' })
   public spells!: SpecialAbilitySpell[]
 }
 
 @ObjectType({ description: 'A special ability of the monster' })
 export class SpecialAbility {
-  @Field(() => String, { description: 'The name of the special ability.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The name of the special ability.' })
   public name!: string
 
-  @Field(() => String, { description: 'The description of the special ability.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The description of the special ability.' })
   public desc!: string
 
-  @Field(() => Int, { nullable: true, description: 'The attack bonus for the special ability.' })
-  @prop({ index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The attack bonus for the special ability.', optional: true })
   public attack_bonus?: number
 
-  @Field(() => [Damage], { nullable: true, description: 'The damage for the special ability.' })
-  @prop({ type: () => [Damage] })
+  @field(() => T.List(Damage), {
+    description: 'The damage for the special ability.',
+    optional: true
+  })
   public damage?: Damage[]
 
-  @Field(() => DifficultyClass, {
-    nullable: true,
-    description: 'The difficulty class for the special ability.'
+  @field(() => T.Model(DifficultyClass), {
+    description: 'The difficulty class for the special ability.',
+    optional: true
   })
-  @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 
-  @Field(() => SpecialAbilitySpellcasting, {
-    nullable: true,
-    description: 'The spellcasting for the special ability.'
+  @field(() => T.Model(SpecialAbilitySpellcasting), {
+    description: 'The spellcasting for the special ability.',
+    optional: true
   })
-  @prop({ type: () => SpecialAbilitySpellcasting })
   public spellcasting?: SpecialAbilitySpellcasting
 
-  @Field(() => SpecialAbilityUsage, {
-    nullable: true,
-    description: 'The usage for the special ability.'
+  @field(() => T.Model(SpecialAbilityUsage), {
+    description: 'The usage for the special ability.',
+    optional: true
   })
-  @prop({ type: () => SpecialAbilityUsage })
   public usage?: SpecialAbilityUsage
 }
 
 @ObjectType({ description: 'Monster movement speeds' })
 export class MonsterSpeed {
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: "The creature's burrowing speed.", optional: true })
   public burrow?: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: "The creature's climbing speed.", optional: true })
   public climb?: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: "The creature's flying speed.", optional: true })
   public fly?: string
 
-  @Field(() => Boolean, { nullable: true })
-  @prop({ index: true, type: () => Boolean })
+  @field(() => T.String, { description: 'Whether the creature can hover or not.', optional: true })
   public hover?: boolean
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: "The creature's swimming speed.", optional: true })
   public swim?: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: "The creature's walking speed.", optional: true })
   public walk?: string
 }
 
 @ObjectType({ description: 'A D&D monster.' })
 @srdModelOptions('2014-monsters')
 export class Monster {
-  @Field(() => [MonsterAction], { nullable: true, description: 'The actions for the monster.' })
-  @prop({ type: () => [MonsterAction] })
+  @field(() => T.List(MonsterAction), {
+    description: 'The actions for the monster.',
+    optional: true
+  })
   public actions?: MonsterAction[]
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "The monster's alignment." })
   public alignment!: string
 
   // Handled by MonsterArmorClassResolver
-  @prop({
-    type: () =>
-      Array<
-        ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
-      >,
-    required: true
-  })
-  public armor_class!: Array<
-    ArmorClassDex | ArmorClassNatural | ArmorClassArmor | ArmorClassSpell | ArmorClassCondition
-  >
+  @field(() => T.List(Object), { skipResolver: true })
+  public armor_class!: ArmorClass[]
 
-  @Field(() => Float)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Float, { description: "The monster's alignment." })
   public challenge_rating!: number
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's Charisma score." })
   public charisma!: number
 
-  @Field(() => [Condition], { nullable: true, description: 'Conditions the monster is immune to.' })
-  @prop({ type: () => [APIReference] })
+  @field(() => T.RefList(Condition), {
+    description: 'Conditions the monster is immune to.',
+    optional: true
+  })
   public condition_immunities!: APIReference[]
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's Constitution score." })
   public constitution!: number
 
-  @Field(() => [String])
-  @prop({ type: () => [String] })
+  @field(() => T.List(String), { description: 'Damage types the monster is immune to.' })
   public damage_immunities!: string[]
 
-  @Field(() => [String])
-  @prop({ type: () => [String] })
+  @field(() => T.List(String), { description: 'Damage types the monster is resistant to.' })
   public damage_resistances!: string[]
 
-  @Field(() => [String])
-  @prop({ type: () => [String] })
+  @field(() => T.List(String), { description: 'Damage types the monster is vulnerable to.' })
   public damage_vulnerabilities!: string[]
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's Dexterity score." })
   public dexterity!: number
 
-  @Field(() => [Monster], { nullable: true, description: 'Other forms the monster can assume.' })
-  @prop({ type: () => [APIReference] })
+  @field(() => T.RefList(Monster), {
+    description: 'Other forms the monster can assume.',
+    optional: true
+  })
   public forms?: APIReference[]
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "The number and size of the monster's hit dice." })
   public hit_dice!: string
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's average Hit Point maximum." })
   public hit_points!: number
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "Dice to determine the monster's Hit Point maximum." })
   public hit_points_roll!: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, {
+    description:
+      "The path of an image depicting the monster, relative to the API's base URL, e.g. '/api/images/monsters/aboleth.png'",
+    optional: true
+  })
   public image?: string
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'Unique identifer for this monster (e.g. aboleth, young-black-dragon).'
+  })
   public index!: string
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's Intelligence score." })
   public intelligence!: number
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Languages that the monster speaks and/or understands.' })
   public languages!: string
 
-  @Field(() => [LegendaryAction], {
-    nullable: true,
-    description: 'The legendary actions for the monster.'
+  @field(() => T.List(LegendaryAction), {
+    description: 'The legendary actions for the monster.',
+    optional: true
   })
-  @prop({ type: () => [LegendaryAction] })
   public legendary_actions?: LegendaryAction[]
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "The monster's name." })
   public name!: string
 
-  @Field(() => [MonsterProficiency], {
-    nullable: true,
-    description: 'The proficiencies for the monster.'
+  @field(() => T.List(MonsterProficiency), {
+    description: 'The proficiencies for the monster.',
+    optional: true
   })
-  @prop({ type: () => [MonsterProficiency] })
   public proficiencies!: MonsterProficiency[]
 
-  @Field(() => [Reaction], { nullable: true, description: 'The reactions for the monster.' })
-  @prop({ type: () => [Reaction] })
+  @field(() => T.List(Reaction), { description: 'The reactions for the monster.', optional: true })
   public reactions?: Reaction[]
 
-  @Field(() => Sense)
-  @prop({ type: () => Sense })
+  @field(() => T.Model(Sense), { description: "The monster's senses." })
   public senses!: Sense
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "The monster's size category." })
   public size!: string
 
-  @Field(() => [SpecialAbility], {
-    nullable: true,
-    description: 'The special abilities for the monster.'
+  @field(() => T.List(SpecialAbility), {
+    description: 'The special abilities for the monster.',
+    optional: true
   })
-  @prop({ type: () => [SpecialAbility] })
   public special_abilities?: SpecialAbility[]
 
-  @Field(() => MonsterSpeed)
-  @prop({ type: () => MonsterSpeed })
+  @field(() => T.Model(MonsterSpeed), { description: "The monster's movement information." })
   public speed!: MonsterSpeed
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's Strength score." })
   public strength!: number
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'The subtype of the monster (e.g. goblinoid, shapechanger).',
+    optional: true
+  })
   public subtype?: string
 
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The type of the monster (e.g. beast, monstrosity).' })
   public type!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update' })
+  public updated_at!: string
+
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: "The monster's Wisdom score." })
   public wisdom!: number
 
-  @Field(() => Int)
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The Experience Points rewarded for slaying the monster.' })
   public xp!: number
-
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
-  public updated_at!: string
 }
 
 export type MonsterDocument = DocumentType<Monster>

@@ -1,12 +1,14 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
+import { Equipment } from './equipment'
 import { Level } from './level'
 import { Proficiency } from './proficiency'
 import { Spell } from './spell'
@@ -15,153 +17,125 @@ import { Subclass } from './subclass'
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
   // Handled by ClassEquipmentResolver
-  @prop({ type: () => APIReference })
+  @field(() => T.Ref(Equipment), { skipResolver: true })
   public equipment!: APIReference
 
-  @Field(() => Int, { description: 'Quantity of the equipment item.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'Quantity of the equipment item.' })
   public quantity!: number
 }
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  @Field(() => [String], { description: 'Description of the spellcasting ability.' })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field(() => T.List(String), { description: 'Description of the spellcasting ability.' })
   public desc!: string[]
 
-  @Field(() => String, { description: 'Name of the spellcasting ability.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Name of the spellcasting ability.' })
   public name!: string
 }
 
 @ObjectType({ description: 'Spellcasting details for a class' })
 export class Spellcasting {
-  @Field(() => [SpellcastingInfo], { description: 'Spellcasting details for the class.' })
-  @prop({ type: () => [SpellcastingInfo] })
+  @field(() => T.List(SpellcastingInfo), { description: 'Spellcasting details for the class.' })
   public info!: SpellcastingInfo[]
 
-  @Field(() => Int, { description: 'Level of the spellcasting ability.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'Level of the spellcasting ability.' })
   public level!: number
 
-  @Field(() => AbilityScore, { description: 'Ability score used for spellcasting.' })
-  @prop({ type: () => APIReference })
+  @field(() => T.Ref(AbilityScore), { description: 'Ability score used for spellcasting.' })
   public spellcasting_ability!: APIReference
 }
 
 @ObjectType({ description: 'Prerequisite for multi-classing' })
 export class MultiClassingPrereq {
-  @Field(() => AbilityScore, { nullable: true, description: 'The ability score required.' })
-  @prop({ type: () => APIReference })
+  @field(() => T.Ref(AbilityScore), { description: 'The ability score required.' })
   public ability_score!: APIReference
 
-  @Field(() => Int, { description: 'The minimum score required.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'The minimum score required.' })
   public minimum_score!: number
 }
 
 @ObjectType({ description: 'Multi-classing requirements and features for a class' })
 export class MultiClassing {
-  @Field(() => [MultiClassingPrereq], {
-    nullable: true,
-    description: 'Ability score prerequisites for multi-classing.'
+  @field(() => T.List(MultiClassingPrereq), {
+    description: 'Ability score prerequisites for multi-classing.',
+    optional: true
   })
-  @prop({ type: () => [MultiClassingPrereq], default: undefined })
   public prerequisites?: MultiClassingPrereq[]
 
   // Handled by MultiClassingResolver
-  @prop({ type: () => Choice, default: undefined })
+  @field(() => T.Model(Choice), { optional: true, skipResolver: true })
   public prerequisite_options?: Choice
 
-  @Field(() => [Proficiency], {
-    nullable: true,
-    description: 'Proficiencies gained when multi-classing into this class.'
+  @field(() => T.RefList(Proficiency), {
+    description: 'Proficiencies gained when multi-classing into this class.',
+    optional: true
   })
-  @prop({ type: () => [APIReference], default: undefined })
   public proficiencies?: APIReference[]
 
   // Handled by MultiClassingResolver
-  @prop({ type: () => [Choice], default: undefined })
+  @field(() => T.List(Choice), { optional: true, skipResolver: true })
   public proficiency_choices?: Choice[]
 }
 
 @ObjectType({ description: 'Represents a character class (e.g., Barbarian, Wizard)' })
 @srdModelOptions('2014-classes')
 export class Class {
-  @Field(() => [Level], {
+  @field(() => T.Link([Level]), {
     description: 'All levels for this class, detailing features and abilities gained.'
   })
-  @prop({ required: true, index: true, type: () => String })
   public class_levels!: string
 
-  @Field(() => MultiClassing, {
-    nullable: true,
+  @field(() => T.Model(MultiClassing), {
     description: 'Multi-classing requirements and features for this class.'
   })
-  @prop({ type: () => MultiClassing })
   public multi_classing!: MultiClassing
 
-  @Field(() => Int, { description: 'Hit die size for the class (e.g., 6, 8, 10, 12)' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'Hit die size for the class (e.g., 6, 8, 10, 12)' })
   public hit_die!: number
 
-  @Field(() => String, { description: 'Unique identifier for the class' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Unique identifier for the class' })
   public index!: string
 
-  @Field(() => String, { description: 'Name of the class' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Name of the class' })
   public name!: string
 
-  @Field(() => [Proficiency], {
-    nullable: true,
+  @field(() => T.RefList(Proficiency), {
     description: 'Base proficiencies granted by this class.'
   })
-  @prop({ type: () => [APIReference] })
   public proficiencies!: APIReference[]
 
   // Handled by ClassResolver
-  @prop({ type: () => [Choice] })
+  @field(() => T.List(Choice), { skipResolver: true })
   public proficiency_choices!: Choice[]
 
-  @Field(() => [AbilityScore], {
-    nullable: true,
+  @field(() => T.RefList(AbilityScore), {
     description: 'Saving throw proficiencies granted by this class.'
   })
-  @prop({ type: () => [APIReference] })
   public saving_throws!: APIReference[]
 
-  @Field(() => Spellcasting, {
-    nullable: true,
-    description: 'Spellcasting details for the class.'
+  @field(() => T.Model(Spellcasting), {
+    description: 'Spellcasting details for the class.',
+    optional: true
   })
-  @prop({ type: () => Spellcasting })
   public spellcasting?: Spellcasting
 
-  @Field(() => [Spell], { description: 'Spells available to this class.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.Link([Spell]), { description: 'Spells available to this class.' })
   public spells!: string
 
-  @Field(() => [ClassEquipment], {
-    nullable: true,
-    description: 'Starting equipment for the class.'
-  })
-  @prop({ type: () => [ClassEquipment] })
+  @field(() => T.List(ClassEquipment), { description: 'Starting equipment for the class.' })
   public starting_equipment!: ClassEquipment[]
 
   // Handled by ClassResolver
-  @prop({ type: () => [Choice] })
+  @field(() => T.List(Choice), { skipResolver: true })
   public starting_equipment_options!: Choice[]
 
-  @Field(() => [Subclass], { nullable: true, description: 'Available subclasses for this class.' })
-  @prop({ type: () => [APIReference] })
+  @field(() => T.RefList(Subclass), { description: 'Available subclasses for this class.' })
   public subclasses!: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update' })
   public updated_at!: string
 }
 

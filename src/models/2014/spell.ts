@@ -1,9 +1,10 @@
-import { getModelForClass, modelOptions, prop, Severity } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, Severity } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { AreaOfEffect } from '@/models/common/areaOfEffect'
+import { field, T } from '@/util/fieldDectorator'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
@@ -15,137 +16,119 @@ import { Subclass } from './subclass'
 @ObjectType({ description: 'Details about spell damage' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class SpellDamage {
-  @Field(() => DamageType, { nullable: true, description: 'Type of damage dealt.' })
-  @prop({ type: () => APIReference })
+  @field(() => T.Ref(DamageType), { description: 'Type of damage dealt.', optional: true })
   public damage_type?: APIReference
 
   // Handled by SpellDamageResolver
-  @prop({ mapProp: true, type: () => Object, default: undefined })
+  @field(() => T.Model(Object), { optional: true, skipResolver: true })
   public damage_at_slot_level?: Record<number, string>
 
   // Handled by SpellDamageResolver
-  @prop({ mapProp: true, type: () => Object, default: undefined })
+  @field(() => T.Model(Object), { optional: true, skipResolver: true })
   public damage_at_character_level?: Record<number, string>
 }
 
 @ObjectType({ description: "Details about a spell's saving throw" })
 export class SpellDC {
-  @Field(() => AbilityScore, { description: 'The ability score used for the saving throw.' })
-  @prop({ type: () => APIReference, required: true })
+  @field(() => T.Ref(AbilityScore), { description: 'The ability score used for the saving throw.' })
   public dc_type!: APIReference
 
-  @Field(() => String, { description: "The result of a successful save (e.g., 'half', 'none')." })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: "The result of a successful save (e.g., 'half', 'none')." })
   public dc_success!: string
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Additional description for the saving throw.'
+  @field(() => T.String, {
+    description: 'Additional description for the saving throw.',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 }
 
 @ObjectType({ description: 'Represents a spell in D&D' })
 @srdModelOptions('2014-spells')
 export class Spell {
-  @Field(() => AreaOfEffect, {
-    nullable: true,
-    description: 'Area of effect details, if applicable.'
+  @field(() => T.Model(AreaOfEffect), {
+    description: 'Area of effect details, if applicable.',
+    optional: true
   })
-  @prop({ type: () => AreaOfEffect })
   public area_of_effect?: AreaOfEffect
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Type of attack associated with the spell (e.g., Melee, Ranged)'
+  @field(() => T.String, {
+    description: 'Type of attack associated with the spell (e.g., Melee, Ranged)',
+    optional: true
   })
-  @prop({ index: true, type: () => String })
   public attack_type?: string
 
-  @Field(() => String, { description: 'Time required to cast the spell' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Time required to cast the spell' })
   public casting_time!: string
 
-  @Field(() => [Class], { nullable: true, description: 'Classes that can cast this spell.' })
-  @prop({ type: () => [APIReference], required: true })
+  @field(() => T.RefList(Class), { description: 'Classes that can cast this spell.' })
   public classes!: APIReference[]
 
-  @Field(() => [String], { description: 'Components required for the spell (V, S, M)' })
-  @prop({ type: () => [String], required: true })
+  @field(() => T.List(String), { description: 'Components required for the spell (V, S, M)' })
   public components!: string[]
 
-  @Field(() => Boolean, { description: 'Indicates if the spell requires concentration' })
-  @prop({ index: true, type: () => Boolean })
+  @field(() => T.Bool, { description: 'Indicates if the spell requires concentration' })
   public concentration!: boolean
 
-  @Field(() => SpellDamage, { nullable: true, description: 'Damage details, if applicable.' })
-  @prop({ type: () => SpellDamage })
+  @field(() => T.Model(SpellDamage), {
+    description: 'Damage details, if applicable.',
+    optional: true
+  })
   public damage?: SpellDamage
 
-  @Field(() => SpellDC, { nullable: true, description: 'Saving throw details, if applicable.' })
-  @prop({ type: () => SpellDC })
+  @field(() => T.Model(SpellDC), {
+    description: 'Saving throw details, if applicable.',
+    optional: true
+  })
   public dc?: SpellDC
 
-  @Field(() => [String], { description: "Description of the spell's effects" })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field(() => T.List(String), { description: "Description of the spell's effects" })
   public desc!: string[]
 
-  @Field(() => String, { description: 'Duration of the spell' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Duration of the spell' })
   public duration!: string
 
   // Handled by SpellResolver
-  @prop({ type: () => Object })
+  @field(() => T.Model(Object), { optional: true, skipResolver: true })
   public heal_at_slot_level?: Record<number, string>
 
-  @Field(() => [String], {
-    nullable: true,
-    description: 'Description of effects when cast at higher levels'
+  @field(() => T.List(String), {
+    description: 'Description of effects when cast at higher levels',
+    optional: true
   })
-  @prop({ type: () => [String] })
   public higher_level?: string[]
 
-  @Field(() => String, { description: 'Unique identifier for this spell' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Unique identifier for this spell' })
   public index!: string
 
-  @Field(() => Int, { description: 'Level of the spell (0 for cantrips)' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(() => T.Int, { description: 'Level of the spell (0 for cantrips)' })
   public level!: number
 
-  @Field(() => String, { nullable: true, description: 'Material components required, if any' })
-  @prop({ index: true, type: () => String })
+  @field(() => T.String, { description: 'Material components required, if any', optional: true })
   public material?: string
 
-  @Field(() => String, { description: 'Name of the spell' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Name of the spell' })
   public name!: string
 
-  @Field(() => String, { description: 'Range of the spell' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Range of the spell' })
   public range!: string
 
-  @Field(() => Boolean, { description: 'Indicates if the spell can be cast as a ritual' })
-  @prop({ required: true, index: true, type: () => Boolean })
+  @field(() => T.Bool, { description: 'Indicates if the spell can be cast as a ritual' })
   public ritual!: boolean
 
-  @Field(() => MagicSchool, {
-    nullable: true,
-    description: 'The school of magic this spell belongs to.'
-  })
-  @prop({ type: () => APIReference, required: true })
+  @field(() => T.Ref(MagicSchool), { description: 'The school of magic this spell belongs to.' })
   public school!: APIReference
 
-  @Field(() => [Subclass], { nullable: true, description: 'Subclasses that can cast this spell.' })
-  @prop({ type: () => [APIReference], required: true })
+  @field(() => T.RefList(Subclass), {
+    description: 'Subclasses that can cast this spell.',
+    optional: true
+  })
   public subclasses?: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'The canonical path of this resource in the REST API.' })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { description: 'Timestamp of the last update.' })
   public updated_at!: string
 }
 
