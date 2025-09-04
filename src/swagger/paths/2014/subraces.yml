@@ -25,7 +25,6 @@ subraces-path:
                     url: '/api/2014/ability-scores/wis'
                   bonus: 1
               desc: As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.
-              languages: []
               race:
                 index: dwarf
                 name: Dwarf
@@ -34,7 +33,6 @@ subraces-path:
                 - index: dwarven-toughness
                   name: Dwarven Toughness
                   url: '/api/2014/traits/dwarven-toughness'
-              starting_proficiencies: []
 
 # /api/2014/subraces/{index}/proficiencies
 subrace-proficiencies-path:
