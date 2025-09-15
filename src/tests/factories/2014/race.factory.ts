@@ -28,16 +28,6 @@ export const raceFactory = Factory.define<Race>(({ sequence, associations, trans
     age: faker.lorem.paragraph(),
     size: faker.helpers.arrayElement(['Small', 'Medium', 'Large']),
     size_description: faker.lorem.paragraph(),
-    starting_proficiencies:
-      associations.starting_proficiencies ??
-      apiReferenceFactory.buildList(
-        faker.number.int({ min: 0, max: 4 }),
-        {},
-        { transient: { resourceType: 'proficiencies' } }
-      ),
-    starting_proficiency_options:
-      associations.starting_proficiency_options ??
-      (faker.datatype.boolean() ? choiceFactory.build() : undefined),
     languages:
       associations.languages ??
       apiReferenceFactory.buildList(

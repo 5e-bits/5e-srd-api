@@ -8,7 +8,6 @@ import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
 import { Language } from './language'
-import { Proficiency } from './proficiency'
 import { Subrace } from './subrace'
 import { Trait } from './trait'
 
@@ -79,17 +78,6 @@ export class Race {
   @Field(() => Int, { description: 'Base walking speed in feet' })
   @prop({ required: true, index: true, type: () => Number })
   public speed!: number
-
-  @Field(() => [Proficiency], {
-    nullable: true,
-    description: 'Proficiencies granted by this race at start.'
-  })
-  @prop({ type: () => [APIReference] })
-  public starting_proficiencies?: APIReference[]
-
-  // Handled by RaceResolver
-  @prop({ type: () => Choice })
-  public starting_proficiency_options?: Choice
 
   @Field(() => [Subrace], { nullable: true, description: 'Subraces available for this race.' })
   @prop({ type: () => [APIReference] })

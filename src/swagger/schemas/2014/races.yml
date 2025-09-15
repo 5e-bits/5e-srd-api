@@ -24,14 +24,6 @@ allOf:
       size_description:
         description: 'Flavor description of height and weight for this race.'
         type: string
-      starting_proficiencies:
-        description: 'Starting proficiencies for all new characters of this race.'
-        type: array
-        items:
-          $ref: './combined.yml#/APIReference'
-      starting_proficiency_options:
-        description: 'Starting proficiency options for all new characters of this race.'
-        $ref: './combined.yml#/Choice'
       languages:
         description: 'Starting languages for all new characters of this race.'
         type: array
