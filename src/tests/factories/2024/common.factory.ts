@@ -14,14 +14,15 @@ export const createIndex = (name: string): string =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
 
-export const createUrl = (resource: string, index: string): string => `/api/${resource}/${index}`
+export const createUrl = (resource: string, index: string): string =>
+  `/api/2024/${resource}/${index}`
 
 // --- APIReference ---
 export const apiReferenceFactory = Factory.define<APIReference>(({ sequence, params }) => {
   const name = params?.name ?? `Reference ${sequence}`
   const index = params?.index ?? createIndex(name)
   // Default to a generic 'testing' resource if not provided
-  const resource = params?.url?.split('/')[2] ?? 'testing'
+  const resource = params?.url?.split('/')[3] ?? 'testing'
   return {
     index: index,
     name: name,
