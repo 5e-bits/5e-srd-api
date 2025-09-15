@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/5e-bits/5e-srd-api/compare/v5.0.0...v5.1.0) (2025-09-15)
+
+
+### Features
+
+* **2024:** Add equipment and categories ([#815](https://github.com/5e-bits/5e-srd-api/issues/815)) ([81dae46](https://github.com/5e-bits/5e-srd-api/commit/81dae461faa031b93d9c0edf86a458f7c1f3f2c6))
+
 # [5.0.0](https://github.com/5e-bits/5e-srd-api/compare/v4.2.1...v5.0.0) (2025-09-04)
 
 
