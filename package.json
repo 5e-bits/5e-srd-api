@@ -53,7 +53,7 @@
     "zod": "^4.0.17"
   },
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
+    "@eslint/js": "^9.37.0",
     "@faker-js/faker": "^9.9.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
