@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # @v5.0.0
       - name: Use Node.js 22.x
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # @v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # @v6.0.0
         with:
           node-version: 22.x
       - run: npm install
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # @v5.0.0
       - name: Use Node.js 22.x
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # @v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # @v6.0.0
         with:
           node-version: 22.x
       - run: npm install
@@ -89,7 +89,7 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.generate_token.outputs.token }} # Use generated token
       - name: Use Node.js 22.x
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # @v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # @v6.0.0
         with:
           node-version: 22.x
       - name: Install Dependencies
