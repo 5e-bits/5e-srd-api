@@ -3,6 +3,7 @@ name: Release
 on:
   repository_dispatch:
     types: [release-published, re-release]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -143,5 +144,5 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.14.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: 'dnd-5e-srd-api'
-          heroku_email: 'cdurianward@gmail.com'
+          heroku_app_name: "dnd-5e-srd-api"
+          heroku_email: "cdurianward@gmail.com"
