@@ -33,7 +33,7 @@ jobs:
         with:
           ref: ${{ steps.tag.outputs.tag }}
       - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
       - name: Install Dependencies
