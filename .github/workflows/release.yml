@@ -2,7 +2,7 @@ name: Release
 
 on:
   repository_dispatch:
-    types: [release-published, re-release]
+    types: [build_application]
   workflow_dispatch:
 
 env:
