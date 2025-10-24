@@ -25,4 +25,4 @@ jobs:
         uses: googleapis/release-please-action@v4
         with:
           release-type: node
-          config-file: release-please-config.json
+          config-file: ./release-please-config.json

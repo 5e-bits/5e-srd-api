@@ -3,30 +3,30 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "package-name": "5e-database"
+      "package-name": "5e-database",
+      "changelog-types": [
+        {
+          "type": "feat",
+          "section": "Features",
+          "hidden": false
+        },
+        {
+          "type": "fix",
+          "section": "Bug Fixes",
+          "hidden": false
+        },
+        {
+          "type": "deps",
+          "section": "Dependencies",
+          "hidden": false
+        }
+      ]
     }
   },
   "changelog-sections": [
     {
       "type": "deps",
       "section": "Dependencies"
-    }
-  ],
-  "changelog-types": [
-    {
-      "type": "feat",
-      "section": "Features",
-      "hidden": false
-    },
-    {
-      "type": "fix",
-      "section": "Bug Fixes",
-      "hidden": false
-    },
-    {
-      "type": "deps",
-      "section": "Dependencies",
-      "hidden": false
     }
   ]
 }
