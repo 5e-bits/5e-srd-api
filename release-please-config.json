@@ -3,7 +3,13 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "package-name": "5e-srd-api"
+      "package-name": "5e-database"
     }
-  }
+  },
+  "changelog-sections": [
+    {
+      "type": "deps",
+      "section": "Dependencies"
+    }
+  ]
 }
