@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.tag.outputs.tag }}
       - name: Use Node.js 22.x
@@ -98,7 +98,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.tag.outputs.tag }}
       - name: Log in to the Container registry
@@ -137,7 +137,7 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.tag.outputs.tag }}
       - name: Deploy to Heroku
