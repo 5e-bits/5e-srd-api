@@ -1,3 +1,60 @@
+# [5.1.0](https://github.com/5e-bits/5e-srd-api/compare/v5.0.0...v5.1.0) (2025-09-15)
+
+
+### Features
+
+* **2024:** Add equipment and categories ([#815](https://github.com/5e-bits/5e-srd-api/issues/815)) ([81dae46](https://github.com/5e-bits/5e-srd-api/commit/81dae461faa031b93d9c0edf86a458f7c1f3f2c6))
+
+# [5.0.0](https://github.com/5e-bits/5e-srd-api/compare/v4.2.1...v5.0.0) (2025-09-04)
+
+
+* refactor(race/subrace)!: remove redundant data ([#825](https://github.com/5e-bits/5e-srd-api/issues/825)) ([043fc16](https://github.com/5e-bits/5e-srd-api/commit/043fc160c5f6d41d88a18d8cac11f66f4e2a55d9))
+
+
+### BREAKING CHANGES
+
+* dropped the `race.starting_proficiencies`,
+`race.starting_proficiency_options`, `subrace.starting_proficiencies`,
+`subrace.language_options`, and `subrace.languages` properties of all
+races and subraces in the database. Clients can instead find this data
+on the corresponding traits linked to each race or subrace.
+
+## How was it tested?
+
+I ran the database + API project locally with Docker and called the
+endpoints of the various classes and subclasses. I also ran the unit and
+integration tests in the API project.
+
+## Is there a Github issue this is resolving?
+
+https://github.com/5e-bits/5e-database/issues/874
+
+## Was any impacted documentation updated to reflect this change?
+
+I touched every reference of the properties in the API project. I took a
+look at the docs project, but couldn't fully find my way around the
+project to give a clear indication on if anything needed to change.
+
+## Here's a fun image for your troubles
+My players once sold an iron pot to well known business woman and secret
+member of the Zhentarim and convinced her that it was a magic pot that
+can restore spoiled food. They even sneaked into her house to cast
+purify food and drink on it to make sure she believed them.
+![Iron
+Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
+
+## [5.2.0](https://github.com/5e-bits/5e-srd-api/compare/v5.1.0...v5.2.0) (2025-10-24)
+
+
+### Features
+
+* **release:** Use release please ([#911](https://github.com/5e-bits/5e-srd-api/issues/911)) ([a8b50dd](https://github.com/5e-bits/5e-srd-api/commit/a8b50dd9256ecf0e5be8517625be839be6e6976e))
+
+
+### Bug Fixes
+
+* **dependabot:** use build instead of deps ([#920](https://github.com/5e-bits/5e-srd-api/issues/920)) ([52a439d](https://github.com/5e-bits/5e-srd-api/commit/52a439da3855b62291007ff37bfd99650e37c7cb))
+
 ## [4.2.1](https://github.com/5e-bits/5e-srd-api/compare/v4.2.0...v4.2.1) (2025-06-23)
 
 

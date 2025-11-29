@@ -66,17 +66,18 @@ export default async () => {
   console.log('TypeGraphQL schema built successfully.')
 
   console.log('Setting up Apollo GraphQL server')
-  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
-  await apolloMiddleware2014.start()
-  // DEPRECATED
+  const apolloMiddleware2024 = await createApolloMiddleware(schema2024)
+  await apolloMiddleware2024.start()
   app.use(
-    '/graphql',
+    '/graphql/2024',
     cors<cors.CorsRequest>(),
     bodyParser.json(),
-    expressMiddleware(apolloMiddleware2014, {
+    expressMiddleware(apolloMiddleware2024, {
       context: async ({ req }) => ({ token: req.headers.token })
     })
   )
+  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
+  await apolloMiddleware2014.start()
   app.use(
     '/graphql/2014',
     cors<cors.CorsRequest>(),
@@ -85,13 +86,12 @@ export default async () => {
       context: async ({ req }) => ({ token: req.headers.token })
     })
   )
-  const apolloMiddleware2024 = await createApolloMiddleware(schema2024)
-  await apolloMiddleware2024.start()
+  // DEPRECATED
   app.use(
-    '/graphql/2024',
+    '/graphql',
     cors<cors.CorsRequest>(),
     bodyParser.json(),
-    expressMiddleware(apolloMiddleware2024, {
+    expressMiddleware(apolloMiddleware2014, {
       context: async ({ req }) => ({ token: req.headers.token })
     })
   )

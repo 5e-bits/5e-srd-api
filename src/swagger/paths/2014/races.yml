@@ -48,10 +48,6 @@ race-path:
                 Elves range from under 5 to over 6 feet tall and have slender builds.
                 Your size is Medium.
               speed: 30
-              starting_proficiencies:
-                - index: skill-perception
-                  name: 'Skill: Perception'
-                  url: '/api/2014/proficiencies/skill-perception'
               subraces:
                 - index: high-elf
                   name: High Elf
