@@ -1,8 +1,8 @@
 import 'dotenv/config'
 
 import createApp from './server'
-import { databaseService } from './util/databaseService'
 import { prewarmCache, redisClient } from './util'
+import { databaseService } from './util/databaseService'
 
 const start = async () => {
   console.log('Setting up MongoDB Atlas connection')

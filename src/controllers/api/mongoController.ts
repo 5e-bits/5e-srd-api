@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
-import { databaseService } from '@/util/databaseService'
 import { escapeRegExp, redisClient, ResourceList } from '@/util'
+import { databaseService } from '@/util/databaseService'
 
 interface SearchQuery {
   [key: string]: any
