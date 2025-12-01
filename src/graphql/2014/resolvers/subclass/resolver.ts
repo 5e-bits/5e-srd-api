@@ -66,7 +66,7 @@ export class SubclassResolver {
   async subclass_levels(@Root() subclass: Subclass): Promise<Level[]> {
     if (!subclass.index) return []
 
-    return LevelModel.find({ 'subclass.index': subclass.index }).sort({ level: 1 })
+    return LevelModel.find({ 'subclass.index': subclass.index }).sort({ level: 1 }).lean()
   }
 }
 
