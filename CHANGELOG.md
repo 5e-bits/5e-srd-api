@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.2.2](https://github.com/5e-bits/5e-srd-api/compare/v5.2.1...v5.2.2) (2025-12-04)
+
+
+### Bug Fixes
+
+* Add Spell field resolver to Subclass Resolver ([#952](https://github.com/5e-bits/5e-srd-api/issues/952)) ([c15ef5d](https://github.com/5e-bits/5e-srd-api/commit/c15ef5da7fa3271cd25d67908d7f16d064930113))
+
 ## [5.2.1](https://github.com/5e-bits/5e-srd-api/compare/v5.2.0...v5.2.1) (2025-12-01)
 
 
