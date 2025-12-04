@@ -6,6 +6,7 @@ import { resolveSingleReference } from '@/graphql/utils/resolvers'
 import ClassModel, { Class } from '@/models/2014/class'
 import FeatureModel, { Feature } from '@/models/2014/feature'
 import LevelModel, { Level } from '@/models/2014/level'
+import SpellModel, { Spell } from '@/models/2014/spell'
 import SubclassModel, { Subclass, SubclassSpell } from '@/models/2014/subclass'
 import { escapeRegExp } from '@/util'
 
@@ -102,5 +103,15 @@ export class SubclassSpellResolver {
     }
 
     return resolvedPrereqs.length > 0 ? resolvedPrereqs : null
+  }
+
+  @FieldResolver(() => Spell, {
+    description: 'The spell gained.',
+    nullable: false
+  })
+  async spell(
+    @Root() subclassSpell: SubclassSpell
+  ): Promise<Spell | null> {
+    return SpellModel.findOne({ 'index': subclassSpell.spell.index }).lean()
   }
 }
