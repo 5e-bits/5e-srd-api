@@ -1,8 +1,8 @@
 name: Release
 
 on:
-  repository_dispatch:
-    types: [build_application]
+  release:
+    types: [published]
   workflow_dispatch:
 
 env:
@@ -12,18 +12,18 @@ jobs:
   build-and-publish:
     name: Build and Publish Release Assets
     runs-on: ubuntu-latest
-    if: ${{ github.repository == '5e-bits/5e-srd-api' }}
+    if: github.repository == '5e-bits/5e-srd-api'
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - name: Determine Release Tag
         id: tag
         run: |
-          if [ "${{ github.event.action }}" = "release-published" ]; then
-            echo "tag=${{ github.event.client_payload.tag_name }}" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           else
-            # For re-release, get the latest release tag
+            # For workflow_dispatch, get the latest release tag
             LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
             echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           fi
@@ -44,42 +44,20 @@ jobs:
           npm run bundle-swagger
           npm run gen-postman
       - name: Upload Release Assets
-        if: ${{ github.event.action == 'release-published' && github.event.client_payload.upload_url }}
-        uses: actions/upload-release-asset@v1.0.2
+        if: github.event_name == 'release'
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} \
+            ./dist/openapi.yml \
+            ./dist/openapi.json \
+            ./dist/collection.postman.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.client_payload.upload_url }}
-          asset_path: ./dist/openapi.yml
-          asset_name: openapi.yml
-          asset_content_type: application/x-yaml
-      - name: Upload OpenAPI JSON
-        if: ${{ github.event.action == 'release-published' && github.event.client_payload.upload_url }}
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.client_payload.upload_url }}
-          asset_path: ./dist/openapi.json
-          asset_name: openapi.json
-          asset_content_type: application/json
-      - name: Upload Postman Collection
-        if: ${{ github.event.action == 'release-published' && github.event.client_payload.upload_url }}
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.client_payload.upload_url }}
-          asset_path: ./dist/collection.postman.json
-          asset_name: collection.postman.json
-          asset_content_type: application/json
 
   container-release:
     name: Container Release
     runs-on: ubuntu-latest
-    if: ${{ github.repository == '5e-bits/5e-srd-api' }}
+    if: github.repository == '5e-bits/5e-srd-api'
     env:
-      REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
     permissions:
       contents: read
@@ -88,10 +66,10 @@ jobs:
       - name: Determine Release Tag
         id: tag
         run: |
-          if [ "${{ github.event.action }}" = "release-published" ]; then
-            echo "tag=${{ github.event.client_payload.tag_name }}" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           else
-            # For re-release, get the latest release tag
+            # For workflow_dispatch, get the latest release tag
             LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
             echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           fi
@@ -118,24 +96,21 @@ jobs:
   heroku-deploy:
     name: Deploy to Heroku
     runs-on: ubuntu-latest
-    if: ${{ github.repository == '5e-bits/5e-srd-api' }}
+    if: github.repository == '5e-bits/5e-srd-api'
     needs: [build-and-publish, container-release]
     steps:
       - name: Determine Release Tag
         id: tag
         run: |
-          if [ "${{ github.event.action }}" = "release-published" ]; then
-            echo "tag=${{ github.event.client_payload.tag_name }}" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           else
-            # For re-release, get the latest release tag
+            # For workflow_dispatch, get the latest release tag
             LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
             echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
       - name: Checkout
         uses: actions/checkout@v6
         with:
