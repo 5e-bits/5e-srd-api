@@ -115,6 +115,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: ${{ steps.tag.outputs.tag }}
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.14.15
         with:
