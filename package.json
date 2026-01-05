@@ -2,7 +2,8 @@
   "name": "dnd-5e-srd-api",
   "version": "5.2.4",
   "engines": {
-    "node": "22.x"
+    "node": "22.x",
+    "npm": ">=10.8.0"
   },
   "type": "module",
   "private": true,
