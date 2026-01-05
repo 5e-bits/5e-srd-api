@@ -200,12 +200,12 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
     }
 
     const urlString = '/api/2014/classes/' + index
-    const findQuery: { 'classes.url': string; level?: { $in: string[] } } = {
+    const findQuery: { 'classes.url': string; level?: { $in: number[] } } = {
       'classes.url': urlString
     }
 
     if (level !== undefined) {
-      findQuery.level = { $in: level }
+      findQuery.level = { $in: level.map(Number) }
     }
 
     const data = await Spell.find(findQuery)

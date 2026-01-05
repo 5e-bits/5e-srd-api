@@ -6,7 +6,7 @@ import { escapeRegExp, redisClient, ResourceList } from '@/util'
 
 interface IndexQuery {
   name?: { $regex: RegExp }
-  level?: { $in: string[] }
+  level?: { $in: number[] }
   'school.name'?: { $in: RegExp[] }
 }
 
@@ -26,7 +26,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     if (level !== undefined) {
-      searchQueries.level = { $in: level }
+      searchQueries.level = { $in: level.map(Number) }
     }
 
     if (school !== undefined) {
