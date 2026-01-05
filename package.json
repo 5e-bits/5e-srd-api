@@ -2,7 +2,8 @@
   "name": "dnd-5e-srd-api",
   "version": "5.2.4",
   "engines": {
-    "node": "22.x"
+    "node": "22.x",
+    "npm": ">=10.8.0"
   },
   "type": "module",
   "private": true,
@@ -29,7 +30,7 @@
     "@aws-sdk/client-s3": "^3.927.0",
     "@bugsnag/js": "^8.6.0",
     "@bugsnag/plugin-express": "^8.6.0",
-    "@graphql-tools/schema": "^10.0.27",
+    "@graphql-tools/schema": "^10.0.30",
     "@redocly/cli": "^2.10.0",
     "@typegoose/typegoose": "^13.0.0",
     "body-parser": "^2.2.1",
