@@ -84,7 +84,7 @@
     "prettier": "^3.7.4",
     "rimraf": "^6.0.1",
     "shelljs": "^0.10.0",
-    "supertest": "^7.1.4",
+    "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.16",
     "typedoc": "^0.28.14",
