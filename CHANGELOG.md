@@ -43,6 +43,34 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.2.4](https://github.com/5e-bits/5e-srd-api/compare/v5.2.3...v5.2.4) (2025-12-11)
+
+
+### Bug Fixes
+
+* **ci:** Use app token ([#956](https://github.com/5e-bits/5e-srd-api/issues/956)) ([5abffd8](https://github.com/5e-bits/5e-srd-api/commit/5abffd830dd00dbd5bb55dd96c1627d002fed95d))
+
+## [5.2.3](https://github.com/5e-bits/5e-srd-api/compare/v5.2.2...v5.2.3) (2025-12-11)
+
+
+### Bug Fixes
+
+* **ci:** Release is now automatic on release PR merge ([#954](https://github.com/5e-bits/5e-srd-api/issues/954)) ([d8a798d](https://github.com/5e-bits/5e-srd-api/commit/d8a798d3bb3552c6ba5a3248cda80923013ac6b9))
+
+## [5.2.2](https://github.com/5e-bits/5e-srd-api/compare/v5.2.1...v5.2.2) (2025-12-04)
+
+
+### Bug Fixes
+
+* Add Spell field resolver to Subclass Resolver ([#952](https://github.com/5e-bits/5e-srd-api/issues/952)) ([c15ef5d](https://github.com/5e-bits/5e-srd-api/commit/c15ef5da7fa3271cd25d67908d7f16d064930113))
+
+## [5.2.1](https://github.com/5e-bits/5e-srd-api/compare/v5.2.0...v5.2.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* missing subclass features ([#946](https://github.com/5e-bits/5e-srd-api/issues/946)) ([8170142](https://github.com/5e-bits/5e-srd-api/commit/8170142dfd9cea306773d1942e21aab52d5901d6))
+
 ## [5.2.0](https://github.com/5e-bits/5e-srd-api/compare/v5.1.0...v5.2.0) (2025-10-24)
 
 
