@@ -32,7 +32,7 @@
     "@bugsnag/plugin-express": "^8.6.0",
     "@graphql-tools/schema": "^10.0.30",
     "@redocly/cli": "^2.10.0",
-    "@typegoose/typegoose": "^13.0.0",
+    "@typegoose/typegoose": "^13.1.0",
     "body-parser": "^2.2.2",
     "class-validator": "^0.14.2",
     "cookie-parser": "^1.4.7",
