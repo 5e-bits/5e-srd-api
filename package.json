@@ -30,7 +30,7 @@
     "@aws-sdk/client-s3": "^3.971.0",
     "@bugsnag/js": "^8.6.0",
     "@bugsnag/plugin-express": "^8.6.0",
-    "@graphql-tools/schema": "^10.0.30",
+    "@graphql-tools/schema": "^10.0.31",
     "@redocly/cli": "^2.10.0",
     "@typegoose/typegoose": "^13.1.0",
     "body-parser": "^2.2.2",
