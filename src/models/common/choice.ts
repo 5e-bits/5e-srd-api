@@ -147,6 +147,14 @@ export class ChoiceOption extends Option {
   public choice!: Choice
 }
 
+export class MoneyOption extends Option {
+  @prop({ required: true, index: true, type: () => Number })
+  public count!: number
+
+  @prop({ required: true, index: true, type: () => String })
+  public unit!: string
+}
+
 // Export models
 export const OptionSetModel = getModelForClass(OptionSet)
 export const OptionModel = getModelForClass(Option)
