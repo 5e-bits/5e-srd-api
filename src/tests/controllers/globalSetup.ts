@@ -3,7 +3,6 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 // Define types for global variables
 // Use declare global {} for augmenting the global scope safely
 declare global {
-  // eslint-disable-next-line no-var
   var __MONGOD__: MongoMemoryServer | undefined
 }
 
@@ -26,7 +25,8 @@ export async function setup(): Promise<() => Promise<void>> {
   } catch (error) {
     console.error('[Global Setup - Unit Tests] Failed to start MongoMemoryServer:', error)
     throw new Error(
-      `Failed to start MongoMemoryServer: ${error instanceof Error ? error.message : error}`
+      `Failed to start MongoMemoryServer: ${error instanceof Error ? error.message : error}`,
+      { cause: error }
     )
   }
 

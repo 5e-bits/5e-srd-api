@@ -36,8 +36,8 @@ describe('/api/2014/spells', () => {
   it('should hit the cache', async () => {
     await redisClient.del('/api/2014/spells')
     const clientSet = vi.spyOn(redisClient, 'set')
-    let res = await request(app).get('/api/2014/spells')
-    res = await request(app).get('/api/2014/spells')
+    await request(app).get('/api/2014/spells')
+    const res = await request(app).get('/api/2014/spells')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
     expect(clientSet).toHaveBeenCalledTimes(1)
