@@ -35,7 +35,8 @@ export function setupIsolatedDatabase(uri: string): void {
       console.error(`Failed to connect to MongoDB at ${uri}`, error)
       // Re-throw the error to fail the test suite explicitly
       throw new Error(
-        `Database connection failed: ${error instanceof Error ? error.message : String(error)}`
+        `Database connection failed: ${error instanceof Error ? error.message : String(error)}`,
+        { cause: error }
       )
     }
   })
@@ -82,7 +83,8 @@ export function setupModelCleanup(model: Model<any>): void {
       console.error(`Error cleaning up model ${model.modelName}:`, error)
       // Decide if you want to throw here or just log
       throw new Error(
-        `Model cleanup failed: ${error instanceof Error ? error.message : String(error)}`
+        `Model cleanup failed: ${error instanceof Error ? error.message : String(error)}`,
+        { cause: error }
       )
     }
   })
