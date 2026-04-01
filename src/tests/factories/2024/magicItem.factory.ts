@@ -20,13 +20,13 @@ export const magicItemFactory = Factory.define<MagicItem2024>(({ sequence, param
     name,
     desc: params.desc ?? faker.lorem.paragraph(),
     image: params.image ?? `/images/magic-items/${index}.png`,
-    equipment_category: params.equipment_category ?? apiReferenceFactory.build({
-      url: createUrl('equipment-categories', 'wondrous-items')
-    }),
+    equipment_category: apiReferenceFactory.build(
+      params.equipment_category ?? { url: createUrl('equipment-categories', 'wondrous-items') }
+    ),
     attunement: params.attunement ?? false,
     variant: params.variant ?? false,
     variants: params.variants ?? [],
-    rarity: params.rarity ?? rarity2024Factory.build(),
+    rarity: rarity2024Factory.build(params.rarity),
     url: params.url ?? createUrl('magic-items', index),
     updated_at: params.updated_at ?? faker.date.recent().toISOString()
   }
