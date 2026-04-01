@@ -43,6 +43,15 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.4.0](https://github.com/5e-bits/5e-srd-api/compare/v5.3.0...v5.4.0) (2026-04-01)
+
+
+### Features
+
+* **2024:** Add magic items ([#1044](https://github.com/5e-bits/5e-srd-api/issues/1044)) ([8686fd0](https://github.com/5e-bits/5e-srd-api/commit/8686fd0ca89358cd3a256353985ec73fd9ab5d4f))
+* **2024:** Add Species, Subspecies, and Traits ([#1038](https://github.com/5e-bits/5e-srd-api/issues/1038)) ([0bcde32](https://github.com/5e-bits/5e-srd-api/commit/0bcde324e7228b85fd40d324aec0d865287a4872))
+* **2024:** Add subclasses ([#1043](https://github.com/5e-bits/5e-srd-api/issues/1043)) ([29ae4fa](https://github.com/5e-bits/5e-srd-api/commit/29ae4fa8f4efae0eb29bc9d6523e5c48839fa0c7))
+
 ## [5.3.0](https://github.com/5e-bits/5e-srd-api/compare/v5.2.4...v5.3.0) (2026-03-10)
 
 
