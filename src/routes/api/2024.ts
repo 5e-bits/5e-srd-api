@@ -11,6 +11,7 @@ import EquipmentHandler from './2024/equipment'
 import EquipmentCategoriesHandler from './2024/equipmentCategories'
 import FeatsHandler from './2024/feats'
 import LanguagesHandler from './2024/languages'
+import MagicItemsHandler from './2024/magicItems'
 import MagicSchoolsHandler from './2024/magicSchools'
 import ProficienciesHandler from './2024/proficiencies'
 import SkillsHandler from './2024/skills'
@@ -35,6 +36,7 @@ router.use('/equipment', EquipmentHandler)
 router.use('/equipment-categories', EquipmentCategoriesHandler)
 router.use('/feats', FeatsHandler)
 router.use('/languages', LanguagesHandler)
+router.use('/magic-items', MagicItemsHandler)
 router.use('/magic-schools', MagicSchoolsHandler)
 router.use('/proficiencies', ProficienciesHandler)
 router.use('/skills', SkillsHandler)
