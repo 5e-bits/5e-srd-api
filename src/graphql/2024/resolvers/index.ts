@@ -13,6 +13,7 @@ import { MagicSchoolResolver } from './magicSchool/resolver'
 import { ProficiencyResolver } from './proficiency/resolver'
 import { SkillResolver } from './skill/resolver'
 import { SpeciesResolver } from './species/resolver'
+import { SubclassResolver } from './subclass/resolver'
 import { SubspeciesResolver } from './subspecies/resolver'
 import { TraitResolver } from './trait/resolver'
 import { WeaponMasteryPropertyResolver } from './weaponMasteryProperty/resolver'
@@ -33,6 +34,7 @@ const collectionResolvers = [
   ProficiencyResolver,
   SkillResolver,
   SpeciesResolver,
+  SubclassResolver,
   SubspeciesResolver,
   TraitResolver,
   WeaponMasteryPropertyResolver,

@@ -16,6 +16,7 @@ import MagicSchoolsHandler from './2024/magicSchools'
 import ProficienciesHandler from './2024/proficiencies'
 import SkillsHandler from './2024/skills'
 import SpeciesHandler from './2024/species'
+import SubclassesHandler from './2024/subclasses'
 import SubspeciesHandler from './2024/subspecies'
 import TraitsHandler from './2024/traits'
 import WeaponMasteryPropertiesHandler from './2024/weaponMasteryProperties'
@@ -41,6 +42,7 @@ router.use('/magic-schools', MagicSchoolsHandler)
 router.use('/proficiencies', ProficienciesHandler)
 router.use('/skills', SkillsHandler)
 router.use('/species', SpeciesHandler)
+router.use('/subclasses', SubclassesHandler)
 router.use('/subspecies', SubspeciesHandler)
 router.use('/traits', TraitsHandler)
 router.use('/weapon-mastery-properties', WeaponMasteryPropertiesHandler)
