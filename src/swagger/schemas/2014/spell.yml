@@ -66,21 +66,25 @@ spell-model:
             $ref: './combined.yml#/APIReference'
 damage-at-character-level-model:
   description: |
-    'Spell Damage'
+    'Spell Damage scaling by character level'
   type: object
   properties:
     damage_at_character_level:
+      description: 'Damage at each character level, keyed by level number.'
       type: object
-      additionalProperties: true
+      additionalProperties:
+        type: string
     damage_type:
       $ref: './combined.yml#/APIReference'
 damage-at-slot-level-model:
   description: |
-    'Spell Damage'
+    'Spell Damage scaling by spell slot level'
   type: object
   properties:
     damage_at_slot_level:
+      description: 'Damage at each spell slot level, keyed by slot level number.'
       type: object
-      additionalProperties: true
+      additionalProperties:
+        type: string
     damage_type:
       $ref: './combined.yml#/APIReference'
