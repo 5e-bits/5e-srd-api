@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2024",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowJs": true,
@@ -10,11 +10,10 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [

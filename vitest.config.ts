@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     globals: true, // Optional: Use Vitest global APIs (describe, it, etc.) without importing
     environment: 'node', // Specify Node.js environment
+    exclude: ['dist/**', 'node_modules/**'],
     globalSetup: ['./src/tests/controllers/globalSetup.ts'], // Path to the global setup file
     // maxConcurrency: 1, // Removed - Use DB isolation for parallelism
     // Optional: Increase timeouts if global setup takes longer
