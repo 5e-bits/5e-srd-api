@@ -4,6 +4,7 @@ import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
+  BaseIndexArgs,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/common/args'
@@ -53,6 +54,7 @@ export const RaceArgsSchema = z.object({
 })
 
 export const RaceIndexArgsSchema = BaseIndexArgsSchema
+export { BaseIndexArgs as RaceIndexArgs }
 
 @ArgsType()
 export class RaceArgs extends BaseFilterArgs {

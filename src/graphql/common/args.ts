@@ -29,7 +29,8 @@ export class BasePaginationArgs {
 
 export const BaseFilterArgsSchema = z.object({
   ...BasePaginationArgsSchema.shape,
-  name: z.string().optional()
+  name: z.string().optional(),
+  lang: z.string().optional()
 })
 
 @ArgsType()
@@ -39,13 +40,32 @@ export class BaseFilterArgs extends BasePaginationArgs {
     description: 'Filter by name (case-insensitive, partial match).'
   })
   name?: string
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'BCP 47 language tag for translated content (e.g. "de", "fr"). Defaults to "en".'
+  })
+  lang?: string
 }
 
 // --- Index Argument ---
 
 export const BaseIndexArgsSchema = z.object({
-  index: z.string().min(1, { message: 'Index must be a non-empty string' })
+  index: z.string().min(1, { message: 'Index must be a non-empty string' }),
+  lang: z.string().optional()
 })
+
+@ArgsType()
+export class BaseIndexArgs {
+  @Field(() => String, { description: 'The index of the resource to retrieve.' })
+  index!: string
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'BCP 47 language tag for translated content (e.g. "de", "fr"). Defaults to "en".'
+  })
+  lang?: string
+}
 
 // --- Generic Sorting Logic ---
 

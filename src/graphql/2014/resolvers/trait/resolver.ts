@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
 import {
@@ -31,6 +31,7 @@ import {
   TRAIT_SORT_FIELD_MAP,
   TraitArgs,
   TraitArgsSchema,
+  TraitIndexArgs,
   TraitIndexArgsSchema,
   TraitOrderField
 } from './args'
@@ -69,8 +70,8 @@ export class TraitResolver {
   }
 
   @Query(() => Trait, { nullable: true, description: 'Gets a single trait by index.' })
-  async trait(@Arg('index', () => String) indexInput: string): Promise<Trait | null> {
-    const { index } = TraitIndexArgsSchema.parse({ index: indexInput })
+  async trait(@Args(() => TraitIndexArgs) args: TraitIndexArgs): Promise<Trait | null> {
+    const { index } = TraitIndexArgsSchema.parse(args)
     return TraitModel.findOne({ index }).lean()
   }
 

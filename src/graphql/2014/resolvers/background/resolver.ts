@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import {
@@ -26,6 +26,7 @@ import {
   BACKGROUND_SORT_FIELD_MAP,
   BackgroundArgs,
   BackgroundArgsSchema,
+  BackgroundIndexArgs,
   BackgroundIndexArgsSchema,
   BackgroundOrderField
 } from './args'
@@ -64,8 +65,10 @@ export class BackgroundResolver {
   }
 
   @Query(() => Background, { nullable: true, description: 'Gets a single background by index.' })
-  async background(@Arg('index', () => String) indexInput: string): Promise<Background | null> {
-    const { index } = BackgroundIndexArgsSchema.parse({ index: indexInput })
+  async background(
+    @Args(() => BackgroundIndexArgs) args: BackgroundIndexArgs
+  ): Promise<Background | null> {
+    const { index } = BackgroundIndexArgsSchema.parse(args)
     return BackgroundModel.findOne({ index }).lean()
   }
 

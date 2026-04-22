@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import {
@@ -49,6 +49,7 @@ import {
   MONSTER_SORT_FIELD_MAP,
   MonsterArgs,
   MonsterArgsSchema,
+  MonsterIndexArgs,
   MonsterIndexArgsSchema,
   MonsterOrderField
 } from './args'
@@ -142,8 +143,8 @@ export class MonsterResolver {
   }
 
   @Query(() => Monster, { nullable: true, description: 'Gets a single monster by its index.' })
-  async monster(@Arg('index', () => String) indexInput: string): Promise<Monster | null> {
-    const { index } = MonsterIndexArgsSchema.parse({ index: indexInput })
+  async monster(@Args(() => MonsterIndexArgs) args: MonsterIndexArgs): Promise<Monster | null> {
+    const { index } = MonsterIndexArgsSchema.parse(args)
     return MonsterModel.findOne({ index }).lean()
   }
 

@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
@@ -10,6 +10,7 @@ import {
   PROFICIENCY_SORT_FIELD_MAP,
   ProficiencyArgs,
   ProficiencyArgsSchema,
+  ProficiencyIndexArgs,
   ProficiencyIndexArgsSchema,
   ProficiencyOrderField
 } from './args'
@@ -64,9 +65,9 @@ export class ProficiencyResolver {
     description: 'Gets a single proficiency by index.'
   })
   async proficiency(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => ProficiencyIndexArgs) args: ProficiencyIndexArgs
   ): Promise<Proficiency2024 | null> {
-    const { index } = ProficiencyIndexArgsSchema.parse({ index: indexInput })
+    const { index } = ProficiencyIndexArgsSchema.parse(args)
     return ProficiencyModel.findOne({ index }).lean()
   }
 

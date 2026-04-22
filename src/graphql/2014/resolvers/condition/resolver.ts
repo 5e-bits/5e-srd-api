@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import ConditionModel, { Condition } from '@/models/2014/condition'
@@ -8,6 +8,7 @@ import {
   CONDITION_SORT_FIELD_MAP,
   ConditionArgs,
   ConditionArgsSchema,
+  ConditionIndexArgs,
   ConditionIndexArgsSchema,
   ConditionOrderField
 } from './args'
@@ -46,8 +47,10 @@ export class ConditionResolver {
   }
 
   @Query(() => Condition, { nullable: true, description: 'Gets a single condition by index.' })
-  async condition(@Arg('index', () => String) indexInput: string): Promise<Condition | null> {
-    const { index } = ConditionIndexArgsSchema.parse({ index: indexInput })
+  async condition(
+    @Args(() => ConditionIndexArgs) args: ConditionIndexArgs
+  ): Promise<Condition | null> {
+    const { index } = ConditionIndexArgsSchema.parse(args)
     return ConditionModel.findOne({ index }).lean()
   }
 }

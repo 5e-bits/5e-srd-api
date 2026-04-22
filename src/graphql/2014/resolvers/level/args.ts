@@ -2,6 +2,7 @@ import { ArgsType, Field, InputType, Int, registerEnumType } from 'type-graphql'
 import { z } from 'zod'
 
 import {
+  BaseIndexArgs,
   BaseIndexArgsSchema,
   BaseOrderInterface,
   BasePaginationArgs,
@@ -58,6 +59,7 @@ export const LevelArgsSchema = z.object({
 })
 
 export const LevelIndexArgsSchema = BaseIndexArgsSchema
+export { BaseIndexArgs as LevelIndexArgs }
 
 @ArgsType()
 export class LevelArgs extends BasePaginationArgs {

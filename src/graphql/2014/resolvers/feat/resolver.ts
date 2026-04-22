@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveSingleReference } from '@/graphql/utils/resolvers'
@@ -10,6 +10,7 @@ import {
   FEAT_SORT_FIELD_MAP,
   FeatArgs,
   FeatArgsSchema,
+  FeatIndexArgs,
   FeatIndexArgsSchema,
   FeatOrderField
 } from './args'
@@ -48,8 +49,8 @@ export class FeatResolver {
   }
 
   @Query(() => Feat, { nullable: true, description: 'Gets a single feat by index.' })
-  async feat(@Arg('index', () => String) indexInput: string): Promise<Feat | null> {
-    const { index } = FeatIndexArgsSchema.parse({ index: indexInput })
+  async feat(@Args(() => FeatIndexArgs) args: FeatIndexArgs): Promise<Feat | null> {
+    const { index } = FeatIndexArgsSchema.parse(args)
     return FeatModel.findOne({ index }).lean()
   }
 }

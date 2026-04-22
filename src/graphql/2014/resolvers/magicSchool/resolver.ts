@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import MagicSchoolModel, { MagicSchool } from '@/models/2014/magicSchool'
@@ -8,6 +8,7 @@ import {
   MAGIC_SCHOOL_SORT_FIELD_MAP,
   MagicSchoolArgs,
   MagicSchoolArgsSchema,
+  MagicSchoolIndexArgs,
   MagicSchoolIndexArgsSchema,
   MagicSchoolOrderField
 } from './args'
@@ -49,8 +50,10 @@ export class MagicSchoolResolver {
     nullable: true,
     description: 'Gets a single magic school by index.'
   })
-  async magicSchool(@Arg('index', () => String) indexInput: string): Promise<MagicSchool | null> {
-    const { index } = MagicSchoolIndexArgsSchema.parse({ index: indexInput })
+  async magicSchool(
+    @Args(() => MagicSchoolIndexArgs) args: MagicSchoolIndexArgs
+  ): Promise<MagicSchool | null> {
+    const { index } = MagicSchoolIndexArgsSchema.parse(args)
     return MagicSchoolModel.findOne({ index }).lean()
   }
 }

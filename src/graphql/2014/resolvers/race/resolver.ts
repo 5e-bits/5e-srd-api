@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import {
   AbilityScoreBonusChoice,
@@ -21,6 +21,7 @@ import {
   RACE_SORT_FIELD_MAP,
   RaceArgs,
   RaceArgsSchema,
+  RaceIndexArgs,
   RaceIndexArgsSchema,
   RaceOrderField
 } from './args'
@@ -81,8 +82,8 @@ export class RaceResolver {
   }
 
   @Query(() => Race, { nullable: true, description: 'Gets a single race by its index.' })
-  async race(@Arg('index', () => String) indexInput: string): Promise<Race | null> {
-    const { index } = RaceIndexArgsSchema.parse({ index: indexInput })
+  async race(@Args(() => RaceIndexArgs) args: RaceIndexArgs): Promise<Race | null> {
+    const { index } = RaceIndexArgsSchema.parse(args)
     return RaceModel.findOne({ index }).lean()
   }
 

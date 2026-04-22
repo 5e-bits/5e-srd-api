@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
@@ -12,6 +12,7 @@ import {
   SUBRACE_SORT_FIELD_MAP,
   SubraceArgs,
   SubraceArgsSchema,
+  SubraceIndexArgs,
   SubraceIndexArgsSchema,
   SubraceOrderField
 } from './args'
@@ -50,8 +51,8 @@ export class SubraceResolver {
   }
 
   @Query(() => Subrace, { nullable: true, description: 'Gets a single subrace by index.' })
-  async subrace(@Arg('index', () => String) indexInput: string): Promise<Subrace | null> {
-    const { index } = SubraceIndexArgsSchema.parse({ index: indexInput })
+  async subrace(@Args(() => SubraceIndexArgs) args: SubraceIndexArgs): Promise<Subrace | null> {
+    const { index } = SubraceIndexArgsSchema.parse(args)
     return SubraceModel.findOne({ index }).lean()
   }
 

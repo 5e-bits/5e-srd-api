@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
@@ -11,6 +11,7 @@ import {
   TRAIT_SORT_FIELD_MAP,
   TraitArgs,
   TraitArgsSchema,
+  TraitIndexArgs,
   TraitIndexArgsSchema,
   TraitOrderField
 } from './args'
@@ -49,8 +50,8 @@ export class TraitResolver {
   }
 
   @Query(() => Trait2024, { nullable: true, description: 'Gets a single trait by index.' })
-  async trait2024(@Arg('index', () => String) indexInput: string): Promise<Trait2024 | null> {
-    const { index } = TraitIndexArgsSchema.parse({ index: indexInput })
+  async trait2024(@Args(() => TraitIndexArgs) args: TraitIndexArgs): Promise<Trait2024 | null> {
+    const { index } = TraitIndexArgsSchema.parse(args)
     return Trait2024Model.findOne({ index }).lean()
   }
 

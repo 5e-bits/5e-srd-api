@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { ScorePrerequisiteChoice2024 } from '@/graphql/2024/common/choiceTypes'
 import { resolveScorePrerequisiteChoice } from '@/graphql/2024/utils/choiceResolvers'
@@ -6,7 +6,14 @@ import { buildSortPipeline } from '@/graphql/common/args'
 import FeatModel, { Feat2024 } from '@/models/2024/feat'
 import { escapeRegExp } from '@/util'
 
-import { FEAT_SORT_FIELD_MAP, FeatArgs, FeatArgsSchema, FeatIndexArgsSchema, FeatOrderField } from './args'
+import {
+  FEAT_SORT_FIELD_MAP,
+  FeatArgs,
+  FeatArgsSchema,
+  FeatIndexArgs,
+  FeatIndexArgsSchema,
+  FeatOrderField
+} from './args'
 
 @Resolver(Feat2024)
 export class FeatResolver {
@@ -52,8 +59,8 @@ export class FeatResolver {
   }
 
   @Query(() => Feat2024, { nullable: true, description: 'Gets a single feat by index.' })
-  async feat(@Arg('index', () => String) indexInput: string): Promise<Feat2024 | null> {
-    const { index } = FeatIndexArgsSchema.parse({ index: indexInput })
+  async feat(@Args(() => FeatIndexArgs) args: FeatIndexArgs): Promise<Feat2024 | null> {
+    const { index } = FeatIndexArgsSchema.parse(args)
     return FeatModel.findOne({ index }).lean()
   }
 

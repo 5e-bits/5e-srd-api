@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
@@ -10,6 +10,7 @@ import {
   ABILITY_SCORE_SORT_FIELD_MAP,
   AbilityScoreArgs,
   AbilityScoreArgsSchema,
+  AbilityScoreIndexArgs,
   AbilityScoreIndexArgsSchema,
   AbilityScoreOrderField
 } from './args'
@@ -65,8 +66,10 @@ export class AbilityScoreResolver {
     nullable: true,
     description: 'Gets a single ability score by index.'
   })
-  async abilityScore(@Arg('index', () => String) indexInput: string): Promise<AbilityScore | null> {
-    const { index } = AbilityScoreIndexArgsSchema.parse({ index: indexInput })
+  async abilityScore(
+    @Args(() => AbilityScoreIndexArgs) args: AbilityScoreIndexArgs
+  ): Promise<AbilityScore | null> {
+    const { index } = AbilityScoreIndexArgsSchema.parse(args)
     return AbilityScoreModel.findOne({ index }).lean()
   }
 

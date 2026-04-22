@@ -4,6 +4,7 @@ import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
+  BaseIndexArgs,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/common/args'
@@ -26,9 +27,7 @@ registerEnumType(WeaponMasteryPropertyOrderField, {
 })
 
 @InputType()
-export class WeaponMasteryPropertyOrder
-  implements BaseOrderInterface<WeaponMasteryPropertyOrderField>
-{
+export class WeaponMasteryPropertyOrder implements BaseOrderInterface<WeaponMasteryPropertyOrderField> {
   @Field(() => WeaponMasteryPropertyOrderField)
   by!: WeaponMasteryPropertyOrderField
 
@@ -53,6 +52,7 @@ export const WeaponMasteryPropertyArgsSchema = z.object({
 })
 
 export const WeaponMasteryPropertyIndexArgsSchema = BaseIndexArgsSchema
+export { BaseIndexArgs as WeaponMasteryPropertyIndexArgs }
 
 @ArgsType()
 export class WeaponMasteryPropertyArgs extends BaseFilterArgs {

@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
@@ -8,6 +8,7 @@ import {
   RULE_SECTION_SORT_FIELD_MAP,
   RuleSectionArgs,
   RuleSectionArgsSchema,
+  RuleSectionIndexArgs,
   RuleSectionIndexArgsSchema,
   RuleSectionOrderField
 } from './args'
@@ -48,8 +49,10 @@ export class RuleSectionResolver {
     nullable: true,
     description: 'Gets a single rule section by index.'
   })
-  async ruleSection(@Arg('index', () => String) indexInput: string): Promise<RuleSection | null> {
-    const { index } = RuleSectionIndexArgsSchema.parse({ index: indexInput })
+  async ruleSection(
+    @Args(() => RuleSectionIndexArgs) args: RuleSectionIndexArgs
+  ): Promise<RuleSection | null> {
+    const { index } = RuleSectionIndexArgsSchema.parse(args)
     return RuleSectionModel.findOne({ index }).lean()
   }
 }

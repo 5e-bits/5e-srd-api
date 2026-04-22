@@ -16,6 +16,7 @@ import { FeatResolver, PrerequisiteResolver } from './feat/resolver'
 import { FeatureResolver, FeatureSpecificResolver } from './feature/resolver'
 import { LanguageResolver } from './language/resolver'
 import { LevelResolver } from './level/resolver'
+import { LocaleResolver } from './locale/resolver'
 import { MagicItemResolver } from './magicItem/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
 import {
@@ -53,6 +54,7 @@ const collectionResolvers = [
   FeatureResolver,
   LanguageResolver,
   LevelResolver,
+  LocaleResolver,
   MagicItemResolver,
   MagicSchoolResolver,
   MonsterResolver,

@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveSingleReference, resolveMultipleReferences } from '@/graphql/utils/resolvers'
@@ -10,6 +10,7 @@ import {
   MAGIC_ITEM_SORT_FIELD_MAP,
   MagicItemArgs,
   MagicItemArgsSchema,
+  MagicItemIndexArgs,
   MagicItemIndexArgsSchema,
   MagicItemOrderField
 } from './args'
@@ -64,13 +65,17 @@ export class MagicItemResolver {
     nullable: true,
     description: 'Gets a single magic item by index.'
   })
-  async magicItem(@Arg('index', () => String) indexInput: string): Promise<MagicItem2024 | null> {
-    const { index } = MagicItemIndexArgsSchema.parse({ index: indexInput })
+  async magicItem(
+    @Args(() => MagicItemIndexArgs) args: MagicItemIndexArgs
+  ): Promise<MagicItem2024 | null> {
+    const { index } = MagicItemIndexArgsSchema.parse(args)
     return MagicItemModel.findOne({ index }).lean()
   }
 
   @FieldResolver(() => EquipmentCategory2024)
-  async equipment_category(@Root() magicItem: MagicItem2024): Promise<EquipmentCategory2024 | null> {
+  async equipment_category(
+    @Root() magicItem: MagicItem2024
+  ): Promise<EquipmentCategory2024 | null> {
     return resolveSingleReference(magicItem.equipment_category, EquipmentCategoryModel)
   }
 

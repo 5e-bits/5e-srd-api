@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
@@ -12,6 +12,7 @@ import {
   SUBSPECIES_SORT_FIELD_MAP,
   SubspeciesArgs,
   SubspeciesArgsSchema,
+  SubspeciesIndexArgs,
   SubspeciesIndexArgsSchema,
   SubspeciesOrderField
 } from './args'
@@ -56,9 +57,9 @@ export class SubspeciesResolver {
     description: 'Gets a single subspecies by index.'
   })
   async subspecies2024ByIndex(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => SubspeciesIndexArgs) args: SubspeciesIndexArgs
   ): Promise<Subspecies2024 | null> {
-    const { index } = SubspeciesIndexArgsSchema.parse({ index: indexInput })
+    const { index } = SubspeciesIndexArgsSchema.parse(args)
     return Subspecies2024Model.findOne({ index }).lean()
   }
 

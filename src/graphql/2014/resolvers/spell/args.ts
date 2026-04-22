@@ -4,6 +4,7 @@ import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
+  BaseIndexArgs,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/common/args'
@@ -90,6 +91,7 @@ export const SpellArgsSchema = z.object({
 })
 
 export const SpellIndexArgsSchema = BaseIndexArgsSchema
+export { BaseIndexArgs as SpellIndexArgs }
 
 @ArgsType()
 export class SpellArgs extends BaseFilterArgs {

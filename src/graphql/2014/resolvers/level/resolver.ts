@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
@@ -12,6 +12,7 @@ import {
   LEVEL_SORT_FIELD_MAP,
   LevelArgs,
   LevelArgsSchema,
+  LevelIndexArgs,
   LevelIndexArgsSchema,
   LevelOrderField
 } from './args'
@@ -23,8 +24,8 @@ export class LevelResolver {
     description:
       'Gets a single level by its combined index (e.g., wizard-3-evocation or fighter-5).'
   })
-  async level(@Arg('index', () => String) indexInput: string): Promise<Level | null> {
-    const { index } = LevelIndexArgsSchema.parse({ index: indexInput })
+  async level(@Args(() => LevelIndexArgs) args: LevelIndexArgs): Promise<Level | null> {
+    const { index } = LevelIndexArgsSchema.parse(args)
     return LevelModel.findOne({ index }).lean()
   }
 

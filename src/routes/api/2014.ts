@@ -14,6 +14,7 @@ import FeatsHandler from './2014/feats'
 import FeaturesHandler from './2014/features'
 import ImageHandler from './2014/images'
 import LanguagesHandler from './2014/languages'
+import LocalesHandler from './2014/locales'
 import MagicItemsHandler from './2014/magicItems'
 import MagicSchoolsHandler from './2014/magicSchools'
 import MonstersHandler from './2014/monsters'
@@ -46,6 +47,7 @@ router.use('/feats', FeatsHandler)
 router.use('/features', FeaturesHandler)
 router.use('/images', ImageHandler)
 router.use('/languages', LanguagesHandler)
+router.use('/locales', LocalesHandler)
 router.use('/magic-items', MagicItemsHandler)
 router.use('/magic-schools', MagicSchoolsHandler)
 router.use('/monsters', MonstersHandler)

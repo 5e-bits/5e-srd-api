@@ -15,27 +15,14 @@ type PrewarmData = {
 }
 
 const prewarmCache = async () => {
+  await redisClient.flushDb()
+
   const toPrewarm: PrewarmData[] = [
-    {
-      Schema: MagicItem,
-      endpoint: '/api/2014/magic-items'
-    },
-    {
-      Schema: Spell,
-      endpoint: '/api/2014/spells'
-    },
-    {
-      Schema: Monster,
-      endpoint: '/api/2014/monsters'
-    },
-    {
-      Schema: Rule,
-      endpoint: '/api/2014/rules'
-    },
-    {
-      Schema: RuleSection,
-      endpoint: '/api/2014/rule-sections'
-    }
+    { Schema: MagicItem, endpoint: '/api/2014/magic-items' },
+    { Schema: Spell, endpoint: '/api/2014/spells' },
+    { Schema: Monster, endpoint: '/api/2014/monsters' },
+    { Schema: Rule, endpoint: '/api/2014/rules' },
+    { Schema: RuleSection, endpoint: '/api/2014/rule-sections' }
   ]
   for (const element of toPrewarm) {
     const data = await element.Schema.find()
