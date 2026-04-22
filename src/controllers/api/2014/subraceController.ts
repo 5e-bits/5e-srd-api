@@ -6,6 +6,7 @@ import Subrace from '@/models/2014/subrace'
 import Trait from '@/models/2014/trait'
 import { ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
+import { applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Subrace)
 
@@ -16,7 +17,6 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showTraitsForSubrace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Validate path parameters
     const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
@@ -24,6 +24,7 @@ export const showTraitsForSubrace = async (req: Request, res: Response, next: Ne
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/subraces/' + index
     const data = await Trait.find({ 'subraces.url': urlString }).select({
@@ -32,8 +33,13 @@ export const showTraitsForSubrace = async (req: Request, res: Response, next: Ne
       url: 1,
       _id: 0
     })
-
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-traits',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -45,7 +51,6 @@ export const showProficienciesForSubrace = async (
   next: NextFunction
 ) => {
   try {
-    // Validate path parameters
     const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
@@ -53,13 +58,20 @@ export const showProficienciesForSubrace = async (
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/subraces/' + index
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-proficiencies',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }

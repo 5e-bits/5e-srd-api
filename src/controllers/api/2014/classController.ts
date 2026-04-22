@@ -14,6 +14,7 @@ import {
   SpellIndexQuerySchema
 } from '@/schemas/schemas'
 import { escapeRegExp, ResourceList } from '@/util'
+import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Class)
 interface ShowLevelsForClassQuery {
@@ -45,6 +46,7 @@ export const showLevelsForClass = async (req: Request, res: Response, next: Next
 
     const { index } = validatedParams.data
     const { subclass } = validatedQuery.data
+    const lang = req.lang ?? 'en'
 
     const searchQueries: ShowLevelsForClassQuery = {
       'class.url': '/api/2014/classes/' + index,
@@ -58,11 +60,17 @@ export const showLevelsForClass = async (req: Request, res: Response, next: Next
     }
 
     const data = await Level.find(searchQueries).sort({ level: 'asc' })
-    if (data !== null && data !== undefined && data.length > 0) {
-      return res.status(200).json(data)
-    } else {
+    if (data === null || data === undefined || data.length === 0) {
       return res.status(404).json({ error: 'Not found' })
     }
+
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-levels',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(translated)
   } catch (err) {
     next(err)
   }
@@ -78,12 +86,17 @@ export const showLevelForClass = async (req: Request, res: Response, next: NextF
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index, level } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/classes/' + index + '/levels/' + level
 
     const data = await Level.findOne({ url: urlString })
     if (!data) return next()
-    return res.status(200).json(data)
+
+    const plain = data.toObject()
+    const translated = await applyTranslation(plain as any, '2014-levels', lang)
+    res.setHeader('Content-Language', translated !== plain ? lang : 'en')
+    return res.status(200).json(translated)
   } catch (err) {
     next(err)
   }
@@ -95,10 +108,14 @@ export const showMulticlassingForClass = async (
   next: NextFunction
 ) => {
   try {
+    const lang = req.lang ?? 'en'
     const urlString = '/api/2014/classes/' + req.params.index
 
     const data = await Class.findOne({ url: urlString })
-    return res.status(200).json(data?.multi_classing)
+    const plain = data?.toObject() as any
+    const translated = await applyTranslation(plain, '2014-classes', lang)
+    res.setHeader('Content-Language', translated !== plain ? lang : 'en')
+    return res.status(200).json((translated as any)?.multi_classing)
   } catch (err) {
     next(err)
   }
@@ -114,17 +131,24 @@ export const showSubclassesForClass = async (req: Request, res: Response, next: 
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/classes/' + index
 
     const data = await Subclass.find({ 'class.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ url: 'asc', level: 'asc' })
-    if (data !== null && data !== undefined && data.length > 0) {
-      return res.status(200).json(ResourceList(data))
-    } else {
+    if (data === null || data === undefined || data.length === 0) {
       return res.status(404).json({ error: 'Not found' })
     }
+
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-subclasses',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -136,10 +160,14 @@ export const showStartingEquipmentForClass = async (
   next: NextFunction
 ) => {
   try {
+    const lang = req.lang ?? 'en'
     const data = await Class.findOne({ index: req.params.index })
+    const plain = data?.toObject() as any
+    const translated = await applyTranslation(plain, '2014-classes', lang)
+    res.setHeader('Content-Language', translated !== plain ? lang : 'en')
     return res.status(200).json({
-      starting_equipment: data?.starting_equipment,
-      starting_equipment_options: data?.starting_equipment_options
+      starting_equipment: (translated as any)?.starting_equipment,
+      starting_equipment_options: (translated as any)?.starting_equipment_options
     })
   } catch (err) {
     next(err)
@@ -156,18 +184,17 @@ export const showSpellcastingForClass = async (req: Request, res: Response, next
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
-    const data = await Class.findOne({ index: index })
-    if (
-      data !== null &&
-      data !== undefined &&
-      data.spellcasting !== null &&
-      data.spellcasting !== undefined
-    ) {
-      return res.status(200).json(data.spellcasting)
-    } else {
+    const data = await Class.findOne({ index })
+    const plain = data?.toObject() as any
+    if (plain?.spellcasting == null) {
       return res.status(404).json({ error: 'Not found' })
     }
+
+    const translated = await applyTranslation(plain, '2014-classes', lang)
+    res.setHeader('Content-Language', translated !== plain ? lang : 'en')
+    return res.status(200).json((translated as any)?.spellcasting)
   } catch (err) {
     next(err)
   }
@@ -192,6 +219,7 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
 
     const { index } = validatedParams.data
     const { level } = validatedQuery.data
+    const lang = req.lang ?? 'en'
 
     // Check if class exists first
     const classExists = await Class.findOne({ index }).lean()
@@ -211,7 +239,13 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
     const data = await Spell.find(findQuery)
       .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-spells',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -265,7 +299,14 @@ export const showSpellsForClassAndLevel = async (
       .sort({ index: 'asc' })
       .lean() // Use lean for performance as we only read data
 
-    return res.status(200).json(ResourceList(spellData))
+    const lang = req.lang ?? 'en'
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      spellData.map((d: any) => ({ ...d })),
+      '2014-spells',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -281,6 +322,7 @@ export const showFeaturesForClass = async (req: Request, res: Response, next: Ne
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     // Check if class exists first
     const classExists = await Class.findOne({ index }).lean()
@@ -290,12 +332,16 @@ export const showFeaturesForClass = async (req: Request, res: Response, next: Ne
 
     const urlString = '/api/2014/classes/' + index
 
-    const data = await Feature.find({
-      'class.url': urlString
-    })
+    const data = await Feature.find({ 'class.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-features',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -315,16 +361,20 @@ export const showFeaturesForClassAndLevel = async (
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index, level } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/classes/' + index
 
-    const data = await Feature.find({
-      'class.url': urlString,
-      level
-    })
+    const data = await Feature.find({ 'class.url': urlString, level })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ level: 'asc', url: 'asc' })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-features',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -344,6 +394,7 @@ export const showProficienciesForClass = async (
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     // Check if class exists first
     const classExists = await Class.findOne({ index }).lean()
@@ -356,7 +407,13 @@ export const showProficienciesForClass = async (
     const data = await Proficiency.find({ 'classes.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-proficiencies',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
