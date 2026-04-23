@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { SubclassSpellPrerequisiteUnion } from '@/graphql/2014/types/subclassTypes'
 import { buildSortPipeline } from '@/graphql/common/args'
@@ -14,6 +14,7 @@ import {
   SUBCLASS_SORT_FIELD_MAP,
   SubclassArgs,
   SubclassArgsSchema,
+  SubclassIndexArgs,
   SubclassIndexArgsSchema,
   SubclassOrderField
 } from './args'
@@ -53,8 +54,8 @@ export class SubclassResolver {
   }
 
   @Query(() => Subclass, { nullable: true, description: 'Gets a single subclass by its index.' })
-  async subclass(@Arg('index', () => String) indexInput: string): Promise<Subclass | null> {
-    const { index } = SubclassIndexArgsSchema.parse({ index: indexInput })
+  async subclass(@Args(() => SubclassIndexArgs) args: SubclassIndexArgs): Promise<Subclass | null> {
+    const { index } = SubclassIndexArgsSchema.parse(args)
     return SubclassModel.findOne({ index }).lean()
   }
 
@@ -109,9 +110,7 @@ export class SubclassSpellResolver {
     description: 'The spell gained.',
     nullable: false
   })
-  async spell(
-    @Root() subclassSpell: SubclassSpell
-  ): Promise<Spell | null> {
-    return SpellModel.findOne({ 'index': subclassSpell.spell.index }).lean()
+  async spell(@Root() subclassSpell: SubclassSpell): Promise<Spell | null> {
+    return SpellModel.findOne({ index: subclassSpell.spell.index }).lean()
   }
 }

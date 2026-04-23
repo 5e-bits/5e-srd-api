@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express'
 import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
 import { escapeRegExp } from '@/util/regex'
+import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 interface IndexQuery {
   name?: { $regex: RegExp }
@@ -16,23 +17,25 @@ class SimpleController {
     this.Schema = Schema
   }
 
+  private get collectionName(): string {
+    return this.Schema.collection.name
+  }
+
   async index(req: Request, res: Response, next: NextFunction) {
     try {
-      // Validate query parameters
       const validatedQuery = NameQuerySchema.safeParse(req.query)
 
       if (!validatedQuery.success) {
-        // Handle validation errors - customize error response as needed
         return res
           .status(400)
           .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
       }
 
       const { name } = validatedQuery.data
+      const lang = req.lang ?? 'en'
 
       const searchQueries: IndexQuery = {}
       if (name !== undefined) {
-        // Use validated name
         searchQueries.name = { $regex: new RegExp(escapeRegExp(name), 'i') }
       }
 
@@ -41,7 +44,14 @@ class SimpleController {
         .sort({ index: 'asc' })
         .exec()
 
-      return res.status(200).json(ResourceList(data))
+      const { docs: translated, wasTranslated } = await applyTranslationToList(
+        data.map((d: any) => d.toObject?.() ?? d),
+        this.collectionName,
+        lang
+      )
+
+      res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+      return res.status(200).json(ResourceList(translated))
     } catch (err) {
       next(err)
     }
@@ -49,22 +59,25 @@ class SimpleController {
 
   async show(req: Request, res: Response, next: NextFunction) {
     try {
-      // Validate path parameters
       const validatedParams = ShowParamsSchema.safeParse(req.params)
 
       if (!validatedParams.success) {
-        // Handle validation errors
         return res
           .status(400)
           .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
       }
 
-      const { index } = validatedParams.data // Use validated index
+      const { index } = validatedParams.data
+      const lang = req.lang ?? 'en'
 
-      // Use validated index in the query
       const data = await this.Schema.findOne({ index })
       if (data === null) return next()
-      res.status(200).json(data)
+
+      const plain = data.toObject?.() ?? data
+      const translated = await applyTranslation(plain, this.collectionName, lang)
+
+      res.setHeader('Content-Language', translated !== plain ? lang : 'en')
+      res.status(200).json(translated)
     } catch (err) {
       next(err)
     }

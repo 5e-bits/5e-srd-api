@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { AnyEquipment } from '@/graphql/2024/common/unions'
 import { buildSortPipeline } from '@/graphql/common/args'
@@ -10,6 +10,7 @@ import {
   EQUIPMENT_CATEGORY_SORT_FIELD_MAP,
   EquipmentCategoryArgs,
   EquipmentCategoryArgsSchema,
+  EquipmentCategoryIndexArgs,
   EquipmentCategoryIndexArgsSchema,
   EquipmentCategoryOrderField
 } from './args'
@@ -54,9 +55,9 @@ export class EquipmentCategoryResolver {
     description: 'Gets a single equipment category by index.'
   })
   async equipmentCategory(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => EquipmentCategoryIndexArgs) args: EquipmentCategoryIndexArgs
   ): Promise<EquipmentCategory2024 | null> {
-    const { index } = EquipmentCategoryIndexArgsSchema.parse({ index: indexInput })
+    const { index } = EquipmentCategoryIndexArgsSchema.parse(args)
     return EquipmentCategoryModel.findOne({ index }).lean()
   }
 

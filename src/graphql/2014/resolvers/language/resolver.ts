@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import LanguageModel, { Language } from '@/models/2014/language'
@@ -8,6 +8,7 @@ import {
   LANGUAGE_SORT_FIELD_MAP,
   LanguageArgs,
   LanguageArgsSchema,
+  LanguageIndexArgs,
   LanguageIndexArgsSchema,
   LanguageOrderField
 } from './args'
@@ -15,8 +16,8 @@ import {
 @Resolver(Language)
 export class LanguageResolver {
   @Query(() => Language, { nullable: true, description: 'Gets a single language by its index.' })
-  async language(@Arg('index', () => String) indexInput: string): Promise<Language | null> {
-    const { index } = LanguageIndexArgsSchema.parse({ index: indexInput })
+  async language(@Args(() => LanguageIndexArgs) args: LanguageIndexArgs): Promise<Language | null> {
+    const { index } = LanguageIndexArgsSchema.parse(args)
     return LanguageModel.findOne({ index }).lean()
   }
 

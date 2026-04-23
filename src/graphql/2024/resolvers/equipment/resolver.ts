@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { Tool } from '@/graphql/2024/common/equipmentTypes'
 import { AnyEquipment } from '@/graphql/2024/common/unions'
@@ -14,6 +14,7 @@ import {
   EQUIPMENT_SORT_FIELD_MAP,
   EquipmentArgs,
   EquipmentArgsSchema,
+  EquipmentIndexArgs,
   EquipmentIndexArgsSchema,
   EquipmentOrderField
 } from './args'
@@ -66,9 +67,9 @@ export class EquipmentResolver {
     description: 'Gets a single piece of equipment by its index.'
   })
   async equipment(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => EquipmentIndexArgs) args: EquipmentIndexArgs
   ): Promise<typeof AnyEquipment | null> {
-    const { index } = EquipmentIndexArgsSchema.parse({ index: indexInput })
+    const { index } = EquipmentIndexArgsSchema.parse(args)
     return EquipmentModel.findOne({ index }).lean()
   }
 

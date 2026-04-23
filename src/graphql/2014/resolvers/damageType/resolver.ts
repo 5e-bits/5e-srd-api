@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import DamageTypeModel, { DamageType } from '@/models/2014/damageType'
@@ -8,6 +8,7 @@ import {
   DAMAGE_TYPE_SORT_FIELD_MAP,
   DamageTypeArgs,
   DamageTypeArgsSchema,
+  DamageTypeIndexArgs,
   DamageTypeIndexArgsSchema,
   DamageTypeOrderField
 } from './args'
@@ -46,8 +47,10 @@ export class DamageTypeResolver {
   }
 
   @Query(() => DamageType, { nullable: true, description: 'Gets a single damage type by index.' })
-  async damageType(@Arg('index', () => String) indexInput: string): Promise<DamageType | null> {
-    const { index } = DamageTypeIndexArgsSchema.parse({ index: indexInput })
+  async damageType(
+    @Args(() => DamageTypeIndexArgs) args: DamageTypeIndexArgs
+  ): Promise<DamageType | null> {
+    const { index } = DamageTypeIndexArgsSchema.parse(args)
     return DamageTypeModel.findOne({ index }).lean()
   }
 }

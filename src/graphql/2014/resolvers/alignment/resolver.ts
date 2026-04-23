@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import AlignmentModel, { Alignment } from '@/models/2014/alignment'
@@ -8,6 +8,7 @@ import {
   ALIGNMENT_SORT_FIELD_MAP,
   AlignmentArgs,
   AlignmentArgsSchema,
+  AlignmentIndexArgs,
   AlignmentIndexArgsSchema,
   AlignmentOrderField
 } from './args'
@@ -47,8 +48,10 @@ export class AlignmentResolver {
   }
 
   @Query(() => Alignment, { nullable: true, description: 'Gets a single alignment by index.' })
-  async alignment(@Arg('index', () => String) indexInput: string): Promise<Alignment | null> {
-    const { index } = AlignmentIndexArgsSchema.parse({ index: indexInput })
+  async alignment(
+    @Args(() => AlignmentIndexArgs) args: AlignmentIndexArgs
+  ): Promise<Alignment | null> {
+    const { index } = AlignmentIndexArgsSchema.parse(args)
     return AlignmentModel.findOne({ index }).lean()
   }
 }

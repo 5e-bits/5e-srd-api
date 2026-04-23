@@ -14,9 +14,11 @@ import { buildSchema } from 'type-graphql'
 import docsController from './controllers/docsController'
 import { resolvers as resolvers2014 } from './graphql/2014/resolvers'
 import { resolvers as resolvers2024 } from './graphql/2024/resolvers'
+import { TranslationMiddleware } from './graphql/middleware/translationMiddleware'
 import { createApolloMiddleware } from './middleware/apolloServer'
 import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
+import languageNegotiation from './middleware/languageNegotiation'
 import apiRoutes from './routes/api'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -52,14 +54,17 @@ export default async () => {
   app.use(cors())
 
   app.use(limiter)
+  app.use(languageNegotiation)
 
   console.log('Building TypeGraphQL schema...')
   const schema2014 = await buildSchema({
     resolvers: resolvers2014,
+    globalMiddlewares: [TranslationMiddleware],
     validate: { forbidUnknownValues: false }
   })
   const schema2024 = await buildSchema({
     resolvers: resolvers2024,
+    globalMiddlewares: [TranslationMiddleware],
     validate: { forbidUnknownValues: false }
   })
   console.log('TypeGraphQL schema built successfully.')
@@ -72,7 +77,7 @@ export default async () => {
     cors<cors.CorsRequest>(),
     bodyParser.json(),
     expressMiddleware(apolloMiddleware2024, {
-      context: async ({ req }) => ({ token: req.headers.token })
+      context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
   )
   const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
@@ -82,7 +87,7 @@ export default async () => {
     cors<cors.CorsRequest>(),
     bodyParser.json(),
     expressMiddleware(apolloMiddleware2014, {
-      context: async ({ req }) => ({ token: req.headers.token })
+      context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
   )
   // DEPRECATED
@@ -91,7 +96,7 @@ export default async () => {
     cors<cors.CorsRequest>(),
     bodyParser.json(),
     expressMiddleware(apolloMiddleware2014, {
-      context: async ({ req }) => ({ token: req.headers.token })
+      context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
   )
 

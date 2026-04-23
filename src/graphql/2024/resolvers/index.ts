@@ -8,6 +8,7 @@ import { ContentFieldResolver, EquipmentResolver, ToolResolver } from './equipme
 import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
 import { FeatResolver } from './feat/resolver'
 import { LanguageResolver } from './language/resolver'
+import { LocaleResolver } from './locale/resolver'
 import { MagicItemResolver } from './magicItem/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
 import { ProficiencyResolver } from './proficiency/resolver'
@@ -22,6 +23,7 @@ import { WeaponPropertyResolver } from './weaponProperty/resolver'
 const collectionResolvers = [
   AbilityScoreResolver,
   AlignmentResolver,
+  LocaleResolver,
   BackgroundResolver,
   ConditionResolver,
   DamageTypeResolver,

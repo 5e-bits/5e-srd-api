@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { FeaturePrerequisiteUnion } from '@/graphql/2014/types/featureTypes'
 import { buildSortPipeline } from '@/graphql/common/args'
@@ -20,6 +20,7 @@ import {
   FEATURE_SORT_FIELD_MAP,
   FeatureArgs,
   FeatureArgsSchema,
+  FeatureIndexArgs,
   FeatureIndexArgsSchema,
   FeatureOrderField
 } from './args'
@@ -75,8 +76,8 @@ export class FeatureResolver {
   }
 
   @Query(() => Feature, { nullable: true, description: 'Gets a single feature by its index.' })
-  async feature(@Arg('index', () => String) indexInput: string): Promise<Feature | null> {
-    const { index } = FeatureIndexArgsSchema.parse({ index: indexInput })
+  async feature(@Args(() => FeatureIndexArgs) args: FeatureIndexArgs): Promise<Feature | null> {
+    const { index } = FeatureIndexArgsSchema.parse(args)
     return FeatureModel.findOne({ index }).lean()
   }
 

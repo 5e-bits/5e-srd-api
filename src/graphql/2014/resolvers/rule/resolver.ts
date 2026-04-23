@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
@@ -10,6 +10,7 @@ import {
   RULE_SORT_FIELD_MAP,
   RuleArgs,
   RuleArgsSchema,
+  RuleIndexArgs,
   RuleIndexArgsSchema,
   RuleOrderField
 } from './args'
@@ -47,8 +48,8 @@ export class RuleResolver {
   }
 
   @Query(() => Rule, { nullable: true, description: 'Gets a single rule by index.' })
-  async rule(@Arg('index', () => String) indexInput: string): Promise<Rule | null> {
-    const { index } = RuleIndexArgsSchema.parse({ index: indexInput })
+  async rule(@Args(() => RuleIndexArgs) args: RuleIndexArgs): Promise<Rule | null> {
+    const { index } = RuleIndexArgsSchema.parse(args)
     return RuleModel.findOne({ index }).lean()
   }
 

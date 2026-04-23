@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveSingleReference } from '@/graphql/utils/resolvers'
@@ -10,6 +10,7 @@ import {
   SKILL_SORT_FIELD_MAP,
   SkillArgs,
   SkillArgsSchema,
+  SkillIndexArgs,
   SkillIndexArgsSchema,
   SkillOrderField
 } from './args'
@@ -58,8 +59,8 @@ export class SkillResolver {
   }
 
   @Query(() => Skill2024, { nullable: true, description: 'Gets a single skill by index.' })
-  async skill(@Arg('index', () => String) indexInput: string): Promise<Skill2024 | null> {
-    const { index } = SkillIndexArgsSchema.parse({ index: indexInput })
+  async skill(@Args(() => SkillIndexArgs) args: SkillIndexArgs): Promise<Skill2024 | null> {
+    const { index } = SkillIndexArgsSchema.parse(args)
     return SkillModel.findOne({ index }).lean()
   }
 

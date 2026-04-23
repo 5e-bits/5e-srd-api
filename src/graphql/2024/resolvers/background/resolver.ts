@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { Proficiency2024Choice } from '@/graphql/2024/common/choiceTypes'
 import { BackgroundEquipmentChoice2024 } from '@/graphql/2024/types/backgroundEquipment'
@@ -16,6 +16,7 @@ import {
   BACKGROUND_SORT_FIELD_MAP,
   BackgroundArgs,
   BackgroundArgsSchema,
+  BackgroundIndexArgs,
   BackgroundIndexArgsSchema,
   BackgroundOrderField
 } from './args'
@@ -54,11 +55,14 @@ export class BackgroundResolver {
     return query.lean()
   }
 
-  @Query(() => Background2024, { nullable: true, description: 'Gets a single background by index.' })
+  @Query(() => Background2024, {
+    nullable: true,
+    description: 'Gets a single background by index.'
+  })
   async background(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => BackgroundIndexArgs) args: BackgroundIndexArgs
   ): Promise<Background2024 | null> {
-    const { index } = BackgroundIndexArgsSchema.parse({ index: indexInput })
+    const { index } = BackgroundIndexArgsSchema.parse(args)
     return BackgroundModel.findOne({ index }).lean()
   }
 
@@ -78,9 +82,7 @@ export class BackgroundResolver {
   }
 
   @FieldResolver(() => [Proficiency2024Choice], { nullable: true })
-  async proficiency_choices(
-    @Root() background: Background2024
-  ): Promise<Proficiency2024Choice[]> {
+  async proficiency_choices(@Root() background: Background2024): Promise<Proficiency2024Choice[]> {
     return resolveProficiency2024ChoiceArray(background.proficiency_choices)
   }
 

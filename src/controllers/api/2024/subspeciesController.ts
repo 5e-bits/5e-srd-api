@@ -5,6 +5,7 @@ import Subspecies2024Model from '@/models/2024/subspecies'
 import Trait2024Model from '@/models/2024/trait'
 import { ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
+import { applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Subspecies2024Model)
 
@@ -14,11 +15,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) =>
 export const show = async (req: Request, res: Response, next: NextFunction) =>
   simpleController.show(req, res, next)
 
-export const showTraitsForSubspecies = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const showTraitsForSubspecies = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
@@ -27,6 +24,7 @@ export const showTraitsForSubspecies = async (
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2024/subspecies/' + index
 
@@ -36,7 +34,13 @@ export const showTraitsForSubspecies = async (
       url: 1,
       _id: 0
     })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2024-traits',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }

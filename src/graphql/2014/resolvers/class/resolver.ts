@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import {
   PrerequisiteChoice,
@@ -33,6 +33,7 @@ import {
   CLASS_SORT_FIELD_MAP,
   ClassArgs,
   ClassArgsSchema,
+  ClassIndexArgs,
   ClassIndexArgsSchema,
   ClassOrderField
 } from './args'
@@ -83,8 +84,8 @@ export class ClassResolver {
   }
 
   @Query(() => Class, { nullable: true, description: 'Gets a single class by its index.' })
-  async class(@Arg('index', () => String) indexInput: string): Promise<Class | null> {
-    const { index } = ClassIndexArgsSchema.parse({ index: indexInput })
+  async class(@Args(() => ClassIndexArgs) args: ClassIndexArgs): Promise<Class | null> {
+    const { index } = ClassIndexArgsSchema.parse(args)
     return ClassModel.findOne({ index }).lean()
   }
 

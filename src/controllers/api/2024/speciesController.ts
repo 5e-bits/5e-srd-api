@@ -6,6 +6,7 @@ import Subspecies2024Model from '@/models/2024/subspecies'
 import Trait2024Model from '@/models/2024/trait'
 import { ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
+import { applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Species2024Model)
 
@@ -24,6 +25,7 @@ export const showSubspeciesForSpecies = async (req: Request, res: Response, next
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2024/species/' + index
 
@@ -33,7 +35,13 @@ export const showSubspeciesForSpecies = async (req: Request, res: Response, next
       url: 1,
       _id: 0
     })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2024-subspecies',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -48,6 +56,7 @@ export const showTraitsForSpecies = async (req: Request, res: Response, next: Ne
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2024/species/' + index
 
@@ -57,7 +66,13 @@ export const showTraitsForSpecies = async (req: Request, res: Response, next: Ne
       url: 1,
       _id: 0
     })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2024-traits',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }

@@ -7,6 +7,7 @@ import Subrace from '@/models/2014/subrace'
 import Trait from '@/models/2014/trait'
 import { ShowParamsSchema } from '@/schemas/schemas'
 import { ResourceList } from '@/util/data'
+import { applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Race)
 
@@ -17,7 +18,6 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showSubracesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Validate path parameters
     const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
@@ -25,6 +25,7 @@ export const showSubracesForRace = async (req: Request, res: Response, next: Nex
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/races/' + index
 
@@ -34,7 +35,13 @@ export const showSubracesForRace = async (req: Request, res: Response, next: Nex
       url: 1,
       _id: 0
     })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-subraces',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -42,7 +49,6 @@ export const showSubracesForRace = async (req: Request, res: Response, next: Nex
 
 export const showTraitsForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Validate path parameters
     const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
@@ -50,6 +56,7 @@ export const showTraitsForRace = async (req: Request, res: Response, next: NextF
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/races/' + index
 
@@ -59,7 +66,13 @@ export const showTraitsForRace = async (req: Request, res: Response, next: NextF
       url: 1,
       _id: 0
     })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-traits',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }
@@ -67,7 +80,6 @@ export const showTraitsForRace = async (req: Request, res: Response, next: NextF
 
 export const showProficienciesForRace = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Validate path parameters
     const validatedParams = ShowParamsSchema.safeParse(req.params)
     if (!validatedParams.success) {
       return res
@@ -75,13 +87,20 @@ export const showProficienciesForRace = async (req: Request, res: Response, next
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/races/' + index
 
     const data = await Proficiency.find({ 'races.url': urlString })
       .select({ index: 1, name: 1, url: 1, _id: 0 })
       .sort({ index: 'asc' })
-    return res.status(200).json(ResourceList(data))
+    const { docs: translated, wasTranslated } = await applyTranslationToList(
+      data.map((d: any) => d.toObject()),
+      '2014-proficiencies',
+      lang
+    )
+    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
+    return res.status(200).json(ResourceList(translated))
   } catch (err) {
     next(err)
   }

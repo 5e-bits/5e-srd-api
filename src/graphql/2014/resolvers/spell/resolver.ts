@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
 import { buildSortPipeline } from '@/graphql/common/args'
@@ -17,6 +17,7 @@ import {
   SPELL_SORT_FIELD_MAP,
   SpellArgs,
   SpellArgsSchema,
+  SpellIndexArgs,
   SpellIndexArgsSchema,
   SpellOrderField
 } from './args'
@@ -102,8 +103,8 @@ export class SpellResolver {
   }
 
   @Query(() => Spell, { nullable: true, description: 'Gets a single spell by its index.' })
-  async spell(@Arg('index', () => String) indexInput: string): Promise<Spell | null> {
-    const { index } = SpellIndexArgsSchema.parse({ index: indexInput })
+  async spell(@Args(() => SpellIndexArgs) args: SpellIndexArgs): Promise<Spell | null> {
+    const { index } = SpellIndexArgsSchema.parse(args)
     return SpellModel.findOne({ index }).lean()
   }
 

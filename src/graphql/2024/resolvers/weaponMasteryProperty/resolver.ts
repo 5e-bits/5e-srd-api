@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import WeaponMasteryPropertyModel, {
@@ -10,6 +10,7 @@ import {
   WEAPON_MASTERY_PROPERTY_SORT_FIELD_MAP,
   WeaponMasteryPropertyArgs,
   WeaponMasteryPropertyArgsSchema,
+  WeaponMasteryPropertyIndexArgs,
   WeaponMasteryPropertyIndexArgsSchema,
   WeaponMasteryPropertyOrderField
 } from './args'
@@ -55,9 +56,9 @@ export class WeaponMasteryPropertyResolver {
     description: 'Gets a single weapon mastery property by index.'
   })
   async weaponMasteryProperty(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => WeaponMasteryPropertyIndexArgs) args: WeaponMasteryPropertyIndexArgs
   ): Promise<WeaponMasteryProperty2024 | null> {
-    const { index } = WeaponMasteryPropertyIndexArgsSchema.parse({ index: indexInput })
+    const { index } = WeaponMasteryPropertyIndexArgsSchema.parse(args)
     return WeaponMasteryPropertyModel.findOne({ index }).lean()
   }
 }

@@ -1,4 +1,4 @@
-import { Arg, Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
@@ -11,6 +11,7 @@ import {
   SPECIES_SORT_FIELD_MAP,
   SpeciesArgs,
   SpeciesArgsSchema,
+  SpeciesIndexArgs,
   SpeciesIndexArgsSchema,
   SpeciesOrderField
 } from './args'
@@ -50,9 +51,9 @@ export class SpeciesResolver {
 
   @Query(() => Species2024, { nullable: true, description: 'Gets a single species by index.' })
   async species2024ByIndex(
-    @Arg('index', () => String) indexInput: string
+    @Args(() => SpeciesIndexArgs) args: SpeciesIndexArgs
   ): Promise<Species2024 | null> {
-    const { index } = SpeciesIndexArgsSchema.parse({ index: indexInput })
+    const { index } = SpeciesIndexArgsSchema.parse(args)
     return Species2024Model.findOne({ index }).lean()
   }
 

@@ -4,6 +4,7 @@ import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
+  BaseIndexArgs,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/common/args'
@@ -53,6 +54,7 @@ export const ProficiencyArgsSchema = z.object({
 })
 
 export const ProficiencyIndexArgsSchema = BaseIndexArgsSchema
+export { BaseIndexArgs as ProficiencyIndexArgs }
 
 // Define ArgsType for the proficiencies query
 @ArgsType()

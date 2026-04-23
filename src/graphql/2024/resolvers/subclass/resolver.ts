@@ -1,4 +1,4 @@
-import { Arg, Args, Query, Resolver } from 'type-graphql'
+import { Args, Query, Resolver } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
 import SubclassModel, { Subclass2024 } from '@/models/2024/subclass'
@@ -8,6 +8,7 @@ import {
   SUBCLASS_SORT_FIELD_MAP,
   SubclassArgs,
   SubclassArgsSchema,
+  SubclassIndexArgs,
   SubclassIndexArgsSchema,
   SubclassOrderField
 } from './args'
@@ -49,8 +50,10 @@ export class SubclassResolver {
     nullable: true,
     description: 'Gets a single subclass by index.'
   })
-  async subclass(@Arg('index', () => String) indexInput: string): Promise<Subclass2024 | null> {
-    const { index } = SubclassIndexArgsSchema.parse({ index: indexInput })
+  async subclass(
+    @Args(() => SubclassIndexArgs) args: SubclassIndexArgs
+  ): Promise<Subclass2024 | null> {
+    const { index } = SubclassIndexArgsSchema.parse(args)
     return SubclassModel.findOne({ index }).lean()
   }
 }

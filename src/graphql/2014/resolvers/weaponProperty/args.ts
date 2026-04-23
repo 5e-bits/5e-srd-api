@@ -4,6 +4,7 @@ import { z } from 'zod'
 import {
   BaseFilterArgs,
   BaseFilterArgsSchema,
+  BaseIndexArgs,
   BaseIndexArgsSchema,
   BaseOrderInterface
 } from '@/graphql/common/args'
@@ -48,6 +49,7 @@ export const WeaponPropertyArgsSchema = z.object({
 })
 
 export const WeaponPropertyIndexArgsSchema = BaseIndexArgsSchema
+export { BaseIndexArgs as WeaponPropertyIndexArgs }
 
 @ArgsType()
 export class WeaponPropertyArgs extends BaseFilterArgs {
