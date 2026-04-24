@@ -43,6 +43,20 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.6.0](https://github.com/5e-bits/5e-srd-api/compare/v5.5.0...v5.6.0) (2026-04-24)
+
+
+### Features
+
+* **2024:** Add classes to 2024 API and GraphQL ([#1067](https://github.com/5e-bits/5e-srd-api/issues/1067)) ([a281df3](https://github.com/5e-bits/5e-srd-api/commit/a281df35ba9363497e4e490d1863fd8d0aa0f1d7))
+* **2024:** Add monsters ([#1069](https://github.com/5e-bits/5e-srd-api/issues/1069)) ([296bb11](https://github.com/5e-bits/5e-srd-api/commit/296bb112ac38698d99fd218c6dfd4e624873accb))
+
+
+### Bug Fixes
+
+* **all:** Fixes all changes that came up with db moving to strict mode ([#1070](https://github.com/5e-bits/5e-srd-api/issues/1070)) ([9ff20ba](https://github.com/5e-bits/5e-srd-api/commit/9ff20baf2a3bbc693f419ce4467b4c0d760708c4))
+* **equipment-categories:** Link equipmentCategories to MagicItems ([#1066](https://github.com/5e-bits/5e-srd-api/issues/1066)) ([bdc8b66](https://github.com/5e-bits/5e-srd-api/commit/bdc8b662454a68bcd395fc5dd1ecb4a4eeb7b92d))
+
 ## [5.5.0](https://github.com/5e-bits/5e-srd-api/compare/v5.4.0...v5.5.0) (2026-04-23)
 
 
