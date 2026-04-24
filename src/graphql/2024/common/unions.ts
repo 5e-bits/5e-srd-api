@@ -1,5 +1,6 @@
 import { createUnionType } from 'type-graphql'
 
+import { MagicItem2024 } from '@/models/2024/magicItem'
 import { APIReference } from '@/models/common/apiReference'
 
 import { Ammunition, AdventuringGear, Armor, Pack, Weapon, Tool } from './equipmentTypes'
@@ -68,6 +69,26 @@ export const AnyEquipment = createUnionType({
     }
 
     console.warn('Could not resolve type for AnyEquipment:', value)
+    return AdventuringGear
+  }
+})
+
+export const AnyEquipmentOrMagicItem = createUnionType({
+  name: 'AnyEquipmentOrMagicItem',
+  types: () => {
+    return [Weapon, AdventuringGear, Ammunition, Armor, Pack, Tool, MagicItem2024] as const
+  },
+  resolveType: (value) => {
+    if ('rarity' in value) {
+      return MagicItem2024
+    }
+
+    const equipmentType = resolveEquipmentType(value)
+    if (equipmentType) {
+      return equipmentType
+    }
+
+    console.warn('Could not resolve type for AnyEquipmentOrMagicItem:', value)
     return AdventuringGear
   }
 })

@@ -1,9 +1,10 @@
 import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
-import { AnyEquipment } from '@/graphql/2024/common/unions'
+import { AnyEquipmentOrMagicItem } from '@/graphql/2024/common/unions'
 import { buildSortPipeline } from '@/graphql/common/args'
 import EquipmentModel, { Equipment2024 } from '@/models/2024/equipment'
 import EquipmentCategoryModel, { EquipmentCategory2024 } from '@/models/2024/equipmentCategory'
+import MagicItemModel, { MagicItem2024 } from '@/models/2024/magicItem'
 import { escapeRegExp } from '@/util'
 
 import {
@@ -61,37 +62,21 @@ export class EquipmentCategoryResolver {
     return EquipmentCategoryModel.findOne({ index }).lean()
   }
 
-  // TODO: Remove when Magic Items are added
-  @FieldResolver(() => [AnyEquipment])
-  async equipment(@Root() equipmentCategory: EquipmentCategory2024): Promise<Equipment2024[]> {
+  @FieldResolver(() => [AnyEquipmentOrMagicItem])
+  async equipment(
+    @Root() equipmentCategory: EquipmentCategory2024
+  ): Promise<(Equipment2024 | MagicItem2024)[]> {
     if (equipmentCategory.equipment.length === 0) {
       return []
     }
 
     const equipmentIndices = equipmentCategory.equipment.map((ref) => ref.index)
 
-    const equipments = await EquipmentModel.find({ index: { $in: equipmentIndices } }).lean()
+    const [equipments, magicItems] = await Promise.all([
+      EquipmentModel.find({ index: { $in: equipmentIndices } }).lean(),
+      MagicItemModel.find({ index: { $in: equipmentIndices } }).lean()
+    ])
 
-    return equipments
+    return [...equipments, ...magicItems]
   }
-
-  // TODO: Add Magic Items
-  // @FieldResolver(() => [EquipmentOrMagicItem])
-  // async equipment(
-  //   @Root() equipmentCategory: EquipmentCategory
-  // ): Promise<(Equipment | MagicItem)[]> {
-  //   if (equipmentCategory.equipment.length === 0) {
-  //     return []
-  //   }
-
-  //   const equipmentIndices = equipmentCategory.equipment.map((ref) => ref.index)
-
-  //   // Fetch both Equipment and MagicItems matching the indices
-  //   const [equipments, magicItems] = await Promise.all([
-  //     EquipmentModel.find({ index: { $in: equipmentIndices } }).lean(),
-  //     MagicItemModel.find({ index: { $in: equipmentIndices } }).lean()
-  //   ])
-
-  //   return [...equipments, ...magicItems]
-  // }
 }
