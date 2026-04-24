@@ -1,11 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
-import {
-  apiReferenceFactory,
-  difficultyClassFactory,
-  damageFactory
-} from '@/tests/factories/2024/common.factory'
+import { apiReferenceFactory, difficultyClassFactory } from '@/tests/factories/2024/common.factory'
 
 import type {
   ActionUsage2024,

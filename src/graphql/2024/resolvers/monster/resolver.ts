@@ -1,5 +1,6 @@
 import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
+import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import {
   ActionChoice2024,
   ActionChoiceOption2024,
@@ -13,7 +14,6 @@ import {
   DamageOrDamageChoice2024Union,
   MultipleActionChoiceOption2024
 } from '@/graphql/2024/types/monsterTypes'
-import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import { buildSortPipeline } from '@/graphql/common/args'
 import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
 import { SpellSlotCount } from '@/graphql/common/types'
@@ -30,7 +30,6 @@ import Monster2024Model, {
   Spellcasting2024
 } from '@/models/2024/monster'
 import ProficiencyModel, { Proficiency2024 } from '@/models/2024/proficiency'
-import { APIReference } from '@/models/common/apiReference'
 import {
   ActionOption,
   BreathOption,
