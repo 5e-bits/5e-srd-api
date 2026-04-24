@@ -1,6 +1,8 @@
-import { Args, Query, Resolver } from 'type-graphql'
+import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
 import { buildSortPipeline } from '@/graphql/common/args'
+import { resolveSingleReference } from '@/graphql/utils/resolvers'
+import ClassModel, { Class2024 } from '@/models/2024/class'
 import SubclassModel, { Subclass2024 } from '@/models/2024/subclass'
 import { escapeRegExp } from '@/util'
 
@@ -55,5 +57,10 @@ export class SubclassResolver {
   ): Promise<Subclass2024 | null> {
     const { index } = SubclassIndexArgsSchema.parse(args)
     return SubclassModel.findOne({ index }).lean()
+  }
+
+  @FieldResolver(() => Class2024, { nullable: true })
+  async class(@Root() subclass: Subclass2024): Promise<Class2024 | null> {
+    return resolveSingleReference(subclass.class, ClassModel)
   }
 }

@@ -2,6 +2,13 @@ import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 
 import { Subclass2024, SubclassFeature2024 } from '@/models/2024/subclass'
+import { APIReference } from '@/models/common/apiReference'
+
+const apiReferenceFactory = Factory.define<APIReference>(() => ({
+  index: faker.lorem.slug(),
+  name: faker.lorem.words(2),
+  url: `/api/2024/${faker.lorem.slug()}`
+}))
 
 export const subclassFeatureFactory = Factory.define<SubclassFeature2024>(() => ({
   name: faker.lorem.words(3),
@@ -19,6 +26,7 @@ export const subclassFactory = Factory.define<Subclass2024>(({ sequence }) => {
   return {
     index,
     name,
+    class: apiReferenceFactory.build(),
     summary: faker.lorem.sentence(),
     description: faker.lorem.paragraph(),
     features: subclassFeatureFactory.buildList(2),
