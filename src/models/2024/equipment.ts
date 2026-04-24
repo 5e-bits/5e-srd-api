@@ -112,6 +112,13 @@ export class Equipment2024 {
   @prop({ type: () => [Content] })
   public contents?: Content[]
 
+  @Field(() => Equipment2024, {
+    nullable: true,
+    description: 'The equipment this item is contained in.'
+  })
+  @prop({ type: () => APIReference })
+  public storage?: APIReference
+
   @Field(() => Cost, { description: 'Cost of the equipment in coinage.' })
   @prop({ type: () => Cost })
   public cost!: Cost

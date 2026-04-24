@@ -1,4 +1,7 @@
 import {
+  AbilityScoreChoice2024,
+  AbilityScoreChoiceOption2024,
+  AbilityScoreChoiceOptionSet2024,
   Proficiency2024Choice,
   Proficiency2024ChoiceOption,
   Proficiency2024ChoiceOptionSet,
@@ -74,6 +77,36 @@ export async function resolveProficiency2024Choice(
       option_set_type: optionsArraySet.option_set_type,
       options: resolvedOptions
     } as Proficiency2024ChoiceOptionSet
+  }
+}
+
+export async function resolveAbilityScoreChoice2024(
+  choiceData: Choice | undefined
+): Promise<AbilityScoreChoice2024 | null> {
+  if (!choiceData) return null
+
+  const optionsArraySet = choiceData.from as OptionsArrayOptionSet
+  const resolvedOptions: AbilityScoreChoiceOption2024[] = []
+
+  for (const dbOption of optionsArraySet.options) {
+    const dbRefOpt = dbOption as ReferenceOption
+    const abilityScore = await resolveSingleReference(dbRefOpt.item, AbilityScoreModel)
+    if (abilityScore !== null) {
+      resolvedOptions.push({
+        option_type: dbRefOpt.option_type,
+        item: abilityScore as AbilityScore2024
+      })
+    }
+  }
+
+  return {
+    desc: choiceData.desc,
+    choose: choiceData.choose,
+    type: choiceData.type,
+    from: {
+      option_set_type: optionsArraySet.option_set_type,
+      options: resolvedOptions
+    } as AbilityScoreChoiceOptionSet2024
   }
 }
 

@@ -1,5 +1,7 @@
 import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
 
+import { AbilityScoreChoice2024 } from '@/graphql/2024/common/choiceTypes'
+import { resolveAbilityScoreChoice2024 } from '@/graphql/2024/utils/choiceResolvers'
 import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore2024 } from '@/models/2024/abilityScore'
@@ -110,7 +112,14 @@ export class MultiClassingPrereq2024Resolver {
 @Resolver(PrimaryAbility2024)
 export class PrimaryAbility2024Resolver {
   @FieldResolver(() => [AbilityScore2024], { nullable: true })
-  async all_of(@Root() primaryAbility: PrimaryAbility2024): Promise<AbilityScore2024[]> {
-    return resolveMultipleReferences(primaryAbility.all_of, AbilityScoreModel)
+  async ability_scores(@Root() primaryAbility: PrimaryAbility2024): Promise<AbilityScore2024[]> {
+    return resolveMultipleReferences(primaryAbility.ability_scores, AbilityScoreModel)
+  }
+
+  @FieldResolver(() => AbilityScoreChoice2024, { nullable: true })
+  async ability_score_options(
+    @Root() primaryAbility: PrimaryAbility2024
+  ): Promise<AbilityScoreChoice2024 | null> {
+    return resolveAbilityScoreChoice2024(primaryAbility.ability_score_options)
   }
 }

@@ -78,6 +78,12 @@ export class EquipmentResolver {
     if (!equipment.properties) return null
     return resolveMultipleReferences(equipment.properties, WeaponPropertyModel)
   }
+
+  @FieldResolver(() => Equipment2024, { nullable: true })
+  async storage(@Root() equipment: Equipment2024): Promise<Equipment2024 | null> {
+    if (!equipment.storage) return null
+    return resolveSingleReference(equipment.storage, EquipmentModel)
+  }
 }
 
 @Resolver(Content)
