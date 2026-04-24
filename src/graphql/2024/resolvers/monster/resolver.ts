@@ -27,7 +27,7 @@ import Monster2024Model, {
   MonsterArmorClass2024,
   MonsterProficiency2024,
   Monster2024,
-  Spellcasting2024
+  MonsterSpellcasting2024
 } from '@/models/2024/monster'
 import ProficiencyModel, { Proficiency2024 } from '@/models/2024/proficiency'
 import {
@@ -182,15 +182,15 @@ export class MonsterProficiency2024Resolver {
   }
 }
 
-@Resolver(Spellcasting2024)
+@Resolver(MonsterSpellcasting2024)
 export class MonsterSpellcasting2024Resolver {
   @FieldResolver(() => AbilityScore2024)
-  async ability(@Root() spellcasting: Spellcasting2024): Promise<AbilityScore2024 | null> {
+  async ability(@Root() spellcasting: MonsterSpellcasting2024): Promise<AbilityScore2024 | null> {
     return resolveSingleReference(spellcasting.ability, AbilityScoreModel)
   }
 
   @FieldResolver(() => [SpellSlotCount], { nullable: true })
-  async slots(@Root() spellcasting: Spellcasting2024): Promise<SpellSlotCount[] | null> {
+  async slots(@Root() spellcasting: MonsterSpellcasting2024): Promise<SpellSlotCount[] | null> {
     if (!spellcasting.slots) return null
     const slotCounts: SpellSlotCount[] = []
     for (const levelKey in spellcasting.slots) {

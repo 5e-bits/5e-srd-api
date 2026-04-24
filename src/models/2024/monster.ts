@@ -143,8 +143,8 @@ export class SpellcastingSpell2024 {
 
 @ObjectType({ description: 'Spellcasting details for a 2024 monster' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
-export class Spellcasting2024 {
-  // Resolved via Spellcasting2024Resolver
+export class MonsterSpellcasting2024 {
+  // Resolved via MonsterSpellcasting2024Resolver
   @prop({ type: () => APIReference })
   public ability!: APIReference
 
@@ -172,7 +172,7 @@ export class Spellcasting2024 {
   @prop({ index: true, type: () => String })
   public school?: string
 
-  // Resolved via Spellcasting2024Resolver
+  // Resolved via MonsterSpellcasting2024Resolver
   @prop({ type: () => Object, default: undefined })
   public slots?: Record<string, number>
 }
@@ -268,9 +268,9 @@ export class MonsterAction2024 {
   @prop({ type: () => [Object] })
   public damage?: (Damage | Choice)[]
 
-  @Field(() => Spellcasting2024, { nullable: true })
-  @prop({ type: () => Spellcasting2024 })
-  public spellcasting?: Spellcasting2024
+  @Field(() => MonsterSpellcasting2024, { nullable: true })
+  @prop({ type: () => MonsterSpellcasting2024 })
+  public spellcasting?: MonsterSpellcasting2024
 }
 
 @ObjectType({ description: 'A legendary action a 2024 monster can perform' })
@@ -356,9 +356,9 @@ export class SpecialAbility2024 {
   @prop({ type: () => SpecialAbilityUsage2024 })
   public usage?: SpecialAbilityUsage2024
 
-  @Field(() => Spellcasting2024, { nullable: true })
-  @prop({ type: () => Spellcasting2024 })
-  public spellcasting?: Spellcasting2024
+  @Field(() => MonsterSpellcasting2024, { nullable: true })
+  @prop({ type: () => MonsterSpellcasting2024 })
+  public spellcasting?: MonsterSpellcasting2024
 }
 
 @ObjectType({ description: 'A D&D 2024 monster.' })
