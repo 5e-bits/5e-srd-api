@@ -18,6 +18,13 @@ import { LanguageResolver } from './language/resolver'
 import { LocaleResolver } from './locale/resolver'
 import { MagicItemResolver } from './magicItem/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
+import {
+  Monster2024Resolver,
+  MonsterAction2024Resolver,
+  MonsterArmorClass2024Resolver,
+  MonsterProficiency2024Resolver,
+  MonsterSpellcasting2024Resolver
+} from './monster/resolver'
 import { ProficiencyResolver } from './proficiency/resolver'
 import { SkillResolver } from './skill/resolver'
 import { SpeciesResolver } from './species/resolver'
@@ -41,6 +48,7 @@ const collectionResolvers = [
   LanguageResolver,
   MagicItemResolver,
   MagicSchoolResolver,
+  Monster2024Resolver,
   ProficiencyResolver,
   SkillResolver,
   SpeciesResolver,
@@ -60,7 +68,12 @@ const fieldResolvers = [
   MultiClassing2024Resolver,
   MultiClassingPrereq2024Resolver,
   PrimaryAbility2024Resolver,
-  Spellcasting2024Resolver
+  Spellcasting2024Resolver,
+  // Monster
+  MonsterArmorClass2024Resolver,
+  MonsterProficiency2024Resolver,
+  MonsterSpellcasting2024Resolver,
+  MonsterAction2024Resolver
 ] as const
 
 export const resolvers = [...collectionResolvers, ...fieldResolvers] as const
