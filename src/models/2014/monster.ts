@@ -472,6 +472,10 @@ export class Monster {
   @prop({ type: () => [String] })
   public damage_vulnerabilities!: string[]
 
+  @Field(() => String)
+  @prop({ type: () => String })
+  public desc?: string
+
   @Field(() => Int)
   @prop({ required: true, index: true, type: () => Number })
   public dexterity!: number

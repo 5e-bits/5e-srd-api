@@ -43,6 +43,45 @@ export class ScorePrerequisiteChoice2024 {
   from!: ScorePrerequisiteOptionSet2024
 }
 
+// --- Ability Score Choice Types (for PrimaryAbility2024.ability_score_options) ---
+
+@ObjectType({ description: 'A reference to a 2024 ability score within a choice option set.' })
+export class AbilityScoreChoiceOption2024 {
+  @Field(() => String, { description: 'The type of this option.' })
+  option_type!: string
+
+  @Field(() => AbilityScore2024, { description: 'The resolved AbilityScore2024 object.' })
+  item!: AbilityScore2024
+}
+
+@ObjectType({ description: 'The set of ability score options for a primary ability choice.' })
+export class AbilityScoreChoiceOptionSet2024 {
+  @Field(() => String, { description: 'The type of the option set.' })
+  option_set_type!: string
+
+  @Field(() => [AbilityScoreChoiceOption2024], {
+    description: 'The available ability score options.'
+  })
+  options!: AbilityScoreChoiceOption2024[]
+}
+
+@ObjectType({ description: 'An ability score choice for a 2024 class primary ability.' })
+export class AbilityScoreChoice2024 {
+  @Field(() => String, { nullable: true, description: 'Description of the choice.' })
+  desc?: string
+
+  @Field(() => Int, { description: 'Number of ability scores to choose.' })
+  choose!: number
+
+  @Field(() => String, { description: 'The type of choice.' })
+  type!: string
+
+  @Field(() => AbilityScoreChoiceOptionSet2024, {
+    description: 'The set of ability score options.'
+  })
+  from!: AbilityScoreChoiceOptionSet2024
+}
+
 // --- Proficiency Choice Types (for Background2024.proficiency_choices) ---
 
 @ObjectType({ description: 'A reference to a 2024 proficiency within a choice option set.' })

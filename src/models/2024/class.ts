@@ -80,10 +80,10 @@ export class PrimaryAbility2024 {
     description: 'All of these ability scores must meet the minimum.'
   })
   @prop({ type: () => [APIReference] })
-  public all_of?: APIReference[]
+  public ability_scores?: APIReference[]
 
   @prop({ type: () => Choice })
-  public any_of?: Choice
+  public ability_score_options?: Choice
 }
 
 @ObjectType({ description: 'A character class in D&D 5e 2024.' })
