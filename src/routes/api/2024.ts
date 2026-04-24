@@ -5,6 +5,7 @@ import { index } from '@/controllers/api/v2024Controller'
 import AbilityScoresHandler from './2024/abilityScores'
 import AlignmentsHandler from './2024/alignments'
 import BackgroundsHandler from './2024/backgrounds'
+import ClassesHandler from './2024/classes'
 import ConditionsHandler from './2024/conditions'
 import DamageTypesHandler from './2024/damageTypes'
 import EquipmentHandler from './2024/equipment'
@@ -32,6 +33,7 @@ router.get('/', function (req, res, next) {
 router.use('/ability-scores', AbilityScoresHandler)
 router.use('/alignments', AlignmentsHandler)
 router.use('/backgrounds', BackgroundsHandler)
+router.use('/classes', ClassesHandler)
 router.use('/conditions', ConditionsHandler)
 router.use('/damage-types', DamageTypesHandler)
 router.use('/equipment', EquipmentHandler)

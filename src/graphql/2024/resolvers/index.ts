@@ -2,6 +2,13 @@ import { DifficultyClassResolver } from '../common/resolver'
 import { AbilityScoreResolver } from './abilityScore/resolver'
 import { AlignmentResolver } from './alignment/resolver'
 import { BackgroundResolver } from './background/resolver'
+import {
+  ClassResolver,
+  MultiClassing2024Resolver,
+  MultiClassingPrereq2024Resolver,
+  PrimaryAbility2024Resolver,
+  Spellcasting2024Resolver
+} from './class/resolver'
 import { ConditionResolver } from './condition/resolver'
 import { DamageTypeResolver } from './damageType/resolver'
 import { ContentFieldResolver, EquipmentResolver, ToolResolver } from './equipment/resolver'
@@ -25,6 +32,7 @@ const collectionResolvers = [
   AlignmentResolver,
   LocaleResolver,
   BackgroundResolver,
+  ClassResolver,
   ConditionResolver,
   DamageTypeResolver,
   EquipmentResolver,
@@ -47,7 +55,12 @@ const fieldResolvers = [
   // Equipment
   ContentFieldResolver,
   ToolResolver,
-  DifficultyClassResolver
+  DifficultyClassResolver,
+  // Class
+  MultiClassing2024Resolver,
+  MultiClassingPrereq2024Resolver,
+  PrimaryAbility2024Resolver,
+  Spellcasting2024Resolver
 ] as const
 
 export const resolvers = [...collectionResolvers, ...fieldResolvers] as const

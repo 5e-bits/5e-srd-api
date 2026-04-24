@@ -2,6 +2,8 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { Field, Int, ObjectType } from 'type-graphql'
 
+import { Class2024 } from '@/models/2024/class'
+import { APIReference } from '@/models/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'A feature granted by a 2024 subclass at a specific level.' })
@@ -29,6 +31,10 @@ export class Subclass2024 {
   @Field(() => String, { description: 'The name of the subclass.' })
   @prop({ required: true, index: true, type: () => String })
   public name!: string
+
+  @Field(() => Class2024, { description: 'The parent class for this subclass.' })
+  @prop({ type: () => APIReference, required: true })
+  public class!: APIReference
 
   @Field(() => String, { description: 'A brief summary of the subclass.' })
   @prop({ required: true, type: () => String })
