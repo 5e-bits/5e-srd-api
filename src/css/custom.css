@@ -343,13 +343,14 @@ a:hover {
   transform: translateY(8px);
 }
 
-/* JSON preview — Notion-ish code block. All snippets are 8 lines so
-   the slot height stays uniform without needing min-height. */
+/* JSON preview — Notion-ish code block. All snippets are 9 lines, but
+   we also pin a min-height so any drift won't reflow the page. */
 .preview {
   margin: 0 auto;
   padding: 0.9rem 1rem;
   max-width: 30rem;
   width: 100%;
+  min-height: calc(9 * 1.55em + 1.8rem);
   font-family: var(--font-mono);
   font-size: 0.82rem;
   line-height: 1.55;
