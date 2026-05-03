@@ -5,7 +5,7 @@
 ![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fwebsite%2Fresponse-time.json)
 ![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2F5e-bits%2Fdnd-uptime%2Fmain%2Fapi%2Fwebsite%2Fuptime.json)
 
-REST API to access [D&amp;D 5th Edition SRD API](https://www.dnd5eapi.co/)
+REST API to access [D&D 5th Edition SRD API](https://www.dnd5eapi.co/)
 
 Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
