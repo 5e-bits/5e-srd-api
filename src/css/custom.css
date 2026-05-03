@@ -161,6 +161,7 @@ a:hover {
 
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,6 +200,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 0;
 }
@@ -272,9 +274,18 @@ a:hover {
   font-size: 0.85rem;
 }
 
+.api-url > code {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  text-align: center;
+}
+
 .api-selector {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.35rem;
 }
 
@@ -443,6 +454,7 @@ a:hover {
     padding: 3rem 1rem;
     padding-top: 6rem;
     min-height: 100vh;
+    min-height: 100svh;
   }
 
   .hero__title {
@@ -468,9 +480,49 @@ a:hover {
     padding: 0.75rem;
   }
 
+  .code-block {
+    height: 300px;
+  }
+
+  .loading-state {
+    height: 300px;
+  }
+
+  .selector-btn {
+    height: 2.75rem;
+    padding: 0 0.75rem;
+    font-size: 0.8125rem;
+  }
+
   .footer-inner {
     flex-direction: column;
     gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__buttons .btn {
+    font-size: 0.8125rem;
+    padding: 0.35rem 0.6rem;
+  }
+
+  .api-selector {
+    gap: 0.5rem;
+  }
+
+  .api-url {
+    font-size: 0.7rem;
+  }
+
+  .code-block,
+  .json-output,
+  .loading-state {
+    height: 260px;
+    max-height: 260px;
   }
 }
 
