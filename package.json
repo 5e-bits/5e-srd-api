@@ -31,7 +31,7 @@
     "@bugsnag/js": "^8.9.0",
     "@bugsnag/plugin-express": "^8.8.0",
     "@graphql-tools/schema": "^10.0.31",
-    "@redocly/cli": "^2.30.1",
+    "@redocly/cli": "^2.30.3",
     "@typegoose/typegoose": "^13.2.1",
     "body-parser": "^2.2.2",
     "class-validator": "^0.15.1",
