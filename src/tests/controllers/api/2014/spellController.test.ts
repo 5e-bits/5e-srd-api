@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import * as SpellController from '@/controllers/api/2014/spellController'
 import SpellModel from '@/models/2014/spell'
+import Translation2014Model from '@/models/2014/translation'
 import { spellFactory } from '@/tests/factories/2014/spell.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
 // Import the DB helper functions
@@ -22,6 +23,7 @@ const dbUri = generateUniqueDbUri('spell')
 setupIsolatedDatabase(dbUri)
 teardownIsolatedDatabase()
 setupModelCleanup(SpellModel)
+setupModelCleanup(Translation2014Model)
 
 describe('SpellController', () => {
   describe('index', () => {
@@ -91,6 +93,48 @@ describe('SpellController', () => {
       expect(responseData.results).toEqual([])
       expect(mockNext).not.toHaveBeenCalled()
     })
+
+    it('returns translated names and Content-Language header when translations exist', async () => {
+      const spellData = spellFactory.build({ index: 'fireball', name: 'Fireball' })
+      await SpellModel.insertMany([spellData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'fireball',
+          source_collection: 'spells',
+          lang: 'fr-FR',
+          fields: { name: 'Boule de Feu' },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ query: {} })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await SpellController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.results[0].name).toBe('Boule de Feu')
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns Content-Language: en when no translations exist for lang', async () => {
+      const spellsData = spellFactory.buildList(2)
+      await SpellModel.insertMany(spellsData)
+
+      const request = createRequest({ query: {} })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await SpellController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
   })
 
   describe('show', () => {
@@ -128,6 +172,51 @@ describe('SpellController', () => {
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith()
+    })
+
+    it('returns translated fields and Content-Language header when a translation exists', async () => {
+      const spellData = spellFactory.build({ index: 'fireball', name: 'Fireball' })
+      await SpellModel.insertMany([spellData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'fireball',
+          source_collection: 'spells',
+          lang: 'fr-FR',
+          fields: { name: 'Boule de Feu', desc: ['Description en français'] },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ params: { index: 'fireball' } })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await SpellController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Boule de Feu')
+      expect(responseData.desc).toEqual(['Description en français'])
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns original content and Content-Language: en when no translation exists for lang', async () => {
+      const spellData = spellFactory.build({ index: 'fireball', name: 'Fireball' })
+      await SpellModel.insertMany([spellData])
+
+      const request = createRequest({ params: { index: 'fireball' } })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await SpellController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Fireball')
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 })

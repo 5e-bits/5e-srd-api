@@ -3,8 +3,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 import * as MagicItemController from '@/controllers/api/2014/magicItemController'
 import MagicItemModel from '@/models/2014/magicItem'
+import Translation2014Model from '@/models/2014/translation'
 import { magicItemFactory } from '@/tests/factories/2014/magicItem.factory'
-import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here based on spell test
+import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
   setupIsolatedDatabase,
@@ -21,6 +22,7 @@ const dbUri = generateUniqueDbUri('magicitem')
 setupIsolatedDatabase(dbUri)
 teardownIsolatedDatabase()
 setupModelCleanup(MagicItemModel)
+setupModelCleanup(Translation2014Model)
 
 describe('MagicItemController', () => {
   describe('index', () => {
@@ -107,7 +109,47 @@ describe('MagicItemController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    // TODO: Add tests for query parameters (e.g., name) if applicable
+    it('returns translated names and Content-Language header when translations exist', async () => {
+      const itemData = magicItemFactory.build({ index: 'bag-of-holding', name: 'Bag of Holding' })
+      await MagicItemModel.insertMany([itemData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'bag-of-holding',
+          source_collection: 'magic-items',
+          lang: 'fr-FR',
+          fields: { name: 'Sac sans fond' },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ query: {} })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await MagicItemController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.results[0].name).toBe('Sac sans fond')
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns Content-Language: en when no translations exist for lang', async () => {
+      const itemsData = magicItemFactory.buildList(2)
+      await MagicItemModel.insertMany(itemsData)
+
+      const request = createRequest({ query: {} })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await MagicItemController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
   })
 
   describe('show', () => {
@@ -152,6 +194,51 @@ describe('MagicItemController', () => {
       expect(response._getData()).toBe('') // No data sent
       expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith() // Called with no arguments for default 404 handling
+    })
+
+    it('returns translated fields and Content-Language header when a translation exists', async () => {
+      const itemData = magicItemFactory.build({ index: 'bag-of-holding', name: 'Bag of Holding' })
+      await MagicItemModel.insertMany([itemData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'bag-of-holding',
+          source_collection: 'magic-items',
+          lang: 'fr-FR',
+          fields: { name: 'Sac sans fond', desc: ['Description en français'] },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ params: { index: 'bag-of-holding' } })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await MagicItemController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Sac sans fond')
+      expect(responseData.desc).toEqual(['Description en français'])
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns original content and Content-Language: en when no translation exists for lang', async () => {
+      const itemData = magicItemFactory.build({ index: 'bag-of-holding', name: 'Bag of Holding' })
+      await MagicItemModel.insertMany([itemData])
+
+      const request = createRequest({ params: { index: 'bag-of-holding' } })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await MagicItemController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Bag of Holding')
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
     })
 
     it('handles database errors during findOne', async () => {

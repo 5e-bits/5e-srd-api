@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import * as MonsterController from '@/controllers/api/2014/monsterController'
 import MonsterModel from '@/models/2014/monster'
+import Translation2014Model from '@/models/2014/translation'
 import { monsterFactory } from '@/tests/factories/2014/monster.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
 // DB Helper Imports
@@ -13,9 +14,6 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
-// Remove redis mock - Integration tests will hit the real DB
-// vi.mock('@/util', ...)
-
 const mockNext = vi.fn(defaultMockNext)
 
 // Setup DB isolation
@@ -23,6 +21,7 @@ const dbUri = generateUniqueDbUri('monster')
 setupIsolatedDatabase(dbUri)
 teardownIsolatedDatabase()
 setupModelCleanup(MonsterModel)
+setupModelCleanup(Translation2014Model)
 
 // Removed createMockQuery helper
 
@@ -136,7 +135,92 @@ describe('MonsterController', () => {
       expect(mockNext).toHaveBeenCalledWith() // Default 404 handling
     })
 
-    // No need for explicit DB error mocking
-    // describe('when something goes wrong', ...)
+    it('returns translated fields and Content-Language header when a translation exists', async () => {
+      const monsterData = monsterFactory.build({ index: 'goblin', name: 'Goblin' })
+      await MonsterModel.insertMany([monsterData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'goblin',
+          source_collection: 'monsters',
+          lang: 'fr-FR',
+          fields: { name: 'Gobelin' },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ params: { index: 'goblin' } })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await MonsterController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Gobelin')
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns original content and Content-Language: en when no translation exists for lang', async () => {
+      const monsterData = monsterFactory.build({ index: 'goblin', name: 'Goblin' })
+      await MonsterModel.insertMany([monsterData])
+
+      const request = createRequest({ params: { index: 'goblin' } })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await MonsterController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Goblin')
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('index (translation)', () => {
+    it('returns translated names and Content-Language header when translations exist', async () => {
+      const monsterData = monsterFactory.build({ index: 'goblin', name: 'Goblin' })
+      await MonsterModel.insertMany([monsterData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'goblin',
+          source_collection: 'monsters',
+          lang: 'fr-FR',
+          fields: { name: 'Gobelin' },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await MonsterController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.results[0].name).toBe('Gobelin')
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns Content-Language: en when no translations exist for lang', async () => {
+      const monstersData = monsterFactory.buildList(2)
+      await MonsterModel.insertMany(monstersData)
+
+      const request = createRequest({ query: {}, originalUrl: '/api/monsters' })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await MonsterController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
   })
 })

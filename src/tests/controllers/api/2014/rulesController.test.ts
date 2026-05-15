@@ -3,8 +3,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 // Import specific functions from the correct controller file
 import * as RuleController from '@/controllers/api/2014/ruleController'
-import RuleModel from '@/models/2014/rule' // Use Model suffix
-import { ruleFactory } from '@/tests/factories/2014/rule.factory' // Updated path
+import RuleModel from '@/models/2014/rule'
+import Translation2014Model from '@/models/2014/translation'
+import { ruleFactory } from '@/tests/factories/2014/rule.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
 import {
   generateUniqueDbUri,
@@ -22,6 +23,7 @@ const dbUri = generateUniqueDbUri('rule')
 setupIsolatedDatabase(dbUri)
 teardownIsolatedDatabase()
 setupModelCleanup(RuleModel)
+setupModelCleanup(Translation2014Model)
 
 describe('RuleController', () => {
   // Updated describe block name
@@ -105,6 +107,94 @@ describe('RuleController', () => {
       expect(response._getData()).toBe('')
       expect(mockNext).toHaveBeenCalledOnce()
       expect(mockNext).toHaveBeenCalledWith()
+    })
+
+    it('returns translated fields and Content-Language header when a translation exists', async () => {
+      const ruleData = ruleFactory.build({ index: 'combat', name: 'Combat' })
+      await RuleModel.insertMany([ruleData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'combat',
+          source_collection: 'rules',
+          lang: 'fr-FR',
+          fields: { name: 'Combat (fr)' },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ params: { index: 'combat' } })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await RuleController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Combat (fr)')
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns original content and Content-Language: en when no translation exists for lang', async () => {
+      const ruleData = ruleFactory.build({ index: 'combat', name: 'Combat' })
+      await RuleModel.insertMany([ruleData])
+
+      const request = createRequest({ params: { index: 'combat' } })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await RuleController.show(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.name).toBe('Combat')
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('index (translation)', () => {
+    it('returns translated names and Content-Language header when translations exist', async () => {
+      const ruleData = ruleFactory.build({ index: 'combat', name: 'Combat' })
+      await RuleModel.insertMany([ruleData])
+      await Translation2014Model.insertMany([
+        {
+          source_index: 'combat',
+          source_collection: 'rules',
+          lang: 'fr-FR',
+          fields: { name: 'Combat (fr)' },
+          completeness: 1.0,
+          updated_at: new Date().toISOString()
+        }
+      ])
+
+      const request = createRequest({ query: {} })
+      request.lang = 'fr-FR'
+      const response = createResponse()
+
+      await RuleController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.results[0].name).toBe('Combat (fr)')
+      expect(response.getHeader('Content-Language')).toBe('fr-FR')
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('returns Content-Language: en when no translations exist for lang', async () => {
+      const rulesData = ruleFactory.buildList(2)
+      await RuleModel.insertMany(rulesData)
+
+      const request = createRequest({ query: {} })
+      request.lang = 'de-DE'
+      const response = createResponse()
+
+      await RuleController.index(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.getHeader('Content-Language')).toBe('en')
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 })

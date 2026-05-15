@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import Spell from '@/models/2014/spell'
 import { ShowParamsSchema, SpellIndexQuerySchema } from '@/schemas/schemas'
 import { escapeRegExp, redisClient, ResourceList } from '@/util'
+import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 interface IndexQuery {
   name?: { $regex: RegExp }
@@ -19,6 +20,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
         .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
     }
     const { name, level, school } = validatedQuery.data
+    const lang = req.lang ?? 'en'
 
     const searchQueries: IndexQuery = {}
     if (name !== undefined) {
@@ -35,16 +37,23 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     const redisKey = req.originalUrl
-    const data = await redisClient.get(redisKey)
+    const cached = await redisClient.get(redisKey)
 
-    if (data !== null) {
-      res.status(200).json(JSON.parse(data))
+    if (cached !== null) {
+      return res.status(200).json(JSON.parse(cached))
     } else {
       const data = await Spell.find(searchQueries)
         .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
         .sort({ index: 'asc' })
-      const jsonData = ResourceList(data)
+      const plain = data.map((d: any) => d.toObject?.() ?? d)
+      const { docs: translated, wasTranslated } = await applyTranslationToList(
+        plain,
+        '2014-spells',
+        lang
+      )
+      const jsonData = ResourceList(translated)
       redisClient.set(redisKey, JSON.stringify(jsonData))
+      res.setHeader('Content-Language', wasTranslated ? lang : 'en')
       return res.status(200).json(jsonData)
     }
   } catch (err) {
@@ -61,10 +70,15 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
         .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
     }
     const { index } = validatedParams.data
+    const lang = req.lang ?? 'en'
 
     const data = await Spell.findOne({ index: index })
     if (!data) return next()
-    return res.status(200).json(data)
+
+    const plain = (data.toObject?.() ?? data) as unknown as Record<string, unknown>
+    const translated = await applyTranslation(plain, '2014-spells', lang)
+    res.setHeader('Content-Language', translated !== plain ? lang : 'en')
+    return res.status(200).json(translated)
   } catch (err) {
     next(err)
   }
