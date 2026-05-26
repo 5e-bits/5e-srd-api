@@ -233,7 +233,7 @@ export const showSpellsForClass = async (req: Request, res: Response, next: Next
     }
 
     if (level !== undefined) {
-      findQuery.level = { $in: level.map(Number) }
+      findQuery.level = { $in: level }
     }
 
     const data = await Spell.find(findQuery)

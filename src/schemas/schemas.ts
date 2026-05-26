@@ -37,14 +37,22 @@ export const LevelParamsSchema = ShowParamsSchema.extend({
 
 // --- Specific Controller Schemas ---
 
+/**
+ * Shared transform for numeric list query params that accept comma-separated values.
+ * Handles single strings, arrays, and comma-separated strings (e.g. "1,2" or "1%2C2").
+ * Non-numeric tokens are silently dropped.
+ */
+const transformNumericList = (val: string | string[] | undefined) => {
+  if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
+  const arr = Array.isArray(val) ? val : [val]
+  const flattened = arr.flatMap((item) => item.split(','))
+  const numbers = flattened.map(Number).filter((item) => !isNaN(item))
+  return numbers.length > 0 ? numbers : undefined
+}
+
 // Schemas from api/2014/spellController.ts
 export const SpellIndexQuerySchema = NameQuerySchema.extend({
-  level: z
-    .string()
-    .regex(/^\d+$/)
-    .or(z.array(z.string().regex(/^\d+$/)))
-    .optional()
-    .transform(ensureArrayOrUndefined),
+  level: z.string().or(z.string().array()).optional().transform(transformNumericList),
   school: z.string().or(z.array(z.string())).optional().transform(ensureArrayOrUndefined)
 })
 
@@ -54,18 +62,7 @@ export const ClassLevelsQuerySchema = z.object({
 })
 
 // Schemas from api/2014/monsterController.ts
-// --- Helper Transformation (for MonsterIndexQuerySchema) ---
-const transformChallengeRating = (val: string | string[] | undefined) => {
-  if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
-  // Ensure it's an array, handling both single string and array inputs
-  const arr = Array.isArray(val) ? val : [val]
-  // Flatten in case of comma-separated strings inside the array, then split
-  const flattened = arr.flatMap((item) => item.split(','))
-  // Convert to numbers and filter out NaNs
-  const numbers = flattened.map(Number).filter((item) => !isNaN(item))
-  // Return undefined if no valid numbers result, otherwise return the array
-  return numbers.length > 0 ? numbers : undefined
-}
+const transformChallengeRating = transformNumericList
 
 export const MonsterIndexQuerySchema = NameQuerySchema.extend({
   challenge_rating: z.string().or(z.string().array()).optional().transform(transformChallengeRating)
