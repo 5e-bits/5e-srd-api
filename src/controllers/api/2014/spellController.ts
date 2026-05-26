@@ -28,7 +28,7 @@ export const index = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     if (level !== undefined) {
-      searchQueries.level = { $in: level.map(Number) }
+      searchQueries.level = { $in: level }
     }
 
     if (school !== undefined) {
