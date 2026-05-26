@@ -364,7 +364,7 @@ describe('ClassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns spells filtered by multiple levels', async () => {
+    it('filters by multiple levels via repeated param', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
       const spellsLevel1 = spellFactory.buildList(2, {
@@ -383,6 +383,41 @@ describe('ClassController', () => {
 
       const request = createRequest({
         query: { level: ['1', '3'] },
+        params: { index: classIndex }
+      })
+      const response = createResponse()
+
+      await ClassController.showSpellsForClass(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.count).toBe(3) // 2 level 1 + 1 level 3
+      expect(responseData.results).toHaveLength(3)
+      responseData.results.forEach((spell: any) => {
+        expect([1, 3]).toContain(spell.level)
+      })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('filters by multiple levels via comma-separated string', async () => {
+      const classData = classFactory.build({ index: classIndex, url: classUrl })
+      await ClassModel.insertMany([classData])
+      const spellsLevel1 = spellFactory.buildList(2, {
+        level: 1,
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      const spellsLevel2 = spellFactory.buildList(1, {
+        level: 2,
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      const spellsLevel3 = spellFactory.buildList(1, {
+        level: 3,
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      await SpellModel.insertMany([...spellsLevel1, ...spellsLevel2, ...spellsLevel3])
+
+      const request = createRequest({
+        query: { level: '1,3' }, // comma-separated, the bug case
         params: { index: classIndex }
       })
       const response = createResponse()
@@ -429,40 +464,52 @@ describe('ClassController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns 400 for invalid level parameter (non-numeric string)', async () => {
+    it('ignores all-invalid level tokens and returns all class spells', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
+      const spells = spellFactory.buildList(3, {
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      await SpellModel.insertMany(spells)
+
       const request = createRequest({ query: { level: 'abc' }, params: { index: classIndex } })
       const response = createResponse()
 
       await ClassController.showSpellsForClass(request, response, mockNext)
 
-      expect(response.statusCode).toBe(400)
+      expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.error).toBe('Invalid query parameters')
-      expect(responseData.details).toBeInstanceOf(Array)
-      expect(responseData.details[0].path).toEqual(['level'])
-      expect(responseData.details[0].message).toContain('Invalid')
+      expect(responseData.count).toBe(3)
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    it('returns 400 for invalid level parameter (in an array)', async () => {
+    it('drops invalid tokens from an array and filters by the remaining valid levels', async () => {
       const classData = classFactory.build({ index: classIndex, url: classUrl })
       await ClassModel.insertMany([classData])
+      const spellsLevel1 = spellFactory.buildList(2, {
+        level: 1,
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      const spellsLevel2 = spellFactory.buildList(1, {
+        level: 2,
+        classes: [{ index: classIndex, name: classData.name, url: classUrl }]
+      })
+      await SpellModel.insertMany([...spellsLevel1, ...spellsLevel2])
+
       const request = createRequest({
-        query: { level: ['1', 'abc'] },
+        query: { level: ['1', 'abc'] }, // 'abc' dropped → only level 1 filter applied
         params: { index: classIndex }
       })
       const response = createResponse()
 
       await ClassController.showSpellsForClass(request, response, mockNext)
 
-      expect(response.statusCode).toBe(400)
+      expect(response.statusCode).toBe(200)
       const responseData = JSON.parse(response._getData())
-      expect(responseData.error).toBe('Invalid query parameters')
-      expect(responseData.details).toBeInstanceOf(Array)
-      expect(responseData.details[0].path).toEqual(['level', 1])
-      expect(responseData.details[0].message).toContain('Invalid')
+      expect(responseData.count).toBe(2)
+      responseData.results.forEach((spell: any) => {
+        expect(spell.level).toBe(1)
+      })
       expect(mockNext).not.toHaveBeenCalled()
     })
 

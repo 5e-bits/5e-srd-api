@@ -54,28 +54,34 @@ describe('SpellController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
-    // Filters test remains the same
-    it('filters spells by level', async () => {
-      const spellsData = [
-        spellFactory.build({ level: 1, name: 'Spell A' }),
-        spellFactory.build({ level: 2, name: 'Spell B' }),
-        spellFactory.build({ level: 1, name: 'Spell C' })
+    describe('with level query', () => {
+      const levelTestCases = [
+        { input: '1', expectedCount: 2, seedLevels: [1, 2, 1] },
+        { input: '1,2', expectedCount: 3, seedLevels: [1, 2, 1] }, // comma-separated (the bug case)
+        { input: ['1', '2'], expectedCount: 2, seedLevels: [1, 2, 3] }, // repeated param array
+        { input: 'abc,1,def,2', expectedCount: 2, seedLevels: [1, 2, 3] }, // mixed valid/invalid tokens
+        { input: ['3', 'xyz', '5'], expectedCount: 2, seedLevels: [3, 5, 7] }, // array with invalid
+        { input: 'invalid', expectedCount: 3, seedLevels: [1, 2, 3] }, // all invalid → no filter applied
+        { input: '', expectedCount: 3, seedLevels: [1, 2, 3] } // empty → no filter applied
       ]
-      await SpellModel.insertMany(spellsData)
 
-      const request = createRequest({ query: { level: '1' } })
-      const response = createResponse()
+      it.each(levelTestCases)('handles level: $input', async ({ input, expectedCount, seedLevels }) => {
+        const spellsToSeed = seedLevels.map((lvl, i) =>
+          spellFactory.build({ level: lvl, name: `Spell ${i}` })
+        )
+        await SpellModel.insertMany(spellsToSeed)
 
-      await SpellController.index(request, response, mockNext)
+        const request = createRequest({ query: { level: input } })
+        const response = createResponse()
 
-      expect(response.statusCode).toBe(200)
-      const responseData = JSON.parse(response._getData())
-      expect(responseData.count).toBe(2)
-      expect(responseData.results).toHaveLength(2)
-      expect(responseData.results.map((r: any) => r.index)).toEqual(
-        expect.arrayContaining([spellsData[0].index, spellsData[2].index])
-      )
-      expect(mockNext).not.toHaveBeenCalled()
+        await SpellController.index(request, response, mockNext)
+
+        expect(response.statusCode).toBe(200)
+        const responseData = JSON.parse(response._getData())
+        expect(responseData.count).toBe(expectedCount)
+        expect(responseData.results).toHaveLength(expectedCount)
+        expect(mockNext).not.toHaveBeenCalled()
+      })
     })
 
     it('returns an empty list when no spells exist', async () => {
