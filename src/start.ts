@@ -9,6 +9,7 @@ const start = async () => {
   // default in Mongoose 7, when we update to Mongoose 7 we can remove this.
   mongoose.set('strictQuery', false)
 
+
   await mongoose.connect(mongodbUri)
   console.log('Database connection ready')
 

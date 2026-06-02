@@ -92,7 +92,7 @@ export default async () => {
   )
   // DEPRECATED
   app.use(
-    '/graphql',
+    '/graphql', 
     cors<cors.CorsRequest>(),
     bodyParser.json(),
     expressMiddleware(apolloMiddleware2014, {
@@ -101,6 +101,7 @@ export default async () => {
   )
 
   // Register routes
+  app.use(express.json()) 
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
   })

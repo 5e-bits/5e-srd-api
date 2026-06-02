@@ -36,6 +36,9 @@ class BackgroundFeature {
 })
 @srdModelOptions('2014-backgrounds')
 export class Background {
+  @prop({ type: () => String })
+  public _id!: string
+
   @Field(() => String, {
     description: 'The unique identifier for this background (e.g., acolyte).'
   })

@@ -40,7 +40,7 @@
     "debug": "^4.4.3",
     "ejs": "^5.0.2",
     "escape-string-regexp": "^5.0.0",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
     "graphql": "^16.11.0",
     "graphql-depth-limit": "^1.1.0",

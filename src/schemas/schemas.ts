@@ -67,3 +67,31 @@ const transformChallengeRating = transformNumericList
 export const MonsterIndexQuerySchema = NameQuerySchema.extend({
   challenge_rating: z.string().or(z.string().array()).optional().transform(transformChallengeRating)
 })
+
+
+// --- Schemas for Create Operations ---
+
+export const CreateBackgroundSchema = z.object({
+  index: z.string().min(1),
+  name: z.string().min(1),
+  url: z.string().min(1).optional(),
+  starting_proficiencies: z.array(z.object({
+    index: z.string().min(1),
+    name: z.string().min(1),
+    url: z.string().min(1),
+  })).optional(),
+  language_options: z.object({
+    choose: z.number().int().min(1),
+    from: z.array(z.string()).min(1)
+  }).optional(),
+  starting_equipment: z.array(z.object({
+    equipment: z.object({ index: z.string(), name: z.string(), url: z.string() }),
+    quantity: z.number().int().min(0),
+  })).optional(),
+  feature: z.object({
+    name: z.string().min(1),
+    desc: z.array(z.string()).min(1)
+  }).optional()
+})
+
+export const UpdateBackgroundSchema = CreateBackgroundSchema.partial();

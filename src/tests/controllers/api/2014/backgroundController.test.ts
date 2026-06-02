@@ -2,7 +2,7 @@ import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
 import BackgroundController from '@/controllers/api/2014/backgroundController'
-import BackgroundModel from '@/models/2014/background'
+import BackgroundModel, { Background } from '@/models/2014/background'
 import { backgroundFactory } from '@/tests/factories/2014/background.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
 import {
@@ -25,7 +25,7 @@ setupModelCleanup(BackgroundModel)
 describe('BackgroundController', () => {
   describe('index', () => {
     it('returns a list of backgrounds', async () => {
-      const backgroundsData = backgroundFactory.buildList(3)
+      const backgroundsData: Background[] = backgroundFactory.buildList(3)
       const backgroundDocs = backgroundsData.map((data) => new BackgroundModel(data))
       await BackgroundModel.insertMany(backgroundDocs)
 
@@ -73,7 +73,7 @@ describe('BackgroundController', () => {
 
   describe('show', () => {
     it('returns a single background when found', async () => {
-      const backgroundData = backgroundFactory.build({ index: 'acolyte', name: 'Acolyte' })
+      const backgroundData: Background = backgroundFactory.build({ index: 'acolyte', name: 'Acolyte' })
       await BackgroundModel.insertMany([backgroundData])
 
       const request = createRequest({ params: { index: 'acolyte' } })

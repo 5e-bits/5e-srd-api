@@ -26,6 +26,7 @@ export const backgroundFactory = Factory.define<Background>(({ sequence, params 
   // Return object with defaults. Complex overrides require manual construction
   // or passing deep overrides to .build()
   return {
+    _id: index,
     index: index,
     name: name,
     starting_proficiencies: apiReferenceFactory.buildList(2),

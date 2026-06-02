@@ -1,7 +1,6 @@
 services:
   db:
-    image: ghcr.io/5e-bits/5e-database:latest
-    # build: ../5e-database
+    build: ../5e-database-mydnd
     ports:
       - '27017:27017'
 
