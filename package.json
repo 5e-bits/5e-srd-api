@@ -42,7 +42,7 @@
     "escape-string-regexp": "^5.0.0",
     "express": "^5.1.0",
     "express-rate-limit": "^8.5.2",
-    "graphql": "^16.11.0",
+    "graphql": "^16.14.1",
     "graphql-depth-limit": "^1.1.0",
     "mongoose": "^9.6.0",
     "morgan": "^1.10.1",
