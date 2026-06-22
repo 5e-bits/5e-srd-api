@@ -33,7 +33,7 @@
     "@graphql-tools/schema": "^10.0.33",
     "@redocly/cli": "^2.34.0",
     "@typegoose/typegoose": "^13.3.0",
-    "body-parser": "^2.2.2",
+    "body-parser": "^2.3.0",
     "class-validator": "^0.15.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
