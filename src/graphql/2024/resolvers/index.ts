@@ -14,6 +14,7 @@ import { DamageTypeResolver } from './damageType/resolver'
 import { ContentFieldResolver, EquipmentResolver, ToolResolver } from './equipment/resolver'
 import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
 import { FeatResolver } from './feat/resolver'
+import { FeatureResolver } from './feature/resolver'
 import { LanguageResolver } from './language/resolver'
 import { LocaleResolver } from './locale/resolver'
 import { MagicItemResolver } from './magicItem/resolver'
@@ -25,6 +26,7 @@ import {
   MonsterProficiency2024Resolver,
   MonsterSpellcasting2024Resolver
 } from './monster/resolver'
+import { PoisonResolver } from './poison/resolver'
 import { ProficiencyResolver } from './proficiency/resolver'
 import { SkillResolver } from './skill/resolver'
 import { SpeciesResolver } from './species/resolver'
@@ -45,10 +47,12 @@ const collectionResolvers = [
   EquipmentResolver,
   EquipmentCategoryResolver,
   FeatResolver,
+  FeatureResolver,
   LanguageResolver,
   MagicItemResolver,
   MagicSchoolResolver,
   Monster2024Resolver,
+  PoisonResolver,
   ProficiencyResolver,
   SkillResolver,
   SpeciesResolver,
