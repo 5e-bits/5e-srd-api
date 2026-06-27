@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.8.0](https://github.com/5e-bits/5e-srd-api/compare/v5.7.3...v5.8.0) (2026-06-27)
+
+
+### Features
+
+* **2024:** add features and poisons endpoints with corresponding models, controllers, and tests ([#1133](https://github.com/5e-bits/5e-srd-api/issues/1133)) ([00a8eed](https://github.com/5e-bits/5e-srd-api/commit/00a8eed045f69d3df988039916db28dfa562d312))
+
 ## [5.7.3](https://github.com/5e-bits/5e-srd-api/compare/v5.7.2...v5.7.3) (2026-05-26)
 
 
