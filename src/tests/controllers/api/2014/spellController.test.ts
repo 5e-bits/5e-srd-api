@@ -84,6 +84,41 @@ describe('SpellController', () => {
       })
     })
 
+    describe('with school query', () => {
+      const schoolTestCases = [
+        { input: 'evocation', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: 'evocation,illusion', expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
+        { input: ['evocation','illusion'], expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
+        { input: 'illu', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
+        { input: 'EVOCATION', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: 'invalid', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
+        { input: 'illu,evo', expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: 'evocation', expectedCount: 0, seedSchools: ['Illusion','Abjuration'] },
+        { input: 'randomStaff', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: '', expectedCount: 3, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: '   ', expectedCount: 3, seedSchools: ['Evocation','Illusion','Abjuration'] }
+
+      ]
+
+      it.each(schoolTestCases)('handles school: $input', async ({ input, expectedCount, seedSchools }) => {
+        const spellsToSeed = seedSchools.map((sch, i) =>
+          spellFactory.build({ school: {name: sch}, name: `Spell ${i}` })
+        )
+        await SpellModel.insertMany(spellsToSeed)
+
+        const request = createRequest({ query: { school: input } })
+        const response = createResponse()
+
+        await SpellController.index(request, response, mockNext)
+
+        expect(response.statusCode).toBe(200)
+        const responseData = JSON.parse(response._getData())
+        expect(responseData.count).toBe(expectedCount)
+        expect(responseData.results).toHaveLength(expectedCount)
+        expect(mockNext).not.toHaveBeenCalled()
+      })
+    })
+
     it('returns an empty list when no spells exist', async () => {
       // Arrange
       const request = createRequest({ query: {} })
