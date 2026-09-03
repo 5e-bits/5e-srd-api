@@ -23,16 +23,23 @@ export const LevelParamsSchema = ShowParamsSchema.extend({
 // --- Specific Controller Schemas ---
 
 /**
+ * Shared helper to parse comma-separated string/array query params.
+ * Trims whitespace, removes empty tokens, and returns undefined if empty.
+ */
+const splitCommaList = (val: string | string[] | undefined): string[] | undefined => {
+  if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
+  const out = (Array.isArray(val) ? val : [val]).flatMap((s) => s.split(',')).map((s) => s.trim()).filter(Boolean)
+  return out.length > 0 ? out : undefined
+}
+
+/**
  * Shared transform for numeric list query params that accept comma-separated values.
  * Handles single strings, arrays, and comma-separated strings (e.g. "1,2" or "1%2C2").
  * Non-numeric tokens are silently dropped.
  */
 const transformNumericList = (val: string | string[] | undefined) => {
-  if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
-  const arr = Array.isArray(val) ? val : [val]
-  const flattened = arr.flatMap((item) => item.split(','))
-  const numbers = flattened.map(Number).filter((item) => !isNaN(item))
-  return numbers.length > 0 ? numbers : undefined
+  const numbers = splitCommaList(val)?.map(Number).filter((n) => !isNaN(n))
+  return numbers && numbers.length > 0 ? numbers : undefined
 }
 
 /**
@@ -40,12 +47,7 @@ const transformNumericList = (val: string | string[] | undefined) => {
  * Handles single strings, arrays, and comma-separated strings (e.g. "illusion,evocation").
  */
 const transformStringList = (val: string | string[] | undefined) => {
-  if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
-
-  const arr = Array.isArray(val) ? val : [val]
-  const flattened = arr.flatMap((item) => item.split(',')).map((item) => item.trim()).filter(Boolean)
-  
-  return flattened.length > 0 ? flattened : undefined
+   return splitCommaList(val);
 }
 
 // Schemas from api/2014/spellController.ts

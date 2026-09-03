@@ -84,7 +84,6 @@ describe('SpellController', () => {
       })
     })
 
-    
     describe('with school query', () => {
       const schoolTestCases = [
         { input: 'evocation', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] },
@@ -95,7 +94,10 @@ describe('SpellController', () => {
         { input: 'invalid', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
         { input: 'illu,evo', expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] },
         { input: 'evocation', expectedCount: 0, seedSchools: ['Illusion','Abjuration'] },
-        { input: 'randomStaff', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] }
+        { input: 'randomStaff', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: '', expectedCount: 3, seedSchools: ['Evocation','Illusion','Abjuration'] },
+        { input: '   ', expectedCount: 3, seedSchools: ['Evocation','Illusion','Abjuration'] }
+
       ]
 
       it.each(schoolTestCases)('handles school: $input', async ({ input, expectedCount, seedSchools }) => {
