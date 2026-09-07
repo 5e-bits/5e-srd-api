@@ -75,7 +75,7 @@
     "eslint-plugin-prettier": "^5.5.6",
     "fishery": "^2.3.1",
     "fs-extra": "^11.4.0",
-    "globals": "^17.6.0",
+    "globals": "^17.12.0",
     "mongodb-memory-server": "^11.2.0",
     "node-mocks-http": "^1.18.1",
     "nodemon": "^3.1.10",
