@@ -21,6 +21,7 @@ import PoisonsHandler from './2024/poisons'
 import ProficienciesHandler from './2024/proficiencies'
 import SkillsHandler from './2024/skills'
 import SpeciesHandler from './2024/species'
+import SpellsHandler from './2024/spells'
 import SubclassesHandler from './2024/subclasses'
 import SubspeciesHandler from './2024/subspecies'
 import TraitsHandler from './2024/traits'
@@ -52,6 +53,7 @@ router.use('/poisons', PoisonsHandler)
 router.use('/proficiencies', ProficienciesHandler)
 router.use('/skills', SkillsHandler)
 router.use('/species', SpeciesHandler)
+router.use('/spells', SpellsHandler)
 router.use('/subclasses', SubclassesHandler)
 router.use('/subspecies', SubspeciesHandler)
 router.use('/traits', TraitsHandler)

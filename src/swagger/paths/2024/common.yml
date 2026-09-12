@@ -33,6 +33,7 @@ api-base:
               proficiencies: '/api/2024/proficiencies'
               skills: '/api/2024/skills'
               species: '/api/2024/species'
+              spells: '/api/2024/spells'
               subclasses: '/api/2024/subclasses'
               subspecies: '/api/2024/subspecies'
               traits: '/api/2024/traits'

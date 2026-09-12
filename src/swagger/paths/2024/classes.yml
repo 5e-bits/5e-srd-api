@@ -53,6 +53,41 @@ class-path:
                   name: Berserker
                   url: '/api/2024/subclasses/berserker'
               url: '/api/2024/classes/barbarian'
+# /api/2024/classes/{index}/spells
+class-spells-path:
+  get:
+    summary: Get spells available for a class.
+    tags:
+      - Class Resource Lists
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/spell-level-filter-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/ClassSpellList'
+            example:
+              count: 2
+              results:
+                - index: wish
+                  name: Wish
+                  url: '/api/2024/spells/wish'
+                  level: 9
+                - index: meteor-swarm
+                  name: Meteor Swarm
+                  url: '/api/2024/spells/meteor-swarm'
+                  level: 9
+      '404':
+        description: No class found for this index.
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/error-response'
+            example:
+              error: Not found
 # /api/2024/classes/{index}/levels
 class-levels-path:
   get:
@@ -143,3 +178,28 @@ class-level-features-path:
                 - index: rage
                   name: Rage
                   url: '/api/2024/features/rage'
+# /api/2024/classes/{index}/levels/{level}/spells
+class-level-spells-path:
+  get:
+    summary: Get spells of the requested level available to the class.
+    tags:
+      - Class Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/class-level-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 2
+              results:
+                - index: acid-arrow
+                  name: Acid Arrow
+                  url: '/api/2024/spells/acid-arrow'
+                - index: scorching-ray
+                  name: Scorching Ray
+                  url: '/api/2024/spells/scorching-ray'

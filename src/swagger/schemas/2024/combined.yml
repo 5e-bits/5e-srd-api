@@ -64,6 +64,19 @@ ClassSpecific:
 LevelSpellcasting:
   $ref: './levels.yml#/level-spellcasting-model'
 
+Spell:
+  $ref: './spells.yml#/spell-model-2024'
+SpellDamage:
+  $ref: './spells.yml#/spell-damage-model-2024'
+SpellDC:
+  $ref: './spells.yml#/spell-dc-model-2024'
+AreaOfEffect:
+  $ref: './spells.yml#/area-of-effect-model-2024'
+ClassLevelSpell:
+  $ref: './spells.yml#/class-level-spell-model-2024'
+ClassSpellList:
+  $ref: './spells.yml#/class-spell-list-model-2024'
+
 Subclass:
   $ref: './subclasses.yml#/subclass-model-2024'
 SubclassFeature:

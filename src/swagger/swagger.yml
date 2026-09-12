@@ -331,12 +331,16 @@ paths:
     $ref: './paths/2024/combined.yml#/backgrounds'
   /api/2024/classes/{index}:
     $ref: './paths/2024/combined.yml#/classes'
+  /api/2024/classes/{index}/spells:
+    $ref: './paths/2024/combined.yml#/class-spells'
   /api/2024/classes/{index}/levels:
     $ref: './paths/2024/combined.yml#/class-levels'
   /api/2024/classes/{index}/levels/{level}:
     $ref: './paths/2024/combined.yml#/class-level'
   /api/2024/classes/{index}/levels/{level}/features:
     $ref: './paths/2024/combined.yml#/class-level-features'
+  /api/2024/classes/{index}/levels/{level}/spells:
+    $ref: './paths/2024/combined.yml#/class-level-spells'
   /api/2024/conditions/{index}:
     $ref: './paths/2024/combined.yml#/conditions'
   /api/2024/damage-types/{index}:
@@ -373,6 +377,10 @@ paths:
     $ref: './paths/2024/combined.yml#/species-subspecies'
   /api/2024/species/{index}/traits:
     $ref: './paths/2024/combined.yml#/species-traits'
+  /api/2024/spells:
+    $ref: './paths/2024/combined.yml#/spells'
+  /api/2024/spells/{index}:
+    $ref: './paths/2024/combined.yml#/spell'
   /api/2024/subclasses/{index}:
     $ref: './paths/2024/combined.yml#/subclasses'
   /api/2024/subclasses/{index}/levels:

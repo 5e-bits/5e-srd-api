@@ -10,12 +10,16 @@ backgrounds:
   $ref: './backgrounds.yml'
 classes:
   $ref: './classes.yml#/class-path'
+class-spells:
+  $ref: './classes.yml#/class-spells-path'
 class-levels:
   $ref: './classes.yml#/class-levels-path'
 class-level:
   $ref: './classes.yml#/class-level-path'
 class-level-features:
   $ref: './classes.yml#/class-level-features-path'
+class-level-spells:
+  $ref: './classes.yml#/class-level-spells-path'
 conditions:
   $ref: './conditions.yml'
 damage-types:
@@ -52,6 +56,10 @@ species-subspecies:
   $ref: './species.yml#/species-subspecies-path'
 species-traits:
   $ref: './species.yml#/species-traits-path'
+spells:
+  $ref: './spells.yml#/spells-resource-list'
+spell:
+  $ref: './spells.yml#/spell-by-index'
 subclasses:
   $ref: './subclasses.yml#/subclass-path'
 subclass-levels:
