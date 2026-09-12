@@ -1,0 +1,20 @@
+get:
+  summary: Get a magic school by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/magic-school-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/MagicSchool'
+          example:
+            index: evocation
+            name: Evocation
+            description: |
+              Evocation spells manipulate magical energy to produce a desired effect,
+              conjuring pure energy into a particular form.
+            url: '/api/2024/magic-schools/evocation'

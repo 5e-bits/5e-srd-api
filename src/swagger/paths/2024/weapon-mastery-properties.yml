@@ -1,0 +1,21 @@
+get:
+  summary: Get a weapon mastery property by index.
+  tags:
+    - Equipment
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/weapon-mastery-property-index'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/WeaponMasteryProperty'
+          example:
+            index: cleave
+            name: Cleave
+            description: |
+              If you hit a creature with a melee attack roll using a weapon that has the
+              Cleave property, you can make a melee attack roll against a second creature
+              within 5 feet of the first that is also within your weapon's reach.
+            url: '/api/2024/weapon-mastery-properties/cleave'

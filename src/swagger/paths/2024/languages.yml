@@ -1,0 +1,21 @@
+get:
+  summary: Get a language by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/language-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Language'
+          example:
+            index: draconic
+            name: Draconic
+            is_rare: false
+            note: |
+              Draconic is thought to be one of the oldest languages, often used in
+              the study of magic.
+            url: '/api/2024/languages/draconic'

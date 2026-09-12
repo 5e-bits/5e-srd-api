@@ -1,0 +1,46 @@
+# /api/2024/locales
+locales-list-path:
+  get:
+    summary: Get the list of supported translation locales.
+    description: |
+      Unlike other resource lists, `locales` results carry a `lang` field instead of
+      `index`/`name`, since a locale is identified by its BCP 47 language tag.
+    tags:
+      - Common
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                count:
+                  type: integer
+                results:
+                  type: array
+                  items:
+                    $ref: '../../schemas/2024/combined.yml#/Locale'
+            example:
+              count: 1
+              results:
+                - lang: de
+                  url: '/api/2024/locales/de'
+# /api/2024/locales/{lang}
+locale-path:
+  get:
+    summary: Get a locale by language tag.
+    tags:
+      - Common
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/locale-index'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Locale'
+            example:
+              lang: de
+              url: '/api/2024/locales/de'

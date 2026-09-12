@@ -1,0 +1,22 @@
+get:
+  summary: Get a poison by index.
+  tags:
+    - Equipment
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/poison-index'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Poison'
+          example:
+            index: basic-poison
+            name: Basic Poison
+            cost: 100
+            type: Ingested
+            description: |
+              A creature subjected to this poison must succeed on a DC 10 Constitution
+              saving throw or take 1d4 Poison damage and become Poisoned for 1 hour.
+            url: '/api/2024/poisons/basic-poison'

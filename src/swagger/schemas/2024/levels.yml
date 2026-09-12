@@ -1,0 +1,99 @@
+class-specific-sneak-attack-model:
+  type: object
+  properties:
+    dice_count:
+      type: integer
+    dice_value:
+      type: integer
+      description: 'Value of the dice used (e.g., 6 for d6).'
+
+class-specific-model:
+  type: object
+  description: 'Class-specific features and values gained at a level. Fields present depend on the class.'
+  properties:
+    bardic_inspiration_die:
+      type: integer
+    channel_divinity_charges:
+      type: integer
+    eldritch_invocations:
+      type: integer
+    favored_enemies:
+      type: integer
+    focus_points:
+      type: integer
+    martial_arts_die:
+      type: integer
+    rage_count:
+      type: integer
+    rage_damage_bonus:
+      type: integer
+    second_wind_uses:
+      type: integer
+    sneak_attack:
+      $ref: '#/class-specific-sneak-attack-model'
+    sorcery_points:
+      type: integer
+    unarmored_movement_bonus:
+      type: integer
+    weapon_mastery:
+      type: integer
+    wild_shape_uses:
+      type: integer
+
+level-spellcasting-model:
+  type: object
+  properties:
+    cantrips_known:
+      type: integer
+    prepared_spells:
+      type: integer
+    spell_slots_level_1:
+      type: integer
+    spell_slots_level_2:
+      type: integer
+    spell_slots_level_3:
+      type: integer
+    spell_slots_level_4:
+      type: integer
+    spell_slots_level_5:
+      type: integer
+    spell_slots_level_6:
+      type: integer
+    spell_slots_level_7:
+      type: integer
+    spell_slots_level_8:
+      type: integer
+    spell_slots_level_9:
+      type: integer
+
+level-model:
+  type: object
+  properties:
+    index:
+      type: string
+      description: 'Unique identifier for this level (e.g., barbarian-1, berserker-3).'
+    name:
+      type: string
+    level:
+      type: integer
+      description: 'The class level (1-20).'
+    prof_bonus:
+      type: integer
+      description: 'Proficiency bonus gained at this level.'
+    features:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    class:
+      $ref: './common.yml#/api-ref-model-2024'
+    subclass:
+      description: 'The subclass this level relates to, if applicable.'
+      $ref: './common.yml#/api-ref-model-2024'
+    class_specific:
+      $ref: '#/class-specific-model'
+    spellcasting:
+      $ref: '#/level-spellcasting-model'
+    url:
+      type: string
+    updated_at:
+      type: string

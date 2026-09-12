@@ -1,0 +1,21 @@
+get:
+  summary: Get a condition by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/condition-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Condition'
+          example:
+            index: blinded
+            name: Blinded
+            description: |
+              A blinded creature can't see and automatically fails any ability check that
+              requires sight. Attack rolls against the creature have Advantage, and the
+              creature's Attack Rolls have Disadvantage.
+            url: '/api/2024/conditions/blinded'

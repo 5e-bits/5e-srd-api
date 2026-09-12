@@ -1,0 +1,93 @@
+api-ref-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    url:
+      type: string
+
+api-ref-list-model-2024:
+  type: object
+  properties:
+    count:
+      type: integer
+    results:
+      type: array
+      items:
+        $ref: '#/api-ref-model-2024'
+
+error-response-model-2024:
+  type: object
+  properties:
+    error:
+      type: string
+
+cost-model-2024:
+  type: object
+  properties:
+    quantity:
+      type: integer
+    unit:
+      type: string
+
+dc-model-2024:
+  type: object
+  properties:
+    dc_type:
+      $ref: '#/api-ref-model-2024'
+    dc_value:
+      type: integer
+    success_type:
+      type: string
+      enum: [none, half, other]
+
+damage-model-2024:
+  type: object
+  properties:
+    damage_type:
+      $ref: '#/api-ref-model-2024'
+    damage_dice:
+      type: string
+      example: 3d6
+
+option-set-model-2024:
+  type: object
+  description: |
+    The structure of the object depends on `option_set_type`: `options_array` provides
+    an `options` array, `equipment_category` provides an `equipment_category` reference,
+    and `resource_list` provides a `resource_list_url`.
+  properties:
+    option_set_type:
+      type: string
+      enum: [options_array, equipment_category, resource_list]
+    options:
+      type: array
+      items:
+        $ref: '#/option-model-2024'
+    equipment_category:
+      $ref: '#/api-ref-model-2024'
+    resource_list_url:
+      type: string
+
+option-model-2024:
+  type: object
+  description: |
+    The structure of the object depends on `option_type`. See the `OptionSet` schema
+    description in the API root documentation for the full set of `option_type` shapes.
+  properties:
+    option_type:
+      type: string
+
+choice-model-2024:
+  type: object
+  properties:
+    desc:
+      type: string
+    choose:
+      type: integer
+    type:
+      type: string
+    from:
+      $ref: '#/option-set-model-2024'

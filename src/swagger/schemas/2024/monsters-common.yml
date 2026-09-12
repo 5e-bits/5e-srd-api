@@ -1,0 +1,237 @@
+monster-speed-model:
+  type: object
+  properties:
+    walk:
+      type: string
+    burrow:
+      type: string
+    climb:
+      type: string
+    fly:
+      type: string
+    swim:
+      type: string
+    hover:
+      type: boolean
+
+monster-sense-model-2024:
+  type: object
+  properties:
+    passive_perception:
+      type: integer
+    blindsight:
+      type: string
+    darkvision:
+      type: string
+    tremorsense:
+      type: string
+    truesight:
+      type: string
+
+monster-armor-class-model-2024:
+  type: object
+  properties:
+    type:
+      type: string
+    value:
+      type: integer
+    armor:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    condition:
+      $ref: './common.yml#/api-ref-model-2024'
+    spell:
+      $ref: './common.yml#/api-ref-model-2024'
+    desc:
+      type: string
+
+monster-proficiency-model-2024:
+  type: object
+  properties:
+    value:
+      type: integer
+    proficiency:
+      $ref: './common.yml#/api-ref-model-2024'
+
+monster-spellcasting-spell-usage-model:
+  type: object
+  properties:
+    type:
+      type: string
+    times:
+      type: integer
+
+monster-spell-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    level:
+      type: integer
+    url:
+      type: string
+    usage:
+      $ref: '#/monster-spellcasting-spell-usage-model'
+    notes:
+      type: string
+
+monster-spellcasting-model-2024:
+  type: object
+  properties:
+    ability:
+      $ref: './common.yml#/api-ref-model-2024'
+    components_required:
+      type: array
+      items:
+        type: string
+    spells:
+      type: array
+      items:
+        $ref: '#/monster-spell-model-2024'
+    level:
+      type: integer
+    dc:
+      type: integer
+    modifier:
+      type: integer
+    school:
+      type: string
+    slots:
+      type: object
+      additionalProperties:
+        type: integer
+      description: 'Map of spell level to number of slots available, for innate/limited-use casters.'
+
+action-usage-model:
+  type: object
+  properties:
+    type:
+      type: string
+    dice:
+      type: string
+    min_value:
+      type: integer
+
+monster-action-item-model:
+  type: object
+  properties:
+    action_name:
+      type: string
+    count:
+      type: string
+      description: 'Number of times this action can be repeated. May be a number or a dice string.'
+    type:
+      type: string
+
+monster-attack-model-2024:
+  type: object
+  properties:
+    name:
+      type: string
+    dc:
+      $ref: './common.yml#/dc-model-2024'
+    damage:
+      type: array
+      items:
+        $ref: './common.yml#/damage-model-2024'
+
+monster-action-model-2024:
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: string
+    attack_bonus:
+      type: integer
+    dc:
+      $ref: './common.yml#/dc-model-2024'
+    usage:
+      $ref: '#/action-usage-model'
+    multiattack_type:
+      type: string
+    actions:
+      type: array
+      items:
+        $ref: '#/monster-action-item-model'
+    action_options:
+      $ref: './common.yml#/choice-model-2024'
+    attacks:
+      type: array
+      items:
+        $ref: '#/monster-attack-model-2024'
+    options:
+      $ref: './common.yml#/choice-model-2024'
+    damage:
+      type: array
+      items:
+        $ref: './common.yml#/damage-model-2024'
+    spellcasting:
+      $ref: '#/monster-spellcasting-model-2024'
+
+monster-multi-attack-action-model-2024:
+  allOf:
+    - $ref: '#/monster-action-model-2024'
+
+legendary-action-model:
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: string
+    attack_bonus:
+      type: integer
+    damage:
+      type: array
+      items:
+        $ref: './common.yml#/damage-model-2024'
+    dc:
+      $ref: './common.yml#/dc-model-2024'
+
+reaction-model:
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: string
+    dc:
+      $ref: './common.yml#/dc-model-2024'
+
+special-ability-usage-model:
+  type: object
+  properties:
+    type:
+      type: string
+    times:
+      type: integer
+    times_in_lair:
+      type: integer
+    rest_types:
+      type: array
+      items:
+        type: string
+
+monster-special-ability-model-2024:
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: string
+    attack_bonus:
+      type: integer
+    damage:
+      type: array
+      items:
+        $ref: './common.yml#/damage-model-2024'
+    dc:
+      $ref: './common.yml#/dc-model-2024'
+    usage:
+      $ref: '#/special-ability-usage-model'
+    spellcasting:
+      $ref: '#/monster-spellcasting-model-2024'

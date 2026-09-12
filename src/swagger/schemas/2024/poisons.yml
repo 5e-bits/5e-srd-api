@@ -1,0 +1,19 @@
+poison-model:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    cost:
+      type: integer
+      description: 'The poison cost in gold pieces.'
+    type:
+      type: string
+      description: 'The poison delivery type.'
+    description:
+      type: string
+    url:
+      type: string
+    updated_at:
+      type: string
