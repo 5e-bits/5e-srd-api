@@ -31,6 +31,7 @@ import { PoisonResolver } from './poison/resolver'
 import { ProficiencyResolver } from './proficiency/resolver'
 import { SkillResolver } from './skill/resolver'
 import { SpeciesResolver } from './species/resolver'
+import { SpellDamageResolver, SpellDCResolver, SpellResolver } from './spell/resolver'
 import { SubclassResolver } from './subclass/resolver'
 import { SubspeciesResolver } from './subspecies/resolver'
 import { TraitResolver } from './trait/resolver'
@@ -58,6 +59,7 @@ const collectionResolvers = [
   ProficiencyResolver,
   SkillResolver,
   SpeciesResolver,
+  SpellResolver,
   SubclassResolver,
   SubspeciesResolver,
   TraitResolver,
@@ -75,6 +77,9 @@ const fieldResolvers = [
   MultiClassingPrereq2024Resolver,
   PrimaryAbility2024Resolver,
   Spellcasting2024Resolver,
+  // Spell
+  SpellDamageResolver,
+  SpellDCResolver,
   // Monster
   MonsterArmorClass2024Resolver,
   MonsterProficiency2024Resolver,

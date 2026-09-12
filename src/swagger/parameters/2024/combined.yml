@@ -24,6 +24,7 @@ base-endpoint-index-2024:
       - proficiencies
       - skills
       - species
+      - spells
       - subclasses
       - subspecies
       - traits
@@ -274,6 +275,48 @@ species-index:
   schema:
     type: string
     example: elf
+
+spell-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the `Spell` to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `spells`.
+  schema:
+    type: string
+    example: acid-arrow
+
+spell-level-filter-2024:
+  name: level
+  in: query
+  required: false
+  description: The level or levels to filter on.
+  schema:
+    type: array
+    items:
+      type: integer
+  examples:
+    single-value:
+      value: [1]
+    multiple-value:
+      value: [1, 2]
+
+spell-school-filter-2024:
+  name: school
+  in: query
+  required: false
+  description: The magic school or schools to filter on.
+  schema:
+    type: array
+    items:
+      type: string
+  examples:
+    single-value:
+      value: [evocation]
+    multiple-value:
+      value: [evocation, illusion]
 
 subclass-index-2024:
   name: index

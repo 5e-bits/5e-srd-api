@@ -67,6 +67,19 @@ describe('/api/2024/classes', () => {
       })
     })
 
+    describe('/api/2024/classes/:index/spells', () => {
+      it('returns objects for a spellcasting class', async () => {
+        const res = await request(app).get('/api/2024/classes/wizard/spells')
+        expect(res.statusCode).toEqual(200)
+        expect(res.body.results.length).not.toEqual(0)
+      })
+
+      it('returns 404 for an invalid class index', async () => {
+        const res = await request(app).get('/api/2024/classes/invalid-index/spells')
+        expect(res.statusCode).toEqual(404)
+      })
+    })
+
     describe('/api/2024/classes/:index/levels', () => {
       it('returns objects', async () => {
         const indexRes = await request(app).get('/api/2024/classes')
@@ -116,6 +129,20 @@ describe('/api/2024/classes', () => {
           )
           expect(res.statusCode).toEqual(200)
           expect(res.body.results.length).not.toEqual(0)
+        })
+      })
+
+      describe('/api/2024/classes/:index/levels/:level/spells', () => {
+        it('returns spells for a spellcasting class at a given level', async () => {
+          const res = await request(app).get('/api/2024/classes/wizard/levels/3/spells')
+          expect(res.statusCode).toEqual(200)
+          expect(res.body.results.length).not.toEqual(0)
+        })
+
+        it('returns an empty list for a non-spellcasting class', async () => {
+          const res = await request(app).get('/api/2024/classes/fighter/levels/1/spells')
+          expect(res.statusCode).toEqual(200)
+          expect(res.body.results).toEqual([])
         })
       })
     })

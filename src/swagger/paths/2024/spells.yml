@@ -1,0 +1,68 @@
+spells-resource-list:
+  get:
+    summary: 'Get list of spells with optional filtering.'
+    tags:
+      - Spells
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/spell-level-filter-2024'
+      - $ref: '../../parameters/2024/combined.yml#/spell-school-filter-2024'
+    responses:
+      '200':
+        description: 'OK'
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+
+spell-by-index:
+  get:
+    summary: Get a spell by index.
+    tags:
+      - Spells
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/spell-index-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Spell'
+            example:
+              index: acid-arrow
+              name: Acid Arrow
+              level: 2
+              school:
+                index: evocation
+                name: Evocation
+                url: '/api/2024/magic-schools/evocation'
+              classes:
+                - index: wizard
+                  name: Wizard
+                  url: '/api/2024/classes/wizard'
+              casting_time: Action
+              ritual: false
+              range: 90 feet
+              components:
+                - V
+                - S
+                - M
+              material: powdered rhubarb leaf
+              duration: Instantaneous
+              concentration: false
+              attack_type: ranged
+              damage:
+                damage_type:
+                  index: acid
+                  name: Acid
+                  url: '/api/2024/damage-types/acid'
+                damage_at_slot_level:
+                  '2': 4d4
+              description: |
+                A shimmering green arrow streaks toward a target within range and bursts in a
+                spray of acid. Make a ranged spell attack against the target. On a hit, the
+                target takes 4d4 Acid damage and 2d4 Acid damage at the end of its next turn.
+                On a miss, the arrow splashes the target with acid for half as much of the
+                initial damage only.
+              higher_level: The damage (both initial and later) increases by 1d4 for each spell slot level above 2.
+              url: '/api/2024/spells/acid-arrow'
