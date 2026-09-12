@@ -1,0 +1,30 @@
+get:
+  summary: Get a magic item by index.
+  tags:
+    - Equipment
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/magic-item-index'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/MagicItem'
+          example:
+            index: bag-of-holding
+            name: Bag of Holding
+            desc: |
+              This bag has an interior space considerably larger than its outside
+              dimensions, which are roughly 2 feet in diameter at the mouth and 4
+              feet deep.
+            equipment_category:
+              index: adventuring-gear
+              name: Adventuring Gear
+              url: '/api/2024/equipment-categories/adventuring-gear'
+            attunement: false
+            variant: false
+            variants: []
+            rarity:
+              name: Uncommon
+            url: '/api/2024/magic-items/bag-of-holding'

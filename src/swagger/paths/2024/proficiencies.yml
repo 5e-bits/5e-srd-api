@@ -1,0 +1,27 @@
+get:
+  summary: Get a proficiency by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/proficiency-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Proficiency'
+          example:
+            index: skill-athletics
+            name: 'Skill: Athletics'
+            type: Skills
+            reference:
+              index: athletics
+              name: Athletics
+              url: '/api/2024/skills/athletics'
+            classes: []
+            backgrounds:
+              - index: athlete
+                name: Athlete
+                url: '/api/2024/backgrounds/athlete'
+            url: '/api/2024/proficiencies/skill-athletics'

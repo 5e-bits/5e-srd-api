@@ -1,0 +1,90 @@
+# /api/2024/species/{index}
+species-path:
+  get:
+    summary: Get a species by index.
+    tags:
+      - Character Data
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/species-index'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Species'
+            example:
+              index: elf
+              name: Elf
+              type: Humanoid
+              size: Medium
+              speed: 30
+              traits:
+                - index: darkvision
+                  name: Darkvision
+                  url: '/api/2024/traits/darkvision'
+                - index: fey-ancestry
+                  name: Fey Ancestry
+                  url: '/api/2024/traits/fey-ancestry'
+                - index: keen-senses
+                  name: Keen Senses
+                  url: '/api/2024/traits/keen-senses'
+                - index: trance
+                  name: Trance
+                  url: '/api/2024/traits/trance'
+              subspecies:
+                - index: high-elf
+                  name: High Elf
+                  url: '/api/2024/subspecies/high-elf'
+              url: '/api/2024/species/elf'
+# /api/2024/species/{index}/subspecies
+species-subspecies-path:
+  get:
+    summary: Get subspecies available for a species.
+    tags:
+      - Character Data
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/species-index'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 1
+              results:
+                - index: high-elf
+                  name: High Elf
+                  url: '/api/2024/subspecies/high-elf'
+# /api/2024/species/{index}/traits
+species-traits-path:
+  get:
+    summary: Get traits granted by a species.
+    tags:
+      - Character Data
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/species-index'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 4
+              results:
+                - index: darkvision
+                  name: Darkvision
+                  url: '/api/2024/traits/darkvision'
+                - index: fey-ancestry
+                  name: Fey Ancestry
+                  url: '/api/2024/traits/fey-ancestry'
+                - index: keen-senses
+                  name: Keen Senses
+                  url: '/api/2024/traits/keen-senses'
+                - index: trance
+                  name: Trance
+                  url: '/api/2024/traits/trance'

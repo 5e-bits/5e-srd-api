@@ -1,0 +1,44 @@
+get:
+  summary: Get equipment by index.
+  tags:
+    - Equipment
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/equipment-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Equipment'
+          example:
+            index: longsword
+            name: Longsword
+            equipment_categories:
+              - index: weapon
+                name: Weapon
+                url: '/api/2024/equipment-categories/weapon'
+              - index: martial-weapons
+                name: Martial Weapons
+                url: '/api/2024/equipment-categories/martial-weapons'
+            cost:
+              quantity: 15
+              unit: gp
+            damage:
+              damage_type:
+                index: slashing
+                name: Slashing
+                url: '/api/2024/damage-types/slashing'
+              damage_dice: 1d8
+            two_handed_damage:
+              damage_type:
+                index: slashing
+                name: Slashing
+                url: '/api/2024/damage-types/slashing'
+              damage_dice: 1d10
+            properties:
+              - index: versatile
+                name: Versatile
+                url: '/api/2024/weapon-properties/versatile'
+            weight: 3
+            url: '/api/2024/equipment/longsword'

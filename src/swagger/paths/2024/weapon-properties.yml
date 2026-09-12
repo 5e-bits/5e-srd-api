@@ -1,0 +1,21 @@
+get:
+  summary: Get a weapon property by index.
+  tags:
+    - Equipment
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/weapon-property-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/WeaponProperty'
+          example:
+            index: versatile
+            name: Versatile
+            description: |
+              This weapon can be used with one or two hands. A damage value in parentheses
+              appears with the property, which is the damage when the weapon is used with
+              two hands to make a melee attack.
+            url: '/api/2024/weapon-properties/versatile'

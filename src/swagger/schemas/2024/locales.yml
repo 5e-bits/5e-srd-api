@@ -1,0 +1,11 @@
+locale-model:
+  type: object
+  description: |
+    A supported translation locale for the 2024 SRD. Locale resources do not have an
+    `index`; use `lang` as the identifier.
+  properties:
+    lang:
+      type: string
+      description: BCP 47 language tag, e.g. `de`, `fr`, `pt-BR`.
+    url:
+      type: string

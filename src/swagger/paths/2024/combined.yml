@@ -1,0 +1,72 @@
+base:
+  $ref: './common.yml#/api-base'
+list:
+  $ref: './common.yml#/list'
+ability-scores:
+  $ref: './ability-scores.yml'
+alignments:
+  $ref: './alignments.yml'
+backgrounds:
+  $ref: './backgrounds.yml'
+classes:
+  $ref: './classes.yml#/class-path'
+class-levels:
+  $ref: './classes.yml#/class-levels-path'
+class-level:
+  $ref: './classes.yml#/class-level-path'
+class-level-features:
+  $ref: './classes.yml#/class-level-features-path'
+conditions:
+  $ref: './conditions.yml'
+damage-types:
+  $ref: './damage-types.yml'
+equipment:
+  $ref: './equipment.yml'
+equipment-categories:
+  $ref: './equipment-categories.yml'
+feats:
+  $ref: './feats.yml'
+features:
+  $ref: './features.yml'
+languages:
+  $ref: './languages.yml'
+locales-list:
+  $ref: './locales.yml#/locales-list-path'
+locale:
+  $ref: './locales.yml#/locale-path'
+magic-items:
+  $ref: './magic-items.yml'
+magic-schools:
+  $ref: './magic-schools.yml'
+monster:
+  $ref: './monsters.yml'
+poisons:
+  $ref: './poisons.yml'
+proficiencies:
+  $ref: './proficiencies.yml'
+skills:
+  $ref: './skills.yml'
+species:
+  $ref: './species.yml#/species-path'
+species-subspecies:
+  $ref: './species.yml#/species-subspecies-path'
+species-traits:
+  $ref: './species.yml#/species-traits-path'
+subclasses:
+  $ref: './subclasses.yml#/subclass-path'
+subclass-levels:
+  $ref: './subclasses.yml#/subclass-levels-path'
+subclass-level:
+  $ref: './subclasses.yml#/subclass-level-path'
+subclass-level-features:
+  $ref: './subclasses.yml#/subclass-level-features-path'
+subspecies:
+  $ref: './subspecies.yml#/subspecies-path'
+subspecies-traits:
+  $ref: './subspecies.yml#/subspecies-traits-path'
+traits:
+  $ref: './traits.yml'
+weapon-mastery-properties:
+  $ref: './weapon-mastery-properties.yml'
+weapon-properties:
+  $ref: './weapon-properties.yml'

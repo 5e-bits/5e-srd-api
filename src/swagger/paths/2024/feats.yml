@@ -1,0 +1,22 @@
+get:
+  summary: Get a feat by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/feat-index'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Feat'
+          example:
+            index: alert
+            name: Alert
+            type: general
+            description: |
+              Always on the lookout for danger, you gain the following benefits.
+            prerequisites:
+              minimum_level: 4
+            url: '/api/2024/feats/alert'

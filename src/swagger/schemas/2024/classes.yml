@@ -1,0 +1,108 @@
+spellcasting-info-model:
+  type: object
+  properties:
+    name:
+      type: string
+    desc:
+      type: array
+      items:
+        type: string
+
+spellcasting-model:
+  type: object
+  properties:
+    level:
+      type: integer
+      description: 'The level at which spellcasting begins.'
+    spellcasting_ability:
+      $ref: './common.yml#/api-ref-model-2024'
+    info:
+      type: array
+      items:
+        $ref: '#/spellcasting-info-model'
+
+multi-classing-prereq-model:
+  type: object
+  properties:
+    ability_score:
+      $ref: './common.yml#/api-ref-model-2024'
+    minimum_score:
+      type: integer
+
+multi-classing-model:
+  type: object
+  properties:
+    prerequisites:
+      type: array
+      items:
+        $ref: '#/multi-classing-prereq-model'
+    prerequisite_options:
+      $ref: './common.yml#/choice-model-2024'
+    proficiencies:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    proficiency_choices:
+      type: array
+      items:
+        $ref: './common.yml#/choice-model-2024'
+
+primary-ability-model:
+  type: object
+  properties:
+    desc:
+      type: string
+    ability_scores:
+      description: 'All of these ability scores must meet the minimum.'
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    ability_score_options:
+      $ref: './common.yml#/choice-model-2024'
+
+class-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    primary_ability:
+      $ref: '#/primary-ability-model'
+    hit_die:
+      type: integer
+      example: 12
+    class_levels:
+      type: string
+      description: 'URL path to the class levels resource.'
+    multi_classing:
+      $ref: '#/multi-classing-model'
+    proficiencies:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    proficiency_choices:
+      type: array
+      items:
+        $ref: './common.yml#/choice-model-2024'
+    saving_throws:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    starting_equipment_options:
+      type: array
+      items:
+        $ref: './common.yml#/choice-model-2024'
+    subclasses:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    spellcasting:
+      $ref: '#/spellcasting-model'
+    spells:
+      type: string
+      description: 'URL path to the class spells resource.'
+    url:
+      type: string
+    updated_at:
+      type: string

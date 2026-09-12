@@ -1,0 +1,21 @@
+get:
+  summary: Get an alignment by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/alignment-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Alignment'
+          example:
+            index: lawful-good
+            name: Lawful Good
+            abbreviation: LG
+            description: |
+              A lawful good character typically acts with compassion, and always with honor
+              and a sense of duty.
+            url: '/api/2024/alignments/lawful-good'

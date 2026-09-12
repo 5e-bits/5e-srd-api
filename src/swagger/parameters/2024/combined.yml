@@ -1,0 +1,359 @@
+base-endpoint-index-2024:
+  name: endpoint
+  in: path
+  required: true
+  schema:
+    type: string
+    enum:
+      - ability-scores
+      - alignments
+      - backgrounds
+      - classes
+      - conditions
+      - damage-types
+      - equipment
+      - equipment-categories
+      - feats
+      - features
+      - languages
+      - locales
+      - magic-items
+      - magic-schools
+      - monsters
+      - poisons
+      - proficiencies
+      - skills
+      - species
+      - subclasses
+      - subspecies
+      - traits
+      - weapon-mastery-properties
+      - weapon-properties
+    example: ability-scores
+
+ability-score-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the ability score to get.
+  schema:
+    type: string
+    enum: [cha, con, dex, int, str, wis]
+    example: cha
+
+alignment-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the alignment to get.
+  schema:
+    type: string
+    example: lawful-good
+
+background-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the background to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `backgrounds`.
+  schema:
+    type: string
+    example: acolyte
+
+class-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the class to get.
+  schema:
+    type: string
+    enum:
+      - barbarian
+      - bard
+      - cleric
+      - druid
+      - fighter
+      - monk
+      - paladin
+      - ranger
+      - rogue
+      - sorcerer
+      - warlock
+      - wizard
+    example: barbarian
+
+condition-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the condition to get.
+  schema:
+    type: string
+    example: blinded
+
+damage-type-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the damage type to get.
+  schema:
+    type: string
+    example: acid
+
+equipment-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the equipment to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `equipment`.
+  schema:
+    type: string
+    example: longsword
+
+equipment-category-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the equipment category to get.
+  schema:
+    type: string
+    example: weapon
+
+feat-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the feat to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `feats`.
+  schema:
+    type: string
+    example: alert
+
+feature-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the feature to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `features`.
+  schema:
+    type: string
+    example: rage
+
+language-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the language to get.
+  schema:
+    type: string
+    example: draconic
+
+locale-index:
+  name: lang
+  in: path
+  required: true
+  description: |
+    The BCP 47 language tag of the locale to get (e.g. `de`, `fr`, `pt-BR`).
+  schema:
+    type: string
+    example: de
+
+magic-item-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the magic item to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `magic-items`.
+  schema:
+    type: string
+    example: bag-of-holding
+
+magic-school-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the magic school to get.
+  schema:
+    type: string
+    enum:
+      - abjuration
+      - conjuration
+      - divination
+      - enchantment
+      - evocation
+      - illusion
+      - necromancy
+      - transmutation
+    example: evocation
+
+monster-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the `Monster` to get.
+  schema:
+    type: string
+    example: aboleth
+
+poison-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the poison to get.
+  schema:
+    type: string
+    example: basic-poison
+
+proficiency-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the proficiency to get.
+
+    Available values can be found in the [`ResourceList`](#get-/api/2024/-endpoint-) for `proficiencies`.
+  schema:
+    type: string
+    example: skill-athletics
+
+skill-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the skill to get.
+  schema:
+    type: string
+    enum:
+      - acrobatics
+      - animal-handling
+      - arcana
+      - athletics
+      - deception
+      - history
+      - insight
+      - intimidation
+      - investigation
+      - medicine
+      - nature
+      - perception
+      - performance
+      - persuasion
+      - religion
+      - sleight-of-hand
+      - stealth
+      - survival
+    example: athletics
+
+species-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the species to get.
+  schema:
+    type: string
+    example: elf
+
+subclass-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the subclass to get.
+  schema:
+    type: string
+    example: berserker
+
+subspecies-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the subspecies to get.
+  schema:
+    type: string
+    example: high-elf
+
+trait-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the trait to get.
+  schema:
+    type: string
+    example: darkvision
+
+weapon-mastery-property-index:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the weapon mastery property to get.
+  schema:
+    type: string
+    example: cleave
+
+weapon-property-index-2024:
+  name: index
+  in: path
+  required: true
+  description: |
+    The `index` of the weapon property to get.
+  schema:
+    type: string
+    example: versatile
+
+class-level-2024:
+  name: level
+  in: path
+  required: true
+  schema:
+    type: number
+    minimum: 1
+    maximum: 20
+    example: 3
+
+subclass-level:
+  name: level
+  in: path
+  required: true
+  schema:
+    type: number
+    minimum: 1
+    maximum: 20
+    example: 3
+
+class-levels-subclass-filter:
+  name: subclass
+  in: query
+  required: false
+  description: Filters the levels list down to a single subclass's levels (in addition to the base class levels).
+  schema:
+    type: string
+  examples:
+    single-value:
+      value: berserker
+    partial-value:
+      value: ber

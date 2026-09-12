@@ -1,0 +1,113 @@
+# /api/2024/subclasses/{index}
+subclass-path:
+  get:
+    summary: Get a subclass by index.
+    tags:
+      - Subclass
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/subclass-index-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Subclass'
+            example:
+              index: berserker
+              name: Berserker
+              class:
+                index: barbarian
+                name: Barbarian
+                url: '/api/2024/classes/barbarian'
+              summary: Berserkers commit themselves to a battle rage that borders on madness.
+              description: |
+                For some barbarians, rage is a means to an end—that end being violence.
+              features:
+                - name: Frenzy
+                  level: 3
+                  description: |
+                    You can go into a frenzy when you rage.
+              url: '/api/2024/subclasses/berserker'
+# /api/2024/subclasses/{index}/levels
+subclass-levels-path:
+  get:
+    summary: Get all level resources for a subclass.
+    description: |
+      Returns full `Level` resources rather than an `APIReferenceList`.
+    tags:
+      - Subclass Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/subclass-index-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../../schemas/2024/combined.yml#/Level'
+      '404':
+        description: No levels found for this subclass.
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/error-response'
+            example:
+              error: Not found
+# /api/2024/subclasses/{index}/levels/{level}
+subclass-level-path:
+  get:
+    summary: Get level resource for a subclass and level.
+    tags:
+      - Subclass Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/subclass-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/subclass-level'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Level'
+            example:
+              index: berserker-3
+              name: Berserker 3
+              level: 3
+              features:
+                - index: berserker-frenzy
+                  name: Frenzy
+                  url: '/api/2024/features/berserker-frenzy'
+              class:
+                index: barbarian
+                name: Barbarian
+                url: '/api/2024/classes/barbarian'
+              subclass:
+                index: berserker
+                name: Berserker
+                url: '/api/2024/subclasses/berserker'
+              url: '/api/2024/subclasses/berserker/levels/3'
+# /api/2024/subclasses/{index}/levels/{level}/features
+subclass-level-features-path:
+  get:
+    summary: Get features available to a subclass at the requested level.
+    tags:
+      - Subclass Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/subclass-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/subclass-level'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 1
+              results:
+                - index: berserker-frenzy
+                  name: Frenzy
+                  url: '/api/2024/features/berserker-frenzy'
