@@ -43,6 +43,14 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.9.0](https://github.com/5e-bits/5e-srd-api/compare/v5.8.0...v5.9.0) (2026-09-12)
+
+
+### Features
+
+* **2024:** add 2024 Spells support ([#1188](https://github.com/5e-bits/5e-srd-api/issues/1188)) ([a2556d4](https://github.com/5e-bits/5e-srd-api/commit/a2556d4d47b197c5034de8a0774f70de05fe18c0))
+* **2024:** add levels endpoints and GraphQL resolver ([#1185](https://github.com/5e-bits/5e-srd-api/issues/1185)) ([eb2eb6a](https://github.com/5e-bits/5e-srd-api/commit/eb2eb6ad0f7a8370cb1d4f36731797eede29aaa9))
+
 ## [5.8.0](https://github.com/5e-bits/5e-srd-api/compare/v5.7.3...v5.8.0) (2026-06-27)
 
 
