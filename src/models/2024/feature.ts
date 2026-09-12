@@ -3,6 +3,7 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import { Field, ObjectType } from 'type-graphql'
 
 import { Class2024 } from '@/models/2024/class'
+import { Level2024 } from '@/models/2024/level'
 import { Subclass2024 } from '@/models/2024/subclass'
 import { APIReference } from '@/models/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
@@ -22,7 +23,7 @@ export class Feature2024 {
   @prop({ required: true, type: () => String })
   public description!: string
 
-  @Field(() => APIReference, { description: 'The level at which this feature is gained.' })
+  @Field(() => Level2024, { description: 'The level at which this feature is gained.' })
   @prop({ type: () => APIReference, required: true })
   public level!: APIReference
 

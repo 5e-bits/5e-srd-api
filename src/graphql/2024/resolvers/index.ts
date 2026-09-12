@@ -16,6 +16,7 @@ import { EquipmentCategoryResolver } from './equipmentCategory/resolver'
 import { FeatResolver } from './feat/resolver'
 import { FeatureResolver } from './feature/resolver'
 import { LanguageResolver } from './language/resolver'
+import { LevelResolver } from './level/resolver'
 import { LocaleResolver } from './locale/resolver'
 import { MagicItemResolver } from './magicItem/resolver'
 import { MagicSchoolResolver } from './magicSchool/resolver'
@@ -49,6 +50,7 @@ const collectionResolvers = [
   FeatResolver,
   FeatureResolver,
   LanguageResolver,
+  LevelResolver,
   MagicItemResolver,
   MagicSchoolResolver,
   Monster2024Resolver,

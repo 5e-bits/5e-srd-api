@@ -66,5 +66,41 @@ describe('/api/2024/subclasses', () => {
         expect(showRes.statusCode).toEqual(404)
       })
     })
+
+    describe('/api/2024/subclasses/:index/levels', () => {
+      it('returns objects', async () => {
+        const indexRes = await request(app).get('/api/2024/subclasses')
+        const index = indexRes.body.results[0].index
+        const res = await request(app).get(`/api/2024/subclasses/${index}/levels`)
+        expect(res.statusCode).toEqual(200)
+        expect(res.body.length).not.toEqual(0)
+      })
+
+      describe('/api/2024/subclasses/:index/levels/:level', () => {
+        it('returns objects', async () => {
+          const indexRes = await request(app).get('/api/2024/subclasses')
+          const index = indexRes.body.results[0].index
+          const levelsRes = await request(app).get(`/api/2024/subclasses/${index}/levels`)
+          const level = levelsRes.body[0].level
+          const res = await request(app).get(`/api/2024/subclasses/${index}/levels/${level}`)
+          expect(res.statusCode).toEqual(200)
+          expect(res.body.level).toEqual(level)
+        })
+      })
+
+      describe('/api/2024/subclasses/:index/levels/:level/features', () => {
+        it('returns objects', async () => {
+          const indexRes = await request(app).get('/api/2024/subclasses')
+          const index = indexRes.body.results[0].index
+          const levelsRes = await request(app).get(`/api/2024/subclasses/${index}/levels`)
+          const level = levelsRes.body[0].level
+          const res = await request(app).get(
+            `/api/2024/subclasses/${index}/levels/${level}/features`
+          )
+          expect(res.statusCode).toEqual(200)
+          expect(res.body.results.length).not.toEqual(0)
+        })
+      })
+    })
   })
 })
