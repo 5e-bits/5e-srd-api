@@ -1,0 +1,130 @@
+APIReference:
+  $ref: './common.yml#/api-ref-model-2024'
+APIReferenceList:
+  $ref: './common.yml#/api-ref-list-model-2024'
+error-response:
+  $ref: './common.yml#/error-response-model-2024'
+DC:
+  $ref: './common.yml#/dc-model-2024'
+Damage:
+  $ref: './common.yml#/damage-model-2024'
+Choice:
+  $ref: './common.yml#/choice-model-2024'
+OptionSet:
+  $ref: './common.yml#/option-set-model-2024'
+Option:
+  $ref: './common.yml#/option-model-2024'
+Cost:
+  $ref: './common.yml#/cost-model-2024'
+
+AbilityScore:
+  $ref: './ability-scores.yml#/ability-score-model-2024'
+Alignment:
+  $ref: './alignments.yml#/alignment-model'
+Skill:
+  $ref: './skills.yml#/skill-model'
+
+Condition:
+  $ref: './game-mechanics.yml#/condition-model-2024'
+DamageType:
+  $ref: './game-mechanics.yml#/damage-type-model-2024'
+MagicSchool:
+  $ref: './game-mechanics.yml#/magic-school-model-2024'
+
+Language:
+  $ref: './languages.yml#/language-model'
+Locale:
+  $ref: './locales.yml#/locale-model'
+Proficiency:
+  $ref: './proficiencies.yml#/proficiency-model'
+
+Feat:
+  $ref: './feats.yml#/feat-model'
+FeatPrerequisites:
+  $ref: './feats.yml#/feat-prerequisites-model'
+Feature:
+  $ref: './features.yml#/feature-model'
+
+Background:
+  $ref: './backgrounds.yml#/background-model-2024'
+
+Class:
+  $ref: './classes.yml#/class-model-2024'
+Spellcasting:
+  $ref: './classes.yml#/spellcasting-model'
+MultiClassing:
+  $ref: './classes.yml#/multi-classing-model'
+PrimaryAbility:
+  $ref: './classes.yml#/primary-ability-model'
+
+Level:
+  $ref: './levels.yml#/level-model'
+ClassSpecific:
+  $ref: './levels.yml#/class-specific-model'
+LevelSpellcasting:
+  $ref: './levels.yml#/level-spellcasting-model'
+
+Spell:
+  $ref: './spells.yml#/spell-model-2024'
+SpellDamage:
+  $ref: './spells.yml#/spell-damage-model-2024'
+SpellDC:
+  $ref: './spells.yml#/spell-dc-model-2024'
+AreaOfEffect:
+  $ref: './spells.yml#/area-of-effect-model-2024'
+ClassLevelSpell:
+  $ref: './spells.yml#/class-level-spell-model-2024'
+ClassSpellList:
+  $ref: './spells.yml#/class-spell-list-model-2024'
+
+Subclass:
+  $ref: './subclasses.yml#/subclass-model-2024'
+SubclassFeature:
+  $ref: './subclasses.yml#/subclass-feature-model'
+
+Species:
+  $ref: './species.yml#/species-model'
+Subspecies:
+  $ref: './subspecies.yml#/subspecies-model'
+Trait:
+  $ref: './traits.yml#/trait-model'
+
+Equipment:
+  $ref: './equipment.yml#/equipment-model-2024'
+EquipmentCategory:
+  $ref: './equipment.yml#/equipment-category-model-2024'
+MagicItem:
+  $ref: './magic-items.yml#/magic-item-model-2024'
+
+WeaponProperty:
+  $ref: './weapon.yml#/weapon-property-model-2024'
+WeaponMasteryProperty:
+  $ref: './weapon.yml#/weapon-mastery-property-model'
+
+Poison:
+  $ref: './poisons.yml#/poison-model'
+
+Monster:
+  $ref: './monsters.yml#/monster-model-2024'
+MonsterArmorClass:
+  $ref: './monsters-common.yml#/monster-armor-class-model-2024'
+MonsterAction:
+  $ref: './monsters-common.yml#/monster-action-model-2024'
+MonsterAttack:
+  $ref: './monsters-common.yml#/monster-attack-model-2024'
+MonsterMultiAttackAction:
+  $ref: './monsters-common.yml#/monster-multi-attack-action-model-2024'
+MonsterProficiency:
+  $ref: './monsters-common.yml#/monster-proficiency-model-2024'
+MonsterSense:
+  $ref: './monsters-common.yml#/monster-sense-model-2024'
+MonsterSpecialAbility:
+  $ref: './monsters-common.yml#/monster-special-ability-model-2024'
+MonsterSpell:
+  $ref: './monsters-common.yml#/monster-spell-model-2024'
+MonsterSpellcasting:
+  $ref: './monsters-common.yml#/monster-spellcasting-model-2024'
+LegendaryAction:
+  $ref: './monsters-common.yml#/legendary-action-model'
+Reaction:
+  $ref: './monsters-common.yml#/reaction-model'

@@ -1,0 +1,55 @@
+api-base:
+  get:
+    summary: Get all resource URLs.
+    description: Making a request to the API's base URL returns an object containing available endpoints.
+    tags:
+      - Common
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+            example:
+              ability-scores: '/api/2024/ability-scores'
+              alignments: '/api/2024/alignments'
+              backgrounds: '/api/2024/backgrounds'
+              classes: '/api/2024/classes'
+              conditions: '/api/2024/conditions'
+              damage-types: '/api/2024/damage-types'
+              equipment: '/api/2024/equipment'
+              equipment-categories: '/api/2024/equipment-categories'
+              feats: '/api/2024/feats'
+              features: '/api/2024/features'
+              languages: '/api/2024/languages'
+              locales: '/api/2024/locales'
+              magic-items: '/api/2024/magic-items'
+              magic-schools: '/api/2024/magic-schools'
+              monsters: '/api/2024/monsters'
+              poisons: '/api/2024/poisons'
+              proficiencies: '/api/2024/proficiencies'
+              skills: '/api/2024/skills'
+              species: '/api/2024/species'
+              spells: '/api/2024/spells'
+              subclasses: '/api/2024/subclasses'
+              subspecies: '/api/2024/subspecies'
+              traits: '/api/2024/traits'
+              weapon-mastery-properties: '/api/2024/weapon-mastery-properties'
+              weapon-properties: '/api/2024/weapon-properties'
+list:
+  get:
+    summary: 'Get list of all available resources for an endpoint.'
+    tags:
+      - Common
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/base-endpoint-index-2024'
+    responses:
+      '200':
+        description: 'OK'
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'

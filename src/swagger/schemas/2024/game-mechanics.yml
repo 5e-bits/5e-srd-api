@@ -1,0 +1,41 @@
+condition-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    description:
+      type: string
+    url:
+      type: string
+    updated_at:
+      type: string
+
+damage-type-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    description:
+      type: string
+    url:
+      type: string
+    updated_at:
+      type: string
+
+magic-school-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    description:
+      type: string
+    url:
+      type: string
+    updated_at:
+      type: string

@@ -1,0 +1,57 @@
+get:
+  summary: Get a monster by index.
+  tags:
+    - Monsters
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/monster-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Monster'
+          example:
+            index: aboleth
+            name: Aboleth
+            size: Large
+            type: Aberration
+            alignment: Lawful Evil
+            armor_class:
+              - type: natural
+                value: 17
+            hit_points: 150
+            hit_dice: 20d10
+            hit_points_roll: 20d10+40
+            speed:
+              walk: 10 ft.
+              swim: 40 ft.
+            strength: 21
+            dexterity: 9
+            constitution: 15
+            intelligence: 18
+            wisdom: 15
+            charisma: 18
+            proficiencies:
+              - value: 6
+                proficiency:
+                  index: saving-throw-con
+                  name: 'Saving Throw: CON'
+                  url: '/api/2024/proficiencies/saving-throw-con'
+            damage_vulnerabilities: []
+            damage_resistances: []
+            damage_immunities: []
+            condition_immunities: []
+            senses:
+              darkvision: 120 ft.
+              passive_perception: 20
+            languages: Deep Speech, telepathy 120 ft.
+            challenge_rating: 10
+            xp: 5900
+            special_abilities:
+              - name: Amphibious
+                desc: The aboleth can breathe air and water.
+            actions:
+              - name: Multiattack
+                desc: The aboleth makes three Tentacle attacks.
+            url: '/api/2024/monsters/aboleth'

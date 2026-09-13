@@ -1,0 +1,25 @@
+get:
+  summary: Get a trait by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/trait-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Trait'
+          example:
+            index: darkvision
+            name: Darkvision
+            description: |
+              You can see in dim light within 60 feet of you as if it were bright light,
+              and in darkness within that range as if it were dim light.
+            species:
+              - index: elf
+                name: Elf
+                url: '/api/2024/species/elf'
+            subspecies: []
+            url: '/api/2024/traits/darkvision'

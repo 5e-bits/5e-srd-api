@@ -1,0 +1,24 @@
+get:
+  summary: Get a skill by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/skill-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Skill'
+          example:
+            index: athletics
+            name: Athletics
+            description: |
+              Your Strength (Athletics) check covers difficult situations you encounter
+              while climbing, jumping, or swimming.
+            ability_score:
+              index: str
+              name: STR
+              url: '/api/2024/ability-scores/str'
+            url: '/api/2024/skills/athletics'

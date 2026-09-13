@@ -1,0 +1,38 @@
+get:
+  summary: Get a background by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/background-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Background'
+          example:
+            index: acolyte
+            name: Acolyte
+            ability_scores:
+              - index: int
+                name: INT
+                url: '/api/2024/ability-scores/int'
+              - index: wis
+                name: WIS
+                url: '/api/2024/ability-scores/wis'
+              - index: cha
+                name: CHA
+                url: '/api/2024/ability-scores/cha'
+            feat:
+              index: magic-initiate-cleric
+              name: 'Magic Initiate (Cleric)'
+              url: '/api/2024/feats/magic-initiate-cleric'
+            proficiencies:
+              - index: skill-insight
+                name: 'Skill: Insight'
+                url: '/api/2024/proficiencies/skill-insight'
+              - index: skill-religion
+                name: 'Skill: Religion'
+                url: '/api/2024/proficiencies/skill-religion'
+            url: '/api/2024/backgrounds/acolyte'

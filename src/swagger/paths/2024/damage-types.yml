@@ -1,0 +1,19 @@
+get:
+  summary: Get a damage type by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/damage-type-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/DamageType'
+          example:
+            index: acid
+            name: Acid
+            description: |
+              A caustic substance that can melt through flesh, metal, and other materials.
+            url: '/api/2024/damage-types/acid'

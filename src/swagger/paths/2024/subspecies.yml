@@ -1,0 +1,56 @@
+# /api/2024/subspecies/{index}
+subspecies-path:
+  get:
+    summary: Get a subspecies by index.
+    tags:
+      - Character Data
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/subspecies-index'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Subspecies'
+            example:
+              index: high-elf
+              name: High Elf
+              species:
+                index: elf
+                name: Elf
+                url: '/api/2024/species/elf'
+              traits:
+                - index: elf-weapon-training
+                  name: Elf Weapon Training
+                  url: '/api/2024/traits/elf-weapon-training'
+                  level: 1
+                - index: cantrip-elf
+                  name: Cantrip
+                  url: '/api/2024/traits/cantrip-elf'
+                  level: 1
+              url: '/api/2024/subspecies/high-elf'
+# /api/2024/subspecies/{index}/traits
+subspecies-traits-path:
+  get:
+    summary: Get traits granted by a subspecies.
+    tags:
+      - Character Data
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/subspecies-index'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 2
+              results:
+                - index: elf-weapon-training
+                  name: Elf Weapon Training
+                  url: '/api/2024/traits/elf-weapon-training'
+                - index: cantrip-elf
+                  name: Cantrip
+                  url: '/api/2024/traits/cantrip-elf'

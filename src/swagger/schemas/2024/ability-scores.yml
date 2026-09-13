@@ -1,0 +1,19 @@
+ability-score-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    full_name:
+      type: string
+    description:
+      type: string
+    skills:
+      type: array
+      items:
+        $ref: './common.yml#/api-ref-model-2024'
+    url:
+      type: string
+    updated_at:
+      type: string

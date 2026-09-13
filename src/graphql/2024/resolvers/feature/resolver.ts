@@ -4,6 +4,7 @@ import { buildSortPipeline } from '@/graphql/common/args'
 import { resolveSingleReference } from '@/graphql/utils/resolvers'
 import Class2024Model, { Class2024 } from '@/models/2024/class'
 import Feature2024Model, { Feature2024 } from '@/models/2024/feature'
+import Level2024Model, { Level2024 } from '@/models/2024/level'
 import Subclass2024Model, { Subclass2024 } from '@/models/2024/subclass'
 import { escapeRegExp } from '@/util'
 
@@ -71,6 +72,11 @@ export class FeatureResolver {
   async feature(@Args(() => FeatureIndexArgs) args: FeatureIndexArgs): Promise<Feature2024 | null> {
     const { index } = FeatureIndexArgsSchema.parse(args)
     return Feature2024Model.findOne({ index }).lean()
+  }
+
+  @FieldResolver(() => Level2024, { nullable: true })
+  async level(@Root() feature: Feature2024): Promise<Level2024 | null> {
+    return resolveSingleReference(feature.level, Level2024Model)
   }
 
   @FieldResolver(() => Class2024, { nullable: true })

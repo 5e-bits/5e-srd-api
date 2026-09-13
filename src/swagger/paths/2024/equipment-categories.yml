@@ -1,0 +1,24 @@
+get:
+  summary: Get an equipment category by index.
+  tags:
+    - Equipment
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/equipment-category-index'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/EquipmentCategory'
+          example:
+            index: weapon
+            name: Weapon
+            equipment:
+              - index: longsword
+                name: Longsword
+                url: '/api/2024/equipment/longsword'
+              - index: shortbow
+                name: Shortbow
+                url: '/api/2024/equipment/shortbow'
+            url: '/api/2024/equipment-categories/weapon'

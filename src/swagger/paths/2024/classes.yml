@@ -1,0 +1,205 @@
+# /api/2024/classes/{index}
+class-path:
+  get:
+    summary: Get a class by index.
+    description: |
+      # Class
+
+      A character class is a fundamental part of the identity and nature of characters
+      in the Dungeons & Dragons role-playing game. A character's capabilities, strengths,
+      and weaknesses are largely defined by its class.
+    tags:
+      - Class
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Class'
+            example:
+              index: barbarian
+              name: Barbarian
+              primary_ability:
+                desc: Strength is your most important ability score.
+                ability_scores:
+                  - index: str
+                    name: STR
+                    url: '/api/2024/ability-scores/str'
+              hit_die: 12
+              class_levels: '/api/2024/classes/barbarian/levels'
+              proficiencies:
+                - index: light-armor
+                  name: Light Armor
+                  url: '/api/2024/proficiencies/light-armor'
+                - index: medium-armor
+                  name: Medium Armor
+                  url: '/api/2024/proficiencies/medium-armor'
+                - index: shields
+                  name: Shields
+                  url: '/api/2024/proficiencies/shields'
+              saving_throws:
+                - index: str
+                  name: STR
+                  url: '/api/2024/ability-scores/str'
+                - index: con
+                  name: CON
+                  url: '/api/2024/ability-scores/con'
+              starting_equipment_options: []
+              subclasses:
+                - index: berserker
+                  name: Berserker
+                  url: '/api/2024/subclasses/berserker'
+              url: '/api/2024/classes/barbarian'
+# /api/2024/classes/{index}/spells
+class-spells-path:
+  get:
+    summary: Get spells available for a class.
+    tags:
+      - Class Resource Lists
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/spell-level-filter-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/ClassSpellList'
+            example:
+              count: 2
+              results:
+                - index: wish
+                  name: Wish
+                  url: '/api/2024/spells/wish'
+                  level: 9
+                - index: meteor-swarm
+                  name: Meteor Swarm
+                  url: '/api/2024/spells/meteor-swarm'
+                  level: 9
+      '404':
+        description: No class found for this index.
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/error-response'
+            example:
+              error: Not found
+# /api/2024/classes/{index}/levels
+class-levels-path:
+  get:
+    summary: Get all level resources for a class.
+    description: |
+      Returns full `Level` resources rather than an `APIReferenceList`. Pass the
+      `subclass` query parameter to also include that subclass's levels.
+    tags:
+      - Class Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/class-levels-subclass-filter'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../../schemas/2024/combined.yml#/Level'
+      '404':
+        description: No levels found for this class.
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/error-response'
+            example:
+              error: Not found
+# /api/2024/classes/{index}/levels/{level}
+class-level-path:
+  get:
+    summary: Get level resource for a class and level.
+    tags:
+      - Class Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/class-level-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/Level'
+            example:
+              index: barbarian-1
+              name: Barbarian 1
+              level: 1
+              prof_bonus: 2
+              features:
+                - index: rage
+                  name: Rage
+                  url: '/api/2024/features/rage'
+                - index: barbarian-unarmored-defense
+                  name: Unarmored Defense
+                  url: '/api/2024/features/barbarian-unarmored-defense'
+              class:
+                index: barbarian
+                name: Barbarian
+                url: '/api/2024/classes/barbarian'
+              class_specific:
+                rage_count: 2
+                rage_damage_bonus: 2
+              url: '/api/2024/classes/barbarian/levels/1'
+# /api/2024/classes/{index}/levels/{level}/features
+class-level-features-path:
+  get:
+    summary: Get features available to a class at the requested level.
+    tags:
+      - Class Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/class-level-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 2
+              results:
+                - index: barbarian-unarmored-defense
+                  name: Unarmored Defense
+                  url: '/api/2024/features/barbarian-unarmored-defense'
+                - index: rage
+                  name: Rage
+                  url: '/api/2024/features/rage'
+# /api/2024/classes/{index}/levels/{level}/spells
+class-level-spells-path:
+  get:
+    summary: Get spells of the requested level available to the class.
+    tags:
+      - Class Levels
+    parameters:
+      - $ref: '../../parameters/2024/combined.yml#/class-index-2024'
+      - $ref: '../../parameters/2024/combined.yml#/class-level-2024'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/2024/combined.yml#/APIReferenceList'
+            example:
+              count: 2
+              results:
+                - index: acid-arrow
+                  name: Acid Arrow
+                  url: '/api/2024/spells/acid-arrow'
+                - index: scorching-ray
+                  name: Scorching Ray
+                  url: '/api/2024/spells/scorching-ray'

@@ -1,0 +1,39 @@
+get:
+  summary: Get an ability score by index.
+  description: |
+    # Ability Score
+
+    Represents one of the six abilities that describes a creature's physical and mental characteristics. The three main rolls of the game - the ability check, the saving throw, and the attack roll - rely on the ability scores.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/ability-score-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/AbilityScore'
+          example:
+            index: cha
+            name: CHA
+            full_name: Charisma
+            description: |
+              Charisma measures your ability to interact effectively with others. It includes
+              such factors as confidence and eloquence, and it can represent a charming or
+              commanding personality.
+            skills:
+              - index: deception
+                name: Deception
+                url: '/api/2024/skills/deception'
+              - index: intimidation
+                name: Intimidation
+                url: '/api/2024/skills/intimidation'
+              - index: performance
+                name: Performance
+                url: '/api/2024/skills/performance'
+              - index: persuasion
+                name: Persuasion
+                url: '/api/2024/skills/persuasion'
+            url: '/api/2024/ability-scores/cha'

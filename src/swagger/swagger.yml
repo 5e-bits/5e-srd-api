@@ -319,6 +319,87 @@ paths:
   /api/2014/weapon-properties/{index}:
     $ref: './paths/2014/combined.yml#/weapon-properties'
 
+  /api/2024:
+    $ref: './paths/2024/combined.yml#/base'
+  /api/2024/{endpoint}:
+    $ref: './paths/2024/combined.yml#/list'
+  /api/2024/ability-scores/{index}:
+    $ref: './paths/2024/combined.yml#/ability-scores'
+  /api/2024/alignments/{index}:
+    $ref: './paths/2024/combined.yml#/alignments'
+  /api/2024/backgrounds/{index}:
+    $ref: './paths/2024/combined.yml#/backgrounds'
+  /api/2024/classes/{index}:
+    $ref: './paths/2024/combined.yml#/classes'
+  /api/2024/classes/{index}/spells:
+    $ref: './paths/2024/combined.yml#/class-spells'
+  /api/2024/classes/{index}/levels:
+    $ref: './paths/2024/combined.yml#/class-levels'
+  /api/2024/classes/{index}/levels/{level}:
+    $ref: './paths/2024/combined.yml#/class-level'
+  /api/2024/classes/{index}/levels/{level}/features:
+    $ref: './paths/2024/combined.yml#/class-level-features'
+  /api/2024/classes/{index}/levels/{level}/spells:
+    $ref: './paths/2024/combined.yml#/class-level-spells'
+  /api/2024/conditions/{index}:
+    $ref: './paths/2024/combined.yml#/conditions'
+  /api/2024/damage-types/{index}:
+    $ref: './paths/2024/combined.yml#/damage-types'
+  /api/2024/equipment/{index}:
+    $ref: './paths/2024/combined.yml#/equipment'
+  /api/2024/equipment-categories/{index}:
+    $ref: './paths/2024/combined.yml#/equipment-categories'
+  /api/2024/feats/{index}:
+    $ref: './paths/2024/combined.yml#/feats'
+  /api/2024/features/{index}:
+    $ref: './paths/2024/combined.yml#/features'
+  /api/2024/languages/{index}:
+    $ref: './paths/2024/combined.yml#/languages'
+  /api/2024/locales:
+    $ref: './paths/2024/combined.yml#/locales-list'
+  /api/2024/locales/{lang}:
+    $ref: './paths/2024/combined.yml#/locale'
+  /api/2024/magic-items/{index}:
+    $ref: './paths/2024/combined.yml#/magic-items'
+  /api/2024/magic-schools/{index}:
+    $ref: './paths/2024/combined.yml#/magic-schools'
+  /api/2024/monsters/{index}:
+    $ref: './paths/2024/combined.yml#/monster'
+  /api/2024/poisons/{index}:
+    $ref: './paths/2024/combined.yml#/poisons'
+  /api/2024/proficiencies/{index}:
+    $ref: './paths/2024/combined.yml#/proficiencies'
+  /api/2024/skills/{index}:
+    $ref: './paths/2024/combined.yml#/skills'
+  /api/2024/species/{index}:
+    $ref: './paths/2024/combined.yml#/species'
+  /api/2024/species/{index}/subspecies:
+    $ref: './paths/2024/combined.yml#/species-subspecies'
+  /api/2024/species/{index}/traits:
+    $ref: './paths/2024/combined.yml#/species-traits'
+  /api/2024/spells:
+    $ref: './paths/2024/combined.yml#/spells'
+  /api/2024/spells/{index}:
+    $ref: './paths/2024/combined.yml#/spell'
+  /api/2024/subclasses/{index}:
+    $ref: './paths/2024/combined.yml#/subclasses'
+  /api/2024/subclasses/{index}/levels:
+    $ref: './paths/2024/combined.yml#/subclass-levels'
+  /api/2024/subclasses/{index}/levels/{level}:
+    $ref: './paths/2024/combined.yml#/subclass-level'
+  /api/2024/subclasses/{index}/levels/{level}/features:
+    $ref: './paths/2024/combined.yml#/subclass-level-features'
+  /api/2024/subspecies/{index}:
+    $ref: './paths/2024/combined.yml#/subspecies'
+  /api/2024/subspecies/{index}/traits:
+    $ref: './paths/2024/combined.yml#/subspecies-traits'
+  /api/2024/traits/{index}:
+    $ref: './paths/2024/combined.yml#/traits'
+  /api/2024/weapon-mastery-properties/{index}:
+    $ref: './paths/2024/combined.yml#/weapon-mastery-properties'
+  /api/2024/weapon-properties/{index}:
+    $ref: './paths/2024/combined.yml#/weapon-properties'
+
 components:
   parameters:
     $ref: './parameters/2014/combined.yml'

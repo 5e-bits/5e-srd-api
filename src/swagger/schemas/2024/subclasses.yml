@@ -1,0 +1,32 @@
+subclass-feature-model:
+  type: object
+  properties:
+    name:
+      type: string
+    level:
+      type: integer
+      description: 'The character level at which this feature is gained.'
+    description:
+      type: string
+
+subclass-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    class:
+      $ref: './common.yml#/api-ref-model-2024'
+    summary:
+      type: string
+    description:
+      type: string
+    features:
+      type: array
+      items:
+        $ref: '#/subclass-feature-model'
+    url:
+      type: string
+    updated_at:
+      type: string

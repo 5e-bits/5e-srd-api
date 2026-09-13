@@ -1,0 +1,28 @@
+get:
+  summary: Get a feature by index.
+  tags:
+    - Character Data
+  parameters:
+    - $ref: '../../parameters/2024/combined.yml#/feature-index-2024'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/2024/combined.yml#/Feature'
+          example:
+            index: rage
+            name: Rage
+            description: |
+              In battle, you fight with primal ferocity. On your turn, you can enter a
+              rage as a Bonus Action.
+            level:
+              index: barbarian-1
+              name: Barbarian 1
+              url: '/api/2024/classes/barbarian/levels/1'
+            class:
+              index: barbarian
+              name: Barbarian
+              url: '/api/2024/classes/barbarian'
+            url: '/api/2024/features/rage'
