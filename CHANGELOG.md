@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.9.1](https://github.com/5e-bits/5e-srd-api/compare/v5.9.0...v5.9.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* **schema:** support comma-separated string lists in queries ([#1165](https://github.com/5e-bits/5e-srd-api/issues/1165)) ([900f036](https://github.com/5e-bits/5e-srd-api/commit/900f036fc1d9b46f4c4f7f4b144e27d7db0d48e8))
+
 ## [5.9.0](https://github.com/5e-bits/5e-srd-api/compare/v5.8.0...v5.9.0) (2026-09-12)
 
 
