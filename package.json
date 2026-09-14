@@ -89,7 +89,7 @@
     "tsc-alias": "^1.9.2",
     "typedoc": "^0.28.20",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.2",
+    "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.0",
     "yaml": "^2.9.0"
   }
