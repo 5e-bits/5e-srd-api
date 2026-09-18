@@ -1,6 +1,6 @@
 {
   "name": "dnd-5e-srd-api",
-  "version": "5.9.0",
+  "version": "5.9.1",
   "engines": {
     "node": "24.x",
     "pnpm": ">=10.0.0"
