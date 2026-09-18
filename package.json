@@ -2,27 +2,27 @@
   "name": "dnd-5e-srd-api",
   "version": "5.9.1",
   "engines": {
-    "node": "24.x",
-    "npm": ">=10.8.0"
+    "node": "24.x"
   },
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@12.4.2",
   "scripts": {
     "build:ts": "tsc && tsc-alias",
     "build": "npm-run-all --sequential clean bundle-swagger build:ts copy-assets",
     "clean": "rimraf dist/*",
     "copy-assets": "mkdir -p dist && cp -R src/css dist/src && cp -R src/public dist/src",
-    "start": "npm run build && node dist/src/start.js",
-    "dev": "nodemon npm run start",
+    "start": "pnpm run build && node dist/src/start.js",
+    "dev": "nodemon pnpm run start",
     "lint": "eslint . --config eslint.config.js",
     "lint:fix": "eslint . --config eslint.config.js --fix",
     "validate-swagger": "redocly lint src/swagger/swagger.yml",
-    "bundle-swagger": "npm run validate-swagger && redocly bundle --output dist/openapi.yml src/swagger/swagger.yml && redocly bundle --output dist/openapi.json src/swagger/swagger.yml",
-    "gen-postman": "npm run bundle-swagger && openapi2postmanv2 -s dist/openapi.yml -o dist/collection.postman.json -c openapi-to-postman.json",
-    "test": "npm run test:unit && npm run test:integration:local",
+    "bundle-swagger": "pnpm run validate-swagger && redocly bundle --output dist/openapi.yml src/swagger/swagger.yml && redocly bundle --output dist/openapi.json src/swagger/swagger.yml",
+    "gen-postman": "pnpm run bundle-swagger && openapi2postmanv2 -s dist/openapi.yml -o dist/collection.postman.json -c openapi-to-postman.json",
+    "test": "pnpm run test:unit && pnpm run test:integration:local",
     "test:unit": "vitest run",
     "test:integration": "vitest run --config ./vitest.config.integration.ts",
-    "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api npm run test:integration"
+    "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api pnpm run test:integration"
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",

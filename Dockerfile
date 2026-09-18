@@ -3,14 +3,14 @@ FROM node:24-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json ./
-# Copy the package-lock.json that was freshly generated on your host
-COPY package-lock.json ./
+RUN npm install -g pnpm@12.4.2
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Clean existing node_modules just in case of Docker layer caching weirdness.
-# Then run `npm ci` which is generally recommended for CI/Docker if you have a package-lock.json.
+# Then run `pnpm install --frozen-lockfile` which is generally recommended for CI/Docker.
 RUN rm -rf node_modules
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the application source code
 # .dockerignore will handle exclusions like node_modules, dist, etc.
@@ -18,16 +18,21 @@ COPY . .
 
 # Build the application
 # This uses tsconfig.json to output to ./dist
-RUN npm run build
+RUN pnpm run build
 
 # ---- Final Stage ----
 FROM node:24-alpine
 
 WORKDIR /app
 
+# pnpm (unlike npm) isn't bundled with the node image; test:integration:local
+# execs `pnpm run test:integration` inside this final-stage container.
+RUN npm install -g pnpm@12.4.2
+
 # Copy package.json and lock file (good practice)
 COPY package.json ./
-COPY package-lock.json* ./
+COPY pnpm-lock.yaml* ./
+COPY pnpm-workspace.yaml* ./
 
 # Copy node_modules from builder stage - this includes all dependencies with scripts run
 COPY --from=builder /app/node_modules ./node_modules/
