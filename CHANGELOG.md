@@ -43,6 +43,14 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.9.1](https://github.com/5e-bits/5e-srd-api/compare/v5.9.0...v5.9.1) (2026-09-18)
+
+
+### Bug Fixes
+
+* **2014:** support multi-damage-type spells with damage array ([#1194](https://github.com/5e-bits/5e-srd-api/issues/1194)) ([a6580fc](https://github.com/5e-bits/5e-srd-api/commit/a6580fc4273ca4bbc5fc95e73108e2e94bb4b6ca))
+* **schema:** support comma-separated string lists in queries ([#1165](https://github.com/5e-bits/5e-srd-api/issues/1165)) ([900f036](https://github.com/5e-bits/5e-srd-api/commit/900f036fc1d9b46f4c4f7f4b144e27d7db0d48e8))
+
 ## [5.9.0](https://github.com/5e-bits/5e-srd-api/compare/v5.8.0...v5.9.0) (2026-09-12)
 
 
