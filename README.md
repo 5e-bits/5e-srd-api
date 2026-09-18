@@ -88,7 +88,7 @@ export AWS_CONFIG_ENV=localstack_dev
 localstack start
 awslocal s3api create-bucket --bucket dnd-5e-api-images
 awslocal s3 cp aboleth.png s3://dnd-5e-api-images/monsters/
-npm run dev
+pnpm run dev
 ```
 
 Request the image by navigating to an image URL in a browser, or via HTTP request:
@@ -108,12 +108,12 @@ If you see anything wrong with the data itself, please open an issue or PR over 
 
 ### Unit Tests
 
-You can run unit tests locally by using the command: `npm run test:unit`
+You can run unit tests locally by using the command: `pnpm run test:unit`
 
 ### Integration Tests
 
 Integration tests need to be ran in the API docker container for them to function properly.
-In order to run integration tests locally you can use the command: `npm run test:integration:local`
+In order to run integration tests locally you can use the command: `pnpm run test:integration:local`
 
 ## Documentation
 

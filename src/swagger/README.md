@@ -80,25 +80,25 @@ There's many possible ways to make changes and view them locally, I'll describe 
 - local copy of the [database](https://github.com/5e-bits/5e-database) running in a custom built docker container on a machine on my local network
 - [`redis`](https://redis.io/) running on my laptop
 - local copy of the [api](https://github.com/5e-bits/5e-srd-api) running against my local database
-  - I start this by running `MONGODB_URI=mongodb://<LOCAL_IP>/5e-database npm start` where `LOCAL_IP` is the ip address of the machine running the database docker container
+  - I start this by running `MONGODB_URI=mongodb://<LOCAL_IP>/5e-database pnpm start` where `LOCAL_IP` is the ip address of the machine running the database docker container
 - [Swagger Viewer](https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer) extension for VSCode
   - be sure to trigger the "Preview Swagger" command from the `swagger.yml` file
 
 ### Useful Commands
 
-From the root of the project directory two `npm` commands are available related to these docs.
+From the root of the project directory two `pnpm` commands are available related to these docs.
 
-`npm run validate-swagger`
+`pnpm run validate-swagger`
 
 - checks that the OpenAPI definition in `swagger/swagger.yml` is valid
 
-`npm run bundle-swagger`
+`pnpm run bundle-swagger`
 
 - bundles the OpenAPI definition in `swagger/swagger.json` with all the associated referenced files, and writes the file to the `swagger/dist` directory
 
 ## Postman
 
-[Postman](https://learning.postman.com/docs/getting-started/introduction/) is a platform for building and using APIs, it provides a user friendly GUI for creating and testing HTTP requests, and is free for personal use. We don't use Postman to build this API, but it can be a useful tool for testing and exploration. You can generate a Postman collection based on the OpenAPI definition for the API via the `npm run gen-postman` task, and then [import that collection into Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman) to use it.
+[Postman](https://learning.postman.com/docs/getting-started/introduction/) is a platform for building and using APIs, it provides a user friendly GUI for creating and testing HTTP requests, and is free for personal use. We don't use Postman to build this API, but it can be a useful tool for testing and exploration. You can generate a Postman collection based on the OpenAPI definition for the API via the `pnpm run gen-postman` task, and then [import that collection into Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman) to use it.
 
 Under the hood the `gen-postman` task uses [`portman`](https://github.com/apideck-libraries/portman), based on the configuration defined in `portman-cli.json`. There's a number of configuration options that affect how the collection is generated, you can experiment with these options either by changing your local copy of that config file and running the `gen-postman` task, or by executing `portman` from the command line with different options.
 

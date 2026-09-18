@@ -1,0 +1,7 @@
+allowBuilds:
+  '@apollo/protobufjs': true
+  mongodb-memory-server: true
+  unrs-resolver: true
+
+publicHoistPattern:
+  - '*types*'
