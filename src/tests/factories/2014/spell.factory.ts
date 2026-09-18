@@ -52,7 +52,7 @@ export const spellFactory = Factory.define<Spell>(({ sequence }) => {
     // Tests needing specific values must override.
     higher_level: undefined,
     material: undefined,
-    damage: spellDamageFactory.build(),
+    damage: spellDamageFactory.buildList(1),
     dc: spellDcFactory.build(),
     heal_at_slot_level: undefined,
     area_of_effect: areaOfEffectFactory.build()
