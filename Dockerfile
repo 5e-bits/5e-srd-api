@@ -25,9 +25,14 @@ FROM node:24-alpine
 
 WORKDIR /app
 
+# pnpm (unlike npm) isn't bundled with the node image; test:integration:local
+# execs `pnpm run test:integration` inside this final-stage container.
+RUN npm install -g pnpm@12.4.2
+
 # Copy package.json and lock file (good practice)
 COPY package.json ./
 COPY pnpm-lock.yaml* ./
+COPY pnpm-workspace.yaml* ./
 
 # Copy node_modules from builder stage - this includes all dependencies with scripts run
 COPY --from=builder /app/node_modules ./node_modules/
