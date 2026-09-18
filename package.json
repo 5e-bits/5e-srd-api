@@ -7,6 +7,7 @@
   },
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@12.4.2",
   "scripts": {
     "build:ts": "tsc && tsc-alias",
     "build": "npm-run-all --sequential clean bundle-swagger build:ts copy-assets",
