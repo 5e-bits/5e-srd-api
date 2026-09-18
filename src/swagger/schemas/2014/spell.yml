@@ -48,9 +48,10 @@ spell-model:
           description: 'Attack type of the spell.'
           type: string
         damage:
-          oneOf:
-            - $ref: './combined.yml#/DamageAtCharacterLevel'
-            - $ref: './combined.yml#/DamageAtSlotLevel'
+          description: 'Damage dealt by the spell, one entry per damage type.'
+          type: array
+          items:
+            $ref: './combined.yml#/SpellDamage'
         school:
           description: 'Magic school this spell belongs to.'
           $ref: './combined.yml#/APIReference'
@@ -64,27 +65,20 @@ spell-model:
           type: array
           items:
             $ref: './combined.yml#/APIReference'
-damage-at-character-level-model:
+spell-damage-model:
   description: |
-    'Spell Damage scaling by character level'
+    'Spell Damage'
   type: object
   properties:
-    damage_at_character_level:
-      description: 'Damage at each character level, keyed by level number.'
-      type: object
-      additionalProperties:
-        type: string
     damage_type:
       $ref: './combined.yml#/APIReference'
-damage-at-slot-level-model:
-  description: |
-    'Spell Damage scaling by spell slot level'
-  type: object
-  properties:
     damage_at_slot_level:
       description: 'Damage at each spell slot level, keyed by slot level number.'
       type: object
       additionalProperties:
         type: string
-    damage_type:
-      $ref: './combined.yml#/APIReference'
+    damage_at_character_level:
+      description: 'Damage at each character level, keyed by level number.'
+      type: object
+      additionalProperties:
+        type: string

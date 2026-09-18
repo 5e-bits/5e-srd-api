@@ -200,6 +200,28 @@ describe('SpellController', () => {
       expect(mockNext).not.toHaveBeenCalled()
     })
 
+    it('returns multiple damage entries for spells with more than one damage type', async () => {
+      // Arrange
+      const damage = [
+        { damage_type: { index: 'fire', name: 'Fire', url: '/api/2014/damage-types/fire' } },
+        { damage_type: { index: 'cold', name: 'Cold', url: '/api/2014/damage-types/cold' } }
+      ]
+      const spellData = spellFactory.build({ index: 'ice-storm', name: 'Ice Storm', damage })
+      await SpellModel.insertMany([spellData])
+
+      const request = createRequest({ params: { index: 'ice-storm' } })
+      const response = createResponse()
+
+      // Act
+      await SpellController.show(request, response, mockNext)
+
+      // Assert
+      const responseData = JSON.parse(response._getData())
+      expect(responseData.damage).toHaveLength(2)
+      expect(responseData.damage[0].damage_type.index).toBe('fire')
+      expect(responseData.damage[1].damage_type.index).toBe('cold')
+    })
+
     it('calls next() when the spell is not found', async () => {
       // Arrange
       const request = createRequest({ params: { index: 'nonexistent' } })

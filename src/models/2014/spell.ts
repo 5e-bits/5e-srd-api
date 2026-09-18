@@ -79,9 +79,9 @@ export class Spell {
   @prop({ index: true, type: () => Boolean })
   public concentration!: boolean
 
-  @Field(() => SpellDamage, { nullable: true, description: 'Damage details, if applicable.' })
-  @prop({ type: () => SpellDamage })
-  public damage?: SpellDamage
+  @Field(() => [SpellDamage], { nullable: true, description: 'Damage details, if applicable.' })
+  @prop({ type: () => [SpellDamage] })
+  public damage?: SpellDamage[]
 
   @Field(() => SpellDC, { nullable: true, description: 'Saving throw details, if applicable.' })
   @prop({ type: () => SpellDC })
