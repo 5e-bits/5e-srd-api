@@ -1,9 +1,12 @@
-# ---- Builder Stage ----
-FROM node:24-alpine AS builder
-
-WORKDIR /app
+# ---- Base Stage ----
+FROM node:24-alpine AS base
 
 RUN npm install -g pnpm@12.4.2
+
+# ---- Builder Stage ----
+FROM base AS builder
+
+WORKDIR /app
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/api/package.json ./apps/api/package.json
@@ -22,13 +25,11 @@ COPY apps/api ./apps/api
 RUN pnpm --filter dnd-5e-srd-api run build
 
 # ---- Final Stage ----
-FROM node:24-alpine
+# pnpm comes from the base stage: test:integration:local execs
+# `pnpm run test:integration` inside this final-stage container.
+FROM base
 
 WORKDIR /app
-
-# pnpm (unlike npm) isn't bundled with the node image; test:integration:local
-# execs `pnpm run test:integration` inside this final-stage container.
-RUN npm install -g pnpm@12.4.2
 
 # Copy the whole installed workspace (node_modules incl. pnpm's symlink
 # structure, built dist/, source, and config) from the builder stage in one
