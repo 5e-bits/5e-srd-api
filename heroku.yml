@@ -1,5 +1,0 @@
-build:
-  docker:
-    web: apps/api/Dockerfile
-run:
-  web: node dist/src/start.js
