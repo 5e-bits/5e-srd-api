@@ -15,3 +15,11 @@ test('docs subdomain points at GitHub Pages', () => {
     ResourceRecords: ['5e-bits.github.io'],
   });
 });
+
+test('GitHub Pages domain verification TXT record exists', () => {
+  const template = Template.fromStack(new InfrastructureStack(new cdk.App(), 'TestStack'));
+  template.hasResourceProperties('AWS::Route53::RecordSet', {
+    Name: '_github-pages-challenge-5e-bits.dnd5eapi.co.',
+    Type: 'TXT',
+  });
+});
