@@ -136,7 +136,10 @@ export class Spell2024 {
   @prop({ type: () => APIReference, required: true })
   public school!: APIReference
 
-  @Field(() => [Subclass2024], { nullable: true, description: 'Subclasses that can cast this spell.' })
+  @Field(() => [Subclass2024], {
+    nullable: true,
+    description: 'Subclasses that can cast this spell.'
+  })
   @prop({ type: () => [APIReference] })
   public subclasses?: APIReference[]
 

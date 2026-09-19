@@ -29,7 +29,10 @@ export class ClassSpecific2024 {
   @prop({ type: () => Number })
   public channel_divinity_charges?: number
 
-  @Field(() => Int, { nullable: true, description: 'Number of Warlock Eldritch Invocations known.' })
+  @Field(() => Int, {
+    nullable: true,
+    description: 'Number of Warlock Eldritch Invocations known.'
+  })
   @prop({ type: () => Number })
   public eldritch_invocations?: number
 
@@ -49,7 +52,10 @@ export class ClassSpecific2024 {
   @prop({ type: () => Number })
   public rage_count?: number
 
-  @Field(() => Int, { nullable: true, description: 'Damage bonus added to Barbarian rage attacks.' })
+  @Field(() => Int, {
+    nullable: true,
+    description: 'Damage bonus added to Barbarian rage attacks.'
+  })
   @prop({ type: () => Number })
   public rage_damage_bonus?: number
 

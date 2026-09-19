@@ -1,6 +1,6 @@
 import express from 'express'
 
-import * as SpellController from '@/controllers/api/2024/spellController'
+import SpellController from '@/controllers/api/2024/spellController'
 import { index } from '@/controllers/api/v2024Controller'
 import SimpleController from '@/controllers/simpleController'
 import AbilityScoreModel from '@/models/2024/abilityScore'

@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import * as SpellController from '@/controllers/api/2024/spellController'
+import SpellController from '@/controllers/api/2024/spellController'
 import Spell2024Model from '@/models/2024/spell'
 import Translation2024Model from '@/models/2024/translation'
 import { spellFactory } from '@/tests/factories/2024/spell.factory'

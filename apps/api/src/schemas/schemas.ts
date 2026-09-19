@@ -28,7 +28,10 @@ export const LevelParamsSchema = ShowParamsSchema.extend({
  */
 const splitCommaList = (val: string | string[] | undefined): string[] | undefined => {
   if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return undefined
-  const out = (Array.isArray(val) ? val : [val]).flatMap((s) => s.split(',')).map((s) => s.trim()).filter(Boolean)
+  const out = (Array.isArray(val) ? val : [val])
+    .flatMap((s) => s.split(','))
+    .map((s) => s.trim())
+    .filter(Boolean)
   return out.length > 0 ? out : undefined
 }
 
@@ -38,7 +41,9 @@ const splitCommaList = (val: string | string[] | undefined): string[] | undefine
  * Non-numeric tokens are silently dropped.
  */
 const transformNumericList = (val: string | string[] | undefined) => {
-  const numbers = splitCommaList(val)?.map(Number).filter((n) => !isNaN(n))
+  const numbers = splitCommaList(val)
+    ?.map(Number)
+    .filter((n) => !isNaN(n))
   return numbers && numbers.length > 0 ? numbers : undefined
 }
 
@@ -47,7 +52,7 @@ const transformNumericList = (val: string | string[] | undefined) => {
  * Handles single strings, arrays, and comma-separated strings (e.g. "illusion,evocation").
  */
 const transformStringList = (val: string | string[] | undefined) => {
-   return splitCommaList(val);
+  return splitCommaList(val)
 }
 
 // Schemas from api/2014/spellController.ts
