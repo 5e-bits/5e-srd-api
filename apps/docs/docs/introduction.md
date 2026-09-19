@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Welcome to the D&D 5e SRD API, the Dungeons & Dragons 5th Edition API.
 
-This documentation will help you familiarize yourself with the resources available and how to consume them with HTTP requests. Read through the getting started [tutorial](/docs/tutorials/) before you dive in.
+This documentation will help you familiarize yourself with the resources available and how to consume them with HTTP requests. Read through the getting started [tutorial](/tutorials/) before you dive in.
 
 ## Base URL
 
@@ -38,7 +38,7 @@ This API also supports [GraphQL](https://graphql.org/). The GraphQL endpoint is:
 https://www.dnd5eapi.co/graphql
 ```
 
-See the [GraphQL tutorial](/docs/tutorials/beginner/graphql) for examples and how to use the Apollo sandbox explorer.
+See the [GraphQL tutorial](/tutorials/beginner/graphql) for examples and how to use the Apollo sandbox explorer.
 
 ## Community
 

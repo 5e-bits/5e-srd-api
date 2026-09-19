@@ -5,14 +5,14 @@ import type * as Preset from "@docusaurus/preset-classic";
 const config: Config = {
   title: "D&D 5e SRD API",
   tagline: "REST + GraphQL API for the 5e SRD database",
-  url: "https://5e-bits.github.io",
+  url: "https://docs.dnd5eapi.co",
   trailingSlash: false,
-  baseUrl: "/docs/",
+  baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "5e-bits", // Usually your GitHub org/user name.
-  projectName: "docs", // Usually your repo name.
+  projectName: "5e-srd-api", // Usually your repo name.
   markdown: {
     mermaid: true,
   },
@@ -147,7 +147,7 @@ const config: Config = {
       { name: "theme-color", content: "#D81921" },
       { property: "og:title", content: "D&D 5e SRD API" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://5e-bits.github.io/docs/" },
+      { property: "og:url", content: "https://docs.dnd5eapi.co/" },
     ],
     navbar: {
       title: "D&D 5e SRD API",

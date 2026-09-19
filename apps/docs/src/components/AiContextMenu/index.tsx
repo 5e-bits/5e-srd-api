@@ -192,12 +192,12 @@ export default function AiContextMenu(): JSX.Element {
   function getMarkdownUrl(): string | null {
     const path = window.location.pathname;
     // Docs and tutorial pages have corresponding .md files
-    // e.g. /docs/introduction -> https://5e-bits.github.io/docs/docs/introduction.md
-    // API pages (/docs/api/...) do not have .md files
-    const base = "https://5e-bits.github.io/docs";
-    const match = path.match(/^\/docs\/(.+?)(?:\/?)$/);
+    // e.g. /introduction -> https://docs.dnd5eapi.co/introduction.md
+    // API pages (/api/...) do not have .md files
+    const base = "https://docs.dnd5eapi.co";
+    const match = path.match(/^\/(.+?)(?:\/?)$/);
     if (match && !match[1].startsWith("api/")) {
-      return `${base}/docs/${match[1].replace(/\/$/, "")}.md`;
+      return `${base}/${match[1]}.md`;
     }
     return null;
   }
@@ -207,7 +207,7 @@ export default function AiContextMenu(): JSX.Element {
     const pageUrl = window.location.href;
     const prompt = mdUrl
       ? `Fetch ${mdUrl} and read the documentation so I can ask questions about it. The page is located at ${pageUrl}`
-      : `Fetch ${pageUrl} and read the page content so I can ask questions about this D&D 5e SRD API documentation. You can also fetch https://5e-bits.github.io/docs/llms.txt for a site overview.`;
+      : `Fetch ${pageUrl} and read the page content so I can ask questions about this D&D 5e SRD API documentation. You can also fetch https://docs.dnd5eapi.co/llms.txt for a site overview.`;
     return `${baseUrl}?${queryParam}=${encodeURIComponent(prompt)}`;
   }
 

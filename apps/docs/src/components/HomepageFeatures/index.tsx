@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
         to get you building with the API..
       </>
     ),
-    link: "/docs/tutorials/beginner/getting-started",
+    link: "/tutorials/beginner/getting-started",
   },
   {
     title: "API Reference",
@@ -34,7 +34,7 @@ const FeatureList: FeatureItem[] = [
         this is the place for you.
       </>
     ),
-    link: "/docs/api",
+    link: "/api",
   },
 
   {
@@ -46,7 +46,7 @@ const FeatureList: FeatureItem[] = [
         already got an answer for ya.
       </>
     ),
-    link: "/docs/faq",
+    link: "/faq",
   },
 ];
 
