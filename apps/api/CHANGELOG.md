@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.9.3](https://github.com/5e-bits/5e-srd-api/compare/v5.9.2...v5.9.3) (2026-09-19)
+
+
+### Bug Fixes
+
+* **api:** allow Mixed for MonsterAction damage ([#1221](https://github.com/5e-bits/5e-srd-api/issues/1221)) ([d548b95](https://github.com/5e-bits/5e-srd-api/commit/d548b951b7a71e66c89da5ab30e8ea5b7d038eaa))
+
 ## [5.9.2](https://github.com/5e-bits/5e-srd-api/compare/v5.9.1...v5.9.2) (2026-09-19)
 
 
