@@ -1,16 +1,7 @@
-import * as express from 'express'
-
 import * as ClassController from '@/controllers/api/2024/classController'
+import { simpleRouter } from '@/routes/simpleRouter'
 
-const router = express.Router()
-
-router.get('/', function (req, res, next) {
-  ClassController.index(req, res, next)
-})
-
-router.get('/:index', function (req, res, next) {
-  ClassController.show(req, res, next)
-})
+const router = simpleRouter(ClassController)
 
 router.get('/:index/spells', function (req, res, next) {
   ClassController.showSpellsForClass(req, res, next)
