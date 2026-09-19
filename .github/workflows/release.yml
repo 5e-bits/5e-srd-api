@@ -104,6 +104,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == '5e-bits/5e-srd-api'
     needs: [build-and-publish, container-release]
+    permissions:
+      contents: read
+      packages: read
     steps:
       - name: Determine Release Tag
         id: tag
@@ -117,15 +120,21 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ steps.tag.outputs.tag }}
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.15.15
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "dnd-5e-srd-api"
-          heroku_email: "cdurianward@gmail.com"
+      - name: Log in to ghcr and Heroku registries
+        run: |
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          echo "$HEROKU_API_KEY" | docker login registry.heroku.com -u _ --password-stdin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Push release image to Heroku
+        run: |
+          SRC=${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.tag }}
+          DEST=registry.heroku.com/dnd-5e-srd-api/web
+          docker pull "$SRC"
+          docker tag "$SRC" "$DEST"
+          docker push "$DEST"
+      - name: Release on Heroku
+        run: heroku container:release web --app dnd-5e-srd-api
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
