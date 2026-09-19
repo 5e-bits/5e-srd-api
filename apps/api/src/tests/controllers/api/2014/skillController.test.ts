@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import SkillController from '@/controllers/api/2014/skillController'
+import SimpleController from '@/controllers/simpleController'
 import SkillModel from '@/models/2014/skill' // Use Model suffix
 import { skillFactory } from '@/tests/factories/2014/skill.factory' // Updated path
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const SkillController = new SimpleController(SkillModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

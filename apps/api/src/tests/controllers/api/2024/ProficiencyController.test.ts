@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import ProficiencyController from '@/controllers/api/2024/proficiencyController'
+import SimpleController from '@/controllers/simpleController'
 import ProficiencyModel from '@/models/2024/proficiency'
 import { proficiencyFactory } from '@/tests/factories/2024/proficiency.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const ProficiencyController = new SimpleController(ProficiencyModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('proficiency')

@@ -232,7 +232,8 @@ describe('SubclassController', () => {
       const response = createResponse()
       const error = new Error('Feature find failed')
       vi.spyOn(Feature2024Model, 'find').mockImplementationOnce(
-        () => ({ select: vi.fn().mockReturnThis(), sort: vi.fn().mockRejectedValueOnce(error) }) as any
+        () =>
+          ({ select: vi.fn().mockReturnThis(), sort: vi.fn().mockRejectedValueOnce(error) }) as any
       )
 
       await SubclassController.showFeaturesForSubclassAndLevel(request, response, mockNext)

@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import AlignmentController from '@/controllers/api/2014/alignmentController'
+import SimpleController from '@/controllers/simpleController'
 import AlignmentModel from '@/models/2014/alignment'
 import { alignmentFactory } from '@/tests/factories/2014/alignment.factory'
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const AlignmentController = new SimpleController(AlignmentModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

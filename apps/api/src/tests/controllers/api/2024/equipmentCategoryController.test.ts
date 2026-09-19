@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import EquipmentCategoryController from '@/controllers/api/2024/equipmentCategoryController'
+import SimpleController from '@/controllers/simpleController'
 import EquipmentCategoryModel from '@/models/2024/equipmentCategory'
 import { equipmentCategoryFactory } from '@/tests/factories/2024/equipmentCategory.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const EquipmentCategoryController = new SimpleController(EquipmentCategoryModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

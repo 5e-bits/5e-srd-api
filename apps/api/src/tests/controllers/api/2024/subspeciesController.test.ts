@@ -86,14 +86,10 @@ describe('SubspeciesController (2024)', () => {
   describe('showTraitsForSubspecies', () => {
     it('returns traits matching the subspecies url', async () => {
       const matchingTraits = traitFactory.buildList(2, {
-        subspecies: [
-          { index: 'high-elf', name: 'High Elf', url: '/api/2024/subspecies/high-elf' }
-        ]
+        subspecies: [{ index: 'high-elf', name: 'High Elf', url: '/api/2024/subspecies/high-elf' }]
       })
       const otherTrait = traitFactory.build({
-        subspecies: [
-          { index: 'wood-elf', name: 'Wood Elf', url: '/api/2024/subspecies/wood-elf' }
-        ]
+        subspecies: [{ index: 'wood-elf', name: 'Wood Elf', url: '/api/2024/subspecies/wood-elf' }]
       })
 
       await Trait2024Model.insertMany([...matchingTraits, otherTrait])

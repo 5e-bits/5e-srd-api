@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import WeaponPropertyController from '@/controllers/api/2024/weaponPropertyController'
+import SimpleController from '@/controllers/simpleController'
 import WeaponPropertyModel from '@/models/2024/weaponProperty'
 import { weaponPropertyFactory } from '@/tests/factories/2024/weaponProperty.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const WeaponPropertyController = new SimpleController(WeaponPropertyModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('weaponproperty')

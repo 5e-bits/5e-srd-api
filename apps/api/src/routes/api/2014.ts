@@ -1,26 +1,27 @@
 import express from 'express'
 
-import AbilityScoreController from '@/controllers/api/2014/abilityScoreController'
-import AlignmentController from '@/controllers/api/2014/alignmentController'
-import BackgroundController from '@/controllers/api/2014/backgroundController'
-import ConditionController from '@/controllers/api/2014/conditionController'
-import DamageTypeController from '@/controllers/api/2014/damageTypeController'
-import EquipmentCategoryController from '@/controllers/api/2014/equipmentCategoryController'
-import EquipmentController from '@/controllers/api/2014/equipmentController'
-import FeatController from '@/controllers/api/2014/featController'
-import FeatureController from '@/controllers/api/2014/featureController'
-import LanguageController from '@/controllers/api/2014/languageController'
 import * as MagicItemController from '@/controllers/api/2014/magicItemController'
-import MagicSchoolController from '@/controllers/api/2014/magicSchoolController'
 import * as MonsterController from '@/controllers/api/2014/monsterController'
-import ProficiencyController from '@/controllers/api/2014/proficiencyController'
 import * as RuleController from '@/controllers/api/2014/ruleController'
 import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
-import SkillController from '@/controllers/api/2014/skillController'
 import * as SpellController from '@/controllers/api/2014/spellController'
-import TraitController from '@/controllers/api/2014/traitController'
-import WeaponPropertyController from '@/controllers/api/2014/weaponPropertyController'
 import { index } from '@/controllers/api/v2014Controller'
+import SimpleController from '@/controllers/simpleController'
+import AbilityScoreModel from '@/models/2014/abilityScore'
+import AlignmentModel from '@/models/2014/alignment'
+import Background from '@/models/2014/background'
+import ConditionModel from '@/models/2014/condition'
+import DamageType from '@/models/2014/damageType'
+import Equipment from '@/models/2014/equipment'
+import EquipmentCategory from '@/models/2014/equipmentCategory'
+import Feat from '@/models/2014/feat'
+import Feature from '@/models/2014/feature'
+import Language from '@/models/2014/language'
+import MagicSchool from '@/models/2014/magicSchool'
+import Proficiency from '@/models/2014/proficiency'
+import Skill from '@/models/2014/skill'
+import Trait from '@/models/2014/trait'
+import WeaponProperty from '@/models/2014/weaponProperty'
 import { simpleRouter } from '@/routes/simpleRouter'
 
 import ClassesHandler from './2014/classes'
@@ -36,31 +37,31 @@ router.get('/', function (req, res, next) {
   index(req, res, next)
 })
 
-router.use('/ability-scores', simpleRouter(AbilityScoreController))
-router.use('/alignments', simpleRouter(AlignmentController))
-router.use('/backgrounds', simpleRouter(BackgroundController))
+router.use('/ability-scores', simpleRouter(new SimpleController(AbilityScoreModel)))
+router.use('/alignments', simpleRouter(new SimpleController(AlignmentModel)))
+router.use('/backgrounds', simpleRouter(new SimpleController(Background)))
 router.use('/classes', ClassesHandler)
-router.use('/conditions', simpleRouter(ConditionController))
-router.use('/damage-types', simpleRouter(DamageTypeController))
-router.use('/equipment-categories', simpleRouter(EquipmentCategoryController))
-router.use('/equipment', simpleRouter(EquipmentController))
-router.use('/feats', simpleRouter(FeatController))
-router.use('/features', simpleRouter(FeatureController))
+router.use('/conditions', simpleRouter(new SimpleController(ConditionModel)))
+router.use('/damage-types', simpleRouter(new SimpleController(DamageType)))
+router.use('/equipment-categories', simpleRouter(new SimpleController(EquipmentCategory)))
+router.use('/equipment', simpleRouter(new SimpleController(Equipment)))
+router.use('/feats', simpleRouter(new SimpleController(Feat)))
+router.use('/features', simpleRouter(new SimpleController(Feature)))
 router.use('/images', ImageHandler)
-router.use('/languages', simpleRouter(LanguageController))
+router.use('/languages', simpleRouter(new SimpleController(Language)))
 router.use('/locales', LocalesHandler)
 router.use('/magic-items', simpleRouter(MagicItemController))
-router.use('/magic-schools', simpleRouter(MagicSchoolController))
+router.use('/magic-schools', simpleRouter(new SimpleController(MagicSchool)))
 router.use('/monsters', simpleRouter(MonsterController))
-router.use('/proficiencies', simpleRouter(ProficiencyController))
+router.use('/proficiencies', simpleRouter(new SimpleController(Proficiency)))
 router.use('/races', RacesHandler)
 router.use('/rules', simpleRouter(RuleController))
 router.use('/rule-sections', simpleRouter(RuleSectionController))
-router.use('/skills', simpleRouter(SkillController))
+router.use('/skills', simpleRouter(new SimpleController(Skill)))
 router.use('/spells', simpleRouter(SpellController))
 router.use('/subclasses', SubclassesHandler)
 router.use('/subraces', SubracesHandler)
-router.use('/traits', simpleRouter(TraitController))
-router.use('/weapon-properties', simpleRouter(WeaponPropertyController))
+router.use('/traits', simpleRouter(new SimpleController(Trait)))
+router.use('/weapon-properties', simpleRouter(new SimpleController(WeaponProperty)))
 
 export default router
