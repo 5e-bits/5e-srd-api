@@ -129,5 +129,11 @@ export class InfrastructureStack extends cdk.Stack {
       recordName: "docs",
       domainName: "5e-bits.github.io",
     });
+
+    new route53.TxtRecord(this, "GithubPagesChallengeRecord", {
+      zone: hostedZone,
+      recordName: "_github-pages-challenge-5e-bits",
+      values: ["aff4f873c3c042088ae745c9d2ddfa"],
+    });
   }
 }
