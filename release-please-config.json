@@ -4,6 +4,7 @@
     "apps/api": {
       "release-type": "node",
       "package-name": "5e-srd-api",
+      "include-component-in-tag": false,
       "changelog-sections": [
         {
           "type": "feat",
