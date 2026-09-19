@@ -52,3 +52,4 @@ docker-compose.override.yml
 
 # Claude
 .claude
+docs/superpowers
