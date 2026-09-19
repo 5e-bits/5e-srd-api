@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/api/damage-types', () => {
   it('redirects to /api/2014/damage-types', async () => {
-    await request(app)
+    await request(server)
       .get('/api/damage-types')
       .expect(301)
       .expect('Location', '/api/2014/damage-types')
@@ -36,7 +36,7 @@ describe('/api/damage-types', () => {
 
   it('redirects preserving query parameters', async () => {
     const name = 'Acid'
-    await request(app)
+    await request(server)
       .get(`/api/damage-types?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/damage-types?name=${name}`)
@@ -44,7 +44,7 @@ describe('/api/damage-types', () => {
 
   it('redirects to /api/2014/damage-types/{index}', async () => {
     const index = 'cold'
-    await request(app)
+    await request(server)
       .get(`/api/damage-types/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/damage-types/${index}`)

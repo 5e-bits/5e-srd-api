@@ -28,24 +28,24 @@ afterAll(async () => {
 
 describe('/api/2024/monsters', () => {
   it('should list monsters', async () => {
-    const res = await request(app).get('/api/2024/monsters')
+    const res = await request(server).get('/api/2024/monsters')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
   })
 
   describe('with name query', () => {
     it('returns the named object', async () => {
-      const indexRes = await request(app).get('/api/2024/monsters')
+      const indexRes = await request(server).get('/api/2024/monsters')
       const name = indexRes.body.results[0].name
-      const res = await request(app).get(`/api/2024/monsters?name=${name}`)
+      const res = await request(server).get(`/api/2024/monsters?name=${name}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].name).toEqual(name)
     })
 
     it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/2024/monsters')
+      const indexRes = await request(server).get('/api/2024/monsters')
       const name = indexRes.body.results[0].name
-      const res = await request(app).get(`/api/2024/monsters?name=${name.toLowerCase()}`)
+      const res = await request(server).get(`/api/2024/monsters?name=${name.toLowerCase()}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].name).toEqual(name)
     })
@@ -53,16 +53,16 @@ describe('/api/2024/monsters', () => {
 
   describe('/api/2024/monsters/:index', () => {
     it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/2024/monsters')
+      const indexRes = await request(server).get('/api/2024/monsters')
       const index = indexRes.body.results[0].index
-      const showRes = await request(app).get(`/api/2024/monsters/${index}`)
+      const showRes = await request(server).get(`/api/2024/monsters/${index}`)
       expect(showRes.statusCode).toEqual(200)
       expect(showRes.body.index).toEqual(index)
     })
 
     describe('with an invalid index', () => {
       it('should return 404', async () => {
-        const showRes = await request(app).get('/api/2024/monsters/invalid-index')
+        const showRes = await request(server).get('/api/2024/monsters/invalid-index')
         expect(showRes.statusCode).toEqual(404)
       })
     })

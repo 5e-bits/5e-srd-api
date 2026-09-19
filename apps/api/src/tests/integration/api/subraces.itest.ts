@@ -28,12 +28,12 @@ afterAll(async () => {
 
 describe('/api/subraces', () => {
   it('redirects to /api/2014/subraces', async () => {
-    await request(app).get('/api/subraces').expect(301).expect('Location', '/api/2014/subraces')
+    await request(server).get('/api/subraces').expect(301).expect('Location', '/api/2014/subraces')
   })
 
   it('redirects preserving query parameters', async () => {
     const name = 'High%20Elf'
-    await request(app)
+    await request(server)
       .get(`/api/subraces?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/subraces?name=${name}`)
@@ -41,7 +41,7 @@ describe('/api/subraces', () => {
 
   it('redirects to /api/2014/subraces/{index}', async () => {
     const index = 'hill-dwarf'
-    await request(app)
+    await request(server)
       .get(`/api/subraces/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/subraces/${index}`)

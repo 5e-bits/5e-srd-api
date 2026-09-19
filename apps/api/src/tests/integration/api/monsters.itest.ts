@@ -28,12 +28,12 @@ afterAll(async () => {
 
 describe('/api/monsters', () => {
   it('redirects to /api/2014/monsters', async () => {
-    await request(app).get('/api/monsters').expect(301).expect('Location', '/api/2014/monsters')
+    await request(server).get('/api/monsters').expect(301).expect('Location', '/api/2014/monsters')
   })
 
   it('redirects preserving query parameters', async () => {
     const name = 'Aboleth'
-    await request(app)
+    await request(server)
       .get(`/api/monsters?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/monsters?name=${name}`)
@@ -41,7 +41,7 @@ describe('/api/monsters', () => {
 
   it('redirects to /api/2014/monsters/{index}', async () => {
     const index = 'acolyte'
-    await request(app)
+    await request(server)
       .get(`/api/monsters/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/monsters/${index}`)

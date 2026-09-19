@@ -28,12 +28,12 @@ afterAll(async () => {
 
 describe('/api/languages', () => {
   it('redirects to /api/2014/languages', async () => {
-    await request(app).get('/api/languages').expect(301).expect('Location', '/api/2014/languages')
+    await request(server).get('/api/languages').expect(301).expect('Location', '/api/2014/languages')
   })
 
   it('redirects preserving query parameters', async () => {
     const name = 'Abyssal'
-    await request(app)
+    await request(server)
       .get(`/api/languages?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/languages?name=${name}`)
@@ -41,7 +41,7 @@ describe('/api/languages', () => {
 
   it('redirects to /api/2014/languages/{index}', async () => {
     const index = 'celestial'
-    await request(app)
+    await request(server)
       .get(`/api/languages/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/languages/${index}`)

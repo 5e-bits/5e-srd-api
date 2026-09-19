@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/graphql/2024 spells', () => {
   it('lists spells filtered by class', async () => {
-    const res = await request(app)
+    const res = await request(server)
       .post('/graphql/2024')
       .send({
         query: `
@@ -52,7 +52,7 @@ describe('/graphql/2024 spells', () => {
   })
 
   it('gets a single spell by index', async () => {
-    const res = await request(app).post('/graphql/2024').send({
+    const res = await request(server).post('/graphql/2024').send({
       query: `
         query {
           spell(index: "acid-arrow") {
@@ -73,7 +73,7 @@ describe('/graphql/2024 spells', () => {
   })
 
   it('returns null for an unknown spell index', async () => {
-    const res = await request(app).post('/graphql/2024').send({
+    const res = await request(server).post('/graphql/2024').send({
       query: `
         query {
           spell(index: "not-a-real-spell") {
