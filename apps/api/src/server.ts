@@ -102,7 +102,7 @@ export default async () => {
 
   // Register routes
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'))
+    res.sendFile('index.html', { root: path.join(__dirname, 'public') })
   })
   app.get('/docs', docsController)
   app.use('/api', apiRoutes)
