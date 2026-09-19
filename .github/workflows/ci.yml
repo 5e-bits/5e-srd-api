@@ -13,6 +13,7 @@ jobs:
     outputs:
       api: ${{ steps.filter.outputs.api }}
       infra: ${{ steps.filter.outputs.infra }}
+      docs: ${{ steps.filter.outputs.docs }}
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # @v7.0.0
       - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # @v4.0.3
@@ -33,6 +34,13 @@ jobs:
               - package.json
               - .github/workflows/ci.yml
               - .github/workflows/infra-ci.yml
+            docs:
+              - apps/docs/**
+              - pnpm-lock.yaml
+              - pnpm-workspace.yaml
+              - package.json
+              - .github/workflows/ci.yml
+              - .github/workflows/docs-ci.yml
 
   api:
     name: API
@@ -46,10 +54,16 @@ jobs:
     if: needs.changes.outputs.infra == 'true'
     uses: ./.github/workflows/infra-ci.yml
 
+  docs:
+    name: Docs
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    uses: ./.github/workflows/docs-ci.yml
+
   ci-passed:
     name: CI passed
     if: always()
-    needs: [changes, api, infra]
+    needs: [changes, api, infra, docs]
     runs-on: ubuntu-latest
     steps:
       - name: Fail if any job failed or was cancelled

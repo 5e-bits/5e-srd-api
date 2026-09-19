@@ -1,0 +1,145 @@
+.container {
+  position: relative;
+  display: inline-flex;
+}
+
+/* ─── Primary "Copy page" button with chevron ─── */
+
+.buttonGroup {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--dnd-border);
+  border-radius: 0.375rem;
+  background: var(--dnd-bg);
+  overflow: hidden;
+}
+
+.primaryButton {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  border: none;
+  background: none;
+  color: var(--dnd-text-secondary);
+  font-size: 0.8125rem;
+  font-family: var(--ifm-font-family-base);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+
+.primaryButton:hover {
+  color: var(--dnd-text);
+  background: var(--dnd-surface);
+}
+
+.primaryIcon {
+  display: flex;
+  align-items: center;
+  color: var(--dnd-text-tertiary);
+}
+
+.chevronButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem 0.375rem;
+  border: none;
+  border-left: 1px solid var(--dnd-border);
+  background: none;
+  color: var(--dnd-text-tertiary);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.chevronButton:hover {
+  color: var(--dnd-text);
+  background: var(--dnd-surface);
+}
+
+/* ─── Dropdown ─── */
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 100;
+  min-width: 260px;
+  padding: 0.25rem;
+  background: var(--dnd-bg);
+  border: 1px solid var(--dnd-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .dropdown {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.32), 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.divider {
+  height: 1px;
+  background: var(--dnd-border);
+  margin: 0.25rem 0.5rem;
+}
+
+/* ─── Dropdown items ─── */
+
+.dropdownItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: none;
+  color: var(--dnd-text);
+  font-family: var(--ifm-font-family-base);
+  cursor: pointer;
+  transition: background 0.1s ease;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background: var(--dnd-surface);
+}
+
+.itemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--dnd-text-secondary);
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.0625rem;
+  min-width: 0;
+}
+
+.itemLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--dnd-text);
+  line-height: 1.3;
+}
+
+.externalIcon {
+  display: inline-flex;
+  color: var(--dnd-text-tertiary);
+}
+
+.itemDescription {
+  font-size: 0.75rem;
+  color: var(--dnd-text-tertiary);
+  line-height: 1.3;
+}

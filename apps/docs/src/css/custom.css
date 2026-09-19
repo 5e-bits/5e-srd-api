@@ -1,0 +1,862 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Import fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Young+Serif&display=swap");
+
+/* You can override the default Infima variables here. */
+:root {
+  /* Modern theme colors */
+  --ifm-color-primary: #e53935 !important;
+  --ifm-color-primary-dark: #d32f2f !important;
+  --ifm-color-primary-darker: #c62828 !important;
+  --ifm-color-primary-darkest: #b71c1c !important;
+  --ifm-color-primary-light: #ef5350 !important;
+  --ifm-color-primary-lighter: #ef5350 !important;
+  --ifm-color-primary-lightest: #ef9a9a !important;
+  --ifm-pre-background: var(--dnd-surface-2) !important;
+
+  --ifm-toc-border-color: var(--dnd-bg) !important;
+
+  --ifm-table-border-color: var(--dnd-border) !important;
+
+  --doc-sidebar-width: 250px !important;
+
+  --ifm-transition-fast: 0ms !important;
+
+  --ifm-global-radius: 0.25rem !important;
+
+  --ifm-button-background-color: var(--dnd-text) !important;
+  --ifm-button-color: var(--dnd-bg) !important;
+  --ifm-button-border-color: var(--dnd-text) !important;
+  --ifm-button-padding-vertical: 0.25rem !important;
+  --ifm-button-padding-horizontal: 0.75rem !important;
+
+  --ifm-breadcrumb-item-background-active: var(--dnd-bg) !important;
+  --ifm-breadcrumb-padding-vertical: 0.12rem !important;
+  --ifm-breadcrumb-padding-horizontal: 0.25rem !important;
+
+  --ifm-menu-color-background-active: none !important;
+
+  /* Custom theme colors - Light mode */
+  --dnd-accent: #e53935;
+  --dnd-bg: #ffffff;
+  --dnd-surface: #f8f9fa;
+  --dnd-surface-2: #f1f3f5;
+  --dnd-border: #e9ecef;
+  --dnd-text: #212529;
+  --dnd-text-secondary: #495057;
+  --dnd-text-tertiary: #5c6370;
+
+  /* Typography */
+  --ifm-font-family-base: "Inter", system-ui, -apple-system, sans-serif !important;
+  --ifm-heading-font-family: "Inter", system-ui, -apple-system, sans-serif !important;
+
+  /* Background */
+  --ifm-background-color: var(--dnd-bg) !important;
+  --ifm-background-surface-color: var(--dnd-surface) !important;
+
+  /* Navbar */
+  --ifm-navbar-background-color: var(--dnd-bg) !important;
+  --ifm-navbar-shadow: none !important;
+
+  /* Footer */
+  --ifm-footer-background-color: var(--dnd-bg) !important;
+  --ifm-footer-border-color: var(--dnd-border) !important;
+
+  /* Content */
+  --ifm-color-content: var(--dnd-text) !important;
+  --ifm-link-color: var(--ifm-color-primary) !important;
+  --ifm-menu-color: var(--dnd-text) !important;
+
+  /* Code blocks */
+  --ifm-code-background: var(--dnd-surface-2) !important;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1) !important;
+
+  /* Font Sizing */
+  --ifm-font-size-base: 14px !important;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+  /* Custom theme colors - Dark mode */
+  --dnd-accent: #ef5350;
+  --dnd-bg: #101010;
+  --dnd-surface: #141414;
+  --dnd-surface-2: #1a1a1a;
+  --dnd-border: #262626;
+  --dnd-text: #ffffff;
+  --dnd-text-secondary: rgba(255, 255, 255, 0.7);
+  --dnd-text-tertiary: rgba(255, 255, 255, 0.6);
+
+  /* Background */
+  --ifm-background-color: var(--dnd-bg) !important;
+  --ifm-background-surface-color: var(--dnd-surface) !important;
+
+  /* Navbar */
+  --ifm-navbar-background-color: var(--dnd-bg) !important;
+  --ifm-navbar-shadow: none !important;
+
+  --ifm-breadcrumb-item-background-active: var(--dnd-bg) !important;
+
+  /* Code blocks */
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+  --ifm-button-background-color: var(--dnd-text) !important;
+  --ifm-button-color: var(--dnd-bg) !important;
+  --ifm-button-border-color: var(--dnd-text) !important;
+}
+
+/* Global styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+/* Hero section */
+.hero {
+  background: var(--dnd-bg);
+  color: var(--dnd-text);
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--dnd-text);
+  background: var(--ifm-color-primary-darkest);
+}
+
+::selection {
+  color: var(--dnd-text);
+  background: var(--ifm-color-primary-darkest);
+}
+
+.hero__title {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary-darkest);
+  font-family: "Young Serif", serif;
+  letter-spacing: -0.02em;
+  transform: translateZ(0);
+}
+
+[data-theme="dark"] .hero__title {
+  filter: drop-shadow(0 0 7px var(--ifm-color-primary-darkest))
+    drop-shadow(0 0 20px var(--dnd-bg))
+    drop-shadow(0 0 30px var(--ifm-color-primary-darker));
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--dnd-text);
+}
+
+/* Footer customization */
+.footer {
+  background-color: var(--dnd-bg);
+  border-top: 1px solid var(--dnd-border);
+  padding: 3rem 0;
+}
+
+.footer__title {
+  color: var(--dnd-text);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer__item {
+  color: var(--dnd-text-secondary);
+  font-size: 0.875rem;
+}
+
+.footer__link-item {
+  color: var(--dnd-text-secondary);
+  transition: color 0.2s ease;
+}
+
+.footer__link-item:hover {
+  color: var(--dnd-accent);
+  text-decoration: none;
+}
+
+.footer__copyright {
+  color: var(--dnd-text-tertiary);
+  font-size: 0.8125rem;
+  margin-top: 2rem;
+}
+
+/* ─── Hide Table of Contents (right sidebar) ─── */
+
+/* Doc pages: hide the TOC column */
+.col.col--3:has(.table-of-contents),
+.col.col--3:has([class*="tableOfContents"]) {
+  display: none !important;
+}
+
+/* Let the main content column expand to full width when TOC is hidden */
+@media (min-width: 997px) {
+  [class*="docItemCol"] {
+    max-width: 100% !important;
+  }
+}
+
+/* ─── AI Context Menu ─── */
+
+.ai-context-menu-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 0;
+}
+
+@media (min-width: 997px) {
+  .ai-context-menu-wrapper {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0;
+    z-index: 10;
+  }
+}
+
+/* ─── API Route Pages ─── */
+
+/*
+ * Notion-inspired API reference styling.
+ * Clean, compact, scannable — clear hierarchy without visual noise.
+ */
+
+/* --- Layout: add breathing room from the top, align both columns --- */
+
+@media (min-width: 997px) {
+  /*
+   * ApiItem renders: .row > .col (left docs) + .col.col--5 (right demo)
+   * Push content down from the navbar and align the two columns at the top.
+   */
+  .row:has(.theme-api-markdown) {
+    align-items: flex-start;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Constrain left-side content width for readability + breathing room */
+  .theme-api-markdown {
+    max-width: 640px;
+  }
+}
+
+/* --- Headings --- */
+
+/* Primary heading: endpoint name */
+.theme-api-markdown h1:first-child {
+  font-size: 1.625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  color: var(--dnd-text);
+}
+
+/* Second h1: model/schema name — subordinate */
+.theme-api-markdown > h1:nth-child(2) {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--dnd-text-tertiary);
+  opacity: 0.7;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0;
+  border-bottom: none;
+}
+
+/* Description paragraphs */
+.theme-api-markdown > h1:nth-child(2) + p,
+.theme-api-markdown h1 + p,
+.theme-api-markdown > h1:nth-child(2) + p + p {
+  color: var(--dnd-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Italic notes under descriptions */
+.theme-api-markdown h1 ~ p > em {
+  font-size: 0.8125rem;
+  color: var(--dnd-text-tertiary);
+}
+
+.theme-api-markdown h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.375rem;
+}
+
+.theme-api-markdown h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+/* --- All tables: strip every default background and border --- */
+
+.theme-api-markdown table,
+.theme-api-markdown table thead,
+.theme-api-markdown table tbody,
+.theme-api-markdown table tr,
+.theme-api-markdown table th,
+.theme-api-markdown table td {
+  border: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.theme-api-markdown table {
+  border-collapse: collapse;
+  margin-bottom: 0;
+}
+
+.theme-api-markdown table tbody tr:nth-child(2n) {
+  background-color: transparent !important;
+}
+
+/* --- Section labels (Path Parameters, Responses, Schema) --- */
+
+.theme-api-markdown table thead tr th {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: var(--dnd-text-tertiary) !important;
+  padding: 1.25rem 0 0.25rem !important;
+  border: none !important;
+}
+
+/* --- Field rows --- */
+
+.theme-api-markdown table tbody tr {
+  border: none !important;
+}
+
+/*
+ * Each <td> contains: <code>name</code> <span>type</span> <span>—</span> <strong>OPTIONAL</strong> <div>description</div>
+ * We use flexbox + wrap so the field signature stays on one line and the description wraps below.
+ */
+.theme-api-markdown table tbody td {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.375rem;
+  padding: 0.5rem 0 !important;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  vertical-align: top;
+  border-bottom: 1px solid var(--dnd-border) !important;
+}
+
+.theme-api-markdown table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Strip all code element chrome globally within API docs */
+.theme-api-markdown code {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--dnd-text);
+}
+
+/* Type annotation — sits right after field name */
+.theme-api-markdown table tbody td > span[style*="opacity"] {
+  font-size: 0.8125rem !important;
+  opacity: 0.65 !important;
+  font-weight: 400;
+}
+
+/* Hide the ugly dash separator */
+.theme-api-markdown table tbody td > span[style*="opacity"]:nth-of-type(2) {
+  display: none;
+}
+
+/* REQUIRED / OPTIONAL badges */
+.theme-api-markdown table tbody td strong[style*="openapi-required"] {
+  font-size: 0.6875rem !important;
+  letter-spacing: 0.04em;
+  font-weight: 500 !important;
+  opacity: 0.9;
+}
+
+.theme-api-markdown table tbody td strong[style*="openapi-optional"] {
+  font-size: 0.6875rem !important;
+  letter-spacing: 0.04em;
+  font-weight: 500 !important;
+  opacity: 0.6;
+}
+
+/* Description — drops to its own line (full width) */
+.theme-api-markdown table tbody td > div {
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+  color: var(--dnd-text-tertiary);
+  line-height: 1.5;
+  margin-top: 0.125rem !important;
+  padding-left: 0;
+}
+
+.theme-api-markdown table tbody td > div p {
+  margin-bottom: 0;
+  font-size: 0.8125rem;
+  color: var(--dnd-text-tertiary);
+}
+
+/* "Possible values" */
+.theme-api-markdown table tbody td > div strong {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--dnd-text-tertiary);
+}
+
+.theme-api-markdown table tbody td > div code {
+  font-size: 0.75rem;
+  color: var(--dnd-text-tertiary);
+}
+
+/* --- Nested schema tables — indented like JSON --- */
+
+.theme-api-markdown table table {
+  margin-top: 0 !important;
+  margin-left: 1rem;
+  border: none !important;
+  padding-left: 0;
+  flex-basis: 100%;
+}
+
+.theme-api-markdown table table table {
+  margin-left: 1rem;
+}
+
+/* Nested section labels */
+.theme-api-markdown table table thead tr th {
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0 0.125rem !important;
+  opacity: 0.75;
+}
+
+/* Nested rows — tighter */
+.theme-api-markdown table table tbody td {
+  padding: 0.25rem 0 !important;
+  border-bottom: none !important;
+}
+
+/* --- Response status --- */
+
+.theme-api-markdown table tbody td > div[style*="display:flex"],
+.theme-api-markdown table tbody td > div[style*="display: flex"] {
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.125rem;
+}
+
+.theme-api-markdown table tbody td > div[style*="display:flex"] code,
+.theme-api-markdown table tbody td > div[style*="display: flex"] code {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(56, 142, 60, 0.08) !important;
+  color: #388e3c;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
+
+[data-theme="dark"] .theme-api-markdown table tbody td > div[style*="display:flex"] code,
+[data-theme="dark"] .theme-api-markdown table tbody td > div[style*="display: flex"] code {
+  background: rgba(102, 187, 106, 0.1) !important;
+  color: #81c784;
+}
+
+/* --- General --- */
+
+.theme-api-markdown {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Links */
+.theme-api-markdown a {
+  font-size: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--dnd-border);
+  text-underline-offset: 2px;
+}
+
+.theme-api-markdown a:hover {
+  text-decoration-color: var(--dnd-accent);
+}
+
+/* --- Prev/Next pagination — simple buttons, not cards --- */
+
+.pagination-nav {
+  display: flex !important;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pagination-nav__link {
+  border: none !important;
+  background: none !important;
+  padding: 0.25rem 0 !important;
+  flex: none !important;
+  width: auto !important;
+}
+
+.pagination-nav__link:hover {
+  background: none !important;
+  text-decoration: none;
+}
+
+.pagination-nav__link:hover .pagination-nav__label {
+  opacity: 0.6;
+}
+
+.pagination-nav__sublabel {
+  display: none;
+}
+
+.pagination-nav__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--dnd-text);
+}
+
+/* Replace « » with arrows */
+.pagination-nav__link--prev .pagination-nav__label::before {
+  content: '← ' !important;
+}
+
+.pagination-nav__link--next .pagination-nav__label::after {
+  content: ' →' !important;
+}
+
+/* ─── Navbar toggle (hamburger menu) ─── */
+
+.navbar__toggle svg {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+}
+
+/* ─── Sidebar ─── */
+
+/* Tighten the overall menu */
+.menu {
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.875rem !important;
+}
+
+/* All menu links — compact, clean */
+.menu__link {
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  color: var(--dnd-text) !important;
+  border-radius: 0.375rem !important;
+  line-height: 1.4 !important;
+}
+
+.menu__link:hover {
+  background: var(--dnd-surface-2) !important;
+  color: var(--dnd-text) !important;
+}
+
+/* Active link — subtle highlight like the reference */
+.menu__link--active:not(.menu__link--sublist) {
+  background: var(--dnd-surface-2) !important;
+  color: var(--dnd-text) !important;
+  font-weight: 500 !important;
+}
+
+/* Category headings (collapsible) */
+.menu__link--sublist {
+  font-weight: 500 !important;
+}
+
+/* Category top-level labels slightly bolder */
+.menu__list-item-collapsible > .menu__link--sublist {
+  font-weight: 500 !important;
+}
+
+/* Chevron caret — small, right-aligned, subtle */
+.menu__link--sublist-caret::after {
+  background-size: 1rem 1rem !important;
+  min-width: 1rem !important;
+  min-height: 1rem !important;
+  opacity: 0.35 !important;
+}
+
+.menu__link--sublist-caret:hover::after {
+  opacity: 0.6 !important;
+}
+
+/* Nested lists — tighter indentation */
+.menu__list .menu__list {
+  padding-left: 0.75rem !important;
+  margin-top: 0 !important;
+}
+
+/* Remove border-left on nested items if present */
+.menu__list-item-collapsible {
+  border: none !important;
+}
+
+.menu__list-item-collapsible:hover {
+  background: none !important;
+}
+
+/* Tighten vertical spacing between items */
+.menu__list-item {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Category label row — no background on hover */
+.menu__list-item-collapsible .menu__link:hover {
+  background: transparent !important;
+}
+
+/* Sidebar category top-level: add subtle spacing between groups */
+nav.menu > ul.menu__list > li.menu__list-item + li.menu__list-item {
+  margin-top: 0.125rem !important;
+}
+
+/* Code blocks and tabs */
+.api-code-tab-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.api-code-tab {
+  flex: 1 !important;
+}
+
+@media only screen and (max-width: 996px) {
+  .api-code-tab-group {
+    display: block !important;
+  }
+}
+
+/* ─── API Demo Panel (right-side "Try it" panel) ─── */
+
+/*
+ * Override openapi theme variables to use site tokens.
+ * This keeps the demo panel visually consistent with the
+ * Notion-inspired left-side API docs.
+ */
+
+:root {
+  --openapi-card-background-color: var(--dnd-surface) !important;
+  --openapi-card-border-radius: 0.375rem !important;
+  --openapi-input-background: var(--dnd-bg) !important;
+  --openapi-input-border: var(--dnd-border) !important;
+}
+
+[data-theme="dark"] {
+  --openapi-card-background-color: var(--dnd-surface) !important;
+  --openapi-input-background: var(--dnd-surface-2) !important;
+  --openapi-input-border: var(--dnd-border) !important;
+}
+
+/* --- Method + Endpoint bar --- */
+
+.openapi-demo__method-endpoint pre,
+[class*="ApiDemoPanel"] pre,
+.theme-api-markdown ~ div pre {
+  background: var(--dnd-surface) !important;
+  border: 1px solid var(--dnd-border) !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.8125rem !important;
+  padding: 0.625rem 0.875rem !important;
+  margin-bottom: 0.5rem !important;
+  box-shadow: none !important;
+}
+
+/* --- Options / parameter panel --- */
+
+[class*="optionsPanel"] {
+  background: var(--dnd-surface) !important;
+  border: 1px solid var(--dnd-border) !important;
+  border-radius: 0.375rem !important;
+  padding: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* --- Form labels --- */
+
+[class*="formItem"] label,
+[class*="FormItem"] label {
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  color: var(--dnd-text-secondary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* --- Select dropdowns --- */
+
+[class*="selectInput"],
+[class*="FormSelect"] select {
+  background-color: var(--dnd-bg) !important;
+  border: 1px solid var(--dnd-border) !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.8125rem !important;
+  font-family: var(--ifm-font-family-base) !important;
+  color: var(--dnd-text) !important;
+  padding: 0.5rem 2rem 0.5rem 0.75rem !important;
+  transition: border-color 0.15s ease !important;
+}
+
+[class*="selectInput"]:focus,
+[class*="FormSelect"] select:focus {
+  border-color: var(--dnd-accent) !important;
+  box-shadow: 0 0 0 1px var(--dnd-accent) !important;
+  outline: none !important;
+}
+
+/* --- Text inputs --- */
+
+[class*="inputBase"],
+[class*="FormTextInput"] input {
+  background-color: var(--dnd-bg) !important;
+  border: 1px solid var(--dnd-border) !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.8125rem !important;
+  color: var(--dnd-text) !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+[class*="inputBase"]:focus,
+[class*="FormTextInput"] input:focus {
+  border-color: var(--dnd-accent) !important;
+  box-shadow: 0 0 0 1px var(--dnd-accent) !important;
+  outline: none !important;
+}
+
+/* --- Server URL bar --- */
+
+[class*="floatingButton"] {
+  font-size: 0.75rem !important;
+  color: var(--dnd-text-tertiary) !important;
+}
+
+/* --- Language tabs (cURL, PowerShell, etc.) --- */
+
+[class*="buttonGroup"] {
+  background: var(--dnd-surface) !important;
+  border: 1px solid var(--dnd-border) !important;
+  border-radius: 0.375rem !important;
+  margin-bottom: 1px !important;
+  padding: 0.25rem !important;
+  gap: 0.125rem !important;
+}
+
+[class*="buttonGroup"] button {
+  font-family: var(--ifm-font-family-base) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  color: var(--dnd-text-secondary) !important;
+  border-radius: 0.25rem !important;
+  padding: 0.25rem 0.5rem !important;
+  margin: 0 !important;
+  background: transparent !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+}
+
+[class*="buttonGroup"] button:hover {
+  background: var(--dnd-surface-2) !important;
+  color: var(--dnd-text) !important;
+}
+
+[class*="buttonGroup"] button.selected,
+[class*="buttonGroup"] button[class*="selected"] {
+  background: var(--dnd-bg) !important;
+  color: var(--dnd-text) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="dark"] [class*="buttonGroup"] button.selected,
+[data-theme="dark"] [class*="buttonGroup"] button[class*="selected"] {
+  background: var(--dnd-surface-2) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* --- Code snippet below language tabs --- */
+
+[class*="buttonGroup"] + pre,
+[class*="buttonGroup"] + div > pre {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border: 1px solid var(--dnd-border) !important;
+  border-top: none !important;
+  font-size: 0.75rem !important;
+}
+
+/* --- Execute button --- */
+
+.button.button--block.button--primary {
+  background: var(--dnd-text) !important;
+  color: var(--dnd-bg) !important;
+  border: 1px solid var(--dnd-text) !important;
+  border-radius: 0.375rem !important;
+  font-family: var(--ifm-font-family-base) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  height: 40px !important;
+  letter-spacing: 0.01em !important;
+  transition: opacity 0.15s ease !important;
+  box-shadow: none !important;
+}
+
+.button.button--block.button--primary:hover {
+  opacity: 0.85 !important;
+}
+
+.button.button--block.button--primary:disabled {
+  background: var(--dnd-border) !important;
+  color: var(--dnd-text-tertiary) !important;
+  border-color: var(--dnd-border) !important;
+  opacity: 0.6 !important;
+}
+
+/* --- Response section --- */
+
+[class*="ApiDemoPanel"] [class*="Response"],
+.openapi-demo__response {
+  border-radius: 0.375rem !important;
+}
+
+/* Response output — cap height and scroll */
+[class*="floatingButton"] > pre {
+  max-height: 24rem !important;
+  overflow-y: auto !important;
+  border: 1px solid var(--dnd-border) !important;
+}
+
+/* --- Tighten overall panel spacing --- */
+
+[class*="ApiDemoPanel"] > form,
+[class*="apiDemoPanel"] > form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}

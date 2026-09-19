@@ -1,0 +1,181 @@
+import LearningObjectives from '@site/src/components/LearningObjectives';
+
+# Interactive Monster Search with JavaScript
+
+Welcome to this step-by-step tutorial on building an interactive monster search using JavaScript! If you have moderate experience with JavaScript, you're in the right place. By the end of this tutorial, you'll have a simple web application that allows users to search for and view Dungeons & Dragons 5th Edition (D&D 5e) monsters.
+
+<LearningObjectives objectives={[
+  "Learn to make a simple HTML webpage",
+  "Learn to interact with the API using HTTP requests in Javascript",
+  "Learn to create a form that allows users to get monsters from the API"
+]}/>
+
+## Setting Up the Project
+
+1. **Create a New Directory:** Start by creating a new directory for your project. You can name it something like "monster-search-app".
+
+2. **Initialize a Node.js Project:** Open your terminal, navigate to the project directory, and run the following command to initialize a Node.js project:
+
+   ```
+   npm init -y
+   ```
+
+3. **Install Axios:** Axios is a library for making HTTP requests. Install it by running the following command:
+
+   ```
+   npm install axios
+   ```
+
+4. **Create Files:** Inside your project directory, create three files: `index.html`, `styles.css`, and `script.js`.
+
+## Building the Frontend
+
+### `index.html`
+
+Let's start by creating the HTML structure for our web application:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Monster Search</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Monster Search</h1>
+      <input type="text" id="monsterInput" placeholder="Enter a monster name" />
+      <button id="searchButton">Search</button>
+      <div id="monsterResult" class="monster-result"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+### `styles.css`
+
+Let's style our web application to make it visually appealing:
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+#monsterInput {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#searchButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.monster-result {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: left;
+}
+```
+
+## Adding Functionality with JavaScript
+
+### `script.js`
+
+Now, let's add the functionality to our web application using JavaScript:
+
+```javascript
+const monsterInput = document.getElementById("monsterInput");
+const searchButton = document.getElementById("searchButton");
+const monsterResult = document.getElementById("monsterResult");
+
+searchButton.addEventListener("click", () => {
+  const monsterName = monsterInput.value.toLowerCase();
+  if (monsterName) {
+    searchMonster(monsterName);
+  } else {
+    monsterResult.innerHTML = "Please enter a monster name.";
+  }
+});
+
+function searchMonster(monsterName) {
+  monsterResult.innerHTML = "Searching...";
+
+  axios
+    .get(`https://www.dnd5eapi.co/api/monsters`)
+    .then((response) => {
+      const monsters = response.data.results;
+      const matchedMonster = monsters.find(
+        (monster) => monster.name.toLowerCase() === monsterName
+      );
+
+      if (matchedMonster) {
+        axios
+          .get(matchedMonster.url)
+          .then((monsterResponse) => {
+            const monsterData = monsterResponse.data;
+            monsterResult.innerHTML = `
+              <h2>${monsterData.name}</h2>
+              <p><strong>Index:</strong> ${monsterData.index}</p>
+              <!-- You can display more monster details here -->
+            `;
+          })
+          .catch((error) => {
+            monsterResult.innerHTML = "Error fetching monster details.";
+          });
+      } else {
+        monsterResult.innerHTML = "Monster not found.";
+      }
+    })
+    .catch((error) => {
+      monsterResult.innerHTML = "Error fetching monsters.";
+    });
+}
+```
+
+## Testing the Application
+
+1. Open your terminal and navigate to the project directory.
+
+2. Run the following command to start a simple server:
+
+   ```
+   npx serve
+   ```
+
+3. Visit `http://localhost:5000` in your web browser to see the monster search application in action.
+
+## Conclusion
+
+Congratulations! You've successfully built an interactive monster search web application using JavaScript, HTML, and CSS. Users can now search for D&D 5e monsters and view their details.

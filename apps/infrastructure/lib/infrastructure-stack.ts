@@ -123,5 +123,11 @@ export class InfrastructureStack extends cdk.Stack {
         },
       }
     );
+
+    new route53.CnameRecord(this, "DocsCnameRecord", {
+      zone: hostedZone,
+      recordName: "docs",
+      domainName: "5e-bits.github.io",
+    });
   }
 }
