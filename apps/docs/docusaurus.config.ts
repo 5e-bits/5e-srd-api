@@ -18,9 +18,6 @@ const config: Config = {
   },
   themes: ["@docusaurus/theme-mermaid"],
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -142,9 +139,6 @@ const config: Config = {
       },
     ],
     image: "https://www.dnd5eapi.co/public/DnD-5e-meta-4k.png",
-    // announcementBar: {
-    //   content: "Join us on our community <a target='_blank' rel='noopener noreferrer' href='https://discord.gg/TQuYTv7'>Discord</a>!",
-    // },
     metadata: [
       {
         name: "keywords",
