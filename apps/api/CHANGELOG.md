@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.9.2](https://github.com/5e-bits/5e-srd-api/compare/v5.9.1...v5.9.2) (2026-09-19)
+
+
+### Bug Fixes
+
+* **api:** point docs links at docs.dnd5eapi.co ([#1211](https://github.com/5e-bits/5e-srd-api/issues/1211)) ([815e932](https://github.com/5e-bits/5e-srd-api/commit/815e932be7b06912a1144d5976c2b255baf4b2c7))
+
 ## [5.9.1](https://github.com/5e-bits/5e-srd-api/compare/v5.9.0...v5.9.1) (2026-09-18)
 
 
