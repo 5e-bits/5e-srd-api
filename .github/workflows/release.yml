@@ -43,11 +43,13 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build Artifacts
+        working-directory: apps/api
         run: |
           pnpm run bundle-swagger
           pnpm run gen-postman
       - name: Upload Release Assets
         if: github.event_name == 'release'
+        working-directory: apps/api
         run: |
           gh release upload ${{ github.event.release.tag_name }} \
             ./dist/openapi.yml \
@@ -92,6 +94,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
+          file: ./apps/api/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: version=${{ steps.tag.outputs.tag }}
@@ -126,3 +129,4 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "dnd-5e-srd-api"
           heroku_email: "cdurianward@gmail.com"
+          appdir: "apps/api"
