@@ -37,6 +37,35 @@ const limiter = rateLimit({
   message: `Rate limit of ${rateLimitMax} requests per ${rateLimitWindowMs / 1000} second(s) exceeded, try again later.`
 })
 
+/**
+ * Schema building and Apollo startup are expensive and app-independent, so cache them.
+ * Prod builds the app once; test workers without file isolation reuse it across files.
+ */
+let apolloServers: ReturnType<typeof createApolloServers> | undefined
+const getApolloServers = () => (apolloServers ??= createApolloServers())
+
+const createApolloServers = async () => {
+  console.log('Building TypeGraphQL schema...')
+  const schema2014 = await buildSchema({
+    resolvers: resolvers2014,
+    globalMiddlewares: [TranslationMiddleware],
+    validate: { forbidUnknownValues: false }
+  })
+  const schema2024 = await buildSchema({
+    resolvers: resolvers2024,
+    globalMiddlewares: [TranslationMiddleware],
+    validate: { forbidUnknownValues: false }
+  })
+  console.log('TypeGraphQL schema built successfully.')
+
+  console.log('Setting up Apollo GraphQL server')
+  const apolloMiddleware2024 = await createApolloMiddleware(schema2024)
+  await apolloMiddleware2024.start()
+  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
+  await apolloMiddleware2014.start()
+  return { apolloMiddleware2014, apolloMiddleware2024 }
+}
+
 export default async () => {
   const app = express()
 
@@ -56,22 +85,7 @@ export default async () => {
   app.use(limiter)
   app.use(languageNegotiation)
 
-  console.log('Building TypeGraphQL schema...')
-  const schema2014 = await buildSchema({
-    resolvers: resolvers2014,
-    globalMiddlewares: [TranslationMiddleware],
-    validate: { forbidUnknownValues: false }
-  })
-  const schema2024 = await buildSchema({
-    resolvers: resolvers2024,
-    globalMiddlewares: [TranslationMiddleware],
-    validate: { forbidUnknownValues: false }
-  })
-  console.log('TypeGraphQL schema built successfully.')
-
-  console.log('Setting up Apollo GraphQL server')
-  const apolloMiddleware2024 = await createApolloMiddleware(schema2024)
-  await apolloMiddleware2024.start()
+  const { apolloMiddleware2014, apolloMiddleware2024 } = await getApolloServers()
   app.use(
     '/graphql/2024',
     cors<cors.CorsRequest>(),
@@ -80,8 +94,6 @@ export default async () => {
       context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
   )
-  const apolloMiddleware2014 = await createApolloMiddleware(schema2014)
-  await apolloMiddleware2014.start()
   app.use(
     '/graphql/2014',
     cors<cors.CorsRequest>(),
