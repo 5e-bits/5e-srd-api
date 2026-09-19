@@ -134,6 +134,8 @@ jobs:
           docker pull "$SRC"
           docker tag "$SRC" "$DEST"
           docker push "$DEST"
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
       - name: Release on Heroku
         run: heroku container:release web --app dnd-5e-srd-api
         env:
