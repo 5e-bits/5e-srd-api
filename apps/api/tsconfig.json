@@ -17,21 +17,12 @@
     }
   },
   "include": [
-    "src/js/**/*.js",
     "src/**/*.ts",
-    "tools/**/*.ts",
     "vitest.config.ts",
     "vitest.config.integration.ts",
     "eslint.config.js"
   ],
   "exclude": ["node_modules"],
-  "ts-node": {
-    "esm": true
-  },
-  "typedocOptions": {
-    "entryPoints": ["src/models/index.ts"],
-    "out": "docs"
-  },
   "tsc-alias": {
     "resolveFullPaths": true
   }

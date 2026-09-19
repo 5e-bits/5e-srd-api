@@ -4,7 +4,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { expressMiddleware } from '@as-integrations/express5'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
 import rateLimit from 'express-rate-limit'
@@ -75,7 +74,6 @@ export default async () => {
   }
 
   app.use('/swagger', express.static(__dirname + '/swagger'))
-  app.use('/js', express.static(__dirname + '/js'))
   app.use('/css', express.static(__dirname + '/css'))
   app.use('/public', express.static(__dirname + '/public'))
   app.use(morgan('short'))
@@ -89,7 +87,7 @@ export default async () => {
   app.use(
     '/graphql/2024',
     cors<cors.CorsRequest>(),
-    bodyParser.json(),
+    express.json(),
     expressMiddleware(apolloMiddleware2024, {
       context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
@@ -97,7 +95,7 @@ export default async () => {
   app.use(
     '/graphql/2014',
     cors<cors.CorsRequest>(),
-    bodyParser.json(),
+    express.json(),
     expressMiddleware(apolloMiddleware2014, {
       context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
@@ -106,7 +104,7 @@ export default async () => {
   app.use(
     '/graphql',
     cors<cors.CorsRequest>(),
-    bodyParser.json(),
+    express.json(),
     expressMiddleware(apolloMiddleware2014, {
       context: async ({ req }) => ({ token: req.headers.token, lang: req.lang ?? 'en' })
     })
