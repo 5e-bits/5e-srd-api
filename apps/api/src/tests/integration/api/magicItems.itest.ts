@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/api/magic-items', () => {
   it('redirects to /api/2014/magic-items', async () => {
-    await request(app)
+    await request(server)
       .get('/api/magic-items')
       .expect(301)
       .expect('Location', '/api/2014/magic-items')
@@ -36,7 +36,7 @@ describe('/api/magic-items', () => {
 
   it('redirects preserving query parameters', async () => {
     const name = 'Adamantine%20Armor'
-    await request(app)
+    await request(server)
       .get(`/api/magic-items?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/magic-items?name=${name}`)
@@ -44,7 +44,7 @@ describe('/api/magic-items', () => {
 
   it('redirects to /api/2014/magic-items/{index}', async () => {
     const index = 'ammunition'
-    await request(app)
+    await request(server)
       .get(`/api/magic-items/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/magic-items/${index}`)

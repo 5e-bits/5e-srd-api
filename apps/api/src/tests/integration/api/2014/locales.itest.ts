@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/api/2014/locales', () => {
   it('should return a list (possibly empty when no translations are loaded)', async () => {
-    const res = await request(app).get('/api/2014/locales')
+    const res = await request(server).get('/api/2014/locales')
     expect(res.statusCode).toEqual(200)
     expect(res.body).toHaveProperty('count')
     expect(res.body).toHaveProperty('results')
@@ -37,7 +37,7 @@ describe('/api/2014/locales', () => {
 
   describe('/api/2014/locales/:lang', () => {
     it('should return 404 for an unknown locale', async () => {
-      const res = await request(app).get('/api/2014/locales/xx')
+      const res = await request(server).get('/api/2014/locales/xx')
       expect(res.statusCode).toEqual(404)
     })
   })

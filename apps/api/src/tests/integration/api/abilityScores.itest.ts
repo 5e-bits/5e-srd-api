@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/api/ability-scores', () => {
   it('redirects to /api/2014/ability-scores', async () => {
-    await request(app)
+    await request(server)
       .get('/api/ability-scores')
       .expect(301)
       .expect('Location', '/api/2014/ability-scores')
@@ -36,7 +36,7 @@ describe('/api/ability-scores', () => {
 
   it('redirects preserving query parameters', async () => {
     const name = 'CHA'
-    await request(app)
+    await request(server)
       .get(`/api/ability-scores?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/ability-scores?name=${name}`)
@@ -44,7 +44,7 @@ describe('/api/ability-scores', () => {
 
   it('redirects to /api/2014/ability-scores/{index}', async () => {
     const index = 'strength'
-    await request(app)
+    await request(server)
       .get(`/api/ability-scores/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/ability-scores/${index}`)

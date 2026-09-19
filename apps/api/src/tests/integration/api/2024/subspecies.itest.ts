@@ -28,25 +28,25 @@ afterAll(async () => {
 
 describe('/api/2024/subspecies', () => {
   it('should list subspecies', async () => {
-    const res = await request(app).get('/api/2024/subspecies')
+    const res = await request(server).get('/api/2024/subspecies')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
   })
 
   describe('with name query', () => {
     it('returns the named object', async () => {
-      const indexRes = await request(app).get('/api/2024/subspecies')
+      const indexRes = await request(server).get('/api/2024/subspecies')
       const name = indexRes.body.results[1].name
-      const res = await request(app).get(`/api/2024/subspecies?name=${name}`)
+      const res = await request(server).get(`/api/2024/subspecies?name=${name}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].name).toEqual(name)
     })
 
     it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/2024/subspecies')
+      const indexRes = await request(server).get('/api/2024/subspecies')
       const name = indexRes.body.results[1].name
       const queryName = name.toLowerCase()
-      const res = await request(app).get(`/api/2024/subspecies?name=${queryName}`)
+      const res = await request(server).get(`/api/2024/subspecies?name=${queryName}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].name).toEqual(name)
     })
@@ -54,16 +54,16 @@ describe('/api/2024/subspecies', () => {
 
   describe('/api/2024/subspecies/:index', () => {
     it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/2024/subspecies')
+      const indexRes = await request(server).get('/api/2024/subspecies')
       const index = indexRes.body.results[0].index
-      const showRes = await request(app).get(`/api/2024/subspecies/${index}`)
+      const showRes = await request(server).get(`/api/2024/subspecies/${index}`)
       expect(showRes.statusCode).toEqual(200)
       expect(showRes.body.index).toEqual(index)
     })
 
     describe('with an invalid index', () => {
       it('should return 404', async () => {
-        const showRes = await request(app).get('/api/2024/subspecies/invalid-index')
+        const showRes = await request(server).get('/api/2024/subspecies/invalid-index')
         expect(showRes.statusCode).toEqual(404)
       })
     })
@@ -71,9 +71,9 @@ describe('/api/2024/subspecies', () => {
 
   describe('/api/2024/subspecies/:index/traits', () => {
     it('should return a list of traits for a subspecies', async () => {
-      const indexRes = await request(app).get('/api/2024/subspecies')
+      const indexRes = await request(server).get('/api/2024/subspecies')
       const index = indexRes.body.results[0].index
-      const res = await request(app).get(`/api/2024/subspecies/${index}/traits`)
+      const res = await request(server).get(`/api/2024/subspecies/${index}/traits`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results).toBeDefined()
     })

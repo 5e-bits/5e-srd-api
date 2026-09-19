@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/api/rule-sections', () => {
   it('redirects to /api/2014/rule-sections', async () => {
-    await request(app)
+    await request(server)
       .get('/api/rule-sections')
       .expect(301)
       .expect('Location', '/api/2014/rule-sections')
@@ -36,7 +36,7 @@ describe('/api/rule-sections', () => {
 
   it('redirects preserving query parameters', async () => {
     const name = 'Ability%20Checks'
-    await request(app)
+    await request(server)
       .get(`/api/rule-sections?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/rule-sections?name=${name}`)
@@ -44,7 +44,7 @@ describe('/api/rule-sections', () => {
 
   it('redirects to /api/2014/rule-sections/{index}', async () => {
     const index = 'actions-in-combat'
-    await request(app)
+    await request(server)
       .get(`/api/rule-sections/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/rule-sections/${index}`)

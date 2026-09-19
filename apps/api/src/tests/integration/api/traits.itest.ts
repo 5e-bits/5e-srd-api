@@ -28,12 +28,12 @@ afterAll(async () => {
 
 describe('/api/traits', () => {
   it('redirects to /api/2014/traits', async () => {
-    await request(app).get('/api/traits').expect(301).expect('Location', '/api/2014/traits')
+    await request(server).get('/api/traits').expect(301).expect('Location', '/api/2014/traits')
   })
 
   it('redirects preserving query parameters', async () => {
     const name = 'Brave'
-    await request(app)
+    await request(server)
       .get(`/api/traits?name=${name}`)
       .expect(301)
       .expect('Location', `/api/2014/traits?name=${name}`)
@@ -41,7 +41,7 @@ describe('/api/traits', () => {
 
   it('redirects to /api/2014/traits/{index}', async () => {
     const index = 'darkvision'
-    await request(app)
+    await request(server)
       .get(`/api/traits/${index}`)
       .expect(301)
       .expect('Location', `/api/2014/traits/${index}`)

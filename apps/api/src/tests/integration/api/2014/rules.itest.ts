@@ -28,7 +28,7 @@ afterAll(async () => {
 
 describe('/api/2014/rules', () => {
   it('should list rules', async () => {
-    const res = await request(app).get('/api/2014/rules')
+    const res = await request(server).get('/api/2014/rules')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
   })
@@ -36,8 +36,8 @@ describe('/api/2014/rules', () => {
   it('should hit the cache', async () => {
     await redisClient.del('/api/2014/rules')
     const clientSet = vi.spyOn(redisClient, 'set')
-    await request(app).get('/api/2014/rules')
-    const res = await request(app).get('/api/2014/rules')
+    await request(server).get('/api/2014/rules')
+    const res = await request(server).get('/api/2014/rules')
     expect(res.statusCode).toEqual(200)
     expect(res.body.results.length).not.toEqual(0)
     expect(clientSet).toHaveBeenCalledTimes(1)
@@ -45,18 +45,18 @@ describe('/api/2014/rules', () => {
 
   describe('with name query', () => {
     it('returns the named object', async () => {
-      const indexRes = await request(app).get('/api/2014/rules')
+      const indexRes = await request(server).get('/api/2014/rules')
       const name = indexRes.body.results[1].name
-      const res = await request(app).get(`/api/2014/rules?name=${name}`)
+      const res = await request(server).get(`/api/2014/rules?name=${name}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].name).toEqual(name)
     })
 
     it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/2014/rules')
+      const indexRes = await request(server).get('/api/2014/rules')
       const name = indexRes.body.results[1].name
       const queryName = name.toLowerCase()
-      const res = await request(app).get(`/api/2014/rules?name=${queryName}`)
+      const res = await request(server).get(`/api/2014/rules?name=${queryName}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].name).toEqual(name)
     })
@@ -64,21 +64,21 @@ describe('/api/2014/rules', () => {
 
   describe('with desc query', () => {
     it('returns the object with matching desc', async () => {
-      const indexRes = await request(app).get('/api/2014/rules')
+      const indexRes = await request(server).get('/api/2014/rules')
       const index = indexRes.body.results[1].index
-      const res = await request(app).get(`/api/2014/rules/${index}`)
+      const res = await request(server).get(`/api/2014/rules/${index}`)
       const name = res.body.name
-      const descRes = await request(app).get(`/api/2014/rules?desc=${name}`)
+      const descRes = await request(server).get(`/api/2014/rules?desc=${name}`)
       expect(descRes.statusCode).toEqual(200)
       expect(descRes.body.results[0].index).toEqual(index)
     })
 
     it('is case insensitive', async () => {
-      const indexRes = await request(app).get('/api/2014/rules')
+      const indexRes = await request(server).get('/api/2014/rules')
       const index = indexRes.body.results[1].index
       const name = indexRes.body.results[1].name
       const queryDesc = name.toLowerCase()
-      const res = await request(app).get(`/api/2014/rules?desc=${queryDesc}`)
+      const res = await request(server).get(`/api/2014/rules?desc=${queryDesc}`)
       expect(res.statusCode).toEqual(200)
       expect(res.body.results[0].index).toEqual(index)
     })
@@ -86,9 +86,9 @@ describe('/api/2014/rules', () => {
 
   describe('/api/2014/rules/:index', () => {
     it('should return one object', async () => {
-      const indexRes = await request(app).get('/api/2014/rules')
+      const indexRes = await request(server).get('/api/2014/rules')
       const index = indexRes.body.results[0].index
-      const showRes = await request(app).get(`/api/2014/rules/${index}`)
+      const showRes = await request(server).get(`/api/2014/rules/${index}`)
       expect(showRes.statusCode).toEqual(200)
       expect(showRes.body.index).toEqual(index)
     })
@@ -96,7 +96,7 @@ describe('/api/2014/rules', () => {
     describe('with an invalid index', () => {
       it('should return 404', async () => {
         const invalidIndex = 'invalid-index'
-        const showRes = await request(app).get(`/api/2014/rules/${invalidIndex}`)
+        const showRes = await request(server).get(`/api/2014/rules/${invalidIndex}`)
         expect(showRes.statusCode).toEqual(404)
       })
     })
