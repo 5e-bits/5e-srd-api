@@ -4,7 +4,9 @@ packages:
 
 allowBuilds:
   '@apollo/protobufjs': true
+  core-js: false
   mongodb-memory-server: true
+  postman-code-generators: false
   unrs-resolver: true
 
 publicHoistPattern:

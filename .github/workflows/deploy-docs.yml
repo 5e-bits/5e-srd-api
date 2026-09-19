@@ -1,0 +1,34 @@
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/docs/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/deploy-docs.yml'
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # @v7.0.0
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # @v6.1.0
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # @v7.0.0
+        with:
+          node-version: 24.x
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - working-directory: apps/docs
+        run: pnpm build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # Publish to the 5e-bits/docs Pages branch so the site stays at 5e-bits.github.io/docs
+          external_repository: 5e-bits/docs
+          personal_token: ${{ secrets.DOCS_DEPLOY_TOKEN }}
+          publish_dir: apps/docs/build
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com

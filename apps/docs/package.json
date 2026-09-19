@@ -2,7 +2,6 @@
   "name": "docs",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -49,6 +48,6 @@
     ]
   },
   "engines": {
-    "node": ">=22.0"
+    "node": "24.x"
   }
 }
