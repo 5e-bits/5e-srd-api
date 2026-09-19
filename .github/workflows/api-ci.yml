@@ -49,6 +49,8 @@ jobs:
         image: ghcr.io/5e-bits/5e-database:latest
         ports:
           - 27017:27017
+        # Image HEALTHCHECK defaults to a 30s interval, which stalls job start.
+        options: --health-interval 2s
       cache:
         image: redis:6.2.5
         ports:
@@ -66,8 +68,6 @@ jobs:
           node-version: 24.x
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Wait for MongoDB
-        run: timeout 60 bash -c 'until (echo > /dev/tcp/localhost/27017) 2>/dev/null; do sleep 1; done'
       - working-directory: apps/api
         run: pnpm run test:integration
 
