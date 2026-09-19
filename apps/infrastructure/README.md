@@ -6,9 +6,9 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Setup
 
-Requires [pnpm](https://pnpm.io/installation) (version pinned in `package.json`).
+Requires [pnpm](https://pnpm.io/installation) (version pinned in the repo root `package.json`). Run from the repo root or this directory.
 
-* `pnpm install`  install dependencies
+* `pnpm install`  install dependencies (run at the repo root)
 
 ## Useful commands
 

@@ -1,17 +1,8 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as Infrastructure from '../lib/infrastructure-stack';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { InfrastructureStack } from '../lib/infrastructure-stack';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/infrastructure-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new Infrastructure.InfrastructureStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
-
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+test('stack synthesizes with a CloudFront distribution', () => {
+  const template = Template.fromStack(new InfrastructureStack(new cdk.App(), 'TestStack'));
+  template.resourceCountIs('AWS::CloudFront::Distribution', 1);
 });
