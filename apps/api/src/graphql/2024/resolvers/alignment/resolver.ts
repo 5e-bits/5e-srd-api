@@ -1,60 +1,19 @@
-import { Args, Query, Resolver } from 'type-graphql'
+import { Resolver } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import AlignmentModel, { Alignment2024 } from '@/models/2024/alignment'
-import { escapeRegExp } from '@/util'
-
-import {
-  ALIGNMENT_SORT_FIELD_MAP,
-  AlignmentArgs,
-  AlignmentArgsSchema,
-  AlignmentIndexArgs,
-  AlignmentIndexArgsSchema,
-  AlignmentOrderField
-} from './args'
 
 @Resolver(Alignment2024)
-export class AlignmentResolver {
-  @Query(() => [Alignment2024], {
-    description: 'Gets all alignments, optionally filtered by name and sorted.'
-  })
-  async alignments(@Args(() => AlignmentArgs) args: AlignmentArgs): Promise<Alignment2024[]> {
-    const validatedArgs = AlignmentArgsSchema.parse(args)
-
-    const query = AlignmentModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<AlignmentOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: ALIGNMENT_SORT_FIELD_MAP,
-      defaultSortField: AlignmentOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class AlignmentResolver extends createResolver({
+  Type: Alignment2024,
+  Model: AlignmentModel,
+  typeName: 'Alignment',
+  singular: 'alignment',
+  plural: 'alignments',
+  descriptions: {
+    fields: 'Fields to sort Alignments by',
+    order: 'Specify sorting order for alignments.',
+    list: 'Gets all alignments, optionally filtered by name and sorted.',
+    single: 'Gets a single alignment by index.'
   }
-
-  @Query(() => Alignment2024, {
-    nullable: true,
-    description: 'Gets a single alignment by index.'
-  })
-  async alignment(
-    @Args(() => AlignmentIndexArgs) args: AlignmentIndexArgs
-  ): Promise<Alignment2024 | null> {
-    const { index } = AlignmentIndexArgsSchema.parse(args)
-    return AlignmentModel.findOne({ index }).lean()
-  }
-}
+}) {}

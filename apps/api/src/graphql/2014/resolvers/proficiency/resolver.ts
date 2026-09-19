@@ -1,7 +1,8 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { ProficiencyReference } from '@/graphql/2014/types/proficiencyTypes'
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import ClassModel, { Class } from '@/models/2014/class'
@@ -10,79 +11,36 @@ import EquipmentCategoryModel from '@/models/2014/equipmentCategory'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import RaceModel, { Race } from '@/models/2014/race'
 import SkillModel from '@/models/2014/skill'
-import { escapeRegExp } from '@/util'
 
-import {
-  PROFICIENCY_SORT_FIELD_MAP,
-  ProficiencyArgs,
-  ProficiencyArgsSchema,
-  ProficiencyIndexArgs,
-  ProficiencyIndexArgsSchema,
-  ProficiencyOrderField
-} from './args'
+import { ProficiencyArgs, ProficiencyArgsSchema } from './args'
 
 @Resolver(Proficiency)
-export class ProficiencyResolver {
-  @Query(() => [Proficiency], {
-    description: 'Query all Proficiencies, optionally filtered and sorted.'
-  })
-  async proficiencies(@Args(() => ProficiencyArgs) args: ProficiencyArgs): Promise<Proficiency[]> {
-    const validatedArgs = ProficiencyArgsSchema.parse(args)
-
-    let query = ProficiencyModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.class && validatedArgs.class.length > 0) {
-      filters.push({ 'classes.index': { $in: validatedArgs.class } })
-    }
-
-    if (validatedArgs.race && validatedArgs.race.length > 0) {
-      filters.push({ 'races.index': { $in: validatedArgs.race } })
-    }
-
-    if (validatedArgs.type && validatedArgs.type.length > 0) {
-      filters.push({ type: { $in: validatedArgs.type } })
-    }
-
-    if (filters.length > 0) {
-      query = query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<ProficiencyOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: PROFICIENCY_SORT_FIELD_MAP,
-      defaultSortField: ProficiencyOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query = query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query = query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Proficiency, {
-    nullable: true,
-    description: 'Gets a single proficiency by index.'
-  })
-  async proficiency(
-    @Args(() => ProficiencyIndexArgs) args: ProficiencyIndexArgs
-  ): Promise<Proficiency | null> {
-    const { index } = ProficiencyIndexArgsSchema.parse(args)
-    return ProficiencyModel.findOne({ index }).lean()
-  }
-
+export class ProficiencyResolver extends createResolver({
+  Type: Proficiency,
+  Model: ProficiencyModel,
+  typeName: 'Proficiency',
+  singular: 'proficiency',
+  plural: 'proficiencies',
+  descriptions: {
+    fields: 'Fields to sort Proficiencies by',
+    order: 'Specify sorting order for proficiencies. Allows nested sorting.',
+    list: 'Query all Proficiencies, optionally filtered and sorted.',
+    single: 'Gets a single proficiency by index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    TYPE: { value: 'type', path: 'type' }
+  },
+  defaultSort: 'NAME',
+  Args: ProficiencyArgs,
+  argsSchema: ProficiencyArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    inFilter('classes.index', a.class),
+    inFilter('races.index', a.race),
+    inFilter('type', a.type)
+  ]
+}) {
   @FieldResolver(() => [Class], { nullable: true })
   async classes(@Root() proficiency: Proficiency): Promise<Class[]> {
     return resolveMultipleReferences(proficiency.classes, ClassModel)

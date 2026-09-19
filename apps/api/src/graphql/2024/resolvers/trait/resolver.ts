@@ -1,60 +1,26 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
 import Species2024Model, { Species2024 } from '@/models/2024/species'
 import Subspecies2024Model, { Subspecies2024 } from '@/models/2024/subspecies'
 import Trait2024Model, { Trait2024 } from '@/models/2024/trait'
-import { escapeRegExp } from '@/util'
-
-import {
-  TRAIT_SORT_FIELD_MAP,
-  TraitArgs,
-  TraitArgsSchema,
-  TraitIndexArgs,
-  TraitIndexArgsSchema,
-  TraitOrderField
-} from './args'
 
 @Resolver(Trait2024)
-export class TraitResolver {
-  @Query(() => [Trait2024], {
-    description: 'Gets all traits, optionally filtered by name and sorted by name.'
-  })
-  async traits2024(@Args(() => TraitArgs) args: TraitArgs): Promise<Trait2024[]> {
-    const validatedArgs = TraitArgsSchema.parse(args)
-    const query = Trait2024Model.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<TraitOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: TRAIT_SORT_FIELD_MAP,
-      defaultSortField: TraitOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class TraitResolver extends createResolver({
+  Type: Trait2024,
+  Model: Trait2024Model,
+  typeName: 'Trait',
+  enumTypeName: 'Trait2024',
+  singular: 'trait2024',
+  plural: 'traits2024',
+  descriptions: {
+    fields: 'Fields to sort Traits by',
+    order: 'Specify sorting order for traits.',
+    list: 'Gets all traits, optionally filtered by name and sorted by name.',
+    single: 'Gets a single trait by index.'
   }
-
-  @Query(() => Trait2024, { nullable: true, description: 'Gets a single trait by index.' })
-  async trait2024(@Args(() => TraitIndexArgs) args: TraitIndexArgs): Promise<Trait2024 | null> {
-    const { index } = TraitIndexArgsSchema.parse(args)
-    return Trait2024Model.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => [Species2024], {
     description: 'The species that grant this trait.'
   })

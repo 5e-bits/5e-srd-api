@@ -1,76 +1,41 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { AnyEquipment } from '@/graphql/2014/common/unions'
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import EquipmentModel, { Content, Equipment } from '@/models/2014/equipment'
 import WeaponPropertyModel, { WeaponProperty } from '@/models/2014/weaponProperty'
 import { APIReference } from '@/models/common/apiReference'
-import { escapeRegExp } from '@/util'
 
-import {
-  EQUIPMENT_SORT_FIELD_MAP,
-  EquipmentArgs,
-  EquipmentArgsSchema,
-  EquipmentIndexArgs,
-  EquipmentIndexArgsSchema,
-  EquipmentOrderField
-} from './args'
+import { EquipmentArgs, EquipmentArgsSchema } from './args'
 
 @Resolver(Equipment)
-export class EquipmentResolver {
-  @Query(() => [AnyEquipment], {
-    description: 'Gets all equipment, optionally filtered and sorted.'
-  })
-  async equipments(
-    @Args(() => EquipmentArgs) args: EquipmentArgs
-  ): Promise<Array<typeof AnyEquipment>> {
-    const validatedArgs = EquipmentArgsSchema.parse(args)
-    const query = EquipmentModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.equipment_category && validatedArgs.equipment_category.length > 0) {
-      filters.push({ 'equipment_category.index': { $in: validatedArgs.equipment_category } })
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<EquipmentOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: EQUIPMENT_SORT_FIELD_MAP,
-      defaultSortField: EquipmentOrderField.NAME
-    })
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => AnyEquipment, {
-    nullable: true,
-    description: 'Gets a single piece of equipment by its index.'
-  })
-  async equipment(
-    @Args(() => EquipmentIndexArgs) args: EquipmentIndexArgs
-  ): Promise<typeof AnyEquipment | null> {
-    const { index } = EquipmentIndexArgsSchema.parse(args)
-    return EquipmentModel.findOne({ index }).lean()
-  }
-
+export class EquipmentResolver extends createResolver({
+  Type: AnyEquipment,
+  Model: EquipmentModel,
+  typeName: 'Equipment',
+  singular: 'equipment',
+  plural: 'equipments',
+  descriptions: {
+    fields: 'Fields to sort Equipment by',
+    order: 'Specify sorting order for equipment.',
+    list: 'Gets all equipment, optionally filtered and sorted.',
+    single: 'Gets a single piece of equipment by its index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    WEIGHT: { value: 'weight', path: 'weight' },
+    COST_QUANTITY: { value: 'cost_quantity', path: 'cost.quantity' }
+  },
+  defaultSort: 'NAME',
+  Args: EquipmentArgs,
+  argsSchema: EquipmentArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    inFilter('equipment_category.index', a.equipment_category)
+  ]
+}) {
   @FieldResolver(() => [WeaponProperty], { nullable: true })
   async properties(@Root() equipment: Equipment): Promise<WeaponProperty[] | null> {
     if (!equipment.properties) return null

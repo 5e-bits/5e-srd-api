@@ -1,4 +1,4 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { Armor } from '@/graphql/2014/common/equipmentTypes'
 import {
@@ -13,8 +13,8 @@ import {
   MonsterArmorClassUnion
 } from '@/graphql/2014/types/monsterTypes'
 import { normalizeCount } from '@/graphql/2014/utils/helpers'
-import { buildSortPipeline } from '@/graphql/common/args'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { createResolver } from '@/graphql/common/createResolver'
+import { eqFilter, inFilter, numberFilter, regexFilter } from '@/graphql/common/filters'
 import { SpellSlotCount } from '@/graphql/common/types'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
@@ -43,111 +43,53 @@ import {
 } from '@/models/common/choice'
 import { Damage } from '@/models/common/damage'
 import { DifficultyClass } from '@/models/common/difficultyClass'
-import { escapeRegExp } from '@/util'
 
-import {
-  MONSTER_SORT_FIELD_MAP,
-  MonsterArgs,
-  MonsterArgsSchema,
-  MonsterIndexArgs,
-  MonsterIndexArgsSchema,
-  MonsterOrderField
-} from './args'
+import { MonsterArgs, MonsterArgsSchema } from './args'
 
 @Resolver(Monster)
-export class MonsterResolver {
-  @Query(() => [Monster], {
-    description: 'Gets all monsters, optionally filtered and sorted.'
-  })
-  async monsters(@Args(() => MonsterArgs) args: MonsterArgs): Promise<Monster[]> {
-    const validatedArgs = MonsterArgsSchema.parse(args)
-    let query = MonsterModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-    if (validatedArgs.type != null && validatedArgs.type !== '') {
-      filters.push({ type: { $regex: new RegExp(`^${escapeRegExp(validatedArgs.type)}$`, 'i') } })
-    }
-    if (validatedArgs.subtype != null && validatedArgs.subtype !== '') {
-      filters.push({
-        subtype: { $regex: new RegExp(`^${escapeRegExp(validatedArgs.subtype)}$`, 'i') }
-      })
-    }
-    if (validatedArgs.challenge_rating) {
-      const crQuery = buildMongoQueryFromNumberFilter(validatedArgs.challenge_rating)
-      if (crQuery) filters.push({ challenge_rating: crQuery })
-    }
-    if (validatedArgs.size != null && validatedArgs.size !== '') {
-      filters.push({ size: validatedArgs.size })
-    }
-
-    if (validatedArgs.xp) {
-      const xpQuery = buildMongoQueryFromNumberFilter(validatedArgs.xp)
-      if (xpQuery) filters.push({ xp: xpQuery })
-    }
-
-    const abilityScores = [
-      'strength',
-      'dexterity',
-      'constitution',
-      'intelligence',
-      'wisdom',
-      'charisma'
-    ] as const
-    for (const score of abilityScores) {
-      if (validatedArgs[score]) {
-        const scoreQuery = buildMongoQueryFromNumberFilter(validatedArgs[score]!)
-        if (scoreQuery) filters.push({ [score]: scoreQuery })
-      }
-    }
-
-    if (validatedArgs.damage_vulnerabilities && validatedArgs.damage_vulnerabilities.length > 0) {
-      filters.push({
-        'damage_vulnerabilities.index': { $in: validatedArgs.damage_vulnerabilities }
-      })
-    }
-    if (validatedArgs.damage_resistances && validatedArgs.damage_resistances.length > 0) {
-      filters.push({ 'damage_resistances.index': { $in: validatedArgs.damage_resistances } })
-    }
-    if (validatedArgs.damage_immunities && validatedArgs.damage_immunities.length > 0) {
-      filters.push({ 'damage_immunities.index': { $in: validatedArgs.damage_immunities } })
-    }
-    if (validatedArgs.condition_immunities && validatedArgs.condition_immunities.length > 0) {
-      filters.push({ 'condition_immunities.index': { $in: validatedArgs.condition_immunities } })
-    }
-
-    if (filters.length > 0) {
-      query = query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<MonsterOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: MONSTER_SORT_FIELD_MAP,
-      defaultSortField: MonsterOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query = query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query = query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query = query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Monster, { nullable: true, description: 'Gets a single monster by its index.' })
-  async monster(@Args(() => MonsterIndexArgs) args: MonsterIndexArgs): Promise<Monster | null> {
-    const { index } = MonsterIndexArgsSchema.parse(args)
-    return MonsterModel.findOne({ index }).lean()
-  }
-
+export class MonsterResolver extends createResolver({
+  Type: Monster,
+  Model: MonsterModel,
+  typeName: 'Monster',
+  singular: 'monster',
+  plural: 'monsters',
+  descriptions: {
+    fields: 'Fields to sort Monsters by',
+    order: 'Specify sorting order for monsters.',
+    list: 'Gets all monsters, optionally filtered and sorted.',
+    single: 'Gets a single monster by its index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    TYPE: { value: 'type', path: 'type' },
+    SIZE: { value: 'size', path: 'size' },
+    CHALLENGE_RATING: { value: 'challenge_rating', path: 'challenge_rating' },
+    STRENGTH: { value: 'strength', path: 'strength' },
+    DEXTERITY: { value: 'dexterity', path: 'dexterity' },
+    CONSTITUTION: { value: 'constitution', path: 'constitution' },
+    INTELLIGENCE: { value: 'intelligence', path: 'intelligence' },
+    WISDOM: { value: 'wisdom', path: 'wisdom' },
+    CHARISMA: { value: 'charisma', path: 'charisma' }
+  },
+  defaultSort: 'NAME',
+  Args: MonsterArgs,
+  argsSchema: MonsterArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    regexFilter('type', a.type, true),
+    regexFilter('subtype', a.subtype, true),
+    numberFilter('challenge_rating', a.challenge_rating),
+    eqFilter('size', a.size),
+    numberFilter('xp', a.xp),
+    ...(
+      ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'] as const
+    ).map((score) => numberFilter(score, a[score])),
+    inFilter('damage_vulnerabilities.index', a.damage_vulnerabilities),
+    inFilter('damage_resistances.index', a.damage_resistances),
+    inFilter('damage_immunities.index', a.damage_immunities),
+    inFilter('condition_immunities.index', a.condition_immunities)
+  ]
+}) {
   @FieldResolver(() => [Condition])
   async condition_immunities(@Root() monster: Monster): Promise<APIReference[]> {
     return resolveMultipleReferences(monster.condition_immunities, ConditionModel)

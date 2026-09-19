@@ -1,59 +1,24 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import { resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import FeatModel, { Feat, Prerequisite } from '@/models/2014/feat'
-import { escapeRegExp } from '@/util'
-
-import {
-  FEAT_SORT_FIELD_MAP,
-  FeatArgs,
-  FeatArgsSchema,
-  FeatIndexArgs,
-  FeatIndexArgsSchema,
-  FeatOrderField
-} from './args'
 
 @Resolver(Feat)
-export class FeatResolver {
-  @Query(() => [Feat], {
-    description: 'Gets all feats, optionally filtered by name and sorted by name.'
-  })
-  async feats(@Args(() => FeatArgs) args: FeatArgs): Promise<Feat[]> {
-    const validatedArgs = FeatArgsSchema.parse(args)
-    const query = FeatModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<FeatOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: FEAT_SORT_FIELD_MAP,
-      defaultSortField: FeatOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class FeatResolver extends createResolver({
+  Type: Feat,
+  Model: FeatModel,
+  typeName: 'Feat',
+  singular: 'feat',
+  plural: 'feats',
+  descriptions: {
+    fields: 'Fields to sort Feats by',
+    order: 'Specify sorting order for feats.',
+    list: 'Gets all feats, optionally filtered by name and sorted by name.',
+    single: 'Gets a single feat by index.'
   }
-
-  @Query(() => Feat, { nullable: true, description: 'Gets a single feat by index.' })
-  async feat(@Args(() => FeatIndexArgs) args: FeatIndexArgs): Promise<Feat | null> {
-    const { index } = FeatIndexArgsSchema.parse(args)
-    return FeatModel.findOne({ index }).lean()
-  }
-}
+}) {}
 
 @Resolver(Prerequisite)
 export class PrerequisiteResolver {

@@ -1,59 +1,19 @@
-import { Args, Query, Resolver } from 'type-graphql'
+import { Resolver } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import DamageTypeModel, { DamageType2024 } from '@/models/2024/damageType'
-import { escapeRegExp } from '@/util'
-
-import {
-  DAMAGE_TYPE_SORT_FIELD_MAP,
-  DamageTypeArgs,
-  DamageTypeArgsSchema,
-  DamageTypeIndexArgs,
-  DamageTypeIndexArgsSchema,
-  DamageTypeOrderField
-} from './args'
 
 @Resolver(DamageType2024)
-export class DamageTypeResolver {
-  @Query(() => [DamageType2024], {
-    description: 'Gets all damage types, optionally filtered by name and sorted by name.'
-  })
-  async damageTypes(@Args(() => DamageTypeArgs) args: DamageTypeArgs): Promise<DamageType2024[]> {
-    const validatedArgs = DamageTypeArgsSchema.parse(args)
-    const query = DamageTypeModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<DamageTypeOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: DAMAGE_TYPE_SORT_FIELD_MAP,
-      defaultSortField: DamageTypeOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class DamageTypeResolver extends createResolver({
+  Type: DamageType2024,
+  Model: DamageTypeModel,
+  typeName: 'DamageType',
+  singular: 'damageType',
+  plural: 'damageTypes',
+  descriptions: {
+    fields: 'Fields to sort Damage Types by',
+    order: 'Specify sorting order for damage types.',
+    list: 'Gets all damage types, optionally filtered by name and sorted by name.',
+    single: 'Gets a single damage type by index.'
   }
-
-  @Query(() => DamageType2024, {
-    nullable: true,
-    description: 'Gets a single damage type by index.'
-  })
-  async damageType(
-    @Args(() => DamageTypeIndexArgs) args: DamageTypeIndexArgs
-  ): Promise<DamageType2024 | null> {
-    const { index } = DamageTypeIndexArgsSchema.parse(args)
-    return DamageTypeModel.findOne({ index }).lean()
-  }
-}
+}) {}

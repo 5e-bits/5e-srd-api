@@ -1,58 +1,12 @@
-import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
+import { ArgsType, Field } from 'type-graphql'
 import { z } from 'zod'
 
-import {
-  BaseFilterArgs,
-  BaseFilterArgsSchema,
-  BaseIndexArgs,
-  BaseIndexArgsSchema,
-  BaseOrderInterface
-} from '@/graphql/common/args'
-import { OrderByDirection } from '@/graphql/common/enums'
-
-export enum FeatOrderField {
-  NAME = 'name',
-  TYPE = 'type'
-}
-
-export const FEAT_SORT_FIELD_MAP: Record<FeatOrderField, string> = {
-  [FeatOrderField.NAME]: 'name',
-  [FeatOrderField.TYPE]: 'type'
-}
-
-registerEnumType(FeatOrderField, {
-  name: 'FeatOrderField',
-  description: 'Fields to sort Feats by'
-})
-
-@InputType()
-export class FeatOrder implements BaseOrderInterface<FeatOrderField> {
-  @Field(() => FeatOrderField)
-  by!: FeatOrderField
-
-  @Field(() => OrderByDirection)
-  direction!: OrderByDirection
-
-  @Field(() => FeatOrder, { nullable: true })
-  then_by?: FeatOrder
-}
-
-export const FeatOrderSchema: z.ZodType<FeatOrder> = z.lazy(() =>
-  z.object({
-    by: z.nativeEnum(FeatOrderField),
-    direction: z.nativeEnum(OrderByDirection),
-    then_by: FeatOrderSchema.optional()
-  })
-)
+import { BaseFilterArgs, BaseFilterArgsSchema } from '@/graphql/common/args'
 
 export const FeatArgsSchema = z.object({
   ...BaseFilterArgsSchema.shape,
-  type: z.array(z.string()).optional(),
-  order: FeatOrderSchema.optional()
+  type: z.array(z.string()).optional()
 })
-
-export const FeatIndexArgsSchema = BaseIndexArgsSchema
-export { BaseIndexArgs as FeatIndexArgs }
 
 @ArgsType()
 export class FeatArgs extends BaseFilterArgs {
@@ -61,7 +15,4 @@ export class FeatArgs extends BaseFilterArgs {
     description: 'Filter by feat type (e.g., ["origin", "general"])'
   })
   type?: string[]
-
-  @Field(() => FeatOrder, { nullable: true, description: 'Specify sorting order for feats.' })
-  order?: FeatOrder
 }

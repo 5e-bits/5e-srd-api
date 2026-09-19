@@ -1,58 +1,12 @@
-import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
+import { ArgsType, Field } from 'type-graphql'
 import { z } from 'zod'
 
-import {
-  BaseFilterArgs,
-  BaseFilterArgsSchema,
-  BaseIndexArgs,
-  BaseIndexArgsSchema,
-  BaseOrderInterface
-} from '@/graphql/common/args'
-import { OrderByDirection } from '@/graphql/common/enums'
-
-export enum ProficiencyOrderField {
-  NAME = 'name',
-  TYPE = 'type'
-}
-
-export const PROFICIENCY_SORT_FIELD_MAP: Record<ProficiencyOrderField, string> = {
-  [ProficiencyOrderField.NAME]: 'name',
-  [ProficiencyOrderField.TYPE]: 'type'
-}
-
-registerEnumType(ProficiencyOrderField, {
-  name: 'ProficiencyOrderField',
-  description: 'Fields to sort Proficiencies by'
-})
-
-@InputType()
-export class ProficiencyOrder implements BaseOrderInterface<ProficiencyOrderField> {
-  @Field(() => ProficiencyOrderField)
-  by!: ProficiencyOrderField
-
-  @Field(() => OrderByDirection)
-  direction!: OrderByDirection
-
-  @Field(() => ProficiencyOrder, { nullable: true })
-  then_by?: ProficiencyOrder
-}
-
-export const ProficiencyOrderSchema: z.ZodType<ProficiencyOrder> = z.lazy(() =>
-  z.object({
-    by: z.nativeEnum(ProficiencyOrderField),
-    direction: z.nativeEnum(OrderByDirection),
-    then_by: ProficiencyOrderSchema.optional()
-  })
-)
+import { BaseFilterArgs, BaseFilterArgsSchema } from '@/graphql/common/args'
 
 export const ProficiencyArgsSchema = z.object({
   ...BaseFilterArgsSchema.shape,
-  type: z.array(z.string()).optional(),
-  order: ProficiencyOrderSchema.optional()
+  type: z.array(z.string()).optional()
 })
-
-export const ProficiencyIndexArgsSchema = BaseIndexArgsSchema
-export { BaseIndexArgs as ProficiencyIndexArgs }
 
 @ArgsType()
 export class ProficiencyArgs extends BaseFilterArgs {
@@ -61,10 +15,4 @@ export class ProficiencyArgs extends BaseFilterArgs {
     description: 'Filter by proficiency type (e.g., ["Skills", "Tools"])'
   })
   type?: string[]
-
-  @Field(() => ProficiencyOrder, {
-    nullable: true,
-    description: 'Specify sorting order for proficiencies.'
-  })
-  order?: ProficiencyOrder
 }

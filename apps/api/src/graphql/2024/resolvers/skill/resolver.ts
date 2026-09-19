@@ -1,69 +1,35 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore2024 } from '@/models/2024/abilityScore'
 import SkillModel, { Skill2024 } from '@/models/2024/skill'
-import { escapeRegExp } from '@/util'
 
-import {
-  SKILL_SORT_FIELD_MAP,
-  SkillArgs,
-  SkillArgsSchema,
-  SkillIndexArgs,
-  SkillIndexArgsSchema,
-  SkillOrderField
-} from './args'
+import { SkillArgs, SkillArgsSchema } from './args'
 
 @Resolver(Skill2024)
-export class SkillResolver {
-  @Query(() => [Skill2024], {
-    description: 'Gets all skills, optionally filtered by name and sorted by name.'
-  })
-  async skills(@Args(() => SkillArgs) args: SkillArgs): Promise<Skill2024[]> {
-    const validatedArgs = SkillArgsSchema.parse(args)
-
-    const query = SkillModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.ability_score && validatedArgs.ability_score.length > 0) {
-      filters.push({ 'ability_score.index': { $in: validatedArgs.ability_score } })
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<SkillOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: SKILL_SORT_FIELD_MAP,
-      defaultSortField: SkillOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Skill2024, { nullable: true, description: 'Gets a single skill by index.' })
-  async skill(@Args(() => SkillIndexArgs) args: SkillIndexArgs): Promise<Skill2024 | null> {
-    const { index } = SkillIndexArgsSchema.parse(args)
-    return SkillModel.findOne({ index }).lean()
-  }
-
+export class SkillResolver extends createResolver({
+  Type: Skill2024,
+  Model: SkillModel,
+  typeName: 'Skill',
+  singular: 'skill',
+  plural: 'skills',
+  descriptions: {
+    fields: 'Fields to sort Skills by',
+    order: 'Specify sorting order for skills.',
+    list: 'Gets all skills, optionally filtered by name and sorted by name.',
+    single: 'Gets a single skill by index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    ABILITY_SCORE: { value: 'ability_score', path: 'ability_score.name' }
+  },
+  defaultSort: 'NAME',
+  Args: SkillArgs,
+  argsSchema: SkillArgsSchema,
+  filters: (a) => [regexFilter('name', a.name), inFilter('ability_score.index', a.ability_score)]
+}) {
   @FieldResolver(() => AbilityScore2024)
   async ability_score(@Root() skill: Skill2024): Promise<AbilityScore2024 | null> {
     return resolveSingleReference(skill.ability_score, AbilityScoreModel)
