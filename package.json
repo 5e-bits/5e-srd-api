@@ -4,5 +4,6 @@
   "packageManager": "pnpm@12.4.2",
   "engines": {
     "node": "24.x"
-  }
+  },
+  "version": "5.10.0"
 }
