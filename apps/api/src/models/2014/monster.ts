@@ -45,6 +45,7 @@ export class ActionUsage {
 }
 
 @ObjectType({ description: 'An action a monster can perform' })
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class MonsterAction {
   @Field(() => String, { description: 'The name of the action.' })
   @prop({ required: true, index: true, type: () => String })

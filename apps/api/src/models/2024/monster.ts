@@ -223,6 +223,7 @@ export class MonsterAttack2024 {
 }
 
 @ObjectType({ description: 'An action a 2024 monster can perform' })
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class MonsterAction2024 {
   @Field(() => String)
   @prop({ required: true, index: true, type: () => String })
