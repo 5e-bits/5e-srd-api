@@ -164,7 +164,9 @@ settings:
 
 importers:
 
-  .:
+  .: {}
+
+  apps/api:
     dependencies:
       '@apollo/server':
         specifier: ^5.5.1
