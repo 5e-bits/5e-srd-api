@@ -2,6 +2,7 @@ import { ReturnModelType } from '@typegoose/typegoose'
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 
+import { parseRequest } from '@/controllers/parseRequest'
 import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
 import { redisClient } from '@/util'
 import { ResourceList } from '@/util/data'
@@ -52,15 +53,10 @@ class SimpleController<Q extends z.ZodType = typeof NameQuerySchema> {
 
   async index(req: Request, res: Response, next: NextFunction) {
     try {
-      const validatedQuery = this.querySchema.safeParse(req.query)
+      const validatedQuery = parseRequest(req, res, 'query', this.querySchema)
+      if (validatedQuery === undefined) return
 
-      if (!validatedQuery.success) {
-        return res
-          .status(400)
-          .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
-      }
-
-      const query = validatedQuery.data as z.output<Q> & { name?: string }
+      const query = validatedQuery as z.output<Q> & { name?: string }
       const { name } = query
       const lang = req.lang ?? 'en'
 
@@ -98,15 +94,10 @@ class SimpleController<Q extends z.ZodType = typeof NameQuerySchema> {
 
   async show(req: Request, res: Response, next: NextFunction) {
     try {
-      const validatedParams = ShowParamsSchema.safeParse(req.params)
+      const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+      if (validatedParams === undefined) return
 
-      if (!validatedParams.success) {
-        return res
-          .status(400)
-          .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-      }
-
-      const { index } = validatedParams.data
+      const { index } = validatedParams
       const lang = req.lang ?? 'en'
 
       const data = await this.Schema.findOne({ index })

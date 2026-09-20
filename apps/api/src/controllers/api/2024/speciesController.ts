@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
+import { parseRequest } from '@/controllers/parseRequest'
 import SimpleController from '@/controllers/simpleController'
 import Species2024Model from '@/models/2024/species'
 import Subspecies2024Model from '@/models/2024/subspecies'
@@ -18,13 +19,9 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showSubspeciesForSpecies = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+    if (validatedParams === undefined) return
+    const { index } = validatedParams
     const lang = req.lang ?? 'en'
 
     const urlString = '/api/2024/species/' + index
@@ -49,13 +46,9 @@ export const showSubspeciesForSpecies = async (req: Request, res: Response, next
 
 export const showTraitsForSpecies = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+    if (validatedParams === undefined) return
+    const { index } = validatedParams
     const lang = req.lang ?? 'en'
 
     const urlString = '/api/2024/species/' + index

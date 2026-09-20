@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
+import { parseRequest } from '@/controllers/parseRequest'
 import SimpleController from '@/controllers/simpleController'
 import Feature from '@/models/2014/feature'
 import Level from '@/models/2014/level'
@@ -17,13 +18,9 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showLevelsForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+    if (validatedParams === undefined) return
+    const { index } = validatedParams
     const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/subclasses/' + index
@@ -43,13 +40,9 @@ export const showLevelsForSubclass = async (req: Request, res: Response, next: N
 
 export const showLevelForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = LevelParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index, level } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
+    if (validatedParams === undefined) return
+    const { index, level } = validatedParams
     const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/subclasses/' + index + '/levels/' + level
@@ -68,13 +61,9 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: Ne
 
 export const showFeaturesForSubclass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+    if (validatedParams === undefined) return
+    const { index } = validatedParams
     const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/subclasses/' + index
@@ -100,13 +89,9 @@ export const showFeaturesForSubclassAndLevel = async (
   next: NextFunction
 ) => {
   try {
-    const validatedParams = LevelParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index, level } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
+    if (validatedParams === undefined) return
+    const { index, level } = validatedParams
     const lang = req.lang ?? 'en'
 
     const urlString = '/api/2014/subclasses/' + index
