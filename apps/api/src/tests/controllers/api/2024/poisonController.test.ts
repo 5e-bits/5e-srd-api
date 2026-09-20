@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import PoisonController from '@/controllers/api/2024/poisonController'
+import SimpleController from '@/controllers/simpleController'
 import Poison2024Model from '@/models/2024/poison'
 import { poisonFactory } from '@/tests/factories/2024/poison.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const PoisonController = new SimpleController(Poison2024Model)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('poison_2024')

@@ -61,7 +61,9 @@ export async function applyTranslationToList<T extends Record<string, unknown>>(
     docs: docs.map((doc) => {
       const fields = translationMap.get(doc.index as string)
       if (!fields) return doc
-      const applicableFields = Object.fromEntries(Object.entries(fields).filter(([key]) => key in doc))
+      const applicableFields = Object.fromEntries(
+        Object.entries(fields).filter(([key]) => key in doc)
+      )
       return { ...doc, ...applicableFields }
     }),
     wasTranslated: translationMap.size > 0

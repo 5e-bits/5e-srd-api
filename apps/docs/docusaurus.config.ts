@@ -30,6 +30,11 @@ const config: Config = {
         docs: {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
+          lastVersion: "2014",
+          versions: {
+            current: { label: "2024", path: "2024", banner: "none" },
+            "2014": { label: "2014" },
+          },
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -40,6 +45,10 @@ const config: Config = {
 
   plugins: [
     require.resolve("./src/plugins/dynamic-tutorials-list"),
+    [
+      "docusaurus-plugin-openapi",
+      { id: "2024", path: "openapi-2024.json", routeBasePath: "api/2024" },
+    ],
     [
       "docusaurus-plugin-llms",
       {
@@ -171,7 +180,12 @@ const config: Config = {
         {
           to: "/api",
           position: "left",
-          label: "API",
+          label: "API 2014",
+        },
+        {
+          to: "/api/2024",
+          position: "left",
+          label: "API 2024",
         },
         {
           type: "docsVersionDropdown",

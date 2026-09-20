@@ -1,9 +1,11 @@
 import { type Model } from 'mongoose'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { z } from 'zod'
 
 import SimpleController from '@/controllers/simpleController'
 import AbilityScoreModel from '@/models/2014/abilityScore' // Use Model suffix convention
+import { NameQuerySchema } from '@/schemas/schemas'
 import { abilityScoreFactory } from '@/tests/factories/2014/abilityScore.factory' // Import factory
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming mockNext is here
 import {
@@ -12,6 +14,7 @@ import {
   setupModelCleanup,
   teardownIsolatedDatabase
 } from '@/tests/support/db'
+import { redisClient } from '@/util'
 
 const mockNext = vi.fn(defaultMockNext)
 
@@ -103,6 +106,76 @@ describe('SimpleController (with AbilityScore)', () => {
       expect(responseData.count).toBe(0)
       expect(responseData.results).toEqual([])
       expect(mockNext).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('index options', () => {
+    it('applies the extra filter and returns listFields', async () => {
+      const [first, second] = abilityScoreFactory.buildList(2)
+      await AbilityScoreModel.insertMany([first, second])
+      const controller = new SimpleController(AbilityScoreModel as Model<any>, {
+        querySchema: NameQuerySchema.extend({ full_name: z.string().optional() }),
+        filter: ({ full_name }) => (full_name !== undefined ? { full_name } : {}),
+        listFields: ['full_name']
+      })
+      const request = createRequest({ query: { full_name: first.full_name } })
+      const response = createResponse()
+
+      await controller.index(request, response, mockNext)
+
+      const { results } = JSON.parse(response._getData())
+      expect(results).toEqual([
+        expect.objectContaining({ index: first.index, full_name: first.full_name })
+      ])
+    })
+
+    it('stores list responses in Redis by request URL when cache is on', async () => {
+      await AbilityScoreModel.insertMany(abilityScoreFactory.buildList(2))
+      const controller = new SimpleController(AbilityScoreModel as Model<any>, { cache: true })
+      const request = createRequest({ originalUrl: '/api/2014/ability-scores' })
+      const response = createResponse()
+
+      await controller.index(request, response, mockNext)
+
+      expect(redisClient.set).toHaveBeenCalledWith('/api/2014/ability-scores', response._getData())
+    })
+
+    it('serves a cached list without querying the database', async () => {
+      const cached = JSON.stringify({ count: 1, results: [{ index: 'cached' }] })
+      vi.mocked(redisClient.get).mockResolvedValueOnce(cached)
+      const findSpy = vi.spyOn(AbilityScoreModel, 'find')
+      const controller = new SimpleController(AbilityScoreModel as Model<any>, { cache: true })
+      const request = createRequest({ originalUrl: '/api/2014/ability-scores' })
+      const response = createResponse()
+
+      await controller.index(request, response, mockNext)
+
+      expect(findSpy).not.toHaveBeenCalled()
+      expect(JSON.parse(response._getData())).toEqual(JSON.parse(cached))
+      findSpy.mockRestore()
+    })
+
+    it('bypasses the cache for non-English requests', async () => {
+      await AbilityScoreModel.insertMany(abilityScoreFactory.buildList(2))
+      vi.mocked(redisClient.get).mockClear()
+      vi.mocked(redisClient.set).mockClear()
+      const controller = new SimpleController(AbilityScoreModel as Model<any>, { cache: true })
+      const request = createRequest({ originalUrl: '/api/2014/ability-scores' })
+      request.lang = 'de'
+
+      await controller.index(request, createResponse(), mockNext)
+
+      expect(redisClient.get).not.toHaveBeenCalled()
+      expect(redisClient.set).not.toHaveBeenCalled()
+    })
+
+    it('does not touch Redis when cache is off', async () => {
+      vi.mocked(redisClient.get).mockClear()
+      const controller = new SimpleController(AbilityScoreModel as Model<any>)
+
+      await controller.index(createRequest(), createResponse(), mockNext)
+
+      expect(redisClient.get).not.toHaveBeenCalled()
     })
   })
 

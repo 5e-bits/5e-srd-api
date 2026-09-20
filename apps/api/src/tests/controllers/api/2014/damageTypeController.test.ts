@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import DamageTypeController from '@/controllers/api/2014/damageTypeController'
+import SimpleController from '@/controllers/simpleController'
 import DamageTypeModel from '@/models/2014/damageType'
 import { damageTypeFactory } from '@/tests/factories/2014/damageType.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const DamageTypeController = new SimpleController(DamageTypeModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

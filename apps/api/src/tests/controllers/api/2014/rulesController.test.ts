@@ -2,7 +2,7 @@ import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
 // Import specific functions from the correct controller file
-import * as RuleController from '@/controllers/api/2014/ruleController'
+import RuleController from '@/controllers/api/2014/ruleController'
 import RuleModel from '@/models/2014/rule'
 import Translation2014Model from '@/models/2014/translation'
 import { ruleFactory } from '@/tests/factories/2014/rule.factory'

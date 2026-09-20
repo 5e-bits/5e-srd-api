@@ -52,8 +52,10 @@ describe('/graphql/2024 spells', () => {
   })
 
   it('gets a single spell by index', async () => {
-    const res = await request(server).post('/graphql/2024').send({
-      query: `
+    const res = await request(server)
+      .post('/graphql/2024')
+      .send({
+        query: `
         query {
           spell(index: "acid-arrow") {
             index
@@ -65,7 +67,7 @@ describe('/graphql/2024 spells', () => {
           }
         }
       `
-    })
+      })
 
     expect(res.statusCode).toEqual(200)
     expect(res.body.errors).toBeUndefined()
@@ -73,15 +75,17 @@ describe('/graphql/2024 spells', () => {
   })
 
   it('returns null for an unknown spell index', async () => {
-    const res = await request(server).post('/graphql/2024').send({
-      query: `
+    const res = await request(server)
+      .post('/graphql/2024')
+      .send({
+        query: `
         query {
           spell(index: "not-a-real-spell") {
             index
           }
         }
       `
-    })
+      })
 
     expect(res.statusCode).toEqual(200)
     expect(res.body.data.spell).toBeNull()

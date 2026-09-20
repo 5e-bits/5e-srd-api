@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import MagicSchoolController from '@/controllers/api/2024/magicSchoolController'
+import SimpleController from '@/controllers/simpleController'
 import MagicSchoolModel from '@/models/2024/magicSchool'
 import { magicSchoolFactory } from '@/tests/factories/2024/magicSchool.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const MagicSchoolController = new SimpleController(MagicSchoolModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('magicschool')

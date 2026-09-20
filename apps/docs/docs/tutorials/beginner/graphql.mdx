@@ -2,7 +2,7 @@ import LearningObjectives from "@site/src/components/LearningObjectives";
 
 # GraphQL Fundamentals
 
-GraphQL is a powerful and flexible way to fetch data from the D&D 5e SRD API. In this tutorial, we will learn how to build and try out a range of GraphQL queries using the [Apollo Sandbox Explorer](https://studio.apollographql.com/sandbox?endpoint=https%3A%2F%2Fwww.dnd5eapi.co%2Fgraphql%2F2014).
+GraphQL is a powerful and flexible way to fetch data from the D&D 5e SRD API. In this tutorial, we will learn how to build and try out a range of GraphQL queries using the [Apollo Sandbox Explorer](https://studio.apollographql.com/sandbox?endpoint=https%3A%2F%2Fwww.dnd5eapi.co%2Fgraphql%2F2024).
 
 <LearningObjectives
   objectives={[
@@ -14,21 +14,21 @@ GraphQL is a powerful and flexible way to fetch data from the D&D 5e SRD API. In
 
 ## From REST to GraphQL
 
-In the [Getting Started](./getting-started.mdx) tutorial, we used `curl` to make an HTTP `GET` request to a specific URL that returned the data we wanted. Using that approach, the URL we made a request to corresponded directly to the resource we wanted to fetch; `/api/ability-scores/cha` refers to the resource within the `ability-scores` collection which has the index `cha`.
+In the [Getting Started](./getting-started.mdx) tutorial, we used `curl` to make an HTTP `GET` request to a specific URL that returned the data we wanted. Using that approach, the URL we made a request to corresponded directly to the resource we wanted to fetch; `/api/2024/ability-scores/cha` refers to the resource within the `ability-scores` collection which has the index `cha`.
 
 This is one of the defining features of a RESTful API: a URL corresponds to a resource. The RESTful endpoints of the D&D 5e SRD API follow this uniform interface to make it easy for us to fetch the resources we need, but they don't allow us much control over what data is returned by the API.
 
-For example, if we make a `GET` request to `https://www.dnd5eapi.co/api/monsters`, we will receive only the `index`, `name` and `url` of all the monsters in the SRD database. This is a sensible default, as it gives us the information we need to discover all the monsters, while keeping the response relatively lightweight by excluding unnecessary details. But what if I want to know more about a specific monster?
+For example, if we make a `GET` request to `https://www.dnd5eapi.co/api/2024/spells`, we will receive only the `index`, `name`, `level` and `url` of all the spells in the SRD database. This is a sensible default, as it gives us the information we need to discover all the spells, while keeping the response relatively lightweight by excluding unnecessary details. But what if I want to know more about a specific spell?
 
-Making a request to one of the `url`s provided, such as `/api/monsters/aboleth`, we will receive _all_ of the data about the Aboleth, including its stats, actions, proficiencies, etc. But what if we just wanted to know the Aboleth's armor class? We've just wasted time and bandwidth transporting all that extra information.
+Making a request to one of the `url`s provided, such as `/api/2024/spells/acid-arrow`, we will receive _all_ of the data about Acid Arrow, including its description, components, damage, classes, etc. But what if we just wanted to know its casting time? We've just wasted time and bandwidth transporting all that extra information.
 
-And what if we want to fetch the armor classes of _all_ of the monsters? Using the REST API, we would have to make a separate request for every single monster in the API - that's 334 HTTP requests! Not only would this be slow, it would be a pain to implement.
+And what if we want to fetch the casting times of _all_ of the spells? Using the REST API, we would have to make a separate request for every single spell in the API - that's hundreds of HTTP requests! Not only would this be slow, it would be a pain to implement.
 
 This is where GraphQL saves the day. GraphQL stands for "Graph Query Language". It is a computer language that allows us to query an API much more flexibly than is allowed by the REST API. GraphQL allows us to specify exactly which parts of a resource we want to receive, and to request that data for many resources all in one request. In this tutorial, we will look at how we can build and execute powerful queries against the D&D 5e SRD API using GraphQL.
 
 ## Sandbox Explorer
 
-As well as data, GraphQL servers are able to serve their own schemas and documentation. This allows us to use tools such as the [Apollo Sandbox Explorer](https://studio.apollographql.com/sandbox?endpoint=https%3A%2F%2Fwww.dnd5eapi.co%2Fgraphql%2F2014) to discover the API's capabilities and to build and test our queries.
+As well as data, GraphQL servers are able to serve their own schemas and documentation. This allows us to use tools such as the [Apollo Sandbox Explorer](https://studio.apollographql.com/sandbox?endpoint=https%3A%2F%2Fwww.dnd5eapi.co%2Fgraphql%2F2024) to discover the API's capabilities and to build and test our queries.
 
 Open the explorer in a new tab now so that you can follow along with the tutorial. You should see a page like this:
 
@@ -38,74 +38,68 @@ On the left we can see the documentation - a list of all the resources we can qu
 
 ## Our First Query
 
-Let's start by getting a list of all the monsters in the database. To do this, we can build a query using the panel on the left-hand side of the explorer. Scroll down to "monsters" and click the <svg viewBox="0 0 24 24" role="checkbox" aria-checked="false" style={{width: '2ch', color: 'var(--ifm-color-primary-darker)', verticalAlign: 'text-top', marginInline: '0.25ch'}}><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M12 7.5v9M7.5 12h9M12 .75C18.213.75 23.25 5.787 23.25 12S18.213 23.25 12 23.25.75 18.213.75 12 5.787.75 12 .75z"></path></g></svg> ("plus") icon to the left. You should then be presented with a list of attributes that we can request. You should also see the following code appear in the editor:
+Let's start by getting a list of all the spells in the database. To do this, we can build a query using the panel on the left-hand side of the explorer. Scroll down to "spells" and click the <svg viewBox="0 0 24 24" role="checkbox" aria-checked="false" style={{width: '2ch', color: 'var(--ifm-color-primary-darker)', verticalAlign: 'text-top', marginInline: '0.25ch'}}><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M12 7.5v9M7.5 12h9M12 .75C18.213.75 23.25 5.787 23.25 12S18.213 23.25 12 23.25.75 18.213.75 12 5.787.75 12 .75z"></path></g></svg> ("plus") icon to the left. You should then be presented with a list of attributes that we can request. You should also see the following code appear in the editor:
 
 ```graphql
-query Monsters {
-  monsters {
+query Spells {
+  spells {
 
   }
 }
 ```
 
-From the list on the left-hand side, scroll down to the "Fields" section and select `name` and `index`, and then click the blue "Monsters" button in the top-right corner of the "Operation" box to execute the query. The result should look like this:
+From the list on the left-hand side, scroll down to the "Fields" section and select `name` and `index`, and then click the blue "Spells" button in the top-right corner of the "Operation" box to execute the query. The result should look like this:
 
-![A screenshot of the Sandbox Explorer with the query and its results](/img/tutorial/graphql/02-query-results.png)
-
-In the results pane, we can see the list of all the monsters in the database, and each entry only has the attributes we requested.
+In the results pane, we can see the list of all the spells in the database, and each entry only has the attributes we requested.
 
 ## Nested Attributes
 
-Now let's try getting the armor class of each monster. If we select the `armor_class` attribute from the list of fields, it appears in our query with a set of curly braces, like so:
+Now let's try getting the school of magic of each spell. If we select the `school` attribute from the list of fields, it appears in our query with a set of curly braces, like so:
 
 ```graphql
-query Monsters {
-  monsters {
+query Spells {
+  spells {
     name
     index
-    armor_class {
+    school {
 
     }
   }
 }
 ```
 
-We are also presented with a list of fields that exist inside the `armor_class` object. Let's select `value` and `type`, and execute the query again. Here's what we should see now:
-
-![A screenshot of the Sandbox Explorer with the nested query and its results](/img/tutorial/graphql/03-nested-query-results.png)
-
-Here we can see that each monster now has an array of possible armor classes, and we can see the value and type of each one, but we haven't fetched any unwanted data, like the conditions or descriptions of the armor classes.
+We are also presented with a list of fields that exist inside the `school` object. Let's select `name` and execute the query again. Now each spell has a school, such as `Evocation`, but we haven't fetched any unwanted data, like the description of the school.
 
 Take a moment now to try building some queries of your own. Use the documentation on the left of the screen to build your queries, or for an extra challenge, try writing a query by hand.
 
 ## Fetching a Single Resource
 
-You may have noticed that each top-level field in the documentation comes in a singular and a plural form. For example, `abilityScore` and `abilityScores`, `monster` and `monsters`. The plural forms denote fields that allow us to query a collection of resources, as we have seen with the `monsters` field, but the singular forms (e.g. `monster`) allow us to query a single resource. All we need is the resource's `index`, which is its unique identifier.
+You may have noticed that each top-level field in the documentation comes in a singular and a plural form. For example, `abilityScore` and `abilityScores`, `spell` and `spells`. The plural forms denote fields that allow us to query a collection of resources, as we have seen with the `spells` field, but the singular forms (e.g. `spell`) allow us to query a single resource. All we need is the resource's `index`, which is its unique identifier.
 
 Let's try this out now.
 
 Enter the following query into the Explorer:
 
 ```graphql
-query Monster {
-  monster(index: "aboleth") {
+query Spell {
+  spell(index: "acid-arrow") {
     name
-    challenge_rating
-    hit_points
+    level
+    casting_time
   }
 }
 ```
 
-You will notice that we are making use of the `index` argument to specify that we want information about the Aboleth. When we execute the query, this is exactly what we get.
+You will notice that we are making use of the `index` argument to specify that we want information about the Acid Arrow spell. When we execute the query, this is exactly what we get.
 
-But what if we don't always want to fetch information about the same monster? To facilitate this, we can use variables. The query below declares a variable called `$index`, which must be passed a `String` value when we make our request.
+But what if we don't always want to fetch information about the same spell? To facilitate this, we can use variables. The query below declares a variable called `$index`, which must be passed a `String` value when we make our request.
 
 ```graphql
-query Monster($index: String) {
-  monster(index: $index) {
+query Spell($index: String!) {
+  spell(index: $index) {
     name
-    challenge_rating
-    hit_points
+    level
+    casting_time
   }
 }
 ```
@@ -114,11 +108,11 @@ To pass variables, we can provide a JSON object along with our request, where ea
 
 ```json
 {
-  "index": "aboleth"
+  "index": "acid-arrow"
 }
 ```
 
-Execute the query and we should see the same results as before, except this time we can request a different monster just by changing the value of our `index` variable. Take this opportunity to pass in different indices and observe how this affects the response.
+Execute the query and we should see the same results as before, except this time we can request a different spell just by changing the value of our `index` variable. Take this opportunity to pass in different indices and observe how this affects the response.
 
 ## Next Steps
 

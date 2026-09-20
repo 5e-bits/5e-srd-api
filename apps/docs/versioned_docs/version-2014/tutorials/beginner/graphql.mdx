@@ -101,7 +101,7 @@ You will notice that we are making use of the `index` argument to specify that w
 But what if we don't always want to fetch information about the same monster? To facilitate this, we can use variables. The query below declares a variable called `$index`, which must be passed a `String` value when we make our request.
 
 ```graphql
-query Monster($index: String) {
+query Monster($index: String!) {
   monster(index: $index) {
     name
     challenge_rating

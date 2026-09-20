@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import * as MonsterController from '@/controllers/api/2014/monsterController'
+import MonsterController from '@/controllers/api/2014/monsterController'
 import MonsterModel from '@/models/2014/monster'
 import Translation2014Model from '@/models/2014/translation'
 import { monsterFactory } from '@/tests/factories/2014/monster.factory'

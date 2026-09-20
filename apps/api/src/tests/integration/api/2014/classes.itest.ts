@@ -149,7 +149,9 @@ describe('/api/2014/classes', () => {
         const index = indexRes.body.results[1].index
         const classRes = await request(server).get(`/api/2014/classes/${index}`)
         const subclass = classRes.body.subclasses[0].index
-        const res = await request(server).get(`/api/2014/classes/${index}/levels?subclass=${subclass}`)
+        const res = await request(server).get(
+          `/api/2014/classes/${index}/levels?subclass=${subclass}`
+        )
         expect(res.statusCode).toEqual(200)
         expect(res.body.length).not.toEqual(0)
         expect(res.body.length).toBeGreaterThan(20)

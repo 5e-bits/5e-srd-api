@@ -17,8 +17,16 @@ export const speciesFactory = Factory.define<Species2024>(({ sequence }) => {
     size: faker.helpers.arrayElement(['Small', 'Medium']),
     size_options: undefined,
     speed: faker.helpers.arrayElement([25, 30, 35]),
-    traits: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 4 }), {}, { transient: { resourceType: 'traits' } }),
-    subspecies: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 3 }), {}, { transient: { resourceType: 'subspecies' } }),
+    traits: apiReferenceFactory.buildList(
+      faker.number.int({ min: 0, max: 4 }),
+      {},
+      { transient: { resourceType: 'traits' } }
+    ),
+    subspecies: apiReferenceFactory.buildList(
+      faker.number.int({ min: 0, max: 3 }),
+      {},
+      { transient: { resourceType: 'subspecies' } }
+    ),
     updated_at: faker.date.recent().toISOString()
   }
 })

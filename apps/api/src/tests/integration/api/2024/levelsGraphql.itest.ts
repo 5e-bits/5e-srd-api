@@ -51,8 +51,10 @@ describe('/graphql/2024 levels', () => {
   })
 
   it('gets a single level by index', async () => {
-    const res = await request(server).post('/graphql/2024').send({
-      query: `
+    const res = await request(server)
+      .post('/graphql/2024')
+      .send({
+        query: `
         query {
           level(index: "barbarian-3") {
             index
@@ -61,7 +63,7 @@ describe('/graphql/2024 levels', () => {
           }
         }
       `
-    })
+      })
 
     expect(res.statusCode).toEqual(200)
     expect(res.body.errors).toBeUndefined()
@@ -69,15 +71,17 @@ describe('/graphql/2024 levels', () => {
   })
 
   it('returns null for an unknown level index', async () => {
-    const res = await request(server).post('/graphql/2024').send({
-      query: `
+    const res = await request(server)
+      .post('/graphql/2024')
+      .send({
+        query: `
         query {
           level(index: "not-a-real-level") {
             index
           }
         }
       `
-    })
+      })
 
     expect(res.statusCode).toEqual(200)
     expect(res.body.data.level).toBeNull()

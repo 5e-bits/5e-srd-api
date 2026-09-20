@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import TraitController from '@/controllers/api/2024/traitController'
+import SimpleController from '@/controllers/simpleController'
 import Trait2024Model from '@/models/2024/trait'
 import { traitFactory } from '@/tests/factories/2024/trait.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const TraitController = new SimpleController(Trait2024Model)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('trait2024')

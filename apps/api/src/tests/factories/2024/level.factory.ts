@@ -11,7 +11,7 @@ const apiReferenceFactory = Factory.define<APIReference>(() => ({
 }))
 
 export const levelFactory = Factory.define<Level2024>(({ sequence, params }) => {
-  const level = params.level ?? (((sequence - 1) % 20) + 1)
+  const level = params.level ?? ((sequence - 1) % 20) + 1
   const classRef = apiReferenceFactory.build(params.class)
   const subclassRef = params.subclass ? apiReferenceFactory.build(params.subclass) : undefined
   const parentRef = subclassRef ?? classRef

@@ -85,7 +85,7 @@
     "/api/2014/{endpoint}": {
       "get": {
         "summary": "Get list of all available resources for an endpoint.",
-        "description": "Currently only the [`/spells`](#get-/api/2014/spells) and [`/monsters`](#get-/api/2014/monsters) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](#tag--Spells) and [Monsters](#tag--Monsters) sections.\n",
+        "description": "Currently only the [`/spells`](/api/get-list-of-spells-with-optional-filtering) and [`/monsters`](/api/get-list-of-monsters-with-optional-filtering) endpoints support filtering with query parameters. Use of these query parameters is documented under the respective [Spells](/api/get-list-of-spells-with-optional-filtering) and [Monsters](/api/get-list-of-monsters-with-optional-filtering) sections.\n",
         "tags": [
           "Common"
         ],
@@ -3050,7 +3050,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the proficiency to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `proficiencies`.\n",
+        "description": "The `index` of the proficiency to get.\n\nAvailable values can be found in the [`ResourceList`](/api/get-list-of-all-available-resources-for-an-endpoint) for `proficiencies`.\n",
         "schema": {
           "type": "string",
           "example": "medium-armor"
@@ -3244,7 +3244,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the equipment to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `equipment`.\n",
+        "description": "The `index` of the equipment to get.\n\nAvailable values can be found in the [`ResourceList`](/api/get-list-of-all-available-resources-for-an-endpoint) for `equipment`.\n",
         "schema": {
           "type": "string",
           "example": "club"
@@ -3254,7 +3254,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the feature to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `features`.\n",
+        "description": "The `index` of the feature to get.\n\nAvailable values can be found in the [`ResourceList`](/api/get-list-of-all-available-resources-for-an-endpoint) for `features`.\n",
         "schema": {
           "type": "string"
         },
@@ -3448,7 +3448,7 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the `Spell` to get.\n\nAvailable values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `spells`.\n",
+        "description": "The `index` of the `Spell` to get.\n\nAvailable values can be found in the [`ResourceList`](/api/get-list-of-all-available-resources-for-an-endpoint) for `spells`.\n",
         "schema": {
           "type": "string",
           "example": "sacred-flame"

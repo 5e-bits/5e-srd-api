@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import * as SpellController from '@/controllers/api/2024/spellController'
+import SpellController from '@/controllers/api/2024/spellController'
 import Spell2024Model from '@/models/2024/spell'
 import Translation2024Model from '@/models/2024/translation'
 import { spellFactory } from '@/tests/factories/2024/spell.factory'
@@ -58,23 +58,26 @@ describe('SpellController', () => {
         { input: '', expectedCount: 3, seedLevels: [1, 2, 3] } // empty → no filter applied
       ]
 
-      it.each(levelTestCases)('handles level: $input', async ({ input, expectedCount, seedLevels }) => {
-        const spellsToSeed = seedLevels.map((lvl, i) =>
-          spellFactory.build({ level: lvl, name: `Spell ${i}` })
-        )
-        await Spell2024Model.insertMany(spellsToSeed)
+      it.each(levelTestCases)(
+        'handles level: $input',
+        async ({ input, expectedCount, seedLevels }) => {
+          const spellsToSeed = seedLevels.map((lvl, i) =>
+            spellFactory.build({ level: lvl, name: `Spell ${i}` })
+          )
+          await Spell2024Model.insertMany(spellsToSeed)
 
-        const request = createRequest({ query: { level: input } })
-        const response = createResponse()
+          const request = createRequest({ query: { level: input } })
+          const response = createResponse()
 
-        await SpellController.index(request, response, mockNext)
+          await SpellController.index(request, response, mockNext)
 
-        expect(response.statusCode).toBe(200)
-        const responseData = JSON.parse(response._getData())
-        expect(responseData.count).toBe(expectedCount)
-        expect(responseData.results).toHaveLength(expectedCount)
-        expect(mockNext).not.toHaveBeenCalled()
-      })
+          expect(response.statusCode).toBe(200)
+          const responseData = JSON.parse(response._getData())
+          expect(responseData.count).toBe(expectedCount)
+          expect(responseData.results).toHaveLength(expectedCount)
+          expect(mockNext).not.toHaveBeenCalled()
+        }
+      )
     })
 
     it('returns an empty list when no spells exist', async () => {

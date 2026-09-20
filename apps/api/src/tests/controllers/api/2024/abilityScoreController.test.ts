@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import AbilityScoreController from '@/controllers/api/2024/abilityScoreController'
+import SimpleController from '@/controllers/simpleController'
 import AbilityScoreModel from '@/models/2024/abilityScore'
 import { abilityScoreFactory } from '@/tests/factories/2024/abilityScore.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const AbilityScoreController = new SimpleController(AbilityScoreModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

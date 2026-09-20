@@ -8,4 +8,4 @@ Deployable applications in this monorepo.
   `git subtree` (history preserved).
 - `apps/infrastructure` — AWS CDK app for the dnd5eapi.co S3/CloudFront/
   Route 53 resources, merged in from `5e-bits/infrastructure` via
-  `git subtree`. Deployed manually with `pnpm cdk`; no CI workflow yet.
+  `git subtree`. Deployed manually with `pnpm cdk`; built, tested and synthesized in CI.

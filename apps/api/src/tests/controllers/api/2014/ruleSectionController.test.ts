@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import * as RuleSectionController from '@/controllers/api/2014/ruleSectionController'
+import RuleSectionController from '@/controllers/api/2014/ruleSectionController'
 import RuleSectionModel from '@/models/2014/ruleSection'
 import Translation2014Model from '@/models/2014/translation'
 import { ruleSectionFactory } from '@/tests/factories/2014/ruleSection.factory'

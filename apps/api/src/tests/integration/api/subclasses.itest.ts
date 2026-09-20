@@ -28,7 +28,10 @@ afterAll(async () => {
 
 describe('/api/subclasses', () => {
   it('redirects to /api/2014/subclasses', async () => {
-    await request(server).get('/api/subclasses').expect(301).expect('Location', '/api/2014/subclasses')
+    await request(server)
+      .get('/api/subclasses')
+      .expect(301)
+      .expect('Location', '/api/2014/subclasses')
   })
 
   it('redirects preserving query parameters', async () => {
