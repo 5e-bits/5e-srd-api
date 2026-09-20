@@ -99,7 +99,7 @@ export class InfrastructureStack extends cdk.Stack {
       enableAcceptEncodingBrotli: false,
     });
 
-    const distribution = new cloudfront.Distribution(
+    new cloudfront.Distribution(
       this,
       "ImportedCloudFrontDistribution",
       {
