@@ -8,6 +8,7 @@ updates:
   # Workspace root so Dependabot sees pnpm-workspace.yaml and updates the shared pnpm-lock.yaml.
   - package-ecosystem: 'npm'
     directory: '/'
+    open-pull-requests-limit: 15
     schedule:
       interval: 'weekly'
     commit-message:
