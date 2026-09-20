@@ -178,8 +178,8 @@ importers:
         specifier: ^3.1134.0
         version: 3.1134.0
       '@bugsnag/js':
-        specifier: ^8.9.0
-        version: 8.9.0
+        specifier: ^8.10.0
+        version: 8.10.0
       '@bugsnag/plugin-express':
         specifier: ^8.8.0
         version: 8.9.0(@bugsnag/core@8.9.0)
@@ -1225,8 +1225,8 @@ packages:
   '@braintree/sanitize-url@7.1.2':
     resolution: {integrity: sha512-jigsZK+sMF/cuiB7sERuo9V7N9jx+dhmHHnQyDSVdpZwVutaBu7WvNYqMDLSgFgfB30n452TP3vjDAvFC973mA==}
 
-  '@bugsnag/browser@8.9.0':
-    resolution: {integrity: sha512-lsreEdlIQxEzJxFzp1T2yKH4Jzzm5YiXez0UK734XXfBRx8ZR2SDcNljo2EqctrRIqVrCM6wp6RvEo9hzlpeBg==}
+  '@bugsnag/browser@8.10.0':
+    resolution: {integrity: sha512-RucooYQMoLSD+aU3YOh3d22/rgqIt0pDr6bgSokvandS0mt1IOK318QwEsBq6aZ68j7vhhMt84Z3Tdum64QsOA==}
 
   '@bugsnag/core@8.9.0':
     resolution: {integrity: sha512-SrXO0isIZfrCem06/WDvC5MSd1Tj6Yjm4Wqdlv6jyjTvsow+cppvt7rS9Bps3qOeXfYCqWHN4ev02OdwnfZ1PQ==}
@@ -1234,11 +1234,11 @@ packages:
   '@bugsnag/cuid@3.2.2':
     resolution: {integrity: sha512-7onuYLTMqMmHE9BBPG0YER4nFsU1rB+me1/YIeMusqcLbVbKKuG9u9+BDVDpje5e0llkkrVNOKYwmzM9DRIo7A==}
 
-  '@bugsnag/js@8.9.0':
-    resolution: {integrity: sha512-ChjKFVBF2CgepDXfMBkbEdcFUniJNN8py5V+tinaB8+vpJbr/fD1+VLFhkruSEn3jOafXrc1XJe9WHtsu9ht0g==}
+  '@bugsnag/js@8.10.0':
+    resolution: {integrity: sha512-D8IYjkGltLw5m1ujM33AAARFYIS4S2KgUdk6QrKR+r/NGfygHOyyMPXNfxvmiap5d4EusPxPOWCKT+1TN9ToKA==}
 
-  '@bugsnag/node@8.9.0':
-    resolution: {integrity: sha512-WpogbMCY8/Rmg+1nsetp3GcPnXj5rpK1YxSmgEfiBM8B2nr/riYqrzuXIkrb1FZN1ti+Hfn1IecRAyGx3rUBBA==}
+  '@bugsnag/node@8.10.0':
+    resolution: {integrity: sha512-xLDSk3EBUDIAwYyECxzdEpsgZv6Mwn/WAV57vQBiKsTgia7cnjE83VeR9O6uu4oAUhye160LAVzRCvmJNac+nw==}
 
   '@bugsnag/plugin-express@8.9.0':
     resolution: {integrity: sha512-AMf0Vdj4FzfSJb/PGEKeT05si9SduMjOwZoy6HE2RGI1sjx6hsFzKk6NQ3tsTmYJp9t79V7cjimw5F9uKRWmXQ==}
@@ -10084,7 +10084,7 @@ snapshots:
 
   '@braintree/sanitize-url@7.1.2': {}
 
-  '@bugsnag/browser@8.9.0':
+  '@bugsnag/browser@8.10.0':
     dependencies:
       '@bugsnag/core': 8.9.0
 
@@ -10098,12 +10098,12 @@ snapshots:
 
   '@bugsnag/cuid@3.2.2': {}
 
-  '@bugsnag/js@8.9.0':
+  '@bugsnag/js@8.10.0':
     dependencies:
-      '@bugsnag/browser': 8.9.0
-      '@bugsnag/node': 8.9.0
+      '@bugsnag/browser': 8.10.0
+      '@bugsnag/node': 8.10.0
 
-  '@bugsnag/node@8.9.0':
+  '@bugsnag/node@8.10.0':
     dependencies:
       '@bugsnag/core': 8.9.0
       byline: 5.0.0
