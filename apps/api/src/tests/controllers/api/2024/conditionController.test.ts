@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import ConditionController from '@/controllers/api/2024/conditionController'
+import SimpleController from '@/controllers/simpleController'
 import ConditionModel from '@/models/2024/condition'
 import { conditionFactory } from '@/tests/factories/2024/condition.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const ConditionController = new SimpleController(ConditionModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('condition')

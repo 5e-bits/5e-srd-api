@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import BackgroundController from '@/controllers/api/2024/backgroundController'
+import SimpleController from '@/controllers/simpleController'
 import BackgroundModel from '@/models/2024/background'
 import { backgroundFactory } from '@/tests/factories/2024/background.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const BackgroundController = new SimpleController(BackgroundModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('background')

@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import MagicSchoolController from '@/controllers/api/2014/magicSchoolController'
+import SimpleController from '@/controllers/simpleController'
 import MagicSchoolModel from '@/models/2014/magicSchool' // Use Model suffix
 import { magicSchoolFactory } from '@/tests/factories/2014/magicSchool.factory' // Updated path
 import { mockNext as defaultMockNext } from '@/tests/support' // Assuming support helper location
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const MagicSchoolController = new SimpleController(MagicSchoolModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import MagicItemController from '@/controllers/api/2024/magicItemController'
+import SimpleController from '@/controllers/simpleController'
 import MagicItemModel from '@/models/2024/magicItem'
 import { magicItemFactory } from '@/tests/factories/2024/magicItem.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const MagicItemController = new SimpleController(MagicItemModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('magic-item')

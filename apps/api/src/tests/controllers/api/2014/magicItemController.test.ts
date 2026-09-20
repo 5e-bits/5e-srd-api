@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import * as MagicItemController from '@/controllers/api/2014/magicItemController'
+import MagicItemController from '@/controllers/api/2014/magicItemController'
 import MagicItemModel from '@/models/2014/magicItem'
 import Translation2014Model from '@/models/2014/translation'
 import { magicItemFactory } from '@/tests/factories/2014/magicItem.factory'
@@ -76,8 +76,8 @@ describe('MagicItemController', () => {
       vi.spyOn(MagicItemModel, 'find').mockImplementationOnce(() => {
         const query = {
           select: vi.fn().mockReturnThis(),
-          sort: vi.fn().mockRejectedValueOnce(error)
-          // Add other methods chained in the controller if necessary
+          sort: vi.fn().mockReturnThis(),
+          exec: vi.fn().mockRejectedValueOnce(error)
         } as any
         return query
       })

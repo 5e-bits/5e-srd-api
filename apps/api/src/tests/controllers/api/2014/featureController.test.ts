@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import FeatureController from '@/controllers/api/2014/featureController'
+import SimpleController from '@/controllers/simpleController'
 import FeatureModel from '@/models/2014/feature'
 import { featureFactory } from '@/tests/factories/2014/feature.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const FeatureController = new SimpleController(FeatureModel)
 const mockNext = vi.fn(defaultMockNext)
 
 // Generate URI for this test file

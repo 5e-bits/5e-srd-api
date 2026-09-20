@@ -102,10 +102,16 @@ describe('ClassController', () => {
     const classUrl = `/api/2024/classes/${classIndex}`
 
     it('returns base levels for a class, excluding subclass-specific levels', async () => {
-      const baseLevels = levelFactory.buildList(5, { class: { index: classIndex, name: 'Barbarian', url: classUrl } })
+      const baseLevels = levelFactory.buildList(5, {
+        class: { index: classIndex, name: 'Barbarian', url: classUrl }
+      })
       const subclassLevel = levelFactory.build({
         class: { index: classIndex, name: 'Barbarian', url: classUrl },
-        subclass: { index: 'path-of-the-berserker', name: 'Path of the Berserker', url: '/api/2024/subclasses/path-of-the-berserker' }
+        subclass: {
+          index: 'path-of-the-berserker',
+          name: 'Path of the Berserker',
+          url: '/api/2024/subclasses/path-of-the-berserker'
+        }
       })
       await Level2024Model.insertMany([...baseLevels, subclassLevel])
 
@@ -127,7 +133,11 @@ describe('ClassController', () => {
       })
       const subclassLevel = levelFactory.build({
         class: { index: classIndex, name: 'Barbarian', url: classUrl },
-        subclass: { index: 'path-of-the-berserker', name: 'Path of the Berserker', url: subclassUrl }
+        subclass: {
+          index: 'path-of-the-berserker',
+          name: 'Path of the Berserker',
+          url: subclassUrl
+        }
       })
       await Level2024Model.insertMany([...baseLevels, subclassLevel])
 
@@ -230,7 +240,11 @@ describe('ClassController', () => {
     it('returns features gained at a specific class level', async () => {
       const matchingFeature = featureFactory.build({
         class: { index: classIndex, name: 'Barbarian', url: classUrl },
-        level: { index: `${classIndex}-${targetLevel}`, name: `Barbarian ${targetLevel}`, url: `${classUrl}/levels/${targetLevel}` }
+        level: {
+          index: `${classIndex}-${targetLevel}`,
+          name: `Barbarian ${targetLevel}`,
+          url: `${classUrl}/levels/${targetLevel}`
+        }
       })
       const otherFeature = featureFactory.build({
         class: { index: classIndex, name: 'Barbarian', url: classUrl },
@@ -271,7 +285,8 @@ describe('ClassController', () => {
       const response = createResponse()
       const error = new Error('Feature find failed')
       vi.spyOn(Feature2024Model, 'find').mockImplementationOnce(
-        () => ({ select: vi.fn().mockReturnThis(), sort: vi.fn().mockRejectedValueOnce(error) }) as any
+        () =>
+          ({ select: vi.fn().mockReturnThis(), sort: vi.fn().mockRejectedValueOnce(error) }) as any
       )
 
       await ClassController.showFeaturesForClassAndLevel(request, response, mockNext)

@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import * as SpellController from '@/controllers/api/2014/spellController'
+import SpellController from '@/controllers/api/2014/spellController'
 import SpellModel from '@/models/2014/spell'
 import Translation2014Model from '@/models/2014/translation'
 import { spellFactory } from '@/tests/factories/2014/spell.factory'
@@ -65,58 +65,91 @@ describe('SpellController', () => {
         { input: '', expectedCount: 3, seedLevels: [1, 2, 3] } // empty → no filter applied
       ]
 
-      it.each(levelTestCases)('handles level: $input', async ({ input, expectedCount, seedLevels }) => {
-        const spellsToSeed = seedLevels.map((lvl, i) =>
-          spellFactory.build({ level: lvl, name: `Spell ${i}` })
-        )
-        await SpellModel.insertMany(spellsToSeed)
+      it.each(levelTestCases)(
+        'handles level: $input',
+        async ({ input, expectedCount, seedLevels }) => {
+          const spellsToSeed = seedLevels.map((lvl, i) =>
+            spellFactory.build({ level: lvl, name: `Spell ${i}` })
+          )
+          await SpellModel.insertMany(spellsToSeed)
 
-        const request = createRequest({ query: { level: input } })
-        const response = createResponse()
+          const request = createRequest({ query: { level: input } })
+          const response = createResponse()
 
-        await SpellController.index(request, response, mockNext)
+          await SpellController.index(request, response, mockNext)
 
-        expect(response.statusCode).toBe(200)
-        const responseData = JSON.parse(response._getData())
-        expect(responseData.count).toBe(expectedCount)
-        expect(responseData.results).toHaveLength(expectedCount)
-        expect(mockNext).not.toHaveBeenCalled()
-      })
+          expect(response.statusCode).toBe(200)
+          const responseData = JSON.parse(response._getData())
+          expect(responseData.count).toBe(expectedCount)
+          expect(responseData.results).toHaveLength(expectedCount)
+          expect(mockNext).not.toHaveBeenCalled()
+        }
+      )
     })
 
     describe('with school query', () => {
       const schoolTestCases = [
-        { input: 'evocation', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] },
-        { input: 'evocation,illusion', expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
-        { input: ['evocation','illusion'], expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
-        { input: 'illu', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
-        { input: 'EVOCATION', expectedCount: 1, seedSchools: ['Evocation','Illusion','Abjuration'] },
-        { input: 'invalid', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] }, 
-        { input: 'illu,evo', expectedCount: 2, seedSchools: ['Evocation','Illusion','Abjuration'] },
-        { input: 'evocation', expectedCount: 0, seedSchools: ['Illusion','Abjuration'] },
-        { input: 'randomStaff', expectedCount: 0, seedSchools: ['Evocation','Illusion','Abjuration'] },
-        { input: '', expectedCount: 3, seedSchools: ['Evocation','Illusion','Abjuration'] },
-        { input: '   ', expectedCount: 3, seedSchools: ['Evocation','Illusion','Abjuration'] }
-
+        {
+          input: 'evocation',
+          expectedCount: 1,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        {
+          input: 'evocation,illusion',
+          expectedCount: 2,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        {
+          input: ['evocation', 'illusion'],
+          expectedCount: 2,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        { input: 'illu', expectedCount: 1, seedSchools: ['Evocation', 'Illusion', 'Abjuration'] },
+        {
+          input: 'EVOCATION',
+          expectedCount: 1,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        {
+          input: 'invalid',
+          expectedCount: 0,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        {
+          input: 'illu,evo',
+          expectedCount: 2,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        { input: 'evocation', expectedCount: 0, seedSchools: ['Illusion', 'Abjuration'] },
+        {
+          input: 'randomStaff',
+          expectedCount: 0,
+          seedSchools: ['Evocation', 'Illusion', 'Abjuration']
+        },
+        { input: '', expectedCount: 3, seedSchools: ['Evocation', 'Illusion', 'Abjuration'] },
+        { input: '   ', expectedCount: 3, seedSchools: ['Evocation', 'Illusion', 'Abjuration'] }
       ]
 
-      it.each(schoolTestCases)('handles school: $input', async ({ input, expectedCount, seedSchools }) => {
-        const spellsToSeed = seedSchools.map((sch, i) =>
-          spellFactory.build({ school: {name: sch}, name: `Spell ${i}` })
-        )
-        await SpellModel.insertMany(spellsToSeed)
+      it.each(schoolTestCases)(
+        'handles school: $input',
+        async ({ input, expectedCount, seedSchools }) => {
+          const spellsToSeed = seedSchools.map((sch, i) =>
+            spellFactory.build({ school: { name: sch }, name: `Spell ${i}` })
+          )
+          await SpellModel.insertMany(spellsToSeed)
 
-        const request = createRequest({ query: { school: input } })
-        const response = createResponse()
+          const request = createRequest({ query: { school: input } })
+          const response = createResponse()
 
-        await SpellController.index(request, response, mockNext)
+          await SpellController.index(request, response, mockNext)
 
-        expect(response.statusCode).toBe(200)
-        const responseData = JSON.parse(response._getData())
-        expect(responseData.count).toBe(expectedCount)
-        expect(responseData.results).toHaveLength(expectedCount)
-        expect(mockNext).not.toHaveBeenCalled()
-      })
+          expect(response.statusCode).toBe(200)
+          const responseData = JSON.parse(response._getData())
+          expect(responseData.count).toBe(expectedCount)
+          expect(responseData.results).toHaveLength(expectedCount)
+          expect(mockNext).not.toHaveBeenCalled()
+        }
+      )
     })
 
     it('returns an empty list when no spells exist', async () => {

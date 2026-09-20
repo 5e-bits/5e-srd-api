@@ -1,7 +1,7 @@
 import { createRequest, createResponse } from 'node-mocks-http'
 import { describe, expect, it, vi } from 'vitest'
 
-import AlignmentController from '@/controllers/api/2024/alignmentController'
+import SimpleController from '@/controllers/simpleController'
 import AlignmentModel from '@/models/2024/alignment'
 import { alignmentFactory } from '@/tests/factories/2024/alignment.factory'
 import { mockNext as defaultMockNext } from '@/tests/support'
@@ -12,6 +12,7 @@ import {
   teardownIsolatedDatabase
 } from '@/tests/support/db'
 
+const AlignmentController = new SimpleController(AlignmentModel)
 const mockNext = vi.fn(defaultMockNext)
 
 const dbUri = generateUniqueDbUri('alignment')

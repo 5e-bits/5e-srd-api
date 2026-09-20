@@ -28,7 +28,10 @@ afterAll(async () => {
 
 describe('/api/languages', () => {
   it('redirects to /api/2014/languages', async () => {
-    await request(server).get('/api/languages').expect(301).expect('Location', '/api/2014/languages')
+    await request(server)
+      .get('/api/languages')
+      .expect(301)
+      .expect('Location', '/api/2014/languages')
   })
 
   it('redirects preserving query parameters', async () => {
