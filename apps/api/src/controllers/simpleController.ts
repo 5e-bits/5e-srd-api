@@ -4,8 +4,8 @@ import { z } from 'zod'
 
 import { parseRequest } from '@/controllers/parseRequest'
 import { NameQuerySchema, ShowParamsSchema } from '@/schemas/schemas'
-import { redisClient } from '@/util'
 import { ResourceList } from '@/util/data'
+import redisClient from '@/util/RedisClient'
 import { escapeRegExp } from '@/util/regex'
 import { applyTranslation, applyTranslationToList } from '@/util/translation'
 

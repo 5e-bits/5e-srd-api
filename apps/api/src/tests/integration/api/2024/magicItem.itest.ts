@@ -4,7 +4,8 @@ import request from 'supertest'
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import createApp from '@/server'
-import { mongodbUri, redisClient } from '@/util'
+import { mongodbUri } from '@/util/environmentVariables'
+import redisClient from '@/util/RedisClient'
 
 let app: Application
 let server: any

@@ -1,7 +1,7 @@
 import bugsnag from '@bugsnag/js'
 import bugsnagExpress from '@bugsnag/plugin-express'
 
-import { bugsnagApiKey } from '@/util'
+import { bugsnagApiKey } from '@/util/environmentVariables'
 
 const createBugsnagMiddleware = () => {
   if (bugsnagApiKey == null || bugsnagApiKey === '') {
