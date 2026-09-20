@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
+import { parseRequest } from '@/controllers/parseRequest'
 import SimpleController from '@/controllers/simpleController'
 import ClassModel from '@/models/2024/class'
 import Feature2024Model from '@/models/2024/feature'
@@ -23,22 +24,13 @@ export const show = async (req: Request, res: Response, next: NextFunction) =>
 
 export const showLevelsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params)
-    const validatedQuery = ClassLevelsQuerySchema.safeParse(req.query)
+    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+    if (validatedParams === undefined) return
+    const validatedQuery = parseRequest(req, res, 'query', ClassLevelsQuerySchema)
+    if (validatedQuery === undefined) return
 
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    if (!validatedQuery.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
-    }
-
-    const { index } = validatedParams.data
-    const { subclass } = validatedQuery.data
+    const { index } = validatedParams
+    const { subclass } = validatedQuery
     const lang = req.lang ?? 'en'
     const classUrl = '/api/2024/classes/' + index
 
@@ -72,13 +64,9 @@ export const showLevelsForClass = async (req: Request, res: Response, next: Next
 
 export const showLevelForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = LevelParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index, level } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
+    if (validatedParams === undefined) return
+    const { index, level } = validatedParams
     const lang = req.lang ?? 'en'
     const classUrl = '/api/2024/classes/' + index
 
@@ -96,22 +84,13 @@ export const showLevelForClass = async (req: Request, res: Response, next: NextF
 
 export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const validatedParams = ShowParamsSchema.safeParse(req.params)
-    const validatedQuery = SpellIndexQuerySchema.safeParse(req.query)
+    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
+    if (validatedParams === undefined) return
+    const validatedQuery = parseRequest(req, res, 'query', SpellIndexQuerySchema)
+    if (validatedQuery === undefined) return
 
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    if (!validatedQuery.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid query parameters', details: validatedQuery.error.issues })
-    }
-
-    const { index } = validatedParams.data
-    const { level } = validatedQuery.data
+    const { index } = validatedParams
+    const { level } = validatedQuery
     const lang = req.lang ?? 'en'
 
     const classExists = await ClassModel.findOne({ index }).lean()
@@ -149,13 +128,9 @@ export const showSpellsForClassAndLevel = async (
   next: NextFunction
 ) => {
   try {
-    const validatedParams = LevelParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index, level: classLevel } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
+    if (validatedParams === undefined) return
+    const { index, level: classLevel } = validatedParams
 
     const levelData = await Level2024Model.findOne({
       'class.index': index,
@@ -210,13 +185,9 @@ export const showFeaturesForClassAndLevel = async (
   next: NextFunction
 ) => {
   try {
-    const validatedParams = LevelParamsSchema.safeParse(req.params)
-    if (!validatedParams.success) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid path parameters', details: validatedParams.error.issues })
-    }
-    const { index, level } = validatedParams.data
+    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
+    if (validatedParams === undefined) return
+    const { index, level } = validatedParams
     const lang = req.lang ?? 'en'
     const classUrl = '/api/2024/classes/' + index
 
