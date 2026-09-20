@@ -3,11 +3,7 @@ import { simpleRouter } from '@/routes/simpleRouter'
 
 const router = simpleRouter(SubraceController)
 
-router.get('/:index/traits', function (req, res, next) {
-  SubraceController.showTraitsForSubrace(req, res, next)
-})
-router.get('/:index/proficiencies', function (req, res, next) {
-  SubraceController.showProficienciesForSubrace(req, res, next)
-})
+router.get('/:index/traits', SubraceController.showTraitsForSubrace)
+router.get('/:index/proficiencies', SubraceController.showProficienciesForSubrace)
 
 export default router
