@@ -18,7 +18,7 @@ interface SimpleControllerOptions<Q extends z.ZodType> {
   filter?: (query: z.output<Q>) => Record<string, unknown>
   /** Fields returned by the list endpoint in addition to index, name and url. */
   listFields?: string[]
-  /** Cache list responses in Redis, keyed by request URL. */
+  /** Cache English list responses in Redis, keyed by request URL. */
   cache?: boolean
 }
 
@@ -69,7 +69,9 @@ class SimpleController<Q extends z.ZodType = typeof NameQuerySchema> {
         ...this.filter?.(query)
       }
 
-      if (this.cache) {
+      // The key is the URL, which does not include an Accept-Language header, so only cache English.
+      const useCache = this.cache && lang === 'en'
+      if (useCache) {
         const cached = await redisClient.get(req.originalUrl)
         if (cached != null && cached !== '') return res.status(200).json(JSON.parse(cached))
       }
@@ -86,7 +88,7 @@ class SimpleController<Q extends z.ZodType = typeof NameQuerySchema> {
       )
 
       const body = ResourceList(translated)
-      if (this.cache) redisClient.set(req.originalUrl, JSON.stringify(body))
+      if (useCache) redisClient.set(req.originalUrl, JSON.stringify(body))
       res.setHeader('Content-Language', wasTranslated ? lang : 'en')
       return res.status(200).json(body)
     } catch (err) {
