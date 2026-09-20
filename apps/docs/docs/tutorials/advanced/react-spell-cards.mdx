@@ -41,13 +41,13 @@ flowchart LR
 
 **Setup an api file to help make fetching from the D&D 5e API easier.** This keeps our api code in one place and lets us easily extend it if we want to add more endpoints. Click on the "New File" button next to the `src` folder in your CodeSandbox sidebar and make a new file called `api.js`:
 
-We can get all the spells in the 5e D&D API by making a request to `https://www.dnd5eapi.co/api/spells`. Let's go ahead and save that base url to a variable so we don't have to retype it in the future.
+We can get all the spells in the 5e D&D API by making a request to `https://www.dnd5eapi.co/api/2024/spells`. Let's go ahead and save that base url to a variable so we don't have to retype it in the future.
 
 ```js title="/src/api.js"
 const BASE_URL = "https://www.dnd5eapi.co";
 
 export async function getAllSpells() {
-  return fetch(BASE_URL + "/api/spells").then((response) => response.json());
+  return fetch(BASE_URL + "/api/2024/spells").then((response) => response.json());
 }
 ```
 
@@ -61,7 +61,7 @@ If we run this function that we're exporting, we get a response of the following
       index: "acid-arrow",
       level: 2,
       name: "Acid Arrow",
-      url: "/api/spells/acid-arrow"
+      url: "/api/2024/spells/acid-arrow"
     },
       // ...
   ]
@@ -78,7 +78,7 @@ Since we're going to want all of the spell data in our app, let's tweak that fun
 const BASE_URL = "https://www.dnd5eapi.co";
 
 export async function getAllSpells() {
-  const spellIndexes = await fetch(BASE_URL + "/api/spells").then((response) =>
+  const spellIndexes = await fetch(BASE_URL + "/api/2024/spells").then((response) =>
     response.json()
   );
   return Promise.all(
@@ -93,7 +93,7 @@ This might lag, but we'll figure that out later.
 
 > "Make it work, make it right, make it fast"
 
-If we run the function now, we'll get a lot more information from our spells. We mostly care about `name`, `level`, and `desc` for now but you can see everything the endpoint gives you [in the API reference](/api/get-a-spell-by-index)
+If we run the function now, we'll get a lot more information from our spells. We mostly care about `name`, `level`, and `description` for now but you can see everything the endpoint gives you [in the API reference](/api/2024/get-a-spell-by-index)
 
 ## Rendering our Spell Cards
 
@@ -226,7 +226,7 @@ return (
 );
 ```
 
-And then we'll modify our useEffect to use [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to save our spells and load them if available:
+And then we'll modify our useEffect to use [localStorage](https://developer.mozilla.org/en-US/docs/Web/api/2024/Window/localStorage) to save our spells and load them if available:
 
 ```jsx title="/src/App.jsx"
 useEffect(() => {

@@ -6,17 +6,17 @@ sidebar_position: 2
 
 ### A monster, spell, subclass, etc. is missing from the API / Database. Can I add it?
 
-Please check if the data is within [the SRD.](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf) If it is, feel free to open an issue or PR to add it yourself. Otherwise, due to legal reasons, we cannot add it.
+Please check if the data is within [the SRD.](https://media.dndbeyond.com/compendium-images/srd/5.2/SRD_CC_v5.2.pdf) If it is, feel free to open an issue or PR to add it yourself. Otherwise, due to legal reasons, we cannot add it.
 
 [This reddit post is a good explanation of how this works.](https://www.reddit.com/r/DnD/comments/hqw3jx/til_that_the_spell_tashas_hideous_laughter_was/fy0q5ej/)
 
 ### What is the SRD?
 
-The SRD, or Systems Reference Document, contains guidelines for publishing content under the OGL. This allows for some of the data for D&D 5e to be open source. The API only covers data that can be found in the SRD. [Here's a link to the full text of the SRD.](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf)
+The SRD, or Systems Reference Document, contains the parts of the D&D rules that are available for third-party use. This allows some of the data for D&D 5e to be open source. The 2024 API only covers data that can be found in SRD 5.2. [Here's a link to the full text of the SRD.](https://media.dndbeyond.com/compendium-images/srd/5.2/SRD_CC_v5.2.pdf)
 
-### What is the OGL?
+### What license is the 2024 SRD under?
 
-The Open Game License (OGL) is a public copyright license by Wizards of the Coast that may be used by tabletop role-playing game developers to grant permission to modify, copy, and redistribute some of the content designed for their games, notably game mechanics. However, they must share-alike copies and derivative works. [More information about the OGL can be found here.](https://en.wikipedia.org/wiki/Open_Game_License)
+SRD 5.2 is released under the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/) (CC-BY-4.0). The 2014 SRD (5.1) was also available under the Open Game License (OGL); see the 2014 docs for details.
 
 ### Can this API be self hosted?
 
@@ -24,7 +24,7 @@ Yes it can! You can also host the data yourself if you don't want to use the API
 
 ### Can I publish is on `insert platform`? Is this free use?
 
-Yes, you can. The API itself is under the [MIT license](https://opensource.org/licenses/MIT), and the underlying data accessible via the API is supported under the SRD and OGL.
+Yes, you can. The API itself is under the [MIT license](https://opensource.org/licenses/MIT), and the underlying data accessible via the API is supported under the SRD and its license.
 
 ### Is there a limit to the number of calls I can make at a time?
 
