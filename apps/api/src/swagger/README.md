@@ -71,7 +71,7 @@ For reusability and readability, definitions are split into 3 directories.
 - `/parameters`
   - Contains definitions of reusable path and query parameters.
 
-Each of those directories contains a file named `combined.yml` consisting of named references to each of the objects defined in sibling `.yml` files in that directory. The `combined.yml` files provides a single source we can reference from other components. By only referencing objects from the `combined.yml` files, we avoid any problems with circular references.
+The `/schemas` and `/parameters` directories each contain a file named `combined.yml` consisting of named references to each of the objects defined in sibling `.yml` files in that directory. These files define the `components` in `swagger.yml`, and schema files reference each other through them. Path files have no such index: `swagger.yml` references them directly.
 
 ## Developing Locally
 
