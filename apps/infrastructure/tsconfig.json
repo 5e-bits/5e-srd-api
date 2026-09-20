@@ -6,6 +6,7 @@
       "es2020"
     ],
     "declaration": true,
+    "outDir": "dist",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
