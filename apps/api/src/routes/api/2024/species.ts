@@ -1,16 +1,7 @@
-import * as express from 'express'
-
 import * as SpeciesController from '@/controllers/api/2024/speciesController'
+import { simpleRouter } from '@/routes/simpleRouter'
 
-const router = express.Router()
-
-router.get('/', function (req, res, next) {
-  SpeciesController.index(req, res, next)
-})
-
-router.get('/:index', function (req, res, next) {
-  SpeciesController.show(req, res, next)
-})
+const router = simpleRouter(SpeciesController)
 
 router.get('/:index/subspecies', function (req, res, next) {
   SpeciesController.showSubspeciesForSpecies(req, res, next)

@@ -1,16 +1,7 @@
-import * as express from 'express'
-
 import * as SubclassController from '@/controllers/api/2014/subclassController'
+import { simpleRouter } from '@/routes/simpleRouter'
 
-const router = express.Router()
-
-router.get('/', function (req, res, next) {
-  SubclassController.index(req, res, next)
-})
-
-router.get('/:index', function (req, res, next) {
-  SubclassController.show(req, res, next)
-})
+const router = simpleRouter(SubclassController)
 
 router.get('/:index/features', function (req, res, next) {
   SubclassController.showFeaturesForSubclass(req, res, next)
