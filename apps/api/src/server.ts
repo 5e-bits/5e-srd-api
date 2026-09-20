@@ -17,6 +17,7 @@ import { TranslationMiddleware } from './graphql/middleware/translationMiddlewar
 import { createApolloMiddleware } from './middleware/apolloServer'
 import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
+import httpsRedirect from './middleware/httpsRedirect'
 import languageNegotiation from './middleware/languageNegotiation'
 import apiRoutes from './routes/api'
 
@@ -67,6 +68,8 @@ const createApolloServers = async () => {
 
 export default async () => {
   const app = express()
+  app.set('trust proxy', 1)
+  app.use(httpsRedirect)
 
   // Middleware stuff
   if (bugsnagMiddleware) {
