@@ -18,6 +18,7 @@ export const showTraitsForSubrace = relatedList({
   filter: ({ index }) => ({ 'subraces.url': '/api/2014/subraces/' + index })
 })
 
+// The data lists subrace proficiencies under `races`, with subrace URLs.
 export const showProficienciesForSubrace = relatedList({
   Model: Proficiency,
   filter: ({ index }) => ({ 'races.url': '/api/2014/subraces/' + index }),
