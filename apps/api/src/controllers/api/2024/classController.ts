@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { parseRequest } from '@/controllers/parseRequest'
+import { relatedList } from '@/controllers/relatedList'
 import SimpleController from '@/controllers/simpleController'
 import ClassModel from '@/models/2024/class'
 import Feature2024Model from '@/models/2024/feature'
@@ -82,45 +83,17 @@ export const showLevelForClass = async (req: Request, res: Response, next: NextF
   }
 }
 
-export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
-    if (validatedParams === undefined) return
-    const validatedQuery = parseRequest(req, res, 'query', SpellIndexQuerySchema)
-    if (validatedQuery === undefined) return
-
-    const { index } = validatedParams
-    const { level } = validatedQuery
-    const lang = req.lang ?? 'en'
-
-    const classExists = await ClassModel.findOne({ index }).lean()
-    if (!classExists) {
-      return res.status(404).json({ error: 'Not found' })
-    }
-
-    const classUrl = '/api/2024/classes/' + index
-    const findQuery: { 'classes.url': string; level?: { $in: number[] } } = {
-      'classes.url': classUrl
-    }
-
-    if (level !== undefined) {
-      findQuery.level = { $in: level }
-    }
-
-    const data = await Spell2024Model.find(findQuery)
-      .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
-      .sort({ level: 'asc', url: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2024-spells',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showSpellsForClass = relatedList({
+  Model: Spell2024Model,
+  querySchema: SpellIndexQuerySchema,
+  filter: ({ index }, { level }) => ({
+    'classes.url': '/api/2024/classes/' + index,
+    ...(level !== undefined && { level: { $in: level } })
+  }),
+  fields: ['level'],
+  sort: { level: 'asc', url: 'asc' },
+  parent: ClassModel
+})
 
 export const showSpellsForClassAndLevel = async (
   req: Request,
@@ -179,33 +152,12 @@ export const showSpellsForClassAndLevel = async (
   }
 }
 
-export const showFeaturesForClassAndLevel = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
-    if (validatedParams === undefined) return
-    const { index, level } = validatedParams
-    const lang = req.lang ?? 'en'
-    const classUrl = '/api/2024/classes/' + index
-
-    const data = await Feature2024Model.find({
-      'class.url': classUrl,
-      'level.url': { $regex: new RegExp('/levels/' + level + '$') }
-    })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ url: 'asc' })
-
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2024-features',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showFeaturesForClassAndLevel = relatedList({
+  Model: Feature2024Model,
+  paramsSchema: LevelParamsSchema,
+  filter: ({ index, level }) => ({
+    'class.url': '/api/2024/classes/' + index,
+    'level.url': { $regex: new RegExp('/levels/' + level + '$') }
+  }),
+  sort: { url: 'asc' }
+})

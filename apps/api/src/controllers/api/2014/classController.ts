@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { parseRequest } from '@/controllers/parseRequest'
+import { relatedList } from '@/controllers/relatedList'
 import SimpleController from '@/controllers/simpleController'
 import Class from '@/models/2014/class'
 import Feature from '@/models/2014/feature'
@@ -109,34 +110,12 @@ export const showMulticlassingForClass = async (
   }
 }
 
-export const showSubclassesForClass = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    // Validate path parameters
-    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
-    if (validatedParams === undefined) return
-    const { index } = validatedParams
-    const lang = req.lang ?? 'en'
-
-    const urlString = '/api/2014/classes/' + index
-
-    const data = await Subclass.find({ 'class.url': urlString })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ url: 'asc', level: 'asc' })
-    if (data === null || data === undefined || data.length === 0) {
-      return res.status(404).json({ error: 'Not found' })
-    }
-
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-subclasses',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showSubclassesForClass = relatedList({
+  Model: Subclass,
+  filter: ({ index }) => ({ 'class.url': '/api/2014/classes/' + index }),
+  sort: { url: 'asc', level: 'asc' },
+  notFoundWhenEmpty: true
+})
 
 export const showStartingEquipmentForClass = async (
   req: Request,
@@ -180,47 +159,17 @@ export const showSpellcastingForClass = async (req: Request, res: Response, next
   }
 }
 
-export const showSpellsForClass = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
-    if (validatedParams === undefined) return
-
-    const validatedQuery = parseRequest(req, res, 'query', SpellIndexQuerySchema)
-    if (validatedQuery === undefined) return
-
-    const { index } = validatedParams
-    const { level } = validatedQuery
-    const lang = req.lang ?? 'en'
-
-    // Check if class exists first
-    const classExists = await Class.findOne({ index }).lean()
-    if (!classExists) {
-      return res.status(404).json({ error: 'Not found' })
-    }
-
-    const urlString = '/api/2014/classes/' + index
-    const findQuery: { 'classes.url': string; level?: { $in: number[] } } = {
-      'classes.url': urlString
-    }
-
-    if (level !== undefined) {
-      findQuery.level = { $in: level }
-    }
-
-    const data = await Spell.find(findQuery)
-      .select({ index: 1, level: 1, name: 1, url: 1, _id: 0 })
-      .sort({ level: 'asc', url: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-spells',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showSpellsForClass = relatedList({
+  Model: Spell,
+  querySchema: SpellIndexQuerySchema,
+  filter: ({ index }, { level }) => ({
+    'classes.url': '/api/2014/classes/' + index,
+    ...(level !== undefined && { level: { $in: level } })
+  }),
+  fields: ['level'],
+  sort: { level: 'asc', url: 'asc' },
+  parent: Class
+})
 
 export const showSpellsForClassAndLevel = async (
   req: Request,
@@ -279,97 +228,23 @@ export const showSpellsForClassAndLevel = async (
   }
 }
 
-export const showFeaturesForClass = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    // Validate path parameters
-    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
-    if (validatedParams === undefined) return
-    const { index } = validatedParams
-    const lang = req.lang ?? 'en'
+export const showFeaturesForClass = relatedList({
+  Model: Feature,
+  filter: ({ index }) => ({ 'class.url': '/api/2014/classes/' + index }),
+  sort: { level: 'asc', url: 'asc' },
+  parent: Class
+})
 
-    // Check if class exists first
-    const classExists = await Class.findOne({ index }).lean()
-    if (!classExists) {
-      return res.status(404).json({ error: 'Not found' })
-    }
+export const showFeaturesForClassAndLevel = relatedList({
+  Model: Feature,
+  paramsSchema: LevelParamsSchema,
+  filter: ({ index, level }) => ({ 'class.url': '/api/2014/classes/' + index, level }),
+  sort: { level: 'asc', url: 'asc' }
+})
 
-    const urlString = '/api/2014/classes/' + index
-
-    const data = await Feature.find({ 'class.url': urlString })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ level: 'asc', url: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-features',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
-
-export const showFeaturesForClassAndLevel = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    // Validate path parameters
-    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
-    if (validatedParams === undefined) return
-    const { index, level } = validatedParams
-    const lang = req.lang ?? 'en'
-
-    const urlString = '/api/2014/classes/' + index
-
-    const data = await Feature.find({ 'class.url': urlString, level })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ level: 'asc', url: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-features',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
-
-export const showProficienciesForClass = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    // Validate path parameters
-    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
-    if (validatedParams === undefined) return
-    const { index } = validatedParams
-    const lang = req.lang ?? 'en'
-
-    // Check if class exists first
-    const classExists = await Class.findOne({ index }).lean()
-    if (!classExists) {
-      return res.status(404).json({ error: 'Not found' })
-    }
-
-    const urlString = '/api/2014/classes/' + index
-
-    const data = await Proficiency.find({ 'classes.url': urlString })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ index: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-proficiencies',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showProficienciesForClass = relatedList({
+  Model: Proficiency,
+  filter: ({ index }) => ({ 'classes.url': '/api/2014/classes/' + index }),
+  sort: { index: 'asc' },
+  parent: Class
+})

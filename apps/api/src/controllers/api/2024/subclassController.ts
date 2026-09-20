@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { parseRequest } from '@/controllers/parseRequest'
+import { relatedList } from '@/controllers/relatedList'
 import SimpleController from '@/controllers/simpleController'
 import Feature2024Model from '@/models/2024/feature'
 import Level2024Model from '@/models/2024/level'
 import SubclassModel from '@/models/2024/subclass'
 import { LevelParamsSchema, ShowParamsSchema } from '@/schemas/schemas'
-import { ResourceList } from '@/util'
 import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(SubclassModel)
@@ -61,33 +61,12 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: Ne
   }
 }
 
-export const showFeaturesForSubclassAndLevel = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
-    if (validatedParams === undefined) return
-    const { index, level } = validatedParams
-    const lang = req.lang ?? 'en'
-    const subclassUrl = '/api/2024/subclasses/' + index
-
-    const data = await Feature2024Model.find({
-      'subclass.url': subclassUrl,
-      'level.url': { $regex: new RegExp('/levels/' + level + '$') }
-    })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ url: 'asc' })
-
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2024-features',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showFeaturesForSubclassAndLevel = relatedList({
+  Model: Feature2024Model,
+  paramsSchema: LevelParamsSchema,
+  filter: ({ index, level }) => ({
+    'subclass.url': '/api/2024/subclasses/' + index,
+    'level.url': { $regex: new RegExp('/levels/' + level + '$') }
+  }),
+  sort: { url: 'asc' }
+})
