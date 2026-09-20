@@ -225,180 +225,180 @@ tags:
 
 paths:
   /api/2014:
-    $ref: './paths/2014/combined.yml#/base'
+    $ref: './paths/2014/common.yml#/api-base'
   /api/2014/{endpoint}:
-    $ref: './paths/2014/combined.yml#/list'
+    $ref: './paths/2014/common.yml#/resource-list'
   /api/2014/ability-scores/{index}:
-    $ref: './paths/2014/combined.yml#/ability-scores'
+    $ref: './paths/2014/ability-scores.yml'
   /api/2014/alignments/{index}:
-    $ref: './paths/2014/combined.yml#/alignments'
+    $ref: './paths/2014/alignments.yml'
   /api/2014/backgrounds/{index}:
-    $ref: './paths/2014/combined.yml#/backgrounds'
+    $ref: './paths/2014/backgrounds.yml'
   /api/2014/classes/{index}:
-    $ref: './paths/2014/combined.yml#/classes'
+    $ref: './paths/2014/classes.yml#/class-path'
   /api/2014/classes/{index}/subclasses:
-    $ref: './paths/2014/combined.yml#/class-subclass'
+    $ref: './paths/2014/classes.yml#/class-subclass-path'
   /api/2014/classes/{index}/spells:
-    $ref: './paths/2014/combined.yml#/class-spells'
+    $ref: './paths/2014/classes.yml#/class-spells-path'
   /api/2014/classes/{index}/spellcasting:
-    $ref: './paths/2014/combined.yml#/class-spellcasting'
+    $ref: './paths/2014/classes.yml#/class-spellcasting-path'
   /api/2014/classes/{index}/features:
-    $ref: './paths/2014/combined.yml#/class-features'
+    $ref: './paths/2014/classes.yml#/class-features-path'
   /api/2014/classes/{index}/proficiencies:
-    $ref: './paths/2014/combined.yml#/class-proficiencies'
+    $ref: './paths/2014/classes.yml#/class-proficiencies-path'
   /api/2014/classes/{index}/multi-classing:
-    $ref: './paths/2014/combined.yml#/class-multi-classing'
+    $ref: './paths/2014/classes.yml#/class-multi-classing-path'
   /api/2014/classes/{index}/levels:
-    $ref: './paths/2014/combined.yml#/class-levels'
+    $ref: './paths/2014/classes.yml#/class-levels-path'
   /api/2014/classes/{index}/levels/{class_level}:
-    $ref: './paths/2014/combined.yml#/class-level'
+    $ref: './paths/2014/classes.yml#/class-level-path'
   /api/2014/classes/{index}/levels/{class_level}/features:
-    $ref: './paths/2014/combined.yml#/class-level-features'
+    $ref: './paths/2014/classes.yml#/class-level-features-path'
   /api/2014/classes/{index}/levels/{spell_level}/spells:
-    $ref: './paths/2014/combined.yml#/class-spell-level-spells'
+    $ref: './paths/2014/classes.yml#/class-spell-level-spells-path'
   /api/2014/conditions/{index}:
-    $ref: './paths/2014/combined.yml#/conditions'
+    $ref: './paths/2014/conditions.yml'
   /api/2014/damage-types/{index}:
-    $ref: './paths/2014/combined.yml#/damage-types'
+    $ref: './paths/2014/damage-types.yml'
   /api/2014/equipment/{index}:
-    $ref: './paths/2014/combined.yml#/equipment'
+    $ref: './paths/2014/equipment.yml'
   /api/2014/equipment-categories/{index}:
-    $ref: './paths/2014/combined.yml#/equipment-categories'
+    $ref: './paths/2014/equipment-categories.yml'
   /api/2014/feats/{index}:
-    $ref: './paths/2014/combined.yml#/feats'
+    $ref: './paths/2014/feats.yml'
   /api/2014/features/{index}:
-    $ref: './paths/2014/combined.yml#/features'
+    $ref: './paths/2014/features.yml'
   /api/2014/languages/{index}:
-    $ref: './paths/2014/combined.yml#/languages'
+    $ref: './paths/2014/languages.yml'
   /api/2014/magic-items/{index}:
-    $ref: './paths/2014/combined.yml#/magic-items'
+    $ref: './paths/2014/magic-items.yml'
   /api/2014/magic-schools/{index}:
-    $ref: './paths/2014/combined.yml#/magic-schools'
+    $ref: './paths/2014/magic-schools.yml'
   /api/2014/monsters:
-    $ref: './paths/2014/combined.yml#/monsters'
+    $ref: './paths/2014/monsters.yml#/monster-resource-list'
   /api/2014/monsters/{index}:
-    $ref: './paths/2014/combined.yml#/monster'
+    $ref: './paths/2014/monsters.yml#/monster-index'
   /api/2014/proficiencies/{index}:
-    $ref: './paths/2014/combined.yml#/proficiencies'
+    $ref: './paths/2014/proficiencies.yml'
   /api/2014/races/{index}:
-    $ref: './paths/2014/combined.yml#/races'
+    $ref: './paths/2014/races.yml#/race-path'
   /api/2014/races/{index}/subraces:
-    $ref: './paths/2014/combined.yml#/race-subraces'
+    $ref: './paths/2014/races.yml#/race-subraces-path'
   /api/2014/races/{index}/proficiencies:
-    $ref: './paths/2014/combined.yml#/race-proficiencies'
+    $ref: './paths/2014/races.yml#/race-proficiencies-path'
   /api/2014/races/{index}/traits:
-    $ref: './paths/2014/combined.yml#/race-traits'
+    $ref: './paths/2014/races.yml#/race-traits-path'
   /api/2014/rule-sections/{index}:
-    $ref: './paths/2014/combined.yml#/rule-sections'
+    $ref: './paths/2014/rule-sections.yml'
   /api/2014/rules/{index}:
-    $ref: './paths/2014/combined.yml#/rules'
+    $ref: './paths/2014/rules.yml'
   /api/2014/skills/{index}:
-    $ref: './paths/2014/combined.yml#/skills'
+    $ref: './paths/2014/skills.yml'
   /api/2014/spells:
-    $ref: './paths/2014/combined.yml#/spells'
+    $ref: './paths/2014/spells.yml#/spells-resource-list'
   /api/2014/spells/{index}:
-    $ref: './paths/2014/combined.yml#/spell'
+    $ref: './paths/2014/spells.yml#/spell-by-index'
   /api/2014/subclasses/{index}:
-    $ref: './paths/2014/combined.yml#/subclasses'
+    $ref: './paths/2014/subclasses.yml#/subclass-path'
   /api/2014/subclasses/{index}/features:
-    $ref: './paths/2014/combined.yml#/subclass-features'
+    $ref: './paths/2014/subclasses.yml#/subclass-features-path'
   /api/2014/subclasses/{index}/levels:
-    $ref: './paths/2014/combined.yml#/subclass-levels'
+    $ref: './paths/2014/subclasses.yml#/subclass-levels-path'
   /api/2014/subclasses/{index}/levels/{subclass_level}:
-    $ref: './paths/2014/combined.yml#/subclass-level'
+    $ref: './paths/2014/subclasses.yml#/subclass-level-path'
   /api/2014/subclasses/{index}/levels/{subclass_level}/features:
-    $ref: './paths/2014/combined.yml#/subclass-level-features'
+    $ref: './paths/2014/subclasses.yml#/subclass-level-features-path'
   /api/2014/subraces/{index}:
-    $ref: './paths/2014/combined.yml#/subraces'
+    $ref: './paths/2014/subraces.yml#/subraces-path'
   /api/2014/subraces/{index}/proficiencies:
-    $ref: './paths/2014/combined.yml#/subrace-proficiencies'
+    $ref: './paths/2014/subraces.yml#/subrace-proficiencies-path'
   /api/2014/subraces/{index}/traits:
-    $ref: './paths/2014/combined.yml#/subrace-traits'
+    $ref: './paths/2014/subraces.yml#/subrace-traits-path'
   /api/2014/traits/{index}:
-    $ref: './paths/2014/combined.yml#/traits'
+    $ref: './paths/2014/traits.yml'
   /api/2014/weapon-properties/{index}:
-    $ref: './paths/2014/combined.yml#/weapon-properties'
+    $ref: './paths/2014/weapon-properties.yml'
 
   /api/2024:
-    $ref: './paths/2024/combined.yml#/base'
+    $ref: './paths/2024/common.yml#/api-base'
   /api/2024/{endpoint}:
-    $ref: './paths/2024/combined.yml#/list'
+    $ref: './paths/2024/common.yml#/list'
   /api/2024/ability-scores/{index}:
-    $ref: './paths/2024/combined.yml#/ability-scores'
+    $ref: './paths/2024/ability-scores.yml'
   /api/2024/alignments/{index}:
-    $ref: './paths/2024/combined.yml#/alignments'
+    $ref: './paths/2024/alignments.yml'
   /api/2024/backgrounds/{index}:
-    $ref: './paths/2024/combined.yml#/backgrounds'
+    $ref: './paths/2024/backgrounds.yml'
   /api/2024/classes/{index}:
-    $ref: './paths/2024/combined.yml#/classes'
+    $ref: './paths/2024/classes.yml#/class-path'
   /api/2024/classes/{index}/spells:
-    $ref: './paths/2024/combined.yml#/class-spells'
+    $ref: './paths/2024/classes.yml#/class-spells-path'
   /api/2024/classes/{index}/levels:
-    $ref: './paths/2024/combined.yml#/class-levels'
+    $ref: './paths/2024/classes.yml#/class-levels-path'
   /api/2024/classes/{index}/levels/{level}:
-    $ref: './paths/2024/combined.yml#/class-level'
+    $ref: './paths/2024/classes.yml#/class-level-path'
   /api/2024/classes/{index}/levels/{level}/features:
-    $ref: './paths/2024/combined.yml#/class-level-features'
+    $ref: './paths/2024/classes.yml#/class-level-features-path'
   /api/2024/classes/{index}/levels/{level}/spells:
-    $ref: './paths/2024/combined.yml#/class-level-spells'
+    $ref: './paths/2024/classes.yml#/class-level-spells-path'
   /api/2024/conditions/{index}:
-    $ref: './paths/2024/combined.yml#/conditions'
+    $ref: './paths/2024/conditions.yml'
   /api/2024/damage-types/{index}:
-    $ref: './paths/2024/combined.yml#/damage-types'
+    $ref: './paths/2024/damage-types.yml'
   /api/2024/equipment/{index}:
-    $ref: './paths/2024/combined.yml#/equipment'
+    $ref: './paths/2024/equipment.yml'
   /api/2024/equipment-categories/{index}:
-    $ref: './paths/2024/combined.yml#/equipment-categories'
+    $ref: './paths/2024/equipment-categories.yml'
   /api/2024/feats/{index}:
-    $ref: './paths/2024/combined.yml#/feats'
+    $ref: './paths/2024/feats.yml'
   /api/2024/features/{index}:
-    $ref: './paths/2024/combined.yml#/features'
+    $ref: './paths/2024/features.yml'
   /api/2024/languages/{index}:
-    $ref: './paths/2024/combined.yml#/languages'
+    $ref: './paths/2024/languages.yml'
   /api/2024/locales:
-    $ref: './paths/2024/combined.yml#/locales-list'
+    $ref: './paths/2024/locales.yml#/locales-list-path'
   /api/2024/locales/{lang}:
-    $ref: './paths/2024/combined.yml#/locale'
+    $ref: './paths/2024/locales.yml#/locale-path'
   /api/2024/magic-items/{index}:
-    $ref: './paths/2024/combined.yml#/magic-items'
+    $ref: './paths/2024/magic-items.yml'
   /api/2024/magic-schools/{index}:
-    $ref: './paths/2024/combined.yml#/magic-schools'
+    $ref: './paths/2024/magic-schools.yml'
   /api/2024/monsters/{index}:
-    $ref: './paths/2024/combined.yml#/monster'
+    $ref: './paths/2024/monsters.yml'
   /api/2024/poisons/{index}:
-    $ref: './paths/2024/combined.yml#/poisons'
+    $ref: './paths/2024/poisons.yml'
   /api/2024/proficiencies/{index}:
-    $ref: './paths/2024/combined.yml#/proficiencies'
+    $ref: './paths/2024/proficiencies.yml'
   /api/2024/skills/{index}:
-    $ref: './paths/2024/combined.yml#/skills'
+    $ref: './paths/2024/skills.yml'
   /api/2024/species/{index}:
-    $ref: './paths/2024/combined.yml#/species'
+    $ref: './paths/2024/species.yml#/species-path'
   /api/2024/species/{index}/subspecies:
-    $ref: './paths/2024/combined.yml#/species-subspecies'
+    $ref: './paths/2024/species.yml#/species-subspecies-path'
   /api/2024/species/{index}/traits:
-    $ref: './paths/2024/combined.yml#/species-traits'
+    $ref: './paths/2024/species.yml#/species-traits-path'
   /api/2024/spells:
-    $ref: './paths/2024/combined.yml#/spells'
+    $ref: './paths/2024/spells.yml#/spells-resource-list'
   /api/2024/spells/{index}:
-    $ref: './paths/2024/combined.yml#/spell'
+    $ref: './paths/2024/spells.yml#/spell-by-index'
   /api/2024/subclasses/{index}:
-    $ref: './paths/2024/combined.yml#/subclasses'
+    $ref: './paths/2024/subclasses.yml#/subclass-path'
   /api/2024/subclasses/{index}/levels:
-    $ref: './paths/2024/combined.yml#/subclass-levels'
+    $ref: './paths/2024/subclasses.yml#/subclass-levels-path'
   /api/2024/subclasses/{index}/levels/{level}:
-    $ref: './paths/2024/combined.yml#/subclass-level'
+    $ref: './paths/2024/subclasses.yml#/subclass-level-path'
   /api/2024/subclasses/{index}/levels/{level}/features:
-    $ref: './paths/2024/combined.yml#/subclass-level-features'
+    $ref: './paths/2024/subclasses.yml#/subclass-level-features-path'
   /api/2024/subspecies/{index}:
-    $ref: './paths/2024/combined.yml#/subspecies'
+    $ref: './paths/2024/subspecies.yml#/subspecies-path'
   /api/2024/subspecies/{index}/traits:
-    $ref: './paths/2024/combined.yml#/subspecies-traits'
+    $ref: './paths/2024/subspecies.yml#/subspecies-traits-path'
   /api/2024/traits/{index}:
-    $ref: './paths/2024/combined.yml#/traits'
+    $ref: './paths/2024/traits.yml'
   /api/2024/weapon-mastery-properties/{index}:
-    $ref: './paths/2024/combined.yml#/weapon-mastery-properties'
+    $ref: './paths/2024/weapon-mastery-properties.yml'
   /api/2024/weapon-properties/{index}:
-    $ref: './paths/2024/combined.yml#/weapon-properties'
+    $ref: './paths/2024/weapon-properties.yml'
 
 components:
   parameters:
