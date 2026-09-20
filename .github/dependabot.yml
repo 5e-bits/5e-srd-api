@@ -30,6 +30,20 @@ updates:
       docusaurus:
         patterns:
           - '@docusaurus/*'
+  - package-ecosystem: 'npm'
+    directory: '/apps/infrastructure'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+  - package-ecosystem: 'docker'
+    directory: '/apps/api'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
   - package-ecosystem: 'github-actions'
     # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
     directory: '/'

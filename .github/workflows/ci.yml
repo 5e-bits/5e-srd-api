@@ -27,6 +27,7 @@ jobs:
               - package.json
               - .github/workflows/ci.yml
               - .github/workflows/api-ci.yml
+              - .github/actions/setup-node-pnpm/**
             infra:
               - apps/infrastructure/**
               - pnpm-lock.yaml
@@ -34,6 +35,7 @@ jobs:
               - package.json
               - .github/workflows/ci.yml
               - .github/workflows/infra-ci.yml
+              - .github/actions/setup-node-pnpm/**
             docs:
               - apps/docs/**
               - pnpm-lock.yaml
@@ -41,6 +43,7 @@ jobs:
               - package.json
               - .github/workflows/ci.yml
               - .github/workflows/docs-ci.yml
+              - .github/actions/setup-node-pnpm/**
 
   api:
     name: API
