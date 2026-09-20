@@ -205,8 +205,8 @@ importers:
         specifier: ^9.7.4
         version: 9.7.4
       morgan:
-        specifier: ^1.12.0
-        version: 1.12.0(supports-color@5.5.0)
+        specifier: ^1.12.1
+        version: 1.12.1(supports-color@5.5.0)
       redis:
         specifier: ^6.2.1
         version: 6.2.1
@@ -6434,8 +6434,8 @@ packages:
     resolution: {integrity: sha512-nuSYGUWWzNd4EAbGYxE469wPTL+kmxb5+91YvCvMkJ08rvNRht/usZUU3LuFuk7rDutF2QWBZHPHuzM8TxXApA==}
     engines: {node: '>=20.19.0'}
 
-  morgan@1.12.0:
-    resolution: {integrity: sha512-OHpTRQwn2ezasILW8iKe+Yww1XsfWsZIpUOLF7RDb2g5GwO3trPaRwi7+8BDiJ7HFx2Kg2mfUdCBcVhwYlOz2g==}
+  morgan@1.12.1:
+    resolution: {integrity: sha512-tljKC0ex20AjO58Ob/eZ53JloycbVswbVNCHx6V6VLGzqt/w8dIynVGL0G8qVjNKwiA7sYSogCrN6QtJ82IV+g==}
     engines: {node: '>= 0.8.0'}
 
   mpath@0.9.0:
@@ -16866,7 +16866,7 @@ snapshots:
       - snappy
       - socks
 
-  morgan@1.12.0(supports-color@5.5.0):
+  morgan@1.12.1(supports-color@5.5.0):
     dependencies:
       basic-auth: 2.0.1
       debug: 2.6.9(supports-color@5.5.0)
