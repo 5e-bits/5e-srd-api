@@ -12,7 +12,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "gen-openapi": "node scripts/gen-openapi-2024.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.2",

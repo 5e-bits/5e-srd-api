@@ -32,7 +32,7 @@ def display_spell(spell_data):
     print()
 
 def main():
-    url = "https://www.dnd5eapi.co/api/spells"
+    url = "https://www.dnd5eapi.co/api/2024/spells"
     headers = {'Accept': 'application/json'}
 
     response = requests.get(url, headers=headers)
