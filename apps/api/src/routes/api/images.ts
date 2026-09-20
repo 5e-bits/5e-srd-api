@@ -1,11 +1,9 @@
-import * as express from 'express'
+import express from 'express'
 
 import ImageController from '@/controllers/api/imageController'
 
 const router = express.Router()
 
-router.get('/*splat', function (req, res, next) {
-  ImageController.show(req, res, next)
-})
+router.get('/*splat', ImageController.show)
 
 export default router

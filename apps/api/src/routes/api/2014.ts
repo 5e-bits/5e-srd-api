@@ -5,11 +5,12 @@ import MonsterController from '@/controllers/api/2014/monsterController'
 import RuleController from '@/controllers/api/2014/ruleController'
 import RuleSectionController from '@/controllers/api/2014/ruleSectionController'
 import SpellController from '@/controllers/api/2014/spellController'
-import { index } from '@/controllers/api/v2014Controller'
+import { versionIndex } from '@/controllers/api/versionIndexController'
 import SimpleController from '@/controllers/simpleController'
 import AbilityScoreModel from '@/models/2014/abilityScore'
 import AlignmentModel from '@/models/2014/alignment'
 import Background from '@/models/2014/background'
+import Collection from '@/models/2014/collection'
 import ConditionModel from '@/models/2014/condition'
 import DamageType from '@/models/2014/damageType'
 import Equipment from '@/models/2014/equipment'
@@ -17,25 +18,24 @@ import EquipmentCategory from '@/models/2014/equipmentCategory'
 import Feat from '@/models/2014/feat'
 import Feature from '@/models/2014/feature'
 import Language from '@/models/2014/language'
+import Locale2014Model from '@/models/2014/locale'
 import MagicSchool from '@/models/2014/magicSchool'
 import Proficiency from '@/models/2014/proficiency'
 import Skill from '@/models/2014/skill'
 import Trait from '@/models/2014/trait'
 import WeaponProperty from '@/models/2014/weaponProperty'
+import { localeRouter } from '@/routes/localeRouter'
 import { simpleRouter } from '@/routes/simpleRouter'
 
 import ClassesHandler from './2014/classes'
-import ImageHandler from './2014/images'
-import LocalesHandler from './2014/locales'
 import RacesHandler from './2014/races'
 import SubclassesHandler from './2014/subclasses'
 import SubracesHandler from './2014/subraces'
+import ImageHandler from './images'
 
 const router = express.Router()
 
-router.get('/', function (req, res, next) {
-  index(req, res, next)
-})
+router.get('/', versionIndex('2014', Collection))
 
 router.use('/ability-scores', simpleRouter(new SimpleController(AbilityScoreModel)))
 router.use('/alignments', simpleRouter(new SimpleController(AlignmentModel)))
@@ -49,7 +49,7 @@ router.use('/feats', simpleRouter(new SimpleController(Feat)))
 router.use('/features', simpleRouter(new SimpleController(Feature)))
 router.use('/images', ImageHandler)
 router.use('/languages', simpleRouter(new SimpleController(Language)))
-router.use('/locales', LocalesHandler)
+router.use('/locales', localeRouter('2014', Locale2014Model))
 router.use('/magic-items', simpleRouter(MagicItemController))
 router.use('/magic-schools', simpleRouter(new SimpleController(MagicSchool)))
 router.use('/monsters', simpleRouter(MonsterController))
