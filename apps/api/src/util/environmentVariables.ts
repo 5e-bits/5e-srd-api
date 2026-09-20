@@ -7,17 +7,6 @@ const mongodbUri =
   (isTestEnv ? process.env.TEST_MONGODB_URI : process.env.MONGODB_URI) ??
   'mongodb://localhost/5e-database'
 
-const awsConfigEnv = process.env.AWS_CONFIG_ENV ?? 'prod'
 const awsRegion = process.env.AWS_REGION ?? 'us-west-1'
-const awsAccessKeyId = process.env.AWS_ACCESS_KEY_ID ?? ''
-const awsSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY ?? ''
 
-export {
-  awsAccessKeyId,
-  awsConfigEnv,
-  awsRegion,
-  awsSecretAccessKey,
-  bugsnagApiKey,
-  mongodbUri,
-  redisUrl
-}
+export { awsRegion, bugsnagApiKey, mongodbUri, redisUrl }

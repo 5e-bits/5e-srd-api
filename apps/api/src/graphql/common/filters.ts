@@ -1,5 +1,5 @@
 import { NumberFilterInput, buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
-import { escapeRegExp } from '@/util'
+import { escapeRegExp } from '@/util/regex'
 
 /** A Mongo condition, or undefined when the argument was not supplied. */
 export type Filter = Record<string, unknown> | undefined

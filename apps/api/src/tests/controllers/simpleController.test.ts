@@ -14,7 +14,7 @@ import {
   setupModelCleanup,
   teardownIsolatedDatabase
 } from '@/tests/support/db'
-import { redisClient } from '@/util'
+import redisClient from '@/util/RedisClient'
 
 const mockNext = vi.fn(defaultMockNext)
 

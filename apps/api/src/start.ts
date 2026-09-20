@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
 
 import createApp from './server'
-import { mongodbUri, prewarmCache, redisClient } from './util'
+import { mongodbUri } from './util/environmentVariables'
+import prewarmCache from './util/prewarmCache'
+import redisClient from './util/RedisClient'
 
 const start = async () => {
   console.log('Setting up MongoDB')

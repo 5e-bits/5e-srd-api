@@ -78,27 +78,13 @@ If you are working on a feature which requires changes to both this repo, _and_ 
 
 ## Working with image resources from s3
 
-The API uses s3 to store image files for monsters. The image files live in a bucket called `dnd-5e-api-images` under the `/monsters` folder.
+Monster images live in the public `dnd-5e-api-images` bucket under the `/monsters` folder. The API needs no AWS credentials for them: `/api/images/<path>` (also available as `/api/2014/images/<path>`) fetches `https://dnd-5e-api-images.s3.<region>.amazonaws.com/<path>` and returns it. The region comes from `AWS_REGION`.
 
-To test locally, you can [use `localstack` to mock s3](https://docs.localstack.cloud/user-guide/aws/s3/). To do so, you will first need to install `localstack`,
-`awscli`, and `awslocal`. You can then run the following commands to configure and start the localstack container:
-
-```shell
-export AWS_CONFIG_ENV=localstack_dev
-localstack start
-awslocal s3api create-bucket --bucket dnd-5e-api-images
-awslocal s3 cp aboleth.png s3://dnd-5e-api-images/monsters/
-pnpm run dev
-```
-
-Request the image by navigating to an image URL in a browser, or via HTTP request:
+Request an image by navigating to its URL in a browser, or via HTTP request:
 
 ```shell
-curl http://localhost:3000/api/2014/monsters/aboleth.png --output downloaded-aboleth.png
+curl http://localhost:3000/api/images/monsters/aboleth.png --output downloaded-aboleth.png
 ```
-
-When interacting with the image you should see logs in the terminal where you started localstack. You can also use [localstack's webui](https://app.localstack.cloud/dashboard) to view the bucket and
-contents.
 
 ## Data Issues
 

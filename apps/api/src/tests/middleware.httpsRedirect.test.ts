@@ -31,18 +31,14 @@ describe('httpsRedirect', () => {
 
   it('serves https requests with an HSTS header in production', async () => {
     vi.stubEnv('NODE_ENV', 'production')
-    const res = await request(buildApp())
-      .get('/api/2014/classes')
-      .set('X-Forwarded-Proto', 'https')
+    const res = await request(buildApp()).get('/api/2014/classes').set('X-Forwarded-Proto', 'https')
     expect(res.statusCode).toEqual(200)
     expect(res.headers['strict-transport-security']).toMatch(/^max-age=\d+$/)
   })
 
   it('does not redirect outside production', async () => {
     vi.stubEnv('NODE_ENV', 'development')
-    const res = await request(buildApp())
-      .get('/api/2014/classes')
-      .set('X-Forwarded-Proto', 'http')
+    const res = await request(buildApp()).get('/api/2014/classes').set('X-Forwarded-Proto', 'http')
     expect(res.statusCode).toEqual(200)
     expect(res.headers['strict-transport-security']).toBeUndefined()
   })

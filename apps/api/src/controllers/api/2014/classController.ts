@@ -15,7 +15,8 @@ import {
   ShowParamsSchema,
   SpellIndexQuerySchema
 } from '@/schemas/schemas'
-import { escapeRegExp, ResourceList } from '@/util'
+import { ResourceList } from '@/util/data'
+import { escapeRegExp } from '@/util/regex'
 import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Class)
