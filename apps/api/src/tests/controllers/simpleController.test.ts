@@ -155,6 +155,20 @@ describe('SimpleController (with AbilityScore)', () => {
       findSpy.mockRestore()
     })
 
+    it('bypasses the cache for non-English requests', async () => {
+      await AbilityScoreModel.insertMany(abilityScoreFactory.buildList(2))
+      vi.mocked(redisClient.get).mockClear()
+      vi.mocked(redisClient.set).mockClear()
+      const controller = new SimpleController(AbilityScoreModel as Model<any>, { cache: true })
+      const request = createRequest({ originalUrl: '/api/2014/ability-scores' })
+      request.lang = 'de'
+
+      await controller.index(request, createResponse(), mockNext)
+
+      expect(redisClient.get).not.toHaveBeenCalled()
+      expect(redisClient.set).not.toHaveBeenCalled()
+    })
+
     it('does not touch Redis when cache is off', async () => {
       vi.mocked(redisClient.get).mockClear()
       const controller = new SimpleController(AbilityScoreModel as Model<any>)
