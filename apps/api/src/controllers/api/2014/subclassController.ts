@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { parseRequest } from '@/controllers/parseRequest'
+import { relatedList } from '@/controllers/relatedList'
 import SimpleController from '@/controllers/simpleController'
 import Feature from '@/models/2014/feature'
 import Level from '@/models/2014/level'
 import Subclass from '@/models/2014/subclass'
 import { LevelParamsSchema, ShowParamsSchema } from '@/schemas/schemas'
-import { ResourceList } from '@/util/data'
 import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 const simpleController = new SimpleController(Subclass)
@@ -59,54 +59,15 @@ export const showLevelForSubclass = async (req: Request, res: Response, next: Ne
   }
 }
 
-export const showFeaturesForSubclass = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const validatedParams = parseRequest(req, res, 'params', ShowParamsSchema)
-    if (validatedParams === undefined) return
-    const { index } = validatedParams
-    const lang = req.lang ?? 'en'
+export const showFeaturesForSubclass = relatedList({
+  Model: Feature,
+  filter: ({ index }) => ({ 'subclass.url': '/api/2014/subclasses/' + index }),
+  sort: { level: 'asc', url: 'asc' }
+})
 
-    const urlString = '/api/2014/subclasses/' + index
-
-    const data = await Feature.find({ 'subclass.url': urlString })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ level: 'asc', url: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-features',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
-
-export const showFeaturesForSubclassAndLevel = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const validatedParams = parseRequest(req, res, 'params', LevelParamsSchema)
-    if (validatedParams === undefined) return
-    const { index, level } = validatedParams
-    const lang = req.lang ?? 'en'
-
-    const urlString = '/api/2014/subclasses/' + index
-
-    const data = await Feature.find({ level, 'subclass.url': urlString })
-      .select({ index: 1, name: 1, url: 1, _id: 0 })
-      .sort({ level: 'asc', url: 'asc' })
-    const { docs: translated, wasTranslated } = await applyTranslationToList(
-      data.map((d: any) => d.toObject()),
-      '2014-features',
-      lang
-    )
-    res.setHeader('Content-Language', wasTranslated ? lang : 'en')
-    return res.status(200).json(ResourceList(translated))
-  } catch (err) {
-    next(err)
-  }
-}
+export const showFeaturesForSubclassAndLevel = relatedList({
+  Model: Feature,
+  paramsSchema: LevelParamsSchema,
+  filter: ({ index, level }) => ({ level, 'subclass.url': '/api/2014/subclasses/' + index }),
+  sort: { level: 'asc', url: 'asc' }
+})
