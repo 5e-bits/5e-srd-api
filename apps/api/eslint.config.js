@@ -1,5 +1,4 @@
 import eslint from '@eslint/js'
-import stylistic from '@stylistic/eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 import { importX } from 'eslint-plugin-import-x'
@@ -22,7 +21,6 @@ export default tseslint.config(
       importX.flatConfigs.typescript
     ],
     plugins: {
-      '@stylistic': stylistic,
       'import-x': importX
     },
     languageOptions: {
@@ -31,9 +29,7 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname
       },
       globals: {
-        ...globals.node,
-        ...globals.browser,
-        ...globals.jquery
+        ...globals.node
       }
     },
     rules: {
