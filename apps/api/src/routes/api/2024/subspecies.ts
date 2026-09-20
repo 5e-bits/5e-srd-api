@@ -3,8 +3,6 @@ import { simpleRouter } from '@/routes/simpleRouter'
 
 const router = simpleRouter(SubspeciesController)
 
-router.get('/:index/traits', function (req, res, next) {
-  SubspeciesController.showTraitsForSubspecies(req, res, next)
-})
+router.get('/:index/traits', SubspeciesController.showTraitsForSubspecies)
 
 export default router
