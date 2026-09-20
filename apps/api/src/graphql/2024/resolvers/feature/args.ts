@@ -1,64 +1,14 @@
-import { ArgsType, Field, InputType, registerEnumType } from 'type-graphql'
+import { ArgsType, Field } from 'type-graphql'
 import { z } from 'zod'
 
-import {
-  BaseFilterArgs,
-  BaseFilterArgsSchema,
-  BaseIndexArgs,
-  BaseIndexArgsSchema,
-  BaseOrderInterface
-} from '@/graphql/common/args'
-import { OrderByDirection } from '@/graphql/common/enums'
-
-export enum FeatureOrderField {
-  NAME = 'name',
-  LEVEL = 'level',
-  CLASS = 'class',
-  SUBCLASS = 'subclass'
-}
-
-export const FEATURE_SORT_FIELD_MAP: Record<FeatureOrderField, string> = {
-  [FeatureOrderField.NAME]: 'name',
-  [FeatureOrderField.LEVEL]: 'level.index',
-  [FeatureOrderField.CLASS]: 'class.name',
-  [FeatureOrderField.SUBCLASS]: 'subclass.name'
-}
-
-registerEnumType(FeatureOrderField, {
-  name: 'Feature2024OrderField',
-  description: 'Fields to sort 2024 Features by'
-})
-
-@InputType()
-export class FeatureOrder implements BaseOrderInterface<FeatureOrderField> {
-  @Field(() => FeatureOrderField)
-  by!: FeatureOrderField
-
-  @Field(() => OrderByDirection)
-  direction!: OrderByDirection
-
-  @Field(() => FeatureOrder, { nullable: true })
-  then_by?: FeatureOrder
-}
-
-export const FeatureOrderSchema: z.ZodType<FeatureOrder> = z.lazy(() =>
-  z.object({
-    by: z.nativeEnum(FeatureOrderField),
-    direction: z.nativeEnum(OrderByDirection),
-    then_by: FeatureOrderSchema.optional()
-  })
-)
+import { BaseFilterArgs, BaseFilterArgsSchema } from '@/graphql/common/args'
 
 export const FeatureArgsSchema = z.object({
   ...BaseFilterArgsSchema.shape,
   level: z.array(z.string()).optional(),
   class: z.array(z.string()).optional(),
-  subclass: z.array(z.string()).optional(),
-  order: FeatureOrderSchema.optional()
+  subclass: z.array(z.string()).optional()
 })
-
-export const FeatureIndexArgsSchema = BaseIndexArgsSchema
-export { BaseIndexArgs as FeatureIndexArgs }
 
 @ArgsType()
 export class FeatureArgs extends BaseFilterArgs {
@@ -79,10 +29,4 @@ export class FeatureArgs extends BaseFilterArgs {
     description: 'Filter by one or more associated subclass indices.'
   })
   subclass?: string[]
-
-  @Field(() => FeatureOrder, {
-    nullable: true,
-    description: 'Specify sorting order for 2024 features.'
-  })
-  order?: FeatureOrder
 }

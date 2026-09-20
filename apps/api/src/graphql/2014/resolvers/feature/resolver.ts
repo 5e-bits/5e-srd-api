@@ -1,8 +1,8 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { FeaturePrerequisiteUnion } from '@/graphql/2014/types/featureTypes'
-import { buildSortPipeline } from '@/graphql/common/args'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, numberFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import ClassModel, { Class } from '@/models/2014/class'
 import FeatureModel, {
@@ -14,73 +14,38 @@ import FeatureModel, {
 } from '@/models/2014/feature'
 import SpellModel from '@/models/2014/spell'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
-import { escapeRegExp } from '@/util'
 
-import {
-  FEATURE_SORT_FIELD_MAP,
-  FeatureArgs,
-  FeatureArgsSchema,
-  FeatureIndexArgs,
-  FeatureIndexArgsSchema,
-  FeatureOrderField
-} from './args'
+import { FeatureArgs, FeatureArgsSchema } from './args'
 
 @Resolver(Feature)
-export class FeatureResolver {
-  @Query(() => [Feature], {
-    description: 'Gets all features, optionally filtered and sorted.'
-  })
-  async features(@Args(() => FeatureArgs) args: FeatureArgs): Promise<Feature[]> {
-    const validatedArgs = FeatureArgsSchema.parse(args)
-
-    const query = FeatureModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-    if (validatedArgs.level) {
-      const levelQuery = buildMongoQueryFromNumberFilter(validatedArgs.level)
-      if (levelQuery) {
-        filters.push({ level: levelQuery })
-      }
-    }
-    if (validatedArgs.class && validatedArgs.class.length > 0) {
-      filters.push({ 'class.index': { $in: validatedArgs.class } })
-    }
-    if (validatedArgs.subclass && validatedArgs.subclass.length > 0) {
-      filters.push({ 'subclass.index': { $in: validatedArgs.subclass } })
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<FeatureOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: FEATURE_SORT_FIELD_MAP,
-      defaultSortField: FeatureOrderField.NAME
-    })
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Feature, { nullable: true, description: 'Gets a single feature by its index.' })
-  async feature(@Args(() => FeatureIndexArgs) args: FeatureIndexArgs): Promise<Feature | null> {
-    const { index } = FeatureIndexArgsSchema.parse(args)
-    return FeatureModel.findOne({ index }).lean()
-  }
-
+export class FeatureResolver extends createResolver({
+  Type: Feature,
+  Model: FeatureModel,
+  typeName: 'Feature',
+  singular: 'feature',
+  plural: 'features',
+  descriptions: {
+    fields: 'Fields to sort Features by',
+    order: 'Specify sorting order for features.',
+    list: 'Gets all features, optionally filtered and sorted.',
+    single: 'Gets a single feature by its index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    LEVEL: { value: 'level', path: 'level' },
+    CLASS: { value: 'class', path: 'class.name' },
+    SUBCLASS: { value: 'subclass', path: 'subclass.name' }
+  },
+  defaultSort: 'NAME',
+  Args: FeatureArgs,
+  argsSchema: FeatureArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    numberFilter('level', a.level),
+    inFilter('class.index', a.class),
+    inFilter('subclass.index', a.subclass)
+  ]
+}) {
   @FieldResolver(() => Class, { nullable: true })
   async class(@Root() feature: Feature): Promise<Class | null> {
     return resolveSingleReference(feature.class, ClassModel)

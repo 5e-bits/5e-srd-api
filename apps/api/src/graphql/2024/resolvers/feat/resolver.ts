@@ -1,69 +1,35 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { ScorePrerequisiteChoice2024 } from '@/graphql/2024/common/choiceTypes'
 import { resolveScorePrerequisiteChoice } from '@/graphql/2024/utils/choiceResolvers'
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, regexFilter } from '@/graphql/common/filters'
 import FeatModel, { Feat2024 } from '@/models/2024/feat'
-import { escapeRegExp } from '@/util'
 
-import {
-  FEAT_SORT_FIELD_MAP,
-  FeatArgs,
-  FeatArgsSchema,
-  FeatIndexArgs,
-  FeatIndexArgsSchema,
-  FeatOrderField
-} from './args'
+import { FeatArgs, FeatArgsSchema } from './args'
 
 @Resolver(Feat2024)
-export class FeatResolver {
-  @Query(() => [Feat2024], {
-    description: 'Gets all feats, optionally filtered by name and type.'
-  })
-  async feats(@Args(() => FeatArgs) args: FeatArgs): Promise<Feat2024[]> {
-    const validatedArgs = FeatArgsSchema.parse(args)
-
-    const query = FeatModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.type && validatedArgs.type.length > 0) {
-      filters.push({ type: { $in: validatedArgs.type } })
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<FeatOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: FEAT_SORT_FIELD_MAP,
-      defaultSortField: FeatOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Feat2024, { nullable: true, description: 'Gets a single feat by index.' })
-  async feat(@Args(() => FeatIndexArgs) args: FeatIndexArgs): Promise<Feat2024 | null> {
-    const { index } = FeatIndexArgsSchema.parse(args)
-    return FeatModel.findOne({ index }).lean()
-  }
-
+export class FeatResolver extends createResolver({
+  Type: Feat2024,
+  Model: FeatModel,
+  typeName: 'Feat',
+  singular: 'feat',
+  plural: 'feats',
+  descriptions: {
+    fields: 'Fields to sort Feats by',
+    order: 'Specify sorting order for feats.',
+    list: 'Gets all feats, optionally filtered by name and type.',
+    single: 'Gets a single feat by index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    TYPE: { value: 'type', path: 'type' }
+  },
+  defaultSort: 'NAME',
+  Args: FeatArgs,
+  argsSchema: FeatArgsSchema,
+  filters: (a) => [regexFilter('name', a.name), inFilter('type', a.type)]
+}) {
   @FieldResolver(() => ScorePrerequisiteChoice2024, { nullable: true })
   async prerequisite_options(@Root() feat: Feat2024): Promise<ScorePrerequisiteChoice2024 | null> {
     return resolveScorePrerequisiteChoice(feat.prerequisite_options)

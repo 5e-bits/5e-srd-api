@@ -1,61 +1,26 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import RaceModel, { Race } from '@/models/2014/race'
 import SubraceModel, { Subrace, SubraceAbilityBonus } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
-import { escapeRegExp } from '@/util'
-
-import {
-  SUBRACE_SORT_FIELD_MAP,
-  SubraceArgs,
-  SubraceArgsSchema,
-  SubraceIndexArgs,
-  SubraceIndexArgsSchema,
-  SubraceOrderField
-} from './args'
 
 @Resolver(Subrace)
-export class SubraceResolver {
-  @Query(() => [Subrace], {
-    description: 'Gets all subraces, optionally filtered by name and sorted by name.'
-  })
-  async subraces(@Args(() => SubraceArgs) args: SubraceArgs): Promise<Subrace[]> {
-    const validatedArgs = SubraceArgsSchema.parse(args)
-    const query = SubraceModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<SubraceOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: SUBRACE_SORT_FIELD_MAP,
-      defaultSortField: SubraceOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class SubraceResolver extends createResolver({
+  Type: Subrace,
+  Model: SubraceModel,
+  typeName: 'Subrace',
+  singular: 'subrace',
+  plural: 'subraces',
+  descriptions: {
+    fields: 'Fields to sort Subraces by',
+    order: 'Specify sorting order for subraces.',
+    list: 'Gets all subraces, optionally filtered by name and sorted by name.',
+    single: 'Gets a single subrace by index.'
   }
-
-  @Query(() => Subrace, { nullable: true, description: 'Gets a single subrace by index.' })
-  async subrace(@Args(() => SubraceIndexArgs) args: SubraceIndexArgs): Promise<Subrace | null> {
-    const { index } = SubraceIndexArgsSchema.parse(args)
-    return SubraceModel.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => Race, { nullable: true })
   async race(@Root() subrace: Subrace): Promise<Race | null> {
     return resolveSingleReference(subrace.race, RaceModel)

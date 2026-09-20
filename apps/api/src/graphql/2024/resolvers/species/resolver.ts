@@ -1,62 +1,26 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
 import Species2024Model, { Species2024 } from '@/models/2024/species'
 import Subspecies2024Model, { Subspecies2024 } from '@/models/2024/subspecies'
 import Trait2024Model, { Trait2024 } from '@/models/2024/trait'
-import { escapeRegExp } from '@/util'
-
-import {
-  SPECIES_SORT_FIELD_MAP,
-  SpeciesArgs,
-  SpeciesArgsSchema,
-  SpeciesIndexArgs,
-  SpeciesIndexArgsSchema,
-  SpeciesOrderField
-} from './args'
 
 @Resolver(Species2024)
-export class SpeciesResolver {
-  @Query(() => [Species2024], {
-    description: 'Gets all species, optionally filtered by name and sorted by name.'
-  })
-  async species2024(@Args(() => SpeciesArgs) args: SpeciesArgs): Promise<Species2024[]> {
-    const validatedArgs = SpeciesArgsSchema.parse(args)
-    const query = Species2024Model.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<SpeciesOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: SPECIES_SORT_FIELD_MAP,
-      defaultSortField: SpeciesOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class SpeciesResolver extends createResolver({
+  Type: Species2024,
+  Model: Species2024Model,
+  typeName: 'Species',
+  enumTypeName: 'Species2024',
+  singular: 'species2024ByIndex',
+  plural: 'species2024',
+  descriptions: {
+    fields: 'Fields to sort Species by',
+    order: 'Specify sorting order for species.',
+    list: 'Gets all species, optionally filtered by name and sorted by name.',
+    single: 'Gets a single species by index.'
   }
-
-  @Query(() => Species2024, { nullable: true, description: 'Gets a single species by index.' })
-  async species2024ByIndex(
-    @Args(() => SpeciesIndexArgs) args: SpeciesIndexArgs
-  ): Promise<Species2024 | null> {
-    const { index } = SpeciesIndexArgsSchema.parse(args)
-    return Species2024Model.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => [Subspecies2024], {
     description: 'The subspecies available for this species.'
   })

@@ -1,4 +1,4 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { LanguageChoice, ProficiencyChoice } from '@/graphql/2014/common/choiceTypes'
 import {
@@ -11,7 +11,7 @@ import {
 } from '@/graphql/2014/types/traitTypes'
 import { mapLevelObjectToArray } from '@/graphql/2014/utils/helpers'
 import { resolveLanguageChoice, resolveProficiencyChoice } from '@/graphql/2014/utils/resolvers'
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import { LevelValue } from '@/graphql/common/types'
 import {
   resolveMultipleReferences,
@@ -25,56 +25,21 @@ import SpellModel from '@/models/2014/spell'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { ActionDamage, Trait, TraitSpecific } from '@/models/2014/trait'
 import { Choice, OptionsArrayOptionSet } from '@/models/common/choice'
-import { escapeRegExp } from '@/util'
-
-import {
-  TRAIT_SORT_FIELD_MAP,
-  TraitArgs,
-  TraitArgsSchema,
-  TraitIndexArgs,
-  TraitIndexArgsSchema,
-  TraitOrderField
-} from './args'
 
 @Resolver(Trait)
-export class TraitResolver {
-  @Query(() => [Trait], {
-    description: 'Gets all traits, optionally filtered by name and sorted by name.'
-  })
-  async traits(@Args(() => TraitArgs) args: TraitArgs): Promise<Trait[]> {
-    const validatedArgs = TraitArgsSchema.parse(args)
-    const query = TraitModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<TraitOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: TRAIT_SORT_FIELD_MAP,
-      defaultSortField: TraitOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class TraitResolver extends createResolver({
+  Type: Trait,
+  Model: TraitModel,
+  typeName: 'Trait',
+  singular: 'trait',
+  plural: 'traits',
+  descriptions: {
+    fields: 'Fields to sort Traits by',
+    order: 'Specify sorting order for traits.',
+    list: 'Gets all traits, optionally filtered by name and sorted by name.',
+    single: 'Gets a single trait by index.'
   }
-
-  @Query(() => Trait, { nullable: true, description: 'Gets a single trait by index.' })
-  async trait(@Args(() => TraitIndexArgs) args: TraitIndexArgs): Promise<Trait | null> {
-    const { index } = TraitIndexArgsSchema.parse(args)
-    return TraitModel.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => [Proficiency], { nullable: true })
   async proficiencies(@Root() trait: Trait): Promise<Proficiency[]> {
     return resolveMultipleReferences(trait.proficiencies, ProficiencyModel)

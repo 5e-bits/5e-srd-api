@@ -1,4 +1,4 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { LanguageChoice } from '@/graphql/2014/common/choiceTypes'
 import {
@@ -8,8 +8,8 @@ import {
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
-import { buildSortPipeline } from '@/graphql/common/args'
 import { StringChoice } from '@/graphql/common/choiceTypes'
+import { createResolver } from '@/graphql/common/createResolver'
 import {
   resolveMultipleReferences,
   resolveSingleReference,
@@ -20,58 +20,21 @@ import BackgroundModel, { Background, EquipmentRef } from '@/models/2014/backgro
 import EquipmentModel, { Equipment } from '@/models/2014/equipment'
 import ProficiencyModel, { Proficiency } from '@/models/2014/proficiency'
 import { Choice, IdealOption, OptionsArrayOptionSet } from '@/models/common/choice'
-import { escapeRegExp } from '@/util'
-
-import {
-  BACKGROUND_SORT_FIELD_MAP,
-  BackgroundArgs,
-  BackgroundArgsSchema,
-  BackgroundIndexArgs,
-  BackgroundIndexArgsSchema,
-  BackgroundOrderField
-} from './args'
 
 @Resolver(Background)
-export class BackgroundResolver {
-  @Query(() => [Background], {
-    description: 'Gets all backgrounds, optionally filtered by name and sorted by name.'
-  })
-  async backgrounds(@Args(() => BackgroundArgs) args: BackgroundArgs): Promise<Background[]> {
-    const validatedArgs = BackgroundArgsSchema.parse(args)
-    const query = BackgroundModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<BackgroundOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: BACKGROUND_SORT_FIELD_MAP,
-      defaultSortField: BackgroundOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class BackgroundResolver extends createResolver({
+  Type: Background,
+  Model: BackgroundModel,
+  typeName: 'Background',
+  singular: 'background',
+  plural: 'backgrounds',
+  descriptions: {
+    fields: 'Fields to sort Backgrounds by',
+    order: 'Specify sorting order for backgrounds.',
+    list: 'Gets all backgrounds, optionally filtered by name and sorted by name.',
+    single: 'Gets a single background by index.'
   }
-
-  @Query(() => Background, { nullable: true, description: 'Gets a single background by index.' })
-  async background(
-    @Args(() => BackgroundIndexArgs) args: BackgroundIndexArgs
-  ): Promise<Background | null> {
-    const { index } = BackgroundIndexArgsSchema.parse(args)
-    return BackgroundModel.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => [Proficiency], { nullable: true })
   async starting_proficiencies(@Root() background: Background): Promise<Proficiency[]> {
     return resolveMultipleReferences(background.starting_proficiencies, ProficiencyModel)

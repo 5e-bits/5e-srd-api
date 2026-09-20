@@ -1,4 +1,4 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import {
   PrerequisiteChoice,
@@ -10,8 +10,8 @@ import { AnyEquipment } from '@/graphql/2014/common/unions'
 import { StartingEquipmentChoice } from '@/graphql/2014/types/startingEquipment'
 import { resolveProficiencyChoiceArray } from '@/graphql/2014/utils/resolvers'
 import { resolveStartingEquipmentChoices } from '@/graphql/2014/utils/startingEquipmentResolver'
-import { buildSortPipeline } from '@/graphql/common/args'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { createResolver } from '@/graphql/common/createResolver'
+import { numberFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import ClassModel, {
@@ -27,68 +27,31 @@ import SpellModel, { Spell } from '@/models/2014/spell'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 import { APIReference } from '@/models/common/apiReference'
 import { Choice, OptionsArrayOptionSet, ScorePrerequisiteOption } from '@/models/common/choice'
-import { escapeRegExp } from '@/util'
 
-import {
-  CLASS_SORT_FIELD_MAP,
-  ClassArgs,
-  ClassArgsSchema,
-  ClassIndexArgs,
-  ClassIndexArgsSchema,
-  ClassOrderField
-} from './args'
+import { ClassArgs, ClassArgsSchema } from './args'
 
 @Resolver(Class)
-export class ClassResolver {
-  @Query(() => [Class], {
-    description: 'Gets all classes, optionally filtering by name or hit die and sorted.'
-  })
-  async classes(@Args(() => ClassArgs) args: ClassArgs): Promise<Class[]> {
-    const validatedArgs = ClassArgsSchema.parse(args)
-
-    const query = ClassModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.hit_die) {
-      const hitDieQuery = buildMongoQueryFromNumberFilter(validatedArgs.hit_die)
-      if (hitDieQuery) {
-        filters.push({ hit_die: hitDieQuery })
-      }
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<ClassOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: CLASS_SORT_FIELD_MAP,
-      defaultSortField: ClassOrderField.NAME
-    })
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Class, { nullable: true, description: 'Gets a single class by its index.' })
-  async class(@Args(() => ClassIndexArgs) args: ClassIndexArgs): Promise<Class | null> {
-    const { index } = ClassIndexArgsSchema.parse(args)
-    return ClassModel.findOne({ index }).lean()
-  }
-
+export class ClassResolver extends createResolver({
+  Type: Class,
+  Model: ClassModel,
+  typeName: 'Class',
+  singular: 'class',
+  plural: 'classes',
+  descriptions: {
+    fields: 'Fields to sort Classes by',
+    order: 'Specify sorting order for classes. Allows nested sorting.',
+    list: 'Gets all classes, optionally filtering by name or hit die and sorted.',
+    single: 'Gets a single class by its index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    HIT_DIE: { value: 'hit_die', path: 'hit_die' }
+  },
+  defaultSort: 'NAME',
+  Args: ClassArgs,
+  argsSchema: ClassArgsSchema,
+  filters: (a) => [regexFilter('name', a.name), numberFilter('hit_die', a.hit_die)]
+}) {
   @FieldResolver(() => [Level])
   async class_levels(@Root() classData: Class): Promise<Level[]> {
     return LevelModel.find({

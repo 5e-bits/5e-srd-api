@@ -1,88 +1,44 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { createResolver } from '@/graphql/common/createResolver'
+import { eqFilter, inFilter, numberFilter } from '@/graphql/common/filters'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import ClassModel, { Class } from '@/models/2014/class'
 import FeatureModel, { Feature } from '@/models/2014/feature'
 import LevelModel, { Level } from '@/models/2014/level'
 import SubclassModel, { Subclass } from '@/models/2014/subclass'
 
-import {
-  LEVEL_SORT_FIELD_MAP,
-  LevelArgs,
-  LevelArgsSchema,
-  LevelIndexArgs,
-  LevelIndexArgsSchema,
-  LevelOrderField
-} from './args'
+import { LevelArgs, LevelArgsSchema } from './args'
 
 @Resolver(Level)
-export class LevelResolver {
-  @Query(() => Level, {
-    nullable: true,
-    description:
-      'Gets a single level by its combined index (e.g., wizard-3-evocation or fighter-5).'
-  })
-  async level(@Args(() => LevelIndexArgs) args: LevelIndexArgs): Promise<Level | null> {
-    const { index } = LevelIndexArgsSchema.parse(args)
-    return LevelModel.findOne({ index }).lean()
-  }
-
-  @Query(() => [Level], { description: 'Gets all levels, optionally filtered and sorted.' })
-  async levels(@Args(() => LevelArgs) args: LevelArgs): Promise<Level[]> {
-    const validatedArgs = LevelArgsSchema.parse(args)
-
-    let query = LevelModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.class && validatedArgs.class.length > 0) {
-      filters.push({ 'class.index': { $in: validatedArgs.class } })
-    }
-
-    if (validatedArgs.subclass && validatedArgs.subclass.length > 0) {
-      filters.push({ 'subclass.index': { $in: validatedArgs.subclass } })
-    }
-
-    if (validatedArgs.level) {
-      const levelQuery = buildMongoQueryFromNumberFilter(validatedArgs.level)
-      if (levelQuery) {
-        filters.push({ level: levelQuery })
-      }
-    }
-
-    if (validatedArgs.ability_score_bonuses != null) {
-      filters.push({ ability_score_bonuses: validatedArgs.ability_score_bonuses })
-    }
-
-    if (validatedArgs.prof_bonus != null) {
-      filters.push({ prof_bonus: validatedArgs.prof_bonus })
-    }
-
-    if (filters.length > 0) {
-      query = query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<LevelOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: LEVEL_SORT_FIELD_MAP,
-      defaultSortField: LevelOrderField.LEVEL
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query = query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query = query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query = query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
+export class LevelResolver extends createResolver({
+  Type: Level,
+  Model: LevelModel,
+  typeName: 'Level',
+  singular: 'level',
+  plural: 'levels',
+  descriptions: {
+    fields: 'Fields to sort Levels by',
+    order: 'Specify sorting order for levels. Allows nested sorting. Defaults to LEVEL ascending.',
+    list: 'Gets all levels, optionally filtered and sorted.',
+    single: 'Gets a single level by its combined index (e.g., wizard-3-evocation or fighter-5).'
+  },
+  orderFields: {
+    LEVEL: { value: 'level', path: 'level' },
+    CLASS: { value: 'class', path: 'class.name' },
+    SUBCLASS: { value: 'subclass', path: 'subclass.name' }
+  },
+  defaultSort: 'LEVEL',
+  Args: LevelArgs,
+  argsSchema: LevelArgsSchema,
+  filters: (a) => [
+    inFilter('class.index', a.class),
+    inFilter('subclass.index', a.subclass),
+    numberFilter('level', a.level),
+    eqFilter('ability_score_bonuses', a.ability_score_bonuses),
+    eqFilter('prof_bonus', a.prof_bonus)
+  ]
+}) {
   @FieldResolver(() => Class, { nullable: true })
   async class(@Root() level: Level): Promise<Class | null> {
     return resolveSingleReference(level.class, ClassModel)

@@ -1,8 +1,8 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { AbilityScoreChoice2024 } from '@/graphql/2024/common/choiceTypes'
 import { resolveAbilityScoreChoice2024 } from '@/graphql/2024/utils/choiceResolvers'
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore2024 } from '@/models/2024/abilityScore'
 import ClassModel, {
@@ -14,59 +14,21 @@ import ClassModel, {
 } from '@/models/2024/class'
 import ProficiencyModel, { Proficiency2024 } from '@/models/2024/proficiency'
 import SubclassModel, { Subclass2024 } from '@/models/2024/subclass'
-import { escapeRegExp } from '@/util'
-
-import {
-  CLASS_SORT_FIELD_MAP,
-  ClassArgs,
-  ClassArgsSchema,
-  ClassIndexArgs,
-  ClassIndexArgsSchema,
-  ClassOrderField
-} from './args'
 
 @Resolver(Class2024)
-export class ClassResolver {
-  @Query(() => [Class2024], {
-    description: 'Gets all classes, optionally filtered by name.'
-  })
-  async classes(@Args(() => ClassArgs) args: ClassArgs): Promise<Class2024[]> {
-    const validatedArgs = ClassArgsSchema.parse(args)
-    const query = ClassModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<ClassOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: CLASS_SORT_FIELD_MAP,
-      defaultSortField: ClassOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class ClassResolver extends createResolver({
+  Type: Class2024,
+  Model: ClassModel,
+  typeName: 'Class',
+  singular: 'class',
+  plural: 'classes',
+  descriptions: {
+    fields: 'Fields to sort Classes by',
+    order: 'Specify sorting order for classes.',
+    list: 'Gets all classes, optionally filtered by name.',
+    single: 'Gets a single class by index.'
   }
-
-  @Query(() => Class2024, {
-    nullable: true,
-    description: 'Gets a single class by index.'
-  })
-  async class(@Args(() => ClassIndexArgs) args: ClassIndexArgs): Promise<Class2024 | null> {
-    const { index } = ClassIndexArgsSchema.parse(args)
-    return ClassModel.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => [Proficiency2024], { nullable: true })
   async proficiencies(@Root() classData: Class2024): Promise<Proficiency2024[]> {
     return resolveMultipleReferences(classData.proficiencies, ProficiencyModel)

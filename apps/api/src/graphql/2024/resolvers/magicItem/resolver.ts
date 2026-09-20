@@ -1,77 +1,38 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveSingleReference, resolveMultipleReferences } from '@/graphql/utils/resolvers'
 import EquipmentCategoryModel, { EquipmentCategory2024 } from '@/models/2024/equipmentCategory'
 import MagicItemModel, { MagicItem2024 } from '@/models/2024/magicItem'
-import { escapeRegExp } from '@/util'
 
-import {
-  MAGIC_ITEM_SORT_FIELD_MAP,
-  MagicItemArgs,
-  MagicItemArgsSchema,
-  MagicItemIndexArgs,
-  MagicItemIndexArgsSchema,
-  MagicItemOrderField
-} from './args'
+import { MagicItemArgs, MagicItemArgsSchema } from './args'
 
 @Resolver(MagicItem2024)
-export class MagicItemResolver {
-  @Query(() => [MagicItem2024], {
-    description: 'Gets all magic items, optionally filtered by name, equipment category, or rarity.'
-  })
-  async magicItems(@Args(() => MagicItemArgs) args: MagicItemArgs): Promise<MagicItem2024[]> {
-    const validatedArgs = MagicItemArgsSchema.parse(args)
-    const query = MagicItemModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.equipment_category && validatedArgs.equipment_category.length > 0) {
-      filters.push({ 'equipment_category.index': { $in: validatedArgs.equipment_category } })
-    }
-
-    if (validatedArgs.rarity && validatedArgs.rarity.length > 0) {
-      filters.push({ 'rarity.name': { $in: validatedArgs.rarity } })
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<MagicItemOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: MAGIC_ITEM_SORT_FIELD_MAP,
-      defaultSortField: MagicItemOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => MagicItem2024, {
-    nullable: true,
-    description: 'Gets a single magic item by index.'
-  })
-  async magicItem(
-    @Args(() => MagicItemIndexArgs) args: MagicItemIndexArgs
-  ): Promise<MagicItem2024 | null> {
-    const { index } = MagicItemIndexArgsSchema.parse(args)
-    return MagicItemModel.findOne({ index }).lean()
-  }
-
+export class MagicItemResolver extends createResolver({
+  Type: MagicItem2024,
+  Model: MagicItemModel,
+  typeName: 'MagicItem',
+  singular: 'magicItem',
+  plural: 'magicItems',
+  descriptions: {
+    fields: 'Fields to sort Magic Items by',
+    order: 'Specify sorting order for magic items.',
+    list: 'Gets all magic items, optionally filtered by name, equipment category, or rarity.',
+    single: 'Gets a single magic item by index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' }
+  },
+  defaultSort: 'NAME',
+  Args: MagicItemArgs,
+  argsSchema: MagicItemArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    inFilter('equipment_category.index', a.equipment_category),
+    inFilter('rarity.name', a.rarity)
+  ]
+}) {
   @FieldResolver(() => EquipmentCategory2024)
   async equipment_category(
     @Root() magicItem: MagicItem2024

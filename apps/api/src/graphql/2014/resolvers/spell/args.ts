@@ -1,14 +1,7 @@
-import { ArgsType, Field, InputType, Int, registerEnumType } from 'type-graphql'
+import { ArgsType, Field, InputType, Int } from 'type-graphql'
 import { z } from 'zod'
 
-import {
-  BaseFilterArgs,
-  BaseFilterArgsSchema,
-  BaseIndexArgs,
-  BaseIndexArgsSchema,
-  BaseOrderInterface
-} from '@/graphql/common/args'
-import { OrderByDirection } from '@/graphql/common/enums'
+import { BaseFilterArgs, BaseFilterArgsSchema } from '@/graphql/common/args'
 import { NumberFilterInput, NumberFilterInputSchema } from '@/graphql/common/inputs'
 
 const AreaOfEffectFilterInputSchema = z.object({
@@ -33,46 +26,6 @@ export class AreaOfEffectFilterInput {
   size?: NumberFilterInput
 }
 
-// Enum for Spell sortable fields
-export enum SpellOrderField {
-  NAME = 'name',
-  LEVEL = 'level',
-  SCHOOL = 'school',
-  AREA_OF_EFFECT_SIZE = 'area_of_effect_size' // Matches old API
-}
-
-export const SPELL_SORT_FIELD_MAP: Record<SpellOrderField, string> = {
-  [SpellOrderField.NAME]: 'name',
-  [SpellOrderField.LEVEL]: 'level',
-  [SpellOrderField.SCHOOL]: 'school.name',
-  [SpellOrderField.AREA_OF_EFFECT_SIZE]: 'area_of_effect.size'
-}
-
-registerEnumType(SpellOrderField, {
-  name: 'SpellOrderField',
-  description: 'Fields to sort Spells by'
-})
-
-@InputType()
-export class SpellOrder implements BaseOrderInterface<SpellOrderField> {
-  @Field(() => SpellOrderField)
-  by!: SpellOrderField
-
-  @Field(() => OrderByDirection)
-  direction!: OrderByDirection
-
-  @Field(() => SpellOrder, { nullable: true })
-  then_by?: SpellOrder
-}
-
-export const SpellOrderSchema: z.ZodType<SpellOrder> = z.lazy(() =>
-  z.object({
-    by: z.nativeEnum(SpellOrderField),
-    direction: z.nativeEnum(OrderByDirection),
-    then_by: SpellOrderSchema.optional()
-  })
-)
-
 export const SpellArgsSchema = z.object({
   ...BaseFilterArgsSchema.shape,
   level: z.array(z.number().int().min(0).max(9)).optional(),
@@ -86,12 +39,8 @@ export const SpellArgsSchema = z.object({
   area_of_effect: AreaOfEffectFilterInputSchema.optional(),
   damage_type: z.array(z.string()).optional(),
   dc_type: z.array(z.string()).optional(),
-  range: z.array(z.string()).optional(),
-  order: SpellOrderSchema.optional()
+  range: z.array(z.string()).optional()
 })
-
-export const SpellIndexArgsSchema = BaseIndexArgsSchema
-export { BaseIndexArgs as SpellIndexArgs }
 
 @ArgsType()
 export class SpellArgs extends BaseFilterArgs {
@@ -160,10 +109,4 @@ export class SpellArgs extends BaseFilterArgs {
     description: 'Filter by spell range (e.g., ["Self", "Touch"])'
   })
   range?: string[]
-
-  @Field(() => SpellOrder, {
-    nullable: true,
-    description: 'Specify sorting order for spells.'
-  })
-  order?: SpellOrder
 }

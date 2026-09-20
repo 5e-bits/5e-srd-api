@@ -1,4 +1,4 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import {
   AbilityScoreBonusChoice,
@@ -6,8 +6,8 @@ import {
   LanguageChoice
 } from '@/graphql/2014/common/choiceTypes'
 import { resolveLanguageChoice } from '@/graphql/2014/utils/resolvers'
-import { buildSortPipeline } from '@/graphql/common/args'
-import { buildMongoQueryFromNumberFilter } from '@/graphql/common/inputs'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, numberFilter, regexFilter } from '@/graphql/common/filters'
 import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import AbilityScoreModel, { AbilityScore } from '@/models/2014/abilityScore'
 import LanguageModel, { Language } from '@/models/2014/language'
@@ -15,78 +15,36 @@ import RaceModel, { Race, RaceAbilityBonus } from '@/models/2014/race'
 import SubraceModel, { Subrace } from '@/models/2014/subrace'
 import TraitModel, { Trait } from '@/models/2014/trait'
 import { AbilityBonusOption, Choice, OptionsArrayOptionSet } from '@/models/common/choice'
-import { escapeRegExp } from '@/util'
 
-import {
-  RACE_SORT_FIELD_MAP,
-  RaceArgs,
-  RaceArgsSchema,
-  RaceIndexArgs,
-  RaceIndexArgsSchema,
-  RaceOrderField
-} from './args'
+import { RaceArgs, RaceArgsSchema } from './args'
 
-@Resolver(() => Race)
-export class RaceResolver {
-  @Query(() => [Race], { description: 'Gets all races, optionally filtered by name and sorted.' })
-  async races(@Args(() => RaceArgs) args: RaceArgs): Promise<Race[]> {
-    const validatedArgs = RaceArgsSchema.parse(args)
-
-    const query = RaceModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.ability_bonus && validatedArgs.ability_bonus.length > 0) {
-      filters.push({ 'ability_bonuses.ability_score.index': { $in: validatedArgs.ability_bonus } })
-    }
-
-    if (validatedArgs.size && validatedArgs.size.length > 0) {
-      filters.push({ size: { $in: validatedArgs.size } })
-    }
-
-    if (validatedArgs.language && validatedArgs.language.length > 0) {
-      filters.push({ 'languages.index': { $in: validatedArgs.language } })
-    }
-
-    if (validatedArgs.speed) {
-      const speedQuery = buildMongoQueryFromNumberFilter(validatedArgs.speed)
-      if (speedQuery) {
-        filters.push({ speed: speedQuery })
-      }
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<RaceOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: RACE_SORT_FIELD_MAP,
-      defaultSortField: RaceOrderField.NAME
-    })
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-
-  @Query(() => Race, { nullable: true, description: 'Gets a single race by its index.' })
-  async race(@Args(() => RaceIndexArgs) args: RaceIndexArgs): Promise<Race | null> {
-    const { index } = RaceIndexArgsSchema.parse(args)
-    return RaceModel.findOne({ index }).lean()
-  }
-
+@Resolver(Race)
+export class RaceResolver extends createResolver({
+  Type: Race,
+  Model: RaceModel,
+  typeName: 'Race',
+  singular: 'race',
+  plural: 'races',
+  descriptions: {
+    fields: 'Fields to sort Races by',
+    order: 'Specify sorting order for races. Allows nested sorting.',
+    list: 'Gets all races, optionally filtered by name and sorted.',
+    single: 'Gets a single race by its index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' }
+  },
+  defaultSort: 'NAME',
+  Args: RaceArgs,
+  argsSchema: RaceArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    inFilter('ability_bonuses.ability_score.index', a.ability_bonus),
+    inFilter('size', a.size),
+    inFilter('languages.index', a.language),
+    numberFilter('speed', a.speed)
+  ]
+}) {
   @FieldResolver(() => [Language], { nullable: true })
   async languages(@Root() race: Race): Promise<Language[]> {
     return resolveMultipleReferences(race.languages, LanguageModel)

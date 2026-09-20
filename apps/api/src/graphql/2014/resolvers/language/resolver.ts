@@ -1,65 +1,35 @@
-import { Args, Query, Resolver } from 'type-graphql'
+import { Resolver } from 'type-graphql'
 
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
+import { inFilter, regexFilter } from '@/graphql/common/filters'
 import LanguageModel, { Language } from '@/models/2014/language'
-import { escapeRegExp } from '@/util'
 
-import {
-  LANGUAGE_SORT_FIELD_MAP,
-  LanguageArgs,
-  LanguageArgsSchema,
-  LanguageIndexArgs,
-  LanguageIndexArgsSchema,
-  LanguageOrderField
-} from './args'
+import { LanguageArgs, LanguageArgsSchema } from './args'
 
 @Resolver(Language)
-export class LanguageResolver {
-  @Query(() => Language, { nullable: true, description: 'Gets a single language by its index.' })
-  async language(@Args(() => LanguageIndexArgs) args: LanguageIndexArgs): Promise<Language | null> {
-    const { index } = LanguageIndexArgsSchema.parse(args)
-    return LanguageModel.findOne({ index }).lean()
-  }
-
-  @Query(() => [Language], { description: 'Gets all languages, optionally filtered and sorted.' })
-  async languages(@Args(() => LanguageArgs) args: LanguageArgs): Promise<Language[]> {
-    const validatedArgs = LanguageArgsSchema.parse(args)
-
-    const query = LanguageModel.find()
-    const filters: any[] = []
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      filters.push({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    if (validatedArgs.type != null && validatedArgs.type !== '') {
-      filters.push({ type: { $regex: new RegExp(escapeRegExp(validatedArgs.type), 'i') } })
-    }
-
-    if (validatedArgs.script && validatedArgs.script.length > 0) {
-      filters.push({ script: { $in: validatedArgs.script } })
-    }
-
-    if (filters.length > 0) {
-      query.where({ $and: filters })
-    }
-
-    const sortQuery = buildSortPipeline<LanguageOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: LANGUAGE_SORT_FIELD_MAP,
-      defaultSortField: LanguageOrderField.NAME
-    })
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip !== undefined) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit !== undefined) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
-  }
-}
+export class LanguageResolver extends createResolver({
+  Type: Language,
+  Model: LanguageModel,
+  typeName: 'Language',
+  singular: 'language',
+  plural: 'languages',
+  descriptions: {
+    fields: 'Fields to sort Languages by',
+    order: 'Specify sorting order for languages.',
+    list: 'Gets all languages, optionally filtered and sorted.',
+    single: 'Gets a single language by its index.'
+  },
+  orderFields: {
+    NAME: { value: 'name', path: 'name' },
+    TYPE: { value: 'type', path: 'type' },
+    SCRIPT: { value: 'script', path: 'script' }
+  },
+  defaultSort: 'NAME',
+  Args: LanguageArgs,
+  argsSchema: LanguageArgsSchema,
+  filters: (a) => [
+    regexFilter('name', a.name),
+    regexFilter('type', a.type),
+    inFilter('script', a.script)
+  ]
+}) {}

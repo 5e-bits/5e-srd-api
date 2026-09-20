@@ -1,67 +1,25 @@
-import { Args, FieldResolver, Query, Resolver, Root } from 'type-graphql'
+import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { AnyEquipmentOrMagicItem } from '@/graphql/2024/common/unions'
-import { buildSortPipeline } from '@/graphql/common/args'
+import { createResolver } from '@/graphql/common/createResolver'
 import EquipmentModel, { Equipment2024 } from '@/models/2024/equipment'
 import EquipmentCategoryModel, { EquipmentCategory2024 } from '@/models/2024/equipmentCategory'
 import MagicItemModel, { MagicItem2024 } from '@/models/2024/magicItem'
-import { escapeRegExp } from '@/util'
-
-import {
-  EQUIPMENT_CATEGORY_SORT_FIELD_MAP,
-  EquipmentCategoryArgs,
-  EquipmentCategoryArgsSchema,
-  EquipmentCategoryIndexArgs,
-  EquipmentCategoryIndexArgsSchema,
-  EquipmentCategoryOrderField
-} from './args'
 
 @Resolver(EquipmentCategory2024)
-export class EquipmentCategoryResolver {
-  @Query(() => [EquipmentCategory2024], {
-    description: 'Gets all equipment categories, optionally filtered by name and sorted by name.'
-  })
-  async equipmentCategories(
-    @Args(() => EquipmentCategoryArgs) args: EquipmentCategoryArgs
-  ): Promise<EquipmentCategory2024[]> {
-    const validatedArgs = EquipmentCategoryArgsSchema.parse(args)
-    const query = EquipmentCategoryModel.find()
-
-    if (validatedArgs.name != null && validatedArgs.name !== '') {
-      query.where({ name: { $regex: new RegExp(escapeRegExp(validatedArgs.name), 'i') } })
-    }
-
-    const sortQuery = buildSortPipeline<EquipmentCategoryOrderField>({
-      order: validatedArgs.order,
-      sortFieldMap: EQUIPMENT_CATEGORY_SORT_FIELD_MAP,
-      defaultSortField: EquipmentCategoryOrderField.NAME
-    })
-
-    if (Object.keys(sortQuery).length > 0) {
-      query.sort(sortQuery)
-    }
-
-    if (validatedArgs.skip) {
-      query.skip(validatedArgs.skip)
-    }
-    if (validatedArgs.limit) {
-      query.limit(validatedArgs.limit)
-    }
-
-    return query.lean()
+export class EquipmentCategoryResolver extends createResolver({
+  Type: EquipmentCategory2024,
+  Model: EquipmentCategoryModel,
+  typeName: 'EquipmentCategory',
+  singular: 'equipmentCategory',
+  plural: 'equipmentCategories',
+  descriptions: {
+    fields: 'Fields to sort Equipment Categories by',
+    order: 'Specify sorting order for equipment categories.',
+    list: 'Gets all equipment categories, optionally filtered by name and sorted by name.',
+    single: 'Gets a single equipment category by index.'
   }
-
-  @Query(() => EquipmentCategory2024, {
-    nullable: true,
-    description: 'Gets a single equipment category by index.'
-  })
-  async equipmentCategory(
-    @Args(() => EquipmentCategoryIndexArgs) args: EquipmentCategoryIndexArgs
-  ): Promise<EquipmentCategory2024 | null> {
-    const { index } = EquipmentCategoryIndexArgsSchema.parse(args)
-    return EquipmentCategoryModel.findOne({ index }).lean()
-  }
-
+}) {
   @FieldResolver(() => [AnyEquipmentOrMagicItem])
   async equipment(
     @Root() equipmentCategory: EquipmentCategory2024
