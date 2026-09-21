@@ -64,9 +64,9 @@ export class MonsterSense2024 {
 
 @ObjectType({ description: 'An armor class component for a 2024 monster' })
 export class MonsterArmorClass2024 {
-  @Field(() => String)
-  @prop({ required: true, index: true, type: () => String })
-  public type!: string
+  @Field(() => String, { nullable: true })
+  @prop({ index: true, type: () => String })
+  public type?: string
 
   @Field(() => Int)
   @prop({ required: true, index: true, type: () => Number })
@@ -295,6 +295,10 @@ export class LegendaryAction2024 {
   @Field(() => DifficultyClass, { nullable: true })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
+
+  @Field(() => MonsterSpellcasting2024, { nullable: true })
+  @prop({ type: () => MonsterSpellcasting2024 })
+  public spellcasting?: MonsterSpellcasting2024
 }
 
 @ObjectType({ description: 'A reaction a 2024 monster can perform' })
@@ -310,6 +314,14 @@ export class Reaction2024 {
   @Field(() => DifficultyClass, { nullable: true })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
+
+  @Field(() => [Damage], { nullable: true })
+  @prop({ type: () => [Damage] })
+  public damage?: Damage[]
+
+  @Field(() => MonsterSpellcasting2024, { nullable: true })
+  @prop({ type: () => MonsterSpellcasting2024 })
+  public spellcasting?: MonsterSpellcasting2024
 }
 
 @ObjectType({ description: 'Usage details for a 2024 monster special ability' })
@@ -482,9 +494,21 @@ export class Monster2024 {
   @prop({ type: () => [SpecialAbility2024] })
   public special_abilities?: SpecialAbility2024[]
 
+  @Field(() => String, { nullable: true })
+  @prop({ index: true, type: () => String })
+  public skills?: string
+
+  @Field(() => String, { nullable: true })
+  @prop({ index: true, type: () => String })
+  public gear?: string
+
   @Field(() => [MonsterAction2024], { nullable: true })
   @prop({ type: () => [MonsterAction2024] })
   public actions?: MonsterAction2024[]
+
+  @Field(() => [MonsterAction2024], { nullable: true })
+  @prop({ type: () => [MonsterAction2024] })
+  public bonus_actions?: MonsterAction2024[]
 
   @Field(() => [LegendaryAction2024], { nullable: true })
   @prop({ type: () => [LegendaryAction2024] })

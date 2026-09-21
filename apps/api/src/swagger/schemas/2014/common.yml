@@ -44,7 +44,7 @@ dc-model:
     dc_type:
       $ref: './combined.yml#/APIReference'
     dc_value:
-      description: 'Value to beat'
+      description: 'Value to beat. Optional.'
       type: number
     success_type:
       description: 'Result of a successful save. Can be \"none\", \"half\", or \"other\"'

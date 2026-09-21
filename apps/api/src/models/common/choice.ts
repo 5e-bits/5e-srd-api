@@ -44,7 +44,7 @@ export class ActionOption extends Option {
   public count!: number | string
 
   @prop({ required: true, index: true, type: () => String })
-  public type!: 'melee' | 'ranged' | 'ability' | 'magic'
+  public type!: 'melee' | 'ranged' | 'ability' | 'magic' | 'special'
 
   @prop({ index: true, type: () => String })
   public notes?: string
@@ -129,8 +129,8 @@ export class DamageOption extends Option {
 }
 
 export class Choice {
-  @prop({ type: () => String, required: true })
-  public desc!: string
+  @prop({ type: () => String, required: false })
+  public desc?: string
 
   @prop({ type: () => Number, required: true })
   public choose!: number

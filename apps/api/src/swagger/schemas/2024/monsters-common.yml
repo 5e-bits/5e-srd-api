@@ -32,6 +32,7 @@ monster-armor-class-model-2024:
   type: object
   properties:
     type:
+      description: 'Armor type text. Optional; omitted when the SRD gives none.'
       type: string
     value:
       type: integer
@@ -191,6 +192,8 @@ legendary-action-model:
         $ref: './common.yml#/damage-model-2024'
     dc:
       $ref: './common.yml#/dc-model-2024'
+    spellcasting:
+      $ref: '#/monster-spellcasting-model-2024'
 
 reaction-model:
   type: object
@@ -201,6 +204,12 @@ reaction-model:
       type: string
     dc:
       $ref: './common.yml#/dc-model-2024'
+    damage:
+      type: array
+      items:
+        $ref: './common.yml#/damage-model-2024'
+    spellcasting:
+      $ref: '#/monster-spellcasting-model-2024'
 
 special-ability-usage-model:
   type: object
