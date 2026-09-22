@@ -71,7 +71,14 @@ monster-model-2024:
           type: array
           items:
             $ref: './monsters-common.yml#/monster-special-ability-model-2024'
+        gear:
+          description: 'Equipment carried, as text (e.g. "Chain Shirt, Shield, Spear").'
+          type: string
         actions:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/monster-action-model-2024'
+        bonus_actions:
           type: array
           items:
             $ref: './monsters-common.yml#/monster-action-model-2024'

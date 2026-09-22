@@ -3161,7 +3161,7 @@
             "$ref": "#/components/schemas/api-ref-model"
           },
           "dc_value": {
-            "description": "Value to beat",
+            "description": "Value to beat. Optional.",
             "type": "number"
           },
           "success_type": {
@@ -5505,6 +5505,10 @@
           },
           "url": {
             "type": "string"
+          },
+          "note": {
+            "description": "A qualifier for this reference, e.g. a condition immunity that only applies in one form.",
+            "type": "string"
           }
         }
       },
@@ -5630,6 +5634,7 @@
         "type": "object",
         "properties": {
           "desc": {
+            "description": "Optional description of the choice.",
             "type": "string"
           },
           "choose": {
@@ -6140,6 +6145,7 @@
             "$ref": "#/components/schemas/api-ref-model-2024"
           },
           "dc_value": {
+            "description": "Optional; absent when the DC depends on other values (e.g. damage taken).",
             "type": "integer"
           },
           "success_type": {
@@ -6489,6 +6495,7 @@
         "type": "object",
         "properties": {
           "type": {
+            "description": "Armor type text. Optional; omitted when the SRD gives none.",
             "type": "string"
           },
           "value": {
@@ -6698,6 +6705,15 @@
           },
           "min_value": {
             "type": "integer"
+          },
+          "times": {
+            "type": "integer"
+          },
+          "rest_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -6803,6 +6819,12 @@
           },
           "dc": {
             "$ref": "#/components/schemas/dc-model-2024"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/action-usage-model"
+          },
+          "spellcasting": {
+            "$ref": "#/components/schemas/monster-spellcasting-model-2024"
           }
         }
       },
@@ -6817,6 +6839,18 @@
           },
           "dc": {
             "$ref": "#/components/schemas/dc-model-2024"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/action-usage-model"
+          },
+          "damage": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/damage-model-2024"
+            }
+          },
+          "spellcasting": {
+            "$ref": "#/components/schemas/monster-spellcasting-model-2024"
           }
         }
       },
@@ -6931,7 +6965,17 @@
               "$ref": "#/components/schemas/monster-special-ability-model-2024"
             }
           },
+          "gear": {
+            "description": "Equipment carried, as text (e.g. \"Chain Shirt, Shield, Spear\").",
+            "type": "string"
+          },
           "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/monster-action-model-2024"
+            }
+          },
+          "bonus_actions": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/monster-action-model-2024"
