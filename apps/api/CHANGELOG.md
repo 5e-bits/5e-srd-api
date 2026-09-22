@@ -43,6 +43,18 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.11.0](https://github.com/5e-bits/5e-srd-api/compare/v5.10.1...v5.11.0) (2026-09-22)
+
+
+### Features
+
+* **api:** accept generated 2024 monster data shape ([#1275](https://github.com/5e-bits/5e-srd-api/issues/1275)) ([b8b7d29](https://github.com/5e-bits/5e-srd-api/commit/b8b7d29808bff00a014202add9e43e37e0706546))
+
+
+### Bug Fixes
+
+* **api:** revert accept generated 2024 monster data shape ([#1273](https://github.com/5e-bits/5e-srd-api/issues/1273)) ([b41f969](https://github.com/5e-bits/5e-srd-api/commit/b41f969a5a44f6dbf9c4a7385b662456cd04ffb2))
+
 ## [5.10.1](https://github.com/5e-bits/5e-srd-api/compare/v5.10.0...v5.10.1) (2026-09-22)
 
 
