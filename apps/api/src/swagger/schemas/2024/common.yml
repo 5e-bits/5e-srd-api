@@ -7,6 +7,9 @@ api-ref-model-2024:
       type: string
     url:
       type: string
+    note:
+      description: 'A qualifier for this reference, e.g. a condition immunity that only applies in one form.'
+      type: string
 
 api-ref-list-model-2024:
   type: object
@@ -38,6 +41,7 @@ dc-model-2024:
     dc_type:
       $ref: '#/api-ref-model-2024'
     dc_value:
+      description: 'Optional; absent when the DC depends on other values (e.g. damage taken).'
       type: integer
     success_type:
       type: string
@@ -84,6 +88,7 @@ choice-model-2024:
   type: object
   properties:
     desc:
+      description: 'Optional description of the choice.'
       type: string
     choose:
       type: integer

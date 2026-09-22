@@ -13,6 +13,7 @@ import type {
   MonsterAttack2024,
   MonsterProficiency2024,
   MonsterSense2024,
+  MonsterSpellcasting2024,
   MonsterSpeed2024,
   Reaction2024,
   SpecialAbility2024,
@@ -29,8 +30,8 @@ export const monsterSenseFactory = Factory.define<MonsterSense2024>(() => ({
   passive_perception: faker.number.int({ min: 8, max: 25 })
 }))
 
+// `type` is omitted by default; the 2024 data rarely has it. Pass `{ type }` to set it.
 export const monsterArmorClassFactory = Factory.define<MonsterArmorClass2024>(() => ({
-  type: faker.helpers.arrayElement(['dex', 'natural', 'armor', 'spell', 'condition']),
   value: faker.number.int({ min: 8, max: 22 })
 }))
 
@@ -53,6 +54,16 @@ export const spellcastingSpellFactory = Factory.define<SpellcastingSpell2024>(({
     url: `/api/2024/spells/${index}`
   }
 })
+
+export const monsterSpellcastingFactory = Factory.define<MonsterSpellcasting2024>(() => ({
+  ability: apiReferenceFactory.build({
+    index: 'int',
+    name: 'INT',
+    url: '/api/2024/ability-scores/int'
+  }),
+  components_required: ['V', 'S'],
+  spells: spellcastingSpellFactory.buildList(1)
+}))
 
 export const actionUsageFactory = Factory.define<ActionUsage2024>(() => ({
   type: faker.helpers.arrayElement(['recharge', 'per day', 'recharge on roll']),
