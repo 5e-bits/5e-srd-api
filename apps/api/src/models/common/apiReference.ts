@@ -15,8 +15,4 @@ export class APIReference {
   @Field(() => String, { description: 'The URL of the API resource' })
   @prop({ required: true, type: () => String })
   public url!: string
-
-  @Field(() => String, { nullable: true, description: 'A qualifier for this reference, e.g. a condition immunity that only applies in one form' })
-  @prop({ index: true, type: () => String })
-  public note?: string
 }

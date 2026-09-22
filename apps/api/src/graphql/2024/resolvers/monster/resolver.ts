@@ -25,7 +25,6 @@ import EquipmentModel, { Equipment2024 } from '@/models/2024/equipment'
 import Monster2024Model, {
   MonsterAction2024,
   MonsterArmorClass2024,
-  MonsterConditionImmunity2024,
   MonsterProficiency2024,
   Monster2024,
   MonsterSpellcasting2024
@@ -87,18 +86,9 @@ export class Monster2024Resolver extends createResolver({
     inFilter('condition_immunities.index', a.condition_immunities)
   ]
 }) {
-  @FieldResolver(() => [MonsterConditionImmunity2024])
-  async condition_immunities(@Root() monster: Monster2024): Promise<MonsterConditionImmunity2024[]> {
-    const resolved = await resolveMultipleReferences(monster.condition_immunities, ConditionModel)
-    const byIndex = new Map(resolved.map((condition) => [condition.index, condition]))
-    /**
-     * A note (e.g. "with Mind Blank") qualifies this monster's own immunity, not the
-     * condition itself, so the wrapper — not the shared Condition2024 type — carries it.
-     */
-    return (monster.condition_immunities ?? []).flatMap((ref) => {
-      const condition = byIndex.get(ref.index)
-      return condition !== undefined ? [{ condition, note: ref.note }] : []
-    })
+  @FieldResolver(() => [Condition2024])
+  async condition_immunities(@Root() monster: Monster2024): Promise<Condition2024[]> {
+    return resolveMultipleReferences(monster.condition_immunities, ConditionModel)
   }
 
   @FieldResolver(() => [Monster2024], { nullable: true })
