@@ -11,31 +11,25 @@ background-feat-reference-model:
       type: string
 
 background-model-2024:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    ability_scores:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    feat:
-      $ref: '#/background-feat-reference-model'
-    proficiencies:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    proficiency_choices:
-      type: array
-      items:
-        $ref: './common.yml#/choice-model-2024'
-    equipment_options:
-      type: array
-      items:
-        $ref: './common.yml#/choice-model-2024'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        ability_scores:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        feat:
+          $ref: '#/background-feat-reference-model'
+        proficiencies:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        proficiency_choices:
+          type: array
+          items:
+            $ref: './common.yml#/choice-model-2024'
+        equipment_options:
+          type: array
+          items:
+            $ref: './common.yml#/choice-model-2024'

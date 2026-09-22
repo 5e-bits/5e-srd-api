@@ -1,26 +1,20 @@
 trait-model:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    url:
-      type: string
-    description:
-      type: string
-    species:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    subspecies:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    proficiency_choices:
-      $ref: './common.yml#/choice-model-2024'
-    speed:
-      type: number
-      description: 'Speed override granted by this trait.'
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        description:
+          type: string
+        species:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        subspecies:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        proficiency_choices:
+          $ref: './common.yml#/choice-model-2024'
+        speed:
+          type: number
+          description: 'Speed override granted by this trait.'

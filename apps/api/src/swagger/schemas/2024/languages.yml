@@ -1,15 +1,9 @@
 language-model:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    is_rare:
-      type: boolean
-    note:
-      type: string
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        is_rare:
+          type: boolean
+        note:
+          type: string

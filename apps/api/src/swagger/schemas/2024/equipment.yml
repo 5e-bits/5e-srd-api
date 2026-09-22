@@ -1,18 +1,12 @@
 equipment-category-model-2024:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    equipment:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        equipment:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
 
 armor-class-model:
   type: object
@@ -57,80 +51,74 @@ utilize-model:
       $ref: './common.yml#/dc-model-2024'
 
 equipment-model-2024:
-  type: object
   description: |
     Represents the union of all 2024 equipment shapes (gear, weapons, armor, tools, packs).
     Not every property applies to every item; which properties are present depends on the
     equipment category.
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    description:
-      type: array
-      items:
-        type: string
-    equipment_categories:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    ammunition:
-      $ref: './common.yml#/api-ref-model-2024'
-    armor_class:
-      $ref: '#/armor-class-model'
-    contents:
-      type: array
-      items:
-        $ref: '#/content-model'
-    storage:
-      description: 'The equipment this item is contained in.'
-      $ref: './common.yml#/api-ref-model-2024'
-    cost:
-      $ref: './common.yml#/cost-model-2024'
-    weight:
-      type: number
-    ability:
-      $ref: './common.yml#/api-ref-model-2024'
-    craft:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    damage:
-      $ref: './common.yml#/damage-model-2024'
-    doff_time:
-      type: string
-    don_time:
-      type: string
-    image:
-      type: string
-    mastery:
-      $ref: './common.yml#/api-ref-model-2024'
-    notes:
-      type: array
-      items:
-        type: string
-    properties:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    quantity:
-      type: integer
-    range:
-      $ref: '#/range-model'
-    stealth_disadvantage:
-      type: boolean
-    str_minimum:
-      type: integer
-    throw_range:
-      $ref: '#/throw-range-model'
-    two_handed_damage:
-      $ref: './common.yml#/damage-model-2024'
-    utilize:
-      type: array
-      items:
-        $ref: '#/utilize-model'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        description:
+          type: array
+          items:
+            type: string
+        equipment_categories:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        ammunition:
+          $ref: './common.yml#/api-ref-model-2024'
+        armor_class:
+          $ref: '#/armor-class-model'
+        contents:
+          type: array
+          items:
+            $ref: '#/content-model'
+        storage:
+          description: 'The equipment this item is contained in.'
+          $ref: './common.yml#/api-ref-model-2024'
+        cost:
+          $ref: './common.yml#/cost-model-2024'
+        weight:
+          type: number
+        ability:
+          $ref: './common.yml#/api-ref-model-2024'
+        craft:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        damage:
+          $ref: './common.yml#/damage-model-2024'
+        doff_time:
+          type: string
+        don_time:
+          type: string
+        image:
+          type: string
+        mastery:
+          $ref: './common.yml#/api-ref-model-2024'
+        notes:
+          type: array
+          items:
+            type: string
+        properties:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        quantity:
+          type: integer
+        range:
+          $ref: '#/range-model'
+        stealth_disadvantage:
+          type: boolean
+        str_minimum:
+          type: integer
+        throw_range:
+          $ref: '#/throw-range-model'
+        two_handed_damage:
+          $ref: './common.yml#/damage-model-2024'
+        utilize:
+          type: array
+          items:
+            $ref: '#/utilize-model'
