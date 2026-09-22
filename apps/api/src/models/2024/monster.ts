@@ -64,9 +64,9 @@ export class MonsterSense2024 {
 
 @ObjectType({ description: 'An armor class component for a 2024 monster' })
 export class MonsterArmorClass2024 {
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
-  public type?: string
+  @Field(() => String)
+  @prop({ required: true, index: true, type: () => String })
+  public type!: string
 
   @Field(() => Int)
   @prop({ required: true, index: true, type: () => Number })
@@ -102,19 +102,6 @@ export class MonsterProficiency2024 {
   @Field(() => Proficiency2024)
   @prop({ type: () => APIReference })
   public proficiency!: APIReference
-}
-
-/**
- * A GraphQL-only response shape (not itself persisted; condition_immunities is stored flat)
- * built by Monster2024Resolver.condition_immunities, one per stored reference.
- */
-@ObjectType({ description: "A 2024 monster's condition immunity, with an optional qualifying note" })
-export class MonsterConditionImmunity2024 {
-  @Field(() => Condition2024)
-  public condition!: Condition2024
-
-  @Field(() => String, { nullable: true, description: 'A qualifier for this immunity, e.g. only in one form.' })
-  public note?: string
 }
 
 @ObjectType({ description: 'Usage details for a spellcasting spell (2024)' })
@@ -203,14 +190,6 @@ export class ActionUsage2024 {
   @Field(() => Int, { nullable: true })
   @prop({ index: true, type: () => Number })
   public min_value?: number
-
-  @Field(() => Int, { nullable: true })
-  @prop({ index: true, type: () => Number })
-  public times?: number
-
-  @Field(() => [String], { nullable: true })
-  @prop({ type: () => [String] })
-  public rest_types?: string[]
 }
 
 @ObjectType({ description: 'An item within a 2024 monster multiattack action' })
@@ -316,14 +295,6 @@ export class LegendaryAction2024 {
   @Field(() => DifficultyClass, { nullable: true })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
-
-  @Field(() => ActionUsage2024, { nullable: true })
-  @prop({ type: () => ActionUsage2024 })
-  public usage?: ActionUsage2024
-
-  @Field(() => MonsterSpellcasting2024, { nullable: true })
-  @prop({ type: () => MonsterSpellcasting2024 })
-  public spellcasting?: MonsterSpellcasting2024
 }
 
 @ObjectType({ description: 'A reaction a 2024 monster can perform' })
@@ -339,18 +310,6 @@ export class Reaction2024 {
   @Field(() => DifficultyClass, { nullable: true })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
-
-  @Field(() => ActionUsage2024, { nullable: true })
-  @prop({ type: () => ActionUsage2024 })
-  public usage?: ActionUsage2024
-
-  @Field(() => [Damage], { nullable: true })
-  @prop({ type: () => [Damage] })
-  public damage?: Damage[]
-
-  @Field(() => MonsterSpellcasting2024, { nullable: true })
-  @prop({ type: () => MonsterSpellcasting2024 })
-  public spellcasting?: MonsterSpellcasting2024
 }
 
 @ObjectType({ description: 'Usage details for a 2024 monster special ability' })
@@ -490,12 +449,8 @@ export class Monster2024 {
   @prop({ type: () => [String] })
   public damage_immunities!: string[]
 
-  /**
-   * Resolved via Monster2024Resolver. Stored flat (a note, if any, travels with the
-   * reference itself) but exposed as MonsterConditionImmunity2024, since the note has
-   * nowhere to live on the shared, standalone Condition2024 type.
-   */
-  @Field(() => [MonsterConditionImmunity2024])
+  // Resolved via Monster2024Resolver
+  @Field(() => [Condition2024])
   @prop({ type: () => [APIReference] })
   public condition_immunities!: APIReference[]
 
@@ -527,17 +482,9 @@ export class Monster2024 {
   @prop({ type: () => [SpecialAbility2024] })
   public special_abilities?: SpecialAbility2024[]
 
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
-  public gear?: string
-
   @Field(() => [MonsterAction2024], { nullable: true })
   @prop({ type: () => [MonsterAction2024] })
   public actions?: MonsterAction2024[]
-
-  @Field(() => [MonsterAction2024], { nullable: true })
-  @prop({ type: () => [MonsterAction2024] })
-  public bonus_actions?: MonsterAction2024[]
 
   @Field(() => [LegendaryAction2024], { nullable: true })
   @prop({ type: () => [LegendaryAction2024] })

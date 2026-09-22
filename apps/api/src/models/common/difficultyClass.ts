@@ -13,9 +13,9 @@ export class DifficultyClass {
   @prop({ type: () => APIReference })
   public dc_type!: APIReference
 
-  @Field(() => Int, { nullable: true, description: 'The value of the DC.' })
-  @prop({ required: false, index: true, type: () => Number })
-  public dc_value?: number
+  @Field(() => Int, { description: 'The value of the DC.' })
+  @prop({ required: true, index: true, type: () => Number })
+  public dc_value!: number
 
   @Field(() => String, { description: 'The result of a successful save against this DC.' })
   @prop({ required: true, index: true, type: () => String })
