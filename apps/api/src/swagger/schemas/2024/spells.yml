@@ -36,64 +36,58 @@ spell-dc-model-2024:
       description: 'Additional description for the saving throw.'
 
 spell-model-2024:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    description:
-      type: string
-    higher_level:
-      description: 'Description of effects when cast at higher levels.'
-      type: string
-    range:
-      type: string
-    components:
-      type: array
-      items:
-        type: string
-        enum: [V, S, M]
-    material:
-      type: string
-    ritual:
-      type: boolean
-    duration:
-      type: string
-    concentration:
-      type: boolean
-    casting_time:
-      type: string
-    level:
-      description: 'Level of the spell (0 for cantrips).'
-      type: integer
-    attack_type:
-      type: string
-    damage:
-      $ref: '#/spell-damage-model-2024'
-    dc:
-      $ref: '#/spell-dc-model-2024'
-    area_of_effect:
-      $ref: '#/area-of-effect-model-2024'
-    heal_at_slot_level:
-      description: 'Healing amount at each spell slot level, keyed by slot level number.'
-      type: object
-      additionalProperties:
-        type: string
-    school:
-      $ref: './common.yml#/api-ref-model-2024'
-    classes:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    subclasses:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        description:
+          type: string
+        higher_level:
+          description: 'Description of effects when cast at higher levels.'
+          type: string
+        range:
+          type: string
+        components:
+          type: array
+          items:
+            type: string
+            enum: [V, S, M]
+        material:
+          type: string
+        ritual:
+          type: boolean
+        duration:
+          type: string
+        concentration:
+          type: boolean
+        casting_time:
+          type: string
+        level:
+          description: 'Level of the spell (0 for cantrips).'
+          type: integer
+        attack_type:
+          type: string
+        damage:
+          $ref: '#/spell-damage-model-2024'
+        dc:
+          $ref: '#/spell-dc-model-2024'
+        area_of_effect:
+          $ref: '#/area-of-effect-model-2024'
+        heal_at_slot_level:
+          description: 'Healing amount at each spell slot level, keyed by slot level number.'
+          type: object
+          additionalProperties:
+            type: string
+        school:
+          $ref: './common.yml#/api-ref-model-2024'
+        classes:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        subclasses:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
 
 class-level-spell-model-2024:
   allOf:

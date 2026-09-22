@@ -1,29 +1,23 @@
 species-model:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    url:
-      type: string
-    type:
-      type: string
-      description: 'The creature type of this species (e.g., Humanoid).'
-    size:
-      type: string
-    size_options:
-      $ref: './common.yml#/choice-model-2024'
-    speed:
-      type: number
-      description: 'The base walking speed of this species in feet.'
-    traits:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    subspecies:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        type:
+          type: string
+          description: 'The creature type of this species (e.g., Humanoid).'
+        size:
+          type: string
+        size_options:
+          $ref: './common.yml#/choice-model-2024'
+        speed:
+          type: number
+          description: 'The base walking speed of this species in feet.'
+        traits:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        subspecies:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'

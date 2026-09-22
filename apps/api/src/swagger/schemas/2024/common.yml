@@ -93,3 +93,15 @@ choice-model-2024:
       type: string
     from:
       $ref: '#/option-set-model-2024'
+
+resource-model-2024:
+  type: object
+  properties:
+    index:
+      type: string
+    name:
+      type: string
+    url:
+      type: string
+    updated_at:
+      type: string

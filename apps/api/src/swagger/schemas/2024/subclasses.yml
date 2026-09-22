@@ -10,23 +10,17 @@ subclass-feature-model:
       type: string
 
 subclass-model-2024:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    class:
-      $ref: './common.yml#/api-ref-model-2024'
-    summary:
-      type: string
-    description:
-      type: string
-    features:
-      type: array
-      items:
-        $ref: '#/subclass-feature-model'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        class:
+          $ref: './common.yml#/api-ref-model-2024'
+        summary:
+          type: string
+        description:
+          type: string
+        features:
+          type: array
+          items:
+            $ref: '#/subclass-feature-model'

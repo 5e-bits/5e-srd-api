@@ -1,108 +1,102 @@
 monster-model-2024:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    size:
-      type: string
-    type:
-      type: string
-    subtype:
-      type: string
-    alignment:
-      type: string
-    armor_class:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/monster-armor-class-model-2024'
-    hit_points:
-      type: integer
-    hit_dice:
-      type: string
-    hit_points_roll:
-      type: string
-    speed:
-      $ref: './monsters-common.yml#/monster-speed-model'
-    strength:
-      type: integer
-    dexterity:
-      type: integer
-    constitution:
-      type: integer
-    intelligence:
-      type: integer
-    wisdom:
-      type: integer
-    charisma:
-      type: integer
-    proficiencies:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/monster-proficiency-model-2024'
-    damage_vulnerabilities:
-      type: array
-      items:
-        type: string
-    damage_resistances:
-      type: array
-      items:
-        type: string
-    damage_immunities:
-      type: array
-      items:
-        type: string
-    condition_immunities:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    senses:
-      $ref: './monsters-common.yml#/monster-sense-model-2024'
-    languages:
-      type: string
-    challenge_rating:
-      type: number
-    proficiency_bonus:
-      type: integer
-    xp:
-      type: integer
-    xp_in_lair:
-      type: integer
-    special_abilities:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/monster-special-ability-model-2024'
-    skills:
-      description: 'Skill bonuses as text (e.g. "History +12, Perception +10").'
-      type: string
-    gear:
-      description: 'Equipment carried, as text (e.g. "Chain Shirt, Shield, Spear").'
-      type: string
-    actions:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/monster-action-model-2024'
-    bonus_actions:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/monster-action-model-2024'
-    legendary_actions:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/legendary-action-model'
-    reactions:
-      type: array
-      items:
-        $ref: './monsters-common.yml#/reaction-model'
-    forms:
-      description: 'Other forms this monster can take, if any (e.g. werewolf hybrid form).'
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    image:
-      type: string
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        size:
+          type: string
+        type:
+          type: string
+        subtype:
+          type: string
+        alignment:
+          type: string
+        armor_class:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/monster-armor-class-model-2024'
+        hit_points:
+          type: integer
+        hit_dice:
+          type: string
+        hit_points_roll:
+          type: string
+        speed:
+          $ref: './monsters-common.yml#/monster-speed-model'
+        strength:
+          type: integer
+        dexterity:
+          type: integer
+        constitution:
+          type: integer
+        intelligence:
+          type: integer
+        wisdom:
+          type: integer
+        charisma:
+          type: integer
+        proficiencies:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/monster-proficiency-model-2024'
+        damage_vulnerabilities:
+          type: array
+          items:
+            type: string
+        damage_resistances:
+          type: array
+          items:
+            type: string
+        damage_immunities:
+          type: array
+          items:
+            type: string
+        condition_immunities:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        senses:
+          $ref: './monsters-common.yml#/monster-sense-model-2024'
+        languages:
+          type: string
+        challenge_rating:
+          type: number
+        proficiency_bonus:
+          type: integer
+        xp:
+          type: integer
+        xp_in_lair:
+          type: integer
+        special_abilities:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/monster-special-ability-model-2024'
+        skills:
+          description: 'Skill bonuses as text (e.g. "History +12, Perception +10").'
+          type: string
+        gear:
+          description: 'Equipment carried, as text (e.g. "Chain Shirt, Shield, Spear").'
+          type: string
+        actions:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/monster-action-model-2024'
+        bonus_actions:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/monster-action-model-2024'
+        legendary_actions:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/legendary-action-model'
+        reactions:
+          type: array
+          items:
+            $ref: './monsters-common.yml#/reaction-model'
+        forms:
+          description: 'Other forms this monster can take, if any (e.g. werewolf hybrid form).'
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        image:
+          type: string

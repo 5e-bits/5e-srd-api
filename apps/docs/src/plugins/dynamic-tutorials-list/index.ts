@@ -32,7 +32,7 @@ function readCategory(category: string, dir: string, baseUrl: string) {
       const filePath = path.join(categoryDir, file);
       const contents = fs.readFileSync(filePath).toString();
 
-      const mdTitle = contents.match(/\#[^\r\n]+/);
+      const mdTitle = contents.match(/^#[^\r\n]+/m);
       const title =
         mdTitle !== null ? mdTitle[0].substring(1).trim() : makeTitle(name);
 

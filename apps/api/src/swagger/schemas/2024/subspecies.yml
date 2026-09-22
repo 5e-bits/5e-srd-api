@@ -12,22 +12,16 @@ subspecies-trait-model:
       description: 'The character level at which this trait is gained.'
 
 subspecies-model:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    url:
-      type: string
-    species:
-      $ref: './common.yml#/api-ref-model-2024'
-    traits:
-      type: array
-      items:
-        $ref: '#/subspecies-trait-model'
-    damage_type:
-      description: 'The damage type associated with this subspecies (Dragonborn only).'
-      $ref: './common.yml#/api-ref-model-2024'
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        species:
+          $ref: './common.yml#/api-ref-model-2024'
+        traits:
+          type: array
+          items:
+            $ref: '#/subspecies-trait-model'
+        damage_type:
+          description: 'The damage type associated with this subspecies (Dragonborn only).'
+          $ref: './common.yml#/api-ref-model-2024'

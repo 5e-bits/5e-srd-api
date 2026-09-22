@@ -3,17 +3,15 @@ import { NextFunction, Request, Response } from 'express'
 import { awsRegion } from '@/util/environmentVariables'
 
 const BUCKET_NAME = 'dnd-5e-api-images'
-const AWS_REGION = awsRegion || 'us-east-1'
 
 const show = async (req: Request, res: Response, next: NextFunction) => {
-  let key: string | undefined
   try {
-    key = req.url.slice(1)
+    const key = req.url.slice(1)
     if (!key || !/^[a-zA-Z0-9/._-]+$/.test(key)) {
       return res.status(400).send('Invalid image path')
     }
 
-    const publicUrl = `https://${BUCKET_NAME}.s3.${AWS_REGION}.amazonaws.com/${key}`
+    const publicUrl = `https://${BUCKET_NAME}.s3.${awsRegion}.amazonaws.com/${key}`
     const s3Response = await fetch(publicUrl)
 
     if (!s3Response.ok) {
@@ -40,13 +38,16 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
     } else {
       throw new Error('Response body from S3 was null')
     }
-  } catch (err: any) {
-    if (err !== null) {
-      res.status(404).end('File Not Found')
-    } else {
-      console.error('Error fetching image from S3:', err)
-      next(err)
+  } catch (err) {
+    if (res.headersSent) {
+      // Part of the image is already sent, so end the connection instead of a valid-looking response.
+      console.error('Error streaming image from S3:', err)
+      res.destroy()
+      return
     }
+    res.removeHeader('Content-Length')
+    const error = err instanceof Error ? err : new Error(String(err))
+    next(Object.assign(error, { status: 502 }))
   }
 }
 
