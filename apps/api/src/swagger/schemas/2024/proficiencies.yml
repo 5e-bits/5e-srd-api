@@ -1,25 +1,19 @@
 proficiency-model:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    type:
-      type: string
-      description: 'The type of proficiency (e.g., Skills, Tools, Armor, Weapons).'
-    backgrounds:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    classes:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    reference:
-      description: 'The referenced skill or tool, if this proficiency wraps one.'
-      $ref: './common.yml#/api-ref-model-2024'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of proficiency (e.g., Skills, Tools, Armor, Weapons).'
+        backgrounds:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        classes:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        reference:
+          description: 'The referenced skill or tool, if this proficiency wraps one.'
+          $ref: './common.yml#/api-ref-model-2024'

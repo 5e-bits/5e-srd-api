@@ -1,21 +1,15 @@
 feature-model:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    description:
-      type: string
-    level:
-      description: 'The level at which this feature is gained.'
-      $ref: './common.yml#/api-ref-model-2024'
-    class:
-      $ref: './common.yml#/api-ref-model-2024'
-    subclass:
-      description: 'The subclass that gains this feature, if applicable.'
-      $ref: './common.yml#/api-ref-model-2024'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        description:
+          type: string
+        level:
+          description: 'The level at which this feature is gained.'
+          $ref: './common.yml#/api-ref-model-2024'
+        class:
+          $ref: './common.yml#/api-ref-model-2024'
+        subclass:
+          description: 'The subclass that gains this feature, if applicable.'
+          $ref: './common.yml#/api-ref-model-2024'

@@ -61,48 +61,42 @@ primary-ability-model:
       $ref: './common.yml#/choice-model-2024'
 
 class-model-2024:
-  type: object
-  properties:
-    index:
-      type: string
-    name:
-      type: string
-    primary_ability:
-      $ref: '#/primary-ability-model'
-    hit_die:
-      type: integer
-      example: 12
-    class_levels:
-      type: string
-      description: 'URL path to the class levels resource.'
-    multi_classing:
-      $ref: '#/multi-classing-model'
-    proficiencies:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    proficiency_choices:
-      type: array
-      items:
-        $ref: './common.yml#/choice-model-2024'
-    saving_throws:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    starting_equipment_options:
-      type: array
-      items:
-        $ref: './common.yml#/choice-model-2024'
-    subclasses:
-      type: array
-      items:
-        $ref: './common.yml#/api-ref-model-2024'
-    spellcasting:
-      $ref: '#/spellcasting-model'
-    spells:
-      type: string
-      description: 'URL path to the class spells resource.'
-    url:
-      type: string
-    updated_at:
-      type: string
+  allOf:
+    - $ref: './combined.yml#/SrdResource'
+    - type: object
+      properties:
+        primary_ability:
+          $ref: '#/primary-ability-model'
+        hit_die:
+          type: integer
+          example: 12
+        class_levels:
+          type: string
+          description: 'URL path to the class levels resource.'
+        multi_classing:
+          $ref: '#/multi-classing-model'
+        proficiencies:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        proficiency_choices:
+          type: array
+          items:
+            $ref: './common.yml#/choice-model-2024'
+        saving_throws:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        starting_equipment_options:
+          type: array
+          items:
+            $ref: './common.yml#/choice-model-2024'
+        subclasses:
+          type: array
+          items:
+            $ref: './common.yml#/api-ref-model-2024'
+        spellcasting:
+          $ref: '#/spellcasting-model'
+        spells:
+          type: string
+          description: 'URL path to the class spells resource.'

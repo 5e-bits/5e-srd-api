@@ -1,5 +1,7 @@
 APIReference:
   $ref: './common.yml#/api-ref-model-2024'
+SrdResource:
+  $ref: './common.yml#/resource-model-2024'
 APIReferenceList:
   $ref: './common.yml#/api-ref-list-model-2024'
 error-response:
