@@ -9,19 +9,15 @@ const config: Config = {
   trailingSlash: false,
   baseUrl: "/",
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "5e-bits", // Usually your GitHub org/user name.
   projectName: "5e-srd-api", // Usually your repo name.
   markdown: {
     mermaid: true,
+    hooks: { onBrokenMarkdownLinks: "warn" },
   },
   themes: ["@docusaurus/theme-mermaid"],
 
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en"],
-  },
 
   presets: [
     [
@@ -29,7 +25,7 @@ const config: Config = {
       {
         docs: {
           routeBasePath: "/",
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve("./sidebars.ts"),
           lastVersion: "2014",
           versions: {
             current: { label: "2024", path: "2024", banner: "none" },
@@ -220,7 +216,7 @@ const config: Config = {
             },
             {
               label: "Docs Source",
-              href: "https://github.com/5e-bits/docs",
+              href: "https://github.com/5e-bits/5e-srd-api/tree/main/apps/docs",
             },
             {
               label: "Database Source",
@@ -238,10 +234,7 @@ const config: Config = {
         "powershell",
         "csharp",
         "java",
-        "kotlin",
         "swift",
-        "rust",
-        "ruby",
       ],
     },
   } satisfies Preset.ThemeConfig,
