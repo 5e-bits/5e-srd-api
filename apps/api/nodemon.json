@@ -7,5 +7,5 @@
         "collection.postman.json",
         "tmp/*"
     ],
-    "ext": "js,ts,ejs,json,yml"
+    "ext": "js,ts,json,yml"
 }

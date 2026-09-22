@@ -43,4 +43,4 @@ EXPOSE 3000
 
 WORKDIR /app/apps/api
 
-CMD ["node", "--experimental-specifier-resolution=node", "dist/src/start.js"]
+CMD ["node", "dist/src/start.js"]
