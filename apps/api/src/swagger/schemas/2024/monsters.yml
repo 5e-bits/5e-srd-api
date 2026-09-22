@@ -71,9 +71,6 @@ monster-model-2024:
           type: array
           items:
             $ref: './monsters-common.yml#/monster-special-ability-model-2024'
-        skills:
-          description: 'Skill bonuses as text (e.g. "History +12, Perception +10").'
-          type: string
         gear:
           description: 'Equipment carried, as text (e.g. "Chain Shirt, Shield, Spear").'
           type: string

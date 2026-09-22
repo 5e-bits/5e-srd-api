@@ -12,6 +12,7 @@ APIReference {
     name        string
     url         string
     updated_at  string
+    note?       string
 }
 ```
 

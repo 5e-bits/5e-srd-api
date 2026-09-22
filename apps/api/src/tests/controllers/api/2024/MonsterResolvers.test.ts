@@ -1,13 +1,16 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
+  Monster2024Resolver,
   MonsterAction2024Resolver,
   MonsterArmorClass2024Resolver
 } from '@/graphql/2024/resolvers/monster/resolver'
+import ConditionModel from '@/models/2024/condition'
 import EquipmentModel from '@/models/2024/equipment'
-import { MonsterAction2024, MonsterArmorClass2024 } from '@/models/2024/monster'
+import { Monster2024, MonsterAction2024, MonsterArmorClass2024 } from '@/models/2024/monster'
 
 vi.mock('@/models/2024/equipment', () => ({ default: { find: vi.fn() } }))
+vi.mock('@/models/2024/condition', () => ({ default: { find: vi.fn() } }))
 
 const armorRef = {
   index: 'chain-shirt',
@@ -37,6 +40,44 @@ describe('MonsterArmorClass2024Resolver.armor', () => {
     } as MonsterArmorClass2024)
     expect(result).toEqual([])
     expect(EquipmentModel.find).not.toHaveBeenCalled()
+  })
+})
+
+describe('Monster2024Resolver.condition_immunities', () => {
+  beforeEach(() => vi.clearAllMocks())
+
+  it('attaches each reference\'s own note to its resolved condition, in order', async () => {
+    const conditions = [
+      { index: 'frightened', name: 'Frightened' },
+      { index: 'charmed', name: 'Charmed' }
+    ]
+    vi.mocked(ConditionModel.find).mockReturnValue({
+      lean: () => Promise.resolve(conditions)
+    } as any)
+
+    const monster = {
+      condition_immunities: [
+        { index: 'charmed', name: 'Charmed', url: '/api/2024/conditions/charmed', note: 'with Mind Blank' },
+        { index: 'frightened', name: 'Frightened', url: '/api/2024/conditions/frightened' }
+      ]
+    } as Monster2024
+
+    const result = await new Monster2024Resolver().condition_immunities(monster)
+
+    expect(result).toEqual([
+      { index: 'charmed', name: 'Charmed', note: 'with Mind Blank' },
+      { index: 'frightened', name: 'Frightened', note: undefined }
+    ])
+  })
+
+  it('drops a reference whose condition was not found', async () => {
+    vi.mocked(ConditionModel.find).mockReturnValue({ lean: () => Promise.resolve([]) } as any)
+
+    const monster = {
+      condition_immunities: [{ index: 'made-up', name: 'Made Up', url: '/api/2024/conditions/made-up' }]
+    } as Monster2024
+
+    expect(await new Monster2024Resolver().condition_immunities(monster)).toEqual([])
   })
 })
 

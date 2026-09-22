@@ -7,6 +7,9 @@ api-ref-model-2024:
       type: string
     url:
       type: string
+    note:
+      description: 'A qualifier for this reference, e.g. a condition immunity that only applies in one form.'
+      type: string
 
 api-ref-list-model-2024:
   type: object

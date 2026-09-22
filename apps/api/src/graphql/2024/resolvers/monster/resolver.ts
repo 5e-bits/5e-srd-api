@@ -88,7 +88,14 @@ export class Monster2024Resolver extends createResolver({
 }) {
   @FieldResolver(() => [Condition2024])
   async condition_immunities(@Root() monster: Monster2024): Promise<Condition2024[]> {
-    return resolveMultipleReferences(monster.condition_immunities, ConditionModel)
+    const resolved = await resolveMultipleReferences(monster.condition_immunities, ConditionModel)
+    const byIndex = new Map(resolved.map((condition) => [condition.index, condition]))
+    // A note (e.g. "with Mind Blank") qualifies this monster's own immunity, not the
+    // condition itself, so it can't come from the shared resolveMultipleReferences lookup.
+    return (monster.condition_immunities ?? []).flatMap((ref) => {
+      const condition = byIndex.get(ref.index)
+      return condition !== undefined ? [{ ...condition, note: ref.note }] : []
+    })
   }
 
   @FieldResolver(() => [Monster2024], { nullable: true })

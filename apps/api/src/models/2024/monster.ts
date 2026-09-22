@@ -190,6 +190,14 @@ export class ActionUsage2024 {
   @Field(() => Int, { nullable: true })
   @prop({ index: true, type: () => Number })
   public min_value?: number
+
+  @Field(() => Int, { nullable: true })
+  @prop({ index: true, type: () => Number })
+  public times?: number
+
+  @Field(() => [String], { nullable: true })
+  @prop({ type: () => [String] })
+  public rest_types?: string[]
 }
 
 @ObjectType({ description: 'An item within a 2024 monster multiattack action' })
@@ -296,6 +304,10 @@ export class LegendaryAction2024 {
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
 
+  @Field(() => ActionUsage2024, { nullable: true })
+  @prop({ type: () => ActionUsage2024 })
+  public usage?: ActionUsage2024
+
   @Field(() => MonsterSpellcasting2024, { nullable: true })
   @prop({ type: () => MonsterSpellcasting2024 })
   public spellcasting?: MonsterSpellcasting2024
@@ -314,6 +326,10 @@ export class Reaction2024 {
   @Field(() => DifficultyClass, { nullable: true })
   @prop({ type: () => DifficultyClass })
   public dc?: DifficultyClass
+
+  @Field(() => ActionUsage2024, { nullable: true })
+  @prop({ type: () => ActionUsage2024 })
+  public usage?: ActionUsage2024
 
   @Field(() => [Damage], { nullable: true })
   @prop({ type: () => [Damage] })
@@ -493,10 +509,6 @@ export class Monster2024 {
   @Field(() => [SpecialAbility2024], { nullable: true })
   @prop({ type: () => [SpecialAbility2024] })
   public special_abilities?: SpecialAbility2024[]
-
-  @Field(() => String, { nullable: true })
-  @prop({ index: true, type: () => String })
-  public skills?: string
 
   @Field(() => String, { nullable: true })
   @prop({ index: true, type: () => String })
