@@ -25,10 +25,6 @@ export class Condition2024 {
   @Field(() => String, { description: 'Timestamp of the last update.' })
   @prop({ required: true, index: true, type: () => String })
   public updated_at!: string
-
-  // Not a stored condition property — set per-monster from condition_immunities' own note
-  @Field(() => String, { nullable: true, description: 'A qualifier for this immunity, e.g. only in one form.' })
-  public note?: string
 }
 
 export type ConditionDocument = DocumentType<Condition2024>

@@ -10,7 +10,10 @@ import EquipmentModel from '@/models/2024/equipment'
 import { Monster2024, MonsterAction2024, MonsterArmorClass2024 } from '@/models/2024/monster'
 
 vi.mock('@/models/2024/equipment', () => ({ default: { find: vi.fn() } }))
-vi.mock('@/models/2024/condition', () => ({ default: { find: vi.fn() } }))
+vi.mock('@/models/2024/condition', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/models/2024/condition')>()),
+  default: { find: vi.fn() }
+}))
 
 const armorRef = {
   index: 'chain-shirt',
@@ -65,8 +68,8 @@ describe('Monster2024Resolver.condition_immunities', () => {
     const result = await new Monster2024Resolver().condition_immunities(monster)
 
     expect(result).toEqual([
-      { index: 'charmed', name: 'Charmed', note: 'with Mind Blank' },
-      { index: 'frightened', name: 'Frightened', note: undefined }
+      { condition: { index: 'charmed', name: 'Charmed' }, note: 'with Mind Blank' },
+      { condition: { index: 'frightened', name: 'Frightened' }, note: undefined }
     ])
   })
 

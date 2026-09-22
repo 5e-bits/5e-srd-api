@@ -104,6 +104,19 @@ export class MonsterProficiency2024 {
   public proficiency!: APIReference
 }
 
+/**
+ * A GraphQL-only response shape (not itself persisted; condition_immunities is stored flat)
+ * built by Monster2024Resolver.condition_immunities, one per stored reference.
+ */
+@ObjectType({ description: "A 2024 monster's condition immunity, with an optional qualifying note" })
+export class MonsterConditionImmunity2024 {
+  @Field(() => Condition2024)
+  public condition!: Condition2024
+
+  @Field(() => String, { nullable: true, description: 'A qualifier for this immunity, e.g. only in one form.' })
+  public note?: string
+}
+
 @ObjectType({ description: 'Usage details for a spellcasting spell (2024)' })
 export class SpellcastingSpellUsage2024 {
   @Field(() => String)
@@ -477,8 +490,12 @@ export class Monster2024 {
   @prop({ type: () => [String] })
   public damage_immunities!: string[]
 
-  // Resolved via Monster2024Resolver
-  @Field(() => [Condition2024])
+  /**
+   * Resolved via Monster2024Resolver. Stored flat (a note, if any, travels with the
+   * reference itself) but exposed as MonsterConditionImmunity2024, since the note has
+   * nowhere to live on the shared, standalone Condition2024 type.
+   */
+  @Field(() => [MonsterConditionImmunity2024])
   @prop({ type: () => [APIReference] })
   public condition_immunities!: APIReference[]
 
