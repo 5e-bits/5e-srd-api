@@ -5,6 +5,9 @@ on:
     types: [published]
   repository_dispatch:
 
+env:
+  REGISTRY: ghcr.io
+
 jobs:
   route:
     name: Determine Release Target
@@ -49,3 +52,31 @@ jobs:
     with:
       tag: ${{ needs.route.outputs.tag }}
     secrets: inherit
+
+  redeploy-api:
+    name: Redeploy API (database release)
+    runs-on: ubuntu-latest
+    needs: [route, database]
+    if: needs.route.outputs.is-database == 'true'
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Resolve latest apps/api version
+        id: tag
+        run: |
+          TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-srd-api-v"))][0].tag_name')
+          echo "version=${TAG#5e-srd-api-}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # apps/api's own source hasn't changed, so this reuses whatever image
+      # container-release last published instead of rebuilding it -- a
+      # database release only needs the running service bounced, matching
+      # the old 5e-bits/5e-database repo's repository_dispatch behavior.
+      - uses: ./.github/actions/heroku-deploy
+        with:
+          image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.version }}
+          heroku-app: dnd-5e-srd-api
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          heroku-api-key: ${{ secrets.HEROKU_API_KEY }}

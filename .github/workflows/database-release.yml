@@ -56,14 +56,7 @@ jobs:
         with:
           ref: ${{ steps.tag.outputs.tag }}
           fetch-depth: 0
-      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # @v6.1.0
-      - name: Use Node.js 24.x
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24.x
-          cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-node-pnpm
       - name: Run Database Update Script
         working-directory: packages/5e-database
         env:
@@ -80,21 +73,12 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
+      - uses: ./.github/actions/container-release
         with:
           ref: ${{ needs.db-update.outputs.tag }}
-      - name: Log in to the Container registry
-        uses: docker/login-action@v4
-        with:
+          dockerfile: ./packages/5e-database/Dockerfile
+          image-name: ${{ env.IMAGE_NAME }}
+          version: ${{ needs.db-update.outputs.version }}
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          file: ./packages/5e-database/Dockerfile
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.db-update.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          labels: version=${{ needs.db-update.outputs.version }}
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
