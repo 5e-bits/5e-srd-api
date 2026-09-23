@@ -25,14 +25,7 @@ docker compose up --build
 
 ### M1/M2/M3 Macs
 
-The command above pulls the latest image of the database from ghcr.io, which only targets the amd64 platform. If you are running on a different platform (like a Mac with Apple Silicon), you will need to build the image yourself. See the [5e-database](https://github.com/5e-bits/5e-database#how-to-run) repo for additional details.
-
-```shell
-cd ../
-git clone https://github.com/5e-bits/5e-database.git
-```
-
-Then back over here in the 5e-srd-api repo, in the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `build: ../5e-database` (or whatever you named the custom db image).
+The command above pulls the latest image of the database from ghcr.io, which only targets the amd64 platform. If you are running on a different platform (like a Mac with Apple Silicon), you will need to build the image yourself from [`packages/5e-database`](../../packages/5e-database). In `docker-compose.yml`, uncomment the `build` block under the `db` service (and comment out `image: ghcr.io/5e-bits/5e-database:latest`).
 
 ## Making API Requests
 
@@ -68,14 +61,6 @@ You should get a response with the available endpoints for the root:
 
 The API is versioned by release years of the SRD. Currently only `/api/2014` is available. The next version will be `/api/2024`.
 
-## Working with a local image of 5e Database
-
-If you are working on a feature which requires changes to both this repo, _and_ the 5e-database repo, it is useful to know how to connect the former to the latter for testing purposes. A simple process for doing so is as follows:
-
-1. In the file `docker-compose.yml`, you can replace the line `image: bagelbits/5e-database` with `build: [relativePathToDatabaseRepo]`. Make sure not to commit this change, as it is intended for local testing only.
-
-2. Run your branch of 5e-srd-api using the method outlined in the above section of this readme file. So long as there are no transient errors, the API should build successfully, and your changes to both repos should be noticeable.
-
 ## Working with image resources from s3
 
 Monster images live in the public `dnd-5e-api-images` bucket under the `/monsters` folder. The API needs no AWS credentials for them: `/api/images/<path>` (also available as `/api/2014/images/<path>`) fetches `https://dnd-5e-api-images.s3.<region>.amazonaws.com/<path>` and returns it. The region comes from `AWS_REGION`.
@@ -88,7 +73,7 @@ curl http://localhost:3000/api/images/monsters/aboleth.png --output downloaded-a
 
 ## Data Issues
 
-If you see anything wrong with the data itself, please open an issue or PR over [here.](https://github.com/5e-bits/5e-database/)
+If you see anything wrong with the data itself, please open an issue or PR against [`packages/5e-database`](../../packages/5e-database).
 
 ## Running Tests
 
