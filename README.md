@@ -4,7 +4,7 @@
 [![Discord](https://img.shields.io/discord/656547667601653787?style=flat&logo=discord&logoColor=white)](https://discord.gg/TQuYTv7)
 
 Home for the D&D 5e SRD API at [dnd5eapi.co](https://www.dnd5eapi.co/), plus
-its docs site and infrastructure. The database repo is still to come.
+its docs site, infrastructure, and database.
 
 ## Layout
 
@@ -14,7 +14,8 @@ its docs site and infrastructure. The database repo is still to come.
 - [`apps/infrastructure`](apps/infrastructure) — AWS CDK stack for the
   dnd5eapi.co S3/CloudFront/Route 53 resources ([README](apps/infrastructure/README.md);
   merged in from [5e-bits/infrastructure](https://github.com/5e-bits/infrastructure))
-- `packages/5e-database` — seed data + scripts (coming soon, merged in from
+- [`packages/5e-database`](packages/5e-database) — seed data + scripts
+  ([README](packages/5e-database/README.md); merged in from
   [5e-bits/5e-database](https://github.com/5e-bits/5e-database))
 
 See [apps/README.md](apps/README.md) and [packages/README.md](packages/README.md)
