@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [6.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v6.0.0...5e-srd-api-v6.1.0) (2026-09-23)
+
+
+### Features
+
+* add equipment_categories to 2014 equipment ([#1290](https://github.com/5e-bits/5e-srd-api/issues/1290)) ([7a3ed45](https://github.com/5e-bits/5e-srd-api/commit/7a3ed45775b2c59c018190affb2026d61391cf9d))
+
 ## [6.0.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v5.12.0...5e-srd-api-v6.0.0) (2026-09-23)
 
 
