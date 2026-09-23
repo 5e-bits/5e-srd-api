@@ -31,7 +31,9 @@ describe('EquipmentResolver.list', () => {
       equipmentFactory.build({ name: 'Rope', equipment_categories: [category('adventuring-gear')] })
     ])
 
-    const result = await new EquipmentResolver().list({ equipment_category: ['weapon', 'shields'] })
+    const result = await new EquipmentResolver().list({
+      equipment_category: ['weapon', 'shields']
+    } as Parameters<EquipmentResolver['list']>[0])
 
     expect(result.map((e) => e.name)).toEqual(['Longsword', 'Shield'])
   })
