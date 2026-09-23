@@ -1,7 +1,7 @@
 # This recipe is pulled from: https://stackoverflow.com/a/33601894
 
 # Parent Dockerfile https://github.com/docker-library/mongo/blob/982328582c74dd2f0a9c8c77b84006f291f974c3/3.0/Dockerfile
-FROM mongo:6.0.1
+FROM mongo:6.0.28
 
 # Modify child mongo to use /data/db2 as dbpath (because /data/db wont persist the build)
 COPY packages/5e-database/docker/mongodb.conf /etc
