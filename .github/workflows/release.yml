@@ -3,140 +3,49 @@ name: Release
 on:
   release:
     types: [published]
-  workflow_dispatch:
   repository_dispatch:
 
-env:
-  REGISTRY: ghcr.io
-
 jobs:
-  build-and-publish:
-    name: Build and Publish Release Assets
+  route:
+    name: Determine Release Target
     runs-on: ubuntu-latest
     if: github.repository == '5e-bits/5e-srd-api'
-    permissions:
-      contents: write
-      packages: write
+    outputs:
+      deploy-type: ${{ steps.route.outputs.deploy-type }}
+      tag: ${{ steps.route.outputs.tag }}
     steps:
-      - name: Determine Release Tag
-        id: tag
+      - name: Determine Release Target
+        id: route
         run: |
-          if [ "${{ github.event_name }}" = "release" ]; then
+          if [[ "${{ github.event_name }}" == "release" && "${{ github.event.release.tag_name }}" == 5e-database-v* ]]; then
+            echo "deploy-type=database" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "release" && "${{ github.event.release.tag_name }}" == 5e-srd-api-v* ]]; then
+            echo "deploy-type=api" >> $GITHUB_OUTPUT
             echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           else
-            # For workflow_dispatch, get the latest release tag
-            LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
-            echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            # repository_dispatch (the old 5e-bits/5e-database repo notifying
+            # us) or any other unrecognized release: redeploy the latest
+            # apps/api release. api-release.yml resolves that itself when no
+            # tag is given.
+            echo "deploy-type=api" >> $GITHUB_OUTPUT
+            echo "tag=" >> $GITHUB_OUTPUT
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ steps.tag.outputs.tag }}
-      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # @v6.1.0
-      - name: Use Node.js 24.x
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24.x
-          cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build Artifacts
-        working-directory: apps/api
-        run: |
-          pnpm run bundle-swagger
-          pnpm run gen-postman
-      - name: Upload Release Assets
-        if: github.event_name == 'release'
-        working-directory: apps/api
-        run: |
-          gh release upload ${{ github.event.release.tag_name }} \
-            ./dist/openapi.yml \
-            ./dist/openapi.json \
-            ./dist/collection.postman.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  container-release:
-    name: Container Release
-    runs-on: ubuntu-latest
-    if: github.repository == '5e-bits/5e-srd-api'
-    env:
-      IMAGE_NAME: ${{ github.repository }}
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Determine Release Tag
-        id: tag
-        run: |
-          if [ "${{ github.event_name }}" = "release" ]; then
-            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
-          else
-            # For workflow_dispatch, get the latest release tag
-            LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
-            echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ steps.tag.outputs.tag }}
-      - name: Log in to the Container registry
-        uses: docker/login-action@v4
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          file: ./apps/api/Dockerfile
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          labels: version=${{ steps.tag.outputs.tag }}
+  api:
+    name: API Release
+    needs: [route]
+    if: needs.route.outputs.deploy-type == 'api'
+    uses: ./.github/workflows/api-release.yml
+    with:
+      tag: ${{ needs.route.outputs.tag }}
+    secrets: inherit
 
-  heroku-deploy:
-    name: Deploy to Heroku
-    runs-on: ubuntu-latest
-    if: github.repository == '5e-bits/5e-srd-api'
-    needs: [build-and-publish, container-release]
-    permissions:
-      contents: read
-      packages: read
-    steps:
-      - name: Determine Release Tag
-        id: tag
-        run: |
-          if [ "${{ github.event_name }}" = "release" ]; then
-            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
-          else
-            # For workflow_dispatch, get the latest release tag
-            LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
-            echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Log in to ghcr and Heroku registries
-        run: |
-          echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-          echo "$HEROKU_API_KEY" | docker login registry.heroku.com -u _ --password-stdin
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - name: Push release image to Heroku
-        run: |
-          SRC=${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.tag }}
-          DEST=registry.heroku.com/dnd-5e-srd-api/web
-          docker pull "$SRC"
-          docker tag "$SRC" "$DEST"
-          docker push "$DEST"
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-      - name: Release on Heroku
-        run: heroku container:release web --app dnd-5e-srd-api
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  database:
+    name: Database Release
+    needs: [route]
+    if: needs.route.outputs.deploy-type == 'database'
+    uses: ./.github/workflows/database-release.yml
+    with:
+      tag: ${{ needs.route.outputs.tag }}
+    secrets: inherit

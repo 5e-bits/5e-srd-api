@@ -1,0 +1,143 @@
+name: Database Release
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: 'packages/5e-database release tag to publish (e.g. 5e-database-v5.13.0). Falls back to the latest database release when omitted.'
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'packages/5e-database release tag to publish (e.g. 5e-database-v5.13.0). Falls back to the latest database release when omitted.'
+        required: false
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: 5e-bits/5e-database
+
+jobs:
+  db-update:
+    name: Update Production Database
+    runs-on: ubuntu-latest
+    if: github.repository == '5e-bits/5e-srd-api'
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      version: ${{ steps.tag.outputs.version }}
+    permissions:
+      contents: read
+    steps:
+      - name: Determine Release Tag
+        id: tag
+        run: |
+          TAG="${{ inputs.tag }}"
+          if [ -z "$TAG" ]; then
+            TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-database-v"))][0].tag_name')
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=${TAG#5e-database-}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Determine Previous Database Release Tag
+        id: prev-tag
+        run: |
+          # The second-most-recent 5e-database-v* release, i.e. the one
+          # before the tag being deployed. Must be filtered to this
+          # component's tags -- with apps/api releasing in the same repo,
+          # "the previous tag overall" is often an apps/api tag instead.
+          PREV_TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-database-v"))][1].tag_name // empty')
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-node-pnpm
+      - name: Run Database Update Script
+        working-directory: packages/5e-database
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          GIT_FROM_REF: ${{ steps.prev-tag.outputs.prev_tag }}
+        run: pnpm run db:update
+
+  container-release:
+    name: Container Release
+    runs-on: ubuntu-latest
+    needs: [db-update]
+    if: github.repository == '5e-bits/5e-srd-api'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: ./.github/actions/container-release
+        with:
+          ref: ${{ needs.db-update.outputs.tag }}
+          dockerfile: ./packages/5e-database/Dockerfile
+          image-name: ${{ env.IMAGE_NAME }}
+          version: ${{ needs.db-update.outputs.version }}
+          registry: ${{ env.REGISTRY }}
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+  redeploy-api:
+    name: Redeploy API
+    runs-on: ubuntu-latest
+    # Only depends on db-update, not container-release: it redeploys
+    # apps/api's own already-published image, unrelated to the
+    # packages/5e-database image container-release builds, so the two run
+    # in parallel once the database write has succeeded.
+    needs: [db-update]
+    if: github.repository == '5e-bits/5e-srd-api'
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      # apps/api's own source hasn't changed, so this reuses whatever image
+      # is already published instead of rebuilding it through the full
+      # api-release.yml pipeline -- a database release only needs the
+      # running service bounced, matching what the old 5e-bits/5e-database
+      # repo's repository_dispatch actually triggered. Runs regardless of
+      # how this workflow was invoked (the router, or a direct
+      # workflow_dispatch rerun), since a database release always implies
+      # this.
+      - name: Resolve latest apps/api version
+        id: tag
+        run: |
+          TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-srd-api-v"))][0].tag_name')
+          echo "version=${TAG#5e-srd-api-}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # If an apps/api release landed in the same release-please batch as
+      # this database one, they fire as two separate, concurrent workflow
+      # runs -- api-release.yml's own container-release may not have
+      # finished pushing this exact image yet. That pipeline already
+      # redeploys apps/api itself once it does, so this just skips rather
+      # than racing it.
+      - name: Check apps/api image exists
+        id: check-image
+        run: |
+          IMAGE=${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.version }}
+          if docker manifest inspect "$IMAGE" > /dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "::warning::$IMAGE not published yet, skipping redeploy -- apps/api's own release pipeline will deploy it if one is in flight."
+          fi
+      - uses: ./.github/actions/heroku-deploy
+        if: steps.check-image.outputs.exists == 'true'
+        with:
+          image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.version }}
+          heroku-app: dnd-5e-srd-api
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          heroku-api-key: ${{ secrets.HEROKU_API_KEY }}

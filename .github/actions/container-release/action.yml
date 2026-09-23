@@ -1,0 +1,48 @@
+name: 'Build and push a release container image'
+description: 'Checks out a release tag, builds its Dockerfile, and pushes it to a registry tagged with the given version and :latest.'
+inputs:
+  ref:
+    description: 'Git ref to check out (the release tag)'
+    required: true
+  dockerfile:
+    description: 'Path to the Dockerfile, relative to the repo root'
+    required: true
+  build-context:
+    description: 'Docker build context'
+    required: false
+    default: '.'
+  image-name:
+    description: 'Image name, e.g. 5e-bits/5e-srd-api'
+    required: true
+  version:
+    description: 'Version to tag the image with, alongside :latest'
+    required: true
+  registry:
+    description: 'Container registry'
+    required: false
+    default: 'ghcr.io'
+  registry-username:
+    required: true
+  registry-password:
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+      with:
+        ref: ${{ inputs.ref }}
+    - name: Log in to the Container registry
+      uses: docker/login-action@v4
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.registry-username }}
+        password: ${{ inputs.registry-password }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v7
+      with:
+        context: ${{ inputs.build-context }}
+        file: ${{ inputs.dockerfile }}
+        push: true
+        tags: ${{ inputs.registry }}/${{ inputs.image-name }}:${{ inputs.version }},${{ inputs.registry }}/${{ inputs.image-name }}:latest
+        labels: version=${{ inputs.version }}

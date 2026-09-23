@@ -1,0 +1,44 @@
+name: 'Deploy an existing image to Heroku'
+description: 'Pulls an already-published ghcr.io image and releases it on Heroku. Does not build anything.'
+inputs:
+  image:
+    description: 'Full ghcr.io image reference to deploy, e.g. ghcr.io/5e-bits/5e-srd-api:v5.12.0'
+    required: true
+  heroku-app:
+    required: true
+  heroku-process-type:
+    required: false
+    default: 'web'
+  registry-username:
+    required: true
+  registry-password:
+    required: true
+  heroku-api-key:
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Log in to ghcr and Heroku registries
+      shell: bash
+      run: |
+        echo "$REGISTRY_PASSWORD" | docker login ghcr.io -u "$REGISTRY_USERNAME" --password-stdin
+        echo "$HEROKU_API_KEY" | docker login registry.heroku.com -u _ --password-stdin
+      env:
+        REGISTRY_USERNAME: ${{ inputs.registry-username }}
+        REGISTRY_PASSWORD: ${{ inputs.registry-password }}
+        HEROKU_API_KEY: ${{ inputs.heroku-api-key }}
+    - name: Push release image to Heroku
+      shell: bash
+      run: |
+        DEST=registry.heroku.com/${{ inputs.heroku-app }}/${{ inputs.heroku-process-type }}
+        docker pull "${{ inputs.image }}"
+        docker tag "${{ inputs.image }}" "$DEST"
+        docker push "$DEST"
+    - name: Install Heroku CLI
+      shell: bash
+      run: curl https://cli-assets.heroku.com/install.sh | sh
+    - name: Release on Heroku
+      shell: bash
+      run: heroku container:release ${{ inputs.heroku-process-type }} --app ${{ inputs.heroku-app }}
+      env:
+        HEROKU_API_KEY: ${{ inputs.heroku-api-key }}

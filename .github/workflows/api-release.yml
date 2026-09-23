@@ -1,0 +1,108 @@
+name: API Release
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: 'apps/api release tag to build and deploy (e.g. 5e-srd-api-v5.12.0). Falls back to the latest apps/api release when omitted.'
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'apps/api release tag to build and deploy (e.g. 5e-srd-api-v5.12.0). Falls back to the latest apps/api release when omitted.'
+        required: false
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  resolve-tag:
+    name: Resolve Release Tag
+    runs-on: ubuntu-latest
+    if: github.repository == '5e-bits/5e-srd-api'
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      version: ${{ steps.tag.outputs.version }}
+    steps:
+      - name: Determine Release Tag
+        id: tag
+        run: |
+          TAG="${{ inputs.tag }}"
+          if [ -z "$TAG" ]; then
+            TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-srd-api-v"))][0].tag_name')
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          # Image tags keep the plain vX.Y.Z scheme regardless of the
+          # component-prefixed git tag, so existing consumers of
+          # ghcr.io/5e-bits/5e-srd-api aren't affected by that scheme.
+          echo "version=${TAG#5e-srd-api-}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-and-publish:
+    name: Build and Publish Release Assets
+    runs-on: ubuntu-latest
+    needs: [resolve-tag]
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.resolve-tag.outputs.tag }}
+      - uses: ./.github/actions/setup-node-pnpm
+      - name: Build Artifacts
+        working-directory: apps/api
+        run: |
+          pnpm run bundle-swagger
+          pnpm run gen-postman
+      - name: Upload Release Assets
+        # Only when a real GitHub Release triggered this (an explicit tag
+        # input was passed) -- a workflow_dispatch/fallback redeploy has
+        # nothing to attach these to.
+        if: inputs.tag != ''
+        working-directory: apps/api
+        run: |
+          gh release upload ${{ inputs.tag }} \
+            ./dist/openapi.yml \
+            ./dist/openapi.json \
+            ./dist/collection.postman.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  container-release:
+    name: Container Release
+    runs-on: ubuntu-latest
+    needs: [resolve-tag]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: ./.github/actions/container-release
+        with:
+          ref: ${{ needs.resolve-tag.outputs.tag }}
+          dockerfile: ./apps/api/Dockerfile
+          image-name: ${{ github.repository }}
+          version: ${{ needs.resolve-tag.outputs.version }}
+          registry: ${{ env.REGISTRY }}
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+  heroku-deploy:
+    name: Deploy to Heroku
+    runs-on: ubuntu-latest
+    needs: [resolve-tag, build-and-publish, container-release]
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: ./.github/actions/heroku-deploy
+        with:
+          image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ needs.resolve-tag.outputs.version }}
+          heroku-app: dnd-5e-srd-api
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          heroku-api-key: ${{ secrets.HEROKU_API_KEY }}

@@ -1,7 +1,9 @@
 services:
   db:
     image: ghcr.io/5e-bits/5e-database:latest
-    # build: ../5e-database
+    # build:
+    #   context: ../..
+    #   dockerfile: packages/5e-database/Dockerfile
     ports:
       - '27017:27017'
 
