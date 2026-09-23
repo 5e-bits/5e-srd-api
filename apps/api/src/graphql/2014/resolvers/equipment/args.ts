@@ -12,7 +12,7 @@ export const EquipmentArgsSchema = z.object({
 export class EquipmentArgs extends BaseFilterArgs {
   @Field(() => [String], {
     nullable: true,
-    description: 'Filter by one or more equipment category indices (e.g., ["weapon", "armor"])'
+    description: 'Filter by one or more equipment category indices (e.g., ["simple-weapons", "armor"])'
   })
   equipment_category?: string[]
 }

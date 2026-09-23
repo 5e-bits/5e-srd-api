@@ -1391,6 +1391,28 @@
                     "name": "Weapon",
                     "url": "/api/2014/equipment-categories/weapon"
                   },
+                  "equipment_categories": [
+                    {
+                      "index": "weapon",
+                      "name": "Weapon",
+                      "url": "/api/2014/equipment-categories/weapon"
+                    },
+                    {
+                      "index": "simple-weapons",
+                      "name": "Simple Weapons",
+                      "url": "/api/2014/equipment-categories/simple-weapons"
+                    },
+                    {
+                      "index": "melee-weapons",
+                      "name": "Melee Weapons",
+                      "url": "/api/2014/equipment-categories/melee-weapons"
+                    },
+                    {
+                      "index": "simple-melee-weapons",
+                      "name": "Simple Melee Weapons",
+                      "url": "/api/2014/equipment-categories/simple-melee-weapons"
+                    }
+                  ],
                   "index": "club",
                   "name": "Club",
                   "properties": [
@@ -3928,6 +3950,13 @@
               "equipment_category": {
                 "$ref": "#/components/schemas/APIReference"
               },
+              "equipment_categories": {
+                "description": "All equipment categories this item belongs to.",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/APIReference"
+                }
+              },
               "gear_category": {
                 "$ref": "#/components/schemas/APIReference"
               },
@@ -3956,6 +3985,13 @@
             "properties": {
               "equipment_category": {
                 "$ref": "#/components/schemas/APIReference"
+              },
+              "equipment_categories": {
+                "description": "All equipment categories this item belongs to.",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/APIReference"
+                }
               },
               "gear_category": {
                 "$ref": "#/components/schemas/APIReference"
@@ -4040,6 +4076,13 @@
               "equipment_category": {
                 "$ref": "#/components/schemas/APIReference"
               },
+              "equipment_categories": {
+                "description": "All equipment categories this item belongs to.",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/APIReference"
+                }
+              },
               "weapon_category": {
                 "description": "The category of weapon this falls into.",
                 "type": "string"
@@ -4103,6 +4146,13 @@
             "properties": {
               "equipment_category": {
                 "$ref": "#/components/schemas/APIReference"
+              },
+              "equipment_categories": {
+                "description": "All equipment categories this item belongs to.",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/APIReference"
+                }
               },
               "armor_category": {
                 "description": "The category of armor this falls into.",

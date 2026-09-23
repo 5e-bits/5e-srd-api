@@ -7,6 +7,11 @@ allOf:
     properties:
       equipment_category:
         $ref: './combined.yml#/APIReference'
+      equipment_categories:
+        description: 'All equipment categories this item belongs to.'
+        type: array
+        items:
+          $ref: './combined.yml#/APIReference'
       armor_category:
         description: 'The category of armor this falls into.'
         type: string

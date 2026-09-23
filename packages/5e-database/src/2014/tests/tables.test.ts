@@ -67,6 +67,30 @@ describe('api references', () => {
   });
 });
 
+describe('equipment categories', () => {
+  it('should match the equipment listed in each category', () => {
+    const errors: string[] = [];
+    const categories = JSON.parse(
+      fs.readFileSync('src/2014/en/5e-SRD-Equipment-Categories.json', 'utf8')
+    ) as { index: string; equipment: { index: string }[] }[];
+    const equipment = JSON.parse(
+      fs.readFileSync('src/2014/en/5e-SRD-Equipment.json', 'utf8')
+    ) as { index: string; equipment_categories: { index: string }[] }[];
+
+    for (const item of equipment) {
+      const expected = categories
+        .filter((c) => c.equipment.some((e) => e.index === item.index))
+        .map((c) => c.index);
+      const actual = item.equipment_categories.map((c) => c.index);
+      if (expected.join() !== actual.join()) {
+        errors.push(`${item.index}: expected [${expected}], got [${actual}]`);
+      }
+    }
+
+    expect(errors).toEqual([]);
+  });
+});
+
 const forEachFileEntry = (callback: (filename: string, entry: Entry) => void) => {
   const filenames = globSync('src/2014/en/*.json');
 

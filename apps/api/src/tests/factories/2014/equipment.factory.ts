@@ -72,6 +72,7 @@ export const equipmentFactory = Factory.define<Equipment>(({ sequence, params })
     desc: [faker.lorem.sentence()],
     cost: costFactory.build(),
     equipment_category: apiReferenceFactory.build(), // Default category
+    equipment_categories: apiReferenceFactory.buildList(1),
     url: `/api/equipment/${index}`,
     updated_at: faker.date.recent().toISOString(),
 

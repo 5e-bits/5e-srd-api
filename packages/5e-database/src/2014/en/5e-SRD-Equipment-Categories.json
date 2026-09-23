@@ -1399,6 +1399,16 @@
         "url": "/api/2014/equipment/warhorse"
       },
       {
+        "index": "camel",
+        "name": "Camel",
+        "url": "/api/2014/equipment/camel"
+      },
+      {
+        "index": "donkey",
+        "name": "Donkey",
+        "url": "/api/2014/equipment/donkey"
+      },
+      {
         "index": "barding-padded",
         "name": "Barding: Padded",
         "url": "/api/2014/equipment/barding-padded"
@@ -3167,6 +3177,16 @@
         "index": "warhorse",
         "name": "Warhorse",
         "url": "/api/2014/equipment/warhorse"
+      },
+      {
+        "index": "camel",
+        "name": "Camel",
+        "url": "/api/2014/equipment/camel"
+      },
+      {
+        "index": "donkey",
+        "name": "Donkey",
+        "url": "/api/2014/equipment/donkey"
       }
     ],
     "url": "/api/2014/equipment-categories/mounts-and-other-animals"

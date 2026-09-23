@@ -1399,6 +1399,16 @@
         "url": "/api/2014/equipment/warhorse"
       },
       {
+        "index": "camel",
+        "name": "Chameau",
+        "url": "/api/2014/equipment/camel"
+      },
+      {
+        "index": "donkey",
+        "name": "Âne",
+        "url": "/api/2014/equipment/donkey"
+      },
+      {
         "index": "barding-padded",
         "name": "Barde : Matelassée",
         "url": "/api/2014/equipment/barding-padded"
@@ -3167,6 +3177,16 @@
         "index": "warhorse",
         "name": "Cheval de guerre",
         "url": "/api/2014/equipment/warhorse"
+      },
+      {
+        "index": "camel",
+        "name": "Chameau",
+        "url": "/api/2014/equipment/camel"
+      },
+      {
+        "index": "donkey",
+        "name": "Âne",
+        "url": "/api/2014/equipment/donkey"
       }
     ],
     "url": "/api/2014/equipment-categories/mounts-and-other-animals"
