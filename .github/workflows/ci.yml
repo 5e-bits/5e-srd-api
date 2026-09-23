@@ -23,6 +23,7 @@ jobs:
           filters: |
             api:
               - apps/api/**
+              - packages/5e-database/**
               - pnpm-lock.yaml
               - pnpm-workspace.yaml
               - package.json

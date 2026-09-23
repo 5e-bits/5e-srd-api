@@ -32,26 +32,12 @@ jobs:
   integration:
     name: Run Integration tests
     runs-on: ubuntu-latest
-    services:
-      db:
-        image: ghcr.io/5e-bits/5e-database:latest
-        ports:
-          - 27017:27017
-        # Image HEALTHCHECK defaults to a 30s interval, which stalls job start.
-        options: --health-interval 2s
-      cache:
-        image: redis:6.2.5
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 5s
-          --health-retries 10
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # @v7.0.0
       - uses: ./.github/actions/setup-node-pnpm
+      # Builds the database from this checkout so data and API changes are tested together.
       - working-directory: apps/api
-        run: pnpm run test:integration
+        run: pnpm run test:integration:local
 
   docker-build:
     name: Build Docker image
