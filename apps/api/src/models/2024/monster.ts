@@ -221,7 +221,7 @@ export class MonsterActionItem2024 {
 
   @Field(() => String)
   @prop({ required: true, index: true, type: () => String })
-  public count!: number | string
+  public count!: string
 
   @Field(() => String)
   @prop({ required: true, index: true, type: () => String })

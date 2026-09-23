@@ -93,8 +93,8 @@ export class ActionChoiceOption {
   @Field(() => String, { description: 'The name of the action.' })
   action_name!: string
 
-  @Field(() => Int, { description: 'Number of times the action can be used.' })
-  count!: number
+  @Field(() => String, { description: 'Number of times the action can be used.' })
+  count!: string
 
   @Field(() => String, { description: 'The type of action.' })
   type!: 'melee' | 'ranged' | 'ability' | 'magic' | 'special'

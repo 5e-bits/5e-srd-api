@@ -22,7 +22,7 @@ export class ActionOption {
 
   @Field(() => String, { description: 'Number of times the action can be used.' })
   @prop({ required: true, index: true, type: () => String })
-  public count!: number | string
+  public count!: string
 
   @Field(() => String, { description: 'The type of action.' })
   @prop({ required: true, index: true, type: () => String })

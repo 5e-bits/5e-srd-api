@@ -72,7 +72,7 @@ When the options are given in an `options_array`, each item in the array inherit
     - `item` (APIReference): A reference to the chosen item.
 - `action` - A terminal option. Contains information describing an action, for use within Multiattack actions.
     - `action_name` (string): The name of the action, according to its `name` attribute.
-    - `count` (number | string): The number of times this action can be repeated if this option is chosen.
+    - `count` (string): The number of times this action can be repeated if this option is chosen.
     - `type` (string = `"melee" | "ranged" | "ability" | "magic"`, optional): For attack actions that can be either melee, ranged, abilities, or magic.
 - `multiple` - When this option is chosen, all of its child options are chosen, and must be resolved the same way as a normal option.
     - `items` (array): An array of Option objects. All of them must be taken if the option is chosen.

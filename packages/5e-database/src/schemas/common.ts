@@ -51,7 +51,7 @@ const OptionSchema: z.ZodType<any> = z.lazy(() =>
     z.strictObject({
       option_type: z.literal('action'),
       action_name: z.string(),
-      count: z.number(),
+      count: z.string(),
       type: z.string(),
       desc: z.string().optional(),
     }),

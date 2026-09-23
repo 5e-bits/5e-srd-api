@@ -73,7 +73,7 @@ export const actionUsageFactory = Factory.define<ActionUsage2024>(() => ({
 
 export const monsterActionItemFactory = Factory.define<MonsterActionItem2024>(() => ({
   action_name: faker.lorem.words(2),
-  count: faker.helpers.arrayElement([faker.number.int({ min: 1, max: 3 }), faker.lorem.word()]),
+  count: faker.helpers.arrayElement([String(faker.number.int({ min: 1, max: 3 })), faker.lorem.word()]),
   type: faker.helpers.arrayElement(['melee', 'ranged', 'ability', 'magic'])
 }))
 

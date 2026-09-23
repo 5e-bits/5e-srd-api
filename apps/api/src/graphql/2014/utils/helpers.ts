@@ -27,15 +27,3 @@ export const mapLevelObjectToArray = (
   levelValueArray.sort((a, b) => a.level - b.level)
   return levelValueArray.length > 0 ? levelValueArray : null
 }
-
-/**
- * Normalizes a count value (which can be a string or number) to a number.
- * Uses parseInt with radix 10 for strings.
- */
-export function normalizeCount(count: string | number): number {
-  if (typeof count === 'string') {
-    const num = parseInt(count, 10)
-    return isNaN(num) ? 0 : num
-  }
-  return count
-}

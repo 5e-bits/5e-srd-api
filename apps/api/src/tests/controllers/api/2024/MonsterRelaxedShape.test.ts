@@ -72,8 +72,8 @@ describe('Monster2024 model accepts the generated data shape', () => {
         from: {
           option_set_type: 'options_array',
           options: [
-            { option_type: 'action', action_name: 'Claw', count: 3, type: 'melee' },
-            { option_type: 'action', action_name: 'Roar', count: 1, type: 'special' }
+            { option_type: 'action', action_name: 'Claw', count: '3', type: 'melee' },
+            { option_type: 'action', action_name: 'Roar', count: '1', type: 'special' }
           ]
         }
       } as any
