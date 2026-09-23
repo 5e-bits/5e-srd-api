@@ -43,6 +43,17 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [6.0.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v5.12.0...5e-srd-api-v6.0.0) (2026-09-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* make monster action count always a string ([#1280](https://github.com/5e-bits/5e-srd-api/issues/1280))
+
+### Features
+
+* make monster action count always a string ([#1280](https://github.com/5e-bits/5e-srd-api/issues/1280)) ([9c619f0](https://github.com/5e-bits/5e-srd-api/commit/9c619f00dbc69fa1c0abed1f1faf85a9c9eba05b))
+
 ## [5.12.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v5.11.0...5e-srd-api-v5.12.0) (2026-09-23)
 
 

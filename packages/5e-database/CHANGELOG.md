@@ -27,6 +27,17 @@ integration tests in the API project.
 
 ## Is there a Github issue this is resolving?
 
+## [6.0.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v5.12.0...5e-database-v6.0.0) (2026-09-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* make monster action count always a string ([#1280](https://github.com/5e-bits/5e-srd-api/issues/1280))
+
+### Features
+
+* make monster action count always a string ([#1280](https://github.com/5e-bits/5e-srd-api/issues/1280)) ([9c619f0](https://github.com/5e-bits/5e-srd-api/commit/9c619f00dbc69fa1c0abed1f1faf85a9c9eba05b))
+
 ## [5.12.0](https://github.com/5e-bits/5e-database/compare/v5.11.1...v5.12.0) (2026-09-22)
 
 
