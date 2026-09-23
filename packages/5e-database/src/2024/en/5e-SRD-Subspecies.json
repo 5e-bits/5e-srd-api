@@ -1,0 +1,651 @@
+ [
+	{
+		"index": "draconic-ancestor-black",
+		"url": "/api/2024/subspecies/draconic-ancestor-black",
+		"name": "Draconic Ancestor: Black",
+		"damage_type": {
+			"index": "acid",
+			"name": "Acid",
+			"url": "/api/2024/damage-types/acid"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-acid",
+				"url": "/api/2024/traits/draconic-breath-weapon-acid",
+				"name": "Breath Weapon: Acid",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-acid",
+				"url": "/api/2024/traits/draconic-damage-resistance-acid",
+				"name": "Damage Resistance: Acid",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-blue",
+		"url": "/api/2024/subspecies/draconic-ancestor-blue",
+		"name": "Draconic Ancestor: Blue",
+		"damage_type": {
+			"index": "lightning",
+			"name": "Lightning",
+			"url": "/api/2024/damage-types/lightning"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-lightning",
+				"url": "/api/2024/traits/draconic-breath-weapon-lightning",
+				"name": "Breath Weapon: Lightning",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-lightning",
+				"url": "/api/2024/traits/draconic-damage-resistance-lightning",
+				"name": "Damage Resistance: Lightning",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-brass",
+		"url": "/api/2024/subspecies/draconic-ancestor-brass",
+		"name": "Draconic Ancestor: Brass",
+		"damage_type": {
+			"index": "fire",
+			"name": "Fire",
+			"url": "/api/2024/damage-types/fire"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-fire",
+				"url": "/api/2024/traits/draconic-breath-weapon-fire",
+				"name": "Breath Weapon: Fire",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-fire",
+				"url": "/api/2024/traits/draconic-damage-resistance-fire",
+				"name": "Damage Resistance: Fire",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-bronze",
+		"url": "/api/2024/subspecies/draconic-ancestor-bronze",
+		"name": "Draconic Ancestor: Bronze",
+		"damage_type": {
+			"index": "lightning",
+			"name": "Lightning",
+			"url": "/api/2024/damage-types/lightning"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-lightning",
+				"url": "/api/2024/traits/draconic-breath-weapon-lightning",
+				"name": "Breath Weapon: Lightning",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-lightning",
+				"url": "/api/2024/traits/draconic-damage-resistance-lightning",
+				"name": "Damage Resistance: Lightning",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-copper",
+		"url": "/api/2024/subspecies/draconic-ancestor-copper",
+		"name": "Draconic Ancestor: Copper",
+		"damage_type": {
+			"index": "acid",
+			"name": "Acid",
+			"url": "/api/2024/damage-types/acid"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-acid",
+				"url": "/api/2024/traits/draconic-breath-weapon-acid",
+				"name": "Breath Weapon: Acid",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-acid",
+				"url": "/api/2024/traits/draconic-damage-resistance-acid",
+				"name": "Damage Resistance: Acid",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-gold",
+		"url": "/api/2024/subspecies/draconic-ancestor-gold",
+		"name": "Draconic Ancestor: Gold",
+		"damage_type": {
+			"index": "fire",
+			"name": "Fire",
+			"url": "/api/2024/damage-types/fire"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-fire",
+				"url": "/api/2024/traits/draconic-breath-weapon-fire",
+				"name": "Breath Weapon: Fire",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-fire",
+				"url": "/api/2024/traits/draconic-damage-resistance-fire",
+				"name": "Damage Resistance: Fire",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-green",
+		"url": "/api/2024/subspecies/draconic-ancestor-green",
+		"name": "Draconic Ancestor: Green",
+		"damage_type": {
+			"index": "poison",
+			"name": "Poison",
+			"url": "/api/2024/damage-types/poison"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-poison",
+				"url": "/api/2024/traits/draconic-breath-weapon-poison",
+				"name": "Breath Weapon: Poison",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-poison",
+				"url": "/api/2024/traits/draconic-damage-resistance-poison",
+				"name": "Damage Resistance: Poison",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-red",
+		"url": "/api/2024/subspecies/draconic-ancestor-red",
+		"name": "Draconic Ancestor: Red",
+		"damage_type": {
+			"index": "fire",
+			"name": "Fire",
+			"url": "/api/2024/damage-types/fire"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-fire",
+				"url": "/api/2024/traits/draconic-breath-weapon-fire",
+				"name": "Breath Weapon: Fire",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-fire",
+				"url": "/api/2024/traits/draconic-damage-resistance-fire",
+				"name": "Damage Resistance: Fire",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-silver",
+		"url": "/api/2024/subspecies/draconic-ancestor-silver",
+		"name": "Draconic Ancestor: Silver",
+		"damage_type": {
+			"index": "cold",
+			"name": "Cold",
+			"url": "/api/2024/damage-types/cold"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-cold",
+				"url": "/api/2024/traits/draconic-breath-weapon-cold",
+				"name": "Breath Weapon: Cold",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-cold",
+				"url": "/api/2024/traits/draconic-damage-resistance-cold",
+				"name": "Damage Resistance: Cold",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "draconic-ancestor-white",
+		"url": "/api/2024/subspecies/draconic-ancestor-white",
+		"name": "Draconic Ancestor: White",
+		"damage_type": {
+			"index": "cold",
+			"name": "Cold",
+			"url": "/api/2024/damage-types/cold"
+		},
+		"species" : {
+			"index": "dragonborn",
+			"name": "Dragonborn",
+			"url": "/api/2024/species/dragonborn"
+		},
+		"traits": [
+			{
+				"index": "draconic-breath-weapon-cold",
+				"url": "/api/2024/traits/draconic-breath-weapon-cold",
+				"name": "Breath Weapon: Cold",
+				"level": 1
+			},
+			{
+				"index": "draconic-damage-resistance-cold",
+				"url": "/api/2024/traits/draconic-damage-resistance-cold",
+				"name": "Damage Resistance: Cold",
+				"level": 1
+			}
+		]
+	},
+	{
+		"index": "elven-lineage-drow",
+		"url" : "/api/2024/subspecies/elven-lineage-drow",
+		"name": "Elven Lineage: Drow",
+		"traits": [
+			{
+				"index": "darkvision-120",
+				"name": "Darkvision (120 ft.)",
+				"url": "/api/2024/traits/darkvision-120",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-dancing-lights",
+				"url": "/api/2024/traits/lineage-spell-dancing-lights",
+				"name": "Dancing Lights",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-faerie-fire",
+				"url": "/api/2024/traits/lineage-spell-faerie-fire",
+				"name": "Faerie Fire",
+				"level": 3
+			},
+			{
+				"index": "lineage-spell-darkness",
+				"url": "/api/2024/traits/lineage-spell-darkness",
+				"name": "Darkness",
+				"level": 5
+			}
+		],
+		"species" : {
+			"index": "elf",
+			"name": "Elf",
+			"url": "/api/2024/species/elf"
+		}
+	},
+	{
+		"index": "elven-lineage-high-elf",
+		"url" : "/api/2024/subspecies/elven-lineage-high-elf",
+		"name": "Elven Lineage: High Elf",
+		"traits": [
+			{
+				"index": "high-elf-cantrip-versatility",
+				"url": "/api/2024/traits/high-elf-cantrip-versatility",
+				"name": "High Elf: Cantrip Versatility",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-detect-magic",
+				"url": "/api/2024/traits/lineage-spell-detect-magic",
+				"name": "Detect Magic",
+				"level": 3
+			},
+			{
+				"index": "lineage-spell-misty-step",
+				"url": "/api/2024/traits/lineage-spell-misty-step",
+				"name": "Misty Step",
+				"level": 5
+			}
+		],
+		"species" : {
+			"index": "elf",
+			"name": "Elf",
+			"url": "/api/2024/species/elf"
+		}
+	},
+	{
+		"index": "elven-lineage-wood-elf",
+		"url" : "/api/2024/subspecies/elven-lineage-wood-elf",
+		"name": "Elven Lineage: Wood Elf",
+		"traits": [
+			{
+				"index": "wood-elf-speed-increase",
+				"url": "/api/2024/traits/wood-elf-speed-increase",
+				"name": "Wood Elf: Movement Speed Increase",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-longstrider",
+				"url": "/api/2024/traits/lineage-spell-longstrider",
+				"name": "Longstrider",
+				"level": 3
+			},
+			{
+				"index": "lineage-spell-pass-without-trace",
+				"url": "/api/2024/traits/lineage-spell-pass-without-trace",
+				"name": "Pass without Trace",
+				"level": 5
+			}
+		],
+		"species" : {
+			"index": "elf",
+			"name": "Elf",
+			"url": "/api/2024/species/elf"
+		}
+	},
+	{
+		"index": "gnomish-lineage-forest-gnome",
+		"url" : "/api/2024/subspecies/gnomish-lineage-forest-gnome",
+		"name": "Gnomish Lineage: Forest Gnome",
+		"traits": [
+			{
+				"index": "gnomish-lineage-forest-gnome",
+				"url" : "/api/2024/traits/gnomish-lineage-forest-gnome",
+				"name": "Gnomish Lineage: Forest Gnome",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-minor-illusion",
+				"url" : "/api/2024/traits/lineage-spell-minor-illusion",
+				"name": "Minor Illusion",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "gnome",
+			"name": "Gnome",
+			"url": "/api/2024/species/gnome"
+		}
+	},
+	{
+		"index": "gnomish-lineage-rock-gnome",
+		"url" : "/api/2024/subspecies/gnomish-lineage-rock-gnome",
+		"name": "Gnomish Lineage: Rock Gnome",
+		"traits": [
+			{
+				"index": "gnomish-lineage-rock-gnome",
+				"url" : "/api/2024/traits/gnomish-lineage-rock-gnome",
+				"name": "Gnomish Lineage: Rock Gnome",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-mending",
+				"url" : "/api/2024/traits/lineage-spell-mending",
+				"name": "Mending",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "gnome",
+			"name": "Gnome",
+			"url": "/api/2024/species/gnome"
+		}
+	},
+	{
+		"index": "giant-ancestry-clouds-jaunt",
+		"url" : "/api/2024/subspecies/giant-ancestry-clouds-jaunt",
+		"name": "Giant Ancestry: Cloud's Jaunt",
+		"traits": [
+			{
+				"index": "giant-ancestry-clouds-jaunt",
+				"url" : "/api/2024/traits/giant-ancestry-clouds-jaunt",
+				"name": "Giant Ancestry: Cloud's Jaunt",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "goliath",
+			"name": "Goliath",
+			"url": "/api/2024/species/goliath"
+		}
+	},
+	{
+		"index": "giant-ancestry-fires-burn",
+		"url" : "/api/2024/subspecies/giant-ancestry-fires-burn",
+		"name": "Giant Ancestry: Fire's Burn",
+		"traits": [
+			{
+				"index": "giant-ancestry-fires-burn",
+				"url" : "/api/2024/traits/giant-ancestry-fires-burn",
+				"name": "Giant Ancestry: Fire's Burn",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "goliath",
+			"name": "Goliath",
+			"url": "/api/2024/species/goliath"
+		}
+	},
+	{
+		"index": "giant-ancestry-frosts-chill",
+		"url" : "/api/2024/subspecies/giant-ancestry-frosts-chill",
+		"name": "Giant Ancestry: Frost's Chill",
+		"traits": [
+			{
+				"index": "giant-ancestry-frosts-chill",
+				"url" : "/api/2024/traits/giant-ancestry-frosts-chill",
+				"name": "Giant Ancestry: Frost's Chill",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "goliath",
+			"name": "Goliath",
+			"url": "/api/2024/species/goliath"
+		}
+	},
+	{
+		"index": "giant-ancestry-hills-tumble",
+		"url" : "/api/2024/subspecies/giant-ancestry-hills-tumble",
+		"name": "Giant Ancestry: Hill's Tumble",
+		"traits": [
+			{
+				"index": "giant-ancestry-hills-tumble",
+				"url" : "/api/2024/traits/giant-ancestry-hills-tumble",
+				"name": "Giant Ancestry: Hill's Tumble",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "goliath",
+			"name": "Goliath",
+			"url": "/api/2024/species/goliath"
+		}
+	},
+	{
+		"index": "giant-ancestry-stones-endurance",
+		"url" : "/api/2024/subspecies/giant-ancestry-stones-endurance",
+		"name": "Giant Ancestry: Stone's Endurance",
+		"traits": [
+			{
+				"index": "giant-ancestry-stones-endurance",
+				"url" : "/api/2024/traits/giant-ancestry-stones-endurance",
+				"name": "Giant Ancestry: Stone's Endurance",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "goliath",
+			"name": "Goliath",
+			"url": "/api/2024/species/goliath"
+		}
+	},
+	{
+		"index": "giant-ancestry-storms-thunder",
+		"url" : "/api/2024/subspecies/giant-ancestry-storms-thunder",
+		"name": "Giant Ancestry: Storm's Thunder",
+		"traits": [
+			{
+				"index": "giant-ancestry-storms-thunder",
+				"url" : "/api/2024/traits/giant-ancestry-storms-thunder",
+				"name": "Giant Ancestry: Storm's Thunder",
+				"level": 1
+			}
+		],
+		"species" : {
+			"index": "goliath",
+			"name": "Goliath",
+			"url": "/api/2024/species/goliath"
+		}
+	},
+	{
+		"index": "fiendish-legacy-abyssal",
+		"url" : "/api/2024/subspecies/fiendish-legacy-abyssal",
+		"name": "Fiendish Legacy: Abyssal",
+		"traits": [
+			{
+				"index": "lineage-resistance-poison",
+				"url": "/api/2024/traits/lineage-resistance-poison",
+				"name": "Damage Resistance: Poison",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-poison-spray",
+				"url": "/api/2024/traits/lineage-spell-poison-spray",
+				"name": "Poison Spray",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-ray-of-sickness",
+				"url": "/api/2024/traits/lineage-spell-ray-of-sickness",
+				"name": "Ray of Sickness",
+				"level": 3
+			},
+			{
+				"index": "lineage-spell-hold-person",
+				"url": "/api/2024/traits/lineage-spell-hold-person",
+				"name": "Hold Person",
+				"level": 5
+			}
+		],
+		"species" : {
+			"index": "tiefling",
+			"name": "Tiefling",
+			"url": "/api/2024/species/tiefling"
+		}
+	},
+	{
+		"index": "fiendish-legacy-chthonic",
+		"url" : "/api/2024/subspecies/fiendish-legacy-chthonic",
+		"name": "Fiendish Legacy: Chthonic",
+		"traits": [
+			{
+				"index": "lineage-resistance-necrotic",
+				"url": "/api/2024/traits/lineage-resistance-necrotic",
+				"name": "Damage Resistance: Necrotic",
+				"level": 1
+			},{
+				"index": "lineage-spell-chill-touch",
+				"url": "/api/2024/traits/lineage-spell-chill-touch",
+				"name": "Chill Touch",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-false-life",
+				"url": "/api/2024/traits/lineage-spell-false-life",
+				"name": "False Life",
+				"level": 3
+			},
+			{
+				"index": "lineage-spell-ray-of-enfeeblement",
+				"url": "/api/2024/traits/lineage-spell-ray-of-enfeeblement",
+				"name": "Ray of Enfeeblement",
+				"level": 5
+			}
+		],
+		"species" : {
+			"index": "tiefling",
+			"name": "Tiefling",
+			"url": "/api/2024/species/tiefling"
+		}
+	},
+	{
+		"index": "fiendish-legacy-infernal",
+		"url" : "/api/2024/subspecies/fiendish-legacy-infernal",
+		"name": "Fiendish Legacy: Infernal",
+		"traits": [
+			{
+				"index": "lineage-resistance-fire",
+				"url": "/api/2024/traits/lineage-resistance-fire",
+				"name": "Damage Resistance: Fire",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-fire-bolt",
+				"url": "/api/2024/traits/lineage-spell-fire-bolt",
+				"name": "Fire Bolt",
+				"level": 1
+			},
+			{
+				"index": "lineage-spell-hellish-rebuke",
+				"url": "/api/2024/traits/lineage-spell-hellish-rebuke",
+				"name": "Hellish Rebuke",
+				"level": 3
+			},
+			{
+				"index": "lineage-spell-darkness",
+				"url": "/api/2024/traits/lineage-spell-darkness",
+				"name": "Darkness",
+				"level": 5
+			}
+		],
+		"species" : {
+			"index": "tiefling",
+			"name": "Tiefling",
+			"url": "/api/2024/species/tiefling"
+		}
+	}
+ ]

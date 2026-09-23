@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+    "target": "es2015",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["./**/*"]
+}
