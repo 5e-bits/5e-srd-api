@@ -65,23 +65,25 @@ describe('/api/2014/rules', () => {
 
   describe('with desc query', () => {
     it('returns the object with matching desc', async () => {
-      const indexRes = await request(server).get('/api/2014/rules')
-      const index = indexRes.body.results[1].index
+      const index = 'ability-checks'
       const res = await request(server).get(`/api/2014/rules/${index}`)
-      const name = res.body.name
-      const descRes = await request(server).get(`/api/2014/rules?desc=${name}`)
+      const phrase = res.body.desc.slice(0, 40)
+      const descRes = await request(server).get(
+        `/api/2014/rules?desc=${encodeURIComponent(phrase)}`
+      )
       expect(descRes.statusCode).toEqual(200)
-      expect(descRes.body.results[0].index).toEqual(index)
+      expect(descRes.body.results.map((r: { index: string }) => r.index)).toEqual([index])
     })
 
     it('is case insensitive', async () => {
-      const indexRes = await request(server).get('/api/2014/rules')
-      const index = indexRes.body.results[1].index
-      const name = indexRes.body.results[1].name
-      const queryDesc = name.toLowerCase()
-      const res = await request(server).get(`/api/2014/rules?desc=${queryDesc}`)
-      expect(res.statusCode).toEqual(200)
-      expect(res.body.results[0].index).toEqual(index)
+      const index = 'ability-checks'
+      const res = await request(server).get(`/api/2014/rules/${index}`)
+      const phrase = res.body.desc.slice(0, 40).toUpperCase()
+      const descRes = await request(server).get(
+        `/api/2014/rules?desc=${encodeURIComponent(phrase)}`
+      )
+      expect(descRes.statusCode).toEqual(200)
+      expect(descRes.body.results.map((r: { index: string }) => r.index)).toEqual([index])
     })
   })
 

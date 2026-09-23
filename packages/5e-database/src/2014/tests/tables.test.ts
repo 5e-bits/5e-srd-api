@@ -109,3 +109,38 @@ const recurseIntoObject = (object: Entry, callback: (subEntry: Entry) => void) =
     }
   }
 };
+
+describe('rules tree', () => {
+  it('should have consistent, acyclic parent and child links', async () => {
+    const { default: rules } = await import('../en/5e-SRD-Rules.json', { with: { type: 'json' } });
+    const byIndex = new Map(rules.map((r) => [r.index, r]));
+    const errors: string[] = [];
+
+    for (const rule of rules) {
+      for (const child of rule.children ?? []) {
+        if (byIndex.get(child.index)?.parent?.index !== rule.index) {
+          errors.push(`${child.index} is a child of ${rule.index} but does not name it as parent`);
+        }
+      }
+      if (
+        rule.parent &&
+        !byIndex.get(rule.parent.index)?.children?.some((c) => c.index === rule.index)
+      ) {
+        errors.push(
+          `${rule.index} names ${rule.parent.index} as parent but is not among its children`
+        );
+      }
+
+      const seen = new Set([rule.index]);
+      for (let p = rule.parent; p; p = byIndex.get(p.index)?.parent) {
+        if (seen.has(p.index)) {
+          errors.push(`${rule.index} has a cycle through ${p.index}`);
+          break;
+        }
+        seen.add(p.index);
+      }
+    }
+
+    expect(errors).toEqual([]);
+  });
+});

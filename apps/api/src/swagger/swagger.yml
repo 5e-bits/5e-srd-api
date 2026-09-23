@@ -288,8 +288,6 @@ paths:
     $ref: './paths/2014/races.yml#/race-proficiencies-path'
   /api/2014/races/{index}/traits:
     $ref: './paths/2014/races.yml#/race-traits-path'
-  /api/2014/rule-sections/{index}:
-    $ref: './paths/2014/rule-sections.yml'
   /api/2014/rules/{index}:
     $ref: './paths/2014/rules.yml'
   /api/2014/skills/{index}:

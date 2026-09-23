@@ -20,7 +20,6 @@ schema:
     - monsters
     - proficiencies
     - races
-    - rule-sections
     - rules
     - skills
     - spells

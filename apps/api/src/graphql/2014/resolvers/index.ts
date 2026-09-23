@@ -33,7 +33,6 @@ import {
 import { ProficiencyResolver } from './proficiency/resolver'
 import { RaceAbilityBonusResolver, RaceResolver } from './race/resolver'
 import { RuleResolver } from './rule/resolver'
-import { RuleSectionResolver } from './ruleSection/resolver'
 import { SkillResolver } from './skill/resolver'
 import { SpellDamageResolver, SpellResolver, SpellDCResolver } from './spell/resolver'
 import { SubclassResolver, SubclassSpellResolver } from './subclass/resolver'
@@ -61,7 +60,6 @@ const collectionResolvers = [
   ProficiencyResolver,
   RaceResolver,
   RuleResolver,
-  RuleSectionResolver,
   SkillResolver,
   SpellResolver,
   SubclassResolver,

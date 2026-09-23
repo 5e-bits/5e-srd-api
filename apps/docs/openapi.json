@@ -68,7 +68,6 @@
                   "proficiencies": "/api/2014/proficiencies",
                   "races": "/api/2014/races",
                   "rules": "/api/2014/rules",
-                  "rule-sections": "/api/2014/rule-sections",
                   "skills": "/api/2014/skills",
                   "spells": "/api/2014/spells",
                   "subclasses": "/api/2014/subclasses",
@@ -2227,42 +2226,10 @@
         }
       }
     },
-    "/api/2014/rule-sections/{index}": {
-      "get": {
-        "summary": "Get a rule section by index.",
-        "description": "Rule sections represent a sub-heading and text that can be found underneath a rule heading in the SRD.",
-        "tags": [
-          "Rules"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/rule-section-index"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RuleSection"
-                },
-                "example": {
-                  "index": "time",
-                  "name": "Time",
-                  "url": "/api/2014/rule-sections/time",
-                  "desc": "## Time\n\nIn situations where keeping track of the passage of time is important, the GM determines the time a task requires. The GM might use a different time scale depending on the context of the situation at hand. In a dungeon environment, the adventurers' movement happens on a scale of **minutes**. It takes them about a minute to creep down a long hallway, another minute to check for traps on the door at the end of the hall, and a good ten minutes to search the chamber beyond for anything interesting or valuable.\n\nIn a city or wilderness, a scale of **hours** is often more appropriate. Adventurers eager to reach the lonely tower at the heart of the forest hurry across those fifteen miles in just under four hours' time.\n\nFor long journeys, a scale of **days** works best.\n\nFollowing the road from Baldur's Gate to Waterdeep, the adventurers spend four uneventful days before a goblin ambush interrupts their journey.\n\nIn combat and other fast-paced situations, the game relies on **rounds**, a 6-second span of time.\n"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/2014/rules/{index}": {
       "get": {
         "summary": "Get a rule by index.",
-        "description": "# Rule\n\nRules are pages in the SRD that document the mechanics of Dungeons and Dragons.\nRules have descriptions which is the text directly underneath the rule heading\nin the SRD. Rules also have subsections for each heading underneath the rule in the SRD.\n",
+        "description": "# Rule\n\nRules are the headings of the SRD that document the mechanics of Dungeons and Dragons.\nEach rule holds the text directly under its heading in `desc`, and links to the rule\nit is nested under (`parent`) and the subheadings nested under it (`children`, in SRD order).\nTop-level rules such as `combat` have no `parent`.\n",
         "tags": [
           "Rules"
         ],
@@ -2280,40 +2247,40 @@
                   "$ref": "#/components/schemas/Rule"
                 },
                 "example": {
-                  "index": "using-ability-scores",
-                  "name": "Using Ability Scores",
-                  "url": "/api/2014/rules/using-ability-scores",
-                  "desc": "# Using Ability Scores\n\nSix abilities provide a quick description of every creature's physical and mental characteristics:\n- **Strength**, measuring physical power\n- **Dexterity**, measuring agility\n- **Constitution**, measuring endurance\n- **Intelligence**, measuring reasoning and memory\n- **Wisdom**, measuring perception and insight\n- **Charisma**, measuring force of personality\n\nIs a character muscle-bound and insightful? Brilliant and charming? Nimble and hardy? Ability scores define these qualities-a creature's assets as well as weaknesses.\n\nThe three main rolls of the game-the ability check, the saving throw, and the attack roll-rely on the six ability scores. The book's introduction describes the basic rule behind these rolls: roll a d20, add an ability modifier derived from one of the six ability scores, and compare the total to a target number.\n\n**Ability Scores and Modifiers** Each of a creature's abilities has a score, a number that defines the magnitude of that ability. An ability score is not just a measure of innate capabilities, but also encompasses a creature's training and competence in activities related to that ability.\n\nA score of 10 or 11 is the normal human average, but adventurers and many monsters are a cut above average in most abilities. A score of 18 is the highest that a person usually reaches. Adventurers can have scores as high as 20, and monsters and divine beings can have scores as high as 30.\n\nEach ability also has a modifier, derived from the score and ranging from -5 (for an ability score of 1) to +10 (for a score of 30). The Ability Scores and Modifiers table notes the ability modifiers for the range of possible ability scores, from 1 to 30.\n",
-                  "subsections": [
+                  "index": "ability-checks",
+                  "name": "Ability Checks",
+                  "url": "/api/2014/rules/ability-checks",
+                  "desc": "An ability check tests a character's or monster's innate talent and training in an effort to overcome a challenge. The GM calls for an ability check when a character or monster attempts an action (other than an attack) that has a chance of failure. When the outcome is uncertain, the dice determine the results.\n\nFor every ability check, the GM decides which of the six abilities is relevant to the task at hand and the difficulty of the task, represented by a Difficulty Class.\n\nThe more difficult a task, the higher its DC. The Typical Difficulty Classes table shows the most common DCs.\n",
+                  "parent": {
+                    "index": "using-ability-scores",
+                    "name": "Using Ability Scores",
+                    "url": "/api/2014/rules/using-ability-scores"
+                  },
+                  "children": [
                     {
-                      "index": "ability-scores-and-modifiers",
-                      "name": "Ability Scores and Modifiers",
-                      "url": "/api/2014/rule-sections/ability-scores-and-modifiers"
+                      "index": "typical-difficulty-classes",
+                      "name": "Typical Difficulty Classes",
+                      "url": "/api/2014/rules/typical-difficulty-classes"
                     },
                     {
-                      "index": "advantage-and-disadvantage",
-                      "name": "Advantage and Disadvantage",
-                      "url": "/api/2014/rule-sections/advantage-and-disadvantage"
+                      "index": "contests",
+                      "name": "Contests",
+                      "url": "/api/2014/rules/contests"
                     },
                     {
-                      "index": "proficiency-bonus",
-                      "name": "Proficiency Bonus",
-                      "url": "/api/2014/rule-sections/proficiency-bonus"
+                      "index": "skills",
+                      "name": "Skills",
+                      "url": "/api/2014/rules/skills"
                     },
                     {
-                      "index": "ability-checks",
-                      "name": "Ability Checks",
-                      "url": "/api/2014/rule-sections/ability-checks"
+                      "index": "passive-checks",
+                      "name": "Passive Checks",
+                      "url": "/api/2014/rules/passive-checks"
                     },
                     {
-                      "index": "using-each-ability",
-                      "name": "Using Each Ability",
-                      "url": "/api/2014/rule-sections/using-each-ability"
-                    },
-                    {
-                      "index": "saving-throws",
-                      "name": "Saving Throws",
-                      "url": "/api/2014/rule-sections/saving-throws"
+                      "index": "working-together",
+                      "name": "Working Together",
+                      "url": "/api/2014/rules/working-together"
                     }
                   ]
                 }
@@ -3286,63 +3253,10 @@
         "name": "index",
         "in": "path",
         "required": true,
-        "description": "The `index` of the rule to get.\n",
+        "description": "The `index` of the rule to get.\n\nAvailable values can be found in the [`ResourceList`](/api/get-list-of-all-available-resources-for-an-endpoint) for `rules`.\n",
         "schema": {
           "type": "string",
-          "enum": [
-            "adventuring",
-            "appendix",
-            "combat",
-            "equipment",
-            "spellcasting",
-            "using-ability-scores"
-          ],
-          "example": "adventuring"
-        }
-      },
-      "rule-section-index": {
-        "name": "index",
-        "in": "path",
-        "required": true,
-        "description": "The `index` of the rule section to get.\n",
-        "schema": {
-          "type": "string",
-          "enum": [
-            "ability-checks",
-            "ability-scores-and-modifiers",
-            "actions-in-combat",
-            "activating-an-item",
-            "advantage-and-disadvantage",
-            "attunement",
-            "between-adventures",
-            "casting-a-spell",
-            "cover",
-            "damage-and-healing",
-            "diseases",
-            "fantasy-historical-pantheons",
-            "madness",
-            "making-an-attack",
-            "mounted-combat",
-            "movement",
-            "movement-and-position",
-            "objects",
-            "poisons",
-            "proficiency-bonus",
-            "resting",
-            "saving-throws",
-            "sentient-magic-items",
-            "standard-exchange-rates",
-            "the-environment",
-            "the-order-of-combat",
-            "the-planes-of-existence",
-            "time",
-            "traps",
-            "underwater-combat",
-            "using-each-ability",
-            "wearing-and-wielding-items",
-            "what-is-a-spell"
-          ],
-          "example": "traps"
+          "example": "ability-checks"
         }
       },
       "race-index": {
@@ -3602,7 +3516,6 @@
             "monsters",
             "proficiencies",
             "races",
-            "rule-sections",
             "rules",
             "skills",
             "spells",
@@ -5362,32 +5275,19 @@
             "type": "object",
             "properties": {
               "desc": {
-                "description": "Description of the rule.",
+                "description": "Text under the rule heading, before any child rules. Omitted for headings with no text of their own.",
                 "type": "string"
               },
-              "subsections": {
-                "description": "List of sections for each subheading underneath the rule in the SRD.",
+              "parent": {
+                "description": "The rule this rule is nested under. Omitted for top-level rules.",
+                "$ref": "#/components/schemas/APIReference"
+              },
+              "children": {
+                "description": "Rules nested under this rule, in SRD order. Omitted when there are none.",
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/APIReference"
                 }
-              }
-            }
-          }
-        ]
-      },
-      "RuleSection": {
-        "description": "`RuleSection`\n",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/APIReference"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "desc": {
-                "description": "Description of the rule.",
-                "type": "string"
               }
             }
           }

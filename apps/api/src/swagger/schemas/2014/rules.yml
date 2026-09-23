@@ -6,20 +6,13 @@ rule-model:
     - type: object
       properties:
         desc:
-          description: Description of the rule.
+          description: Text under the rule heading, before any child rules. Omitted for headings with no text of their own.
           type: string
-        subsections:
-          description: 'List of sections for each subheading underneath the rule in the SRD.'
+        parent:
+          description: The rule this rule is nested under. Omitted for top-level rules.
+          $ref: './combined.yml#/APIReference'
+        children:
+          description: Rules nested under this rule, in SRD order. Omitted when there are none.
           type: array
           items:
             $ref: './combined.yml#/APIReference'
-rule-section-model:
-  description: |
-    `RuleSection`
-  allOf:
-    - $ref: './combined.yml#/APIReference'
-    - type: object
-      properties:
-        desc:
-          description: Description of the rule.
-          type: string

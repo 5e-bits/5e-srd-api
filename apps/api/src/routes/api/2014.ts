@@ -3,7 +3,6 @@ import express from 'express'
 import MagicItemController from '@/controllers/api/2014/magicItemController'
 import MonsterController from '@/controllers/api/2014/monsterController'
 import RuleController from '@/controllers/api/2014/ruleController'
-import RuleSectionController from '@/controllers/api/2014/ruleSectionController'
 import SpellController from '@/controllers/api/2014/spellController'
 import { versionIndex } from '@/controllers/api/versionIndexController'
 import SimpleController from '@/controllers/simpleController'
@@ -56,7 +55,6 @@ router.use('/monsters', simpleRouter(MonsterController))
 router.use('/proficiencies', simpleRouter(new SimpleController(Proficiency)))
 router.use('/races', RacesHandler)
 router.use('/rules', simpleRouter(RuleController))
-router.use('/rule-sections', simpleRouter(RuleSectionController))
 router.use('/skills', simpleRouter(new SimpleController(Skill)))
 router.use('/spells', simpleRouter(SpellController))
 router.use('/subclasses', SubclassesHandler)

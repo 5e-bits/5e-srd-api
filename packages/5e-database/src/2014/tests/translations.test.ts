@@ -17,7 +17,6 @@ import { MagicSchoolSchema } from '../schemas/5e-SRD-Magic-Schools';
 import { MonsterSchema } from '../schemas/5e-SRD-Monsters';
 import { ProficiencySchema } from '../schemas/5e-SRD-Proficiencies';
 import { RaceSchema } from '../schemas/5e-SRD-Races';
-import { RuleSectionSchema } from '../schemas/5e-SRD-Rule-Sections';
 import { RuleSchema } from '../schemas/5e-SRD-Rules';
 import { SkillSchema } from '../schemas/5e-SRD-Skills';
 import { SpellSchema } from '../schemas/5e-SRD-Spells';
@@ -49,7 +48,6 @@ const COLLECTION_SCHEMAS: Record<string, z.ZodTypeAny> = {
   monsters: MonsterSchema,
   proficiencies: ProficiencySchema,
   races: RaceSchema,
-  'rule-sections': RuleSectionSchema,
   rules: RuleSchema,
   skills: SkillSchema,
   spells: SpellSchema,

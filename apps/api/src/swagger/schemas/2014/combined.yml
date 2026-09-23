@@ -80,8 +80,6 @@ WeaponProperty:
   $ref: './weapon.yml#/weapon-property-model'
 Rule:
   $ref: './rules.yml#/rule-model'
-RuleSection:
-  $ref: './rules.yml#/rule-section-model'
 Monster:
   $ref: './monsters.yml#/monster-model'
 MonsterAbility:
