@@ -111,7 +111,30 @@ jobs:
           echo "version=${TAG#5e-srd-api-}" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # If an apps/api release landed in the same release-please batch as
+      # this database one, they fire as two separate, concurrent workflow
+      # runs -- api-release.yml's own container-release may not have
+      # finished pushing this exact image yet. That pipeline already
+      # redeploys apps/api itself once it does, so this just skips rather
+      # than racing it.
+      - name: Check apps/api image exists
+        id: check-image
+        run: |
+          IMAGE=${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.version }}
+          if docker manifest inspect "$IMAGE" > /dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "::warning::$IMAGE not published yet, skipping redeploy -- apps/api's own release pipeline will deploy it if one is in flight."
+          fi
       - uses: ./.github/actions/heroku-deploy
+        if: steps.check-image.outputs.exists == 'true'
         with:
           image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.version }}
           heroku-app: dnd-5e-srd-api
