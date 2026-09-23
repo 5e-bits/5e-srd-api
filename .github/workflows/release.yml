@@ -11,31 +11,31 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == '5e-bits/5e-srd-api'
     outputs:
-      is-database: ${{ steps.route.outputs.is-database }}
+      deploy-type: ${{ steps.route.outputs.deploy-type }}
       tag: ${{ steps.route.outputs.tag }}
     steps:
       - name: Determine Release Target
         id: route
         run: |
           if [[ "${{ github.event_name }}" == "release" && "${{ github.event.release.tag_name }}" == 5e-database-v* ]]; then
-            echo "is-database=true" >> $GITHUB_OUTPUT
+            echo "deploy-type=database" >> $GITHUB_OUTPUT
             echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event_name }}" == "release" && "${{ github.event.release.tag_name }}" == 5e-srd-api-v* ]]; then
-            echo "is-database=false" >> $GITHUB_OUTPUT
+            echo "deploy-type=api" >> $GITHUB_OUTPUT
             echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
           else
             # repository_dispatch (the old 5e-bits/5e-database repo notifying
             # us) or any other unrecognized release: redeploy the latest
             # apps/api release. api-release.yml resolves that itself when no
             # tag is given.
-            echo "is-database=false" >> $GITHUB_OUTPUT
+            echo "deploy-type=api" >> $GITHUB_OUTPUT
             echo "tag=" >> $GITHUB_OUTPUT
           fi
 
   api:
     name: API Release
     needs: [route]
-    if: needs.route.outputs.is-database == 'false'
+    if: needs.route.outputs.deploy-type == 'api'
     uses: ./.github/workflows/api-release.yml
     with:
       tag: ${{ needs.route.outputs.tag }}
@@ -44,7 +44,7 @@ jobs:
   database:
     name: Database Release
     needs: [route]
-    if: needs.route.outputs.is-database == 'true'
+    if: needs.route.outputs.deploy-type == 'database'
     uses: ./.github/workflows/database-release.yml
     with:
       tag: ${{ needs.route.outputs.tag }}
