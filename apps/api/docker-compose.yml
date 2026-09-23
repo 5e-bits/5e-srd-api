@@ -1,5 +1,6 @@
 services:
   db:
+    image: 5e-database-local
     build:
       context: ../..
       dockerfile: packages/5e-database/Dockerfile
