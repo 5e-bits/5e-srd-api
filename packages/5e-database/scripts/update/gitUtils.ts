@@ -62,9 +62,16 @@ export function getChangedJsonFilesWithStatus(): ChangedFile[] {
   let diffOutput: string = '';
   let isFallback = false;
 
+  /**
+   * --relative: without it, `git diff --name-status` prints paths relative
+   * to the repo root. This package lives at packages/5e-database in the
+   * monorepo, so readFileSync below (cwd = this package) would look for a
+   * doubly-nested path, fail, and the file would read as empty -- turning
+   * every "modified" file into "delete every record in it".
+   */
   // 1. Try comparing fromRef vs HEAD
   try {
-    diffOutput = execSync(`git diff --name-status -M ${fromRef} HEAD -- src/**/*.json`, {
+    diffOutput = execSync(`git diff --relative --name-status -M ${fromRef} HEAD -- src/**/*.json`, {
       encoding: 'utf8',
     });
   } catch (error) {
@@ -76,7 +83,7 @@ export function getChangedJsonFilesWithStatus(): ChangedFile[] {
       isFallback = true;
       // 2. If history is missing, try comparing HEAD vs the working tree/index
       try {
-        diffOutput = execSync('git diff --name-status -M HEAD -- src/**/*.json', {
+        diffOutput = execSync('git diff --relative --name-status -M HEAD -- src/**/*.json', {
           encoding: 'utf8',
         });
       } catch (fallbackError: unknown) {
@@ -125,8 +132,13 @@ export function getChangedJsonFilesWithStatus(): ChangedFile[] {
  */
 export async function getOldFileContent(gitPath: string): Promise<string> {
   const fromRef = process.env.GIT_FROM_REF || 'HEAD~1';
+  /**
+   * The `./` marks gitPath as relative to cwd (this package) rather than
+   * the repo root -- `git show <rev>:<path>` treats a bare path as
+   * repo-root-relative regardless of cwd, unlike most git commands.
+   */
   return new Promise((resolve, reject) => {
-    const gitShow = spawn('git', ['show', `${fromRef}:${gitPath}`]);
+    const gitShow = spawn('git', ['show', `${fromRef}:./${gitPath}`]);
     let oldFileContent = '';
     let errorOutput = '';
 
