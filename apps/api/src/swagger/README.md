@@ -17,7 +17,7 @@ our OpenAPI definition, and [RapiDoc](https://mrin9.github.io/RapiDoc/index.html
 - [ ] enumerate the `class.class_specific` field
 - [ ] give user option to change render style and schema style (rapidoc)
 - [ ] generate pieces of documentation based on source code e.g., generate OpenAPI `SchemaObject` from a TypeScript `type` definition
-- [ ] code snippet examples in various languages
+- [x] code snippet examples in various languages (see the language tabs on [docs.dnd5eapi.co](https://docs.dnd5eapi.co))
 - [ ] ...anything else you want!
 
 ## Background
