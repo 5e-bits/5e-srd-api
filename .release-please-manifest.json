@@ -1,4 +1,4 @@
 {
-  "apps/api": "5.10.1",
-  "packages/5e-database": "5.12.0"
+  "packages/5e-database": "5.12.0",
+  "apps/api": "5.11.0"
 }
