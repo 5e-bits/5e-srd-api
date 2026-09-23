@@ -86,7 +86,10 @@ jobs:
   redeploy-api:
     name: Redeploy API
     runs-on: ubuntu-latest
-    needs: [container-release]
+    # container-release already needs db-update, so this is transitively
+    # guaranteed -- listed explicitly so it stays true if that chain ever
+    # gets refactored.
+    needs: [db-update, container-release]
     if: github.repository == '5e-bits/5e-srd-api'
     permissions:
       contents: read
