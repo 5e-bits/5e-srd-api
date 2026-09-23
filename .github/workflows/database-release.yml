@@ -1,0 +1,95 @@
+name: Database Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: 5e-bits/5e-database
+
+jobs:
+  db-update:
+    name: Update Production Database
+    runs-on: ubuntu-latest
+    # workflow_dispatch always means "redeploy the latest database release";
+    # an automatic `release` event only proceeds for the database's own tags,
+    # so an apps/api release doesn't also re-run this.
+    if: github.repository == '5e-bits/5e-srd-api' && (github.event_name != 'release' || startsWith(github.event.release.tag_name, '5e-database-v'))
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      version: ${{ steps.tag.outputs.version }}
+    permissions:
+      contents: read
+    steps:
+      - name: Determine Release Tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+          else
+            TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-database-v"))][0].tag_name')
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=${TAG#5e-database-}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Determine Previous Database Release Tag
+        id: prev-tag
+        run: |
+          # The second-most-recent 5e-database-v* release, i.e. the one
+          # before the tag being deployed. Must be filtered to this
+          # component's tags -- with apps/api releasing in the same repo,
+          # "the previous tag overall" is often an apps/api tag instead.
+          PREV_TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-database-v"))][1].tag_name // empty')
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+          fetch-depth: 0
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # @v6.1.0
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+          cache: pnpm
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run Database Update Script
+        working-directory: packages/5e-database
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          GIT_FROM_REF: ${{ steps.prev-tag.outputs.prev_tag }}
+        run: pnpm run db:update
+
+  container-release:
+    name: Container Release
+    runs-on: ubuntu-latest
+    needs: [db-update]
+    if: github.repository == '5e-bits/5e-srd-api'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.db-update.outputs.tag }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./packages/5e-database/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.db-update.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          labels: version=${{ needs.db-update.outputs.version }}
