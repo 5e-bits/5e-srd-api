@@ -81,6 +81,8 @@ jobs:
       contents: read
       packages: write
     steps:
+      # Local composite actions load from disk, so the repo must be checked out first.
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/container-release
         with:
           ref: ${{ needs.resolve-tag.outputs.tag }}
@@ -99,6 +101,8 @@ jobs:
       contents: read
       packages: read
     steps:
+      # Local composite actions load from disk, so the repo must be checked out first.
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/heroku-deploy
         with:
           image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ needs.resolve-tag.outputs.version }}
