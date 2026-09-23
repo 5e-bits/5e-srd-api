@@ -35,7 +35,7 @@ export class EquipmentResolver extends createResolver({
   argsSchema: EquipmentArgsSchema,
   filters: (a) => [
     regexFilter('name', a.name),
-    inFilter('equipment_category.index', a.equipment_category)
+    inFilter('equipment_categories.index', a.equipment_category)
   ]
 }) {
   @FieldResolver(() => [WeaponProperty2024], { nullable: true })
