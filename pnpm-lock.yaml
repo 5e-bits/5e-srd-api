@@ -182,7 +182,7 @@ importers:
         version: 8.9.0(@bugsnag/core@8.9.0)
       '@typegoose/typegoose':
         specifier: ^13.4.0
-        version: 13.4.0(mongoose@9.7.4)
+        version: 13.4.0(mongoose@9.10.1)
       cors:
         specifier: ^2.8.6
         version: 2.8.6
@@ -199,8 +199,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(graphql@16.14.1)
       mongoose:
-        specifier: ^9.7.4
-        version: 9.7.4
+        specifier: ^9.10.1
+        version: 9.10.1
       morgan:
         specifier: ^1.12.1
         version: 1.12.1(supports-color@5.5.0)
@@ -5756,8 +5756,8 @@ packages:
   jsonfile@6.2.1:
     resolution: {integrity: sha512-zwOTdL3rFQ/lRdBnntKVOX6k5cKJwEc1HdilT71BWEu7J41gXIB2MRp+vxduPSwZJPWBxEzv4yH1wYLJGUHX4Q==}
 
-  kareem@3.3.0:
-    resolution: {integrity: sha512-kpSuLD3/7RenBnjnJdOHXCKC8dTd1JzeOiJhN0necWWci6cC+qX+VuwPnMVgb+a4+KNJSfgqahpnfWaeDXCimw==}
+  kareem@3.4.0:
+    resolution: {integrity: sha512-JAKhnR4S027v/8949QXNInRskgETCg9rFUMi1VjhGbjX+XltCAAEFcXykkSocNkom1kc66EMJfjWvhj87BDQKg==}
     engines: {node: '>=18.0.0'}
 
   katex@0.16.47:
@@ -6449,8 +6449,8 @@ packages:
       socks:
         optional: true
 
-  mongoose@9.7.4:
-    resolution: {integrity: sha512-nuSYGUWWzNd4EAbGYxE469wPTL+kmxb5+91YvCvMkJ08rvNRht/usZUU3LuFuk7rDutF2QWBZHPHuzM8TxXApA==}
+  mongoose@9.10.1:
+    resolution: {integrity: sha512-rRIEGbM3rUgXAY554CEsgp+IxImo6D3ILUr3SJDnC2PLPNTcNe2xxYvazSLtvvTjv3A4MgqvsxCj3ViF4mHUUQ==}
     engines: {node: '>=20.19.0'}
 
   morgan@1.12.1:
@@ -12215,11 +12215,11 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@typegoose/typegoose@13.4.0(mongoose@9.7.4)':
+  '@typegoose/typegoose@13.4.0(mongoose@9.10.1)':
     dependencies:
       lodash: 4.18.1
       loglevel: 1.9.2
-      mongoose: 9.7.4
+      mongoose: 9.10.1
       reflect-metadata: 0.2.2
       semver: 7.7.4
       tslib: 2.8.1
@@ -15648,7 +15648,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  kareem@3.3.0: {}
+  kareem@3.4.0: {}
 
   katex@0.16.47:
     dependencies:
@@ -16539,11 +16539,11 @@ snapshots:
       bson: 7.2.0
       mongodb-connection-string-url: 7.0.1
 
-  mongoose@9.7.4:
+  mongoose@9.10.1:
     dependencies:
       '@standard-schema/spec': 1.1.0
-      kareem: 3.3.0
-      mongodb: 7.2.0
+      kareem: 3.4.0
+      mongodb: 7.6.0
       mpath: 0.9.0
       mquery: 6.0.0
       ms: 2.1.3
