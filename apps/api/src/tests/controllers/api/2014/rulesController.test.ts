@@ -90,7 +90,7 @@ describe('RuleController', () => {
       expect(responseData.index).toBe('combat')
       expect(responseData.name).toBe('Combat')
       expect(responseData.desc).toEqual(ruleData.desc)
-      expect(responseData.subsections).toHaveLength(ruleData.subsections.length)
+      expect(responseData.children).toHaveLength(ruleData.children!.length)
       expect(mockNext).not.toHaveBeenCalled()
     })
 

@@ -3,7 +3,6 @@ import { getModelForClass } from '@typegoose/typegoose'
 import MagicItem from '@/models/2014/magicItem'
 import Monster from '@/models/2014/monster'
 import Rule from '@/models/2014/rule'
-import RuleSection from '@/models/2014/ruleSection'
 import Spell from '@/models/2014/spell'
 
 import { ResourceList } from './data'
@@ -21,8 +20,7 @@ const prewarmCache = async () => {
     { Schema: MagicItem, endpoint: '/api/2014/magic-items' },
     { Schema: Spell, endpoint: '/api/2014/spells' },
     { Schema: Monster, endpoint: '/api/2014/monsters' },
-    { Schema: Rule, endpoint: '/api/2014/rules' },
-    { Schema: RuleSection, endpoint: '/api/2014/rule-sections' }
+    { Schema: Rule, endpoint: '/api/2014/rules' }
   ]
   for (const element of toPrewarm) {
     const data = await element.Schema.find()

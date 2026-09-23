@@ -18,7 +18,6 @@ import MagicSchools from '../en/5e-SRD-Magic-Schools.json' with { type: 'json' }
 import Monsters from '../en/5e-SRD-Monsters.json' with { type: 'json' };
 import Proficiencies from '../en/5e-SRD-Proficiencies.json' with { type: 'json' };
 import Races from '../en/5e-SRD-Races.json' with { type: 'json' };
-import RuleSections from '../en/5e-SRD-Rule-Sections.json' with { type: 'json' };
 import Rules from '../en/5e-SRD-Rules.json' with { type: 'json' };
 import Skills from '../en/5e-SRD-Skills.json' with { type: 'json' };
 import Spells from '../en/5e-SRD-Spells.json' with { type: 'json' };
@@ -44,7 +43,6 @@ import { MagicSchoolSchema } from '../schemas/5e-SRD-Magic-Schools';
 import { MonsterSchema } from '../schemas/5e-SRD-Monsters';
 import { ProficiencySchema } from '../schemas/5e-SRD-Proficiencies';
 import { RaceSchema } from '../schemas/5e-SRD-Races';
-import { RuleSectionSchema } from '../schemas/5e-SRD-Rule-Sections';
 import { RuleSchema } from '../schemas/5e-SRD-Rules';
 import { SkillSchema } from '../schemas/5e-SRD-Skills';
 import { SpellSchema } from '../schemas/5e-SRD-Spells';
@@ -78,7 +76,6 @@ describe('2014 schemas', () => {
   it('monsters', () => testAll(Monsters, MonsterSchema));
   it('proficiencies', () => testAll(Proficiencies, ProficiencySchema));
   it('races', () => testAll(Races, RaceSchema));
-  it('rule sections', () => testAll(RuleSections, RuleSectionSchema));
   it('rules', () => testAll(Rules, RuleSchema));
   it('skills', () => testAll(Skills, SkillSchema));
   it('spells', () => testAll(Spells, SpellSchema));

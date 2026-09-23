@@ -3,13 +3,8 @@ in: path
 required: true
 description: |
   The `index` of the rule to get.
+
+  Available values can be found in the [`ResourceList`](#get-/api/2014/-endpoint-) for `rules`.
 schema:
   type: string
-  enum:
-    - adventuring
-    - appendix
-    - combat
-    - equipment
-    - spellcasting
-    - using-ability-scores
-  example: adventuring
+  example: ability-checks

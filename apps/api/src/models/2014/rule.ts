@@ -5,14 +5,15 @@ import { Field, ObjectType } from 'type-graphql'
 import { APIReference } from '@/models/common/apiReference'
 import { srdModelOptions } from '@/util/modelOptions'
 
-import { RuleSection } from './ruleSection'
-
 @ObjectType({ description: 'A specific rule from the SRD.' })
 @srdModelOptions('2014-rules')
 export class Rule {
-  @Field(() => String, { description: 'A description of the rule.' })
-  @prop({ required: true, index: true, type: () => String })
-  public desc!: string
+  @Field(() => String, {
+    nullable: true,
+    description: 'Text under the rule heading, before any child rules.'
+  })
+  @prop({ index: true, type: () => String })
+  public desc?: string
 
   @Field(() => String, { description: 'The unique identifier for this rule (e.g., adventuring).' })
   @prop({ required: true, index: true, type: () => String })
@@ -22,11 +23,13 @@ export class Rule {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @Field(() => [RuleSection], {
-    description: 'Subsections clarifying or detailing this rule.'
-  })
+  @Field(() => Rule, { nullable: true, description: 'The rule this rule is nested under.' })
+  @prop({ type: () => APIReference, index: true })
+  public parent?: APIReference
+
+  @Field(() => [Rule], { nullable: true, description: 'Rules nested under this rule, in order.' })
   @prop({ type: () => [APIReference], index: true })
-  public subsections!: APIReference[]
+  public children?: APIReference[]
 
   @prop({ required: true, index: true, type: () => String })
   public url!: string

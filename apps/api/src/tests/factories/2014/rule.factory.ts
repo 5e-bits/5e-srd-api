@@ -16,8 +16,7 @@ export const ruleFactory = Factory.define<Rule>(({ sequence }) => {
     index: index,
     name: name,
     desc: faker.lorem.paragraph(),
-    // Build a list of subsection references
-    subsections: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 3 })),
+    children: apiReferenceFactory.buildList(faker.number.int({ min: 0, max: 3 })),
     url: `/api/rules/${index}`,
     updated_at: faker.date.recent().toISOString()
   }

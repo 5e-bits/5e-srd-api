@@ -31,7 +31,6 @@ api-base:
               proficiencies: '/api/2014/proficiencies'
               races: '/api/2014/races'
               rules: '/api/2014/rules'
-              rule-sections: '/api/2014/rule-sections'
               skills: '/api/2014/skills'
               spells: '/api/2014/spells'
               subclasses: '/api/2014/subclasses'

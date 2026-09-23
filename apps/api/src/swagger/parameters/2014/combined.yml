@@ -30,8 +30,6 @@ feature-index:
   $ref: './path/features.yml'
 rule-index:
   $ref: './path/rules.yml'
-rule-section-index:
-  $ref: './path/rule-sections.yml'
 race-index:
   $ref: './path/races.yml'
 subclass-index:

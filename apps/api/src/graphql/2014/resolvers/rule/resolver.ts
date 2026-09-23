@@ -1,9 +1,8 @@
 import { FieldResolver, Resolver, Root } from 'type-graphql'
 
 import { createResolver } from '@/graphql/common/createResolver'
-import { resolveMultipleReferences } from '@/graphql/utils/resolvers'
+import { resolveMultipleReferences, resolveSingleReference } from '@/graphql/utils/resolvers'
 import RuleModel, { Rule } from '@/models/2014/rule'
-import RuleSectionModel, { RuleSection } from '@/models/2014/ruleSection'
 
 @Resolver(Rule)
 export class RuleResolver extends createResolver({
@@ -20,8 +19,16 @@ export class RuleResolver extends createResolver({
   },
   defaultSort: false
 }) {
-  @FieldResolver(() => [RuleSection])
-  async subsections(@Root() rule: Rule): Promise<RuleSection[]> {
-    return resolveMultipleReferences(rule.subsections, RuleSectionModel)
+  @FieldResolver(() => Rule, { nullable: true })
+  async parent(@Root() rule: Rule): Promise<Rule | null> {
+    return resolveSingleReference(rule.parent, RuleModel)
+  }
+
+  @FieldResolver(() => [Rule], { nullable: true })
+  async children(@Root() rule: Rule): Promise<Rule[] | null> {
+    if (!rule.children) return null
+    const order = rule.children.map((c) => c.index)
+    const children: Rule[] = await resolveMultipleReferences(rule.children, RuleModel)
+    return children.sort((a, b) => order.indexOf(a.index) - order.indexOf(b.index))
   }
 }
