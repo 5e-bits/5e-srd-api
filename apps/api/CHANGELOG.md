@@ -43,6 +43,24 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [5.12.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v5.11.0...5e-srd-api-v5.12.0) (2026-09-23)
+
+
+### Features
+
+* **api:** accept generated 2024 monster data shape ([#1267](https://github.com/5e-bits/5e-srd-api/issues/1267)) ([ae01d2e](https://github.com/5e-bits/5e-srd-api/commit/ae01d2e8a77fb67d1097caef9d63bc3d7b7ea4b4))
+* **api:** accept generated 2024 monster data shape ([#1275](https://github.com/5e-bits/5e-srd-api/issues/1275)) ([b8b7d29](https://github.com/5e-bits/5e-srd-api/commit/b8b7d29808bff00a014202add9e43e37e0706546))
+* **api:** redirect http to https in production ([#1260](https://github.com/5e-bits/5e-srd-api/issues/1260)) ([e9c0070](https://github.com/5e-bits/5e-srd-api/commit/e9c007088a6ad0c0707163120310052600bb10ac))
+
+
+### Bug Fixes
+
+* **api:** allow Mixed for MonsterAction damage ([#1221](https://github.com/5e-bits/5e-srd-api/issues/1221)) ([d548b95](https://github.com/5e-bits/5e-srd-api/commit/d548b951b7a71e66c89da5ab30e8ea5b7d038eaa))
+* **api:** only cache English list responses in SimpleController ([#1230](https://github.com/5e-bits/5e-srd-api/issues/1230)) ([d2c5251](https://github.com/5e-bits/5e-srd-api/commit/d2c525183b5daa3cdcecf0b9a106d07ed9647f6e))
+* **api:** point docs links at docs.dnd5eapi.co ([#1211](https://github.com/5e-bits/5e-srd-api/issues/1211)) ([815e932](https://github.com/5e-bits/5e-srd-api/commit/815e932be7b06912a1144d5976c2b255baf4b2c7))
+* **api:** report server errors as 5xx, not a fake 404 ([#1266](https://github.com/5e-bits/5e-srd-api/issues/1266)) ([f319b0d](https://github.com/5e-bits/5e-srd-api/commit/f319b0d89a37231ffcdc1dcde3260a137f33e295))
+* **api:** revert accept generated 2024 monster data shape ([#1273](https://github.com/5e-bits/5e-srd-api/issues/1273)) ([b41f969](https://github.com/5e-bits/5e-srd-api/commit/b41f969a5a44f6dbf9c4a7385b662456cd04ffb2))
+
 ## [5.11.0](https://github.com/5e-bits/5e-srd-api/compare/v5.10.1...v5.11.0) (2026-09-22)
 
 
