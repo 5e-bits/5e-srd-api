@@ -85,7 +85,7 @@
         "actions": [
           {
             "action_name": "Tentacle",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -98,13 +98,13 @@
               {
                 "option_type": "action",
                 "action_name": "Consume Memories",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Dominate Mind",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -340,7 +340,7 @@
         "actions": [
           {
             "action_name": "Thunderous Slam",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -477,7 +477,7 @@
         "actions": [
           {
             "action_name": "Slam",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -899,13 +899,13 @@
               {
                 "option_type": "action",
                 "action_name": "Shortsword",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Light Crossbow",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -1409,12 +1409,12 @@
         "actions": [
           {
             "action_name": "Flame Whip",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Lightning Blade",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -1639,13 +1639,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scimitar",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Pistol",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -1824,13 +1824,13 @@
                   {
                     "option_type": "action",
                     "action_name": "Claws",
-                    "count": 1,
+                    "count": "1",
                     "type": "melee"
                   },
                   {
                     "option_type": "action",
                     "action_name": "Tail",
-                    "count": 1,
+                    "count": "1",
                     "type": "melee"
                   }
                 ]
@@ -1838,7 +1838,7 @@
               {
                 "option_type": "action",
                 "action_name": "Hurl Flame",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -2113,12 +2113,12 @@
         "actions": [
           {
             "action_name": "Beard",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Infernal Glaive",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -2240,12 +2240,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Constrict",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -2496,7 +2496,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -2645,7 +2645,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -2803,7 +2803,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -2816,13 +2816,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Acid Arrow",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -3081,7 +3081,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -3094,13 +3094,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Acid Arrow",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -3570,7 +3570,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -3714,7 +3714,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -3868,7 +3868,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -3881,13 +3881,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Shatter",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -4131,7 +4131,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -4144,13 +4144,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Shatter",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -4400,12 +4400,12 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Infernal Sting",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -4689,7 +4689,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -4702,13 +4702,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Sleep Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -4877,7 +4877,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -4890,19 +4890,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Sleep Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Scorching Ray",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -5204,7 +5204,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -5217,19 +5217,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Sleep Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Scorching Ray",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -5526,7 +5526,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -5680,7 +5680,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -5693,13 +5693,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Repulsion Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -5872,7 +5872,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -5885,19 +5885,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Repulsion Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Guiding Bolt",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -6196,7 +6196,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -6209,19 +6209,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Repulsion Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Guiding Bolt",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -6539,13 +6539,13 @@
               {
                 "option_type": "action",
                 "action_name": "Javelin",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Morningstar",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               }
             ]
@@ -6795,7 +6795,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -6916,13 +6916,13 @@
               {
                 "option_type": "action",
                 "action_name": "Pike",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -7080,12 +7080,12 @@
         "actions": [
           {
             "action_name": "Chain",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Conjure Infernal Chain",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -7220,12 +7220,12 @@
         "actions": [
           {
             "action_name": "Ram",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -7238,13 +7238,13 @@
               {
                 "option_type": "action",
                 "action_name": "Claw",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Fire Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -7409,12 +7409,12 @@
         "actions": [
           {
             "action_name": "Pincer",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Paralyzing Tentacles",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -7578,13 +7578,13 @@
               {
                 "option_type": "action",
                 "action_name": "Slam",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Slam",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               }
             ]
@@ -7687,12 +7687,12 @@
         "actions": [
           {
             "action_name": "Attach",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Tail",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -7845,19 +7845,19 @@
               {
                 "option_type": "action",
                 "action_name": "Thunderous Mace",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Thundercloud",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Fog Cloud",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -8366,7 +8366,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -8379,13 +8379,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Slowing Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -8554,7 +8554,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -8567,19 +8567,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Slowing Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Mind Spike",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -8864,7 +8864,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -8877,19 +8877,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Slowing Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Mind Spike",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -9962,7 +9962,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -10087,7 +10087,7 @@
         "actions": [
           {
             "action_name": "Holy Mace",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -10323,13 +10323,13 @@
               {
                 "option_type": "action",
                 "action_name": "Storm Blade",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Storm Bolt",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -10587,12 +10587,12 @@
         "actions": [
           {
             "action_name": "Slam",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Unsettling Visage",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -10732,7 +10732,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -10745,13 +10745,13 @@
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Tail",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -10999,13 +10999,13 @@
               {
                 "option_type": "action",
                 "action_name": "Foreleg",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Poison Burst",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -11165,13 +11165,13 @@
               {
                 "option_type": "action",
                 "action_name": "Vine Staff",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Verdant Wisp",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -11394,19 +11394,19 @@
               {
                 "option_type": "action",
                 "action_name": "Vine Lash",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Thorn Burst",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Charm Monster",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -11630,13 +11630,13 @@
               {
                 "option_type": "action",
                 "action_name": "Slam",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Rock Launch",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -11747,13 +11747,13 @@
               {
                 "option_type": "action",
                 "action_name": "Heated Blade",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Hurl Flame",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -11986,12 +11986,12 @@
         "actions": [
           {
             "action_name": "Withering Sword",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           },
           {
             "action_name": "Entangling Rope",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -12149,12 +12149,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Claw",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -12327,12 +12327,12 @@
         "actions": [
           {
             "action_name": "Battleaxe",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Morningstar",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -12522,7 +12522,7 @@
         "actions": [
           {
             "action_name": "Burn",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -12600,13 +12600,13 @@
               {
                 "option_type": "action",
                 "action_name": "Flame Sword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Hammer Throw",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -12814,7 +12814,7 @@
         "actions": [
           {
             "action_name": "Slam",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -12900,13 +12900,13 @@
               {
                 "option_type": "action",
                 "action_name": "Frost Axe",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Great Bow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -13151,7 +13151,7 @@
         "actions": [
           {
             "action_name": "Rotting Touch",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -13245,7 +13245,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -13695,7 +13695,7 @@
         "actions": [
           {
             "action_name": "Withering Touch",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -13844,7 +13844,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -14078,7 +14078,7 @@
         "actions": [
           {
             "action_name": "Pincer",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -14091,13 +14091,13 @@
               {
                 "option_type": "action",
                 "action_name": "Pummel",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Spellcasting",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -14336,7 +14336,7 @@
         "actions": [
           {
             "action_name": "Spear",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -14349,13 +14349,13 @@
               {
                 "option_type": "action",
                 "action_name": "Spear",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Shield Bash",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -14799,13 +14799,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scimitar",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Shortbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -14940,7 +14940,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -15094,7 +15094,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -15107,13 +15107,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Weakening Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -15294,7 +15294,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -15307,19 +15307,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Guiding Bolt",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Weakening Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -15608,7 +15608,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -15621,19 +15621,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Guiding Bolt",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Weakening Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -16172,7 +16172,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -16327,7 +16327,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -16499,7 +16499,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -16512,13 +16512,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Mind Spike",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -16779,7 +16779,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -16792,13 +16792,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Mind Spike",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -17117,7 +17117,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -17295,12 +17295,12 @@
         "actions": [
           {
             "action_name": "Beak",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Tentacles",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -17404,7 +17404,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -17621,13 +17621,13 @@
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Poisonous Spittle",
-                "count": 2,
+                "count": "2",
                 "type": "special"
               }
             ]
@@ -17968,13 +17968,13 @@
               {
                 "option_type": "action",
                 "action_name": "Javelin",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longsword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               }
             ]
@@ -18087,7 +18087,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -18300,7 +18300,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -18449,7 +18449,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -18564,13 +18564,13 @@
               {
                 "option_type": "action",
                 "action_name": "Tree Club",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Trash Lob",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -18671,7 +18671,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -18868,13 +18868,13 @@
               {
                 "option_type": "action",
                 "action_name": "Greatsword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -19099,19 +19099,19 @@
               {
                 "option_type": "action",
                 "action_name": "Searing Fork",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Hurl Flame",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Infernal Tail",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -19405,7 +19405,7 @@
         "actions": [
           {
             "action_name": "Ice Spear",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -19418,13 +19418,13 @@
               {
                 "option_type": "action",
                 "action_name": "Ice Spear",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Tail",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -19754,7 +19754,7 @@
         "actions": [
           {
             "action_name": "Restless Touch",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -20009,7 +20009,7 @@
         "actions": [
           {
             "action_name": "Wind Swipe",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -20022,13 +20022,13 @@
               {
                 "option_type": "action",
                 "action_name": "Wind Swipe",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Vortex",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -20203,13 +20203,13 @@
               {
                 "option_type": "action",
                 "action_name": "Bladed Arm",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Fiery Bolt",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -20351,13 +20351,13 @@
               {
                 "option_type": "action",
                 "action_name": "Greatsword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Heavy Crossbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -20595,7 +20595,7 @@
         "actions": [
           {
             "action_name": "Tentacle",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -20608,19 +20608,19 @@
               {
                 "option_type": "action",
                 "action_name": "Fling",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Lightning Strike",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Swallow",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -20846,7 +20846,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -20859,13 +20859,13 @@
               {
                 "option_type": "action",
                 "action_name": "Claw",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Corrupting Touch",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -21203,13 +21203,13 @@
               {
                 "option_type": "action",
                 "action_name": "Eldritch Burst",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Paralyzing Touch",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               }
             ]
@@ -21619,7 +21619,7 @@
         "actions": [
           {
             "action_name": "Arcane Burst",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -21917,7 +21917,7 @@
         "actions": [
           {
             "action_name": "Arcane Burst",
-            "count": 4,
+            "count": "4",
             "type": "melee"
           }
         ]
@@ -22348,13 +22348,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Tail Spike",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -22467,12 +22467,12 @@
         "actions": [
           {
             "action_name": "Pact Blade",
-            "count": 6,
+            "count": "6",
             "type": "melee"
           },
           {
             "action_name": "Constrict",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -22640,13 +22640,13 @@
                   {
                     "option_type": "action",
                     "action_name": "Claw",
-                    "count": 2,
+                    "count": "2",
                     "type": "melee"
                   },
                   {
                     "option_type": "action",
                     "action_name": "Snake Hair",
-                    "count": 1,
+                    "count": "1",
                     "type": "melee"
                   }
                 ]
@@ -22654,7 +22654,7 @@
               {
                 "option_type": "action",
                 "action_name": "Poison Ray",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -23525,19 +23525,19 @@
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Claw",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Harpoon",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               }
             ]
@@ -23924,12 +23924,12 @@
         "actions": [
           {
             "action_name": "Rotting Fist",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Dreadful Glare",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -24078,7 +24078,7 @@
         "actions": [
           {
             "action_name": "Dreadful Glare",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ],
@@ -24091,13 +24091,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rotting Fist",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Channel Negative Energy",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -24392,7 +24392,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -24615,7 +24615,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -25201,19 +25201,19 @@
               {
                 "option_type": "action",
                 "action_name": "Claw",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Nightmare Ray",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Spellcasting",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -25451,12 +25451,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Tentacle",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -25592,7 +25592,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -25792,7 +25792,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -25891,7 +25891,7 @@
         "actions": [
           {
             "action_name": "Dagger",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -25904,13 +25904,13 @@
               {
                 "option_type": "action",
                 "action_name": "Dagger",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Enthralling Panache",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -26019,13 +26019,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rapier",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Pistol",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -26210,17 +26210,17 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Devilish Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Fiery Mace",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -26461,13 +26461,13 @@
               {
                 "option_type": "action",
                 "action_name": "Radiant Sword",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Holy Burst",
-                "count": 2,
+                "count": "2",
                 "type": "special"
               }
             ]
@@ -26923,13 +26923,13 @@
               {
                 "option_type": "action",
                 "action_name": "Mace",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Radiant Flame",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -27153,7 +27153,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -27270,12 +27270,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Tail Stinger",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -27567,7 +27567,7 @@
         "actions": [
           {
             "action_name": "Cursed Touch",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -27806,7 +27806,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -27950,7 +27950,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -28104,7 +28104,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -28117,13 +28117,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Scorching Ray",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -28349,7 +28349,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -28362,13 +28362,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Scorching Ray",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -28717,7 +28717,7 @@
         "actions": [
           {
             "action_name": "Beak",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -28730,13 +28730,13 @@
               {
                 "option_type": "action",
                 "action_name": "Beak",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Talons",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -28874,17 +28874,17 @@
         "actions": [
           {
             "action_name": "Tentacle",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Reel",
-            "count": 1,
+            "count": "1",
             "type": "special"
           },
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -28994,12 +28994,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Antennae",
-            "count": 2,
+            "count": "2",
             "type": "special"
           }
         ]
@@ -29109,7 +29109,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -29214,7 +29214,7 @@
         "actions": [
           {
             "action_name": "Flame Spear",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -29227,13 +29227,13 @@
               {
                 "option_type": "action",
                 "action_name": "Flame Spear",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Constrict",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -29467,13 +29467,13 @@
               {
                 "option_type": "action",
                 "action_name": "Shortsword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -29939,7 +29939,7 @@
         "actions": [
           {
             "action_name": "Charged Tendril",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -29952,13 +29952,13 @@
               {
                 "option_type": "action",
                 "action_name": "Charged Tendril",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Engulf",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -30117,7 +30117,7 @@
         "actions": [
           {
             "action_name": "Fist",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -30205,7 +30205,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -30353,7 +30353,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -30366,13 +30366,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Paralyzing Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -30540,7 +30540,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -30553,19 +30553,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Paralyzing Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Ice Knife",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -30850,7 +30850,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ],
@@ -30863,19 +30863,19 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Paralyzing Breath",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Ice Knife",
-                "count": 1,
+                "count": "1",
                 "type": "ranged"
               }
             ]
@@ -31471,7 +31471,7 @@
         "actions": [
           {
             "action_name": "Flying Sword",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -31484,13 +31484,13 @@
               {
                 "option_type": "action",
                 "action_name": "Flying Sword",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Slaying Bow",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -32036,7 +32036,7 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -32340,12 +32340,12 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Roar",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -32659,13 +32659,13 @@
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Necrotic Ray",
-                "count": 3,
+                "count": "3",
                 "type": "ranged"
               }
             ]
@@ -33219,13 +33219,13 @@
               {
                 "option_type": "action",
                 "action_name": "Stone Club",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Boulder",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -33441,13 +33441,13 @@
               {
                 "option_type": "action",
                 "action_name": "Slam",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Force Bolt",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -33591,13 +33591,13 @@
               {
                 "option_type": "action",
                 "action_name": "Storm Sword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Thunderbolt",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -33842,7 +33842,7 @@
         "actions": [
           {
             "action_name": "Fiendish Touch",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -33855,13 +33855,13 @@
               {
                 "option_type": "action",
                 "action_name": "Charm",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               },
               {
                 "option_type": "action",
                 "action_name": "Draining Kiss",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -34080,7 +34080,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -34094,13 +34094,13 @@
               {
                 "option_type": "action",
                 "action_name": "Claw",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Tail",
-                "count": 3,
+                "count": "3",
                 "type": "melee"
               }
             ]
@@ -34417,13 +34417,13 @@
               {
                 "option_type": "action",
                 "action_name": "Warhammer",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Heavy Crossbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -34545,7 +34545,7 @@
         "actions": [
           {
             "action_name": "Slam",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -34651,7 +34651,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -34834,12 +34834,12 @@
         "actions": [
           {
             "action_name": "Hooves",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Radiant Horn",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -35031,7 +35031,7 @@
         "actions": [
           {
             "action_name": "Umbral Dagger",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -35184,12 +35184,12 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -35379,12 +35379,12 @@
         "actions": [
           {
             "action_name": "Grave Strike",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -36082,7 +36082,7 @@
         "actions": [
           {
             "action_name": "Shred",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -36322,13 +36322,13 @@
               {
                 "option_type": "action",
                 "action_name": "Greatsword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Heavy Crossbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -36495,7 +36495,7 @@
         "actions": [
           {
             "action_name": "Slam",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -36607,7 +36607,7 @@
               {
                 "option_type": "action",
                 "action_name": "Handaxe",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               }
             ]
@@ -36712,19 +36712,19 @@
               {
                 "option_type": "action",
                 "action_name": "Handaxe",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -36869,13 +36869,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -37003,7 +37003,7 @@
               {
                 "option_type": "action",
                 "action_name": "Javelin",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               }
             ]
@@ -37107,19 +37107,19 @@
               {
                 "option_type": "action",
                 "action_name": "Javelin",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Tusk",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Gore",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -37270,13 +37270,13 @@
               {
                 "option_type": "action",
                 "action_name": "Tusk",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Gore",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -37414,13 +37414,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Hand Crossbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -37549,19 +37549,19 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Hand Crossbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -37714,13 +37714,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -37857,13 +37857,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -37991,19 +37991,19 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -38159,13 +38159,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -38312,13 +38312,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               }
             ]
@@ -38452,19 +38452,19 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Longbow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -38622,13 +38622,13 @@
               {
                 "option_type": "action",
                 "action_name": "Scratch",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Bite",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               }
             ]
@@ -38770,7 +38770,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -38920,7 +38920,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -39087,7 +39087,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -39299,7 +39299,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -39525,19 +39525,19 @@
               {
                 "option_type": "action",
                 "action_name": "Necrotic Sword",
-                "count": 2,
+                "count": "2",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Necrotic Bow",
-                "count": 2,
+                "count": "2",
                 "type": "ranged"
               },
               {
                 "option_type": "action",
                 "action_name": "Life Drain",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -40151,12 +40151,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Sting",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -40287,12 +40287,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Claw",
-            "count": 3,
+            "count": "3",
             "type": "melee"
           }
         ]
@@ -40666,7 +40666,7 @@
         "actions": [
           {
             "action_name": "Tail",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -40745,7 +40745,7 @@
         "actions": [
           {
             "action_name": "Fist",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -40857,7 +40857,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -41110,7 +41110,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -41340,12 +41340,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Claw",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -42111,7 +42111,7 @@
         "actions": [
           {
             "action_name": "Gore",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -42421,7 +42421,7 @@
         "actions": [
           {
             "action_name": "Fist",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -42818,12 +42818,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Constrict",
-            "count": 1,
+            "count": "1",
             "type": "special"
           }
         ]
@@ -43012,12 +43012,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Tail",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -43123,7 +43123,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -44025,12 +44025,12 @@
         "actions": [
           {
             "action_name": "Claw",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           },
           {
             "action_name": "Sting",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]
@@ -44215,7 +44215,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -45038,7 +45038,7 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -45435,7 +45435,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ],
@@ -45448,13 +45448,13 @@
               {
                 "option_type": "action",
                 "action_name": "Rend",
-                "count": 1,
+                "count": "1",
                 "type": "melee"
               },
               {
                 "option_type": "action",
                 "action_name": "Roar",
-                "count": 1,
+                "count": "1",
                 "type": "special"
               }
             ]
@@ -45609,7 +45609,7 @@
         "actions": [
           {
             "action_name": "Gore",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -46161,7 +46161,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -46724,7 +46724,7 @@
         "actions": [
           {
             "action_name": "Rend",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -47869,7 +47869,7 @@
         "actions": [
           {
             "action_name": "Gore",
-            "count": 2,
+            "count": "2",
             "type": "melee"
           }
         ]
@@ -47946,12 +47946,12 @@
         "actions": [
           {
             "action_name": "Bite",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           },
           {
             "action_name": "Tail",
-            "count": 1,
+            "count": "1",
             "type": "melee"
           }
         ]

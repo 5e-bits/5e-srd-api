@@ -47,7 +47,7 @@ const ActionUsageSchema = z.strictObject({
 
 const MonsterActionItemSchema = z.strictObject({
   action_name: z.string(),
-  count: z.union([z.number(), z.string()]),
+  count: z.string(),
   type: z.string(),
 });
 
