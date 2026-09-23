@@ -98,7 +98,7 @@ info:
     ```
     DC {
       dc_type       APIReference
-      dc_value      number
+      dc_value?     number
       success_type  "none" | "half" | "other"
     }
     ```
@@ -118,7 +118,7 @@ info:
     Represents a choice made by a player. Commonly seen related to decisions made during character creation or combat (e.g.: the description of the cleric class, under **Proficiencies**, states "Skills: Choose two from	History, Insight, Medicine, Persuasion, and	Religion" [[SRD p15]](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf#page=15))
     ```
     Choice {
-      desc      string
+      desc?     string
       choose    number
       type      string
       from      OptionSet
