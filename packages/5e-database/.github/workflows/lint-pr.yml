@@ -1,0 +1,21 @@
+name: "Lint PR"
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Validate PR title
+        uses: ./.github/actions/validate-pr-title
+        with:
+          title: ${{ github.event.pull_request.title }}

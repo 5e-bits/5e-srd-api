@@ -1,0 +1,44 @@
+name: Manual Database Refresh
+
+# This workflow allows manual triggering to completely refresh the database
+# from the JSON files in the repository. Use with caution.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Which DB version to refresh'
+        required: false
+        type: choice
+        default: 'all'
+        options:
+          - 'all'
+          - '2014'
+          - '2024'
+
+jobs:
+  refresh-database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15 # Add a timeout
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Database Refresh Script
+        run: pnpm run db:refresh
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          DB_VERSION: ${{ inputs.version }}

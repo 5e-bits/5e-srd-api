@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy Changes (Update Database)
+    runs-on: ubuntu-latest
+    if: github.repository == '5e-bits/5e-database'
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Determine Release Tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            # For workflow_dispatch, get the latest release tag
+            LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
+            echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+          fetch-depth: 0
+      - name: Find Previous Release Tag
+        id: prev-tag
+        run: |
+          PREV_TAG=$(git describe --abbrev=0 --tags HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous tag found, will fall back to HEAD~1 comparison"
+          else
+            echo "Previous release tag: $PREV_TAG"
+          fi
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+      - name: Set up Node.js 22.x
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run Database Update Script
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          GIT_FROM_REF: ${{ steps.prev-tag.outputs.prev_tag }}
+        run: pnpm run db:update
+
+  container-release:
+    name: Container Release
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: github.repository == '5e-bits/5e-database'
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.deploy.outputs.tag }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.deploy.outputs.tag }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          labels: version=${{ needs.deploy.outputs.tag }}
+
+  trigger-downstream:
+    name: Trigger Downstream
+    runs-on: ubuntu-latest
+    needs: [deploy, container-release]
+    if: github.repository == '5e-bits/5e-database'
+    steps:
+      - name: Generate Deploy Bot token
+        id: generate-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.DEPLOYMENT_APP_ID }}
+          private-key: ${{ secrets.DEPLOYMENT_APP_PRIVATE_KEY }}
+          repositories: 5e-srd-api
+      - name: Trigger downstream
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: 5e-bits/5e-srd-api
+          event-type: build_application

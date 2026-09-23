@@ -1,0 +1,35 @@
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - name: Generate Deploy Bot token
+        id: generate-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.DEPLOYMENT_APP_ID }}
+          private-key: ${{ secrets.DEPLOYMENT_APP_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Release Please
+        id: release
+        uses: googleapis/release-please-action@v5
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          release-type: node
+          config-file: ./release-please-config.json
