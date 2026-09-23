@@ -28,14 +28,8 @@ export const mapLevelObjectToArray = (
   return levelValueArray.length > 0 ? levelValueArray : null
 }
 
-/**
- * Normalizes a count value (which can be a string or number) to a number.
- * Uses parseInt with radix 10 for strings.
- */
-export function normalizeCount(count: string | number): number {
-  if (typeof count === 'string') {
-    const num = parseInt(count, 10)
-    return isNaN(num) ? 0 : num
-  }
-  return count
+/** Non-numeric counts like "Number of Heads" become 0 so the GraphQL Int field doesn't throw. */
+export function normalizeCount(count: string): number {
+  const num = parseInt(count, 10)
+  return isNaN(num) ? 0 : num
 }

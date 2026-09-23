@@ -40,8 +40,8 @@ export class ActionOption extends Option {
   @prop({ required: true, index: true, type: () => String })
   public action_name!: string
 
-  @prop({ required: true, index: true, type: () => Number })
-  public count!: number | string
+  @prop({ required: true, index: true, type: () => String })
+  public count!: string
 
   @prop({ required: true, index: true, type: () => String })
   public type!: 'melee' | 'ranged' | 'ability' | 'magic' | 'special'

@@ -41,7 +41,7 @@ const actionUsageFactory = Factory.define<ActionUsage>(() => ({
 // Factory for ActionOption
 const actionOptionFactory = Factory.define<ActionOption>(() => ({
   action_name: faker.lorem.words(2),
-  count: faker.helpers.arrayElement([faker.number.int({ min: 1, max: 3 }), faker.lorem.word()]),
+  count: faker.helpers.arrayElement([String(faker.number.int({ min: 1, max: 3 })), faker.lorem.word()]),
   type: faker.helpers.arrayElement(['melee', 'ranged', 'ability', 'magic'])
 }))
 

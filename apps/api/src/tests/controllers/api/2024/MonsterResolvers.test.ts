@@ -99,8 +99,8 @@ describe('MonsterAction2024Resolver.action_options', () => {
   it('round-trips choose > 1 with action options and no desc', async () => {
     const result = await resolver.action_options(
       build([
-        { option_type: 'action', action_name: 'Claw', count: 3, type: 'melee' },
-        { option_type: 'action', action_name: 'Tail', count: 3, type: 'melee' }
+        { option_type: 'action', action_name: 'Claw', count: '3', type: 'melee' },
+        { option_type: 'action', action_name: 'Tail', count: '3', type: 'melee' }
       ])
     )
     expect(result?.choose).toBe(3)
@@ -113,7 +113,7 @@ describe('MonsterAction2024Resolver.action_options', () => {
 
   it('passes desc and multiple options through', async () => {
     const items = [
-      { option_type: 'action', action_name: 'Bite', count: 1, type: 'melee' },
+      { option_type: 'action', action_name: 'Bite', count: '1', type: 'melee' },
       { option_type: 'action', action_name: 'Roar', count: '2', type: 'special' }
     ]
     const result = await resolver.action_options(
