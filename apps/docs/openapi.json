@@ -1767,7 +1767,7 @@
                       "actions": [
                         {
                           "action_name": "Tentacle",
-                          "count": 3,
+                          "count": "3",
                           "type": "melee"
                         }
                       ]
@@ -5732,7 +5732,7 @@
             "type": "string"
           },
           "count": {
-            "type": "number"
+            "type": "string"
           },
           "type": {
             "type": "string",
@@ -6001,7 +6001,7 @@
               },
               "count": {
                 "description": "The number of times this action can be repeated if chosen.",
-                "type": "number"
+                "type": "string"
               },
               "type": {
                 "description": "For attack options that can be melee, ranged, abilities, or thrown.",

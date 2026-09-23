@@ -127,7 +127,7 @@ monster-multi-attack-action-model:
     action_name:
       type: string
     count:
-      type: number
+      type: string
     type:
       type: string
       enum: [melee, ranged, ability, magic]

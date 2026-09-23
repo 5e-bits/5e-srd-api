@@ -27,9 +27,3 @@ export const mapLevelObjectToArray = (
   levelValueArray.sort((a, b) => a.level - b.level)
   return levelValueArray.length > 0 ? levelValueArray : null
 }
-
-/** Non-numeric counts like "Number of Heads" become 0 so the GraphQL Int field doesn't throw. */
-export function normalizeCount(count: string): number {
-  const num = parseInt(count, 10)
-  return isNaN(num) ? 0 : num
-}

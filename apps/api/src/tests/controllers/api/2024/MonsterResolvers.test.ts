@@ -106,8 +106,8 @@ describe('MonsterAction2024Resolver.action_options', () => {
     expect(result?.choose).toBe(3)
     expect(result?.desc).toBeUndefined()
     expect((result?.from as any).options).toEqual([
-      { option_type: 'action', action_name: 'Claw', count: 3, type: 'melee' },
-      { option_type: 'action', action_name: 'Tail', count: 3, type: 'melee' }
+      { option_type: 'action', action_name: 'Claw', count: '3', type: 'melee' },
+      { option_type: 'action', action_name: 'Tail', count: '3', type: 'melee' }
     ])
   })
 
@@ -123,18 +123,18 @@ describe('MonsterAction2024Resolver.action_options', () => {
     expect((result?.from as any).options[0]).toEqual({
       option_type: 'multiple',
       items: [
-        { option_type: 'action', action_name: 'Bite', count: 1, type: 'melee' },
-        { option_type: 'action', action_name: 'Roar', count: 2, type: 'special' }
+        { option_type: 'action', action_name: 'Bite', count: '1', type: 'melee' },
+        { option_type: 'action', action_name: 'Roar', count: '2', type: 'special' }
       ]
     })
   })
 
-  it('coerces a non-numeric count to 0 instead of throwing', async () => {
+  it('passes a non-numeric count through', async () => {
     const result = await resolver.action_options(
       build([
         { option_type: 'action', action_name: 'Head', count: 'Number of Heads', type: 'melee' }
       ])
     )
-    expect((result?.from as any).options[0].count).toBe(0)
+    expect((result?.from as any).options[0].count).toBe('Number of Heads')
   })
 })

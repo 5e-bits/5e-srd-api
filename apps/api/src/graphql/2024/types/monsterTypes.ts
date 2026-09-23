@@ -98,8 +98,8 @@ export class ActionChoiceOption2024 {
   @Field(() => String)
   action_name!: string
 
-  @Field(() => Int)
-  count!: number
+  @Field(() => String)
+  count!: string
 
   @Field(() => String)
   type!: string

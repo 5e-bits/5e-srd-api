@@ -12,7 +12,6 @@ import {
   MultipleActionChoiceOption,
   MonsterArmorClassUnion
 } from '@/graphql/2014/types/monsterTypes'
-import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import { createResolver } from '@/graphql/common/createResolver'
 import { eqFilter, inFilter, numberFilter, regexFilter } from '@/graphql/common/filters'
 import { SpellSlotCount } from '@/graphql/common/types'
@@ -344,7 +343,7 @@ async function resolveActionChoice(
       const resolvedItems = multipleOption.items.map((item) => ({
         option_type: item.option_type,
         action_name: item.action_name,
-        count: normalizeCount(item.count),
+        count: item.count,
         type: item.type
       }))
       validOptions.push({
@@ -356,7 +355,7 @@ async function resolveActionChoice(
       const resolvedOption: ActionChoiceOption = {
         option_type: actionOption.option_type,
         action_name: actionOption.action_name,
-        count: normalizeCount(actionOption.count),
+        count: actionOption.count,
         type: actionOption.type
       }
       validOptions.push(resolvedOption)

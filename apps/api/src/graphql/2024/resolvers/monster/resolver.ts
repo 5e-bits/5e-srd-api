@@ -1,6 +1,5 @@
 import { FieldResolver, Resolver, Root } from 'type-graphql'
 
-import { normalizeCount } from '@/graphql/2014/utils/helpers'
 import {
   ActionChoice2024,
   ActionChoiceOption2024,
@@ -291,7 +290,7 @@ async function resolveActionChoice2024(
       const resolvedItems = multipleOption.items.map((item) => ({
         option_type: item.option_type,
         action_name: item.action_name,
-        count: normalizeCount(item.count),
+        count: item.count,
         type: item.type
       }))
       validOptions.push({ option_type: multipleOption.option_type, items: resolvedItems })
@@ -300,7 +299,7 @@ async function resolveActionChoice2024(
       validOptions.push({
         option_type: actionOption.option_type,
         action_name: actionOption.action_name,
-        count: normalizeCount(actionOption.count),
+        count: actionOption.count,
         type: actionOption.type
       })
     }

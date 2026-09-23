@@ -38,7 +38,7 @@ monster-index:
                   multiattack_type: actions
                   actions:
                     - action_name: Tentacle
-                      count: 3
+                      count: '3'
                       type: melee
                 - attack_bonus: 9
                   attacks: []
