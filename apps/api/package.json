@@ -22,7 +22,7 @@
     "test": "pnpm run test:unit && pnpm run test:integration:local",
     "test:unit": "vitest run",
     "test:integration": "vitest run --config ./vitest.config.integration.ts",
-    "test:integration:local": "docker compose pull && docker compose build && docker compose run --use-aliases api pnpm run test:integration"
+    "test:integration:local": "docker compose up --build --wait db cache && pnpm run test:integration"
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",

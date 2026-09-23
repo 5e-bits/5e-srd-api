@@ -11,21 +11,11 @@ Talk to us [on Discord!](https://discord.gg/TQuYTv7)
 
 ## How to Run
 
-Make sure you have the latest version of the database:
-
-```shell
-docker compose pull
-```
-
-Then run it with docker-compose:
+Run it with docker compose. This builds the database from [`packages/5e-database`](../../packages/5e-database):
 
 ```shell
 docker compose up --build
 ```
-
-### M1/M2/M3 Macs
-
-The command above pulls the latest image of the database from ghcr.io, which only targets the amd64 platform. If you are running on a different platform (like a Mac with Apple Silicon), you will need to build the image yourself from [`packages/5e-database`](../../packages/5e-database). In `docker-compose.yml`, uncomment the `build` block under the `db` service (and comment out `image: ghcr.io/5e-bits/5e-database:latest`).
 
 ## Making API Requests
 
@@ -83,8 +73,8 @@ You can run unit tests locally by using the command: `pnpm run test:unit`
 
 ### Integration Tests
 
-Integration tests need to be ran in the API docker container for them to function properly.
-In order to run integration tests locally you can use the command: `pnpm run test:integration:local`
+Integration tests run against the database and cache from `docker-compose.yml`, with the database built from this checkout.
+Run them with: `pnpm run test:integration:local`. It leaves the containers running; stop them with `docker compose down`.
 
 ## Documentation
 

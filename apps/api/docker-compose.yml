@@ -1,16 +1,21 @@
 services:
   db:
-    image: ghcr.io/5e-bits/5e-database:latest
-    # build:
-    #   context: ../..
-    #   dockerfile: packages/5e-database/Dockerfile
+    build:
+      context: ../..
+      dockerfile: packages/5e-database/Dockerfile
     ports:
       - '27017:27017'
+    # The image's 30s default interval stalls `--wait`.
+    healthcheck:
+      interval: 2s
 
   cache:
     image: redis:6.2.5
     ports:
       - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
 
   api:
     environment:
