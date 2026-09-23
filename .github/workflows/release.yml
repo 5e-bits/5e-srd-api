@@ -13,7 +13,10 @@ jobs:
   build-and-publish:
     name: Build and Publish Release Assets
     runs-on: ubuntu-latest
-    if: github.repository == '5e-bits/5e-srd-api'
+    # Other release-please components (e.g. packages/5e-database) tag as
+    # <component>-v<version>; only apps/api's bare v<version> tags should
+    # trigger the API build/deploy jobs.
+    if: github.repository == '5e-bits/5e-srd-api' && (github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v'))
     permissions:
       contents: write
       packages: write
@@ -61,7 +64,10 @@ jobs:
   container-release:
     name: Container Release
     runs-on: ubuntu-latest
-    if: github.repository == '5e-bits/5e-srd-api'
+    # Other release-please components (e.g. packages/5e-database) tag as
+    # <component>-v<version>; only apps/api's bare v<version> tags should
+    # trigger the API build/deploy jobs.
+    if: github.repository == '5e-bits/5e-srd-api' && (github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v'))
     env:
       IMAGE_NAME: ${{ github.repository }}
     permissions:
@@ -102,7 +108,10 @@ jobs:
   heroku-deploy:
     name: Deploy to Heroku
     runs-on: ubuntu-latest
-    if: github.repository == '5e-bits/5e-srd-api'
+    # Other release-please components (e.g. packages/5e-database) tag as
+    # <component>-v<version>; only apps/api's bare v<version> tags should
+    # trigger the API build/deploy jobs.
+    if: github.repository == '5e-bits/5e-srd-api' && (github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v'))
     needs: [build-and-publish, container-release]
     permissions:
       contents: read

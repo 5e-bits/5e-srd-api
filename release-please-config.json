@@ -19,6 +19,25 @@
           "hidden": false
         }
       ]
+    },
+    "packages/5e-database": {
+      "release-type": "node",
+      "package-name": "5e-database",
+      "changelog-sections": [
+        {
+          "type": "feat",
+          "section": "Features"
+        },
+        {
+          "type": "fix",
+          "section": "Bug Fixes"
+        },
+        {
+          "type": "deps",
+          "section": "Dependencies",
+          "hidden": false
+        }
+      ]
     }
   }
 }
