@@ -82,3 +82,35 @@ jobs:
           registry: ${{ env.REGISTRY }}
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+  redeploy-api:
+    name: Redeploy API
+    runs-on: ubuntu-latest
+    needs: [container-release]
+    if: github.repository == '5e-bits/5e-srd-api'
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      # apps/api's own source hasn't changed, so this reuses whatever image
+      # is already published instead of rebuilding it through the full
+      # api-release.yml pipeline -- a database release only needs the
+      # running service bounced, matching what the old 5e-bits/5e-database
+      # repo's repository_dispatch actually triggered. Runs regardless of
+      # how this workflow was invoked (the router, or a direct
+      # workflow_dispatch rerun), since a database release always implies
+      # this.
+      - name: Resolve latest apps/api version
+        id: tag
+        run: |
+          TAG=$(gh api repos/${{ github.repository }}/releases --jq '[.[] | select(.tag_name | startswith("5e-srd-api-v"))][0].tag_name')
+          echo "version=${TAG#5e-srd-api-}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/heroku-deploy
+        with:
+          image: ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.tag.outputs.version }}
+          heroku-app: dnd-5e-srd-api
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          heroku-api-key: ${{ secrets.HEROKU_API_KEY }}
