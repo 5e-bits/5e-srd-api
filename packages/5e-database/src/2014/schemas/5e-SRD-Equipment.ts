@@ -36,6 +36,7 @@ export const EquipmentSchema = z.strictObject({
   index: z.string(),
   name: z.string(),
   equipment_category: APIReferenceSchema,
+  equipment_categories: z.array(APIReferenceSchema),
   cost: CostSchema,
   url: z.string(),
   desc: z.array(z.string()).optional(),

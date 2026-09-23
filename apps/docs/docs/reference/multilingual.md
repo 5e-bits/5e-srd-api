@@ -54,6 +54,7 @@ Only human-readable text fields are translated. Structural fields (indexes, URLs
 | `desc` | Yes |
 | `higher_level` | Yes |
 | `equipment_category.name` | Yes |
+| `equipment_categories[].name` | Yes |
 | `index` | No |
 | `url` | No |
 | Numeric values (HP, range, duration, etc.) | No |

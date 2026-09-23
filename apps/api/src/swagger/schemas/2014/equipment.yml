@@ -34,6 +34,11 @@ gear-model:
           type: string
         equipment_category:
           $ref: './combined.yml#/APIReference'
+        equipment_categories:
+          description: 'All equipment categories this item belongs to.'
+          type: array
+          items:
+            $ref: './combined.yml#/APIReference'
         gear_category:
           $ref: './combined.yml#/APIReference'
         cost:
@@ -54,6 +59,11 @@ equipment-pack-model:
           type: string
         equipment_category:
           $ref: './combined.yml#/APIReference'
+        equipment_categories:
+          description: 'All equipment categories this item belongs to.'
+          type: array
+          items:
+            $ref: './combined.yml#/APIReference'
         gear_category:
           $ref: './combined.yml#/APIReference'
         cost:

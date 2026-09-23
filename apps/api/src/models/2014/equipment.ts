@@ -101,6 +101,10 @@ export class Equipment implements IEquipment {
   @prop({ type: () => APIReference })
   public equipment_category!: APIReference
 
+  @Field(() => [EquipmentCategory], { description: 'All categories this equipment belongs to.' })
+  @prop({ type: () => [APIReference] })
+  public equipment_categories!: APIReference[]
+
   @Field(() => EquipmentCategory, {
     nullable: true,
     description: 'Category if the equipment is gear.'

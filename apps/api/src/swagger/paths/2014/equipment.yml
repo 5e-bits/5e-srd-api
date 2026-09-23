@@ -35,6 +35,19 @@ get:
               index: weapon
               name: Weapon
               url: '/api/2014/equipment-categories/weapon'
+            equipment_categories:
+              - index: weapon
+                name: Weapon
+                url: '/api/2014/equipment-categories/weapon'
+              - index: simple-weapons
+                name: Simple Weapons
+                url: '/api/2014/equipment-categories/simple-weapons'
+              - index: melee-weapons
+                name: Melee Weapons
+                url: '/api/2014/equipment-categories/melee-weapons'
+              - index: simple-melee-weapons
+                name: Simple Melee Weapons
+                url: '/api/2014/equipment-categories/simple-melee-weapons'
             index: club
             name: Club
             properties:
