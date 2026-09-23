@@ -27,6 +27,13 @@ integration tests in the API project.
 
 ## Is there a Github issue this is resolving?
 
+## [6.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v6.0.0...5e-database-v6.1.0) (2026-09-23)
+
+
+### Features
+
+* add equipment_categories to 2014 equipment ([#1290](https://github.com/5e-bits/5e-srd-api/issues/1290)) ([7a3ed45](https://github.com/5e-bits/5e-srd-api/commit/7a3ed45775b2c59c018190affb2026d61391cf9d))
+
 ## [6.0.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v5.12.0...5e-database-v6.0.0) (2026-09-23)
 
 
