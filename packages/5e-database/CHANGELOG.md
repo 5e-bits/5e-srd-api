@@ -27,6 +27,17 @@ integration tests in the API project.
 
 ## Is there a Github issue this is resolving?
 
+## [7.0.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v6.1.0...5e-database-v7.0.0) (2026-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* merge rule sections into rules as a heading tree ([#1293](https://github.com/5e-bits/5e-srd-api/issues/1293))
+
+### Features
+
+* merge rule sections into rules as a heading tree ([#1293](https://github.com/5e-bits/5e-srd-api/issues/1293)) ([175d303](https://github.com/5e-bits/5e-srd-api/commit/175d30345dfbcff69aa37db217fdcf3d4a4078e6))
+
 ## [6.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v6.0.0...5e-database-v6.1.0) (2026-09-23)
 
 
