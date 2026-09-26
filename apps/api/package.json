@@ -27,7 +27,7 @@
   "dependencies": {
     "@apollo/server": "^5.5.1",
     "@as-integrations/express5": "^1.1.2",
-    "@bugsnag/js": "^8.10.0",
+    "@bugsnag/js": "^9.0.0",
     "@bugsnag/plugin-express": "^8.8.0",
     "@typegoose/typegoose": "^13.4.0",
     "cors": "^2.8.6",
