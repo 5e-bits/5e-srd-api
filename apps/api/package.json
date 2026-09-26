@@ -58,7 +58,7 @@
     "eslint-plugin-import-x": "^4.17.1",
     "fishery": "^2.3.1",
     "globals": "^17.12.0",
-    "mongodb-memory-server": "^11.2.0",
+    "mongodb-memory-server": "^11.3.0",
     "node-mocks-http": "^1.18.1",
     "nodemon": "^3.1.10",
     "openapi-to-postmanv2": "^6.3.3",
