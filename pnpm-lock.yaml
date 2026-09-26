@@ -178,8 +178,8 @@ importers:
         specifier: ^8.10.0
         version: 8.10.0
       '@bugsnag/plugin-express':
-        specifier: ^8.8.0
-        version: 8.9.0(@bugsnag/core@8.9.0)
+        specifier: ^9.0.0
+        version: 9.0.0(@bugsnag/core@8.9.0)
       '@typegoose/typegoose':
         specifier: ^13.4.0
         version: 13.4.0(mongoose@9.7.4)
@@ -1238,8 +1238,8 @@ packages:
   '@bugsnag/node@8.10.0':
     resolution: {integrity: sha512-xLDSk3EBUDIAwYyECxzdEpsgZv6Mwn/WAV57vQBiKsTgia7cnjE83VeR9O6uu4oAUhye160LAVzRCvmJNac+nw==}
 
-  '@bugsnag/plugin-express@8.9.0':
-    resolution: {integrity: sha512-AMf0Vdj4FzfSJb/PGEKeT05si9SduMjOwZoy6HE2RGI1sjx6hsFzKk6NQ3tsTmYJp9t79V7cjimw5F9uKRWmXQ==}
+  '@bugsnag/plugin-express@9.0.0':
+    resolution: {integrity: sha512-s9yqMCIgXEtEiNRsZ/M1faa/4SCeeoCegf6QmPsMNar1zr2DoE3P2eIRnEMY/pqqNX/vt8MlLcwG4GbBEMBH1Q==}
     peerDependencies:
       '@bugsnag/core': ^8.0.0
 
@@ -9897,7 +9897,7 @@ snapshots:
       pump: 3.0.4
       stack-generator: 2.0.10
 
-  '@bugsnag/plugin-express@8.9.0(@bugsnag/core@8.9.0)':
+  '@bugsnag/plugin-express@9.0.0(@bugsnag/core@8.9.0)':
     dependencies:
       '@bugsnag/core': 8.9.0
 
