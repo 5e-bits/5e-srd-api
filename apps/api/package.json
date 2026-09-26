@@ -29,7 +29,7 @@
     "@as-integrations/express5": "^1.1.2",
     "@bugsnag/js": "^8.10.0",
     "@bugsnag/plugin-express": "^8.8.0",
-    "@typegoose/typegoose": "^13.4.0",
+    "@typegoose/typegoose": "^13.5.0",
     "cors": "^2.8.6",
     "express": "^5.1.0",
     "express-rate-limit": "^8.7.0",
