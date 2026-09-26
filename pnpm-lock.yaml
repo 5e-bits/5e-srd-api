@@ -175,8 +175,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@apollo/server@5.5.1(graphql@16.14.1)(supports-color@5.5.0))(express@5.2.1(supports-color@5.5.0))
       '@bugsnag/js':
-        specifier: ^8.10.0
-        version: 8.10.0
+        specifier: ^9.0.0
+        version: 9.0.0
       '@bugsnag/plugin-express':
         specifier: ^8.8.0
         version: 8.9.0(@bugsnag/core@8.9.0)
@@ -1223,20 +1223,23 @@ packages:
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
     hasBin: true
 
-  '@bugsnag/browser@8.10.0':
-    resolution: {integrity: sha512-RucooYQMoLSD+aU3YOh3d22/rgqIt0pDr6bgSokvandS0mt1IOK318QwEsBq6aZ68j7vhhMt84Z3Tdum64QsOA==}
+  '@bugsnag/browser@9.0.0':
+    resolution: {integrity: sha512-RWMKovU6DsxpqDsHhlXOaV1bqUZ9HWfw1JDQb9g5/qVx8HfQ7hkak2NbguQOWS5Eqawn/UrZ8H6wD2wTTdvU4A==}
 
   '@bugsnag/core@8.9.0':
     resolution: {integrity: sha512-SrXO0isIZfrCem06/WDvC5MSd1Tj6Yjm4Wqdlv6jyjTvsow+cppvt7rS9Bps3qOeXfYCqWHN4ev02OdwnfZ1PQ==}
 
+  '@bugsnag/core@9.0.0':
+    resolution: {integrity: sha512-5F4BVHTGRSWsDh0zJ3DlZ71OLyK9deYbmUL1u7cga+lYhtjln7htuI6eLtrW40JeeMKByOJFHjaBIpDvegNsPg==}
+
   '@bugsnag/cuid@3.2.2':
     resolution: {integrity: sha512-7onuYLTMqMmHE9BBPG0YER4nFsU1rB+me1/YIeMusqcLbVbKKuG9u9+BDVDpje5e0llkkrVNOKYwmzM9DRIo7A==}
 
-  '@bugsnag/js@8.10.0':
-    resolution: {integrity: sha512-D8IYjkGltLw5m1ujM33AAARFYIS4S2KgUdk6QrKR+r/NGfygHOyyMPXNfxvmiap5d4EusPxPOWCKT+1TN9ToKA==}
+  '@bugsnag/js@9.0.0':
+    resolution: {integrity: sha512-XLFkeapRDDV+tlbSl792BnVchiRvX55s3QxL/Ph13CD+90h4riFG1+dYzfLgTeTwuz4Yi0FijDkI9A/zCkLnMg==}
 
-  '@bugsnag/node@8.10.0':
-    resolution: {integrity: sha512-xLDSk3EBUDIAwYyECxzdEpsgZv6Mwn/WAV57vQBiKsTgia7cnjE83VeR9O6uu4oAUhye160LAVzRCvmJNac+nw==}
+  '@bugsnag/node@9.0.0':
+    resolution: {integrity: sha512-zTBWPHaKaFFQbTT1J0VJF0jMS7vEIfePUcuJ92zAbaaN1Hm07gK+DDXzEiG5lZA75SngBHHrHEYEi5gH/LDpyg==}
 
   '@bugsnag/plugin-express@8.9.0':
     resolution: {integrity: sha512-AMf0Vdj4FzfSJb/PGEKeT05si9SduMjOwZoy6HE2RGI1sjx6hsFzKk6NQ3tsTmYJp9t79V7cjimw5F9uKRWmXQ==}
@@ -9869,9 +9872,9 @@ snapshots:
     dependencies:
       css-tree: 3.2.1
 
-  '@bugsnag/browser@8.10.0':
+  '@bugsnag/browser@9.0.0':
     dependencies:
-      '@bugsnag/core': 8.9.0
+      '@bugsnag/core': 9.0.0
 
   '@bugsnag/core@8.9.0':
     dependencies:
@@ -9881,16 +9884,24 @@ snapshots:
       iserror: 0.0.2
       stack-generator: 2.0.10
 
+  '@bugsnag/core@9.0.0':
+    dependencies:
+      '@bugsnag/cuid': 3.2.2
+      '@bugsnag/safe-json-stringify': 6.1.0
+      error-stack-parser: 2.1.4
+      iserror: 0.0.2
+      stack-generator: 2.0.10
+
   '@bugsnag/cuid@3.2.2': {}
 
-  '@bugsnag/js@8.10.0':
+  '@bugsnag/js@9.0.0':
     dependencies:
-      '@bugsnag/browser': 8.10.0
-      '@bugsnag/node': 8.10.0
+      '@bugsnag/browser': 9.0.0
+      '@bugsnag/node': 9.0.0
 
-  '@bugsnag/node@8.10.0':
+  '@bugsnag/node@9.0.0':
     dependencies:
-      '@bugsnag/core': 8.9.0
+      '@bugsnag/core': 9.0.0
       byline: 5.0.0
       error-stack-parser: 2.1.4
       iserror: 0.0.2
