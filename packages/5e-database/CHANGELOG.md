@@ -27,6 +27,13 @@ integration tests in the API project.
 
 ## Is there a Github issue this is resolving?
 
+## [7.2.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.1.0...5e-database-v7.2.0) (2026-09-27)
+
+
+### Features
+
+* **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
+
 ## [7.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.0.0...5e-database-v7.1.0) (2026-09-27)
 
 
