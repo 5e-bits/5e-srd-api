@@ -1,5 +1,5 @@
 # ---- Base Stage ----
-FROM node:25-alpine AS base
+FROM node:26-alpine AS base
 
 RUN npm install -g pnpm@12.4.2
 
