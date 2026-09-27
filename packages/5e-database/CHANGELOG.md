@@ -27,6 +27,13 @@ integration tests in the API project.
 
 ## Is there a Github issue this is resolving?
 
+## [7.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.0.0...5e-database-v7.1.0) (2026-09-27)
+
+
+### Features
+
+* **db:** add pt-BR translations for 2014 spells ([#1321](https://github.com/5e-bits/5e-srd-api/issues/1321)) ([5a3d695](https://github.com/5e-bits/5e-srd-api/commit/5a3d695b36911683258ce52985c86c9dacc81aa6))
+
 ## [7.0.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v6.1.0...5e-database-v7.0.0) (2026-09-24)
 
 
