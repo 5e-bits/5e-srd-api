@@ -1,6 +1,7 @@
 import { ReturnModelType } from '@typegoose/typegoose'
 import { NextFunction, Request, Response } from 'express'
 
+import { normalizeLang } from '@/middleware/languageNegotiation'
 import { ResourceList } from '@/util/data'
 
 /** List and show handlers for the translation locales of one SRD year. */
@@ -20,7 +21,7 @@ export const localeController = (year: '2014' | '2024', Locale: ReturnModelType<
 
   showLocale: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { lang } = req.params
+      const lang = normalizeLang(req.params.lang as string)
       const data = await Locale.findOne({ lang })
       if (data === null) return next()
       return res.status(200).json({ lang: data.lang, url: `/api/${year}/locales/${data.lang}` })

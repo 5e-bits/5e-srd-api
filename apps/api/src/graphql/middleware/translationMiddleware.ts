@@ -2,6 +2,7 @@ import { GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLType } from 'gra
 import mongoose from 'mongoose'
 import { MiddlewareFn } from 'type-graphql'
 
+import { normalizeLang } from '@/middleware/languageNegotiation'
 import { applyTranslation, applyTranslationToList } from '@/util/translation'
 
 function getBaseTypeName(type: GraphQLType): string | null {
@@ -35,7 +36,7 @@ export const TranslationMiddleware: MiddlewareFn<TranslationContext> = async (
   const result = await next()
   if (result == null) return result
 
-  const lang: string = (args as any).lang ?? context.lang ?? 'en'
+  const lang: string = normalizeLang((args as any).lang ?? context.lang ?? 'en')
   if (lang === 'en') return result
 
   const typeName = getBaseTypeName(info.returnType)

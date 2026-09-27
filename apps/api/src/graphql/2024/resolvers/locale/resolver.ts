@@ -1,5 +1,6 @@
 import { Arg, Query, Resolver } from 'type-graphql'
 
+import { normalizeLang } from '@/middleware/languageNegotiation'
 import Locale2024Model, { Locale2024 } from '@/models/2024/locale'
 
 @Resolver(Locale2024)
@@ -16,6 +17,6 @@ export class LocaleResolver {
     description: 'Gets a single 2024 locale by BCP 47 language tag (e.g. "de", "fr").'
   })
   async locale2024(@Arg('lang', () => String) lang: string): Promise<Locale2024 | null> {
-    return Locale2024Model.findOne({ lang }).lean()
+    return Locale2024Model.findOne({ lang: normalizeLang(lang) }).lean()
   }
 }

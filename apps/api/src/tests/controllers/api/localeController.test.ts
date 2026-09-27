@@ -79,6 +79,22 @@ describe.each([
       expect(mockNext).not.toHaveBeenCalled()
     })
 
+    it('matches the locale case-insensitively', async () => {
+      await LocaleModel.insertMany([{ lang: 'pt-BR', updated_at: '2024-01-01' }])
+      const request = createRequest({ params: { lang: 'pt-br' } })
+      const response = createResponse()
+      mockNext.mockClear()
+
+      await showLocale(request, response, mockNext)
+
+      expect(response.statusCode).toBe(200)
+      expect(JSON.parse(response._getData())).toEqual({
+        lang: 'pt-BR',
+        url: `/api/${year}/locales/pt-BR`
+      })
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
     it('calls next() when locale is not found', async () => {
       const request = createRequest({ params: { lang: 'xx' } })
       const response = createResponse()
