@@ -1,4 +1,4 @@
-import { getModelForClass } from '@typegoose/typegoose'
+import { Model } from 'mongoose'
 
 import MagicItem from '@/models/2014/magicItem'
 import Monster from '@/models/2014/monster'
@@ -9,7 +9,7 @@ import { ResourceList } from './data'
 import redisClient from './RedisClient'
 
 type PrewarmData = {
-  Schema: ReturnType<typeof getModelForClass>
+  Schema: Model<any>
   endpoint: string
 }
 
