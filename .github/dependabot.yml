@@ -25,6 +25,9 @@ updates:
       docusaurus:
         patterns:
           - '@docusaurus/*'
+      bugsnag:
+        patterns:
+          - '@bugsnag/*'
   - package-ecosystem: 'docker'
     directory: '/apps/api'
     schedule:
