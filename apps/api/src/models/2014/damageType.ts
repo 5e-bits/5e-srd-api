@@ -1,29 +1,38 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'Represents a type of damage (e.g., Acid, Bludgeoning, Fire).' })
 @srdModelOptions('2014-damage-types')
 export class DamageType {
-  @Field(() => String, { description: 'The unique identifier for this damage type (e.g., acid).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'The unique identifier for this damage type (e.g., acid).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the damage type (e.g., Acid).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'The name of the damage type (e.g., Acid).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => [String], { description: 'A description of the damage type.' })
-  @prop({ required: true, type: () => [String] })
+  @field(() => T.List(String), { description: 'A description of the damage type.', required: true })
   public desc!: string[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, { required: true, index: true })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(() => T.String, {
+    description: 'Timestamp of the last update.',
+    required: true,
+    index: true
+  })
   public updated_at!: string
 }
 
