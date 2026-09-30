@@ -1,3 +1,10 @@
+## [7.2.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.1.1...5e-srd-api-v7.2.0) (2026-09-30)
+
+
+### Features
+
+* **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
+
 ## [7.1.1](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.1.0...5e-srd-api-v7.1.1) (2026-09-30)
 
 
