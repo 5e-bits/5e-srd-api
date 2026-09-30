@@ -27,8 +27,7 @@
   "dependencies": {
     "@apollo/server": "^5.5.1",
     "@as-integrations/express5": "^1.1.2",
-    "@bugsnag/js": "^8.10.0",
-    "@bugsnag/plugin-express": "^9.0.0",
+    "@sentry/node": "^11.1.0",
     "@typegoose/typegoose": "^13.5.0",
     "class-validator": "^0.15.1",
     "cors": "^2.8.6",

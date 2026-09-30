@@ -15,10 +15,10 @@ import { resolvers as resolvers2014 } from './graphql/2014/resolvers'
 import { resolvers as resolvers2024 } from './graphql/2024/resolvers'
 import { TranslationMiddleware } from './graphql/middleware/translationMiddleware'
 import { createApolloMiddleware } from './middleware/apolloServer'
-import bugsnagMiddleware from './middleware/bugsnag'
 import errorHandlerMiddleware from './middleware/errorHandler'
 import httpsRedirect from './middleware/httpsRedirect'
 import languageNegotiation from './middleware/languageNegotiation'
+import { Sentry, sentryEnabled } from './middleware/sentry'
 import apiRoutes from './routes/api'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -72,10 +72,6 @@ export default async () => {
   app.use(httpsRedirect)
 
   // Middleware stuff
-  if (bugsnagMiddleware) {
-    app.use(bugsnagMiddleware.requestHandler)
-  }
-
   app.use('/swagger', express.static(__dirname + '/swagger'))
   app.use('/css', express.static(__dirname + '/css'))
   app.use('/public', express.static(__dirname + '/public'))
@@ -120,8 +116,11 @@ export default async () => {
   app.get('/docs', docsController)
   app.use('/api', apiRoutes)
 
-  if (bugsnagMiddleware?.errorHandler) {
-    app.use(bugsnagMiddleware.errorHandler)
+  if (sentryEnabled) {
+    app.get('/debug-sentry', () => {
+      throw new Error('My first Sentry error!')
+    })
+    Sentry.setupExpressErrorHandler(app)
   }
 
   app.use(errorHandlerMiddleware)
