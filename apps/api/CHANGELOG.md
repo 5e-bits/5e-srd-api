@@ -43,6 +43,13 @@ purify food and drink on it to make sure she believed them.
 ![Iron
 Pot](https://github.com/user-attachments/assets/506e3b32-4093-42fd-8fa0-f8fd95bb85cb)
 
+## [7.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.0.1...5e-srd-api-v7.1.0) (2026-09-30)
+
+
+### Features
+
+* **api:** replace Bugsnag with Sentry ([#1329](https://github.com/5e-bits/5e-srd-api/issues/1329)) ([bc40b6a](https://github.com/5e-bits/5e-srd-api/commit/bc40b6ab9a6d574fa366775f644ae3b3575532ab))
+
 ## [7.0.1](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.0.0...5e-srd-api-v7.0.1) (2026-09-27)
 
 
