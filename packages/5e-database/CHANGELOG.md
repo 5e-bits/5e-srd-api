@@ -5,6 +5,18 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.3.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.2.0...5e-database-v7.3.0) (2026-09-30)
+
+
+### Features
+
+* **magic-items:** make 2024 desc a Markdown string array with tables ([#1343](https://github.com/5e-bits/5e-srd-api/issues/1343)) ([af655ab](https://github.com/5e-bits/5e-srd-api/commit/af655ab0e1cb0556821344377faba6937e908bcc))
+
+
+### Bug Fixes
+
+* **magic-items:** restore the full Wand of Wonder table in the 2024 SRD ([#1340](https://github.com/5e-bits/5e-srd-api/issues/1340)) ([bbd673c](https://github.com/5e-bits/5e-srd-api/commit/bbd673cb88161a162797cb88cc7b745ec53aae43)), closes [#1328](https://github.com/5e-bits/5e-srd-api/issues/1328)
+
 ## [7.1.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.0.0...5e-database-v7.1.0) (2026-09-27)
 
 
