@@ -11,7 +11,10 @@ magic-item-model-2024:
     - type: object
       properties:
         desc:
-          type: string
+          type: array
+          items:
+            type: string
+          description: 'Markdown paragraphs; tables are Markdown table strings.'
         image:
           type: string
         equipment_category:

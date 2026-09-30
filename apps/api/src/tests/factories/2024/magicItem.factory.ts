@@ -18,7 +18,7 @@ export const magicItemFactory = Factory.define<MagicItem2024>(({ sequence, param
   return {
     index,
     name,
-    desc: params.desc ?? faker.lorem.paragraph(),
+    desc: params.desc ?? [faker.lorem.paragraph()],
     image: params.image ?? `/images/magic-items/${index}.png`,
     equipment_category: apiReferenceFactory.build(
       params.equipment_category ?? { url: createUrl('equipment-categories', 'wondrous-items') }

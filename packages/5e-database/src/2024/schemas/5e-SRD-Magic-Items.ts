@@ -15,6 +15,6 @@ export const MagicItemSchema = z.strictObject({
   variants: z.array(APIReferenceSchema),
   attunement: z.boolean(),
   rarity: RaritySchema,
-  desc: z.string(),
+  desc: z.array(z.string()),
   'limited-to': z.string().optional(),
 });

@@ -14,10 +14,9 @@ get:
           example:
             index: bag-of-holding
             name: Bag of Holding
-            desc: |
-              This bag has an interior space considerably larger than its outside
-              dimensions, which are roughly 2 feet in diameter at the mouth and 4
-              feet deep.
+            desc:
+              - Wondrous Item
+              - This bag has an interior space considerably larger than its outside dimensions, which are roughly 2 feet in diameter at the mouth and 4 feet deep.
             equipment_category:
               index: adventuring-gear
               name: Adventuring Gear
