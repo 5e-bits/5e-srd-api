@@ -12,7 +12,9 @@ updates:
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: 'chore'
+      # fix(deps) makes release-please cut a patch release for runtime bumps.
+      prefix: 'fix'
+      prefix-development: 'chore'
       include: 'scope'
     groups:
       react:
@@ -33,7 +35,7 @@ updates:
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: 'chore'
+      prefix: 'fix'
       include: 'scope'
   - package-ecosystem: 'docker'
     directory: '/packages/5e-database'
