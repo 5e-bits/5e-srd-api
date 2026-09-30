@@ -117,9 +117,6 @@ export default async () => {
   app.use('/api', apiRoutes)
 
   if (sentryEnabled) {
-    app.get('/debug-sentry', () => {
-      throw new Error('My first Sentry error!')
-    })
     Sentry.setupExpressErrorHandler(app)
   }
 
