@@ -93,6 +93,42 @@ jobs:
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
 
+  sentry-release:
+    name: Sentry Release
+    runs-on: ubuntu-latest
+    needs: [resolve-tag]
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.resolve-tag.outputs.tag }}
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-node-pnpm
+      - name: Build TypeScript
+        working-directory: apps/api
+        run: pnpm run build:ts
+      - name: Compute release name
+        id: release-name
+        run: echo "name=dnd-5e-srd-api@${VERSION#v}" >> "$GITHUB_OUTPUT"
+        env:
+          VERSION: ${{ needs.resolve-tag.outputs.version }}
+      - name: Upload sourcemaps and link commits
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          # Must match the release name set in apps/api/src/middleware/sentry.ts.
+          release: ${{ steps.release-name.outputs.name }}
+          environment: production
+          sourcemaps: apps/api/dist
+          # Frames report container paths (WORKDIR /app/apps/api).
+          url_prefix: '~/app/apps/api/dist'
+          set_commits: auto
+
   heroku-deploy:
     name: Deploy to Heroku
     runs-on: ubuntu-latest
