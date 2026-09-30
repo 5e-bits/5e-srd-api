@@ -29,9 +29,11 @@ export class MagicItem2024 {
   @prop({ required: true, index: true, type: () => String })
   public name!: string
 
-  @Field(() => String, { description: 'A description of the magic item.' })
-  @prop({ required: true, type: () => String })
-  public desc!: string
+  @Field(() => [String], {
+    description: 'A description of the magic item, as Markdown paragraphs and tables.'
+  })
+  @prop({ required: true, type: () => [String] })
+  public desc!: string[]
 
   @Field(() => String, { nullable: true, description: 'URL of an image for the magic item.' })
   @prop({ type: () => String, index: true })
