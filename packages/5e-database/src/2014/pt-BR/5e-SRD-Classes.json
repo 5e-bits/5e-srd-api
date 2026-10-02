@@ -1,0 +1,3284 @@
+[
+  {
+    "index": "barbarian",
+    "name": "Bárbaro",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre Adestrar Animais, Atletismo, Intimidação, Natureza, Percepção e Sobrevivência",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-animal-handling",
+                "name": "Skill: Animal Handling",
+                "url": "/api/2014/proficiencies/skill-animal-handling"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-nature",
+                "name": "Skill: Nature",
+                "url": "/api/2014/proficiencies/skill-nature"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-perception",
+                "name": "Skill: Perception",
+                "url": "/api/2014/proficiencies/skill-perception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-survival",
+                "name": "Skill: Survival",
+                "url": "/api/2014/proficiencies/skill-survival"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) um machado grande ou (b) qualquer arma marcial corpo a corpo",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "greataxe",
+                "name": "Greataxe",
+                "url": "/api/2014/equipment/greataxe"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma marcial corpo a corpo",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "martial-melee-weapons",
+                    "name": "Martial Melee Weapons",
+                    "url": "/api/2014/equipment-categories/martial-melee-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) duas machadinhas ou (b) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 2,
+              "of": {
+                "index": "handaxe",
+                "name": "Handaxe",
+                "url": "/api/2014/equipment/handaxe"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "index": "bard",
+    "name": "Bardo",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha três quaisquer",
+        "choose": 3,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-acrobatics",
+                "name": "Skill: Acrobatics",
+                "url": "/api/2014/proficiencies/skill-acrobatics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-animal-handling",
+                "name": "Skill: Animal Handling",
+                "url": "/api/2014/proficiencies/skill-animal-handling"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-arcana",
+                "name": "Skill: Arcana",
+                "url": "/api/2014/proficiencies/skill-arcana"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-deception",
+                "name": "Skill: Deception",
+                "url": "/api/2014/proficiencies/skill-deception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-history",
+                "name": "Skill: History",
+                "url": "/api/2014/proficiencies/skill-history"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-investigation",
+                "name": "Skill: Investigation",
+                "url": "/api/2014/proficiencies/skill-investigation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-medicine",
+                "name": "Skill: Medicine",
+                "url": "/api/2014/proficiencies/skill-medicine"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-nature",
+                "name": "Skill: Nature",
+                "url": "/api/2014/proficiencies/skill-nature"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-perception",
+                "name": "Skill: Perception",
+                "url": "/api/2014/proficiencies/skill-perception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-performance",
+                "name": "Skill: Performance",
+                "url": "/api/2014/proficiencies/skill-performance"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-persuasion",
+                "name": "Skill: Persuasion",
+                "url": "/api/2014/proficiencies/skill-persuasion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-sleight-of-hand",
+                "name": "Skill: Sleight of Hand",
+                "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-stealth",
+                "name": "Skill: Stealth",
+                "url": "/api/2014/proficiencies/skill-stealth"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-survival",
+                "name": "Skill: Survival",
+                "url": "/api/2014/proficiencies/skill-survival"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "Três instrumentos musicais à sua escolha",
+        "choose": 3,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "bagpipes",
+                "name": "Bagpipes",
+                "url": "/api/2014/proficiencies/bagpipes"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "drum",
+                "name": "Drum",
+                "url": "/api/2014/proficiencies/drum"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "dulcimer",
+                "name": "Dulcimer",
+                "url": "/api/2014/proficiencies/dulcimer"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "flute",
+                "name": "Flute",
+                "url": "/api/2014/proficiencies/flute"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "lute",
+                "name": "Lute",
+                "url": "/api/2014/proficiencies/lute"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "lyre",
+                "name": "Lyre",
+                "url": "/api/2014/proficiencies/lyre"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "horn",
+                "name": "Horn",
+                "url": "/api/2014/proficiencies/horn"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "pan-flute",
+                "name": "Pan flute",
+                "url": "/api/2014/proficiencies/pan-flute"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "shawm",
+                "name": "Shawm",
+                "url": "/api/2014/proficiencies/shawm"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "viol",
+                "name": "Viol",
+                "url": "/api/2014/proficiencies/viol"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma rapieira, (b) uma espada longa ou (c) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "rapier",
+                "name": "Rapier",
+                "url": "/api/2014/equipment/rapier"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "longsword",
+                "name": "Longsword",
+                "url": "/api/2014/equipment/longsword"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de diplomata ou (b) um pacote de artista",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "diplomats-pack",
+                "name": "Diplomat's Pack",
+                "url": "/api/2014/equipment/diplomats-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "entertainers-pack",
+                "name": "Entertainer's Pack",
+                "url": "/api/2014/equipment/entertainers-pack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um alaúde ou (b) qualquer outro instrumento musical",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "lute",
+                "name": "Lute",
+                "url": "/api/2014/equipment/lute"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer outro instrumento musical",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "musical-instruments",
+                    "name": "Musical Instruments",
+                    "url": "/api/2014/equipment-categories/musical-instruments"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "multi_classing": {
+      "prerequisites": [
+        {
+          "ability_score": {
+            "index": "cha",
+            "name": "CHA",
+            "url": "/api/2014/ability-scores/cha"
+          },
+          "minimum_score": 13
+        }
+      ],
+      "proficiencies": [
+        {
+          "index": "light-armor",
+          "name": "Light Armor",
+          "url": "/api/2014/proficiencies/light-armor"
+        }
+      ],
+      "proficiency_choices": [
+        {
+          "desc": "perícia",
+          "choose": 1,
+          "type": "proficiencies",
+          "from": {
+            "option_set_type": "options_array",
+            "options": [
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-acrobatics",
+                  "name": "Skill: Acrobatics",
+                  "url": "/api/2014/proficiencies/skill-acrobatics"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-animal-handling",
+                  "name": "Skill: Animal Handling",
+                  "url": "/api/2014/proficiencies/skill-animal-handling"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-arcana",
+                  "name": "Skill: Arcana",
+                  "url": "/api/2014/proficiencies/skill-arcana"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-athletics",
+                  "name": "Skill: Athletics",
+                  "url": "/api/2014/proficiencies/skill-athletics"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-deception",
+                  "name": "Skill: Deception",
+                  "url": "/api/2014/proficiencies/skill-deception"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-history",
+                  "name": "Skill: History",
+                  "url": "/api/2014/proficiencies/skill-history"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-insight",
+                  "name": "Skill: Insight",
+                  "url": "/api/2014/proficiencies/skill-insight"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-intimidation",
+                  "name": "Skill: Intimidation",
+                  "url": "/api/2014/proficiencies/skill-intimidation"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-investigation",
+                  "name": "Skill: Investigation",
+                  "url": "/api/2014/proficiencies/skill-investigation"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-medicine",
+                  "name": "Skill: Medicine",
+                  "url": "/api/2014/proficiencies/skill-medicine"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-nature",
+                  "name": "Skill: Nature",
+                  "url": "/api/2014/proficiencies/skill-nature"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-perception",
+                  "name": "Skill: Perception",
+                  "url": "/api/2014/proficiencies/skill-perception"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-performance",
+                  "name": "Skill: Performance",
+                  "url": "/api/2014/proficiencies/skill-performance"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-persuasion",
+                  "name": "Skill: Persuasion",
+                  "url": "/api/2014/proficiencies/skill-persuasion"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-religion",
+                  "name": "Skill: Religion",
+                  "url": "/api/2014/proficiencies/skill-religion"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-sleight-of-hand",
+                  "name": "Skill: Sleight of Hand",
+                  "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-stealth",
+                  "name": "Skill: Stealth",
+                  "url": "/api/2014/proficiencies/skill-stealth"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "skill-survival",
+                  "name": "Skill: Survival",
+                  "url": "/api/2014/proficiencies/skill-survival"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "desc": "instrumento musical",
+          "choose": 1,
+          "type": "proficiencies",
+          "from": {
+            "option_set_type": "options_array",
+            "options": [
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "bagpipes",
+                  "name": "Bagpipes",
+                  "url": "/api/2014/proficiencies/bagpipes"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "drum",
+                  "name": "Drum",
+                  "url": "/api/2014/proficiencies/drum"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "dulcimer",
+                  "name": "Dulcimer",
+                  "url": "/api/2014/proficiencies/dulcimer"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "flute",
+                  "name": "Flute",
+                  "url": "/api/2014/proficiencies/flute"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "lute",
+                  "name": "Lute",
+                  "url": "/api/2014/proficiencies/lute"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "lyre",
+                  "name": "Lyre",
+                  "url": "/api/2014/proficiencies/lyre"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "horn",
+                  "name": "Horn",
+                  "url": "/api/2014/proficiencies/horn"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "pan-flute",
+                  "name": "Pan flute",
+                  "url": "/api/2014/proficiencies/pan-flute"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "shawm",
+                  "name": "Shawm",
+                  "url": "/api/2014/proficiencies/shawm"
+                }
+              },
+              {
+                "option_type": "reference",
+                "item": {
+                  "index": "viol",
+                  "name": "Viol",
+                  "url": "/api/2014/proficiencies/viol"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "spellcasting": {
+      "level": 1,
+      "spellcasting_ability": {
+        "index": "cha",
+        "name": "CHA",
+        "url": "/api/2014/ability-scores/cha"
+      },
+      "info": [
+        {
+          "name": "Truques",
+          "desc": [
+            "Você conhece dois truques à sua escolha da lista de magias de bardo. Você aprende truques de bardo adicionais à sua escolha em níveis mais altos, como mostrado na coluna Truques Conhecidos da tabela do Bardo."
+          ]
+        },
+        {
+          "name": "Espaços de Magia",
+          "desc": [
+            "A tabela do Bardo mostra quantos espaços de magia você tem para conjurar suas magias de 1º nível ou superior. Para conjurar uma dessas magias, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Por exemplo, se você conhece a magia de 1º nível curar ferimentos e tem um espaço de magia de 1º nível e um de 2º nível disponíveis, você pode conjurar curar ferimentos usando qualquer um dos dois."
+          ]
+        },
+        {
+          "name": "Magias Conhecidas de 1º Nível ou Superior",
+          "desc": [
+            "Você conhece quatro magias de 1º nível à sua escolha da lista de magias de bardo.",
+            "A coluna Magias Conhecidas da tabela do Bardo mostra quando você aprende mais magias de bardo à sua escolha.",
+            "Cada uma dessas magias deve ser de um nível para o qual você tenha espaços de magia, como mostrado na tabela. Por exemplo, quando você alcança o 3º nível nesta classe, você pode aprender uma nova magia de 1º ou 2º nível.",
+            "Além disso, quando você ganha um nível nesta classe, você pode escolher uma das magias de bardo que conhece e substituí-la por outra magia da lista de magias de bardo, que também deve ser de um nível para o qual você tenha espaços de magia."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Carisma é sua habilidade de conjuração para suas magias de bardo. Sua magia vem do coração e da alma que você coloca na execução da sua música ou oratória. Você usa seu Carisma sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Carisma ao definir a CD do teste de resistência para uma magia de bardo que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Carisma.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Carisma."
+          ]
+        },
+        {
+          "name": "Conjuração de Ritual",
+          "desc": [
+            "Você pode conjurar qualquer magia de bardo que conheça como um ritual, se essa magia tiver o descritor ritual."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um instrumento musical (veja Equipamento) como foco de conjuração para suas magias de bardo."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "cleric",
+    "name": "Clérigo",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre História, Intuição, Medicina, Persuasão e Religião",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-history",
+                "name": "Skill: History",
+                "url": "/api/2014/proficiencies/skill-history"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-medicine",
+                "name": "Skill: Medicine",
+                "url": "/api/2014/proficiencies/skill-medicine"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-persuasion",
+                "name": "Skill: Persuasion",
+                "url": "/api/2014/proficiencies/skill-persuasion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma maça ou (b) um martelo de guerra (se for proficiente)",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "mace",
+                "name": "Mace",
+                "url": "/api/2014/equipment/mace"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "warhammer",
+                "name": "Warhammer",
+                "url": "/api/2014/equipment/warhammer"
+              },
+              "prerequisites": [
+                {
+                  "type": "proficiency",
+                  "proficiency": {
+                    "index": "warhammers",
+                    "name": "Warhammers",
+                    "url": "/api/2014/proficiencies/warhammers"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma brunea, (b) uma armadura de couro ou (c) uma cota de malha (se for proficiente)",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "scale-mail",
+                "name": "Scale Mail",
+                "url": "/api/2014/equipment/scale-mail"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "leather-armor",
+                "name": "Leather Armor",
+                "url": "/api/2014/equipment/leather-armor"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "chain-mail",
+                "name": "Chain Mail",
+                "url": "/api/2014/equipment/chain-mail"
+              },
+              "prerequisites": [
+                {
+                  "type": "proficiency",
+                  "proficiency": {
+                    "index": "chain-mail",
+                    "name": "Chain Mail",
+                    "url": "/api/2014/proficiencies/chain-mail"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma besta leve e 20 virotes ou (b) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "crossbow-light",
+                    "name": "Crossbow, light",
+                    "url": "/api/2014/equipment/crossbow-light"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 20,
+                  "of": {
+                    "index": "crossbow-bolt",
+                    "name": "Crossbow bolt",
+                    "url": "/api/2014/equipment/crossbow-bolt"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de sacerdote ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "priests-pack",
+                "name": "Priest's Pack",
+                "url": "/api/2014/equipment/priests-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "símbolo sagrado",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "equipment_category",
+          "equipment_category": {
+            "index": "holy-symbols",
+            "name": "Holy Symbols",
+            "url": "/api/2014/equipment-categories/holy-symbols"
+          }
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 1,
+      "spellcasting_ability": {
+        "index": "wis",
+        "name": "WIS",
+        "url": "/api/2014/ability-scores/wis"
+      },
+      "info": [
+        {
+          "name": "Truques",
+          "desc": [
+            "No 1º nível, você conhece três truques à sua escolha da lista de magias de clérigo. Você aprende truques de clérigo adicionais à sua escolha em níveis mais altos, como mostrado na coluna Truques Conhecidos da tabela do Clérigo."
+          ]
+        },
+        {
+          "name": "Preparando e Conjurando Magias",
+          "desc": [
+            "A tabela do Clérigo mostra quantos espaços de magia você tem para conjurar suas magias de 1º nível ou superior. Para conjurar uma dessas magias, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Você prepara a lista de magias de clérigo que estão disponíveis para você conjurar, escolhendo da lista de magias de clérigo. Ao fazer isso, escolha um número de magias de clérigo igual ao seu modificador de Sabedoria + seu nível de clérigo (mínimo de uma magia). As magias devem ser de um nível para o qual você tenha espaços de magia.",
+            "Por exemplo, se você é um clérigo de 3º nível, você tem quatro espaços de magia de 1º nível e dois de 2º nível. Com Sabedoria 16, sua lista de magias preparadas pode incluir seis magias de 1º ou 2º nível, em qualquer combinação. Se você preparar a magia de 1º nível curar ferimentos, poderá conjurá-la usando um espaço de 1º ou de 2º nível. Conjurar a magia não a remove da sua lista de magias preparadas.",
+            "Você pode mudar sua lista de magias preparadas quando termina um descanso longo. Preparar uma nova lista de magias de clérigo requer tempo gasto em oração e meditação: pelo menos 1 minuto por nível de magia para cada magia da sua lista."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Sabedoria é sua habilidade de conjuração para suas magias de clérigo. O poder das suas magias vem da sua devoção à sua divindade. Você usa sua Sabedoria sempre que uma magia de clérigo se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Sabedoria ao definir a CD do teste de resistência para uma magia de clérigo que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Sabedoria.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Sabedoria."
+          ]
+        },
+        {
+          "name": "Conjuração de Ritual",
+          "desc": [
+            "Você pode conjurar uma magia de clérigo como um ritual se essa magia tiver o descritor ritual e você a tiver preparada."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um símbolo sagrado (veja Equipamento) como foco de conjuração para suas magias de clérigo."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "druid",
+    "name": "Druida",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre Arcanismo, Adestrar Animais, Intuição, Medicina, Natureza, Percepção, Religião e Sobrevivência",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-arcana",
+                "name": "Skill: Arcana",
+                "url": "/api/2014/proficiencies/skill-arcana"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-animal-handling",
+                "name": "Skill: Animal Handling",
+                "url": "/api/2014/proficiencies/skill-animal-handling"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-medicine",
+                "name": "Skill: Medicine",
+                "url": "/api/2014/proficiencies/skill-medicine"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-nature",
+                "name": "Skill: Nature",
+                "url": "/api/2014/proficiencies/skill-nature"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-perception",
+                "name": "Skill: Perception",
+                "url": "/api/2014/proficiencies/skill-perception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-survival",
+                "name": "Skill: Survival",
+                "url": "/api/2014/proficiencies/skill-survival"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) um escudo de madeira ou (b) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "shield",
+                "name": "Shield",
+                "url": "/api/2014/equipment/shield"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma cimitarra ou (b) qualquer arma simples corpo a corpo",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "scimitar",
+                "name": "Scimitar",
+                "url": "/api/2014/equipment/scimitar"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples corpo a corpo",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-melee-weapons",
+                    "name": "Simple Melee Weapons",
+                    "url": "/api/2014/equipment-categories/simple-melee-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "foco druídico",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "equipment_category",
+          "equipment_category": {
+            "index": "druidic-foci",
+            "name": "Druidic Foci",
+            "url": "/api/2014/equipment-categories/druidic-foci"
+          }
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 1,
+      "spellcasting_ability": {
+        "index": "wis",
+        "name": "WIS",
+        "url": "/api/2014/ability-scores/wis"
+      },
+      "info": [
+        {
+          "name": "Truques",
+          "desc": [
+            "No 1º nível, você conhece dois truques à sua escolha da lista de magias de druida. Você aprende truques de druida adicionais à sua escolha em níveis mais altos, como mostrado na coluna Truques Conhecidos da tabela do Druida."
+          ]
+        },
+        {
+          "name": "Preparando e Conjurando Magias",
+          "desc": [
+            "A tabela do Druida mostra quantos espaços de magia você tem para conjurar suas magias de 1º nível ou superior. Para conjurar uma dessas magias de druida, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Você prepara a lista de magias de druida que estão disponíveis para você conjurar, escolhendo da lista de magias de druida. Ao fazer isso, escolha um número de magias de druida igual ao seu modificador de Sabedoria + seu nível de druida (mínimo de uma magia). As magias devem ser de um nível para o qual você tenha espaços de magia.",
+            "Por exemplo, se você é um druida de 3º nível, você tem quatro espaços de magia de 1º nível e dois de 2º nível. Com Sabedoria 16, sua lista de magias preparadas pode incluir seis magias de 1º ou 2º nível, em qualquer combinação. Se você preparar a magia de 1º nível curar ferimentos, poderá conjurá-la usando um espaço de 1º ou de 2º nível. Conjurar a magia não a remove da sua lista de magias preparadas.",
+            "Você também pode mudar sua lista de magias preparadas quando termina um descanso longo. Preparar uma nova lista de magias de druida requer tempo gasto em oração e meditação: pelo menos 1 minuto por nível de magia para cada magia da sua lista."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Sabedoria é sua habilidade de conjuração para suas magias de druida, já que sua magia se baseia em sua devoção e sintonia com a natureza. Você usa sua Sabedoria sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Sabedoria ao definir a CD do teste de resistência para uma magia de druida que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Sabedoria.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Sabedoria."
+          ]
+        },
+        {
+          "name": "Conjuração de Ritual",
+          "desc": [
+            "Você pode conjurar uma magia de druida como um ritual se essa magia tiver o descritor ritual e você a tiver preparada."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um foco druídico (veja o capítulo 5, \"Equipamento\") como foco de conjuração para suas magias de druida."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "fighter",
+    "name": "Guerreiro",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas perícias entre Acrobacia, Adestrar Animais, Atletismo, História, Intuição, Intimidação, Percepção e Sobrevivência",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-acrobatics",
+                "name": "Skill: Acrobatics",
+                "url": "/api/2014/proficiencies/skill-acrobatics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-animal-handling",
+                "name": "Skill: Animal Handling",
+                "url": "/api/2014/proficiencies/skill-animal-handling"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-history",
+                "name": "Skill: History",
+                "url": "/api/2014/proficiencies/skill-history"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-perception",
+                "name": "Skill: Perception",
+                "url": "/api/2014/proficiencies/skill-perception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-survival",
+                "name": "Skill: Survival",
+                "url": "/api/2014/proficiencies/skill-survival"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma cota de malha ou (b) uma armadura de couro, um arco longo e 20 flechas",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "chain-mail",
+                "name": "Chain Mail",
+                "url": "/api/2014/equipment/chain-mail"
+              }
+            },
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "leather-armor",
+                    "name": "Leather Armor",
+                    "url": "/api/2014/equipment/leather-armor"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "longbow",
+                    "name": "Longbow",
+                    "url": "/api/2014/equipment/longbow"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 20,
+                  "of": {
+                    "index": "arrow",
+                    "name": "Arrow",
+                    "url": "/api/2014/equipment/arrow"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma arma marcial e um escudo ou (b) duas armas marciais",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "choice",
+                  "choice": {
+                    "desc": "uma arma marcial",
+                    "choose": 1,
+                    "type": "equipment",
+                    "from": {
+                      "option_set_type": "equipment_category",
+                      "equipment_category": {
+                        "index": "martial-weapons",
+                        "name": "Martial Weapons",
+                        "url": "/api/2014/equipment-categories/martial-weapons"
+                      }
+                    }
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "shield",
+                    "name": "Shield",
+                    "url": "/api/2014/equipment/shield"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "duas armas marciais",
+                "choose": 2,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "martial-weapons",
+                    "name": "Martial Weapons",
+                    "url": "/api/2014/equipment-categories/martial-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma besta leve e 20 virotes ou (b) duas machadinhas",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "crossbow-light",
+                    "name": "Crossbow, light",
+                    "url": "/api/2014/equipment/crossbow-light"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 20,
+                  "of": {
+                    "index": "crossbow-bolt",
+                    "name": "Crossbow bolt",
+                    "url": "/api/2014/equipment/crossbow-bolt"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 2,
+              "of": {
+                "index": "handaxe",
+                "name": "Handaxe",
+                "url": "/api/2014/equipment/handaxe"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de explorador ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dungeoneers-pack",
+                "name": "Dungeoneer's Pack",
+                "url": "/api/2014/equipment/dungeoneers-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "index": "monk",
+    "name": "Monge",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre Acrobacia, Atletismo, História, Intuição, Religião e Furtividade",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-acrobatics",
+                "name": "Skill: Acrobatics",
+                "url": "/api/2014/proficiencies/skill-acrobatics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-history",
+                "name": "Skill: History",
+                "url": "/api/2014/proficiencies/skill-history"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-stealth",
+                "name": "Skill: Stealth",
+                "url": "/api/2014/proficiencies/skill-stealth"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "Escolha um tipo de ferramentas de artesão ou um instrumento musical",
+        "type": "proficiencies",
+        "choose": 1,
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "ferramentas de artesão",
+                "type": "proficiencies",
+                "choose": 1,
+                "from": {
+                  "option_set_type": "options_array",
+                  "options": [
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "alchemists-supplies",
+                        "name": "Alchemist's Supplies",
+                        "url": "/api/2014/proficiencies/alchemists-supplies"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "brewers-supplies",
+                        "name": "Brewer's Supplies",
+                        "url": "/api/2014/proficiencies/brewers-supplies"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "calligraphers-supplies",
+                        "name": "Calligrapher's Supplies",
+                        "url": "/api/2014/proficiencies/calligraphers-supplies"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "carpenters-tools",
+                        "name": "Carpenter's Tools",
+                        "url": "/api/2014/proficiencies/carpenters-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "cartographers-tools",
+                        "name": "Cartographer's Tools",
+                        "url": "/api/2014/proficiencies/cartographers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "cobblers-tools",
+                        "name": "Cobbler's Tools",
+                        "url": "/api/2014/proficiencies/cobblers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "cooks-utensils",
+                        "name": "Cook's utensils",
+                        "url": "/api/2014/proficiencies/cooks-utensils"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "glassblowers-tools",
+                        "name": "Glassblower's Tools",
+                        "url": "/api/2014/proficiencies/glassblowers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "jewelers-tools",
+                        "name": "Jeweler's Tools",
+                        "url": "/api/2014/proficiencies/jewelers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "leatherworkers-tools",
+                        "name": "Leatherworker's Tools",
+                        "url": "/api/2014/proficiencies/leatherworkers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "masons-tools",
+                        "name": "Mason's Tools",
+                        "url": "/api/2014/proficiencies/masons-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "painters-supplies",
+                        "name": "Painter's Supplies",
+                        "url": "/api/2014/proficiencies/painters-supplies"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "potters-tools",
+                        "name": "Potter's Tools",
+                        "url": "/api/2014/proficiencies/potters-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "smiths-tools",
+                        "name": "Smith's Tools",
+                        "url": "/api/2014/proficiencies/smiths-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "tinkers-tools",
+                        "name": "Tinker's Tools",
+                        "url": "/api/2014/proficiencies/tinkers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "weavers-tools",
+                        "name": "Weaver's Tools",
+                        "url": "/api/2014/proficiencies/weavers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "woodcarvers-tools",
+                        "name": "Woodcarver's Tools",
+                        "url": "/api/2014/proficiencies/woodcarvers-tools"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "disguise-kit",
+                        "name": "Disguise Kit",
+                        "url": "/api/2014/proficiencies/disguise-kit"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "forgery-kit",
+                        "name": "Forgery Kit",
+                        "url": "/api/2014/proficiencies/forgery-kit"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "instrumento musical",
+                "type": "proficiencies",
+                "choose": 1,
+                "from": {
+                  "option_set_type": "options_array",
+                  "options": [
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "bagpipes",
+                        "name": "Bagpipes",
+                        "url": "/api/2014/proficiencies/bagpipes"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "drum",
+                        "name": "Drum",
+                        "url": "/api/2014/proficiencies/drum"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "dulcimer",
+                        "name": "Dulcimer",
+                        "url": "/api/2014/proficiencies/dulcimer"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "flute",
+                        "name": "Flute",
+                        "url": "/api/2014/proficiencies/flute"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "lute",
+                        "name": "Lute",
+                        "url": "/api/2014/proficiencies/lute"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "lyre",
+                        "name": "Lyre",
+                        "url": "/api/2014/proficiencies/lyre"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "horn",
+                        "name": "Horn",
+                        "url": "/api/2014/proficiencies/horn"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "pan-flute",
+                        "name": "Pan flute",
+                        "url": "/api/2014/proficiencies/pan-flute"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "shawm",
+                        "name": "Shawm",
+                        "url": "/api/2014/proficiencies/shawm"
+                      }
+                    },
+                    {
+                      "option_type": "reference",
+                      "item": {
+                        "index": "viol",
+                        "name": "Viol",
+                        "url": "/api/2014/proficiencies/viol"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma espada curta ou (b) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "shortsword",
+                "name": "Shortsword",
+                "url": "/api/2014/equipment/shortsword"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de explorador ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dungeoneers-pack",
+                "name": "Dungeoneer's Pack",
+                "url": "/api/2014/equipment/dungeoneers-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "index": "paladin",
+    "name": "Paladino",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre Atletismo, Intuição, Intimidação, Medicina, Persuasão e Religião",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-medicine",
+                "name": "Skill: Medicine",
+                "url": "/api/2014/proficiencies/skill-medicine"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-persuasion",
+                "name": "Skill: Persuasion",
+                "url": "/api/2014/proficiencies/skill-persuasion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma arma marcial e um escudo ou (b) duas armas marciais",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "choice",
+                  "choice": {
+                    "desc": "uma arma marcial",
+                    "choose": 1,
+                    "type": "equipment",
+                    "from": {
+                      "option_set_type": "equipment_category",
+                      "equipment_category": {
+                        "name": "Martial Weapons",
+                        "index": "martial-weapons",
+                        "url": "/api/2014/equipment-categories/martial-weapons"
+                      }
+                    }
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "shield",
+                    "name": "Shield",
+                    "url": "/api/2014/equipment/shield"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "duas armas marciais",
+                "choose": 2,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "martial-weapons",
+                    "name": "Martial Weapons",
+                    "url": "/api/2014/equipment-categories/martial-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) cinco azagaias ou (b) qualquer arma simples corpo a corpo",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 5,
+              "of": {
+                "index": "javelin",
+                "name": "Javelin",
+                "url": "/api/2014/equipment/javelin"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de sacerdote ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "priests-pack",
+                "name": "Priest's Pack",
+                "url": "/api/2014/equipment/priests-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "símbolo sagrado",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "equipment_category",
+          "equipment_category": {
+            "index": "holy-symbols",
+            "name": "Holy Symbols",
+            "url": "/api/2014/equipment-categories/holy-symbols"
+          }
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 2,
+      "spellcasting_ability": {
+        "index": "cha",
+        "name": "CHA",
+        "url": "/api/2014/ability-scores/cha"
+      },
+      "info": [
+        {
+          "name": "Preparando e Conjurando Magias",
+          "desc": [
+            "A tabela do Paladino mostra quantos espaços de magia você tem para conjurar suas magias. Para conjurar uma de suas magias de paladino de 1º nível ou superior, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Você prepara a lista de magias de paladino que estão disponíveis para você conjurar, escolhendo da lista de magias de paladino. Ao fazer isso, escolha um número de magias de paladino igual ao seu modificador de Carisma + metade do seu nível de paladino, arredondado para baixo (mínimo de uma magia). As magias devem ser de um nível para o qual você tenha espaços de magia.",
+            "Por exemplo, se você é um paladino de 5º nível, você tem quatro espaços de magia de 1º nível e dois de 2º nível. Com Carisma 14, sua lista de magias preparadas pode incluir quatro magias de 1º ou 2º nível, em qualquer combinação. Se você preparar a magia de 1º nível curar ferimentos, poderá conjurá-la usando um espaço de 1º ou de 2º nível. Conjurar a magia não a remove da sua lista de magias preparadas.",
+            "Você pode mudar sua lista de magias preparadas quando termina um descanso longo. Preparar uma nova lista de magias de paladino requer tempo gasto em oração e meditação: pelo menos 1 minuto por nível de magia para cada magia da sua lista."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Carisma é sua habilidade de conjuração para suas magias de paladino, já que o poder delas deriva da força das suas convicções. Você usa seu Carisma sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Carisma ao definir a CD do teste de resistência para uma magia de paladino que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Carisma.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Carisma."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um símbolo sagrado como foco de conjuração para suas magias de paladino."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "ranger",
+    "name": "Patrulheiro",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha três entre Adestrar Animais, Atletismo, Intuição, Investigação, Natureza, Percepção, Furtividade e Sobrevivência",
+        "choose": 3,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-animal-handling",
+                "name": "Skill: Animal Handling",
+                "url": "/api/2014/proficiencies/skill-animal-handling"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-investigation",
+                "name": "Skill: Investigation",
+                "url": "/api/2014/proficiencies/skill-investigation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-nature",
+                "name": "Skill: Nature",
+                "url": "/api/2014/proficiencies/skill-nature"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-perception",
+                "name": "Skill: Perception",
+                "url": "/api/2014/proficiencies/skill-perception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-stealth",
+                "name": "Skill: Stealth",
+                "url": "/api/2014/proficiencies/skill-stealth"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-survival",
+                "name": "Skill: Survival",
+                "url": "/api/2014/proficiencies/skill-survival"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma brunea ou (b) uma armadura de couro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "scale-mail",
+                "name": "Scale Mail",
+                "url": "/api/2014/equipment/scale-mail"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "leather-armor",
+                "name": "Leather Armor",
+                "url": "/api/2014/equipment/leather-armor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) duas espadas curtas ou (b) duas armas simples corpo a corpo",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 2,
+              "of": {
+                "index": "shortsword",
+                "name": "Shortsword",
+                "url": "/api/2014/equipment/shortsword"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "duas armas simples corpo a corpo",
+                "choose": 2,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-melee-weapons",
+                    "name": "Simple Melee Weapons",
+                    "url": "/api/2014/equipment-categories/simple-melee-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de explorador ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dungeoneers-pack",
+                "name": "Dungeoneer's Pack",
+                "url": "/api/2014/equipment/dungeoneers-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 2,
+      "spellcasting_ability": {
+        "index": "wis",
+        "name": "WIS",
+        "url": "/api/2014/ability-scores/wis"
+      },
+      "info": [
+        {
+          "name": "Espaços de Magia",
+          "desc": [
+            "A tabela do Patrulheiro mostra quantos espaços de magia você tem para conjurar suas magias de 1º nível ou superior. Para conjurar uma dessas magias, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Por exemplo, se você conhece a magia de 1º nível amizade animal e tem um espaço de magia de 1º nível e um de 2º nível disponíveis, você pode conjurar amizade animal usando qualquer um dos dois."
+          ]
+        },
+        {
+          "name": "Magias Conhecidas de 1º Nível ou Superior",
+          "desc": [
+            "Você conhece duas magias de 1º nível à sua escolha da lista de magias de patrulheiro.",
+            "A coluna Magias Conhecidas da tabela do Patrulheiro mostra quando você aprende mais magias de patrulheiro à sua escolha. Cada uma dessas magias deve ser de um nível para o qual você tenha espaços de magia. Por exemplo, quando você alcança o 5º nível nesta classe, você pode aprender uma nova magia de 1º ou 2º nível.",
+            "Além disso, quando você ganha um nível nesta classe, você pode escolher uma das magias de patrulheiro que conhece e substituí-la por outra magia da lista de magias de patrulheiro, que também deve ser de um nível para o qual você tenha espaços de magia."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Sabedoria é sua habilidade de conjuração para suas magias de patrulheiro, já que sua magia se baseia em sua sintonia com a natureza. Você usa sua Sabedoria sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Sabedoria ao definir a CD do teste de resistência para uma magia de patrulheiro que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Sabedoria.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Sabedoria."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "rogue",
+    "name": "Ladino",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha quatro entre Acrobacia, Atletismo, Enganação, Intuição, Intimidação, Investigação, Percepção, Atuação, Persuasão, Prestidigitação e Furtividade",
+        "choose": 4,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-acrobatics",
+                "name": "Skill: Acrobatics",
+                "url": "/api/2014/proficiencies/skill-acrobatics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-athletics",
+                "name": "Skill: Athletics",
+                "url": "/api/2014/proficiencies/skill-athletics"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-deception",
+                "name": "Skill: Deception",
+                "url": "/api/2014/proficiencies/skill-deception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-investigation",
+                "name": "Skill: Investigation",
+                "url": "/api/2014/proficiencies/skill-investigation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-perception",
+                "name": "Skill: Perception",
+                "url": "/api/2014/proficiencies/skill-perception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-performance",
+                "name": "Skill: Performance",
+                "url": "/api/2014/proficiencies/skill-performance"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-persuasion",
+                "name": "Skill: Persuasion",
+                "url": "/api/2014/proficiencies/skill-persuasion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-sleight-of-hand",
+                "name": "Skill: Sleight of Hand",
+                "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-stealth",
+                "name": "Skill: Stealth",
+                "url": "/api/2014/proficiencies/skill-stealth"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma rapieira ou (b) uma espada curta",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "rapier",
+                "name": "Rapier",
+                "url": "/api/2014/equipment/rapier"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "shortsword",
+                "name": "Shortsword",
+                "url": "/api/2014/equipment/shortsword"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um arco curto e uma aljava com 20 flechas ou (b) uma espada curta",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "shortbow",
+                    "name": "Shortbow",
+                    "url": "/api/2014/equipment/shortbow"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 20,
+                  "of": {
+                    "index": "arrow",
+                    "name": "Arrow",
+                    "url": "/api/2014/equipment/arrow"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "shortsword",
+                "name": "Shortsword",
+                "url": "/api/2014/equipment/shortsword"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de assaltante, (b) um pacote de explorador ou (c) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "burglars-pack",
+                "name": "Burglar's Pack",
+                "url": "/api/2014/equipment/burglars-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dungeoneers-pack",
+                "name": "Dungeoneer's Pack",
+                "url": "/api/2014/equipment/dungeoneers-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "index": "sorcerer",
+    "name": "Feiticeiro",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre Arcanismo, Enganação, Intuição, Intimidação, Persuasão e Religião",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-arcana",
+                "name": "Skill: Arcana",
+                "url": "/api/2014/proficiencies/skill-arcana"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-deception",
+                "name": "Skill: Deception",
+                "url": "/api/2014/proficiencies/skill-deception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-persuasion",
+                "name": "Skill: Persuasion",
+                "url": "/api/2014/proficiencies/skill-persuasion"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma besta leve e 20 virotes ou (b) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "crossbow-light",
+                    "name": "Crossbow, light",
+                    "url": "/api/2014/equipment/crossbow-light"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 20,
+                  "of": {
+                    "index": "crossbow-bolt",
+                    "name": "Crossbow bolt",
+                    "url": "/api/2014/equipment/crossbow-bolt"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma bolsa de componentes ou (b) um foco arcano",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "component-pouch",
+                "name": "Component pouch",
+                "url": "/api/2014/equipment/component-pouch"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "foco arcano",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "arcane-foci",
+                    "name": "Arcane Foci",
+                    "url": "/api/2014/equipment-categories/arcane-foci"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de explorador ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dungeoneers-pack",
+                "name": "Dungeoneer's Pack",
+                "url": "/api/2014/equipment/dungeoneers-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 1,
+      "spellcasting_ability": {
+        "index": "cha",
+        "name": "CHA",
+        "url": "/api/2014/ability-scores/cha"
+      },
+      "info": [
+        {
+          "name": "Truques",
+          "desc": [
+            "No 1º nível, você conhece quatro truques à sua escolha da lista de magias de feiticeiro. Você aprende truques de feiticeiro adicionais à sua escolha em níveis mais altos, como mostrado na coluna Truques Conhecidos da tabela do Feiticeiro."
+          ]
+        },
+        {
+          "name": "Espaços de Magia",
+          "desc": [
+            "A tabela do Feiticeiro mostra quantos espaços de magia você tem para conjurar suas magias de 1º nível ou superior. Para conjurar uma dessas magias de feiticeiro, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Por exemplo, se você conhece a magia de 1º nível mãos flamejantes e tem um espaço de magia de 1º nível e um de 2º nível disponíveis, você pode conjurar mãos flamejantes usando qualquer um dos dois."
+          ]
+        },
+        {
+          "name": "Magias Conhecidas de 1º Nível ou Superior",
+          "desc": [
+            "Você conhece duas magias de 1º nível à sua escolha da lista de magias de feiticeiro.",
+            "A coluna Magias Conhecidas da tabela do Feiticeiro mostra quando você aprende mais magias de feiticeiro à sua escolha. Cada uma dessas magias deve ser de um nível para o qual você tenha espaços de magia. Por exemplo, quando você alcança o 3º nível nesta classe, você pode aprender uma nova magia de 1º ou 2º nível.",
+            "Além disso, quando você ganha um nível nesta classe, você pode escolher uma das magias de feiticeiro que conhece e substituí-la por outra magia da lista de magias de feiticeiro, que também deve ser de um nível para o qual você tenha espaços de magia."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Carisma é sua habilidade de conjuração para suas magias de feiticeiro, já que o poder da sua magia depende da sua capacidade de projetar sua vontade no mundo. Você usa seu Carisma sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Carisma ao definir a CD do teste de resistência para uma magia de feiticeiro que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Carisma.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Carisma."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um foco arcano como foco de conjuração para suas magias de feiticeiro."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "warlock",
+    "name": "Bruxo",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas perícias entre Arcanismo, Enganação, História, Intimidação, Investigação, Natureza e Religião",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-arcana",
+                "name": "Skill: Arcana",
+                "url": "/api/2014/proficiencies/skill-arcana"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-deception",
+                "name": "Skill: Deception",
+                "url": "/api/2014/proficiencies/skill-deception"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-history",
+                "name": "Skill: History",
+                "url": "/api/2014/proficiencies/skill-history"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-intimidation",
+                "name": "Skill: Intimidation",
+                "url": "/api/2014/proficiencies/skill-intimidation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-investigation",
+                "name": "Skill: Investigation",
+                "url": "/api/2014/proficiencies/skill-investigation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-nature",
+                "name": "Skill: Nature",
+                "url": "/api/2014/proficiencies/skill-nature"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) uma besta leve e 20 virotes ou (b) qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "multiple",
+              "items": [
+                {
+                  "option_type": "counted_reference",
+                  "count": 1,
+                  "of": {
+                    "index": "crossbow-light",
+                    "name": "Crossbow, light",
+                    "url": "/api/2014/equipment/crossbow-light"
+                  }
+                },
+                {
+                  "option_type": "counted_reference",
+                  "count": 20,
+                  "of": {
+                    "index": "crossbow-bolt",
+                    "name": "Crossbow bolt",
+                    "url": "/api/2014/equipment/crossbow-bolt"
+                  }
+                }
+              ]
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "qualquer arma simples",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "simple-weapons",
+                    "name": "Simple Weapons",
+                    "url": "/api/2014/equipment-categories/simple-weapons"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma bolsa de componentes ou (b) um foco arcano",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "component-pouch",
+                "name": "Component pouch",
+                "url": "/api/2014/equipment/component-pouch"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "foco arcano",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "arcane-foci",
+                    "name": "Arcane Foci",
+                    "url": "/api/2014/equipment-categories/arcane-foci"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de estudioso ou (b) um pacote de explorador",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "scholars-pack",
+                "name": "Scholar's Pack",
+                "url": "/api/2014/equipment/scholars-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dungeoneers-pack",
+                "name": "Dungeoneer's Pack",
+                "url": "/api/2014/equipment/dungeoneers-pack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "qualquer arma simples",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "equipment_category",
+          "equipment_category": {
+            "index": "simple-weapons",
+            "name": "Simple Weapons",
+            "url": "/api/2014/equipment-categories/simple-weapons"
+          }
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 1,
+      "spellcasting_ability": {
+        "index": "cha",
+        "name": "CHA",
+        "url": "/api/2014/ability-scores/cha"
+      },
+      "info": [
+        {
+          "name": "Truques",
+          "desc": [
+            "Você conhece dois truques à sua escolha da lista de magias de bruxo. Você aprende truques de bruxo adicionais à sua escolha em níveis mais altos, como mostrado na coluna Truques Conhecidos da tabela do Bruxo."
+          ]
+        },
+        {
+          "name": "Espaços de Magia",
+          "desc": [
+            "A tabela do Bruxo mostra quantos espaços de magia você tem. A tabela também mostra qual é o nível desses espaços; todos os seus espaços de magia são do mesmo nível. Para conjurar uma de suas magias de bruxo de 1º nível ou superior, você deve gastar um espaço de magia. Você recupera todos os espaços de magia gastos quando termina um descanso curto ou longo.",
+            "Por exemplo, quando você está no 5º nível, você tem dois espaços de magia de 3º nível. Para conjurar a magia de 1º nível onda trovejante, você deve gastar um desses espaços, e a conjura como uma magia de 3º nível."
+          ]
+        },
+        {
+          "name": "Magias Conhecidas de 1º Nível ou Superior",
+          "desc": [
+            "No 1º nível, você conhece duas magias de 1º nível à sua escolha da lista de magias de bruxo.",
+            "A coluna Magias Conhecidas da tabela do Bruxo mostra quando você aprende mais magias de bruxo de 1º nível ou superior à sua escolha.",
+            "A magia escolhida deve ser de um nível não superior ao mostrado na coluna Nível do Espaço da tabela para o seu nível. Quando você alcança o 6º nível, por exemplo, você aprende uma nova magia de bruxo, que pode ser de 1º, 2º ou 3º nível.",
+            "Além disso, quando você ganha um nível nesta classe, você pode escolher uma das magias de bruxo que conhece e substituí-la por outra magia da lista de magias de bruxo, que também deve ser de um nível para o qual você tenha espaços de magia."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Carisma é sua habilidade de conjuração para suas magias de bruxo, então você usa seu Carisma sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Carisma ao definir a CD do teste de resistência para uma magia de bruxo que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Carisma.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Carisma."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um foco arcano como foco de conjuração para suas magias de bruxo."
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "index": "wizard",
+    "name": "Mago",
+    "proficiency_choices": [
+      {
+        "desc": "Escolha duas entre Arcanismo, História, Intuição, Investigação, Medicina e Religião",
+        "choose": 2,
+        "type": "proficiencies",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-arcana",
+                "name": "Skill: Arcana",
+                "url": "/api/2014/proficiencies/skill-arcana"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-history",
+                "name": "Skill: History",
+                "url": "/api/2014/proficiencies/skill-history"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-insight",
+                "name": "Skill: Insight",
+                "url": "/api/2014/proficiencies/skill-insight"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-investigation",
+                "name": "Skill: Investigation",
+                "url": "/api/2014/proficiencies/skill-investigation"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-medicine",
+                "name": "Skill: Medicine",
+                "url": "/api/2014/proficiencies/skill-medicine"
+              }
+            },
+            {
+              "option_type": "reference",
+              "item": {
+                "index": "skill-religion",
+                "name": "Skill: Religion",
+                "url": "/api/2014/proficiencies/skill-religion"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "starting_equipment_options": [
+      {
+        "desc": "(a) um bordão ou (b) uma adaga",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "quarterstaff",
+                "name": "Quarterstaff",
+                "url": "/api/2014/equipment/quarterstaff"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "dagger",
+                "name": "Dagger",
+                "url": "/api/2014/equipment/dagger"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) uma bolsa de componentes ou (b) um foco arcano",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "component-pouch",
+                "name": "Component pouch",
+                "url": "/api/2014/equipment/component-pouch"
+              }
+            },
+            {
+              "option_type": "choice",
+              "choice": {
+                "desc": "foco arcano",
+                "choose": 1,
+                "type": "equipment",
+                "from": {
+                  "option_set_type": "equipment_category",
+                  "equipment_category": {
+                    "index": "arcane-foci",
+                    "name": "Arcane Foci",
+                    "url": "/api/2014/equipment-categories/arcane-foci"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "desc": "(a) um pacote de estudioso ou (b) um pacote de aventureiro",
+        "choose": 1,
+        "type": "equipment",
+        "from": {
+          "option_set_type": "options_array",
+          "options": [
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "scholars-pack",
+                "name": "Scholar's Pack",
+                "url": "/api/2014/equipment/scholars-pack"
+              }
+            },
+            {
+              "option_type": "counted_reference",
+              "count": 1,
+              "of": {
+                "index": "explorers-pack",
+                "name": "Explorer's Pack",
+                "url": "/api/2014/equipment/explorers-pack"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "spellcasting": {
+      "level": 1,
+      "spellcasting_ability": {
+        "index": "int",
+        "name": "INT",
+        "url": "/api/2014/ability-scores/int"
+      },
+      "info": [
+        {
+          "name": "Truques",
+          "desc": [
+            "No 1º nível, você conhece três truques à sua escolha da lista de magias de mago. Você aprende truques de mago adicionais à sua escolha em níveis mais altos, como mostrado na coluna Truques Conhecidos da tabela do Mago."
+          ]
+        },
+        {
+          "name": "Grimório",
+          "desc": [
+            "No 1º nível, você tem um grimório contendo seis magias de mago de 1º nível à sua escolha. Seu grimório é o repositório das magias de mago que você conhece, exceto seus truques, que estão fixados em sua mente."
+          ]
+        },
+        {
+          "name": "Preparando e Conjurando Magias",
+          "desc": [
+            "A tabela do Mago mostra quantos espaços de magia você tem para conjurar suas magias de 1º nível ou superior. Para conjurar uma dessas magias, você deve gastar um espaço do nível da magia ou superior. Você recupera todos os espaços de magia gastos quando termina um descanso longo.",
+            "Você prepara a lista de magias de mago que estão disponíveis para você conjurar. Para isso, escolha um número de magias de mago do seu grimório igual ao seu modificador de Inteligência + seu nível de mago (mínimo de uma magia). As magias devem ser de um nível para o qual você tenha espaços de magia.",
+            "Por exemplo, se você é um mago de 3º nível, você tem quatro espaços de magia de 1º nível e dois de 2º nível. Com Inteligência 16, sua lista de magias preparadas pode incluir seis magias de 1º ou 2º nível, em qualquer combinação, escolhidas do seu grimório. Se você preparar a magia de 1º nível mísseis mágicos, poderá conjurá-la usando um espaço de 1º ou de 2º nível. Conjurar a magia não a remove da sua lista de magias preparadas.",
+            "Você pode mudar sua lista de magias preparadas quando termina um descanso longo. Preparar uma nova lista de magias de mago requer tempo gasto estudando seu grimório e memorizando os encantamentos e gestos que você deve fazer para conjurar a magia: pelo menos 1 minuto por nível de magia para cada magia da sua lista."
+          ]
+        },
+        {
+          "name": "Habilidade de Conjuração",
+          "desc": [
+            "Inteligência é sua habilidade de conjuração para suas magias de mago, já que você aprende suas magias por meio de estudo dedicado e memorização. Você usa sua Inteligência sempre que uma magia se referir à sua habilidade de conjuração. Além disso, você usa seu modificador de Inteligência ao definir a CD do teste de resistência para uma magia de mago que você conjura e ao realizar uma jogada de ataque com uma.",
+            "CD de resistência de magia = 8 + seu bônus de proficiência + seu modificador de Inteligência.",
+            "Modificador de ataque com magia = seu bônus de proficiência + seu modificador de Inteligência."
+          ]
+        },
+        {
+          "name": "Conjuração de Ritual",
+          "desc": [
+            "Você pode conjurar uma magia de mago como um ritual se essa magia tiver o descritor ritual e você a tiver em seu grimório. Você não precisa ter a magia preparada."
+          ]
+        },
+        {
+          "name": "Foco de Conjuração",
+          "desc": [
+            "Você pode usar um foco arcano como foco de conjuração para suas magias de mago."
+          ]
+        }
+      ]
+    }
+  }
+]
