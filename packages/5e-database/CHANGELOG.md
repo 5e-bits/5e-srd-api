@@ -5,6 +5,13 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.4.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.3.0...5e-database-v7.4.0) (2026-10-02)
+
+
+### Features
+
+* **db:** add pt-BR translations for 2014 classes ([#1344](https://github.com/5e-bits/5e-srd-api/issues/1344)) ([1377c78](https://github.com/5e-bits/5e-srd-api/commit/1377c78a775535e0ab88ccd030a6d1b543d2ed06))
+
 ## [7.3.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.2.0...5e-database-v7.3.0) (2026-09-30)
 
 
