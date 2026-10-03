@@ -1,0 +1,139 @@
+[
+  {
+    "index": "str",
+    "name": "СИЛ",
+    "full_name": "Сила",
+    "description": "Физическая мощь",
+    "skills": [
+      {
+        "index": "athletics",
+        "name": "Атлетика",
+        "url": "/api/2024/skills/athletics"
+      }
+    ]
+  },
+  {
+    "index": "dex",
+    "name": "ЛОВ",
+    "full_name": "Ловкость",
+    "description": "Проворство, рефлексы и равновесие",
+    "skills": [
+      {
+        "index": "acrobatics",
+        "name": "Акробатика",
+        "url": "/api/2024/skills/acrobatics"
+      },
+      {
+        "index": "sleight-of-hand",
+        "name": "Ловкость рук",
+        "url": "/api/2024/skills/sleight-of-hand"
+      },
+      {
+        "index": "stealth",
+        "name": "Скрытность",
+        "url": "/api/2024/skills/stealth"
+      }
+    ]
+  },
+  {
+    "index": "con",
+    "name": "ТЕЛ",
+    "full_name": "Телосложение",
+    "description": "Здоровье и выносливость",
+    "skills": []
+  },
+  {
+    "index": "int",
+    "name": "ИНТ",
+    "full_name": "Интеллект",
+    "description": "Логика и память",
+    "skills": [
+      {
+        "index": "arcana",
+        "name": "Магия",
+        "url": "/api/2024/skills/arcana"
+      },
+      {
+        "index": "history",
+        "name": "История",
+        "url": "/api/2024/skills/history"
+      },
+      {
+        "index": "investigation",
+        "name": "Расследование",
+        "url": "/api/2024/skills/investigation"
+      },
+      {
+        "index": "nature",
+        "name": "Природа",
+        "url": "/api/2024/skills/nature"
+      },
+      {
+        "index": "religion",
+        "name": "Религия",
+        "url": "/api/2024/skills/religion"
+      }
+    ]
+  },
+  {
+    "index": "wis",
+    "name": "МУД",
+    "full_name": "Мудрость",
+    "description": "Восприимчивость и ментальная устойчивость",
+    "skills": [
+      {
+        "index": "animal-handling",
+        "name": "Уход за животными",
+        "url": "/api/2024/skills/animal-handling"
+      },
+      {
+        "index": "insight",
+        "name": "Проницательность",
+        "url": "/api/2024/skills/insight"
+      },
+      {
+        "index": "medicine",
+        "name": "Медицина",
+        "url": "/api/2024/skills/medicine"
+      },
+      {
+        "index": "perception",
+        "name": "Восприятие",
+        "url": "/api/2024/skills/perception"
+      },
+      {
+        "index": "survival",
+        "name": "Выживание",
+        "url": "/api/2024/skills/survival"
+      }
+    ]
+  },
+  {
+    "index": "cha",
+    "name": "ХАР",
+    "full_name": "Харизма",
+    "description": "Уверенность, самообладание и обаяние",
+    "skills": [
+      {
+        "index": "deception",
+        "name": "Обман",
+        "url": "/api/2024/skills/deception"
+      },
+      {
+        "index": "intimidation",
+        "name": "Запугивание",
+        "url": "/api/2024/skills/intimidation"
+      },
+      {
+        "index": "performance",
+        "name": "Выступление",
+        "url": "/api/2024/skills/performance"
+      },
+      {
+        "index": "persuasion",
+        "name": "Убеждение",
+        "url": "/api/2024/skills/persuasion"
+      }
+    ]
+  }
+]
