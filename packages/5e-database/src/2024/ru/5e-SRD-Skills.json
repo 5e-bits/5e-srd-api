@@ -1,0 +1,182 @@
+[
+  {
+    "index": "acrobatics",
+    "name": "Акробатика",
+    "description": "Удержаться на ногах в сложной ситуации или выполнить акробатический трюк.",
+    "ability_score": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    }
+  },
+  {
+    "index": "animal-handling",
+    "name": "Уход за животными",
+    "description": "Успокоить, обучить животное или добиться, чтобы оно вело себя определённым образом.",
+    "ability_score": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    }
+  },
+  {
+    "index": "arcana",
+    "name": "Магия",
+    "description": "Вспомнить сведения о заклинаниях, магических предметах и планах бытия.",
+    "ability_score": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    }
+  },
+  {
+    "index": "athletics",
+    "name": "Атлетика",
+    "description": "Прыгнуть дальше, чем обычно, удержаться на плаву в бурной воде, сломать что-либо.",
+    "ability_score": {
+      "index": "str",
+      "name": "СИЛ",
+      "url": "/api/2024/ability-scores/str"
+    }
+  },
+  {
+    "index": "deception",
+    "name": "Обман",
+    "description": "Правдоподобно соврать или убедительно маскироваться.",
+    "ability_score": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    }
+  },
+  {
+    "index": "history",
+    "name": "История",
+    "description": "Вспомнить информацию об исторических событиях, личностях, нациях и культурах.",
+    "ability_score": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    }
+  },
+  {
+    "index": "insight",
+    "name": "Проницательность",
+    "description": "Определить чьё-либо настроение и намерения.",
+    "ability_score": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    }
+  },
+  {
+    "index": "intimidation",
+    "name": "Запугивание",
+    "description": "Запугать или привести кого-либо в трепет, чтобы заставить сделать что-либо.",
+    "ability_score": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    }
+  },
+  {
+    "index": "investigation",
+    "name": "Расследование",
+    "description": "Отыскать неочевидную информацию в книгах или логически определить принцип работы чего-либо.",
+    "ability_score": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    }
+  },
+  {
+    "index": "medicine",
+    "name": "Медицина",
+    "description": "Диагностировать болезнь или определить причину смерти недавно убитого.",
+    "ability_score": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    }
+  },
+  {
+    "index": "nature",
+    "name": "Природа",
+    "description": "Вспомнить информацию о местности, растениях, животных и погодных условиях.",
+    "ability_score": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    }
+  },
+  {
+    "index": "perception",
+    "name": "Восприятие",
+    "description": "Заметить что-либо неочевидное, используя любые ваши чувства.",
+    "ability_score": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    }
+  },
+  {
+    "index": "performance",
+    "name": "Выступление",
+    "description": "Исполнить роль, рассказать историю, играть музыку или станцевать.",
+    "ability_score": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    }
+  },
+  {
+    "index": "persuasion",
+    "name": "Убеждение",
+    "description": "Честно и благожелательно убедить кого-либо в чём-либо.",
+    "ability_score": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    }
+  },
+  {
+    "index": "religion",
+    "name": "Религия",
+    "description": "Вспомнить информацию о богах, религиозных ритуалах и священных символах.",
+    "ability_score": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    }
+  },
+  {
+    "index": "sleight-of-hand",
+    "name": "Ловкость рук",
+    "description": "Залезть в чужой карман, скрыть объект в руке или выполнить фокус.",
+    "ability_score": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    }
+  },
+  {
+    "index": "stealth",
+    "name": "Скрытность",
+    "description": "Избежать внимания, перемещаясь беззвучно и прячась за укрытиями.",
+    "ability_score": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    }
+  },
+  {
+    "index": "survival",
+    "name": "Выживание",
+    "description": "Пройти по следам, добыть пищу, отыскать тропу или избежать природных опасностей.",
+    "ability_score": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    }
+  }
+]
