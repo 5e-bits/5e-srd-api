@@ -5,6 +5,18 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.5.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.4.0...5e-database-v7.5.0) (2026-10-03)
+
+
+### Features
+
+* **db:** add 2024 russian translations (ability-scores, skills, conditions, alignments, damage types) ([#1359](https://github.com/5e-bits/5e-srd-api/issues/1359)) ([8e756f8](https://github.com/5e-bits/5e-srd-api/commit/8e756f873537d4d49228ded09f222ecd48878226))
+
+
+### Bug Fixes
+
+* **deps:** bump redis from 6.2.1 to 6.3.0 ([#1348](https://github.com/5e-bits/5e-srd-api/issues/1348)) ([a065ebe](https://github.com/5e-bits/5e-srd-api/commit/a065ebe695afaa6d84871966c406a571cc9bd495))
+
 ## [7.4.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.3.0...5e-database-v7.4.0) (2026-10-02)
 
 
