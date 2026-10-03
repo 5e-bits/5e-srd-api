@@ -5,6 +5,14 @@
 
 * **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
 
+## [7.3.1](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.0...5e-srd-api-v7.3.1) (2026-10-03)
+
+
+### Bug Fixes
+
+* **deps:** bump mongoose from 9.10.2 to 9.10.3 ([#1351](https://github.com/5e-bits/5e-srd-api/issues/1351)) ([15980a8](https://github.com/5e-bits/5e-srd-api/commit/15980a8a9d4f2dd399b40551bccff0365507440b))
+* **deps:** bump redis from 6.2.1 to 6.3.0 ([#1348](https://github.com/5e-bits/5e-srd-api/issues/1348)) ([a065ebe](https://github.com/5e-bits/5e-srd-api/commit/a065ebe695afaa6d84871966c406a571cc9bd495))
+
 ## [7.3.0](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.2.0...5e-srd-api-v7.3.0) (2026-09-30)
 
 
