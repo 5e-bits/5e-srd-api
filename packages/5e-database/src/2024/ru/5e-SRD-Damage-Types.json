@@ -1,0 +1,67 @@
+[
+  {
+    "index": "acid",
+    "name": "Кислота",
+    "description": "Едкие жидкости, пищеварительные ферменты"
+  },
+  {
+    "index": "bludgeoning",
+    "name": "Дробящий",
+    "description": "Тупые объекты, сжатие, падение"
+  },
+  {
+    "index": "cold",
+    "name": "Холод",
+    "description": "Ледяная вода, ледяные порывы"
+  },
+  {
+    "index": "fire",
+    "name": "Огонь",
+    "description": "Пламя, невыносимый жар"
+  },
+  {
+    "index": "force",
+    "name": "Силовой",
+    "description": "Чистая магическая энергия"
+  },
+  {
+    "index": "lightning",
+    "name": "Электричество",
+    "description": "Молния, электричество"
+  },
+  {
+    "index": "necrotic",
+    "name": "Некротический",
+    "description": "Энергия, высасывающая жизнь"
+  },
+  {
+    "index": "piercing",
+    "name": "Колющий",
+    "description": "Клыки, прокалывающие объекты"
+  },
+  {
+    "index": "poison",
+    "name": "Яд",
+    "description": "Токсичный газ, яды"
+  },
+  {
+    "index": "psychic",
+    "name": "Психический",
+    "description": "Энергия, разрывающая разум"
+  },
+  {
+    "index": "radiant",
+    "name": "Излучение",
+    "description": "Священная энергия, палящая радиация"
+  },
+  {
+    "index": "slashing",
+    "name": "Рубящий",
+    "description": "Когти, режущие объекты"
+  },
+  {
+    "index": "thunder",
+    "name": "Звук",
+    "description": "Оглушительный звук"
+  }
+]
