@@ -1,41 +1,53 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'A specific rule from the SRD.' })
 @srdModelOptions('2014-rules')
 export class Rule {
-  @Field(() => String, {
-    nullable: true,
-    description: 'Text under the rule heading, before any child rules.'
+  @field(T.String, {
+    description: 'Text under the rule heading, before any child rules.',
+    index: true,
+    gql: { nullable: true }
   })
-  @prop({ index: true, type: () => String })
   public desc?: string
 
-  @Field(() => String, { description: 'The unique identifier for this rule (e.g., adventuring).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this rule (e.g., adventuring).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the rule (e.g., Adventuring).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the rule (e.g., Adventuring).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => Rule, { nullable: true, description: 'The rule this rule is nested under.' })
-  @prop({ type: () => APIReference, index: true })
+  @field(T.Ref(() => Rule), {
+    description: 'The rule this rule is nested under.',
+    index: true,
+    gql: { nullable: true }
+  })
   public parent?: APIReference
 
-  @Field(() => [Rule], { nullable: true, description: 'Rules nested under this rule, in order.' })
-  @prop({ type: () => [APIReference], index: true })
+  @field(T.RefList(() => Rule), {
+    description: 'Rules nested under this rule, in order.',
+    index: true,
+    gql: { nullable: true }
+  })
   public children?: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

@@ -1,29 +1,37 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'A state that can affect a creature, such as Blinded or Prone.' })
 @srdModelOptions('2014-conditions')
 export class Condition {
-  @Field(() => String, { description: 'The unique identifier for this condition (e.g., blinded).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this condition (e.g., blinded).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the condition (e.g., Blinded).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the condition (e.g., Blinded).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => [String], { description: 'A description of the effects of the condition.' })
-  @prop({ required: true, type: () => [String] })
+  @field(T.List(T.String), {
+    description: 'A description of the effects of the condition.',
+    required: true
+  })
   public desc!: string[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

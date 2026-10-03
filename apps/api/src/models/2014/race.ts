@@ -1,9 +1,10 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
@@ -13,85 +14,101 @@ import { Trait } from './trait'
 
 @ObjectType({ description: 'Ability score bonus provided by a race' })
 export class RaceAbilityBonus {
-  @Field(() => AbilityScore, {
-    nullable: true,
-    description: 'The ability score that receives the bonus.'
+  @field(T.Ref(() => AbilityScore), {
+    description: 'The ability score that receives the bonus.',
+    required: true,
+    gql: { nullable: true }
   })
-  @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference
 
-  @Field(() => Int, { description: 'The bonus value for the ability score' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, {
+    description: 'The bonus value for the ability score',
+    required: true,
+    index: true
+  })
   public bonus!: number
 }
 
 @ObjectType({ description: 'Represents a playable race in D&D' })
 @srdModelOptions('2014-races')
 export class Race {
-  @Field(() => String, { description: 'The index of the race.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The index of the race.', required: true, index: true })
   public index!: string
 
   // Handled by RaceResolver
-  @prop({ type: () => Choice, required: false, index: true })
+  @field(T.Model(() => Choice), { required: false, index: true, gql: false })
   public ability_bonus_options?: Choice
 
-  @Field(() => [RaceAbilityBonus], { description: 'Ability score bonuses granted by this race.' })
-  @prop({ type: () => [RaceAbilityBonus], required: true })
+  @field(T.List(() => RaceAbilityBonus), {
+    description: 'Ability score bonuses granted by this race.',
+    required: true
+  })
   public ability_bonuses!: RaceAbilityBonus[]
 
-  @Field(() => String, { description: 'Typical age range and lifespan for the race' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Typical age range and lifespan for the race',
+    required: true,
+    index: true
+  })
   public age!: string
 
-  @Field(() => String, { description: 'Typical alignment tendencies for the race' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Typical alignment tendencies for the race',
+    required: true,
+    index: true
+  })
   public alignment!: string
 
-  @Field(() => String, { description: 'Description of languages typically spoken by the race' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Description of languages typically spoken by the race',
+    required: true,
+    index: true
+  })
   public language_desc!: string
 
   // Handled by RaceResolver
-  @prop({ type: () => Choice })
+  @field(T.Model(() => Choice), { gql: false })
   public language_options?: Choice
 
-  @Field(() => [Language], {
-    nullable: true,
-    description: 'Languages typically spoken by this race.'
+  @field(T.RefList(() => Language), {
+    description: 'Languages typically spoken by this race.',
+    required: true,
+    gql: { nullable: true }
   })
-  @prop({ type: () => [APIReference], required: true })
   public languages!: APIReference[]
 
-  @Field(() => String, { description: 'The name of the race.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The name of the race.', required: true, index: true })
   public name!: string
 
-  @Field(() => String, { description: 'Size category (e.g., Medium, Small)' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Size category (e.g., Medium, Small)',
+    required: true,
+    index: true
+  })
   public size!: string
 
-  @Field(() => String, { description: "Description of the race's size" })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: "Description of the race's size", required: true, index: true })
   public size_description!: string
 
-  @Field(() => Int, { description: 'Base walking speed in feet' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, { description: 'Base walking speed in feet', required: true, index: true })
   public speed!: number
 
-  @Field(() => [Subrace], { nullable: true, description: 'Subraces available for this race.' })
-  @prop({ type: () => [APIReference] })
+  @field(T.RefList(() => Subrace), {
+    description: 'Subraces available for this race.',
+    gql: { nullable: true }
+  })
   public subraces?: APIReference[]
 
-  @Field(() => [Trait], { nullable: true, description: 'Traits common to this race.' })
-  @prop({ type: () => [APIReference] })
+  @field(T.RefList(() => Trait), {
+    description: 'Traits common to this race.',
+    gql: { nullable: true }
+  })
   public traits?: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update', required: true, index: true })
   public updated_at!: string
 }
 

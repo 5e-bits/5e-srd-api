@@ -8,27 +8,27 @@ import { srdModelOptions } from '@/util/modelOptions'
 @ObjectType({ description: 'Represents a type of damage (e.g., Acid, Bludgeoning, Fire).' })
 @srdModelOptions('2014-damage-types')
 export class DamageType {
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'The unique identifier for this damage type (e.g., acid).',
     required: true,
     index: true
   })
   public index!: string
 
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'The name of the damage type (e.g., Acid).',
     required: true,
     index: true
   })
   public name!: string
 
-  @field(() => T.List(String), { description: 'A description of the damage type.', required: true })
+  @field(T.List(T.String), { description: 'A description of the damage type.', required: true })
   public desc!: string[]
 
-  @field(() => T.String, { required: true, index: true })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'Timestamp of the last update.',
     required: true,
     index: true

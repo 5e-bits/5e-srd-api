@@ -1,7 +1,8 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({
@@ -10,25 +11,31 @@ import { srdModelOptions } from '@/util/modelOptions'
 })
 @srdModelOptions('2024-weapon-mastery-properties')
 export class WeaponMasteryProperty2024 {
-  @Field(() => String, { description: 'A description of the weapon mastery property.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'A description of the weapon mastery property.',
+    required: true,
+    index: true
+  })
   public description!: string
 
-  @Field(() => String, {
-    description: 'The unique identifier for this mastery property (e.g., cleave).'
+  @field(T.String, {
+    description: 'The unique identifier for this mastery property (e.g., cleave).',
+    required: true,
+    index: true
   })
-  @prop({ required: true, index: true, type: () => String })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the mastery property (e.g., Cleave).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the mastery property (e.g., Cleave).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

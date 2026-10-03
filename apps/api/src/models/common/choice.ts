@@ -1,89 +1,88 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Damage } from '@/models/common/damage'
 import { DifficultyClass } from '@/models/common/difficultyClass'
+import { field, T } from '@/util/field'
 
 // Option Set Classes
 export class OptionSet {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public option_set_type!: 'equipment_category' | 'resource_list' | 'options_array'
 }
 
 export class EquipmentCategoryOptionSet extends OptionSet {
-  @prop({ type: () => APIReference, required: true, index: true })
+  @field(T.Model(() => APIReference), { required: true, index: true, gql: false })
   public equipment_category!: APIReference
 }
 
 export class ResourceListOptionSet extends OptionSet {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public resource_list_url!: string
 }
 
 export class OptionsArrayOptionSet extends OptionSet {
-  @prop({ type: () => [Option], required: true, index: true })
+  @field(T.List(() => Option), { required: true, index: true, gql: false })
   public options!: Option[]
 }
 
 // Option Classes
 export class Option {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public option_type!: string
 }
 
 export class ReferenceOption extends Option {
-  @prop({ type: () => APIReference, required: true, index: true })
+  @field(T.Model(() => APIReference), { required: true, index: true, gql: false })
   public item!: APIReference
 }
 
 export class ActionOption extends Option {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public action_name!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public count!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public type!: 'melee' | 'ranged' | 'ability' | 'magic' | 'special'
 
-  @prop({ index: true, type: () => String })
+  @field(T.String, { index: true, gql: false })
   public notes?: string
 }
 
 export class MultipleOption extends Option {
-  @prop({ type: () => [Option], required: true, index: true })
+  @field(T.List(() => Option), { required: true, index: true, gql: false })
   public items!: Option[]
 }
 
 export class StringOption extends Option {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public string!: string
 }
 
 export class IdealOption extends Option {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public desc!: string
 
-  @prop({ type: () => [APIReference], required: true, index: true })
+  @field(T.List(() => APIReference), { required: true, index: true, gql: false })
   public alignments!: APIReference[]
 }
 
 export class CountedReferenceOption extends Option {
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Model(() => Number), { required: true, index: true, gql: false })
   public count!: number
 
-  @prop({ type: () => APIReference, required: true, index: true })
+  @field(T.Model(() => APIReference), { required: true, index: true, gql: false })
   public of!: APIReference
 
-  @prop({
-    type: () => [
-      {
-        type: { type: String, required: true },
-        proficiency: { type: () => APIReference }
-      }
-    ],
-    index: true
-  })
+  @field(
+    T.List(() => ({
+      type: { type: String, required: true },
+      proficiency: { type: () => APIReference }
+    })),
+    { index: true, gql: false }
+  )
   public prerequisites?: {
     type: 'proficiency'
     proficiency?: APIReference
@@ -91,67 +90,67 @@ export class CountedReferenceOption extends Option {
 }
 
 export class ScorePrerequisiteOption extends Option {
-  @prop({ type: () => APIReference, required: true, index: true })
+  @field(T.Model(() => APIReference), { required: true, index: true, gql: false })
   public ability_score!: APIReference
 
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Model(() => Number), { required: true, index: true, gql: false })
   public minimum_score!: number
 }
 
 export class AbilityBonusOption extends Option {
-  @prop({ type: () => APIReference, required: true, index: true })
+  @field(T.Model(() => APIReference), { required: true, index: true, gql: false })
   public ability_score!: APIReference
 
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Model(() => Number), { required: true, index: true, gql: false })
   public bonus!: number
 }
 
 export class BreathOption extends Option {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public name!: string
 
-  @prop({ type: () => DifficultyClass, required: true, index: true })
+  @field(T.Model(() => DifficultyClass), { required: true, index: true, gql: false })
   public dc!: DifficultyClass
 
-  @prop({ type: () => [Damage], index: true })
+  @field(T.List(() => Damage), { index: true, gql: false })
   public damage?: Damage[]
 }
 
 export class DamageOption extends Option {
-  @prop({ type: () => APIReference, required: true, index: true })
+  @field(T.Model(() => APIReference), { required: true, index: true, gql: false })
   public damage_type!: APIReference
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public damage_dice!: string
 
-  @prop({ index: true, type: () => String })
+  @field(T.String, { index: true, gql: false })
   public notes?: string
 }
 
 export class Choice {
-  @prop({ type: () => String, required: false })
+  @field(T.String, { required: false, gql: false })
   public desc?: string
 
-  @prop({ type: () => Number, required: true })
+  @field(T.Model(() => Number), { required: true, gql: false })
   public choose!: number
 
-  @prop({ type: () => String, required: true })
+  @field(T.String, { required: true, gql: false })
   public type!: string
 
-  @prop({ type: () => OptionSet, required: true })
+  @field(T.Model(() => OptionSet), { required: true, gql: false })
   public from!: OptionSet
 }
 
 export class ChoiceOption extends Option {
-  @prop({ type: () => Choice, required: true, index: true })
+  @field(T.Model(() => Choice), { required: true, index: true, gql: false })
   public choice!: Choice
 }
 
 export class MoneyOption extends Option {
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Model(() => Number), { required: true, index: true, gql: false })
   public count!: number
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public unit!: string
 }
 

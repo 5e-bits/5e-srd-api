@@ -1,62 +1,72 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { Choice } from '../common/choice'
 
 @ObjectType({ description: 'Prerequisites for a 2024 feat.' })
 export class FeatPrerequisites2024 {
-  @Field(() => Int, { nullable: true, description: 'Minimum character level required.' })
-  @prop({ index: true, type: () => Number })
+  @field(T.Int, {
+    description: 'Minimum character level required.',
+    index: true,
+    gql: { nullable: true }
+  })
   public minimum_level?: number
 
-  @Field(() => String, {
-    nullable: true,
-    description: 'Name of a feature (e.g. Spellcasting) required.'
+  @field(T.String, {
+    description: 'Name of a feature (e.g. Spellcasting) required.',
+    index: true,
+    gql: { nullable: true }
   })
-  @prop({ index: true, type: () => String })
   public feature_named?: string
 }
 
 @ObjectType({ description: 'A 2024 feat.' })
 @srdModelOptions('2024-feats')
 export class Feat2024 {
-  @Field(() => String, { description: 'The unique identifier for this feat.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this feat.',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of this feat.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The name of this feat.', required: true, index: true })
   public name!: string
 
-  @Field(() => String, { description: 'Description of the feat.' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, { description: 'Description of the feat.', required: true })
   public description!: string
 
-  @Field(() => String, {
-    description: 'The type of feat (origin, general, fighting-style, epic-boon).'
+  @field(T.String, {
+    description: 'The type of feat (origin, general, fighting-style, epic-boon).',
+    required: true,
+    index: true
   })
-  @prop({ required: true, index: true, type: () => String })
   public type!: string
 
-  @Field(() => String, { nullable: true, description: 'Repeatability note, if applicable.' })
-  @prop({ index: true, type: () => String })
+  @field(T.String, {
+    description: 'Repeatability note, if applicable.',
+    index: true,
+    gql: { nullable: true }
+  })
   public repeatable?: string
 
-  @Field(() => FeatPrerequisites2024, { nullable: true, description: 'Static prerequisites.' })
-  @prop({ type: () => FeatPrerequisites2024 })
+  @field(T.Model(() => FeatPrerequisites2024), {
+    description: 'Static prerequisites.',
+    gql: { nullable: true }
+  })
   public prerequisites?: FeatPrerequisites2024
 
-  @prop({ type: () => Choice })
+  @field(T.Model(() => Choice), { gql: false })
   public prerequisite_options?: Choice
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

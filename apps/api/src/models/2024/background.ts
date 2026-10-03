@@ -1,61 +1,59 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'A reference to a feat with an optional note.' })
 export class BackgroundFeatReference {
-  @Field(() => String)
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true })
   public index!: string
 
-  @Field(() => String)
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true })
   public name!: string
 
-  @Field(() => String)
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true })
   public url!: string
 
-  @Field(() => String, { nullable: true })
-  @prop({ type: () => String })
+  @field(T.String, { gql: { nullable: true } })
   public note?: string
 }
 
 @ObjectType({ description: 'A 2024 character background.' })
 @srdModelOptions('2024-backgrounds')
 export class Background2024 {
-  @Field(() => String, { description: 'The unique identifier for this background.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this background.',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of this background.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The name of this background.', required: true, index: true })
   public name!: string
 
-  @prop({ type: () => [APIReference], required: true })
+  @field(T.List(() => APIReference), { required: true, gql: false })
   public ability_scores!: APIReference[]
 
-  @prop({ type: () => BackgroundFeatReference, required: true })
+  @field(T.Model(() => BackgroundFeatReference), { required: true, gql: false })
   public feat!: BackgroundFeatReference
 
-  @prop({ type: () => [APIReference], required: true })
+  @field(T.List(() => APIReference), { required: true, gql: false })
   public proficiencies!: APIReference[]
 
-  @prop({ type: () => [Choice] })
+  @field(T.List(() => Choice), { gql: false })
   public proficiency_choices?: Choice[]
 
-  @prop({ type: () => [Choice] })
+  @field(T.List(() => Choice), { gql: false })
   public equipment_options?: Choice[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

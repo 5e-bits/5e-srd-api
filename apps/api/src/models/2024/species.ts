@@ -1,9 +1,10 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({
@@ -11,45 +12,54 @@ import { srdModelOptions } from '@/util/modelOptions'
 })
 @srdModelOptions('2024-species')
 export class Species2024 {
-  @Field(() => String, { description: 'The unique identifier for this species (e.g., elf).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this species (e.g., elf).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the species (e.g., Elf).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the species (e.g., Elf).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => String, { description: 'The URL of the API resource.' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, { description: 'The URL of the API resource.', required: true })
   public url!: string
 
-  @Field(() => String, { description: 'The creature type of this species (e.g., Humanoid).' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, {
+    description: 'The creature type of this species (e.g., Humanoid).',
+    required: true
+  })
   public type!: string
 
-  @Field(() => String, { nullable: true, description: 'The size of this species.' })
-  @prop({ type: () => String })
+  @field(T.String, { description: 'The size of this species.', gql: { nullable: true } })
   public size?: string
 
-  @prop({ type: () => Choice })
+  @field(T.Model(() => Choice), { gql: false })
   public size_options?: Choice
 
-  @Field(() => Number, { description: 'The base walking speed of this species in feet.' })
-  @prop({ required: true, type: () => Number })
+  @field(T.Model(() => Number), {
+    description: 'The base walking speed of this species in feet.',
+    required: true
+  })
   public speed!: number
 
-  @Field(() => [APIReference], { nullable: true, description: 'Traits granted by this species.' })
-  @prop({ type: () => [APIReference] })
+  @field(T.List(() => APIReference), {
+    description: 'Traits granted by this species.',
+    gql: { nullable: true }
+  })
   public traits?: APIReference[]
 
-  @Field(() => [APIReference], {
-    nullable: true,
-    description: 'Subspecies available for this species.'
+  @field(T.List(() => APIReference), {
+    description: 'Subspecies available for this species.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [APIReference] })
   public subspecies?: APIReference[]
 
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true, gql: false })
   public updated_at!: string
 }
 

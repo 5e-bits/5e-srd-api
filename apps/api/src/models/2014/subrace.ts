@@ -1,8 +1,9 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
@@ -11,55 +12,64 @@ import { Trait } from './trait'
 
 @ObjectType({ description: 'Bonus to an ability score provided by a subrace.' })
 export class SubraceAbilityBonus {
-  @Field(() => AbilityScore, {
-    nullable: true,
-    description: 'The ability score receiving the bonus.'
+  @field(T.Ref(() => AbilityScore), {
+    description: 'The ability score receiving the bonus.',
+    required: true,
+    gql: { nullable: true }
   })
-  @prop({ type: () => APIReference, required: true })
   public ability_score!: APIReference
 
-  @Field(() => Int, { description: 'The bonus value to the ability score.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, {
+    description: 'The bonus value to the ability score.',
+    required: true,
+    index: true
+  })
   public bonus!: number
 }
 
 @ObjectType({ description: 'A subrace representing a specific heritage within a larger race.' })
 @srdModelOptions('2014-subraces')
 export class Subrace {
-  @Field(() => [SubraceAbilityBonus], {
-    description: 'Ability score bonuses granted by this subrace.'
+  @field(T.List(() => SubraceAbilityBonus), {
+    description: 'Ability score bonuses granted by this subrace.',
+    required: true
   })
-  @prop({ type: () => [SubraceAbilityBonus], required: true })
   public ability_bonuses!: SubraceAbilityBonus[]
 
-  @Field(() => String, { description: 'A description of the subrace.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'A description of the subrace.', required: true, index: true })
   public desc!: string
 
-  @Field(() => String, { description: 'The unique identifier for this subrace (e.g., high-elf).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this subrace (e.g., high-elf).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the subrace (e.g., High Elf).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the subrace (e.g., High Elf).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => Race, { nullable: true, description: 'The parent race for this subrace.' })
-  @prop({ type: () => APIReference, required: true })
+  @field(T.Ref(() => Race), {
+    description: 'The parent race for this subrace.',
+    required: true,
+    gql: { nullable: true }
+  })
   public race!: APIReference
 
-  @Field(() => [Trait], {
-    nullable: true,
-    description: 'Racial traits associated with this subrace.'
+  @field(T.RefList(() => Trait), {
+    description: 'Racial traits associated with this subrace.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [APIReference] })
   public racial_traits!: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

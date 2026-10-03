@@ -1,13 +1,15 @@
-import { prop } from '@typegoose/typegoose'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
+
+import { field, T } from '@/util/field'
 
 @ObjectType({ description: 'Defines an area of effect for spells or abilities.' })
 export class AreaOfEffect {
-  @Field(() => Int, { description: 'The size of the area of effect (e.g., radius in feet).' })
-  @prop({ required: true, type: () => Number })
+  @field(T.Int, {
+    description: 'The size of the area of effect (e.g., radius in feet).',
+    required: true
+  })
   public size!: number
 
-  @Field(() => String, { description: 'The shape of the area of effect.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The shape of the area of effect.', required: true, index: true })
   public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone'
 }

@@ -1,23 +1,26 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
 
 @ObjectType({ description: 'A prerequisite for taking a feat, usually a minimum ability score.' })
 export class Prerequisite {
-  @Field(() => AbilityScore, {
-    nullable: true,
-    description: 'The ability score required for this prerequisite.'
+  @field(T.Ref(() => AbilityScore), {
+    description: 'The ability score required for this prerequisite.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => APIReference })
   public ability_score!: APIReference
 
-  @Field(() => Int, { description: 'The minimum score required in the referenced ability score.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, {
+    description: 'The minimum score required in the referenced ability score.',
+    required: true,
+    index: true
+  })
   public minimum_score!: number
 }
 
@@ -26,27 +29,36 @@ export class Prerequisite {
 })
 @srdModelOptions('2014-feats')
 export class Feat {
-  @Field(() => String, { description: 'The unique identifier for this feat (e.g., grappler).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this feat (e.g., grappler).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the feat (e.g., Grappler).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the feat (e.g., Grappler).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => [Prerequisite], { description: 'Prerequisites that must be met to take the feat.' })
-  @prop({ type: () => [Prerequisite] })
+  @field(T.List(() => Prerequisite), {
+    description: 'Prerequisites that must be met to take the feat.'
+  })
   public prerequisites!: Prerequisite[]
 
-  @Field(() => [String], { description: 'A description of the benefits conferred by the feat.' })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field(T.List(T.String), {
+    description: 'A description of the benefits conferred by the feat.',
+    required: true,
+    index: true
+  })
   public desc!: string[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 
