@@ -3,6 +3,7 @@ import { DocumentType } from '@typegoose/typegoose/lib/types'
 import mongoose from 'mongoose'
 import { Field, Float, ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({
@@ -11,16 +12,13 @@ import { srdModelOptions } from '@/util/modelOptions'
 @srdModelOptions('2014-translations')
 @index({ source_collection: 1, source_index: 1, lang: 1 }, { unique: true })
 export class Translation2014 {
-  @Field(() => String)
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true })
   public source_index!: string
 
-  @Field(() => String)
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true })
   public source_collection!: string
 
-  @Field(() => String)
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true })
   public lang!: string
 
   @prop({ required: true, type: mongoose.Schema.Types.Mixed })

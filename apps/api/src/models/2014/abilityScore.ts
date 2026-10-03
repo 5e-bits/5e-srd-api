@@ -14,41 +14,41 @@ import { Skill } from './skill'
 })
 @srdModelOptions('2014-ability-scores')
 export class AbilityScore {
-  @field(() => T.List(String), {
+  @field(T.List(T.String), {
     description: 'A description of the ability score and its applications.',
     required: true,
     index: true
   })
   public desc!: string[]
 
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'The full name of the ability score (e.g., Strength).',
     required: true,
     index: true
   })
   public full_name!: string
 
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'The unique identifier for this ability score (e.g., str).',
     required: true,
     index: true
   })
   public index!: string
 
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'The abbreviated name of the ability score (e.g., STR).',
     required: true,
     index: true
   })
   public name!: string
 
-  @field(() => T.RefList(Skill), { description: 'Skills associated with this ability score.' })
+  @field(T.RefList(() => Skill), { description: 'Skills associated with this ability score.' })
   public skills!: APIReference[]
 
-  @field(() => T.String, { required: true, index: true })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @field(() => T.String, {
+  @field(T.String, {
     description: 'Timestamp of the last update.',
     required: true,
     index: true

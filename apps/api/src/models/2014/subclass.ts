@@ -1,8 +1,9 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { Class } from './class'
@@ -11,27 +12,26 @@ import { Spell } from './spell'
 
 @ObjectType({ description: 'Prerequisite for a subclass spell' })
 export class Prerequisite {
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public index!: string
 
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true, gql: false })
   public name!: string
 
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true, gql: false })
   public type!: string
 
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true, gql: false })
   public url!: string
 }
 
 @ObjectType({ description: 'Spell gained by a subclass' })
 export class SubclassSpell {
   // Handled by SubclassSpellResolver
-  @prop({ type: () => [Prerequisite], required: true })
+  @field(T.List(() => Prerequisite), { required: true, gql: false })
   public prerequisites!: Prerequisite[]
 
-  @Field(() => Spell, { description: 'The spell gained.' })
-  @prop({ type: () => APIReference, required: true })
+  @field(T.Ref(() => Spell), { description: 'The spell gained.', required: true })
   public spell!: APIReference
 }
 
@@ -40,45 +40,58 @@ export class SubclassSpell {
 })
 @srdModelOptions('2014-subclasses')
 export class Subclass {
-  @Field(() => Class, { nullable: true, description: 'The parent class for this subclass.' })
-  @prop({ type: () => APIReference, required: true })
+  @field(T.Ref(() => Class), {
+    description: 'The parent class for this subclass.',
+    required: true,
+    gql: { nullable: true }
+  })
   public class!: APIReference
 
-  @Field(() => [String], { description: 'Description of the subclass' })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field(T.List(T.String), {
+    description: 'Description of the subclass',
+    required: true,
+    index: true
+  })
   public desc!: string[]
 
-  @Field(() => String, { description: 'Unique identifier for the subclass' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Unique identifier for the subclass',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'Name of the subclass' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Name of the subclass', required: true, index: true })
   public name!: string
 
-  @Field(() => [SubclassSpell], {
-    nullable: true,
-    description: 'Spells specific to this subclass.'
+  @field(T.List(() => SubclassSpell), {
+    description: 'Spells specific to this subclass.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [SubclassSpell] })
   public spells?: SubclassSpell[]
 
-  @Field(() => String, { description: 'Flavor text describing the subclass' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Flavor text describing the subclass',
+    required: true,
+    index: true
+  })
   public subclass_flavor!: string
 
-  @Field(() => [Level], {
-    nullable: true,
-    description: 'Features and abilities gained by level for this subclass.'
-  })
-  @prop({ required: true, index: true, type: () => String })
+  @field(
+    { db: () => String, gql: () => [Level] },
+    {
+      description: 'Features and abilities gained by level for this subclass.',
+      required: true,
+      index: true,
+      gql: { nullable: true }
+    }
+  )
   public subclass_levels!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update', required: true, index: true })
   public updated_at!: string
 }
 

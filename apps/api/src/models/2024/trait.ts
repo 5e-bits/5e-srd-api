@@ -1,9 +1,10 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({
@@ -11,43 +12,48 @@ import { srdModelOptions } from '@/util/modelOptions'
 })
 @srdModelOptions('2024-traits')
 export class Trait2024 {
-  @Field(() => String, { description: 'The unique identifier for this trait (e.g., darkvision).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this trait (e.g., darkvision).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the trait (e.g., Darkvision).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the trait (e.g., Darkvision).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => String, { description: 'The URL of the API resource.' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, { description: 'The URL of the API resource.', required: true })
   public url!: string
 
-  @Field(() => String, { description: 'A description of the trait.' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, { description: 'A description of the trait.', required: true })
   public description!: string
 
-  @Field(() => [APIReference], {
-    description: 'The species that grant this trait.'
+  @field(T.List(() => APIReference), {
+    description: 'The species that grant this trait.',
+    required: true
   })
-  @prop({ type: () => [APIReference], required: true })
   public species!: APIReference[]
 
-  @Field(() => [APIReference], {
-    nullable: true,
-    description: 'The subspecies that grant this trait.'
+  @field(T.List(() => APIReference), {
+    description: 'The subspecies that grant this trait.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [APIReference] })
   public subspecies?: APIReference[]
 
-  @prop({ type: () => Choice })
+  @field(T.Model(() => Choice), { gql: false })
   public proficiency_choices?: Choice
 
-  @Field(() => Number, { nullable: true, description: 'Speed override granted by this trait.' })
-  @prop({ type: () => Number })
+  @field(T.Model(() => Number), {
+    description: 'Speed override granted by this trait.',
+    gql: { nullable: true }
+  })
   public speed?: number
 
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true, gql: false })
   public updated_at!: string
 }
 

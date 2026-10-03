@@ -1,37 +1,36 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'A 2024 poison.' })
 @srdModelOptions('2024-poisons')
 export class Poison2024 {
-  @Field(() => String, { description: 'The unique identifier for this poison.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this poison.',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of this poison.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The name of this poison.', required: true, index: true })
   public name!: string
 
-  @Field(() => Int, { description: 'The poison cost in gold pieces.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, { description: 'The poison cost in gold pieces.', required: true, index: true })
   public cost!: number
 
-  @Field(() => String, { description: 'The poison delivery type.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'The poison delivery type.', required: true, index: true })
   public type!: string
 
-  @Field(() => String, { description: 'Description of the poison.' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, { description: 'Description of the poison.', required: true })
   public description!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

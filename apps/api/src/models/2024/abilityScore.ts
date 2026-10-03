@@ -1,9 +1,10 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { Skill2024 } from '@/models/2024/skill'
 import { APIReference } from '@/models/common/apiReference'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({
@@ -12,33 +13,41 @@ import { srdModelOptions } from '@/util/modelOptions'
 })
 @srdModelOptions('2024-ability-scores')
 export class AbilityScore2024 {
-  @Field(() => String, {
-    description: 'A description of the ability score and its applications.'
+  @field(T.String, {
+    description: 'A description of the ability score and its applications.',
+    required: true,
+    index: true
   })
-  @prop({ required: true, index: true, type: () => String })
   public description!: string
 
-  @Field(() => String, { description: 'The full name of the ability score (e.g., Strength).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The full name of the ability score (e.g., Strength).',
+    required: true,
+    index: true
+  })
   public full_name!: string
 
-  @Field(() => String, { description: 'The unique identifier for this ability score (e.g., str).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this ability score (e.g., str).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The abbreviated name of the ability score (e.g., STR).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The abbreviated name of the ability score (e.g., STR).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => [Skill2024], { description: 'Skills associated with this ability score.' })
-  @prop({ type: () => [APIReference] })
+  @field(T.RefList(() => Skill2024), { description: 'Skills associated with this ability score.' })
   public skills!: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

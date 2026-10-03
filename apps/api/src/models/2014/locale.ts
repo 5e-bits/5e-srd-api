@@ -1,18 +1,21 @@
-import { getModelForClass, index, prop } from '@typegoose/typegoose'
+import { getModelForClass, index } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'A supported translation locale for the 2014 SRD.' })
 @srdModelOptions('2014-locales')
 @index({ lang: 1 }, { unique: true })
 export class Locale2014 {
-  @Field(() => String, { description: 'BCP 47 language tag, e.g. "de", "fr", "pt-BR".' })
-  @prop({ required: true, type: () => String })
+  @field(T.String, {
+    description: 'BCP 47 language tag, e.g. "de", "fr", "pt-BR".',
+    required: true
+  })
   public lang!: string
 
-  @prop({ required: true, type: () => String })
+  @field(T.String, { required: true, gql: false })
   public updated_at!: string
 }
 

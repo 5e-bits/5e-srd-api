@@ -1,9 +1,10 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, Int, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
 import { APIReference } from '@/models/common/apiReference'
 import { Choice } from '@/models/common/choice'
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 import { AbilityScore } from './abilityScore'
@@ -15,153 +16,159 @@ import { Subclass } from './subclass'
 @ObjectType({ description: 'Starting equipment item for a class' })
 export class ClassEquipment {
   // Handled by ClassEquipmentResolver
-  @prop({ type: () => APIReference })
+  @field(T.Model(() => APIReference), { gql: false })
   public equipment!: APIReference
 
-  @Field(() => Int, { description: 'Quantity of the equipment item.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, { description: 'Quantity of the equipment item.', required: true, index: true })
   public quantity!: number
 }
 
 @ObjectType({ description: "Information about a class's spellcasting ability" })
 export class SpellcastingInfo {
-  @Field(() => [String], { description: 'Description of the spellcasting ability.' })
-  @prop({ required: true, index: true, type: () => [String] })
+  @field(T.List(T.String), {
+    description: 'Description of the spellcasting ability.',
+    required: true,
+    index: true
+  })
   public desc!: string[]
 
-  @Field(() => String, { description: 'Name of the spellcasting ability.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'Name of the spellcasting ability.',
+    required: true,
+    index: true
+  })
   public name!: string
 }
 
 @ObjectType({ description: 'Spellcasting details for a class' })
 export class Spellcasting {
-  @Field(() => [SpellcastingInfo], { description: 'Spellcasting details for the class.' })
-  @prop({ type: () => [SpellcastingInfo] })
+  @field(T.List(() => SpellcastingInfo), { description: 'Spellcasting details for the class.' })
   public info!: SpellcastingInfo[]
 
-  @Field(() => Int, { description: 'Level of the spellcasting ability.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, { description: 'Level of the spellcasting ability.', required: true, index: true })
   public level!: number
 
-  @Field(() => AbilityScore, { description: 'Ability score used for spellcasting.' })
-  @prop({ type: () => APIReference })
+  @field(T.Ref(() => AbilityScore), { description: 'Ability score used for spellcasting.' })
   public spellcasting_ability!: APIReference
 }
 
 @ObjectType({ description: 'Prerequisite for multi-classing' })
 export class MultiClassingPrereq {
-  @Field(() => AbilityScore, { nullable: true, description: 'The ability score required.' })
-  @prop({ type: () => APIReference })
+  @field(T.Ref(() => AbilityScore), {
+    description: 'The ability score required.',
+    gql: { nullable: true }
+  })
   public ability_score!: APIReference
 
-  @Field(() => Int, { description: 'The minimum score required.' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, { description: 'The minimum score required.', required: true, index: true })
   public minimum_score!: number
 }
 
 @ObjectType({ description: 'Multi-classing requirements and features for a class' })
 export class MultiClassing {
-  @Field(() => [MultiClassingPrereq], {
-    nullable: true,
-    description: 'Ability score prerequisites for multi-classing.'
+  @field(T.List(() => MultiClassingPrereq), {
+    description: 'Ability score prerequisites for multi-classing.',
+    gql: { nullable: true },
+    db: { default: undefined }
   })
-  @prop({ type: () => [MultiClassingPrereq], default: undefined })
   public prerequisites?: MultiClassingPrereq[]
 
   // Handled by MultiClassingResolver
-  @prop({ type: () => Choice, default: undefined })
+  @field(T.Model(() => Choice), { gql: false, db: { default: undefined } })
   public prerequisite_options?: Choice
 
-  @Field(() => [Proficiency], {
-    nullable: true,
-    description: 'Proficiencies gained when multi-classing into this class.'
+  @field(T.RefList(() => Proficiency), {
+    description: 'Proficiencies gained when multi-classing into this class.',
+    gql: { nullable: true },
+    db: { default: undefined }
   })
-  @prop({ type: () => [APIReference], default: undefined })
   public proficiencies?: APIReference[]
 
   // Handled by MultiClassingResolver
-  @prop({ type: () => [Choice], default: undefined })
+  @field(T.List(() => Choice), { gql: false, db: { default: undefined } })
   public proficiency_choices?: Choice[]
 }
 
 @ObjectType({ description: 'Represents a character class (e.g., Barbarian, Wizard)' })
 @srdModelOptions('2014-classes')
 export class Class {
-  @Field(() => [Level], {
-    description: 'All levels for this class, detailing features and abilities gained.'
-  })
-  @prop({ required: true, index: true, type: () => String })
+  @field(
+    { db: () => String, gql: () => [Level] },
+    {
+      description: 'All levels for this class, detailing features and abilities gained.',
+      required: true,
+      index: true
+    }
+  )
   public class_levels!: string
 
-  @Field(() => MultiClassing, {
-    nullable: true,
-    description: 'Multi-classing requirements and features for this class.'
+  @field(T.Model(() => MultiClassing), {
+    description: 'Multi-classing requirements and features for this class.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => MultiClassing })
   public multi_classing!: MultiClassing
 
-  @Field(() => Int, { description: 'Hit die size for the class (e.g., 6, 8, 10, 12)' })
-  @prop({ required: true, index: true, type: () => Number })
+  @field(T.Int, {
+    description: 'Hit die size for the class (e.g., 6, 8, 10, 12)',
+    required: true,
+    index: true
+  })
   public hit_die!: number
 
-  @Field(() => String, { description: 'Unique identifier for the class' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Unique identifier for the class', required: true, index: true })
   public index!: string
 
-  @Field(() => String, { description: 'Name of the class' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Name of the class', required: true, index: true })
   public name!: string
 
-  @Field(() => [Proficiency], {
-    nullable: true,
-    description: 'Base proficiencies granted by this class.'
+  @field(T.RefList(() => Proficiency), {
+    description: 'Base proficiencies granted by this class.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [APIReference] })
   public proficiencies!: APIReference[]
 
   // Handled by ClassResolver
-  @prop({ type: () => [Choice] })
+  @field(T.List(() => Choice), { gql: false })
   public proficiency_choices!: Choice[]
 
-  @Field(() => [AbilityScore], {
-    nullable: true,
-    description: 'Saving throw proficiencies granted by this class.'
+  @field(T.RefList(() => AbilityScore), {
+    description: 'Saving throw proficiencies granted by this class.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [APIReference] })
   public saving_throws!: APIReference[]
 
-  @Field(() => Spellcasting, {
-    nullable: true,
-    description: 'Spellcasting details for the class.'
+  @field(T.Model(() => Spellcasting), {
+    description: 'Spellcasting details for the class.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => Spellcasting })
   public spellcasting?: Spellcasting
 
-  @Field(() => [Spell], { description: 'Spells available to this class.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(
+    { db: () => String, gql: () => [Spell] },
+    { description: 'Spells available to this class.', required: true, index: true }
+  )
   public spells!: string
 
-  @Field(() => [ClassEquipment], {
-    nullable: true,
-    description: 'Starting equipment for the class.'
+  @field(T.List(() => ClassEquipment), {
+    description: 'Starting equipment for the class.',
+    gql: { nullable: true }
   })
-  @prop({ type: () => [ClassEquipment] })
   public starting_equipment!: ClassEquipment[]
 
   // Handled by ClassResolver
-  @prop({ type: () => [Choice] })
+  @field(T.List(() => Choice), { gql: false })
   public starting_equipment_options!: Choice[]
 
-  @Field(() => [Subclass], { nullable: true, description: 'Available subclasses for this class.' })
-  @prop({ type: () => [APIReference] })
+  @field(T.RefList(() => Subclass), {
+    description: 'Available subclasses for this class.',
+    gql: { nullable: true }
+  })
   public subclasses!: APIReference[]
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update', required: true, index: true })
   public updated_at!: string
 }
 

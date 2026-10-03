@@ -1,33 +1,37 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass } from '@typegoose/typegoose'
 import { DocumentType } from '@typegoose/typegoose/lib/types'
-import { Field, ObjectType } from 'type-graphql'
+import { ObjectType } from 'type-graphql'
 
+import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
 @ObjectType({ description: 'Represents a language spoken in the D&D world.' })
 @srdModelOptions('2024-languages')
 export class Language2024 {
-  @Field(() => String, { description: 'The unique identifier for this language (e.g., draconic).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The unique identifier for this language (e.g., draconic).',
+    required: true,
+    index: true
+  })
   public index!: string
 
-  @Field(() => String, { description: 'The name of the language (e.g., Draconic).' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, {
+    description: 'The name of the language (e.g., Draconic).',
+    required: true,
+    index: true
+  })
   public name!: string
 
-  @Field(() => Boolean, { description: 'Whether the language is rare.' })
-  @prop({ required: true, index: true, type: () => Boolean })
+  @field(T.Bool, { description: 'Whether the language is rare.', required: true, index: true })
   public is_rare!: boolean
 
-  @Field(() => String, { description: 'A note about the language.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'A note about the language.', required: true, index: true })
   public note!: string
 
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { required: true, index: true, gql: false })
   public url!: string
 
-  @Field(() => String, { description: 'Timestamp of the last update.' })
-  @prop({ required: true, index: true, type: () => String })
+  @field(T.String, { description: 'Timestamp of the last update.', required: true, index: true })
   public updated_at!: string
 }
 

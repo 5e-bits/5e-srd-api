@@ -21,13 +21,13 @@ class Old {
 
 @ObjectType()
 class New {
-  @field(() => T.List(String), { description: 'd', required: true, index: true })
+  @field(T.List(T.String), { description: 'd', required: true, index: true })
   public a!: string[]
 
-  @field(() => T.RefList(APIReference), { description: 'r', gql: { nullable: true } })
+  @field(T.RefList(() => APIReference), { description: 'r', gql: { nullable: true } })
   public b?: APIReference[]
 
-  @field(() => T.String, { required: true })
+  @field(T.String, { required: true, gql: false })
   public hidden!: string
 }
 
@@ -49,7 +49,7 @@ describe('field', () => {
     expect(paths(New)).toEqual(paths(Old))
   })
 
-  it('exposes the same GraphQL fields as @Field, skipping those without a description', () => {
+  it('exposes the same GraphQL fields as @Field, skipping those with gql: false', () => {
     expect(gqlFields('New').map(([n]) => n)).toEqual(['a', 'b'])
     expect(gqlFields('New')).toEqual(gqlFields('Old'))
   })
