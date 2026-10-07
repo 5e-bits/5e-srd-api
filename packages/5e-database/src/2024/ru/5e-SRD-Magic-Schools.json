@@ -1,0 +1,42 @@
+[
+  {
+    "index": "abjuration",
+    "name": "Ограждение",
+    "description": "Предотвращает или обращает вспять вредоносные эффекты."
+  },
+  {
+    "index": "conjuration",
+    "name": "Вызов",
+    "description": "Перемещает существ или предметы."
+  },
+  {
+    "index": "divination",
+    "name": "Прорицание",
+    "description": "Раскрывает информацию."
+  },
+  {
+    "index": "enchantment",
+    "name": "Очарование",
+    "description": "Воздействует на разум."
+  },
+  {
+    "index": "evocation",
+    "name": "Воплощение",
+    "description": "Направляет энергию для создания эффектов, зачастую разрушительных."
+  },
+  {
+    "index": "illusion",
+    "name": "Иллюзия",
+    "description": "Обманывает разум или чувства."
+  },
+  {
+    "index": "necromancy",
+    "name": "Некромантия",
+    "description": "Манипулирует жизнью и смертью."
+  },
+  {
+    "index": "transmutation",
+    "name": "Преобразование",
+    "description": "Преобразует существ или предметы."
+  }
+]
