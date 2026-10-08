@@ -5,6 +5,13 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.6.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.5.0...5e-database-v7.6.0) (2026-10-08)
+
+
+### Features
+
+* **db:** add 2024 russian translations (languages, magic-schools, weapon-properties, weapon-mastery, poisons, feats, backgrounds) ([#1360](https://github.com/5e-bits/5e-srd-api/issues/1360)) ([37b622c](https://github.com/5e-bits/5e-srd-api/commit/37b622cf429de2b9fe93294297b03077de3f4460))
+
 ## [7.5.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.4.0...5e-database-v7.5.0) (2026-10-03)
 
 
