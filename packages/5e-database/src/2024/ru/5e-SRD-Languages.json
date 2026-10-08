@@ -1,0 +1,79 @@
+[
+  {
+    "index": "common",
+    "name": "Общий"
+  },
+  {
+    "index": "common-sign-language",
+    "name": "Общий жестовый язык"
+  },
+  {
+    "index": "draconic",
+    "name": "Драконий"
+  },
+  {
+    "index": "dwarvish",
+    "name": "Дварфийский"
+  },
+  {
+    "index": "elvish",
+    "name": "Эльфийский"
+  },
+  {
+    "index": "giant",
+    "name": "Великаний"
+  },
+  {
+    "index": "gnomish",
+    "name": "Гномий"
+  },
+  {
+    "index": "goblin",
+    "name": "Гоблинский"
+  },
+  {
+    "index": "halfling",
+    "name": "Полуросликов"
+  },
+  {
+    "index": "orc",
+    "name": "Орочий"
+  },
+  {
+    "index": "abyssal",
+    "name": "Бездны"
+  },
+  {
+    "index": "celestial",
+    "name": "Небесный"
+  },
+  {
+    "index": "deep-speech",
+    "name": "Глубинная речь"
+  },
+  {
+    "index": "druidic",
+    "name": "Друидический"
+  },
+  {
+    "index": "infernal",
+    "name": "Инфернальный"
+  },
+  {
+    "index": "primordial",
+    "name": "Первичный",
+    "note": "Первичный включает диалекты Акван, Ауран, Игнан и Терран. Существа, знающие один из этих диалектов, могут общаться с теми, кто знает другой."
+  },
+  {
+    "index": "sylvan",
+    "name": "Сильванский"
+  },
+  {
+    "index": "thieves-cant",
+    "name": "Воровской жаргон"
+  },
+  {
+    "index": "undercommon",
+    "name": "Подобщий"
+  }
+]
