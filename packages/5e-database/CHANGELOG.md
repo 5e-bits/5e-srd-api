@@ -5,6 +5,13 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.7.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.6.0...5e-database-v7.7.0) (2026-10-09)
+
+
+### Features
+
+* **db:** add 2024 russian translations (equipment-categories, species, subspecies, traits, equipment) + wording fixes ([#1362](https://github.com/5e-bits/5e-srd-api/issues/1362)) ([682e59a](https://github.com/5e-bits/5e-srd-api/commit/682e59aa291b9627109adebafc826143a3c8db4b))
+
 ## [7.6.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.5.0...5e-database-v7.6.0) (2026-10-08)
 
 
