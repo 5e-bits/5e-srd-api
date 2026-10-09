@@ -1,0 +1,362 @@
+[
+  {
+    "index": "dragonborn",
+    "name": "Драконорождённый",
+    "type": "Гуманоид",
+    "size": "Средний",
+    "speed": 30,
+    "subspecies": [
+      {
+        "index": "draconic-ancestor-black",
+        "url": "/api/2024/subspecies/draconic-ancestor-black",
+        "name": "Драконий предок: Чёрный"
+      },
+      {
+        "index": "draconic-ancestor-blue",
+        "url": "/api/2024/subspecies/draconic-ancestor-blue",
+        "name": "Драконий предок: Синий"
+      },
+      {
+        "index": "draconic-ancestor-brass",
+        "url": "/api/2024/subspecies/draconic-ancestor-brass",
+        "name": "Драконий предок: Латунный"
+      },
+      {
+        "index": "draconic-ancestor-bronze",
+        "url": "/api/2024/subspecies/draconic-ancestor-bronze",
+        "name": "Драконий предок: Бронзовый"
+      },
+      {
+        "index": "draconic-ancestor-copper",
+        "url": "/api/2024/subspecies/draconic-ancestor-copper",
+        "name": "Драконий предок: Медный"
+      },
+      {
+        "index": "draconic-ancestor-gold",
+        "url": "/api/2024/subspecies/draconic-ancestor-gold",
+        "name": "Драконий предок: Золотой"
+      },
+      {
+        "index": "draconic-ancestor-green",
+        "url": "/api/2024/subspecies/draconic-ancestor-green",
+        "name": "Драконий предок: Зелёный"
+      },
+      {
+        "index": "draconic-ancestor-red",
+        "url": "/api/2024/subspecies/draconic-ancestor-red",
+        "name": "Драконий предок: Красный"
+      },
+      {
+        "index": "draconic-ancestor-silver",
+        "url": "/api/2024/subspecies/draconic-ancestor-silver",
+        "name": "Драконий предок: Серебряный"
+      },
+      {
+        "index": "draconic-ancestor-white",
+        "url": "/api/2024/subspecies/draconic-ancestor-white",
+        "name": "Драконий предок: Белый"
+      }
+    ],
+    "traits": [
+      {
+        "index": "darkvision-60",
+        "url": "/api/2024/traits/darkvision-60",
+        "name": "Тёмное зрение (60 футов)"
+      },
+      {
+        "index": "draconic-flight",
+        "url": "/api/2024/traits/draconic-flight",
+        "name": "Драконий полёт"
+      }
+    ]
+  },
+  {
+    "index": "dwarf",
+    "name": "Дварф",
+    "type": "Гуманоид",
+    "size": "Средний",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "darkvision-120",
+        "url": "/api/2024/traits/darkvision-120",
+        "name": "Тёмное зрение (120 футов)"
+      },
+      {
+        "index": "dwarven-resilience",
+        "url": "/api/2024/traits/dwarven-resilience",
+        "name": "Дварфийская стойкость"
+      },
+      {
+        "index": "dwarven-toughness",
+        "url": "/api/2024/traits/dwarven-toughness",
+        "name": "Дварфийская живучесть"
+      },
+      {
+        "index": "stonecunning",
+        "url": "/api/2024/traits/stonecunning",
+        "name": "Знание камня"
+      }
+    ]
+  },
+  {
+    "index": "elf",
+    "name": "Эльф",
+    "type": "Гуманоид",
+    "size": "Средний",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "darkvision-60",
+        "url": "/api/2024/traits/darkvision-60",
+        "name": "Тёмное зрение (60 футов)"
+      },
+      {
+        "index": "elven-lineage",
+        "url": "/api/2024/traits/elven-lineage",
+        "name": "Эльфийский род"
+      },
+      {
+        "index": "fey-ancestry",
+        "url": "/api/2024/traits/fey-ancestry",
+        "name": "Наследие фей"
+      },
+      {
+        "index": "keen-senses",
+        "url": "/api/2024/traits/keen-senses",
+        "name": "Обострённые чувства"
+      },
+      {
+        "index": "trance",
+        "url": "/api/2024/traits/trance",
+        "name": "Транс"
+      }
+    ],
+    "subspecies": [
+      {
+        "index": "elven-lineage-drow",
+        "url": "/api/2024/subspecies/elven-lineage-drow",
+        "name": "Эльфийский род: Дроу"
+      },
+      {
+        "index": "elven-lineage-high-elf",
+        "url": "/api/2024/subspecies/elven-lineage-high-elf",
+        "name": "Эльфийский род: Высший эльф"
+      },
+      {
+        "index": "elven-lineage-wood-elf",
+        "url": "/api/2024/subspecies/elven-lineage-wood-elf",
+        "name": "Эльфийский род: Лесной эльф"
+      }
+    ]
+  },
+  {
+    "index": "gnome",
+    "name": "Гном",
+    "type": "Гуманоид",
+    "size": "Маленький",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "darkvision-60",
+        "url": "/api/2024/traits/darkvision-60",
+        "name": "Тёмное зрение (60 футов)"
+      },
+      {
+        "index": "gnomish-cunning",
+        "url": "/api/2024/traits/gnomish-cunning",
+        "name": "Гномья хитрость"
+      },
+      {
+        "index": "gnomish-lineage",
+        "url": "/api/2024/traits/gnomish-lineage",
+        "name": "Гномий род"
+      }
+    ],
+    "subspecies": [
+      {
+        "index": "gnomish-lineage-forest-gnome",
+        "url": "/api/2024/subspecies/gnomish-lineage-forest-gnome",
+        "name": "Гномий род: Лесной гном"
+      },
+      {
+        "index": "gnomish-lineage-rock-gnome",
+        "url": "/api/2024/subspecies/gnomish-lineage-rock-gnome",
+        "name": "Гномий род: Скальный гном"
+      }
+    ]
+  },
+  {
+    "index": "goliath",
+    "name": "Голиаф",
+    "type": "Гуманоид",
+    "size": "Средний",
+    "speed": 35,
+    "traits": [
+      {
+        "index": "giant-ancestry",
+        "url": "/api/2024/traits/giant-ancestry",
+        "name": "Наследие великанов"
+      },
+      {
+        "index": "large-form",
+        "url": "/api/2024/traits/large-form",
+        "name": "Большая форма"
+      },
+      {
+        "index": "powerful-build",
+        "url": "/api/2024/traits/powerful-build",
+        "name": "Мощное телосложение"
+      }
+    ],
+    "subspecies": [
+      {
+        "index": "giant-ancestry-clouds-jaunt",
+        "url": "/api/2024/subspecies/giant-ancestry-clouds-jaunt",
+        "name": "Наследие великанов: Облачная прогулка"
+      },
+      {
+        "index": "giant-ancestry-fires-burn",
+        "url": "/api/2024/subspecies/giant-ancestry-fires-burn",
+        "name": "Наследие великанов: Огненный ожог"
+      },
+      {
+        "index": "giant-ancestry-frosts-chill",
+        "url": "/api/2024/subspecies/giant-ancestry-frosts-chill",
+        "name": "Наследие великанов: Морозный иней"
+      },
+      {
+        "index": "giant-ancestry-hills-tumble",
+        "url": "/api/2024/subspecies/giant-ancestry-hills-tumble",
+        "name": "Наследие великанов: Обрушение холма"
+      },
+      {
+        "index": "giant-ancestry-stones-endurance",
+        "url": "/api/2024/subspecies/giant-ancestry-stones-endurance",
+        "name": "Наследие великанов: Выносливость камня"
+      },
+      {
+        "index": "giant-ancestry-storms-thunder",
+        "url": "/api/2024/subspecies/giant-ancestry-storms-thunder",
+        "name": "Наследие великанов: Грохот бури"
+      }
+    ]
+  },
+  {
+    "index": "halfling",
+    "name": "Полурослик",
+    "type": "Гуманоид",
+    "size": "Маленький",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "brave",
+        "url": "/api/2024/traits/brave",
+        "name": "Храбрость"
+      },
+      {
+        "index": "halfling-nimbleness",
+        "url": "/api/2024/traits/halfling-nimbleness",
+        "name": "Ловкость полурослика"
+      },
+      {
+        "index": "luck",
+        "url": "/api/2024/traits/luck",
+        "name": "Удача"
+      },
+      {
+        "index": "naturally-stealthy",
+        "url": "/api/2024/traits/naturally-stealthy",
+        "name": "Прирождённая скрытность"
+      }
+    ]
+  },
+  {
+    "index": "human",
+    "name": "Человек",
+    "type": "Гуманоид",
+    "size": "Средний",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "resourceful",
+        "url": "/api/2024/traits/resourceful",
+        "name": "Находчивость"
+      },
+      {
+        "index": "skillful",
+        "url": "/api/2024/traits/skillful",
+        "name": "Искусность"
+      },
+      {
+        "index": "versatile",
+        "url": "/api/2024/traits/versatile",
+        "name": "Универсальность"
+      }
+    ]
+  },
+  {
+    "index": "orc",
+    "name": "Орк",
+    "type": "Гуманоид",
+    "size": "Средний",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "adrenaline-rush",
+        "url": "/api/2024/traits/adrenaline-rush",
+        "name": "Выброс адреналина"
+      },
+      {
+        "index": "darkvision-120",
+        "url": "/api/2024/traits/darkvision-120",
+        "name": "Тёмное зрение (120 футов)"
+      },
+      {
+        "index": "relentless-endurance",
+        "url": "/api/2024/traits/relentless-endurance",
+        "name": "Неуклонная выносливость"
+      }
+    ]
+  },
+  {
+    "index": "tiefling",
+    "name": "Тифлинг",
+    "type": "Гуманоид",
+    "speed": 30,
+    "traits": [
+      {
+        "index": "darkvision-60",
+        "url": "/api/2024/traits/darkvision-60",
+        "name": "Тёмное зрение (60 футов)"
+      },
+      {
+        "index": "fiendish-legacy",
+        "url": "/api/2024/traits/fiendish-legacy",
+        "name": "Наследие исчадий"
+      },
+      {
+        "index": "otherworldly-presence",
+        "url": "/api/2024/traits/otherworldly-presence",
+        "name": "Потустороннее присутствие"
+      }
+    ],
+    "subspecies": [
+      {
+        "index": "fiendish-legacy-abyssal",
+        "url": "/api/2024/subspecies/fiendish-legacy-abyssal",
+        "name": "Наследие исчадий: Бездна"
+      },
+      {
+        "index": "fiendish-legacy-chthonic",
+        "url": "/api/2024/subspecies/fiendish-legacy-chthonic",
+        "name": "Наследие исчадий: Хтоническое"
+      },
+      {
+        "index": "fiendish-legacy-infernal",
+        "url": "/api/2024/subspecies/fiendish-legacy-infernal",
+        "name": "Наследие исчадий: Инфернальное"
+      }
+    ]
+  }
+]

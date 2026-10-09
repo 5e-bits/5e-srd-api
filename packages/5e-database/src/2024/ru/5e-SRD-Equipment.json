@@ -1,0 +1,7024 @@
+[
+  {
+    "index": "acid",
+    "name": "Кислота",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "description": "Совершая действие «Атака», вы можете заменить одну из своих атак броском склянки Кислоты. Выберите целью одно существо или предмет, которое вы видите в пределах 20 футов от себя. Цель должна преуспеть в спасброске Ловкости (Сл 8 + ваш модификатор Ловкости и Бонус мастерства) или получить 2d6 урона Кислотой."
+  },
+  {
+    "index": "alchemists-fire",
+    "name": "Алхимический огонь",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "description": "Совершая действие «Атака», вы можете заменить одну из своих атак броском склянки Алхимического огня. Выберите целью одно существо или предмет, которое вы видите в пределах 20 футов от себя. Цель должна преуспеть в спасброске Ловкости (Сл 8 + ваш модификатор Ловкости и Бонус мастерства) или получить 1d4 урона Огнём и начать гореть (см. «Глоссарий правил»)."
+  },
+  {
+    "index": "alchemists-supplies",
+    "name": "Инструменты алхимика",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "acid",
+        "name": "Кислота",
+        "url": "/api/2024/equipment/acid"
+      },
+      {
+        "index": "alchemists-fire",
+        "name": "Алхимический огонь",
+        "url": "/api/2024/equipment/alchemists-fire"
+      },
+      {
+        "index": "component-pouch",
+        "name": "Мешочек с компонентами",
+        "url": "/api/2024/equipment/component-pouch"
+      },
+      {
+        "index": "oil",
+        "name": "Масло",
+        "url": "/api/2024/equipment/oil"
+      },
+      {
+        "index": "paper",
+        "name": "Бумага",
+        "url": "/api/2024/equipment/paper"
+      },
+      {
+        "index": "perfume",
+        "name": "Духи",
+        "url": "/api/2024/equipment/perfume"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Определить вещество",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Разжечь огонь",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "amulet",
+    "name": "Амулет",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "holy-symbols",
+        "name": "Священные символы",
+        "url": "/api/2024/equipment-categories/holy-symbols"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Священный символ принимает одну из форм, указанных в таблице Священных символов, и украшается драгоценными камнями или расписывается для направления божественной магии. Жрец или Паладин могут использовать Священный символ как заклинательный фокус.\nВ таблице указано, нужно ли держать Священный символ в руках, носить на себе или на ткани (например, на тунике или знамени), либо на Щите."
+  },
+  {
+    "index": "antitoxin",
+    "name": "Противоядие",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "description": "Бонусным действием вы можете выпить склянку Противоядия, чтобы получить Преимущество на спасброски, чтобы избежать или окончить состояние Отравленный, на 1 час."
+  },
+  {
+    "index": "arrows",
+    "name": "Стрелы",
+    "equipment_categories": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/equipment-categories/ammunition"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "storage": {
+      "index": "quiver",
+      "name": "Колчан",
+      "url": "/api/2024/equipment/quiver"
+    }
+  },
+  {
+    "index": "backpack",
+    "name": "Рюкзак",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Рюкзак вмещает до 30 фунтов в пределах 1 кубического фута. Также он может служить вьючной сумкой."
+  },
+  {
+    "index": "bagpipes",
+    "name": "Волынка",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "ball-bearings",
+    "name": "Металлические шарики",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете рассыпать Металлические шарики из мешочка. Они распределяются, покрывая ровную область 10 на 10 футов в пределах 10 футов от вас. Существо, впервые за ход входящее в эту область, должно преуспеть в спасброске Ловкости Сл 10 или получить состояние Опрокинутый. Собрать Металлические шарики обратно занимает 10 минут."
+  },
+  {
+    "index": "barrel",
+    "name": "Бочка",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Бочка вмещает до 40 галлонов жидкости или до 4 кубических футов сухих продуктов."
+  },
+  {
+    "index": "basket",
+    "name": "Корзина",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Корзина вмещает до 40 фунтов в пределах 2 кубических футов."
+  },
+  {
+    "index": "battleaxe",
+    "name": "Боевой топор",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "topple",
+      "name": "Опрокидывающее",
+      "url": "/api/2024/weapon-mastery-properties/topple"
+    },
+    "properties": [
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    }
+  },
+  {
+    "index": "bedroll",
+    "name": "Спальник",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "В Спальнике может спать одно существо Маленького или Среднего размера. Находясь в Спальнике, вы автоматически преуспеваете в спасбросках от экстремального холода (см. «Игровой инструментарий»)."
+  },
+  {
+    "index": "bell",
+    "name": "Колокольчик",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "При использовании действием «Использование» Колокольчик издаёт звук, который слышно на расстоянии до 60 футов."
+  },
+  {
+    "index": "blanket",
+    "name": "Одеяло",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Закутавшись в одеяло, вы получаете Преимущество на спасброски от экстремального холода (см. «Игровой инструментарий»)."
+  },
+  {
+    "index": "block-and-tackle",
+    "name": "Блок и лебёдка",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Блок и лебёдка позволяют вам поднимать вес, в четыре раза превышающий тот, что вы можете поднять обычно."
+  },
+  {
+    "index": "blowgun",
+    "name": "Духовая трубка",
+    "equipment_categories": [
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "martial-ranged-weapons",
+        "name": "Воинское дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/martial-ranged-weapons"
+      },
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "needles",
+      "name": "Иглы",
+      "url": "/api/2024/equipment/needles"
+    },
+    "damage": {
+      "damage_dice": "1",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "loading",
+        "name": "Заряжаемое",
+        "url": "/api/2024/weapon-properties/loading"
+      }
+    ]
+  },
+  {
+    "index": "book",
+    "name": "Книга",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "description": "Книга содержит художественное или научно-популярное произведение. Если вы обращаетесь к точной научно-популярной Книге по её теме, вы получаете бонус +5 к проверкам Интеллекта (Магия, История, Природа или Религия), связанным с этой темой."
+  },
+  {
+    "index": "bolts",
+    "name": "Болты",
+    "equipment_categories": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/equipment-categories/ammunition"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "storage": {
+      "index": "case-crossbow-bolt",
+      "name": "Футляр для арбалетных болтов",
+      "url": "/api/2024/equipment/case-crossbow-bolt"
+    }
+  },
+  {
+    "index": "bottle-glass",
+    "name": "Стеклянная бутылка",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Стеклянная бутылка вмещает до 1,5 пинты."
+  },
+  {
+    "index": "breastplate",
+    "name": "Кираса",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "medium-armor",
+        "name": "Средний доспех",
+        "url": "/api/2024/equipment-categories/medium-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 400,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "brewers-supplies",
+    "name": "Инструменты пивовара",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 20,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "antitoxin",
+        "name": "Противоядие",
+        "url": "/api/2024/equipment/antitoxin"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Обнаружить отравленный напиток",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Определить алкоголь",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "bucket",
+    "name": "Ведро",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "мм"
+    },
+    "description": "Ведро вмещает содержимое объёмом до половины кубического фута."
+  },
+  {
+    "index": "bullets-firearm",
+    "name": "Пули",
+    "equipment_categories": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/equipment-categories/ammunition"
+      }
+    ],
+    "cost": {
+      "quantity": 3,
+      "unit": "зм"
+    },
+    "storage": {
+      "index": "pouch",
+      "name": "Кошель",
+      "url": "/api/2024/equipment/pouch"
+    }
+  },
+  {
+    "index": "bullets-sling",
+    "name": "Снаряды для пращи",
+    "equipment_categories": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/equipment-categories/ammunition"
+      }
+    ],
+    "cost": {
+      "quantity": 4,
+      "unit": "мм"
+    },
+    "storage": {
+      "index": "pouch",
+      "name": "Кошель",
+      "url": "/api/2024/equipment/pouch"
+    }
+  },
+  {
+    "index": "burglars-pack",
+    "name": "Набор взломщика",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Наборы снаряжения",
+        "url": "/api/2024/equipment-categories/equipment-packs"
+      }
+    ],
+    "cost": {
+      "quantity": 16,
+      "unit": "зм"
+    },
+    "description": "Набор взломщика содержит следующие предметы: Рюкзак, Металлические шарики, Колокольчик, 10 Свечей, Ломик, Закрытый фонарь, 7 фляг Масла, 5 дней Рационов, Верёвку, Трутницу и Бурдюк.",
+    "contents": [
+      {
+        "item": {
+          "index": "backpack",
+          "name": "Рюкзак",
+          "url": "/api/2024/equipment/backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "ball-bearings",
+          "name": "Металлические шарики",
+          "url": "/api/2024/equipment/ball-bearings"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "bell",
+          "name": "Колокольчик",
+          "url": "/api/2024/equipment/bell"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "candle",
+          "name": "Свеча",
+          "url": "/api/2024/equipment/candle"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "crowbar",
+          "name": "Ломик",
+          "url": "/api/2024/equipment/crowbar"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "lantern-hooded",
+          "name": "Закрытый фонарь",
+          "url": "/api/2024/equipment/lantern-hooded"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "flask",
+          "name": "Фляга",
+          "url": "/api/2024/equipment/flask"
+        },
+        "quantity": 7
+      },
+      {
+        "item": {
+          "index": "oil",
+          "name": "Масло",
+          "url": "/api/2024/equipment/oil"
+        },
+        "quantity": 7
+      },
+      {
+        "item": {
+          "index": "rations",
+          "name": "Рационы",
+          "url": "/api/2024/equipment/rations"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "index": "rope",
+          "name": "Верёвка",
+          "url": "/api/2024/equipment/rope"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "tinderbox",
+          "name": "Трутница",
+          "url": "/api/2024/equipment/tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "waterskin",
+          "name": "Бурдюк",
+          "url": "/api/2024/equipment/waterskin"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "calligraphers-supplies",
+    "name": "Инструменты каллиграфа",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "craft": [
+      {
+        "index": "ink",
+        "name": "Чернила",
+        "url": "/api/2024/equipment/ink"
+      },
+      {
+        "index": "spell-scroll-cantrip",
+        "name": "Свиток заклинания (заговор)",
+        "url": "/api/2024/equipment/spell-scroll-cantrip"
+      },
+      {
+        "index": "spell-scroll-level-1",
+        "name": "Свиток заклинания (1 уровень)",
+        "url": "/api/2024/equipment/spell-scroll-level-1"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Написать текст с впечатляющими завитками, защищающими от подделки",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "caltrops",
+    "name": "Калтропы",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете рассыпать Калтропы из мешочка, чтобы покрыть область 5 на 5 футов в пределах 5 футов от себя. Существо, впервые за ход входящее в эту область, должно преуспеть в спасброске Ловкости Сл 15 или получить 1 урон Колющим и иметь Скорость, сниженную до 0 до начала его следующего хода. Собрать Калтропы обратно занимает 10 минут."
+  },
+  {
+    "index": "candle",
+    "name": "Свеча",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "мм"
+    },
+    "description": "Горящая Свеча в течение 1 часа даёт Яркий свет в радиусе 5 футов и Тусклый свет ещё на 5 футов."
+  },
+  {
+    "index": "carpenters-tools",
+    "name": "Инструменты плотника",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 8,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "str",
+      "name": "СИЛ",
+      "url": "/api/2024/ability-scores/str"
+    },
+    "craft": [
+      {
+        "index": "club",
+        "name": "Дубинка",
+        "url": "/api/2024/equipment/club"
+      },
+      {
+        "index": "greatclub",
+        "name": "Палица",
+        "url": "/api/2024/equipment/greatclub"
+      },
+      {
+        "index": "quarterstaff",
+        "name": "Боевой посох",
+        "url": "/api/2024/equipment/quarterstaff"
+      },
+      {
+        "index": "barrel",
+        "name": "Бочка",
+        "url": "/api/2024/equipment/barrel"
+      },
+      {
+        "index": "chest",
+        "name": "Сундук",
+        "url": "/api/2024/equipment/chest"
+      },
+      {
+        "index": "ladder",
+        "name": "Лестница",
+        "url": "/api/2024/equipment/ladder"
+      },
+      {
+        "index": "pole",
+        "name": "Шест",
+        "url": "/api/2024/equipment/pole"
+      },
+      {
+        "index": "ram-portable",
+        "name": "Портативный таран",
+        "url": "/api/2024/equipment/ram-portable"
+      },
+      {
+        "index": "torch",
+        "name": "Факел",
+        "url": "/api/2024/equipment/torch"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Запечатать или вскрыть дверь или контейнер",
+        "dc": {
+          "dc_type": {
+            "index": "str",
+            "name": "СИЛ",
+            "url": "/api/2024/ability-scores/str"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "cartographer-tools",
+    "name": "Инструменты картографа",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 15,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "craft": [
+      {
+        "index": "map",
+        "name": "Карта",
+        "url": "/api/2024/equipment/map"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Составить карту небольшой области",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "case-crossbow-bolt",
+    "name": "Футляр для арбалетных болтов",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Футляр для арбалетных болтов вмещает до 20 Болтов."
+  },
+  {
+    "index": "case-map-or-scroll",
+    "name": "Тубус для карт и свитков",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Тубус для карт и свитков вмещает до 10 листов Бумаги или 5 листов Пергамента."
+  },
+  {
+    "index": "chain",
+    "name": "Цепь",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете обмотать Цепью не желающее того существо в пределах 5 футов от вас, имеющее состояние Схвачено, Недееспособно или Удержано, если вы преуспеете в проверке Силы (Атлетика) Сл 13. Если ноги существа связаны, существо получает состояние Удержано, пока не освободится. Для освобождения от Цепи существо должно действием преуспеть в проверке Ловкости (Акробатика) Сл 18. Разорвать Цепь можно, действием преуспев в проверке Силы (Атлетика) Сл 20."
+  },
+  {
+    "index": "chain-mail",
+    "name": "Кольчужный доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "heavy-armor",
+        "name": "Тяжёлый доспех",
+        "url": "/api/2024/equipment-categories/heavy-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 75,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "chain-shirt",
+    "name": "Кольчужная рубаха",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "medium-armor",
+        "name": "Средний доспех",
+        "url": "/api/2024/equipment-categories/medium-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "chest",
+    "name": "Сундук",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "description": "Сундук вмещает содержимое объёмом до 12 кубических футов."
+  },
+  {
+    "index": "climbers-kit",
+    "name": "Комплект для лазания",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "description": "Комплект для лазания включает наконечники на ботинки, перчатки, крючья и обвязку. Действием «Использование» вы можете закрепить себя с помощью Комплекта для лазания; в этом случае вы не можете упасть более чем на 25 футов от точки закрепления и не можете удалиться от неё более чем на 25 футов, не отвязавшись Бонусным действием."
+  },
+  {
+    "index": "clothes-fine",
+    "name": "Отличная одежда",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 15,
+      "unit": "зм"
+    },
+    "description": "Отличная одежда изготовлена из дорогих тканей и украшена мастерски выполненными деталями. Некоторые мероприятия и места допускают только одетых в такую одежду."
+  },
+  {
+    "index": "clothes-travelers",
+    "name": "Дорожная одежда",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Дорожная одежда — это прочная одежда, предназначенная для путешествий в различных условиях."
+  },
+  {
+    "index": "club",
+    "name": "Дубинка",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "см"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      }
+    ]
+  },
+  {
+    "index": "cobblers-tools",
+    "name": "Инструменты сапожника",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "craft": [
+      {
+        "index": "climbers-kit",
+        "name": "Комплект для лазания",
+        "url": "/api/2024/equipment/climbers-kit"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Модифицировать обувь, чтобы дать Преимущество на следующую проверку Ловкости (Акробатика) носителя",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "component-pouch",
+    "name": "Мешочек с компонентами",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Мешочек с компонентами водонепроницаем и заполнен отделениями, в которых хранятся все бесплатные материальные компоненты ваших заклинаний."
+  },
+  {
+    "index": "cooks-utensils",
+    "name": "Инструменты повара",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "craft": [
+      {
+        "index": "rations",
+        "name": "Рационы",
+        "url": "/api/2024/equipment/rations"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Улучшить вкус пищи",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Обнаружить испорченную или отравленную пищу",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "costume",
+    "name": "Костюм",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Нося Костюм, вы получаете Преимущество на любую проверку характеристики, совершаемую для того, чтобы выдать себя за человека или тип людей, которого он изображает."
+  },
+  {
+    "index": "crowbar",
+    "name": "Ломик",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Использование Ломика даёт вам Преимущество на проверки Силы, где может быть применён его рычаг."
+  },
+  {
+    "index": "crystal",
+    "name": "Кристалл",
+    "equipment_categories": [
+      {
+        "index": "arcane-foci",
+        "name": "Магические фокусы",
+        "url": "/api/2024/equipment-categories/arcane-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "dagger",
+    "name": "Кинжал",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "nick",
+      "name": "Быстрое",
+      "url": "/api/2024/weapon-mastery-properties/nick"
+    },
+    "properties": [
+      {
+        "index": "finesse",
+        "name": "Фехтовальное",
+        "url": "/api/2024/weapon-properties/finesse"
+      },
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      },
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      }
+    ]
+  },
+  {
+    "index": "dart",
+    "name": "Дротик",
+    "equipment_categories": [
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "simple-ranged-weapons",
+        "name": "Простое дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/simple-ranged-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "finesse",
+        "name": "Фехтовальное",
+        "url": "/api/2024/weapon-properties/finesse"
+      },
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      }
+    ]
+  },
+  {
+    "index": "dice",
+    "name": "Кости",
+    "equipment_categories": [
+      {
+        "index": "gaming-sets",
+        "name": "Игровые наборы",
+        "url": "/api/2024/equipment-categories/gaming-sets"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "см"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "utilize": [
+      {
+        "name": "Распознать, что кто-то жульничает",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Выиграть партию",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "diplomat-pack",
+    "name": "Набор дипломата",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Наборы снаряжения",
+        "url": "/api/2024/equipment-categories/equipment-packs"
+      }
+    ],
+    "cost": {
+      "quantity": 39,
+      "unit": "зм"
+    },
+    "description": "Набор дипломата содержит следующие предметы: Сундук, Отличную одежду, Чернила, 5 Письменных перьев, Лампу, 2 Тубуса для карт и свитков, 4 фляги Масла, 5 листов Бумаги, 5 листов Пергамента, Духи и Трутницу.",
+    "contents": [
+      {
+        "item": {
+          "index": "chest",
+          "name": "Сундук",
+          "url": "/api/2024/equipment/chest"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "clothes-fine",
+          "name": "Отличная одежда",
+          "url": "/api/2024/equipment/clothes-fine"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "ink",
+          "name": "Чернила",
+          "url": "/api/2024/equipment/ink"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "ink-pen",
+          "name": "Писчее перо",
+          "url": "/api/2024/equipment/ink-pen"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "index": "lamp",
+          "name": "Лампа",
+          "url": "/api/2024/equipment/lamp"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "case-map-or-scroll",
+          "name": "Тубус для карт и свитков",
+          "url": "/api/2024/equipment/case-map-or-scroll"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "index": "flask",
+          "name": "Фляга",
+          "url": "/api/2024/equipment/flask"
+        },
+        "quantity": 4
+      },
+      {
+        "item": {
+          "index": "oil",
+          "name": "Масло",
+          "url": "/api/2024/equipment/oil"
+        },
+        "quantity": 4
+      },
+      {
+        "item": {
+          "index": "paper",
+          "name": "Бумага",
+          "url": "/api/2024/equipment/paper"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "index": "parchment",
+          "name": "Пергамент",
+          "url": "/api/2024/equipment/parchment"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "index": "perfume",
+          "name": "Духи",
+          "url": "/api/2024/equipment/perfume"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "tinderbox",
+          "name": "Трутница",
+          "url": "/api/2024/equipment/tinderbox"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "disguise-kit",
+    "name": "Набор для грима",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "other-tools",
+        "name": "Прочие инструменты",
+        "url": "/api/2024/equipment-categories/other-tools"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "craft": [
+      {
+        "index": "costume",
+        "name": "Костюм",
+        "url": "/api/2024/equipment/costume"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Нанести грим",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "dragonchess",
+    "name": "Драконьи шахматы",
+    "equipment_categories": [
+      {
+        "index": "gaming-sets",
+        "name": "Игровые наборы",
+        "url": "/api/2024/equipment-categories/gaming-sets"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "utilize": [
+      {
+        "name": "Распознать, что кто-то жульничает",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Выиграть партию",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "drum",
+    "name": "Барабан",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 6,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "dulcimer",
+    "name": "Дульцимер",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "dungeoneer-pack",
+    "name": "Набор исследователя подземелий",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Наборы снаряжения",
+        "url": "/api/2024/equipment-categories/equipment-packs"
+      }
+    ],
+    "cost": {
+      "quantity": 12,
+      "unit": "зм"
+    },
+    "description": "Набор исследователя подземелий содержит следующие предметы: Рюкзак, Калтропы, Ломик, 2 фляги Масла, 10 дней Рационов, Верёвку, Трутницу, 10 Факелов и Бурдюк.",
+    "contents": [
+      {
+        "item": {
+          "index": "backpack",
+          "name": "Рюкзак",
+          "url": "/api/2024/equipment/backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "caltrops",
+          "name": "Калтропы",
+          "url": "/api/2024/equipment/caltrops"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "crowbar",
+          "name": "Ломик",
+          "url": "/api/2024/equipment/crowbar"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "flask",
+          "name": "Фляга",
+          "url": "/api/2024/equipment/flask"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "index": "oil",
+          "name": "Масло",
+          "url": "/api/2024/equipment/oil"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "index": "rations",
+          "name": "Рационы",
+          "url": "/api/2024/equipment/rations"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "rope",
+          "name": "Верёвка",
+          "url": "/api/2024/equipment/rope"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "tinderbox",
+          "name": "Трутница",
+          "url": "/api/2024/equipment/tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "torch",
+          "name": "Факел",
+          "url": "/api/2024/equipment/torch"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "waterskin",
+          "name": "Бурдюк",
+          "url": "/api/2024/equipment/waterskin"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "emblem",
+    "name": "Эмблема",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "holy-symbols",
+        "name": "Священные символы",
+        "url": "/api/2024/equipment-categories/holy-symbols"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Священный символ принимает одну из форм, указанных в таблице Священных символов, и украшается драгоценными камнями или расписывается для направления божественной магии. Жрец или Паладин могут использовать Священный символ как заклинательный фокус.\nВ таблице указано, нужно ли держать Священный символ в руках, носить на себе или на ткани (например, на тунике или знамени), либо на Щите."
+  },
+  {
+    "index": "entertainers-pack",
+    "name": "Набор артиста",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 40,
+      "unit": "зм"
+    },
+    "contents": [
+      {
+        "item": {
+          "index": "backpack",
+          "name": "Рюкзак",
+          "url": "/api/2024/equipment/backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "bedroll",
+          "name": "Спальник",
+          "url": "/api/2024/equipment/bedroll"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "costume",
+          "name": "Костюм",
+          "url": "/api/2024/equipment/costume"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "index": "candle",
+          "name": "Свеча",
+          "url": "/api/2024/equipment/candle"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "index": "rations",
+          "name": "Рационы",
+          "url": "/api/2024/equipment/rations"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "index": "waterskin",
+          "name": "Бурдюк",
+          "url": "/api/2024/equipment/waterskin"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "disguise-kit",
+          "name": "Набор для грима",
+          "url": "/api/2024/equipment/disguise-kit"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "explorers-pack",
+    "name": "Набор путешественника",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "description": "Набор путешественника содержит следующие предметы: Рюкзак, Спальник, 2 фляги Масла, 10 дней Рационов, Верёвку, Трутницу, 10 Факелов и Бурдюк.",
+    "contents": [
+      {
+        "item": {
+          "index": "backpack",
+          "name": "Рюкзак",
+          "url": "/api/2024/equipment/backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "bedroll",
+          "name": "Спальник",
+          "url": "/api/2024/equipment/bedroll"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "oil",
+          "name": "Масло",
+          "url": "/api/2024/equipment/oil"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "index": "rations",
+          "name": "Рационы",
+          "url": "/api/2024/equipment/rations"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "rope",
+          "name": "Верёвка",
+          "url": "/api/2024/equipment/rope"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "tinderbox",
+          "name": "Трутница",
+          "url": "/api/2024/equipment/tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "torch",
+          "name": "Факел",
+          "url": "/api/2024/equipment/torch"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "waterskin",
+          "name": "Бурдюк",
+          "url": "/api/2024/equipment/waterskin"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "flail",
+    "name": "Цеп",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "sap",
+      "name": "Ослабляющее",
+      "url": "/api/2024/weapon-mastery-properties/sap"
+    },
+    "properties": []
+  },
+  {
+    "index": "flask",
+    "name": "Фляга",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "мм"
+    },
+    "description": "Фляга вмещает до 1 пинты."
+  },
+  {
+    "index": "flute",
+    "name": "Флейта",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "forgery-kit",
+    "name": "Набор для фальсификации",
+    "equipment_categories": [
+      {
+        "index": "other-tools",
+        "name": "Прочие инструменты",
+        "url": "/api/2024/equipment-categories/other-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 15,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "utilize": [
+      {
+        "name": "Воспроизвести 10 или меньше слов чужого почерка",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Подделать восковую печать",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "glaive",
+    "name": "Глефа",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 20,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "graze",
+      "name": "Секущее",
+      "url": "/api/2024/weapon-mastery-properties/graze"
+    },
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "reach",
+        "name": "Досягаемость",
+        "url": "/api/2024/weapon-properties/reach"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "glassblowers-tools",
+    "name": "Инструменты стеклодува",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "bottle-glass",
+        "name": "Стеклянная бутылка",
+        "url": "/api/2024/equipment/bottle-glass"
+      },
+      {
+        "index": "magnifying-glass",
+        "name": "Увеличительное стекло",
+        "url": "/api/2024/equipment/magnifying-glass"
+      },
+      {
+        "index": "spyglass",
+        "name": "Подзорная труба",
+        "url": "/api/2024/equipment/spyglass"
+      },
+      {
+        "index": "vial",
+        "name": "Флакон",
+        "url": "/api/2024/equipment/vial"
+      }
+    ]
+  },
+  {
+    "index": "grappling-hook",
+    "name": "Крюк-кошка",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете метнуть Крюк-кошку в перила, выступ или иной зацеп в пределах 50 футов от себя, и крюк зацепится, если вы преуспеете в проверке Ловкости (Акробатика) Сл 13. Если к крюку привязана Верёвка, вы можете вскарабкаться по ней."
+  },
+  {
+    "index": "greataxe",
+    "name": "Секира",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d12",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "cleave",
+      "name": "Прорубающее",
+      "url": "/api/2024/weapon-mastery-properties/cleave"
+    },
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "greatclub",
+    "name": "Палица",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "см"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "push",
+      "name": "Отталкивающее",
+      "url": "/api/2024/weapon-mastery-properties/push"
+    },
+    "properties": [
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "greatsword",
+    "name": "Двуручный меч",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "2d6",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "graze",
+      "name": "Секущее",
+      "url": "/api/2024/weapon-mastery-properties/graze"
+    },
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "halberd",
+    "name": "Алебарда",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 20,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "cleave",
+      "name": "Прорубающее",
+      "url": "/api/2024/weapon-mastery-properties/cleave"
+    },
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "reach",
+        "name": "Досягаемость",
+        "url": "/api/2024/weapon-properties/reach"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "half-plate-armor",
+    "name": "Полулаты",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "medium-armor",
+        "name": "Средний доспех",
+        "url": "/api/2024/equipment-categories/medium-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 750,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "hand-crossbow",
+    "name": "Одноручный арбалет",
+    "equipment_categories": [
+      {
+        "index": "martial-ranged-weapons",
+        "name": "Воинское дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/martial-ranged-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "bolts",
+      "name": "Болты",
+      "url": "/api/2024/equipment/bolts"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      },
+      {
+        "index": "loading",
+        "name": "Заряжаемое",
+        "url": "/api/2024/weapon-properties/loading"
+      }
+    ]
+  },
+  {
+    "index": "handaxe",
+    "name": "Одноручный топор",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      },
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      }
+    ]
+  },
+  {
+    "index": "healers-kit",
+    "name": "Комплект целителя",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Комплект целителя имеет десять применений. Действием «Использование» вы можете потратить одно из них, чтобы стабилизировать Бессознательное существо с 0 Хитами, без необходимости совершать проверку Мудрости (Медицина)."
+  },
+  {
+    "index": "heavy-crossbow",
+    "name": "Тяжёлый арбалет",
+    "equipment_categories": [
+      {
+        "index": "martial-ranged-weapons",
+        "name": "Воинское дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/martial-ranged-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "bolts",
+      "name": "Болты",
+      "url": "/api/2024/equipment/bolts"
+    },
+    "damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "push",
+      "name": "Отталкивающее",
+      "url": "/api/2024/weapon-mastery-properties/push"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "loading",
+        "name": "Заряжаемое",
+        "url": "/api/2024/weapon-properties/loading"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "herbalism-kit",
+    "name": "Набор травника",
+    "equipment_categories": [
+      {
+        "index": "other-tools",
+        "name": "Прочие инструменты",
+        "url": "/api/2024/equipment-categories/other-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "antitoxin",
+        "name": "Противоядие",
+        "url": "/api/2024/equipment/antitoxin"
+      },
+      {
+        "index": "candle",
+        "name": "Свеча",
+        "url": "/api/2024/equipment/candle"
+      },
+      {
+        "index": "healers-kit",
+        "name": "Комплект целителя",
+        "url": "/api/2024/equipment/healers-kit"
+      },
+      {
+        "index": "potion-of-healing",
+        "name": "Зелье лечения",
+        "url": "/api/2024/equipment/potion-of-healing"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Определить растение",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "hide-armor",
+    "name": "Шкурный доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "light-armor",
+        "name": "Лёгкий доспех",
+        "url": "/api/2024/equipment-categories/light-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "holy-water",
+    "name": "Святая вода",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "description": "Совершая действие «Атака», вы можете заменить одну из своих атак броском склянки Святой воды. Выберите целью одно существо, которое вы видите в пределах 20 футов от себя. Цель должна преуспеть в спасброске Ловкости (Сл 8 + ваш модификатор Ловкости и Бонус мастерства) или получить 2d8 урона Излучением, если она является Исчадием или Нежитью."
+  },
+  {
+    "index": "horn",
+    "name": "Рожок",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 3,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "hunting-trap",
+    "name": "Охотничий капкан",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете установить Охотничий капкан — стальное кольцо с зубцами, которое захлопывается, когда существо наступает на плиту в центре. Капкан крепится тяжёлой цепью к неподвижному объекту, такому как дерево или вбитый в землю кол. Существо, наступившее на плиту, должно преуспеть в спасброске Ловкости Сл 13 или получить 1d4 урона Колющим и иметь Скорость, сниженную до 0 до начала его следующего хода. После этого, пока существо не освободится из капкана, его перемещение ограничено длиной цепи (обычно 3 фута). Существо может действием совершить проверку Силы (Атлетика) Сл 13, освобождая себя или другое существо в пределах его досягаемости при успехе. Каждая неудачная проверка наносит попавшему в капкан существу 1 урон Колющим."
+  },
+  {
+    "index": "ink",
+    "name": "Чернила",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "description": "Чернила поставляются в бутылочке объёмом 1 унция, которой хватает примерно на 500 страниц текста."
+  },
+  {
+    "index": "ink-pen",
+    "name": "Писчее перо",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "мм"
+    },
+    "description": "Писчее перо используется вместе с Чернилами для письма или рисования."
+  },
+  {
+    "index": "javelin",
+    "name": "Метательное копьё",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      }
+    ]
+  },
+  {
+    "index": "jewelers-tools",
+    "name": "Инструменты ювелира",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "crystal",
+        "name": "Кристалл",
+        "url": "/api/2024/equipment/crystal"
+      },
+      {
+        "index": "orb",
+        "name": "Сфера",
+        "url": "/api/2024/equipment/orb"
+      },
+      {
+        "index": "quarterstaff",
+        "name": "Боевой посох",
+        "url": "/api/2024/equipment/quarterstaff"
+      },
+      {
+        "index": "rod",
+        "name": "Деревянный посох",
+        "url": "/api/2024/equipment/rod"
+      },
+      {
+        "index": "staff",
+        "name": "Посох",
+        "url": "/api/2024/equipment/staff"
+      },
+      {
+        "index": "wand",
+        "name": "Волшебная палочка",
+        "url": "/api/2024/equipment/wand"
+      },
+      {
+        "index": "amulet",
+        "name": "Амулет",
+        "url": "/api/2024/equipment/amulet"
+      },
+      {
+        "index": "emblem",
+        "name": "Эмблема",
+        "url": "/api/2024/equipment/emblem"
+      },
+      {
+        "index": "reliquary",
+        "name": "Реликварий",
+        "url": "/api/2024/equipment/reliquary"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Определить ценность драгоценного камня",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "jug",
+    "name": "Кувшин",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "мм"
+    },
+    "description": "Кувшин вмещает до 1 галлона."
+  },
+  {
+    "index": "ladder",
+    "name": "Лестница",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "см"
+    },
+    "description": "Лестница имеет высоту 10 футов. Чтобы подняться или спуститься по ней, нужно карабкаться."
+  },
+  {
+    "index": "lamp",
+    "name": "Лампа",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "см"
+    },
+    "description": "Лампа использует Масло как топливо и даёт Яркий свет в радиусе 15 футов и Тусклый свет ещё на 30 футов."
+  },
+  {
+    "index": "lance",
+    "name": "Кавалерийское копьё",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "topple",
+      "name": "Опрокидывающее",
+      "url": "/api/2024/weapon-mastery-properties/topple"
+    },
+    "notes": [
+      "Двуручное, если не используется верхом"
+    ],
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "reach",
+        "name": "Досягаемость",
+        "url": "/api/2024/weapon-properties/reach"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "lantern-bullseye",
+    "name": "Направленный фонарь",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "description": "Направленный фонарь использует Масло как топливо и даёт Яркий свет в 60-футовом конусе и Тусклый свет ещё на 60 футов."
+  },
+  {
+    "index": "lantern-hooded",
+    "name": "Закрытый фонарь",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Закрытый фонарь использует Масло как топливо и даёт Яркий свет в радиусе 30 футов и Тусклый свет ещё на 30 футов. Бонусным действием вы можете опустить заслонку, уменьшив свет до Тусклого света в радиусе 5 футов, или снова поднять её."
+  },
+  {
+    "index": "leather-armor",
+    "name": "Кожаный доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "light-armor",
+        "name": "Лёгкий доспех",
+        "url": "/api/2024/equipment-categories/light-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "leatherworkers-tools",
+    "name": "Инструменты кожевника",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "craft": [
+      {
+        "index": "sling",
+        "name": "Праща",
+        "url": "/api/2024/equipment/sling"
+      },
+      {
+        "index": "whip",
+        "name": "Кнут",
+        "url": "/api/2024/equipment/whip"
+      },
+      {
+        "index": "hide-armor",
+        "name": "Шкурный доспех",
+        "url": "/api/2024/equipment/hide-armor"
+      },
+      {
+        "index": "leather-armor",
+        "name": "Кожаный доспех",
+        "url": "/api/2024/equipment/leather-armor"
+      },
+      {
+        "index": "studded-leather-armor",
+        "name": "Проклёпанный кожаный доспех",
+        "url": "/api/2024/equipment/studded-leather-armor"
+      },
+      {
+        "index": "backpack",
+        "name": "Рюкзак",
+        "url": "/api/2024/equipment/backpack"
+      },
+      {
+        "index": "case-crossbow-bolt",
+        "name": "Футляр для арбалетных болтов",
+        "url": "/api/2024/equipment/case-crossbow-bolt"
+      },
+      {
+        "index": "case-map-or-scroll",
+        "name": "Тубус для карт и свитков",
+        "url": "/api/2024/equipment/case-map-or-scroll"
+      },
+      {
+        "index": "parchment",
+        "name": "Пергамент",
+        "url": "/api/2024/equipment/parchment"
+      },
+      {
+        "index": "pouch",
+        "name": "Кошель",
+        "url": "/api/2024/equipment/pouch"
+      },
+      {
+        "index": "quiver",
+        "name": "Колчан",
+        "url": "/api/2024/equipment/quiver"
+      },
+      {
+        "index": "waterskin",
+        "name": "Бурдюк",
+        "url": "/api/2024/equipment/waterskin"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Нанести узор на кожаное изделие",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "light-crossbow",
+    "name": "Лёгкий арбалет",
+    "equipment_categories": [
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "simple-ranged-weapons",
+        "name": "Простое дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/simple-ranged-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "bolts",
+      "name": "Болты",
+      "url": "/api/2024/equipment/bolts"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "loading",
+        "name": "Заряжаемое",
+        "url": "/api/2024/weapon-properties/loading"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "light-hammer",
+    "name": "Лёгкий молот",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "nick",
+      "name": "Быстрое",
+      "url": "/api/2024/weapon-mastery-properties/nick"
+    },
+    "properties": [
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      },
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      }
+    ]
+  },
+  {
+    "index": "lock",
+    "name": "Замок",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "description": "Замок поставляется с ключом. Без ключа существо может использовать Воровские инструменты, чтобы вскрыть этот Замок успешной проверкой Ловкости (Ловкость рук) Сл 15."
+  },
+  {
+    "index": "longbow",
+    "name": "Длинный лук",
+    "equipment_categories": [
+      {
+        "index": "martial-ranged-weapons",
+        "name": "Воинское дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/martial-ranged-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "arrows",
+      "name": "Стрелы",
+      "url": "/api/2024/equipment/arrows"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "longsword",
+    "name": "Длинный меч",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 15,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "sap",
+      "name": "Ослабляющее",
+      "url": "/api/2024/weapon-mastery-properties/sap"
+    },
+    "properties": [
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    }
+  },
+  {
+    "index": "lute",
+    "name": "Лютня",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 35,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "lyre",
+    "name": "Лира",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "mace",
+    "name": "Булава",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "sap",
+      "name": "Ослабляющее",
+      "url": "/api/2024/weapon-mastery-properties/sap"
+    },
+    "properties": []
+  },
+  {
+    "index": "magnifying-glass",
+    "name": "Увеличительное стекло",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 100,
+      "unit": "зм"
+    },
+    "description": "Увеличительное стекло даёт Преимущество на любую проверку характеристики для оценки или осмотра очень мелкого предмета. Для того чтобы разжечь огонь с помощью Увеличительного стекла, нужен яркий, как солнечный, свет, трут для воспламенения и около 5 минут, чтобы огонь разгорелся."
+  },
+  {
+    "index": "manacles",
+    "name": "Кандалы",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете использовать Кандалы, чтобы связать не желающее того существо Маленького или Среднего размера в пределах 5 футов от вас, имеющее состояние Схвачено, Недееспособно или Удержано, если вы преуспеете в проверке Ловкости (Ловкость рук) Сл 13. Находясь в связанном состоянии, существо совершает броски атаки с Помехой, а также получает состояние Удержано, если Кандалы прикреплены к зафиксированной на месте цепи или крюку. Для освобождения от Кандалов требуется успешная проверка Ловкости (Ловкость рук) Сл 20, совершённая действием. Разорвать их можно успешной проверкой Силы (Атлетика) Сл 25, совершённой действием.\nКаждый комплект Кандалов поставляется с ключом. Без ключа существо может использовать Воровские инструменты, чтобы вскрыть замок Кандалов успешной проверкой Ловкости (Ловкость рук) Сл 15."
+  },
+  {
+    "index": "masons-tools",
+    "name": "Инструменты каменщика",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "str",
+      "name": "СИЛ",
+      "url": "/api/2024/ability-scores/str"
+    },
+    "craft": [
+      {
+        "index": "block-and-tackle",
+        "name": "Блок и лебёдка",
+        "url": "/api/2024/equipment/block-and-tackle"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Высечь символ или отверстие в камне",
+        "dc": {
+          "dc_type": {
+            "index": "str",
+            "name": "СИЛ",
+            "url": "/api/2024/ability-scores/str"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "map",
+    "name": "Карта",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Если вы обращаетесь к точной Карте, вы получаете бонус +5 к проверкам Мудрости (Выживание) для ориентирования в местности, изображённой на ней."
+  },
+  {
+    "index": "mirror",
+    "name": "Зеркало",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Ручное стальное Зеркало пригодно для личного ухода, а также для осмотра за углами и для подачи световых сигналов."
+  },
+  {
+    "index": "maul",
+    "name": "Молот",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "2d6",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "topple",
+      "name": "Опрокидывающее",
+      "url": "/api/2024/weapon-mastery-properties/topple"
+    },
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "morningstar",
+    "name": "Моргенштерн",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 15,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "sap",
+      "name": "Ослабляющее",
+      "url": "/api/2024/weapon-mastery-properties/sap"
+    },
+    "properties": []
+  },
+  {
+    "index": "musket",
+    "name": "Мушкет",
+    "equipment_categories": [
+      {
+        "index": "martial-ranged-weapons",
+        "name": "Воинское дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/martial-ranged-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 500,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "bullets-firearm",
+      "name": "Пули",
+      "url": "/api/2024/equipment/bullets-firearm"
+    },
+    "damage": {
+      "damage_dice": "1d12",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "loading",
+        "name": "Заряжаемое",
+        "url": "/api/2024/weapon-properties/loading"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "navigators-tools",
+    "name": "Инструменты навигатора",
+    "equipment_categories": [
+      {
+        "index": "other-tools",
+        "name": "Прочие инструменты",
+        "url": "/api/2024/equipment-categories/other-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "utilize": [
+      {
+        "name": "Проложить курс",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Определить местоположение по звёздам",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "needles",
+    "name": "Иглы",
+    "equipment_categories": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/equipment-categories/ammunition"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "storage": {
+      "index": "pouch",
+      "name": "Кошель",
+      "url": "/api/2024/equipment/pouch"
+    }
+  },
+  {
+    "index": "net",
+    "name": "Сеть",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Совершая действие «Атака», вы можете заменить одну из своих атак броском Сети. Выберите целью существо, которое вы видите в пределах 15 футов от себя. Цель должна преуспеть в спасброске Ловкости (Сл 8 + ваш модификатор Ловкости и Бонус мастерства) или получить состояние Удержано, пока не освободится. Цель преуспевает автоматически, если она имеет Огромный или больший размер.\nЧтобы освободиться, цель или существо в пределах 5 футов от неё должно действием совершить проверку Силы (Атлетика) Сл 10, освобождая Удержанное существо при успехе. Уничтожение Сети (КД 10; 5 ХП; Иммунитет к Дробящему, Яду и Психическому урону) также освобождает цель, оканчивая эффект."
+  },
+  {
+    "index": "oil",
+    "name": "Масло",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "см"
+    },
+    "description": "Вы можете облить существо, предмет или область Маслом, а также использовать его как топливо, как описано ниже.\n**Обливание существа или предмета.** Совершая действие «Атака», вы можете заменить одну из своих атак броском фляги Масла. Выберите целью одно существо или предмет в пределах 20 футов от себя. Цель должна преуспеть в спасброске Ловкости (Сл 8 + ваш модификатор Ловкости и Бонус мастерства) или оказаться покрыта маслом. Если цель получает урон Огнём до того, как масло высохнет (через 1 минуту), она получает дополнительно 5 урона Огнём от горящего масла.\n**Обливание области.** Вы можете действием «Использование» вылить флягу Масла на ровную поверхность, чтобы покрыть область 5 на 5 футов в пределах 5 футов от себя. Если его поджечь, масло горит до конца хода через 2 раунда после поджигания (12 секунд) и наносит 5 урона Огнём любому существу, входящему в область или оканчивающему там свой ход. Существо может получить этот урон только один раз за ход.\n**Топливо.** Масло служит топливом для Ламп и Фонарей. После поджигания фляга Масла горит в Лампе или Фонаре 6 часов. Это время не обязано быть непрерывным; вы можете потушить горящее Масло (действием «Использование») и вновь разжечь его, пока суммарно оно не горело 6 часов."
+  },
+  {
+    "index": "orb",
+    "name": "Сфера",
+    "equipment_categories": [
+      {
+        "index": "arcane-foci",
+        "name": "Магические фокусы",
+        "url": "/api/2024/equipment-categories/arcane-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 20,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "padded-armor",
+    "name": "Стёганый доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "light-armor",
+        "name": "Лёгкий доспех",
+        "url": "/api/2024/equipment-categories/light-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "painters-supplies",
+    "name": "Инструменты художника",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "craft": [
+      {
+        "index": "quarterstaff",
+        "name": "Боевой посох",
+        "url": "/api/2024/equipment/quarterstaff"
+      },
+      {
+        "index": "sprig-of-mistletoe",
+        "name": "Веточка омелы",
+        "url": "/api/2024/equipment/sprig-of-mistletoe"
+      },
+      {
+        "index": "staff",
+        "name": "Посох",
+        "url": "/api/2024/equipment/staff"
+      },
+      {
+        "index": "yew-wand",
+        "name": "Тисовая палочка",
+        "url": "/api/2024/equipment/yew-wand"
+      },
+      {
+        "index": "amulet",
+        "name": "Амулет",
+        "url": "/api/2024/equipment/amulet"
+      },
+      {
+        "index": "emblem",
+        "name": "Эмблема",
+        "url": "/api/2024/equipment/emblem"
+      },
+      {
+        "index": "reliquary",
+        "name": "Реликварий",
+        "url": "/api/2024/equipment/reliquary"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Нарисовать узнаваемое изображение того, что вы видели",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "pan-flute",
+    "name": "Флейта Пана",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 12,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "paper",
+    "name": "Бумага",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "см"
+    },
+    "description": "Один лист Бумаги вмещает около 250 написанных от руки слов."
+  },
+  {
+    "index": "parchment",
+    "name": "Пергамент",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 3,
+      "unit": "зм"
+    },
+    "description": "Один лист Пергамента вмещает около 250 написанных от руки слов."
+  },
+  {
+    "index": "perfume",
+    "name": "Духи",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Духи поставляются в склянке объёмом 4 унции. В течение 1 часа после нанесения Духов на себя вы получаете Преимущество на проверки Харизмы (Убеждение), совершаемые с целью повлиять на Равнодушного Гуманоида в пределах 5 футов от вас."
+  },
+  {
+    "index": "pike",
+    "name": "Пика",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "push",
+      "name": "Отталкивающее",
+      "url": "/api/2024/weapon-mastery-properties/push"
+    },
+    "properties": [
+      {
+        "index": "heavy",
+        "name": "Тяжёлое",
+        "url": "/api/2024/weapon-properties/heavy"
+      },
+      {
+        "index": "reach",
+        "name": "Досягаемость",
+        "url": "/api/2024/weapon-properties/reach"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "pistol",
+    "name": "Пистоль",
+    "equipment_categories": [
+      {
+        "index": "martial-ranged-weapons",
+        "name": "Воинское дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/martial-ranged-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 250,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "bullets-firearm",
+      "name": "Пули",
+      "url": "/api/2024/equipment/bullets-firearm"
+    },
+    "damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "loading",
+        "name": "Заряжаемое",
+        "url": "/api/2024/weapon-properties/loading"
+      }
+    ]
+  },
+  {
+    "index": "poisoners-kit",
+    "name": "Инструменты отравителя",
+    "equipment_categories": [
+      {
+        "index": "other-tools",
+        "name": "Прочие инструменты",
+        "url": "/api/2024/equipment-categories/other-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "poison-basic",
+        "name": "Простой яд",
+        "url": "/api/2024/equipment/poison-basic"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Обнаружить отравленный предмет",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "plate-armor",
+    "name": "Латный доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "heavy-armor",
+        "name": "Тяжёлый доспех",
+        "url": "/api/2024/equipment-categories/heavy-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 1500,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "playing-cards",
+    "name": "Игральные карты",
+    "equipment_categories": [
+      {
+        "index": "gaming-sets",
+        "name": "Игровые наборы",
+        "url": "/api/2024/equipment-categories/gaming-sets"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "см"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "utilize": [
+      {
+        "name": "Распознать, что кто-то жульничает",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Выиграть партию",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "poison-basic",
+    "name": "Простой яд",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 100,
+      "unit": "зм"
+    },
+    "description": "Бонусным действием вы можете использовать склянку Простого яда, чтобы покрыть одно оружие или до трёх боеприпасов. Существо, получающее урон Колющим или Рубящим от отравленного оружия или боеприпаса, получает дополнительно 1d4 урона Ядом. После нанесения яд сохраняет силу в течение 1 минуты или до нанесения урона — в зависимости от того, что произойдёт раньше."
+  },
+  {
+    "index": "pole",
+    "name": "Шест",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "мм"
+    },
+    "description": "Шест имеет длину 10 футов. Вы можете использовать его, чтобы дотянуться до чего-либо на расстоянии до 10 футов. Если вам требуется совершить проверку Силы (Атлетика) для Прыжка в высоту или в длину, вы можете использовать Шест как опору для прыжка, получив Преимущество на проверку."
+  },
+  {
+    "index": "pot-iron",
+    "name": "Железный горшок",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Железный горшок вмещает до 1 галлона."
+  },
+  {
+    "index": "potion-of-healing",
+    "name": "Зелье лечения",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "description": "Это зелье является магическим предметом. Бонусным действием вы можете выпить его или дать его другому существу в пределах 5 футов от себя. Существо, выпившее волшебную красную жидкость из этой склянки, восстанавливает 2d4 + 2 Хитов."
+  },
+  {
+    "index": "potters-tools",
+    "name": "Инструменты гончара",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    },
+    "craft": [
+      {
+        "index": "jug",
+        "name": "Кувшин",
+        "url": "/api/2024/equipment/jug"
+      },
+      {
+        "index": "lamp",
+        "name": "Лампа",
+        "url": "/api/2024/equipment/lamp"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Определить, что керамический предмет содержал в последние 24 часа",
+        "dc": {
+          "dc_type": {
+            "index": "int",
+            "name": "ИНТ",
+            "url": "/api/2024/ability-scores/int"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "pouch",
+    "name": "Кошель",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "см"
+    },
+    "description": "Кошель вмещает до 6 фунтов в пределах одной пятой кубического фута."
+  },
+  {
+    "index": "priests-pack",
+    "name": "Набор священника",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Наборы снаряжения",
+        "url": "/api/2024/equipment-categories/equipment-packs"
+      }
+    ],
+    "cost": {
+      "quantity": 33,
+      "unit": "зм"
+    },
+    "description": "Набор священника содержит следующие предметы: Рюкзак, Одеяло, Святую воду, Лампу, 7 дней Рационов, Мантию и Трутницу.",
+    "contents": [
+      {
+        "item": {
+          "index": "backpack",
+          "name": "Рюкзак",
+          "url": "/api/2024/equipment/backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "blanket",
+          "name": "Одеяло",
+          "url": "/api/2024/equipment/blanket"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "holy-water",
+          "name": "Святая вода",
+          "url": "/api/2024/equipment/holy-water"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "lamp",
+          "name": "Лампа",
+          "url": "/api/2024/equipment/lamp"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "rations",
+          "name": "Рационы",
+          "url": "/api/2024/equipment/rations"
+        },
+        "quantity": 7
+      },
+      {
+        "item": {
+          "index": "robe",
+          "name": "Мантия",
+          "url": "/api/2024/equipment/robe"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "tinderbox",
+          "name": "Трутница",
+          "url": "/api/2024/equipment/tinderbox"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "quarterstaff",
+    "name": "Боевой посох",
+    "equipment_categories": [
+      {
+        "index": "arcane-foci",
+        "name": "Магические фокусы",
+        "url": "/api/2024/equipment-categories/arcane-foci"
+      },
+      {
+        "index": "druidic-foci",
+        "name": "Друидические фокусы",
+        "url": "/api/2024/equipment-categories/druidic-foci"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "см"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "topple",
+      "name": "Опрокидывающее",
+      "url": "/api/2024/weapon-mastery-properties/topple"
+    },
+    "properties": [
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    }
+  },
+  {
+    "index": "quiver",
+    "name": "Колчан",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Колчан вмещает до 20 Стрел."
+  },
+  {
+    "index": "ram-portable",
+    "name": "Портативный таран",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 4,
+      "unit": "зм"
+    },
+    "description": "Вы можете использовать Портативный таран, чтобы выбивать двери. При этом вы получаете бонус +4 к проверке Силы. Ещё один персонаж может помочь вам с тараном, давая вам Преимущество на эту проверку."
+  },
+  {
+    "index": "rapier",
+    "name": "Рапира",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "finesse",
+        "name": "Фехтовальное",
+        "url": "/api/2024/weapon-properties/finesse"
+      }
+    ]
+  },
+  {
+    "index": "rations",
+    "name": "Рационы",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "см"
+    },
+    "description": "Рационы состоят из пригодной в дороге пищи, включая вяленое мясо, сухофрукты, сухари и орехи. О рисках голодания см. раздел «Недоедание» в «Глоссарии правил»."
+  },
+  {
+    "index": "reliquary",
+    "name": "Реликварий",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "holy-symbols",
+        "name": "Священные символы",
+        "url": "/api/2024/equipment-categories/holy-symbols"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "description": "Священный символ принимает одну из форм, указанных в таблице Священных символов, и украшается драгоценными камнями или расписывается для направления божественной магии. Жрец или Паладин могут использовать Священный символ как заклинательный фокус.\nВ таблице указано, нужно ли держать Священный символ в руках, носить на себе или на ткани (например, на тунике или знамени), либо на Щите."
+  },
+  {
+    "index": "ring-mail",
+    "name": "Колечный доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "heavy-armor",
+        "name": "Тяжёлый доспех",
+        "url": "/api/2024/equipment-categories/heavy-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "robe",
+    "name": "Мантия",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Мантия имеет профессиональное или церемониальное значение. Некоторые мероприятия и места допускают только людей в Мантии определённых цветов или с определёнными символами."
+  },
+  {
+    "index": "rod",
+    "name": "Деревянный посох",
+    "equipment_categories": [
+      {
+        "index": "arcane-foci",
+        "name": "Магические фокусы",
+        "url": "/api/2024/equipment-categories/arcane-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "rope",
+    "name": "Верёвка",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Действием «Использование» вы можете завязать узел на Верёвке, если преуспеете в проверке Ловкости (Ловкость рук) Сл 10. Верёвку можно разорвать успешной проверкой Силы (Атлетика) Сл 20.\nСвязать не желающее того существо Верёвкой можно только в том случае, если существо имеет состояние Схвачено, Недееспособно или Удержано. Если ноги существа связаны, существо получает состояние Удержано, пока не освободится. Для освобождения от Верёвки требуется успешная проверка Ловкости (Акробатика) Сл 15, совершённая действием."
+  },
+  {
+    "index": "sack",
+    "name": "Мешок",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "мм"
+    },
+    "description": "Мешок вмещает до 30 фунтов в пределах 1 кубического фута."
+  },
+  {
+    "index": "scale-mail",
+    "name": "Чешуйчатый доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "medium-armor",
+        "name": "Средний доспех",
+        "url": "/api/2024/equipment-categories/medium-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "scholars-pack",
+    "name": "Набор учёного",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Наборы снаряжения",
+        "url": "/api/2024/equipment-categories/equipment-packs"
+      }
+    ],
+    "cost": {
+      "quantity": 40,
+      "unit": "зм"
+    },
+    "description": "Набор учёного содержит следующие предметы: Рюкзак, Одеяло, Книгу, Чернила, Писчее перо, Лампу, 10 фляг Масла, 10 листов Пергамента и Трутницу.",
+    "contents": [
+      {
+        "item": {
+          "index": "backpack",
+          "name": "Рюкзак",
+          "url": "/api/2024/equipment/backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "blanket",
+          "name": "Одеяло",
+          "url": "/api/2024/equipment/blanket"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "book",
+          "name": "Книга",
+          "url": "/api/2024/equipment/book"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "ink",
+          "name": "Чернила",
+          "url": "/api/2024/equipment/ink"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "ink-pen",
+          "name": "Писчее перо",
+          "url": "/api/2024/equipment/ink-pen"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "lamp",
+          "name": "Лампа",
+          "url": "/api/2024/equipment/lamp"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "index": "oil",
+          "name": "Масло",
+          "url": "/api/2024/equipment/oil"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "parchment",
+          "name": "Пергамент",
+          "url": "/api/2024/equipment/parchment"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "index": "tinderbox",
+          "name": "Трутница",
+          "url": "/api/2024/equipment/tinderbox"
+        },
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "index": "scimitar",
+    "name": "Скимитар",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "nick",
+      "name": "Быстрое",
+      "url": "/api/2024/weapon-mastery-properties/nick"
+    },
+    "properties": [
+      {
+        "index": "finesse",
+        "name": "Фехтовальное",
+        "url": "/api/2024/weapon-properties/finesse"
+      },
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      }
+    ]
+  },
+  {
+    "index": "shawm",
+    "name": "Шалмей",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "shield",
+    "name": "Щит",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "shields",
+        "name": "Щиты",
+        "url": "/api/2024/equipment-categories/shields"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "shortbow",
+    "name": "Короткий лук",
+    "equipment_categories": [
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "simple-ranged-weapons",
+        "name": "Простое дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/simple-ranged-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ammunition": {
+      "index": "arrows",
+      "name": "Стрелы",
+      "url": "/api/2024/equipment/arrows"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      },
+      {
+        "index": "two-handed",
+        "name": "Двуручное",
+        "url": "/api/2024/weapon-properties/two-handed"
+      }
+    ]
+  },
+  {
+    "index": "shortsword",
+    "name": "Короткий меч",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "vex",
+      "name": "Отвлекающее",
+      "url": "/api/2024/weapon-mastery-properties/vex"
+    },
+    "properties": [
+      {
+        "index": "finesse",
+        "name": "Фехтовальное",
+        "url": "/api/2024/weapon-properties/finesse"
+      },
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      }
+    ]
+  },
+  {
+    "index": "shovel",
+    "name": "Лопата",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "Работая в течение 1 часа, вы можете использовать Лопату, чтобы выкопать яму размером 5 на 5 футов в грунте или подобном материале."
+  },
+  {
+    "index": "sickle",
+    "name": "Серп",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "nick",
+      "name": "Быстрое",
+      "url": "/api/2024/weapon-mastery-properties/nick"
+    },
+    "properties": [
+      {
+        "index": "light",
+        "name": "Лёгкое",
+        "url": "/api/2024/weapon-properties/light"
+      }
+    ]
+  },
+  {
+    "index": "signal-whistle",
+    "name": "Сигнальный свисток",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "мм"
+    },
+    "description": "При использовании действием «Использование» Сигнальный свисток издаёт звук, который слышно на расстоянии до 600 футов."
+  },
+  {
+    "index": "sling",
+    "name": "Праща",
+    "equipment_categories": [
+      {
+        "index": "ranged-weapons",
+        "name": "Дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/ranged-weapons"
+      },
+      {
+        "index": "simple-ranged-weapons",
+        "name": "Простое дальнобойное оружие",
+        "url": "/api/2024/equipment-categories/simple-ranged-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "см"
+    },
+    "ammunition": {
+      "index": "bullets-sling",
+      "name": "Снаряды для пращи",
+      "url": "/api/2024/equipment/bullets-sling"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "ammunition",
+        "name": "Боеприпасы",
+        "url": "/api/2024/weapon-properties/ammunition"
+      }
+    ]
+  },
+  {
+    "index": "smiths-tools",
+    "name": "Инструменты кузнеца",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 20,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "str",
+      "name": "СИЛ",
+      "url": "/api/2024/ability-scores/str"
+    },
+    "craft": [
+      {
+        "index": "battleaxe",
+        "name": "Боевой топор",
+        "url": "/api/2024/equipment/battleaxe"
+      },
+      {
+        "index": "dagger",
+        "name": "Кинжал",
+        "url": "/api/2024/equipment/dagger"
+      },
+      {
+        "index": "flail",
+        "name": "Цеп",
+        "url": "/api/2024/equipment/flail"
+      },
+      {
+        "index": "glaive",
+        "name": "Глефа",
+        "url": "/api/2024/equipment/glaive"
+      },
+      {
+        "index": "greataxe",
+        "name": "Секира",
+        "url": "/api/2024/equipment/greataxe"
+      },
+      {
+        "index": "greatsword",
+        "name": "Двуручный меч",
+        "url": "/api/2024/equipment/greatsword"
+      },
+      {
+        "index": "halberd",
+        "name": "Алебарда",
+        "url": "/api/2024/equipment/halberd"
+      },
+      {
+        "index": "handaxe",
+        "name": "Одноручный топор",
+        "url": "/api/2024/equipment/handaxe"
+      },
+      {
+        "index": "javelin",
+        "name": "Метательное копьё",
+        "url": "/api/2024/equipment/javelin"
+      },
+      {
+        "index": "lance",
+        "name": "Кавалерийское копьё",
+        "url": "/api/2024/equipment/lance"
+      },
+      {
+        "index": "light-hammer",
+        "name": "Лёгкий молот",
+        "url": "/api/2024/equipment/light-hammer"
+      },
+      {
+        "index": "longsword",
+        "name": "Длинный меч",
+        "url": "/api/2024/equipment/longsword"
+      },
+      {
+        "index": "mace",
+        "name": "Булава",
+        "url": "/api/2024/equipment/mace"
+      },
+      {
+        "index": "maul",
+        "name": "Молот",
+        "url": "/api/2024/equipment/maul"
+      },
+      {
+        "index": "sickle",
+        "name": "Серп",
+        "url": "/api/2024/equipment/sickle"
+      },
+      {
+        "index": "spear",
+        "name": "Копьё",
+        "url": "/api/2024/equipment/spear"
+      },
+      {
+        "index": "trident",
+        "name": "Трезубец",
+        "url": "/api/2024/equipment/trident"
+      },
+      {
+        "index": "warhammer",
+        "name": "Боевой молот",
+        "url": "/api/2024/equipment/warhammer"
+      },
+      {
+        "index": "war-pick",
+        "name": "Клевец",
+        "url": "/api/2024/equipment/war-pick"
+      },
+      {
+        "index": "breastplate",
+        "name": "Кираса",
+        "url": "/api/2024/equipment/breastplate"
+      },
+      {
+        "index": "chain-shirt",
+        "name": "Кольчужная рубаха",
+        "url": "/api/2024/equipment/chain-shirt"
+      },
+      {
+        "index": "half-plate-armor",
+        "name": "Полулаты",
+        "url": "/api/2024/equipment/half-plate-armor"
+      },
+      {
+        "index": "scale-mail",
+        "name": "Чешуйчатый доспех",
+        "url": "/api/2024/equipment/scale-mail"
+      },
+      {
+        "index": "chain-mail",
+        "name": "Кольчужный доспех",
+        "url": "/api/2024/equipment/chain-mail"
+      },
+      {
+        "index": "plate-armor",
+        "name": "Латный доспех",
+        "url": "/api/2024/equipment/plate-armor"
+      },
+      {
+        "index": "ring-mail",
+        "name": "Колечный доспех",
+        "url": "/api/2024/equipment/ring-mail"
+      },
+      {
+        "index": "splint-armor",
+        "name": "Пластинчатый доспех",
+        "url": "/api/2024/equipment/splint-armor"
+      },
+      {
+        "index": "ball-bearings",
+        "name": "Металлические шарики",
+        "url": "/api/2024/equipment/ball-bearings"
+      },
+      {
+        "index": "bucket",
+        "name": "Ведро",
+        "url": "/api/2024/equipment/bucket"
+      },
+      {
+        "index": "caltrops",
+        "name": "Калтропы",
+        "url": "/api/2024/equipment/caltrops"
+      },
+      {
+        "index": "chain",
+        "name": "Цепь",
+        "url": "/api/2024/equipment/chain"
+      },
+      {
+        "index": "crowbar",
+        "name": "Ломик",
+        "url": "/api/2024/equipment/crowbar"
+      },
+      {
+        "index": "bullets-firearm",
+        "name": "Пули",
+        "url": "/api/2024/equipment/bullets-firearm"
+      },
+      {
+        "index": "grappling-hook",
+        "name": "Крюк-кошка",
+        "url": "/api/2024/equipment/grappling-hook"
+      },
+      {
+        "index": "pot-iron",
+        "name": "Железный горшок",
+        "url": "/api/2024/equipment/pot-iron"
+      },
+      {
+        "index": "spikes-iron",
+        "name": "Железные шипы",
+        "url": "/api/2024/equipment/spikes-iron"
+      },
+      {
+        "index": "bullets-sling",
+        "name": "Снаряды для пращи",
+        "url": "/api/2024/equipment/bullets-sling"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Вскрыть дверь или контейнер",
+        "dc": {
+          "dc_type": {
+            "index": "str",
+            "name": "СИЛ",
+            "url": "/api/2024/ability-scores/str"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "spear",
+    "name": "Копьё",
+    "equipment_categories": [
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "simple-melee-weapons",
+        "name": "Простое ближнее оружие",
+        "url": "/api/2024/equipment-categories/simple-melee-weapons"
+      },
+      {
+        "index": "simple-weapons",
+        "name": "Простое оружие",
+        "url": "/api/2024/equipment-categories/simple-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "sap",
+      "name": "Ослабляющее",
+      "url": "/api/2024/weapon-mastery-properties/sap"
+    },
+    "properties": [
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      },
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    }
+  },
+  {
+    "index": "spellbook",
+    "name": "Книга заклинаний",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "description": "Необходимая волшебникам, книга заклинаний — это переплетённый в кожу том со 100 пустыми пергаментными страницами, пригодными для записи заклинаний."
+  },
+  {
+    "index": "spell-scroll-cantrip",
+    "name": "Свиток заклинания (заговор)",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    },
+    "description": "*Свиток заклинания* (заговор) или *Свиток заклинания* (1 уровень) — это магический предмет, на котором записаны слова заговора или заклинания 1 уровня соответственно, выбранного создателем свитка. Если заклинание находится в списке заклинаний вашего класса, вы можете прочитать свиток и сотворить заклинание, используя его обычное время сотворения и без предоставления каких-либо материальных компонентов.\nЕсли заклинание требует спасброска или броска атаки, Сл спасброска заклинания равна 13, а бонус атаки равен +5. Свиток распадается, когда сотворение завершено."
+  },
+  {
+    "index": "spell-scroll-level-1",
+    "name": "Свиток заклинания (1 уровень)",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "description": "*Свиток заклинания* (заговор) или *Свиток заклинания* (1 уровень) — это магический предмет, на котором записаны слова заговора или заклинания 1 уровня соответственно, выбранного создателем свитка. Если заклинание находится в списке заклинаний вашего класса, вы можете прочитать свиток и сотворить заклинание, используя его обычное время сотворения и без предоставления каких-либо материальных компонентов.\nЕсли заклинание требует спасброска или броска атаки, Сл спасброска заклинания равна 13, а бонус атаки равен +5. Свиток распадается, когда сотворение завершено."
+  },
+  {
+    "index": "spikes-iron",
+    "name": "Железные шипы",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Железные шипы поставляются в связках по десять. Действием «Использование» вы можете использовать тупой предмет, такой как Лёгкий молот, чтобы вбить шип в дерево, землю или аналогичный материал. Вы можете сделать это, чтобы заблокировать дверь или привязать к Шипу Верёвку или Цепь."
+  },
+  {
+    "index": "splint-armor",
+    "name": "Пластинчатый доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "heavy-armor",
+        "name": "Тяжёлый доспех",
+        "url": "/api/2024/equipment-categories/heavy-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 200,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "sprig-of-mistletoe",
+    "name": "Веточка омелы",
+    "equipment_categories": [
+      {
+        "index": "druidic-foci",
+        "name": "Друидические фокусы",
+        "url": "/api/2024/equipment-categories/druidic-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "spyglass",
+    "name": "Подзорная труба",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1000,
+      "unit": "зм"
+    },
+    "description": "Объекты, рассматриваемые через Подзорную трубу, увеличиваются вдвое."
+  },
+  {
+    "index": "staff",
+    "name": "Посох",
+    "equipment_categories": [
+      {
+        "index": "arcane-foci",
+        "name": "Магические фокусы",
+        "url": "/api/2024/equipment-categories/arcane-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "druidic-foci",
+        "name": "Друидические фокусы",
+        "url": "/api/2024/equipment-categories/druidic-foci"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "string",
+    "name": "Леска",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "см"
+    },
+    "description": "Леска имеет длину 10 футов. Вы можете завязать на ней узел действием «Использование»."
+  },
+  {
+    "index": "studded-leather-armor",
+    "name": "Проклёпанный кожаный доспех",
+    "equipment_categories": [
+      {
+        "index": "armor",
+        "name": "Доспехи",
+        "url": "/api/2024/equipment-categories/armor"
+      },
+      {
+        "index": "light-armor",
+        "name": "Лёгкий доспех",
+        "url": "/api/2024/equipment-categories/light-armor"
+      }
+    ],
+    "cost": {
+      "quantity": 45,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "tent",
+    "name": "Палатка",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "description": "В Палатке могут спать до двух существ Маленького или Среднего размера."
+  },
+  {
+    "index": "thieves-tools",
+    "name": "Воровские инструменты",
+    "equipment_categories": [
+      {
+        "index": "other-tools",
+        "name": "Прочие инструменты",
+        "url": "/api/2024/equipment-categories/other-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 25,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "utilize": [
+      {
+        "name": "Вскрыть замок",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Обезвредить ловушку",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "three-dragon-ante",
+    "name": "Ставка трёх драконов",
+    "equipment_categories": [
+      {
+        "index": "gaming-sets",
+        "name": "Игровые наборы",
+        "url": "/api/2024/equipment-categories/gaming-sets"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    },
+    "utilize": [
+      {
+        "name": "Распознать, что кто-то жульничает",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Выиграть партию",
+        "dc": {
+          "dc_type": {
+            "index": "wis",
+            "name": "МУД",
+            "url": "/api/2024/ability-scores/wis"
+          },
+          "dc_value": 20,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "tinderbox",
+    "name": "Трутница",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "см"
+    },
+    "description": "Трутница — это небольшой контейнер с кремнём, огнивом и трутом (обычно сухая ткань, пропитанная лёгким маслом), используемый для разведения огня. Использование её для зажигания Свечи, Лампы, Фонаря или Факела — а также чего-либо ещё с открытым топливом — занимает Бонусное действие. Разжигание любого другого огня занимает 1 минуту."
+  },
+  {
+    "index": "tinkers-tools",
+    "name": "Инструменты ремонтника",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 50,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "craft": [
+      {
+        "index": "musket",
+        "name": "Мушкет",
+        "url": "/api/2024/equipment/musket"
+      },
+      {
+        "index": "pistol",
+        "name": "Пистоль",
+        "url": "/api/2024/equipment/pistol"
+      },
+      {
+        "index": "bell",
+        "name": "Колокольчик",
+        "url": "/api/2024/equipment/bell"
+      },
+      {
+        "index": "lantern-bullseye",
+        "name": "Направленный фонарь",
+        "url": "/api/2024/equipment/lantern-bullseye"
+      },
+      {
+        "index": "flask",
+        "name": "Фляга",
+        "url": "/api/2024/equipment/flask"
+      },
+      {
+        "index": "lantern-hooded",
+        "name": "Закрытый фонарь",
+        "url": "/api/2024/equipment/lantern-hooded"
+      },
+      {
+        "index": "hunting-trap",
+        "name": "Охотничий капкан",
+        "url": "/api/2024/equipment/hunting-trap"
+      },
+      {
+        "index": "lock",
+        "name": "Замок",
+        "url": "/api/2024/equipment/lock"
+      },
+      {
+        "index": "manacles",
+        "name": "Кандалы",
+        "url": "/api/2024/equipment/manacles"
+      },
+      {
+        "index": "mirror",
+        "name": "Зеркало",
+        "url": "/api/2024/equipment/mirror"
+      },
+      {
+        "index": "shovel",
+        "name": "Лопата",
+        "url": "/api/2024/equipment/shovel"
+      },
+      {
+        "index": "signal-whistle",
+        "name": "Сигнальный свисток",
+        "url": "/api/2024/equipment/signal-whistle"
+      },
+      {
+        "index": "tinderbox",
+        "name": "Трутница",
+        "url": "/api/2024/equipment/tinderbox"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Собрать крошечный предмет из лома, который разваливается через 1 минуту",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "torch",
+    "name": "Факел",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "мм"
+    },
+    "description": "Факел горит 1 час, давая Яркий свет в радиусе 20 футов и Тусклый свет ещё на 20 футов. Совершая действие «Атака», вы можете атаковать Факелом, используя его как простое рукопашное оружие. При попадании цель получает 1 урон Огнём."
+  },
+  {
+    "index": "trident",
+    "name": "Трезубец",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d6",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "topple",
+      "name": "Опрокидывающее",
+      "url": "/api/2024/weapon-mastery-properties/topple"
+    },
+    "properties": [
+      {
+        "index": "thrown",
+        "name": "Метательное",
+        "url": "/api/2024/weapon-properties/thrown"
+      },
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    }
+  },
+  {
+    "index": "vial",
+    "name": "Флакон",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "description": "Флакон вмещает до 4 унций."
+  },
+  {
+    "index": "viol",
+    "name": "Виола да гамба",
+    "equipment_categories": [
+      {
+        "index": "musical-instruments",
+        "name": "Музыкальные инструменты",
+        "url": "/api/2024/equipment-categories/musical-instruments"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 30,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    },
+    "utilize": [
+      {
+        "name": "Сыграть известную мелодию",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Импровизировать песню",
+        "dc": {
+          "dc_type": {
+            "index": "cha",
+            "name": "ХАР",
+            "url": "/api/2024/ability-scores/cha"
+          },
+          "dc_value": 15,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "wand",
+    "name": "Волшебная палочка",
+    "equipment_categories": [
+      {
+        "index": "arcane-foci",
+        "name": "Магические фокусы",
+        "url": "/api/2024/equipment-categories/arcane-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  },
+  {
+    "index": "warhammer",
+    "name": "Боевой молот",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 15,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    },
+    "mastery": {
+      "index": "push",
+      "name": "Отталкивающее",
+      "url": "/api/2024/weapon-mastery-properties/push"
+    },
+    "properties": [
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
+      }
+    }
+  },
+  {
+    "index": "war-pick",
+    "name": "Клевец",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 5,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d8",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    },
+    "mastery": {
+      "index": "sap",
+      "name": "Ослабляющее",
+      "url": "/api/2024/weapon-mastery-properties/sap"
+    },
+    "properties": [
+      {
+        "index": "versatile",
+        "name": "Универсальное",
+        "url": "/api/2024/weapon-properties/versatile"
+      }
+    ],
+    "two_handed_damage": {
+      "damage_dice": "1d10",
+      "damage_type": {
+        "index": "piercing",
+        "name": "Колющий",
+        "url": "/api/2024/damage-types/piercing"
+      }
+    }
+  },
+  {
+    "index": "waterskin",
+    "name": "Бурдюк",
+    "equipment_categories": [
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "см"
+    },
+    "description": "Бурдюк вмещает до 4 пинт. Если вы пьёте недостаточно воды, вы рискуете получить обезвоживание (см. «Глоссарий правил»)."
+  },
+  {
+    "index": "weavers-tools",
+    "name": "Инструменты ткача",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "craft": [
+      {
+        "index": "padded-armor",
+        "name": "Стёганый доспех",
+        "url": "/api/2024/equipment/padded-armor"
+      },
+      {
+        "index": "basket",
+        "name": "Корзина",
+        "url": "/api/2024/equipment/basket"
+      },
+      {
+        "index": "bedroll",
+        "name": "Спальник",
+        "url": "/api/2024/equipment/bedroll"
+      },
+      {
+        "index": "blanket",
+        "name": "Одеяло",
+        "url": "/api/2024/equipment/blanket"
+      },
+      {
+        "index": "clothes-fine",
+        "name": "Отличная одежда",
+        "url": "/api/2024/equipment/clothes-fine"
+      },
+      {
+        "index": "net",
+        "name": "Сеть",
+        "url": "/api/2024/equipment/net"
+      },
+      {
+        "index": "robe",
+        "name": "Мантия",
+        "url": "/api/2024/equipment/robe"
+      },
+      {
+        "index": "rope",
+        "name": "Верёвка",
+        "url": "/api/2024/equipment/rope"
+      },
+      {
+        "index": "sack",
+        "name": "Мешок",
+        "url": "/api/2024/equipment/sack"
+      },
+      {
+        "index": "string",
+        "name": "Леска",
+        "url": "/api/2024/equipment/string"
+      },
+      {
+        "index": "tent",
+        "name": "Палатка",
+        "url": "/api/2024/equipment/tent"
+      },
+      {
+        "index": "clothes-travelers",
+        "name": "Дорожная одежда",
+        "url": "/api/2024/equipment/clothes-travelers"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Зашить прореху на одежде",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      },
+      {
+        "name": "Вышить крошечный узор",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "whip",
+    "name": "Кнут",
+    "equipment_categories": [
+      {
+        "index": "martial-melee-weapons",
+        "name": "Воинское ближнее оружие",
+        "url": "/api/2024/equipment-categories/martial-melee-weapons"
+      },
+      {
+        "index": "martial-weapons",
+        "name": "Воинское оружие",
+        "url": "/api/2024/equipment-categories/martial-weapons"
+      },
+      {
+        "index": "melee-weapons",
+        "name": "Ближнее оружие",
+        "url": "/api/2024/equipment-categories/melee-weapons"
+      },
+      {
+        "index": "weapons",
+        "name": "Оружие",
+        "url": "/api/2024/equipment-categories/weapons"
+      }
+    ],
+    "cost": {
+      "quantity": 2,
+      "unit": "зм"
+    },
+    "damage": {
+      "damage_dice": "1d4",
+      "damage_type": {
+        "index": "slashing",
+        "name": "Рубящий",
+        "url": "/api/2024/damage-types/slashing"
+      }
+    },
+    "mastery": {
+      "index": "slow",
+      "name": "Замедляющее",
+      "url": "/api/2024/weapon-mastery-properties/slow"
+    },
+    "properties": [
+      {
+        "index": "finesse",
+        "name": "Фехтовальное",
+        "url": "/api/2024/weapon-properties/finesse"
+      },
+      {
+        "index": "reach",
+        "name": "Досягаемость",
+        "url": "/api/2024/weapon-properties/reach"
+      }
+    ]
+  },
+  {
+    "index": "woodcarvers-tools",
+    "name": "Инструменты резчика по дереву",
+    "equipment_categories": [
+      {
+        "index": "artisans-tools",
+        "name": "Инструменты ремесленника",
+        "url": "/api/2024/equipment-categories/artisans-tools"
+      },
+      {
+        "index": "tools",
+        "name": "Инструменты",
+        "url": "/api/2024/equipment-categories/tools"
+      }
+    ],
+    "cost": {
+      "quantity": 1,
+      "unit": "зм"
+    },
+    "ability": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    },
+    "craft": [
+      {
+        "index": "club",
+        "name": "Дубинка",
+        "url": "/api/2024/equipment/club"
+      },
+      {
+        "index": "greatclub",
+        "name": "Палица",
+        "url": "/api/2024/equipment/greatclub"
+      },
+      {
+        "index": "quarterstaff",
+        "name": "Боевой посох",
+        "url": "/api/2024/equipment/quarterstaff"
+      },
+      {
+        "index": "blowgun",
+        "name": "Духовая трубка",
+        "url": "/api/2024/equipment/blowgun"
+      },
+      {
+        "index": "dart",
+        "name": "Дротик",
+        "url": "/api/2024/equipment/dart"
+      },
+      {
+        "index": "hand-crossbow",
+        "name": "Одноручный арбалет",
+        "url": "/api/2024/equipment/hand-crossbow"
+      },
+      {
+        "index": "heavy-crossbow",
+        "name": "Тяжёлый арбалет",
+        "url": "/api/2024/equipment/heavy-crossbow"
+      },
+      {
+        "index": "light-crossbow",
+        "name": "Лёгкий арбалет",
+        "url": "/api/2024/equipment/light-crossbow"
+      },
+      {
+        "index": "longbow",
+        "name": "Длинный лук",
+        "url": "/api/2024/equipment/longbow"
+      },
+      {
+        "index": "shortbow",
+        "name": "Короткий лук",
+        "url": "/api/2024/equipment/shortbow"
+      },
+      {
+        "index": "crystal",
+        "name": "Кристалл",
+        "url": "/api/2024/equipment/crystal"
+      },
+      {
+        "index": "orb",
+        "name": "Сфера",
+        "url": "/api/2024/equipment/orb"
+      },
+      {
+        "index": "quarterstaff",
+        "name": "Боевой посох",
+        "url": "/api/2024/equipment/quarterstaff"
+      },
+      {
+        "index": "rod",
+        "name": "Деревянный посох",
+        "url": "/api/2024/equipment/rod"
+      },
+      {
+        "index": "staff",
+        "name": "Посох",
+        "url": "/api/2024/equipment/staff"
+      },
+      {
+        "index": "wand",
+        "name": "Волшебная палочка",
+        "url": "/api/2024/equipment/wand"
+      },
+      {
+        "index": "arrows",
+        "name": "Стрелы",
+        "url": "/api/2024/equipment/arrows"
+      },
+      {
+        "index": "bolts",
+        "name": "Болты",
+        "url": "/api/2024/equipment/bolts"
+      },
+      {
+        "index": "sprig-of-mistletoe",
+        "name": "Веточка омелы",
+        "url": "/api/2024/equipment/sprig-of-mistletoe"
+      },
+      {
+        "index": "staff",
+        "name": "Посох",
+        "url": "/api/2024/equipment/staff"
+      },
+      {
+        "index": "yew-wand",
+        "name": "Тисовая палочка",
+        "url": "/api/2024/equipment/yew-wand"
+      },
+      {
+        "index": "ink-pen",
+        "name": "Писчее перо",
+        "url": "/api/2024/equipment/ink-pen"
+      },
+      {
+        "index": "needles",
+        "name": "Иглы",
+        "url": "/api/2024/equipment/needles"
+      }
+    ],
+    "utilize": [
+      {
+        "name": "Вырезать узор на дереве",
+        "dc": {
+          "dc_type": {
+            "index": "dex",
+            "name": "ЛОВ",
+            "url": "/api/2024/ability-scores/dex"
+          },
+          "dc_value": 10,
+          "success_type": "none"
+        }
+      }
+    ]
+  },
+  {
+    "index": "yew-wand",
+    "name": "Тисовая палочка",
+    "equipment_categories": [
+      {
+        "index": "druidic-foci",
+        "name": "Друидические фокусы",
+        "url": "/api/2024/equipment-categories/druidic-foci"
+      },
+      {
+        "index": "adventuring-gear",
+        "name": "Снаряжение путешественника",
+        "url": "/api/2024/equipment-categories/adventuring-gear"
+      }
+    ],
+    "cost": {
+      "quantity": 10,
+      "unit": "зм"
+    }
+  }
+]
