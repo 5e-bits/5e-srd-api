@@ -1,6 +1,6 @@
 {
   "name": "5e-database",
-  "version": "7.6.0",
+  "version": "7.7.0",
   "description": "Database for 5e-srd-api",
   "private": true,
   "engines": {
