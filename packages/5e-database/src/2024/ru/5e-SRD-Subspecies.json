@@ -1,0 +1,628 @@
+[
+  {
+    "index": "draconic-ancestor-black",
+    "name": "Драконий предок: Чёрный",
+    "damage_type": {
+      "index": "acid",
+      "name": "Кислота",
+      "url": "/api/2024/damage-types/acid"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-acid",
+        "url": "/api/2024/traits/draconic-breath-weapon-acid",
+        "name": "Оружие дыхания: Кислота",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-acid",
+        "url": "/api/2024/traits/draconic-damage-resistance-acid",
+        "name": "Сопротивление урону: Кислота",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-blue",
+    "name": "Драконий предок: Синий",
+    "damage_type": {
+      "index": "lightning",
+      "name": "Электричество",
+      "url": "/api/2024/damage-types/lightning"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-lightning",
+        "url": "/api/2024/traits/draconic-breath-weapon-lightning",
+        "name": "Оружие дыхания: Электричество",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-lightning",
+        "url": "/api/2024/traits/draconic-damage-resistance-lightning",
+        "name": "Сопротивление урону: Электричество",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-brass",
+    "name": "Драконий предок: Латунный",
+    "damage_type": {
+      "index": "fire",
+      "name": "Огонь",
+      "url": "/api/2024/damage-types/fire"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-fire",
+        "url": "/api/2024/traits/draconic-breath-weapon-fire",
+        "name": "Оружие дыхания: Огонь",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-fire",
+        "url": "/api/2024/traits/draconic-damage-resistance-fire",
+        "name": "Сопротивление урону: Огонь",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-bronze",
+    "name": "Драконий предок: Бронзовый",
+    "damage_type": {
+      "index": "lightning",
+      "name": "Электричество",
+      "url": "/api/2024/damage-types/lightning"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-lightning",
+        "url": "/api/2024/traits/draconic-breath-weapon-lightning",
+        "name": "Оружие дыхания: Электричество",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-lightning",
+        "url": "/api/2024/traits/draconic-damage-resistance-lightning",
+        "name": "Сопротивление урону: Электричество",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-copper",
+    "name": "Драконий предок: Медный",
+    "damage_type": {
+      "index": "acid",
+      "name": "Кислота",
+      "url": "/api/2024/damage-types/acid"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-acid",
+        "url": "/api/2024/traits/draconic-breath-weapon-acid",
+        "name": "Оружие дыхания: Кислота",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-acid",
+        "url": "/api/2024/traits/draconic-damage-resistance-acid",
+        "name": "Сопротивление урону: Кислота",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-gold",
+    "name": "Драконий предок: Золотой",
+    "damage_type": {
+      "index": "fire",
+      "name": "Огонь",
+      "url": "/api/2024/damage-types/fire"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-fire",
+        "url": "/api/2024/traits/draconic-breath-weapon-fire",
+        "name": "Оружие дыхания: Огонь",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-fire",
+        "url": "/api/2024/traits/draconic-damage-resistance-fire",
+        "name": "Сопротивление урону: Огонь",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-green",
+    "name": "Драконий предок: Зелёный",
+    "damage_type": {
+      "index": "poison",
+      "name": "Яд",
+      "url": "/api/2024/damage-types/poison"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-poison",
+        "url": "/api/2024/traits/draconic-breath-weapon-poison",
+        "name": "Оружие дыхания: Яд",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-poison",
+        "url": "/api/2024/traits/draconic-damage-resistance-poison",
+        "name": "Сопротивление урону: Яд",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-red",
+    "name": "Драконий предок: Красный",
+    "damage_type": {
+      "index": "fire",
+      "name": "Огонь",
+      "url": "/api/2024/damage-types/fire"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-fire",
+        "url": "/api/2024/traits/draconic-breath-weapon-fire",
+        "name": "Оружие дыхания: Огонь",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-fire",
+        "url": "/api/2024/traits/draconic-damage-resistance-fire",
+        "name": "Сопротивление урону: Огонь",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-silver",
+    "name": "Драконий предок: Серебряный",
+    "damage_type": {
+      "index": "cold",
+      "name": "Холод",
+      "url": "/api/2024/damage-types/cold"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-cold",
+        "url": "/api/2024/traits/draconic-breath-weapon-cold",
+        "name": "Оружие дыхания: Холод",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-cold",
+        "url": "/api/2024/traits/draconic-damage-resistance-cold",
+        "name": "Сопротивление урону: Холод",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "draconic-ancestor-white",
+    "name": "Драконий предок: Белый",
+    "damage_type": {
+      "index": "cold",
+      "name": "Холод",
+      "url": "/api/2024/damage-types/cold"
+    },
+    "species": {
+      "index": "dragonborn",
+      "name": "Драконорождённый",
+      "url": "/api/2024/species/dragonborn"
+    },
+    "traits": [
+      {
+        "index": "draconic-breath-weapon-cold",
+        "url": "/api/2024/traits/draconic-breath-weapon-cold",
+        "name": "Оружие дыхания: Холод",
+        "level": 1
+      },
+      {
+        "index": "draconic-damage-resistance-cold",
+        "url": "/api/2024/traits/draconic-damage-resistance-cold",
+        "name": "Сопротивление урону: Холод",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "index": "elven-lineage-drow",
+    "name": "Эльфийский род: Дроу",
+    "traits": [
+      {
+        "index": "darkvision-120",
+        "name": "Тёмное зрение (120 футов)",
+        "url": "/api/2024/traits/darkvision-120",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-dancing-lights",
+        "url": "/api/2024/traits/lineage-spell-dancing-lights",
+        "name": "Танцующие огоньки",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-faerie-fire",
+        "url": "/api/2024/traits/lineage-spell-faerie-fire",
+        "name": "Огонь фей",
+        "level": 3
+      },
+      {
+        "index": "lineage-spell-darkness",
+        "url": "/api/2024/traits/lineage-spell-darkness",
+        "name": "Тьма",
+        "level": 5
+      }
+    ],
+    "species": {
+      "index": "elf",
+      "name": "Эльф",
+      "url": "/api/2024/species/elf"
+    }
+  },
+  {
+    "index": "elven-lineage-high-elf",
+    "name": "Эльфийский род: Высший эльф",
+    "traits": [
+      {
+        "index": "high-elf-cantrip-versatility",
+        "url": "/api/2024/traits/high-elf-cantrip-versatility",
+        "name": "Высший эльф: Универсальность заговоров",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-detect-magic",
+        "url": "/api/2024/traits/lineage-spell-detect-magic",
+        "name": "Обнаружение магии",
+        "level": 3
+      },
+      {
+        "index": "lineage-spell-misty-step",
+        "url": "/api/2024/traits/lineage-spell-misty-step",
+        "name": "Туманный шаг",
+        "level": 5
+      }
+    ],
+    "species": {
+      "index": "elf",
+      "name": "Эльф",
+      "url": "/api/2024/species/elf"
+    }
+  },
+  {
+    "index": "elven-lineage-wood-elf",
+    "name": "Эльфийский род: Лесной эльф",
+    "traits": [
+      {
+        "index": "wood-elf-speed-increase",
+        "url": "/api/2024/traits/wood-elf-speed-increase",
+        "name": "Лесной эльф: Увеличение скорости",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-longstrider",
+        "url": "/api/2024/traits/lineage-spell-longstrider",
+        "name": "Скороход",
+        "level": 3
+      },
+      {
+        "index": "lineage-spell-pass-without-trace",
+        "url": "/api/2024/traits/lineage-spell-pass-without-trace",
+        "name": "Бесследное передвижение",
+        "level": 5
+      }
+    ],
+    "species": {
+      "index": "elf",
+      "name": "Эльф",
+      "url": "/api/2024/species/elf"
+    }
+  },
+  {
+    "index": "gnomish-lineage-forest-gnome",
+    "name": "Гномий род: Лесной гном",
+    "traits": [
+      {
+        "index": "gnomish-lineage-forest-gnome",
+        "url": "/api/2024/traits/gnomish-lineage-forest-gnome",
+        "name": "Гномий род: Лесной гном",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-minor-illusion",
+        "url": "/api/2024/traits/lineage-spell-minor-illusion",
+        "name": "Малая иллюзия",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "gnome",
+      "name": "Гном",
+      "url": "/api/2024/species/gnome"
+    }
+  },
+  {
+    "index": "gnomish-lineage-rock-gnome",
+    "name": "Гномий род: Скальный гном",
+    "traits": [
+      {
+        "index": "gnomish-lineage-rock-gnome",
+        "url": "/api/2024/traits/gnomish-lineage-rock-gnome",
+        "name": "Гномий род: Скальный гном",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-mending",
+        "url": "/api/2024/traits/lineage-spell-mending",
+        "name": "Починка",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "gnome",
+      "name": "Гном",
+      "url": "/api/2024/species/gnome"
+    }
+  },
+  {
+    "index": "giant-ancestry-clouds-jaunt",
+    "name": "Наследие великанов: Облачная прогулка",
+    "traits": [
+      {
+        "index": "giant-ancestry-clouds-jaunt",
+        "url": "/api/2024/traits/giant-ancestry-clouds-jaunt",
+        "name": "Наследие великанов: Облачная прогулка",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "goliath",
+      "name": "Голиаф",
+      "url": "/api/2024/species/goliath"
+    }
+  },
+  {
+    "index": "giant-ancestry-fires-burn",
+    "name": "Наследие великанов: Огненный ожог",
+    "traits": [
+      {
+        "index": "giant-ancestry-fires-burn",
+        "url": "/api/2024/traits/giant-ancestry-fires-burn",
+        "name": "Наследие великанов: Огненный ожог",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "goliath",
+      "name": "Голиаф",
+      "url": "/api/2024/species/goliath"
+    }
+  },
+  {
+    "index": "giant-ancestry-frosts-chill",
+    "name": "Наследие великанов: Морозный иней",
+    "traits": [
+      {
+        "index": "giant-ancestry-frosts-chill",
+        "url": "/api/2024/traits/giant-ancestry-frosts-chill",
+        "name": "Наследие великанов: Морозный иней",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "goliath",
+      "name": "Голиаф",
+      "url": "/api/2024/species/goliath"
+    }
+  },
+  {
+    "index": "giant-ancestry-hills-tumble",
+    "name": "Наследие великанов: Обрушение холма",
+    "traits": [
+      {
+        "index": "giant-ancestry-hills-tumble",
+        "url": "/api/2024/traits/giant-ancestry-hills-tumble",
+        "name": "Наследие великанов: Обрушение холма",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "goliath",
+      "name": "Голиаф",
+      "url": "/api/2024/species/goliath"
+    }
+  },
+  {
+    "index": "giant-ancestry-stones-endurance",
+    "name": "Наследие великанов: Выносливость камня",
+    "traits": [
+      {
+        "index": "giant-ancestry-stones-endurance",
+        "url": "/api/2024/traits/giant-ancestry-stones-endurance",
+        "name": "Наследие великанов: Выносливость камня",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "goliath",
+      "name": "Голиаф",
+      "url": "/api/2024/species/goliath"
+    }
+  },
+  {
+    "index": "giant-ancestry-storms-thunder",
+    "name": "Наследие великанов: Грохот бури",
+    "traits": [
+      {
+        "index": "giant-ancestry-storms-thunder",
+        "url": "/api/2024/traits/giant-ancestry-storms-thunder",
+        "name": "Наследие великанов: Грохот бури",
+        "level": 1
+      }
+    ],
+    "species": {
+      "index": "goliath",
+      "name": "Голиаф",
+      "url": "/api/2024/species/goliath"
+    }
+  },
+  {
+    "index": "fiendish-legacy-abyssal",
+    "name": "Наследие исчадий: Бездна",
+    "traits": [
+      {
+        "index": "lineage-resistance-poison",
+        "url": "/api/2024/traits/lineage-resistance-poison",
+        "name": "Сопротивление урону: Яд",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-poison-spray",
+        "url": "/api/2024/traits/lineage-spell-poison-spray",
+        "name": "Ядовитый плевок",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-ray-of-sickness",
+        "url": "/api/2024/traits/lineage-spell-ray-of-sickness",
+        "name": "Луч болезни",
+        "level": 3
+      },
+      {
+        "index": "lineage-spell-hold-person",
+        "url": "/api/2024/traits/lineage-spell-hold-person",
+        "name": "Удержание личности",
+        "level": 5
+      }
+    ],
+    "species": {
+      "index": "tiefling",
+      "name": "Тифлинг",
+      "url": "/api/2024/species/tiefling"
+    }
+  },
+  {
+    "index": "fiendish-legacy-chthonic",
+    "name": "Наследие исчадий: Хтоническое",
+    "traits": [
+      {
+        "index": "lineage-resistance-necrotic",
+        "url": "/api/2024/traits/lineage-resistance-necrotic",
+        "name": "Сопротивление урону: Некротический",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-chill-touch",
+        "url": "/api/2024/traits/lineage-spell-chill-touch",
+        "name": "Леденящее прикосновение",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-false-life",
+        "url": "/api/2024/traits/lineage-spell-false-life",
+        "name": "Ложная жизнь",
+        "level": 3
+      },
+      {
+        "index": "lineage-spell-ray-of-enfeeblement",
+        "url": "/api/2024/traits/lineage-spell-ray-of-enfeeblement",
+        "name": "Луч слабости",
+        "level": 5
+      }
+    ],
+    "species": {
+      "index": "tiefling",
+      "name": "Тифлинг",
+      "url": "/api/2024/species/tiefling"
+    }
+  },
+  {
+    "index": "fiendish-legacy-infernal",
+    "name": "Наследие исчадий: Инфернальное",
+    "traits": [
+      {
+        "index": "lineage-resistance-fire",
+        "url": "/api/2024/traits/lineage-resistance-fire",
+        "name": "Сопротивление урону: Огонь",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-fire-bolt",
+        "url": "/api/2024/traits/lineage-spell-fire-bolt",
+        "name": "Огненный снаряд",
+        "level": 1
+      },
+      {
+        "index": "lineage-spell-hellish-rebuke",
+        "url": "/api/2024/traits/lineage-spell-hellish-rebuke",
+        "name": "Адское возмездие",
+        "level": 3
+      },
+      {
+        "index": "lineage-spell-darkness",
+        "url": "/api/2024/traits/lineage-spell-darkness",
+        "name": "Тьма",
+        "level": 5
+      }
+    ],
+    "species": {
+      "index": "tiefling",
+      "name": "Тифлинг",
+      "url": "/api/2024/species/tiefling"
+    }
+  }
+]
