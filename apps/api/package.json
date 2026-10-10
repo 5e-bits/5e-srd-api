@@ -61,7 +61,7 @@
     "mongodb-memory-server": "^11.3.0",
     "node-mocks-http": "^1.18.1",
     "nodemon": "^3.1.10",
-    "openapi-to-postmanv2": "^6.3.3",
+    "openapi-to-postmanv2": "^6.4.0",
     "prettier": "^3.9.9",
     "supertest": "^7.3.0",
     "tsc-alias": "^1.9.7",
