@@ -27,7 +27,7 @@
   "dependencies": {
     "@apollo/server": "^5.5.1",
     "@as-integrations/express5": "^1.1.2",
-    "@sentry/node": "^11.1.0",
+    "@sentry/node": "^11.5.0",
     "@typegoose/typegoose": "^13.5.0",
     "class-validator": "^0.15.1",
     "cors": "^2.8.6",
