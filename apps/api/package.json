@@ -1,6 +1,6 @@
 {
   "name": "dnd-5e-srd-api",
-  "version": "7.3.1",
+  "version": "7.3.2",
   "engines": {
     "node": "24.x"
   },
@@ -32,7 +32,7 @@
     "class-validator": "^0.15.1",
     "cors": "^2.8.6",
     "express": "^5.1.0",
-    "express-rate-limit": "^8.7.1",
+    "express-rate-limit": "^8.7.0",
     "graphql": "^16.14.1",
     "graphql-depth-limit": "^1.1.0",
     "mongoose": "9.11.1",
