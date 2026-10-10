@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.6.0",
-    "@redocly/cli": "^2.57.0",
+    "@redocly/cli": "^2.60.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/graphql-depth-limit": "^1.1.3",
