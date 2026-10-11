@@ -1,0 +1,4918 @@
+[
+    {
+        "index": "barbarian-1",
+        "name": "Варвар 1",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-rage",
+                "name": "Ярость",
+                "url": "/api/2024/features/barbarian-rage"
+            },
+            {
+                "index": "barbarian-unarmored-defense",
+                "name": "Защита без доспехов",
+                "url": "/api/2024/features/barbarian-unarmored-defense"
+            },
+            {
+                "index": "barbarian-weapon-mastery",
+                "name": "Владение оружием",
+                "url": "/api/2024/features/barbarian-weapon-mastery"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-2",
+        "name": "Варвар 2",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-danger-sense",
+                "name": "Чувство опасности",
+                "url": "/api/2024/features/barbarian-danger-sense"
+            },
+            {
+                "index": "barbarian-reckless-attack",
+                "name": "Безрассудная атака",
+                "url": "/api/2024/features/barbarian-reckless-attack"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-3",
+        "name": "Варвар 3",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-subclass",
+                "name": "Подкласс Варвара",
+                "url": "/api/2024/features/barbarian-subclass"
+            },
+            {
+                "index": "barbarian-primal-knowledge",
+                "name": "Первобытное знание",
+                "url": "/api/2024/features/barbarian-primal-knowledge"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-4",
+        "name": "Варвар 4",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/barbarian-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-5",
+        "name": "Варвар 5",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-extra-attack",
+                "name": "Дополнительная атака",
+                "url": "/api/2024/features/barbarian-extra-attack"
+            },
+            {
+                "index": "barbarian-fast-movement",
+                "name": "Быстрое передвижение",
+                "url": "/api/2024/features/barbarian-fast-movement"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-6",
+        "name": "Варвар 6",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-subclass",
+                "name": "Подкласс Варвара",
+                "url": "/api/2024/features/barbarian-subclass"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-7",
+        "name": "Варвар 7",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-feral-instinct",
+                "name": "Звериное чутьё",
+                "url": "/api/2024/features/barbarian-feral-instinct"
+            },
+            {
+                "index": "barbarian-instinctive-pounce",
+                "name": "Инстинктивный прыжок",
+                "url": "/api/2024/features/barbarian-instinctive-pounce"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-8",
+        "name": "Варвар 8",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/barbarian-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-9",
+        "name": "Варвар 9",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-brutal-strike",
+                "name": "Жестокий удар",
+                "url": "/api/2024/features/barbarian-brutal-strike"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-10",
+        "name": "Варвар 10",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-subclass",
+                "name": "Подкласс Варвара",
+                "url": "/api/2024/features/barbarian-subclass"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-11",
+        "name": "Варвар 11",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-relentless-rage",
+                "name": "Неустанная ярость",
+                "url": "/api/2024/features/barbarian-relentless-rage"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-12",
+        "name": "Варвар 12",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/barbarian-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-13",
+        "name": "Варвар 13",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-improved-brutal-strike-1",
+                "name": "Улучшенный жестокий удар",
+                "url": "/api/2024/features/barbarian-improved-brutal-strike-1"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-14",
+        "name": "Варвар 14",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-subclass",
+                "name": "Подкласс Варвара",
+                "url": "/api/2024/features/barbarian-subclass"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-15",
+        "name": "Варвар 15",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-persistent-rage",
+                "name": "Непрекращающаяся ярость",
+                "url": "/api/2024/features/barbarian-persistent-rage"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-16",
+        "name": "Варвар 16",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/barbarian-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-17",
+        "name": "Варвар 17",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-improved-brutal-strike-2",
+                "name": "Улучшенный жестокий удар",
+                "url": "/api/2024/features/barbarian-improved-brutal-strike-2"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-18",
+        "name": "Варвар 18",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-indomitable-might",
+                "name": "Неукротимая мощь",
+                "url": "/api/2024/features/barbarian-indomitable-might"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-19",
+        "name": "Варвар 19",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/barbarian-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "barbarian-20",
+        "name": "Варвар 20",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "barbarian-primal-champion",
+                "name": "Первобытный чемпион",
+                "url": "/api/2024/features/barbarian-primal-champion"
+            }
+        ]
+    },
+    {
+        "index": "berserker-3",
+        "name": "Варвар 3",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "berserker-frenzy",
+                "name": "Неистовство",
+                "url": "/api/2024/features/berserker-frenzy"
+            }
+        ],
+        "subclass": {
+            "index": "path-of-the-berserker",
+            "name": "Путь берсерка",
+            "url": "/api/2024/subclasses/path-of-the-berserker"
+        }
+    },
+    {
+        "index": "berserker-6",
+        "name": "Варвар 6",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "berserker-mindless-rage",
+                "name": "Бессмысленная ярость",
+                "url": "/api/2024/features/berserker-mindless-rage"
+            }
+        ],
+        "subclass": {
+            "index": "path-of-the-berserker",
+            "name": "Путь берсерка",
+            "url": "/api/2024/subclasses/path-of-the-berserker"
+        }
+    },
+    {
+        "index": "berserker-10",
+        "name": "Варвар 10",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "berserker-retaliation",
+                "name": "Отпор",
+                "url": "/api/2024/features/berserker-retaliation"
+            }
+        ],
+        "subclass": {
+            "index": "path-of-the-berserker",
+            "name": "Путь берсерка",
+            "url": "/api/2024/subclasses/path-of-the-berserker"
+        }
+    },
+    {
+        "index": "berserker-14",
+        "name": "Варвар 14",
+        "class": {
+            "index": "barbarian",
+            "name": "Варвар",
+            "url": "/api/2024/classes/barbarian"
+        },
+        "features": [
+            {
+                "index": "berserker-intimidating-presence",
+                "name": "Устрашающее присутствие",
+                "url": "/api/2024/features/berserker-intimidating-presence"
+            }
+        ],
+        "subclass": {
+            "index": "path-of-the-berserker",
+            "name": "Путь берсерка",
+            "url": "/api/2024/subclasses/path-of-the-berserker"
+        }
+    },
+    {
+        "index": "bard-1",
+        "name": "Бард 1",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-bardic-inspiration",
+                "name": "Вдохновение барда",
+                "url": "/api/2024/features/bard-bardic-inspiration"
+            },
+            {
+                "index": "bard-spellcasting",
+                "name": "Магия",
+                "url": "/api/2024/features/bard-spellcasting"
+            }
+        ]
+    },
+    {
+        "index": "bard-2",
+        "name": "Бард 2",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-expertise",
+                "name": "Экспертиза",
+                "url": "/api/2024/features/bard-expertise"
+            },
+            {
+                "index": "bard-jack-of-all-trades",
+                "name": "Мастер на все руки",
+                "url": "/api/2024/features/bard-jack-of-all-trades"
+            }
+        ]
+    },
+    {
+        "index": "bard-3",
+        "name": "Бард 3",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-subclass",
+                "name": "Подкласс Барда",
+                "url": "/api/2024/features/bard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "bard-4",
+        "name": "Бард 4",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/bard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "bard-5",
+        "name": "Бард 5",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-font-of-inspiration",
+                "name": "Источник вдохновения",
+                "url": "/api/2024/features/bard-font-of-inspiration"
+            }
+        ]
+    },
+    {
+        "index": "bard-6",
+        "name": "Бард 6",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-subclass",
+                "name": "Подкласс Барда",
+                "url": "/api/2024/features/bard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "bard-7",
+        "name": "Бард 7",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-countercharm",
+                "name": "Контрчары",
+                "url": "/api/2024/features/bard-countercharm"
+            }
+        ]
+    },
+    {
+        "index": "bard-8",
+        "name": "Бард 8",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/bard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "bard-9",
+        "name": "Бард 9",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-expertise",
+                "name": "Экспертиза",
+                "url": "/api/2024/features/bard-expertise"
+            }
+        ]
+    },
+    {
+        "index": "bard-10",
+        "name": "Бард 10",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-magical-secrets",
+                "name": "Магические тайны",
+                "url": "/api/2024/features/bard-magical-secrets"
+            }
+        ]
+    },
+    {
+        "index": "bard-11",
+        "name": "Бард 11",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        }
+    },
+    {
+        "index": "bard-12",
+        "name": "Бард 12",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/bard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "bard-13",
+        "name": "Бард 13",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        }
+    },
+    {
+        "index": "bard-14",
+        "name": "Бард 14",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-subclass",
+                "name": "Подкласс Барда",
+                "url": "/api/2024/features/bard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "bard-15",
+        "name": "Бард 15",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        }
+    },
+    {
+        "index": "bard-16",
+        "name": "Бард 16",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/bard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "bard-17",
+        "name": "Бард 17",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        }
+    },
+    {
+        "index": "bard-18",
+        "name": "Бард 18",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-superior-inspiration",
+                "name": "Превосходное вдохновение",
+                "url": "/api/2024/features/bard-superior-inspiration"
+            }
+        ]
+    },
+    {
+        "index": "bard-19",
+        "name": "Бард 19",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/bard-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "bard-20",
+        "name": "Бард 20",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "bard-words-of-creation",
+                "name": "Слова творения",
+                "url": "/api/2024/features/bard-words-of-creation"
+            }
+        ]
+    },
+    {
+        "index": "lore-3",
+        "name": "Бард 3",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "lore-bonus-proficiencies",
+                "name": "Дополнительные владения",
+                "url": "/api/2024/features/lore-bonus-proficiencies"
+            },
+            {
+                "index": "lore-cutting-words",
+                "name": "Колкие слова",
+                "url": "/api/2024/features/lore-cutting-words"
+            }
+        ],
+        "subclass": {
+            "index": "college-of-lore",
+            "name": "Коллегия знаний",
+            "url": "/api/2024/subclasses/college-of-lore"
+        }
+    },
+    {
+        "index": "lore-6",
+        "name": "Бард 6",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "lore-magical-discoveries",
+                "name": "Магические открытия",
+                "url": "/api/2024/features/lore-magical-discoveries"
+            }
+        ],
+        "subclass": {
+            "index": "college-of-lore",
+            "name": "Коллегия знаний",
+            "url": "/api/2024/subclasses/college-of-lore"
+        }
+    },
+    {
+        "index": "lore-14",
+        "name": "Бард 14",
+        "class": {
+            "index": "bard",
+            "name": "Бард",
+            "url": "/api/2024/classes/bard"
+        },
+        "features": [
+            {
+                "index": "lore-peerless-skill",
+                "name": "Непревзойдённое мастерство",
+                "url": "/api/2024/features/lore-peerless-skill"
+            }
+        ],
+        "subclass": {
+            "index": "college-of-lore",
+            "name": "Коллегия знаний",
+            "url": "/api/2024/subclasses/college-of-lore"
+        }
+    },
+    {
+        "index": "cleric-1",
+        "name": "Жрец 1",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-divine-order",
+                "name": "Божественный орден",
+                "url": "/api/2024/features/cleric-divine-order"
+            },
+            {
+                "index": "cleric-spellcasting",
+                "name": "Заклинательство",
+                "url": "/api/2024/features/cleric-spellcasting"
+            }
+        ]
+    },
+    {
+        "index": "cleric-2",
+        "name": "Жрец 2",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-channel-divinity",
+                "name": "Направление божественной силы",
+                "url": "/api/2024/features/cleric-channel-divinity"
+            }
+        ]
+    },
+    {
+        "index": "cleric-3",
+        "name": "Жрец 3",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-subclass",
+                "name": "Подкласс Жреца",
+                "url": "/api/2024/features/cleric-subclass"
+            }
+        ]
+    },
+    {
+        "index": "cleric-4",
+        "name": "Жрец 4",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/cleric-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "cleric-5",
+        "name": "Жрец 5",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-sear-undead",
+                "name": "Опаливание нежити",
+                "url": "/api/2024/features/cleric-sear-undead"
+            }
+        ]
+    },
+    {
+        "index": "cleric-6",
+        "name": "Жрец 6",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-subclass",
+                "name": "Подкласс Жреца",
+                "url": "/api/2024/features/cleric-subclass"
+            }
+        ]
+    },
+    {
+        "index": "cleric-7",
+        "name": "Жрец 7",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-blessed-strikes",
+                "name": "Благословлённые удары",
+                "url": "/api/2024/features/cleric-blessed-strikes"
+            }
+        ]
+    },
+    {
+        "index": "cleric-8",
+        "name": "Жрец 8",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/cleric-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "cleric-9",
+        "name": "Жрец 9",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        }
+    },
+    {
+        "index": "cleric-10",
+        "name": "Жрец 10",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-divine-intervention",
+                "name": "Божественное вмешательство",
+                "url": "/api/2024/features/cleric-divine-intervention"
+            }
+        ]
+    },
+    {
+        "index": "cleric-11",
+        "name": "Жрец 11",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        }
+    },
+    {
+        "index": "cleric-12",
+        "name": "Жрец 12",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/cleric-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "cleric-13",
+        "name": "Жрец 13",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        }
+    },
+    {
+        "index": "cleric-14",
+        "name": "Жрец 14",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-improved-blessed-strikes",
+                "name": "Улучшенные благословлённые удары",
+                "url": "/api/2024/features/cleric-improved-blessed-strikes"
+            }
+        ]
+    },
+    {
+        "index": "cleric-15",
+        "name": "Жрец 15",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        }
+    },
+    {
+        "index": "cleric-16",
+        "name": "Жрец 16",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/cleric-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "cleric-17",
+        "name": "Жрец 17",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-subclass",
+                "name": "Подкласс Жреца",
+                "url": "/api/2024/features/cleric-subclass"
+            }
+        ]
+    },
+    {
+        "index": "cleric-18",
+        "name": "Жрец 18",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        }
+    },
+    {
+        "index": "cleric-19",
+        "name": "Жрец 19",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/cleric-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "cleric-20",
+        "name": "Жрец 20",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "cleric-greater-divine-intervention",
+                "name": "Великое божественное вмешательство",
+                "url": "/api/2024/features/cleric-greater-divine-intervention"
+            }
+        ]
+    },
+    {
+        "index": "life-3",
+        "name": "Жрец 3",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "life-disciple-of-life",
+                "name": "Ученик Жизни",
+                "url": "/api/2024/features/life-disciple-of-life"
+            },
+            {
+                "index": "life-domain-spells",
+                "name": "Заклинания домена Жизни",
+                "url": "/api/2024/features/life-domain-spells"
+            },
+            {
+                "index": "life-preserve-life",
+                "name": "Сохранение жизни",
+                "url": "/api/2024/features/life-preserve-life"
+            }
+        ],
+        "subclass": {
+            "index": "life-domain",
+            "name": "Домен Жизни",
+            "url": "/api/2024/subclasses/life-domain"
+        }
+    },
+    {
+        "index": "life-6",
+        "name": "Жрец 6",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "life-blessed-healer",
+                "name": "Благословлённый целитель",
+                "url": "/api/2024/features/life-blessed-healer"
+            }
+        ],
+        "subclass": {
+            "index": "life-domain",
+            "name": "Домен Жизни",
+            "url": "/api/2024/subclasses/life-domain"
+        }
+    },
+    {
+        "index": "life-17",
+        "name": "Жрец 17",
+        "class": {
+            "index": "cleric",
+            "name": "Жрец",
+            "url": "/api/2024/classes/cleric"
+        },
+        "features": [
+            {
+                "index": "life-supreme-healing",
+                "name": "Высшее исцеление",
+                "url": "/api/2024/features/life-supreme-healing"
+            }
+        ],
+        "subclass": {
+            "index": "life-domain",
+            "name": "Домен Жизни",
+            "url": "/api/2024/subclasses/life-domain"
+        }
+    },
+    {
+        "index": "druid-1",
+        "name": "Друид 1",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-druidic",
+                "name": "Друидический",
+                "url": "/api/2024/features/druid-druidic"
+            },
+            {
+                "index": "druid-primal-order",
+                "name": "Природный орден",
+                "url": "/api/2024/features/druid-primal-order"
+            },
+            {
+                "index": "druid-spellcasting",
+                "name": "Заклинательство",
+                "url": "/api/2024/features/druid-spellcasting"
+            }
+        ]
+    },
+    {
+        "index": "druid-2",
+        "name": "Друид 2",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-wild-shape",
+                "name": "Дикий облик",
+                "url": "/api/2024/features/druid-wild-shape"
+            },
+            {
+                "index": "druid-wild-companion",
+                "name": "Дикий спутник",
+                "url": "/api/2024/features/druid-wild-companion"
+            }
+        ]
+    },
+    {
+        "index": "druid-3",
+        "name": "Друид 3",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-subclass",
+                "name": "Подкласс Друида",
+                "url": "/api/2024/features/druid-subclass"
+            }
+        ]
+    },
+    {
+        "index": "druid-4",
+        "name": "Друид 4",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/druid-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "druid-5",
+        "name": "Друид 5",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-wild-resurgence",
+                "name": "Дикое возрождение",
+                "url": "/api/2024/features/druid-wild-resurgence"
+            }
+        ]
+    },
+    {
+        "index": "druid-6",
+        "name": "Друид 6",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-subclass",
+                "name": "Подкласс Друида",
+                "url": "/api/2024/features/druid-subclass"
+            }
+        ]
+    },
+    {
+        "index": "druid-7",
+        "name": "Друид 7",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-elemental-fury",
+                "name": "Ярость стихий",
+                "url": "/api/2024/features/druid-elemental-fury"
+            }
+        ]
+    },
+    {
+        "index": "druid-8",
+        "name": "Друид 8",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/druid-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "druid-9",
+        "name": "Друид 9",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        }
+    },
+    {
+        "index": "druid-10",
+        "name": "Друид 10",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-subclass",
+                "name": "Подкласс Друида",
+                "url": "/api/2024/features/druid-subclass"
+            }
+        ]
+    },
+    {
+        "index": "druid-11",
+        "name": "Друид 11",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        }
+    },
+    {
+        "index": "druid-12",
+        "name": "Друид 12",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/druid-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "druid-13",
+        "name": "Друид 13",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        }
+    },
+    {
+        "index": "druid-14",
+        "name": "Друид 14",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-subclass",
+                "name": "Подкласс Друида",
+                "url": "/api/2024/features/druid-subclass"
+            }
+        ]
+    },
+    {
+        "index": "druid-15",
+        "name": "Друид 15",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-improved-elemental-fury",
+                "name": "Улучшенная ярость стихий",
+                "url": "/api/2024/features/druid-improved-elemental-fury"
+            }
+        ]
+    },
+    {
+        "index": "druid-16",
+        "name": "Друид 16",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/druid-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "druid-17",
+        "name": "Друид 17",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        }
+    },
+    {
+        "index": "druid-18",
+        "name": "Друид 18",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-beast-spells",
+                "name": "Заклинания зверя",
+                "url": "/api/2024/features/druid-beast-spells"
+            }
+        ]
+    },
+    {
+        "index": "druid-19",
+        "name": "Друид 19",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/druid-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "druid-20",
+        "name": "Друид 20",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "druid-archdruid",
+                "name": "Архидруид",
+                "url": "/api/2024/features/druid-archdruid"
+            }
+        ]
+    },
+    {
+        "index": "land-3",
+        "name": "Друид 3",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "land-circle-of-the-land-spells",
+                "name": "Заклинания Круга Земли",
+                "url": "/api/2024/features/land-circle-of-the-land-spells"
+            },
+            {
+                "index": "land-lands-aid",
+                "name": "Помощь земли",
+                "url": "/api/2024/features/land-lands-aid"
+            }
+        ],
+        "subclass": {
+            "index": "circle-of-the-land",
+            "name": "Круг Земли",
+            "url": "/api/2024/subclasses/circle-of-the-land"
+        }
+    },
+    {
+        "index": "land-6",
+        "name": "Друид 6",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "land-natural-recovery",
+                "name": "Природное восстановление",
+                "url": "/api/2024/features/land-natural-recovery"
+            }
+        ],
+        "subclass": {
+            "index": "circle-of-the-land",
+            "name": "Круг Земли",
+            "url": "/api/2024/subclasses/circle-of-the-land"
+        }
+    },
+    {
+        "index": "land-10",
+        "name": "Друид 10",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "land-natures-ward",
+                "name": "Защита природы",
+                "url": "/api/2024/features/land-natures-ward"
+            }
+        ],
+        "subclass": {
+            "index": "circle-of-the-land",
+            "name": "Круг Земли",
+            "url": "/api/2024/subclasses/circle-of-the-land"
+        }
+    },
+    {
+        "index": "land-14",
+        "name": "Друид 14",
+        "class": {
+            "index": "druid",
+            "name": "Друид",
+            "url": "/api/2024/classes/druid"
+        },
+        "features": [
+            {
+                "index": "land-natures-sanctuary",
+                "name": "Убежище природы",
+                "url": "/api/2024/features/land-natures-sanctuary"
+            }
+        ],
+        "subclass": {
+            "index": "circle-of-the-land",
+            "name": "Круг Земли",
+            "url": "/api/2024/subclasses/circle-of-the-land"
+        }
+    },
+    {
+        "index": "fighter-1",
+        "name": "Воин 1",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-fighting-style",
+                "name": "Боевой стиль",
+                "url": "/api/2024/features/fighter-fighting-style"
+            },
+            {
+                "index": "fighter-second-wind",
+                "name": "Второе дыхание",
+                "url": "/api/2024/features/fighter-second-wind"
+            },
+            {
+                "index": "fighter-weapon-mastery",
+                "name": "Владение оружием",
+                "url": "/api/2024/features/fighter-weapon-mastery"
+            }
+        ]
+    },
+    {
+        "index": "fighter-2",
+        "name": "Воин 2",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-action-surge",
+                "name": "Всплеск действия",
+                "url": "/api/2024/features/fighter-action-surge"
+            },
+            {
+                "index": "fighter-tactical-mind",
+                "name": "Тактический ум",
+                "url": "/api/2024/features/fighter-tactical-mind"
+            }
+        ]
+    },
+    {
+        "index": "fighter-3",
+        "name": "Воин 3",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-subclass",
+                "name": "Подкласс Воина",
+                "url": "/api/2024/features/fighter-subclass"
+            }
+        ]
+    },
+    {
+        "index": "fighter-4",
+        "name": "Воин 4",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/fighter-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "fighter-5",
+        "name": "Воин 5",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-extra-attack",
+                "name": "Дополнительная атака",
+                "url": "/api/2024/features/fighter-extra-attack"
+            },
+            {
+                "index": "fighter-tactical-shift",
+                "name": "Тактическое перемещение",
+                "url": "/api/2024/features/fighter-tactical-shift"
+            }
+        ]
+    },
+    {
+        "index": "fighter-6",
+        "name": "Воин 6",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/fighter-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "fighter-7",
+        "name": "Воин 7",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-subclass",
+                "name": "Подкласс Воина",
+                "url": "/api/2024/features/fighter-subclass"
+            }
+        ]
+    },
+    {
+        "index": "fighter-8",
+        "name": "Воин 8",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/fighter-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "fighter-9",
+        "name": "Воин 9",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-indomitable",
+                "name": "Неукротимый",
+                "url": "/api/2024/features/fighter-indomitable"
+            },
+            {
+                "index": "fighter-tactical-master",
+                "name": "Тактический мастер",
+                "url": "/api/2024/features/fighter-tactical-master"
+            }
+        ]
+    },
+    {
+        "index": "fighter-10",
+        "name": "Воин 10",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-subclass",
+                "name": "Подкласс Воина",
+                "url": "/api/2024/features/fighter-subclass"
+            }
+        ]
+    },
+    {
+        "index": "fighter-11",
+        "name": "Воин 11",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-two-extra-attacks",
+                "name": "Две дополнительные атаки",
+                "url": "/api/2024/features/fighter-two-extra-attacks"
+            }
+        ]
+    },
+    {
+        "index": "fighter-12",
+        "name": "Воин 12",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/fighter-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "fighter-13",
+        "name": "Воин 13",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-indomitable",
+                "name": "Неукротимый",
+                "url": "/api/2024/features/fighter-indomitable"
+            },
+            {
+                "index": "fighter-studied-attacks",
+                "name": "Изученные атаки",
+                "url": "/api/2024/features/fighter-studied-attacks"
+            }
+        ]
+    },
+    {
+        "index": "fighter-14",
+        "name": "Воин 14",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/fighter-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "fighter-15",
+        "name": "Воин 15",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-subclass",
+                "name": "Подкласс Воина",
+                "url": "/api/2024/features/fighter-subclass"
+            }
+        ]
+    },
+    {
+        "index": "fighter-16",
+        "name": "Воин 16",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/fighter-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "fighter-17",
+        "name": "Воин 17",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-action-surge",
+                "name": "Всплеск действия",
+                "url": "/api/2024/features/fighter-action-surge"
+            },
+            {
+                "index": "fighter-indomitable",
+                "name": "Неукротимый",
+                "url": "/api/2024/features/fighter-indomitable"
+            }
+        ]
+    },
+    {
+        "index": "fighter-18",
+        "name": "Воин 18",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-subclass",
+                "name": "Подкласс Воина",
+                "url": "/api/2024/features/fighter-subclass"
+            }
+        ]
+    },
+    {
+        "index": "fighter-19",
+        "name": "Воин 19",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/fighter-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "fighter-20",
+        "name": "Воин 20",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "fighter-three-extra-attacks",
+                "name": "Три дополнительные атаки",
+                "url": "/api/2024/features/fighter-three-extra-attacks"
+            }
+        ]
+    },
+    {
+        "index": "champion-3",
+        "name": "Воин 3",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "champion-improved-critical",
+                "name": "Улучшенный критический удар",
+                "url": "/api/2024/features/champion-improved-critical"
+            },
+            {
+                "index": "champion-remarkable-athlete",
+                "name": "Выдающийся атлет",
+                "url": "/api/2024/features/champion-remarkable-athlete"
+            }
+        ],
+        "subclass": {
+            "index": "champion",
+            "name": "Чемпион",
+            "url": "/api/2024/subclasses/champion"
+        }
+    },
+    {
+        "index": "champion-7",
+        "name": "Воин 7",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "champion-additional-fighting-style",
+                "name": "Дополнительный боевой стиль",
+                "url": "/api/2024/features/champion-additional-fighting-style"
+            }
+        ],
+        "subclass": {
+            "index": "champion",
+            "name": "Чемпион",
+            "url": "/api/2024/subclasses/champion"
+        }
+    },
+    {
+        "index": "champion-10",
+        "name": "Воин 10",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "champion-heroic-warrior",
+                "name": "Героический воин",
+                "url": "/api/2024/features/champion-heroic-warrior"
+            }
+        ],
+        "subclass": {
+            "index": "champion",
+            "name": "Чемпион",
+            "url": "/api/2024/subclasses/champion"
+        }
+    },
+    {
+        "index": "champion-15",
+        "name": "Воин 15",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "champion-superior-critical",
+                "name": "Превосходный критический удар",
+                "url": "/api/2024/features/champion-superior-critical"
+            }
+        ],
+        "subclass": {
+            "index": "champion",
+            "name": "Чемпион",
+            "url": "/api/2024/subclasses/champion"
+        }
+    },
+    {
+        "index": "champion-18",
+        "name": "Воин 18",
+        "class": {
+            "index": "fighter",
+            "name": "Воин",
+            "url": "/api/2024/classes/fighter"
+        },
+        "features": [
+            {
+                "index": "champion-survivor",
+                "name": "Выживший",
+                "url": "/api/2024/features/champion-survivor"
+            }
+        ],
+        "subclass": {
+            "index": "champion",
+            "name": "Чемпион",
+            "url": "/api/2024/subclasses/champion"
+        }
+    },
+    {
+        "index": "monk-1",
+        "name": "Монах 1",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-martial-arts",
+                "name": "Боевые искусства",
+                "url": "/api/2024/features/monk-martial-arts"
+            },
+            {
+                "index": "monk-unarmored-defense",
+                "name": "Защита без доспехов",
+                "url": "/api/2024/features/monk-unarmored-defense"
+            }
+        ]
+    },
+    {
+        "index": "monk-2",
+        "name": "Монах 2",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-monks-focus",
+                "name": "Фокус монаха",
+                "url": "/api/2024/features/monk-monks-focus"
+            },
+            {
+                "index": "monk-unarmored-movement",
+                "name": "Движение без доспехов",
+                "url": "/api/2024/features/monk-unarmored-movement"
+            },
+            {
+                "index": "monk-uncanny-metabolism",
+                "name": "Сверхъестественный метаболизм",
+                "url": "/api/2024/features/monk-uncanny-metabolism"
+            }
+        ]
+    },
+    {
+        "index": "monk-3",
+        "name": "Монах 3",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-subclass",
+                "name": "Подкласс Монаха",
+                "url": "/api/2024/features/monk-subclass"
+            },
+            {
+                "index": "monk-deflect-attacks",
+                "name": "Отражение атак",
+                "url": "/api/2024/features/monk-deflect-attacks"
+            }
+        ]
+    },
+    {
+        "index": "monk-4",
+        "name": "Монах 4",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/monk-ability-score-improvement"
+            },
+            {
+                "index": "monk-slow-fall",
+                "name": "Замедленное падение",
+                "url": "/api/2024/features/monk-slow-fall"
+            }
+        ]
+    },
+    {
+        "index": "monk-5",
+        "name": "Монах 5",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-extra-attack",
+                "name": "Дополнительная атака",
+                "url": "/api/2024/features/monk-extra-attack"
+            },
+            {
+                "index": "monk-stunning-strike",
+                "name": "Ошеломляющий удар",
+                "url": "/api/2024/features/monk-stunning-strike"
+            }
+        ]
+    },
+    {
+        "index": "monk-6",
+        "name": "Монах 6",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-subclass",
+                "name": "Подкласс Монаха",
+                "url": "/api/2024/features/monk-subclass"
+            },
+            {
+                "index": "monk-empowered-strikes",
+                "name": "Усиленные удары",
+                "url": "/api/2024/features/monk-empowered-strikes"
+            }
+        ]
+    },
+    {
+        "index": "monk-7",
+        "name": "Монах 7",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-evasion",
+                "name": "Уклонение",
+                "url": "/api/2024/features/monk-evasion"
+            }
+        ]
+    },
+    {
+        "index": "monk-8",
+        "name": "Монах 8",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/monk-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "monk-9",
+        "name": "Монах 9",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-acrobatic-movement",
+                "name": "Акробатическое движение",
+                "url": "/api/2024/features/monk-acrobatic-movement"
+            }
+        ]
+    },
+    {
+        "index": "monk-10",
+        "name": "Монах 10",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-heightened-focus",
+                "name": "Усиленный фокус",
+                "url": "/api/2024/features/monk-heightened-focus"
+            },
+            {
+                "index": "monk-self-restoration",
+                "name": "Самовосстановление",
+                "url": "/api/2024/features/monk-self-restoration"
+            }
+        ]
+    },
+    {
+        "index": "monk-11",
+        "name": "Монах 11",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-subclass",
+                "name": "Подкласс Монаха",
+                "url": "/api/2024/features/monk-subclass"
+            }
+        ]
+    },
+    {
+        "index": "monk-12",
+        "name": "Монах 12",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/monk-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "monk-13",
+        "name": "Монах 13",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-deflect-energy",
+                "name": "Отражение энергии",
+                "url": "/api/2024/features/monk-deflect-energy"
+            }
+        ]
+    },
+    {
+        "index": "monk-14",
+        "name": "Монах 14",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-disciplined-survivor",
+                "name": "Дисциплинированный выживший",
+                "url": "/api/2024/features/monk-disciplined-survivor"
+            }
+        ]
+    },
+    {
+        "index": "monk-15",
+        "name": "Монах 15",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-perfect-focus",
+                "name": "Идеальный фокус",
+                "url": "/api/2024/features/monk-perfect-focus"
+            }
+        ]
+    },
+    {
+        "index": "monk-16",
+        "name": "Монах 16",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-ability-score-improvement",
+                "name": "Улучшение характеристики",
+                "url": "/api/2024/features/monk-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "monk-17",
+        "name": "Монах 17",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-subclass",
+                "name": "Подкласс Монаха",
+                "url": "/api/2024/features/monk-subclass"
+            }
+        ]
+    },
+    {
+        "index": "monk-18",
+        "name": "Монах 18",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-superior-defense",
+                "name": "Превосходная защита",
+                "url": "/api/2024/features/monk-superior-defense"
+            }
+        ]
+    },
+    {
+        "index": "monk-19",
+        "name": "Монах 19",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/monk-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "monk-20",
+        "name": "Монах 20",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "monk-body-and-mind",
+                "name": "Тело и разум",
+                "url": "/api/2024/features/monk-body-and-mind"
+            }
+        ]
+    },
+    {
+        "index": "open-hand-3",
+        "name": "Монах 3",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "open-hand-technique",
+                "name": "Техника открытой ладони",
+                "url": "/api/2024/features/open-hand-technique"
+            }
+        ],
+        "subclass": {
+            "index": "warrior-of-the-open-hand",
+            "name": "Воины открытой ладони",
+            "url": "/api/2024/subclasses/warrior-of-the-open-hand"
+        }
+    },
+    {
+        "index": "open-hand-6",
+        "name": "Монах 6",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "open-hand-wholeness-of-body",
+                "name": "Целостность тела",
+                "url": "/api/2024/features/open-hand-wholeness-of-body"
+            }
+        ],
+        "subclass": {
+            "index": "warrior-of-the-open-hand",
+            "name": "Воины открытой ладони",
+            "url": "/api/2024/subclasses/warrior-of-the-open-hand"
+        }
+    },
+    {
+        "index": "open-hand-11",
+        "name": "Монах 11",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "open-hand-fleet-step",
+                "name": "Стремительный шаг",
+                "url": "/api/2024/features/open-hand-fleet-step"
+            }
+        ],
+        "subclass": {
+            "index": "warrior-of-the-open-hand",
+            "name": "Воины открытой ладони",
+            "url": "/api/2024/subclasses/warrior-of-the-open-hand"
+        }
+    },
+    {
+        "index": "open-hand-17",
+        "name": "Монах 17",
+        "class": {
+            "index": "monk",
+            "name": "Монах",
+            "url": "/api/2024/classes/monk"
+        },
+        "features": [
+            {
+                "index": "open-hand-quivering-palm",
+                "name": "Дрожащая ладонь",
+                "url": "/api/2024/features/open-hand-quivering-palm"
+            }
+        ],
+        "subclass": {
+            "index": "warrior-of-the-open-hand",
+            "name": "Воины открытой ладони",
+            "url": "/api/2024/subclasses/warrior-of-the-open-hand"
+        }
+    },
+    {
+        "index": "paladin-1",
+        "name": "Паладин 1",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-lay-on-hands",
+                "name": "Наложение рук",
+                "url": "/api/2024/features/paladin-lay-on-hands"
+            },
+            {
+                "index": "paladin-spellcasting",
+                "name": "Наследство заклинаний",
+                "url": "/api/2024/features/paladin-spellcasting"
+            },
+            {
+                "index": "paladin-weapon-mastery",
+                "name": "Владение оружием",
+                "url": "/api/2024/features/paladin-weapon-mastery"
+            }
+        ]
+    },
+    {
+        "index": "paladin-2",
+        "name": "Паладин 2",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-fighting-style",
+                "name": "Стиль боя",
+                "url": "/api/2024/features/paladin-fighting-style"
+            },
+            {
+                "index": "paladin-paladins-smite",
+                "name": "Кара паладина",
+                "url": "/api/2024/features/paladin-paladins-smite"
+            }
+        ]
+    },
+    {
+        "index": "paladin-3",
+        "name": "Паладин 3",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-channel-divinity",
+                "name": "Божественный канал",
+                "url": "/api/2024/features/paladin-channel-divinity"
+            },
+            {
+                "index": "paladin-subclass",
+                "name": "Подкласс Паладина",
+                "url": "/api/2024/features/paladin-subclass"
+            }
+        ]
+    },
+    {
+        "index": "paladin-4",
+        "name": "Паладин 4",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/paladin-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "paladin-5",
+        "name": "Паладин 5",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-extra-attack",
+                "name": "Дополнительная атака",
+                "url": "/api/2024/features/paladin-extra-attack"
+            },
+            {
+                "index": "paladin-faithful-steed",
+                "name": "Верный скакун",
+                "url": "/api/2024/features/paladin-faithful-steed"
+            }
+        ]
+    },
+    {
+        "index": "paladin-6",
+        "name": "Паладин 6",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-aura-of-protection",
+                "name": "Аура защиты",
+                "url": "/api/2024/features/paladin-aura-of-protection"
+            }
+        ]
+    },
+    {
+        "index": "paladin-7",
+        "name": "Паладин 7",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-subclass",
+                "name": "Подкласс Паладина",
+                "url": "/api/2024/features/paladin-subclass"
+            }
+        ]
+    },
+    {
+        "index": "paladin-8",
+        "name": "Паладин 8",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/paladin-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "paladin-9",
+        "name": "Паладин 9",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-abjure-foes",
+                "name": "Отрешение врагов",
+                "url": "/api/2024/features/paladin-abjure-foes"
+            }
+        ]
+    },
+    {
+        "index": "paladin-10",
+        "name": "Паладин 10",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-aura-of-courage",
+                "name": "Аура отваги",
+                "url": "/api/2024/features/paladin-aura-of-courage"
+            }
+        ]
+    },
+    {
+        "index": "paladin-11",
+        "name": "Паладин 11",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-radiant-strikes",
+                "name": "Сияющие удары",
+                "url": "/api/2024/features/paladin-radiant-strikes"
+            }
+        ]
+    },
+    {
+        "index": "paladin-12",
+        "name": "Паладин 12",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/paladin-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "paladin-13",
+        "name": "Паладин 13",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        }
+    },
+    {
+        "index": "paladin-14",
+        "name": "Паладин 14",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-restoring-touch",
+                "name": "Восстанавливающее прикосновение",
+                "url": "/api/2024/features/paladin-restoring-touch"
+            }
+        ]
+    },
+    {
+        "index": "paladin-15",
+        "name": "Паладин 15",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-subclass",
+                "name": "Подкласс Паладина",
+                "url": "/api/2024/features/paladin-subclass"
+            }
+        ]
+    },
+    {
+        "index": "paladin-16",
+        "name": "Паладин 16",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/paladin-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "paladin-17",
+        "name": "Паладин 17",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        }
+    },
+    {
+        "index": "paladin-18",
+        "name": "Паладин 18",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-aura-expansion",
+                "name": "Расширение ауры",
+                "url": "/api/2024/features/paladin-aura-expansion"
+            }
+        ]
+    },
+    {
+        "index": "paladin-19",
+        "name": "Паладин 19",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/paladin-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "paladin-20",
+        "name": "Паладин 20",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "paladin-subclass",
+                "name": "Подкласс Паладина",
+                "url": "/api/2024/features/paladin-subclass"
+            }
+        ]
+    },
+    {
+        "index": "devotion-3",
+        "name": "Паладин 3",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "devotion-oath-of-devotion-spells",
+                "name": "Заклинания Клятвы преданности",
+                "url": "/api/2024/features/devotion-oath-of-devotion-spells"
+            },
+            {
+                "index": "devotion-sacred-weapon",
+                "name": "Священное оружие",
+                "url": "/api/2024/features/devotion-sacred-weapon"
+            }
+        ],
+        "subclass": {
+            "index": "oath-of-devotion",
+            "name": "Клятва Преданности",
+            "url": "/api/2024/subclasses/oath-of-devotion"
+        }
+    },
+    {
+        "index": "devotion-7",
+        "name": "Паладин 7",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "devotion-aura-of-devotion",
+                "name": "Аура преданности",
+                "url": "/api/2024/features/devotion-aura-of-devotion"
+            }
+        ],
+        "subclass": {
+            "index": "oath-of-devotion",
+            "name": "Клятва Преданности",
+            "url": "/api/2024/subclasses/oath-of-devotion"
+        }
+    },
+    {
+        "index": "devotion-15",
+        "name": "Паладин 15",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "devotion-smite-of-protection",
+                "name": "Кара защитника",
+                "url": "/api/2024/features/devotion-smite-of-protection"
+            }
+        ],
+        "subclass": {
+            "index": "oath-of-devotion",
+            "name": "Клятва Преданности",
+            "url": "/api/2024/subclasses/oath-of-devotion"
+        }
+    },
+    {
+        "index": "devotion-20",
+        "name": "Паладин 20",
+        "class": {
+            "index": "paladin",
+            "name": "Паладин",
+            "url": "/api/2024/classes/paladin"
+        },
+        "features": [
+            {
+                "index": "devotion-holy-nimbus",
+                "name": "Святой нимб",
+                "url": "/api/2024/features/devotion-holy-nimbus"
+            }
+        ],
+        "subclass": {
+            "index": "oath-of-devotion",
+            "name": "Клятва Преданности",
+            "url": "/api/2024/subclasses/oath-of-devotion"
+        }
+    },
+    {
+        "index": "ranger-1",
+        "name": "Следопыт 1",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-favored-enemy",
+                "name": "Избранный враг",
+                "url": "/api/2024/features/ranger-favored-enemy"
+            },
+            {
+                "index": "ranger-spellcasting",
+                "name": "Наследство заклинаний",
+                "url": "/api/2024/features/ranger-spellcasting"
+            },
+            {
+                "index": "ranger-weapon-mastery",
+                "name": "Владение оружием",
+                "url": "/api/2024/features/ranger-weapon-mastery"
+            }
+        ]
+    },
+    {
+        "index": "ranger-2",
+        "name": "Следопыт 2",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-deft-explorer",
+                "name": "Искусный путешественник",
+                "url": "/api/2024/features/ranger-deft-explorer"
+            },
+            {
+                "index": "ranger-fighting-style",
+                "name": "Стиль боя",
+                "url": "/api/2024/features/ranger-fighting-style"
+            }
+        ]
+    },
+    {
+        "index": "ranger-3",
+        "name": "Следопыт 3",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-subclass",
+                "name": "Подкласс Следопыта",
+                "url": "/api/2024/features/ranger-subclass"
+            }
+        ]
+    },
+    {
+        "index": "ranger-4",
+        "name": "Следопыт 4",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/ranger-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "ranger-5",
+        "name": "Следопыт 5",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-extra-attack",
+                "name": "Дополнительная атака",
+                "url": "/api/2024/features/ranger-extra-attack"
+            }
+        ]
+    },
+    {
+        "index": "ranger-6",
+        "name": "Следопыт 6",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-roving",
+                "name": "Странствие",
+                "url": "/api/2024/features/ranger-roving"
+            }
+        ]
+    },
+    {
+        "index": "ranger-7",
+        "name": "Следопыт 7",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-subclass",
+                "name": "Подкласс Следопыта",
+                "url": "/api/2024/features/ranger-subclass"
+            }
+        ]
+    },
+    {
+        "index": "ranger-8",
+        "name": "Следопыт 8",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/ranger-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "ranger-9",
+        "name": "Следопыт 9",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-expertise",
+                "name": "Экспертиза",
+                "url": "/api/2024/features/ranger-expertise"
+            }
+        ]
+    },
+    {
+        "index": "ranger-10",
+        "name": "Следопыт 10",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-tireless",
+                "name": "Неутомимость",
+                "url": "/api/2024/features/ranger-tireless"
+            }
+        ]
+    },
+    {
+        "index": "ranger-11",
+        "name": "Следопыт 11",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-subclass",
+                "name": "Подкласс Следопыта",
+                "url": "/api/2024/features/ranger-subclass"
+            }
+        ]
+    },
+    {
+        "index": "ranger-12",
+        "name": "Следопыт 12",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/ranger-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "ranger-13",
+        "name": "Следопыт 13",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-relentless-hunter",
+                "name": "Неутомимый охотник",
+                "url": "/api/2024/features/ranger-relentless-hunter"
+            }
+        ]
+    },
+    {
+        "index": "ranger-14",
+        "name": "Следопыт 14",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-natures-veil",
+                "name": "Покров природы",
+                "url": "/api/2024/features/ranger-natures-veil"
+            }
+        ]
+    },
+    {
+        "index": "ranger-15",
+        "name": "Следопыт 15",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-subclass",
+                "name": "Подкласс Следопыта",
+                "url": "/api/2024/features/ranger-subclass"
+            }
+        ]
+    },
+    {
+        "index": "ranger-16",
+        "name": "Следопыт 16",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/ranger-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "ranger-17",
+        "name": "Следопыт 17",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-precise-hunter",
+                "name": "Точный охотник",
+                "url": "/api/2024/features/ranger-precise-hunter"
+            }
+        ]
+    },
+    {
+        "index": "ranger-18",
+        "name": "Следопыт 18",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-feral-senses",
+                "name": "Звериные чувства",
+                "url": "/api/2024/features/ranger-feral-senses"
+            }
+        ]
+    },
+    {
+        "index": "ranger-19",
+        "name": "Следопыт 19",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/ranger-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "ranger-20",
+        "name": "Следопыт 20",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "ranger-foe-slayer",
+                "name": "Истребитель врагов",
+                "url": "/api/2024/features/ranger-foe-slayer"
+            }
+        ]
+    },
+    {
+        "index": "hunter-3",
+        "name": "Следопыт 3",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "hunter-hunters-lore",
+                "name": "Знания охотника",
+                "url": "/api/2024/features/hunter-hunters-lore"
+            },
+            {
+                "index": "hunter-hunters-prey",
+                "name": "Добыча охотника",
+                "url": "/api/2024/features/hunter-hunters-prey"
+            }
+        ],
+        "subclass": {
+            "index": "hunter",
+            "name": "Охотник",
+            "url": "/api/2024/subclasses/hunter"
+        }
+    },
+    {
+        "index": "hunter-7",
+        "name": "Следопыт 7",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "hunter-defensive-tactics",
+                "name": "Оборонительная тактика",
+                "url": "/api/2024/features/hunter-defensive-tactics"
+            }
+        ],
+        "subclass": {
+            "index": "hunter",
+            "name": "Охотник",
+            "url": "/api/2024/subclasses/hunter"
+        }
+    },
+    {
+        "index": "hunter-11",
+        "name": "Следопыт 11",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "hunter-superior-hunters-prey",
+                "name": "Добыча превосходного охотника",
+                "url": "/api/2024/features/hunter-superior-hunters-prey"
+            }
+        ],
+        "subclass": {
+            "index": "hunter",
+            "name": "Охотник",
+            "url": "/api/2024/subclasses/hunter"
+        }
+    },
+    {
+        "index": "hunter-15",
+        "name": "Следопыт 15",
+        "class": {
+            "index": "ranger",
+            "name": "Следопыт",
+            "url": "/api/2024/classes/ranger"
+        },
+        "features": [
+            {
+                "index": "hunter-superior-hunters-defense",
+                "name": "Защита превосходного охотника",
+                "url": "/api/2024/features/hunter-superior-hunters-defense"
+            }
+        ],
+        "subclass": {
+            "index": "hunter",
+            "name": "Охотник",
+            "url": "/api/2024/subclasses/hunter"
+        }
+    },
+    {
+        "index": "rogue-1",
+        "name": "Плут 1",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-expertise",
+                "name": "Экспертиза",
+                "url": "/api/2024/features/rogue-expertise"
+            },
+            {
+                "index": "rogue-sneak-attack",
+                "name": "Скрытая атака",
+                "url": "/api/2024/features/rogue-sneak-attack"
+            },
+            {
+                "index": "rogue-thieves-cant",
+                "name": "Воровской жаргон",
+                "url": "/api/2024/features/rogue-thieves-cant"
+            },
+            {
+                "index": "rogue-weapon-mastery",
+                "name": "Владение оружием",
+                "url": "/api/2024/features/rogue-weapon-mastery"
+            }
+        ]
+    },
+    {
+        "index": "rogue-2",
+        "name": "Плут 2",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-cunning-action",
+                "name": "Хитрое действие",
+                "url": "/api/2024/features/rogue-cunning-action"
+            }
+        ]
+    },
+    {
+        "index": "rogue-3",
+        "name": "Плут 3",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-subclass",
+                "name": "Подкласс Плута",
+                "url": "/api/2024/features/rogue-subclass"
+            },
+            {
+                "index": "rogue-steady-aim",
+                "name": "Точный прицел",
+                "url": "/api/2024/features/rogue-steady-aim"
+            }
+        ]
+    },
+    {
+        "index": "rogue-4",
+        "name": "Плут 4",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/rogue-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "rogue-5",
+        "name": "Плут 5",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-cunning-strike",
+                "name": "Хитрый удар",
+                "url": "/api/2024/features/rogue-cunning-strike"
+            },
+            {
+                "index": "rogue-uncanny-dodge",
+                "name": "Сверхъестественное уклонение",
+                "url": "/api/2024/features/rogue-uncanny-dodge"
+            }
+        ]
+    },
+    {
+        "index": "rogue-6",
+        "name": "Плут 6",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-expertise",
+                "name": "Экспертиза",
+                "url": "/api/2024/features/rogue-expertise"
+            }
+        ]
+    },
+    {
+        "index": "rogue-7",
+        "name": "Плут 7",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-evasion",
+                "name": "Уклонение",
+                "url": "/api/2024/features/rogue-evasion"
+            },
+            {
+                "index": "rogue-reliable-talent",
+                "name": "Надёжный талант",
+                "url": "/api/2024/features/rogue-reliable-talent"
+            }
+        ]
+    },
+    {
+        "index": "rogue-8",
+        "name": "Плут 8",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/rogue-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "rogue-9",
+        "name": "Плут 9",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-subclass",
+                "name": "Подкласс Плута",
+                "url": "/api/2024/features/rogue-subclass"
+            }
+        ]
+    },
+    {
+        "index": "rogue-10",
+        "name": "Плут 10",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/rogue-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "rogue-11",
+        "name": "Плут 11",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-improved-cunning-strike",
+                "name": "Улучшенный хитрый удар",
+                "url": "/api/2024/features/rogue-improved-cunning-strike"
+            }
+        ]
+    },
+    {
+        "index": "rogue-12",
+        "name": "Плут 12",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/rogue-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "rogue-13",
+        "name": "Плут 13",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-subclass",
+                "name": "Подкласс Плута",
+                "url": "/api/2024/features/rogue-subclass"
+            }
+        ]
+    },
+    {
+        "index": "rogue-14",
+        "name": "Плут 14",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-devious-strikes",
+                "name": "Коварные удары",
+                "url": "/api/2024/features/rogue-devious-strikes"
+            }
+        ]
+    },
+    {
+        "index": "rogue-15",
+        "name": "Плут 15",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-slippery-mind",
+                "name": "Скользкий ум",
+                "url": "/api/2024/features/rogue-slippery-mind"
+            }
+        ]
+    },
+    {
+        "index": "rogue-16",
+        "name": "Плут 16",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/rogue-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "rogue-17",
+        "name": "Плут 17",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-subclass",
+                "name": "Подкласс Плута",
+                "url": "/api/2024/features/rogue-subclass"
+            }
+        ]
+    },
+    {
+        "index": "rogue-18",
+        "name": "Плут 18",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-elusive",
+                "name": "Неуловимый",
+                "url": "/api/2024/features/rogue-elusive"
+            }
+        ]
+    },
+    {
+        "index": "rogue-19",
+        "name": "Плут 19",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/rogue-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "rogue-20",
+        "name": "Плут 20",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "rogue-stroke-of-luck",
+                "name": "Удача",
+                "url": "/api/2024/features/rogue-stroke-of-luck"
+            }
+        ]
+    },
+    {
+        "index": "thief-3",
+        "name": "Плут 3",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "thief-fast-hands",
+                "name": "Быстрые руки",
+                "url": "/api/2024/features/thief-fast-hands"
+            },
+            {
+                "index": "thief-second-story-work",
+                "name": "Работа на втором этаже",
+                "url": "/api/2024/features/thief-second-story-work"
+            }
+        ],
+        "subclass": {
+            "index": "thief",
+            "name": "Плут",
+            "url": "/api/2024/subclasses/thief"
+        }
+    },
+    {
+        "index": "thief-9",
+        "name": "Плут 9",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "thief-supreme-sneak",
+                "name": "Высшая скрытность",
+                "url": "/api/2024/features/thief-supreme-sneak"
+            }
+        ],
+        "subclass": {
+            "index": "thief",
+            "name": "Плут",
+            "url": "/api/2024/subclasses/thief"
+        }
+    },
+    {
+        "index": "thief-13",
+        "name": "Плут 13",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "thief-use-magic-device",
+                "name": "Использование магического предмета",
+                "url": "/api/2024/features/thief-use-magic-device"
+            }
+        ],
+        "subclass": {
+            "index": "thief",
+            "name": "Плут",
+            "url": "/api/2024/subclasses/thief"
+        }
+    },
+    {
+        "index": "thief-17",
+        "name": "Плут 17",
+        "class": {
+            "index": "rogue",
+            "name": "Плут",
+            "url": "/api/2024/classes/rogue"
+        },
+        "features": [
+            {
+                "index": "thief-thiefs-reflexes",
+                "name": "Рефлексы вора",
+                "url": "/api/2024/features/thief-thiefs-reflexes"
+            }
+        ],
+        "subclass": {
+            "index": "thief",
+            "name": "Плут",
+            "url": "/api/2024/subclasses/thief"
+        }
+    },
+    {
+        "index": "sorcerer-1",
+        "name": "Чародей 1",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-innate-sorcery",
+                "name": "Врождённая магия",
+                "url": "/api/2024/features/sorcerer-innate-sorcery"
+            },
+            {
+                "index": "sorcerer-spellcasting",
+                "name": "Использование заклинаний",
+                "url": "/api/2024/features/sorcerer-spellcasting"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-2",
+        "name": "Чародей 2",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-font-of-magic",
+                "name": "Источник магии",
+                "url": "/api/2024/features/sorcerer-font-of-magic"
+            },
+            {
+                "index": "sorcerer-metamagic",
+                "name": "Метамагия",
+                "url": "/api/2024/features/sorcerer-metamagic"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-3",
+        "name": "Чародей 3",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-subclass",
+                "name": "Подкласс Чародея",
+                "url": "/api/2024/features/sorcerer-subclass"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-4",
+        "name": "Чародей 4",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/sorcerer-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-5",
+        "name": "Чародей 5",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-sorcerous-restoration",
+                "name": "Магическое восстановление",
+                "url": "/api/2024/features/sorcerer-sorcerous-restoration"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-6",
+        "name": "Чародей 6",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-subclass",
+                "name": "Подкласс Чародея",
+                "url": "/api/2024/features/sorcerer-subclass"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-7",
+        "name": "Чародей 7",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-sorcery-incarnate",
+                "name": "Воплощение магии",
+                "url": "/api/2024/features/sorcerer-sorcery-incarnate"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-8",
+        "name": "Чародей 8",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/sorcerer-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-9",
+        "name": "Чародей 9",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        }
+    },
+    {
+        "index": "sorcerer-10",
+        "name": "Чародей 10",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-metamagic",
+                "name": "Метамагия",
+                "url": "/api/2024/features/sorcerer-metamagic"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-11",
+        "name": "Чародей 11",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        }
+    },
+    {
+        "index": "sorcerer-12",
+        "name": "Чародей 12",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/sorcerer-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-13",
+        "name": "Чародей 13",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        }
+    },
+    {
+        "index": "sorcerer-14",
+        "name": "Чародей 14",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-subclass",
+                "name": "Подкласс Чародея",
+                "url": "/api/2024/features/sorcerer-subclass"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-15",
+        "name": "Чародей 15",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        }
+    },
+    {
+        "index": "sorcerer-16",
+        "name": "Чародей 16",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/sorcerer-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-17",
+        "name": "Чародей 17",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-metamagic",
+                "name": "Метамагия",
+                "url": "/api/2024/features/sorcerer-metamagic"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-18",
+        "name": "Чародей 18",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-subclass",
+                "name": "Подкласс Чародея",
+                "url": "/api/2024/features/sorcerer-subclass"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-19",
+        "name": "Чародей 19",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/sorcerer-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "sorcerer-20",
+        "name": "Чародей 20",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "sorcerer-arcane-apotheosis",
+                "name": "Тайное обожествление",
+                "url": "/api/2024/features/sorcerer-arcane-apotheosis"
+            }
+        ]
+    },
+    {
+        "index": "draconic-sorcery-3",
+        "name": "Чародей 3",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "draconic-sorcery-draconic-resilience",
+                "name": "Драконья стойкость",
+                "url": "/api/2024/features/draconic-sorcery-draconic-resilience"
+            },
+            {
+                "index": "draconic-sorcery-draconic-spells",
+                "name": "Драконьи заклинания",
+                "url": "/api/2024/features/draconic-sorcery-draconic-spells"
+            }
+        ],
+        "subclass": {
+            "index": "draconic-sorcery",
+            "name": "Драконья магия",
+            "url": "/api/2024/subclasses/draconic-sorcery"
+        }
+    },
+    {
+        "index": "draconic-sorcery-6",
+        "name": "Чародей 6",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "draconic-sorcery-elemental-affinity",
+                "name": "Стихийное родство",
+                "url": "/api/2024/features/draconic-sorcery-elemental-affinity"
+            }
+        ],
+        "subclass": {
+            "index": "draconic-sorcery",
+            "name": "Драконья магия",
+            "url": "/api/2024/subclasses/draconic-sorcery"
+        }
+    },
+    {
+        "index": "draconic-sorcery-14",
+        "name": "Чародей 14",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "draconic-sorcery-dragon-wings",
+                "name": "Драконьи крылья",
+                "url": "/api/2024/features/draconic-sorcery-dragon-wings"
+            }
+        ],
+        "subclass": {
+            "index": "draconic-sorcery",
+            "name": "Драконья магия",
+            "url": "/api/2024/subclasses/draconic-sorcery"
+        }
+    },
+    {
+        "index": "draconic-sorcery-18",
+        "name": "Чародей 18",
+        "class": {
+            "index": "sorcerer",
+            "name": "Чародей",
+            "url": "/api/2024/classes/sorcerer"
+        },
+        "features": [
+            {
+                "index": "draconic-sorcery-dragon-companion",
+                "name": "Дракон-спутник",
+                "url": "/api/2024/features/draconic-sorcery-dragon-companion"
+            }
+        ],
+        "subclass": {
+            "index": "draconic-sorcery",
+            "name": "Драконья магия",
+            "url": "/api/2024/subclasses/draconic-sorcery"
+        }
+    },
+    {
+        "index": "warlock-1",
+        "name": "Колдун 1",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-eldritch-invocations",
+                "name": "Мистические воззвания",
+                "url": "/api/2024/features/warlock-eldritch-invocations"
+            },
+            {
+                "index": "warlock-pact-magic",
+                "name": "Магия пакта",
+                "url": "/api/2024/features/warlock-pact-magic"
+            }
+        ]
+    },
+    {
+        "index": "warlock-2",
+        "name": "Колдун 2",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-magical-cunning",
+                "name": "Магическая хитрость",
+                "url": "/api/2024/features/warlock-magical-cunning"
+            }
+        ]
+    },
+    {
+        "index": "warlock-3",
+        "name": "Колдун 3",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-subclass",
+                "name": "Подкласс Колдуна",
+                "url": "/api/2024/features/warlock-subclass"
+            }
+        ]
+    },
+    {
+        "index": "warlock-4",
+        "name": "Колдун 4",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/warlock-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "warlock-5",
+        "name": "Колдун 5",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        }
+    },
+    {
+        "index": "warlock-6",
+        "name": "Колдун 6",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-subclass",
+                "name": "Подкласс Колдуна",
+                "url": "/api/2024/features/warlock-subclass"
+            }
+        ]
+    },
+    {
+        "index": "warlock-7",
+        "name": "Колдун 7",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        }
+    },
+    {
+        "index": "warlock-8",
+        "name": "Колдун 8",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/warlock-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "warlock-9",
+        "name": "Колдун 9",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-contact-patron",
+                "name": "Связь с покровителем",
+                "url": "/api/2024/features/warlock-contact-patron"
+            }
+        ]
+    },
+    {
+        "index": "warlock-10",
+        "name": "Колдун 10",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-subclass",
+                "name": "Подкласс Колдуна",
+                "url": "/api/2024/features/warlock-subclass"
+            }
+        ]
+    },
+    {
+        "index": "warlock-11",
+        "name": "Колдун 11",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-mystic-arcanum",
+                "name": "Мистический арканум",
+                "url": "/api/2024/features/warlock-mystic-arcanum"
+            }
+        ]
+    },
+    {
+        "index": "warlock-12",
+        "name": "Колдун 12",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/warlock-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "warlock-13",
+        "name": "Колдун 13",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-mystic-arcanum",
+                "name": "Мистический арканум",
+                "url": "/api/2024/features/warlock-mystic-arcanum"
+            }
+        ]
+    },
+    {
+        "index": "warlock-14",
+        "name": "Колдун 14",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-subclass",
+                "name": "Подкласс Колдуна",
+                "url": "/api/2024/features/warlock-subclass"
+            }
+        ]
+    },
+    {
+        "index": "warlock-15",
+        "name": "Колдун 15",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-mystic-arcanum",
+                "name": "Мистический арканум",
+                "url": "/api/2024/features/warlock-mystic-arcanum"
+            }
+        ]
+    },
+    {
+        "index": "warlock-16",
+        "name": "Колдун 16",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/warlock-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "warlock-17",
+        "name": "Колдун 17",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-mystic-arcanum",
+                "name": "Мистический арканум",
+                "url": "/api/2024/features/warlock-mystic-arcanum"
+            }
+        ]
+    },
+    {
+        "index": "warlock-18",
+        "name": "Колдун 18",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        }
+    },
+    {
+        "index": "warlock-19",
+        "name": "Колдун 19",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/warlock-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "warlock-20",
+        "name": "Колдун 20",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "warlock-eldritch-master",
+                "name": "Мистический магистр",
+                "url": "/api/2024/features/warlock-eldritch-master"
+            }
+        ]
+    },
+    {
+        "index": "fiend-patron-3",
+        "name": "Колдун 3",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "fiend-patron-dark-ones-blessing",
+                "name": "Благословение Тёмного",
+                "url": "/api/2024/features/fiend-patron-dark-ones-blessing"
+            },
+            {
+                "index": "fiend-patron-fiend-spells",
+                "name": "Заклинания исчадия",
+                "url": "/api/2024/features/fiend-patron-fiend-spells"
+            }
+        ],
+        "subclass": {
+            "index": "fiend-patron",
+            "name": "Покровитель-Исчадие",
+            "url": "/api/2024/subclasses/fiend-patron"
+        }
+    },
+    {
+        "index": "fiend-patron-6",
+        "name": "Колдун 6",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "fiend-patron-dark-ones-own-luck",
+                "name": "Собственная удача Тёмного",
+                "url": "/api/2024/features/fiend-patron-dark-ones-own-luck"
+            }
+        ],
+        "subclass": {
+            "index": "fiend-patron",
+            "name": "Покровитель-Исчадие",
+            "url": "/api/2024/subclasses/fiend-patron"
+        }
+    },
+    {
+        "index": "fiend-patron-10",
+        "name": "Колдун 10",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "fiend-patron-fiendish-resilience",
+                "name": "Исчадиевая стойкость",
+                "url": "/api/2024/features/fiend-patron-fiendish-resilience"
+            }
+        ],
+        "subclass": {
+            "index": "fiend-patron",
+            "name": "Покровитель-Исчадие",
+            "url": "/api/2024/subclasses/fiend-patron"
+        }
+    },
+    {
+        "index": "fiend-patron-14",
+        "name": "Колдун 14",
+        "class": {
+            "index": "warlock",
+            "name": "Колдун",
+            "url": "/api/2024/classes/warlock"
+        },
+        "features": [
+            {
+                "index": "fiend-patron-hurl-through-hell",
+                "name": "Бросок сквозь ад",
+                "url": "/api/2024/features/fiend-patron-hurl-through-hell"
+            }
+        ],
+        "subclass": {
+            "index": "fiend-patron",
+            "name": "Покровитель-Исчадие",
+            "url": "/api/2024/subclasses/fiend-patron"
+        }
+    },
+    {
+        "index": "wizard-1",
+        "name": "Волшебник 1",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-arcane-recovery",
+                "name": "Восстановление маны",
+                "url": "/api/2024/features/wizard-arcane-recovery"
+            },
+            {
+                "index": "wizard-ritual-adept",
+                "name": "Знаток ритуалов",
+                "url": "/api/2024/features/wizard-ritual-adept"
+            },
+            {
+                "index": "wizard-spellcasting",
+                "name": "Использование заклинаний",
+                "url": "/api/2024/features/wizard-spellcasting"
+            }
+        ]
+    },
+    {
+        "index": "wizard-2",
+        "name": "Волшебник 2",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-scholar",
+                "name": "Учёный",
+                "url": "/api/2024/features/wizard-scholar"
+            }
+        ]
+    },
+    {
+        "index": "wizard-3",
+        "name": "Волшебник 3",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-subclass",
+                "name": "Подкласс Волшебника",
+                "url": "/api/2024/features/wizard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "wizard-4",
+        "name": "Волшебник 4",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/wizard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "wizard-5",
+        "name": "Волшебник 5",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-memorize-spell",
+                "name": "Запоминание заклинания",
+                "url": "/api/2024/features/wizard-memorize-spell"
+            }
+        ]
+    },
+    {
+        "index": "wizard-6",
+        "name": "Волшебник 6",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-subclass",
+                "name": "Подкласс Волшебника",
+                "url": "/api/2024/features/wizard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "wizard-7",
+        "name": "Волшебник 7",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        }
+    },
+    {
+        "index": "wizard-8",
+        "name": "Волшебник 8",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/wizard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "wizard-9",
+        "name": "Волшебник 9",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        }
+    },
+    {
+        "index": "wizard-10",
+        "name": "Волшебник 10",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-subclass",
+                "name": "Подкласс Волшебника",
+                "url": "/api/2024/features/wizard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "wizard-11",
+        "name": "Волшебник 11",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        }
+    },
+    {
+        "index": "wizard-12",
+        "name": "Волшебник 12",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/wizard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "wizard-13",
+        "name": "Волшебник 13",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        }
+    },
+    {
+        "index": "wizard-14",
+        "name": "Волшебник 14",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-subclass",
+                "name": "Подкласс Волшебника",
+                "url": "/api/2024/features/wizard-subclass"
+            }
+        ]
+    },
+    {
+        "index": "wizard-15",
+        "name": "Волшебник 15",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        }
+    },
+    {
+        "index": "wizard-16",
+        "name": "Волшебник 16",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-ability-score-improvement",
+                "name": "Улучшение характеристик",
+                "url": "/api/2024/features/wizard-ability-score-improvement"
+            }
+        ]
+    },
+    {
+        "index": "wizard-17",
+        "name": "Волшебник 17",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        }
+    },
+    {
+        "index": "wizard-18",
+        "name": "Волшебник 18",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-spell-mastery",
+                "name": "Мастерство заклинаний",
+                "url": "/api/2024/features/wizard-spell-mastery"
+            }
+        ]
+    },
+    {
+        "index": "wizard-19",
+        "name": "Волшебник 19",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-epic-boon",
+                "name": "Эпический дар",
+                "url": "/api/2024/features/wizard-epic-boon"
+            }
+        ]
+    },
+    {
+        "index": "wizard-20",
+        "name": "Волшебник 20",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "wizard-signature-spells",
+                "name": "Фирменные заклинания",
+                "url": "/api/2024/features/wizard-signature-spells"
+            }
+        ]
+    },
+    {
+        "index": "evoker-3",
+        "name": "Волшебник 3",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "evoker-evocation-savant",
+                "name": "Савант Воплощения",
+                "url": "/api/2024/features/evoker-evocation-savant"
+            },
+            {
+                "index": "evoker-potent-cantrip",
+                "name": "Мощный заговор",
+                "url": "/api/2024/features/evoker-potent-cantrip"
+            }
+        ],
+        "subclass": {
+            "index": "evoker",
+            "name": "Вызыватель",
+            "url": "/api/2024/subclasses/evoker"
+        }
+    },
+    {
+        "index": "evoker-6",
+        "name": "Волшебник 6",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "evoker-sculpt-spells",
+                "name": "Создание заклинаний",
+                "url": "/api/2024/features/evoker-sculpt-spells"
+            }
+        ],
+        "subclass": {
+            "index": "evoker",
+            "name": "Вызыватель",
+            "url": "/api/2024/subclasses/evoker"
+        }
+    },
+    {
+        "index": "evoker-10",
+        "name": "Волшебник 10",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "evoker-empowered-evocation",
+                "name": "Усиленное воплощение",
+                "url": "/api/2024/features/evoker-empowered-evocation"
+            }
+        ],
+        "subclass": {
+            "index": "evoker",
+            "name": "Вызыватель",
+            "url": "/api/2024/subclasses/evoker"
+        }
+    },
+    {
+        "index": "evoker-14",
+        "name": "Волшебник 14",
+        "class": {
+            "index": "wizard",
+            "name": "Волшебник",
+            "url": "/api/2024/classes/wizard"
+        },
+        "features": [
+            {
+                "index": "evoker-overchannel",
+                "name": "Перегрузка канала",
+                "url": "/api/2024/features/evoker-overchannel"
+            }
+        ],
+        "subclass": {
+            "index": "evoker",
+            "name": "Вызыватель",
+            "url": "/api/2024/subclasses/evoker"
+        }
+    }
+]

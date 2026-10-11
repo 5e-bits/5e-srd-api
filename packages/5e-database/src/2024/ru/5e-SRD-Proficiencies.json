@@ -1,0 +1,1012 @@
+[
+  {
+    "index": "light-armor",
+    "type": "Доспехи",
+    "name": "Лёгкий доспех",
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "bard", "name": "Бард", "url": "/api/2024/classes/bard" },
+      { "index": "cleric", "name": "Жрец", "url": "/api/2024/classes/cleric" },
+      { "index": "druid", "name": "Друид", "url": "/api/2024/classes/druid" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" },
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" },
+      { "index": "warlock", "name": "Колдун", "url": "/api/2024/classes/warlock" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "light-armor",
+      "name": "Лёгкий доспех",
+      "url": "/api/2024/equipment-categories/light-armor"
+    }
+  },
+  {
+    "index": "medium-armor",
+    "type": "Доспехи",
+    "name": "Средний доспех",
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "cleric", "name": "Жрец", "url": "/api/2024/classes/cleric" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "medium-armor",
+      "name": "Средний доспех",
+      "url": "/api/2024/equipment-categories/medium-armor"
+    }
+  },
+  {
+    "index": "heavy-armor",
+    "type": "Доспехи",
+    "name": "Тяжёлый доспех",
+    "classes": [
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "heavy-armor",
+      "name": "Тяжёлый доспех",
+      "url": "/api/2024/equipment-categories/heavy-armor"
+    }
+  },
+  {
+    "index": "all-armor",
+    "type": "Доспехи",
+    "name": "Все доспехи",
+    "classes": [
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "armor",
+      "name": "Доспехи",
+      "url": "/api/2024/equipment-categories/armor"
+    }
+  },
+  {
+    "index": "shields",
+    "type": "Доспехи",
+    "name": "Щиты",
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "cleric", "name": "Жрец", "url": "/api/2024/classes/cleric" },
+      { "index": "druid", "name": "Друид", "url": "/api/2024/classes/druid" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "shield",
+      "name": "Щит",
+      "url": "/api/2024/equipment/shield"
+    }
+  },
+  {
+    "index": "simple-weapons",
+    "type": "Оружие",
+    "name": "Простое оружие",
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "bard", "name": "Бард", "url": "/api/2024/classes/bard" },
+      { "index": "cleric", "name": "Жрец", "url": "/api/2024/classes/cleric" },
+      { "index": "druid", "name": "Друид", "url": "/api/2024/classes/druid" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "monk", "name": "Монах", "url": "/api/2024/classes/monk" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" },
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" },
+      { "index": "sorcerer", "name": "Чародей", "url": "/api/2024/classes/sorcerer" },
+      { "index": "warlock", "name": "Колдун", "url": "/api/2024/classes/warlock" },
+      { "index": "wizard", "name": "Волшебник", "url": "/api/2024/classes/wizard" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "simple-weapons",
+      "name": "Простое оружие",
+      "url": "/api/2024/equipment-categories/simple-weapons"
+    }
+  },
+  {
+    "index": "martial-weapons",
+    "type": "Оружие",
+    "name": "Воинское оружие",
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "martial-weapons",
+      "name": "Воинское оружие",
+      "url": "/api/2024/equipment-categories/martial-weapons"
+    }
+  },
+  {
+    "index": "longswords",
+    "type": "Оружие",
+    "name": "Длинные мечи",
+    "classes": [
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "longsword",
+      "name": "Длинный меч",
+      "url": "/api/2024/equipment/longsword"
+    }
+  },
+  {
+    "index": "rapiers",
+    "type": "Оружие",
+    "name": "Рапиры",
+    "classes": [
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "rapier",
+      "name": "Рапира",
+      "url": "/api/2024/equipment/rapier"
+    }
+  },
+  {
+    "index": "scimitars",
+    "type": "Оружие",
+    "name": "Скимитары",
+    "classes": [
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" },
+      { "index": "monk", "name": "Монах", "url": "/api/2024/classes/monk" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "scimitar",
+      "name": "Скимитар",
+      "url": "/api/2024/equipment/scimitar"
+    }
+  },
+  {
+    "index": "shortswords",
+    "type": "Оружие",
+    "name": "Короткие мечи",
+    "classes": [
+      { "index": "monk", "name": "Монах", "url": "/api/2024/classes/monk" },
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "shortsword",
+      "name": "Короткий меч",
+      "url": "/api/2024/equipment/shortsword"
+    }
+  },
+  {
+    "index": "whips",
+    "type": "Оружие",
+    "name": "Кнуты",
+    "classes": [
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "whip",
+      "name": "Кнут",
+      "url": "/api/2024/equipment/whip"
+    }
+  },
+  {
+    "index": "hand-crossbows",
+    "type": "Оружие",
+    "name": "Одноручные арбалеты",
+    "classes": [
+      { "index": "monk", "name": "Монах", "url": "/api/2024/classes/monk" },
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" }
+    ],
+    "backgrounds": [],
+    "reference": {
+      "index": "hand-crossbow",
+      "name": "Одноручный арбалет",
+      "url": "/api/2024/equipment/hand-crossbow"
+    }
+  },
+  {
+    "index": "skill-acrobatics",
+    "type": "Навыки",
+    "name": "Акробатика",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "acrobatics",
+      "name": "Акробатика",
+      "url": "/api/2024/skills/acrobatics"
+    }
+  },
+  {
+    "index": "skill-animal-handling",
+    "type": "Навыки",
+    "name": "Уход за животными",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "animal-handling",
+      "name": "Уход за животными",
+      "url": "/api/2024/skills/animal-handling"
+    }
+  },
+  {
+    "index": "skill-arcana",
+    "type": "Навыки",
+    "name": "Магия",
+    "backgrounds": [
+      { "index": "sage", "name": "Мудрец", "url": "/api/2024/backgrounds/sage" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "arcana",
+      "name": "Магия",
+      "url": "/api/2024/skills/arcana"
+    }
+  },
+  {
+    "index": "skill-athletics",
+    "type": "Навыки",
+    "name": "Атлетика",
+    "backgrounds": [
+      { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "athletics",
+      "name": "Атлетика",
+      "url": "/api/2024/skills/athletics"
+    }
+  },
+  {
+    "index": "skill-deception",
+    "type": "Навыки",
+    "name": "Обман",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "deception",
+      "name": "Обман",
+      "url": "/api/2024/skills/deception"
+    }
+  },
+  {
+    "index": "skill-history",
+    "type": "Навыки",
+    "name": "История",
+    "backgrounds": [
+      { "index": "sage", "name": "Мудрец", "url": "/api/2024/backgrounds/sage" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "history",
+      "name": "История",
+      "url": "/api/2024/skills/history"
+    }
+  },
+  {
+    "index": "skill-insight",
+    "type": "Навыки",
+    "name": "Проницательность",
+    "backgrounds": [
+      { "index": "acolyte", "name": "Послушник", "url": "/api/2024/backgrounds/acolyte" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "insight",
+      "name": "Проницательность",
+      "url": "/api/2024/skills/insight"
+    }
+  },
+  {
+    "index": "skill-intimidation",
+    "type": "Навыки",
+    "name": "Запугивание",
+    "backgrounds": [
+      { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "intimidation",
+      "name": "Запугивание",
+      "url": "/api/2024/skills/intimidation"
+    }
+  },
+  {
+    "index": "skill-investigation",
+    "type": "Навыки",
+    "name": "Расследование",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "investigation",
+      "name": "Расследование",
+      "url": "/api/2024/skills/investigation"
+    }
+  },
+  {
+    "index": "skill-medicine",
+    "type": "Навыки",
+    "name": "Медицина",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "medicine",
+      "name": "Медицина",
+      "url": "/api/2024/skills/medicine"
+    }
+  },
+  {
+    "index": "skill-nature",
+    "type": "Навыки",
+    "name": "Природа",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "nature",
+      "name": "Природа",
+      "url": "/api/2024/skills/nature"
+    }
+  },
+  {
+    "index": "skill-perception",
+    "type": "Навыки",
+    "name": "Восприятие",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "perception",
+      "name": "Восприятие",
+      "url": "/api/2024/skills/perception"
+    }
+  },
+  {
+    "index": "skill-performance",
+    "type": "Навыки",
+    "name": "Выступление",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "performance",
+      "name": "Выступление",
+      "url": "/api/2024/skills/performance"
+    }
+  },
+  {
+    "index": "skill-persuasion",
+    "type": "Навыки",
+    "name": "Убеждение",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "persuasion",
+      "name": "Убеждение",
+      "url": "/api/2024/skills/persuasion"
+    }
+  },
+  {
+    "index": "skill-religion",
+    "type": "Навыки",
+    "name": "Религия",
+    "backgrounds": [
+      { "index": "acolyte", "name": "Послушник", "url": "/api/2024/backgrounds/acolyte" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "religion",
+      "name": "Религия",
+      "url": "/api/2024/skills/religion"
+    }
+  },
+  {
+    "index": "skill-sleight-of-hand",
+    "type": "Навыки",
+    "name": "Ловкость рук",
+    "backgrounds": [
+      { "index": "criminal", "name": "Преступник", "url": "/api/2024/backgrounds/criminal" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "sleight-of-hand",
+      "name": "Ловкость рук",
+      "url": "/api/2024/skills/sleight-of-hand"
+    }
+  },
+  {
+    "index": "skill-stealth",
+    "type": "Навыки",
+    "name": "Скрытность",
+    "backgrounds": [
+      { "index": "criminal", "name": "Преступник", "url": "/api/2024/backgrounds/criminal" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "stealth",
+      "name": "Скрытность",
+      "url": "/api/2024/skills/stealth"
+    }
+  },
+  {
+    "index": "skill-survival",
+    "type": "Навыки",
+    "name": "Выживание",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "survival",
+      "name": "Выживание",
+      "url": "/api/2024/skills/survival"
+    }
+  },
+  {
+    "index": "alchemists-supplies",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты алхимика",
+    "classes": [],
+    "backgrounds": [],
+    "reference": {
+      "index": "alchemists-supplies",
+      "name": "Инструменты алхимика",
+      "url": "/api/2024/equipment/alchemists-supplies"
+    }
+  },
+  {
+    "index": "brewers-supplies",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты пивовара",
+    "classes": [],
+    "backgrounds": [],
+    "reference": {
+      "index": "brewers-supplies",
+      "name": "Инструменты пивовара",
+      "url": "/api/2024/equipment/brewers-supplies"
+    }
+  },
+  {
+    "index": "tool-calligraphers-supplies",
+    "type": "Инструменты",
+    "name": "Инструменты каллиграфа",
+    "backgrounds": [
+      { "index": "acolyte", "name": "Послушник", "url": "/api/2024/backgrounds/acolyte" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "calligraphers-supplies",
+      "name": "Инструменты каллиграфа",
+      "url": "/api/2024/equipment/calligraphers-supplies"
+    }
+  },
+  {
+    "index": "carpenters-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты плотника",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "carpenters-tools",
+      "name": "Инструменты плотника",
+      "url": "/api/2024/equipment/carpenters-tools"
+    }
+  },
+  {
+    "index": "cartographers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты картографа",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "cartographer-tools",
+      "name": "Инструменты картографа",
+      "url": "/api/2024/equipment/cartographer-tools"
+    }
+  },
+  {
+    "index": "cobblers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты сапожника",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "cobblers-tools",
+      "name": "Инструменты сапожника",
+      "url": "/api/2024/equipment/cobblers-tools"
+    }
+  },
+  {
+    "index": "cooks-utensils",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты повара",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "cooks-utensils",
+      "name": "Инструменты повара",
+      "url": "/api/2024/equipment/cooks-utensils"
+    }
+  },
+  {
+    "index": "glassblowers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты стеклодува",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "glassblowers-tools",
+      "name": "Инструменты стеклодува",
+      "url": "/api/2024/equipment/glassblowers-tools"
+    }
+  },
+  {
+    "index": "jewelers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты ювелира",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "jewelers-tools",
+      "name": "Инструменты ювелира",
+      "url": "/api/2024/equipment/jewelers-tools"
+    }
+  },
+  {
+    "index": "leatherworkers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты кожевника",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "leatherworkers-tools",
+      "name": "Инструменты кожевника",
+      "url": "/api/2024/equipment/leatherworkers-tools"
+    }
+  },
+  {
+    "index": "masons-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты каменщика",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "masons-tools",
+      "name": "Инструменты каменщика",
+      "url": "/api/2024/equipment/masons-tools"
+    }
+  },
+  {
+    "index": "painters-supplies",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты художника",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "painters-supplies",
+      "name": "Инструменты художника",
+      "url": "/api/2024/equipment/painters-supplies"
+    }
+  },
+  {
+    "index": "potters-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты гончара",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "potters-tools",
+      "name": "Инструменты гончара",
+      "url": "/api/2024/equipment/potters-tools"
+    }
+  },
+  {
+    "index": "smiths-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты кузнеца",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "smiths-tools",
+      "name": "Инструменты кузнеца",
+      "url": "/api/2024/equipment/smiths-tools"
+    }
+  },
+  {
+    "index": "tinkers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты оружейника",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "tinkers-tools",
+      "name": "Инструменты оружейника",
+      "url": "/api/2024/equipment/tinkers-tools"
+    }
+  },
+  {
+    "index": "weavers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты ткача",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "weavers-tools",
+      "name": "Инструменты ткача",
+      "url": "/api/2024/equipment/weavers-tools"
+    }
+  },
+  {
+    "index": "woodcarvers-tools",
+    "type": "Инструменты ремесленника",
+    "name": "Инструменты резчика по дереву",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "woodcarvers-tools",
+      "name": "Инструменты резчика по дереву",
+      "url": "/api/2024/equipment/woodcarvers-tools"
+    }
+  },
+  {
+    "index": "disguise-kit",
+    "type": "Инструменты ремесленника",
+    "name": "Набор для грима",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "disguise-kit",
+      "name": "Набор для грима",
+      "url": "/api/2024/equipment/disguise-kit"
+    }
+  },
+  {
+    "index": "forgery-kit",
+    "type": "Инструменты ремесленника",
+    "name": "Набор для фальсификации",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "forgery-kit",
+      "name": "Набор для фальсификации",
+      "url": "/api/2024/equipment/forgery-kit"
+    }
+  },
+  {
+    "index": "tool-dice",
+    "type": "Инструменты",
+    "name": "Игральные кости",
+    "backgrounds": [
+      { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "dice",
+      "name": "Игральные кости",
+      "url": "/api/2024/equipment/dice"
+    }
+  },
+  {
+    "index": "tool-dragonchess",
+    "type": "Инструменты",
+    "name": "Драконьи шахматы",
+    "backgrounds": [
+      { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "dragonchess",
+      "name": "Драконьи шахматы",
+      "url": "/api/2024/equipment/dragonchess"
+    }
+  },
+  {
+    "index": "tool-playing-cards",
+    "type": "Инструменты",
+    "name": "Игральные карты",
+    "backgrounds": [
+      { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "playing-cards",
+      "name": "Игральные карты",
+      "url": "/api/2024/equipment/playing-cards"
+    }
+  },
+  {
+    "index": "tool-navigators-tools",
+    "type": "Инструменты",
+    "name": "Инструменты навигатора",
+    "classes": [],
+    "backgrounds": [],
+    "reference": {
+      "index": "navigators-tools",
+      "name": "Инструменты навигатора",
+      "url": "/api/2024/equipment/navigators-tools"
+    }
+  },
+  {
+    "index": "tool-poisoners-kit",
+    "type": "Инструменты",
+    "name": "Инструменты отравителя",
+    "classes": [],
+    "backgrounds": [],
+    "reference": {
+      "index": "poisoners-kit",
+      "name": "Инструменты отравителя",
+      "url": "/api/2024/equipment/poisoners-kit"
+    }
+  },
+  {
+    "index": "tool-thieves-tools",
+    "type": "Инструменты",
+    "name": "Воровские инструменты",
+    "backgrounds": [
+      { "index": "criminal", "name": "Преступник", "url": "/api/2024/backgrounds/criminal" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "thieves-tools",
+      "name": "Воровские инструменты",
+      "url": "/api/2024/equipment/thieves-tools"
+    }
+  },
+  {
+    "index": "tool-three-dragon-ante",
+    "type": "Инструменты",
+    "name": "Ставка трёх драконов",
+    "backgrounds": [
+      { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
+    ],
+    "classes": [],
+    "reference": {
+      "index": "three-dragon-ante",
+      "name": "Ставка трёх драконов",
+      "url": "/api/2024/equipment/three-dragon-ante"
+    }
+  },
+  {
+    "index": "saving-throw-str",
+    "type": "Спасброски",
+    "name": "Спасбросок: СИЛ",
+    "backgrounds": [],
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "monk", "name": "Монах", "url": "/api/2024/classes/monk" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" }
+    ],
+    "reference": {
+      "index": "str",
+      "name": "СИЛ",
+      "url": "/api/2024/ability-scores/str"
+    }
+  },
+  {
+    "index": "saving-throw-dex",
+    "type": "Спасброски",
+    "name": "Спасбросок: ЛОВ",
+    "backgrounds": [],
+    "classes": [
+      { "index": "bard", "name": "Бард", "url": "/api/2024/classes/bard" },
+      { "index": "monk", "name": "Монах", "url": "/api/2024/classes/monk" },
+      { "index": "ranger", "name": "Следопыт", "url": "/api/2024/classes/ranger" },
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" }
+    ],
+    "reference": {
+      "index": "dex",
+      "name": "ЛОВ",
+      "url": "/api/2024/ability-scores/dex"
+    }
+  },
+  {
+    "index": "saving-throw-con",
+    "type": "Спасброски",
+    "name": "Спасбросок: ТЕЛ",
+    "backgrounds": [],
+    "classes": [
+      { "index": "barbarian", "name": "Варвар", "url": "/api/2024/classes/barbarian" },
+      { "index": "fighter", "name": "Воин", "url": "/api/2024/classes/fighter" },
+      { "index": "sorcerer", "name": "Чародей", "url": "/api/2024/classes/sorcerer" }
+    ],
+    "reference": {
+      "index": "con",
+      "name": "ТЕЛ",
+      "url": "/api/2024/ability-scores/con"
+    }
+  },
+  {
+    "index": "saving-throw-int",
+    "type": "Спасброски",
+    "name": "Спасбросок: ИНТ",
+    "backgrounds": [],
+    "classes": [
+      { "index": "druid", "name": "Друид", "url": "/api/2024/classes/druid" },
+      { "index": "rogue", "name": "Плут", "url": "/api/2024/classes/rogue" },
+      { "index": "wizard", "name": "Волшебник", "url": "/api/2024/classes/wizard" }
+    ],
+    "reference": {
+      "index": "int",
+      "name": "ИНТ",
+      "url": "/api/2024/ability-scores/int"
+    }
+  },
+  {
+    "index": "saving-throw-wis",
+    "type": "Спасброски",
+    "name": "Спасбросок: МУД",
+    "backgrounds": [],
+    "classes": [
+      { "index": "cleric", "name": "Жрец", "url": "/api/2024/classes/cleric" },
+      { "index": "druid", "name": "Друид", "url": "/api/2024/classes/druid" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "warlock", "name": "Колдун", "url": "/api/2024/classes/warlock" },
+      { "index": "wizard", "name": "Волшебник", "url": "/api/2024/classes/wizard" }
+    ],
+    "reference": {
+      "index": "wis",
+      "name": "МУД",
+      "url": "/api/2024/ability-scores/wis"
+    }
+  },
+  {
+    "index": "saving-throw-cha",
+    "type": "Спасброски",
+    "name": "Спасбросок: ХАР",
+    "backgrounds": [],
+    "classes": [
+      { "index": "bard", "name": "Бард", "url": "/api/2024/classes/bard" },
+      { "index": "cleric", "name": "Жрец", "url": "/api/2024/classes/cleric" },
+      { "index": "paladin", "name": "Паладин", "url": "/api/2024/classes/paladin" },
+      { "index": "sorcerer", "name": "Чародей", "url": "/api/2024/classes/sorcerer" },
+      { "index": "warlock", "name": "Колдун", "url": "/api/2024/classes/warlock" }
+    ],
+    "reference": {
+      "index": "cha",
+      "name": "ХАР",
+      "url": "/api/2024/ability-scores/cha"
+    }
+  },
+  {
+    "index": "bagpipes",
+    "type": "Музыкальные инструменты",
+    "name": "Волынка",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "bagpipes",
+      "name": "Волынка",
+      "url": "/api/2024/equipment/bagpipes"
+    }
+  },
+  {
+    "index": "drum",
+    "type": "Музыкальные инструменты",
+    "name": "Барабан",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "drum",
+      "name": "Барабан",
+      "url": "/api/2024/equipment/drum"
+    }
+  },
+  {
+    "index": "dulcimer",
+    "type": "Музыкальные инструменты",
+    "name": "Дульцимер",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "dulcimer",
+      "name": "Дульцимер",
+      "url": "/api/2024/equipment/dulcimer"
+    }
+  },
+  {
+    "index": "flute",
+    "type": "Музыкальные инструменты",
+    "name": "Флейта",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "flute",
+      "name": "Флейта",
+      "url": "/api/2024/equipment/flute"
+    }
+  },
+  {
+    "index": "lute",
+    "type": "Музыкальные инструменты",
+    "name": "Лютня",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "lute",
+      "name": "Лютня",
+      "url": "/api/2024/equipment/lute"
+    }
+  },
+  {
+    "index": "lyre",
+    "type": "Музыкальные инструменты",
+    "name": "Лира",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "lyre",
+      "name": "Лира",
+      "url": "/api/2024/equipment/lyre"
+    }
+  },
+  {
+    "index": "horn",
+    "type": "Музыкальные инструменты",
+    "name": "Рожок",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "horn",
+      "name": "Рожок",
+      "url": "/api/2024/equipment/horn"
+    }
+  },
+  {
+    "index": "pan-flute",
+    "type": "Музыкальные инструменты",
+    "name": "Свирель",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "pan-flute",
+      "name": "Свирель",
+      "url": "/api/2024/equipment/pan-flute"
+    }
+  },
+  {
+    "index": "shawm",
+    "type": "Музыкальные инструменты",
+    "name": "Шалмей",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "shawm",
+      "name": "Шалмей",
+      "url": "/api/2024/equipment/shawm"
+    }
+  },
+  {
+    "index": "viol",
+    "type": "Музыкальные инструменты",
+    "name": "Виола",
+    "backgrounds": [],
+    "classes": [],
+    "reference": {
+      "index": "viol",
+      "name": "Виола",
+      "url": "/api/2024/equipment/viol"
+    }
+  },
+  {
+    "index": "herbalism-kit",
+    "type": "Прочее",
+    "name": "Набор травника",
+    "backgrounds": [],
+    "classes": [
+      { "index": "druid", "name": "Друид", "url": "/api/2024/classes/druid" }
+    ],
+    "reference": {
+      "index": "herbalism-kit",
+      "name": "Набор травника",
+      "url": "/api/2024/equipment/herbalism-kit"
+    }
+  }
+]

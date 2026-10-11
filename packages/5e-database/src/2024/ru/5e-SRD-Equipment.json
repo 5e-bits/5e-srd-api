@@ -1484,7 +1484,7 @@
   },
   {
     "index": "dice",
-    "name": "Кости",
+    "name": "Игральные кости",
     "equipment_categories": [
       {
         "index": "gaming-sets",
@@ -4357,7 +4357,7 @@
   },
   {
     "index": "pan-flute",
-    "name": "Флейта Пана",
+    "name": "Свирель",
     "equipment_categories": [
       {
         "index": "musical-instruments",
@@ -6476,7 +6476,7 @@
   },
   {
     "index": "viol",
-    "name": "Виола да гамба",
+    "name": "Виола",
     "equipment_categories": [
       {
         "index": "musical-instruments",

@@ -28,17 +28,17 @@
     "proficiencies": [
       {
         "index": "skill-insight",
-        "name": "Навык: Проницательность",
+        "name": "Проницательность",
         "url": "/api/2024/proficiencies/skill-insight"
       },
       {
         "index": "skill-religion",
-        "name": "Навык: Религия",
+        "name": "Религия",
         "url": "/api/2024/proficiencies/skill-religion"
       },
       {
         "index": "tool-calligraphers-supplies",
-        "name": "Инструмент: Инструменты каллиграфа",
+        "name": "Инструменты каллиграфа",
         "url": "/api/2024/proficiencies/tool-calligraphers-supplies"
       }
     ],
@@ -144,17 +144,17 @@
     "proficiencies": [
       {
         "index": "skill-sleight-of-hand",
-        "name": "Навык: Ловкость рук",
+        "name": "Ловкость рук",
         "url": "/api/2024/proficiencies/skill-sleight-of-hand"
       },
       {
         "index": "skill-stealth",
-        "name": "Навык: Скрытность",
+        "name": "Скрытность",
         "url": "/api/2024/proficiencies/skill-stealth"
       },
       {
         "index": "tool-thieves-tools",
-        "name": "Инструмент: Воровские инструменты",
+        "name": "Воровские инструменты",
         "url": "/api/2024/proficiencies/tool-thieves-tools"
       }
     ],
@@ -259,17 +259,17 @@
     "proficiencies": [
       {
         "index": "skill-arcana",
-        "name": "Навык: Магия",
+        "name": "Магия",
         "url": "/api/2024/proficiencies/skill-arcana"
       },
       {
         "index": "skill-history",
-        "name": "Навык: История",
+        "name": "История",
         "url": "/api/2024/proficiencies/skill-history"
       },
       {
         "index": "tool-calligraphers-supplies",
-        "name": "Инструмент: Инструменты каллиграфа",
+        "name": "Инструменты каллиграфа",
         "url": "/api/2024/proficiencies/tool-calligraphers-supplies"
       }
     ],
@@ -375,12 +375,12 @@
     "proficiencies": [
       {
         "index": "skill-athletics",
-        "name": "Навык: Атлетика",
+        "name": "Атлетика",
         "url": "/api/2024/proficiencies/skill-athletics"
       },
       {
         "index": "skill-intimidation",
-        "name": "Навык: Запугивание",
+        "name": "Запугивание",
         "url": "/api/2024/proficiencies/skill-intimidation"
       }
     ],
@@ -396,7 +396,7 @@
               "option_type": "reference",
               "item": {
                 "index": "tool-dice",
-                "name": "Инструмент: Кости",
+                "name": "Игральные кости",
                 "url": "/api/2024/proficiencies/tool-dice"
               }
             },
@@ -404,7 +404,7 @@
               "option_type": "reference",
               "item": {
                 "index": "tool-dragonchess",
-                "name": "Инструмент: Драконьи шахматы",
+                "name": "Драконьи шахматы",
                 "url": "/api/2024/proficiencies/tool-dragonchess"
               }
             },
@@ -412,7 +412,7 @@
               "option_type": "reference",
               "item": {
                 "index": "tool-playing-cards",
-                "name": "Инструмент: Игральные карты",
+                "name": "Игральные карты",
                 "url": "/api/2024/proficiencies/tool-playing-cards"
               }
             },
@@ -420,7 +420,7 @@
               "option_type": "reference",
               "item": {
                 "index": "tool-three-dragon-ante",
-                "name": "Инструмент: Ставка трёх драконов",
+                "name": "Ставка трёх драконов",
                 "url": "/api/2024/proficiencies/tool-three-dragon-ante"
               }
             }
