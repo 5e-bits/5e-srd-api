@@ -11,6 +11,7 @@ import { EquipmentSchema } from '../schemas/5e-SRD-Equipment';
 import { FeatSchema } from '../schemas/5e-SRD-Feats';
 import { FeatureSchema } from '../schemas/5e-SRD-Features';
 import { LanguageSchema } from '../schemas/5e-SRD-Languages';
+import { LevelSchema } from '../schemas/5e-SRD-Levels';
 import { MagicItemSchema } from '../schemas/5e-SRD-Magic-Items';
 import { MagicSchoolSchema } from '../schemas/5e-SRD-Magic-Schools';
 import { MonsterSchema } from '../schemas/5e-SRD-Monsters';
@@ -41,6 +42,7 @@ const COLLECTION_SCHEMAS: Record<string, z.ZodTypeAny> = {
   feats: FeatSchema,
   features: FeatureSchema,
   languages: LanguageSchema,
+  levels: LevelSchema,
   'magic-items': MagicItemSchema,
   'magic-schools': MagicSchoolSchema,
   'monsters': MonsterSchema,
