@@ -28,12 +28,12 @@
     "proficiencies": [
       {
         "index": "skill-insight",
-        "name": " Проницательность",
+        "name": "Проницательность",
         "url": "/api/2024/proficiencies/skill-insight"
       },
       {
         "index": "skill-religion",
-        "name": " Религия",
+        "name": "Религия",
         "url": "/api/2024/proficiencies/skill-religion"
       },
       {
@@ -144,12 +144,12 @@
     "proficiencies": [
       {
         "index": "skill-sleight-of-hand",
-        "name": " Ловкость рук",
+        "name": "Ловкость рук",
         "url": "/api/2024/proficiencies/skill-sleight-of-hand"
       },
       {
         "index": "skill-stealth",
-        "name": " Скрытность",
+        "name": "Скрытность",
         "url": "/api/2024/proficiencies/skill-stealth"
       },
       {
@@ -259,12 +259,12 @@
     "proficiencies": [
       {
         "index": "skill-arcana",
-        "name": " Магия",
+        "name": "Магия",
         "url": "/api/2024/proficiencies/skill-arcana"
       },
       {
         "index": "skill-history",
-        "name": " История",
+        "name": "История",
         "url": "/api/2024/proficiencies/skill-history"
       },
       {
@@ -375,12 +375,12 @@
     "proficiencies": [
       {
         "index": "skill-athletics",
-        "name": " Атлетика",
+        "name": "Атлетика",
         "url": "/api/2024/proficiencies/skill-athletics"
       },
       {
         "index": "skill-intimidation",
-        "name": " Запугивание",
+        "name": "Запугивание",
         "url": "/api/2024/proficiencies/skill-intimidation"
       }
     ],

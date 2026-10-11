@@ -220,7 +220,7 @@
   {
     "index": "skill-acrobatics",
     "type": "Навыки",
-    "name": " Акробатика",
+    "name": "Акробатика",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -232,7 +232,7 @@
   {
     "index": "skill-animal-handling",
     "type": "Навыки",
-    "name": " Уход за животными",
+    "name": "Уход за животными",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -244,7 +244,7 @@
   {
     "index": "skill-arcana",
     "type": "Навыки",
-    "name": " Магия",
+    "name": "Магия",
     "backgrounds": [
       { "index": "sage", "name": "Мудрец", "url": "/api/2024/backgrounds/sage" }
     ],
@@ -258,7 +258,7 @@
   {
     "index": "skill-athletics",
     "type": "Навыки",
-    "name": " Атлетика",
+    "name": "Атлетика",
     "backgrounds": [
       { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
     ],
@@ -272,7 +272,7 @@
   {
     "index": "skill-deception",
     "type": "Навыки",
-    "name": " Обман",
+    "name": "Обман",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -284,7 +284,7 @@
   {
     "index": "skill-history",
     "type": "Навыки",
-    "name": " История",
+    "name": "История",
     "backgrounds": [
       { "index": "sage", "name": "Мудрец", "url": "/api/2024/backgrounds/sage" }
     ],
@@ -298,7 +298,7 @@
   {
     "index": "skill-insight",
     "type": "Навыки",
-    "name": " Проницательность",
+    "name": "Проницательность",
     "backgrounds": [
       { "index": "acolyte", "name": "Послушник", "url": "/api/2024/backgrounds/acolyte" }
     ],
@@ -312,7 +312,7 @@
   {
     "index": "skill-intimidation",
     "type": "Навыки",
-    "name": " Запугивание",
+    "name": "Запугивание",
     "backgrounds": [
       { "index": "soldier", "name": "Солдат", "url": "/api/2024/backgrounds/soldier" }
     ],
@@ -326,7 +326,7 @@
   {
     "index": "skill-investigation",
     "type": "Навыки",
-    "name": " Расследование",
+    "name": "Расследование",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -338,7 +338,7 @@
   {
     "index": "skill-medicine",
     "type": "Навыки",
-    "name": " Медицина",
+    "name": "Медицина",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -350,7 +350,7 @@
   {
     "index": "skill-nature",
     "type": "Навыки",
-    "name": " Природа",
+    "name": "Природа",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -362,7 +362,7 @@
   {
     "index": "skill-perception",
     "type": "Навыки",
-    "name": " Восприятие",
+    "name": "Восприятие",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -374,7 +374,7 @@
   {
     "index": "skill-performance",
     "type": "Навыки",
-    "name": " Выступление",
+    "name": "Выступление",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -386,7 +386,7 @@
   {
     "index": "skill-persuasion",
     "type": "Навыки",
-    "name": " Убеждение",
+    "name": "Убеждение",
     "backgrounds": [],
     "classes": [],
     "reference": {
@@ -398,7 +398,7 @@
   {
     "index": "skill-religion",
     "type": "Навыки",
-    "name": " Религия",
+    "name": "Религия",
     "backgrounds": [
       { "index": "acolyte", "name": "Послушник", "url": "/api/2024/backgrounds/acolyte" }
     ],
@@ -412,7 +412,7 @@
   {
     "index": "skill-sleight-of-hand",
     "type": "Навыки",
-    "name": " Ловкость рук",
+    "name": "Ловкость рук",
     "backgrounds": [
       { "index": "criminal", "name": "Преступник", "url": "/api/2024/backgrounds/criminal" }
     ],
@@ -426,7 +426,7 @@
   {
     "index": "skill-stealth",
     "type": "Навыки",
-    "name": " Скрытность",
+    "name": "Скрытность",
     "backgrounds": [
       { "index": "criminal", "name": "Преступник", "url": "/api/2024/backgrounds/criminal" }
     ],
@@ -440,7 +440,7 @@
   {
     "index": "skill-survival",
     "type": "Навыки",
-    "name": " Выживание",
+    "name": "Выживание",
     "backgrounds": [],
     "classes": [],
     "reference": {
