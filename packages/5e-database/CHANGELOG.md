@@ -5,6 +5,13 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.8.1](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.8.0...5e-database-v7.8.1) (2026-10-15)
+
+
+### Bug Fixes
+
+* **db:** use spear in 2024 Sorcerer starting equipment (a) ([#1384](https://github.com/5e-bits/5e-srd-api/issues/1384)) ([5693539](https://github.com/5e-bits/5e-srd-api/commit/569353989602fd9c2c0e722d0d644e4b9bdda41e))
+
 ## [7.8.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.7.0...5e-database-v7.8.0) (2026-10-11)
 
 
