@@ -3336,9 +3336,9 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "leather-armor",
-                    "name": "Кожаный доспех",
-                    "url": "/api/2024/equipment/leather-armor"
+                    "index": "spear",
+                    "name": "Копьё",
+                    "url": "/api/2024/equipment/spear"
                   }
                 },
                 {
