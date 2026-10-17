@@ -5,6 +5,13 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.8.2](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.8.1...5e-database-v7.8.2) (2026-10-17)
+
+
+### Bug Fixes
+
+* **deps:** bump zod from 4.6.5 to 4.6.7 ([#1394](https://github.com/5e-bits/5e-srd-api/issues/1394)) ([259073e](https://github.com/5e-bits/5e-srd-api/commit/259073ea14abf30ad055ea15da51f038049febbb))
+
 ## [7.8.1](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.8.0...5e-database-v7.8.1) (2026-10-15)
 
 
