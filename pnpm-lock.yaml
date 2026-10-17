@@ -406,8 +406,8 @@ importers:
         specifier: ^10.1.8
         version: 10.1.8(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1))
       eslint-plugin-prettier:
-        specifier: ^5.5.6
-        version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1)))(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1))(prettier@3.9.10)
+        specifier: ^5.5.7
+        version: 5.5.7(eslint-config-prettier@10.1.8(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1)))(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1))(prettier@3.9.10)
       glob:
         specifier: ^13.0.6
         version: 13.0.6
@@ -1810,6 +1810,9 @@ packages:
   '@docusaurus/utils@3.10.2':
     resolution: {integrity: sha512-xx0W3eav2uW1NRIpuHJWNwLTC15xPNjU4Uxi9NSnd3swYC96BE3vFiT93SD8s24kmAAWNwgZwfZ2fghGZ01Lcw==}
     engines: {node: '>=20.0'}
+
+  '@dual-bundle/import-meta-resolve@4.2.1':
+    resolution: {integrity: sha512-id+7YRUgoUX6CgV0DtuhirQWodeeA7Lf4i2x71JS/vtA5pRb/hIGWlw+G6MeXvsM+MXrz0VAydTGElX1rAfgPg==}
 
   '@easyops-cn/autocomplete.js@0.38.1':
     resolution: {integrity: sha512-drg76jS6syilOUmVNkyo1c7ZEBPcPuK+aJA7AksM5ZIIbV57DMHCywiCr+uHyv8BE5jUTU98j/H7gVrkHrWW3Q==}
@@ -5018,8 +5021,8 @@ packages:
       eslint-import-resolver-node:
         optional: true
 
-  eslint-plugin-prettier@5.5.6:
-    resolution: {integrity: sha512-ifetmTcxWfz+4qRW3pH/ujdTq2jQIj59AxJMIN26K5avYgU8dxycUETQonWiW+wPrYXA0j3Try0l1CnwVQtDqQ==}
+  eslint-plugin-prettier@5.5.7:
+    resolution: {integrity: sha512-WjHyn3GrFd+ZR0rzsLiM4zJZ35PZMOE0SUIxzGmnWNG0126yNfJKJzObmmkYDwHJfGlkz3PSlzyG9ez/LJntwg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       '@types/eslint': '>=8.0.0'
@@ -8299,8 +8302,8 @@ packages:
     resolution: {integrity: sha512-upi/0ZGkYgEcLeGieoz8gT74oWHA0E7JivX7aN9mAf+Tc7BQoRBvnIGHoPDw+f9TXTW4s6kGYCZJtauP6OYp7g==}
     hasBin: true
 
-  synckit@0.11.13:
-    resolution: {integrity: sha512-eNRKgb3z66Yp3D2CixVujOUvXLFUTij/zVnV8KRyvFdQwpz7I5DS8UfRkTeLzb64u+dkzDSdelE24izu+zSSUg==}
+  synckit@0.12.3:
+    resolution: {integrity: sha512-U+/AXT6LWsxnj2vz9HeUuPWBNgdWxjyIEjEPdbJARC9txmgPzo2VEdqnFo4hHaNyMPtycyVJrSaQYeQv/PoyyA==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
   tapable@2.3.3:
@@ -11574,6 +11577,8 @@ snapshots:
       - svgo
       - uglify-js
       - webpack-cli
+
+  '@dual-bundle/import-meta-resolve@4.2.1': {}
 
   '@easyops-cn/autocomplete.js@0.38.1':
     dependencies:
@@ -15055,12 +15060,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1)))(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1))(prettier@3.9.10):
+  eslint-plugin-prettier@5.5.7(eslint-config-prettier@10.1.8(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1)))(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1))(prettier@3.9.10):
     dependencies:
       eslint: 10.12.0(jiti@1.21.7)(supports-color@8.1.1)
       prettier: 3.9.10
       prettier-linter-helpers: 1.0.1
-      synckit: 0.11.13
+      synckit: 0.12.3
     optionalDependencies:
       eslint-config-prettier: 10.1.8(eslint@10.12.0(jiti@1.21.7)(supports-color@8.1.1))
 
@@ -19092,8 +19097,9 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  synckit@0.11.13:
+  synckit@0.12.3:
     dependencies:
+      '@dual-bundle/import-meta-resolve': 4.2.1
       '@pkgr/core': 0.3.6
 
   tapable@2.3.3: {}
