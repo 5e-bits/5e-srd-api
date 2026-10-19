@@ -5,6 +5,15 @@
 
 * **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
 
+## [7.3.3](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.2...5e-srd-api-v7.3.3) (2026-10-17)
+
+
+### Bug Fixes
+
+* **deps:** bump @sentry/node from 11.5.0 to 11.7.0 in the sentry group ([#1388](https://github.com/5e-bits/5e-srd-api/issues/1388)) ([9f3ddfc](https://github.com/5e-bits/5e-srd-api/commit/9f3ddfcf01b9af070dffb1291a7dbba3d7b17204))
+* **deps:** bump mongoose from 9.11.1 to 9.11.2 ([#1400](https://github.com/5e-bits/5e-srd-api/issues/1400)) ([84c06f0](https://github.com/5e-bits/5e-srd-api/commit/84c06f0223043fa8ea0c46ded1b6154029805aec))
+* **deps:** bump zod from 4.6.5 to 4.6.7 ([#1394](https://github.com/5e-bits/5e-srd-api/issues/1394)) ([259073e](https://github.com/5e-bits/5e-srd-api/commit/259073ea14abf30ad055ea15da51f038049febbb))
+
 ## [7.3.2](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.1...5e-srd-api-v7.3.2) (2026-10-11)
 
 
