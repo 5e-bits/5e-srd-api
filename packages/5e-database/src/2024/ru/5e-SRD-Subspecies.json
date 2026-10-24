@@ -292,7 +292,7 @@
       {
         "index": "lineage-spell-dancing-lights",
         "url": "/api/2024/traits/lineage-spell-dancing-lights",
-        "name": "Танцующие огоньки",
+        "name": "Пляшущие огоньки",
         "level": 1
       },
       {
@@ -533,7 +533,7 @@
       {
         "index": "lineage-spell-poison-spray",
         "url": "/api/2024/traits/lineage-spell-poison-spray",
-        "name": "Ядовитый плевок",
+        "name": "Ядовитые брызги",
         "level": 1
       },
       {
@@ -574,7 +574,7 @@
       {
         "index": "lineage-spell-false-life",
         "url": "/api/2024/traits/lineage-spell-false-life",
-        "name": "Ложная жизнь",
+        "name": "Псевдожизнь",
         "level": 3
       },
       {
