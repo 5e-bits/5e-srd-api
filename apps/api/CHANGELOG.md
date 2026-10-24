@@ -5,6 +5,13 @@
 
 * **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
 
+## [7.3.4](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.3...5e-srd-api-v7.3.4) (2026-10-24)
+
+
+### Bug Fixes
+
+* **deps:** bump @sentry/node from 11.7.0 to 11.8.0 in the sentry group ([#1405](https://github.com/5e-bits/5e-srd-api/issues/1405)) ([7cee749](https://github.com/5e-bits/5e-srd-api/commit/7cee74930f42e0d256c4d846bb4e2251aab2257f))
+
 ## [7.3.3](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.2...5e-srd-api-v7.3.3) (2026-10-17)
 
 
