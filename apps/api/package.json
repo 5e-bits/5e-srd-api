@@ -64,7 +64,7 @@
     "openapi-to-postmanv2": "^6.4.0",
     "prettier": "^3.9.10",
     "supertest": "^7.3.1",
-    "tsc-alias": "^1.9.7",
+    "tsc-alias": "^1.9.8",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.2",
     "vitest": "^5.0.4"
