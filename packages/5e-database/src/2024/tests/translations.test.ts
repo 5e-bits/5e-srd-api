@@ -19,6 +19,7 @@ import { PoisonSchema } from '../schemas/5e-SRD-Poisons';
 import { ProficiencySchema } from '../schemas/5e-SRD-Proficiencies';
 import { SkillSchema } from '../schemas/5e-SRD-Skills';
 import { SpeciesSchema } from '../schemas/5e-SRD-Species';
+import { SpellSchema } from '../schemas/5e-SRD-Spells';
 import { SubclassSchema } from '../schemas/5e-SRD-Subclasses';
 import { SubspeciesSchema } from '../schemas/5e-SRD-Subspecies';
 import { TraitSchema } from '../schemas/5e-SRD-Traits';
@@ -50,6 +51,7 @@ const COLLECTION_SCHEMAS: Record<string, z.ZodTypeAny> = {
   proficiencies: ProficiencySchema,
   skills: SkillSchema,
   species: SpeciesSchema,
+  spells: SpellSchema,
   subclasses: SubclassSchema,
   subspecies: SubspeciesSchema,
   traits: TraitSchema,
