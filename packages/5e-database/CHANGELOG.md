@@ -5,6 +5,13 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.9.1](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.9.0...5e-database-v7.9.1) (2026-10-29)
+
+
+### Bug Fixes
+
+* correct the 2024 Mule stat block ([#1419](https://github.com/5e-bits/5e-srd-api/issues/1419)) ([f4eac5a](https://github.com/5e-bits/5e-srd-api/commit/f4eac5a08e12ed6d6536c25be5ec875adb19f3c3))
+
 ## [7.9.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.8.2...5e-database-v7.9.0) (2026-10-24)
 
 
