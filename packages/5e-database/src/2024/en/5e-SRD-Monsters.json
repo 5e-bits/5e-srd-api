@@ -45788,31 +45788,28 @@
     "challenge_rating": 0.125,
     "special_abilities": [
       {
-        "name": "Compression",
-        "desc": "The octopus can move through a space as narrow as 1 inch without expending extra movement to do so."
-      },
-      {
-        "name": "Water Breathing",
-        "desc": "The octopus can breathe only underwater."
+        "name": "Beast of Burden",
+        "desc": "The mule counts as one size larger for the purpose of determining its carrying capacity."
       }
     ],
     "actions": [
       {
-        "name": "Tentacles",
-        "desc": "Melee Attack Roll: +4, reach 5 ft. Hit: 1 Bludgeoning damage.",
+        "name": "Hooves",
+        "desc": "Melee Attack Roll: +4, reach 5 ft. Hit: 4 (1d4 + 2) Bludgeoning damage.",
+        "damage": [
+          {
+            "damage_type": {
+              "index": "bludgeoning",
+              "name": "Bludgeoning",
+              "url": "/api/2024/damage-types/bludgeoning"
+            },
+            "damage_dice": "1d4+2"
+          }
+        ],
         "attack_bonus": 4
       }
     ],
-    "reactions": [
-      {
-        "name": "Ink Cloud",
-        "desc": "Trigger: A creature ends its turn within 5 feet of the octopus while underwater. Response: The octopus releases ink that fills a 5-foot Cube centered on itself, and the octopus moves up to its Swim Speed. The Cube is Heavily Obscured for 1 minute or until a strong current or similar effect disperses the ink.",
-        "usage": {
-          "type": "per day",
-          "times": 1
-        }
-      }
-    ],
+    "reactions": [],
     "legendary_actions": [],
     "index": "mule",
     "url": "/api/2024/monsters/mule",
