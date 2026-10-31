@@ -179,7 +179,7 @@ importers:
         version: 11.8.0(@babel/core@7.29.7(supports-color@5.5.0))(webpack@5.111.1(clean-css@5.3.3)(cssnano@6.1.2(postcss@8.5.28))(csso@5.0.5)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28)(svgo@3.3.5))
       '@typegoose/typegoose':
         specifier: ^13.5.0
-        version: 13.5.0(mongoose@9.11.2)
+        version: 13.5.0(mongoose@9.11.4)
       class-validator:
         specifier: ^0.15.1
         version: 0.15.1
@@ -199,8 +199,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(graphql@16.14.2)
       mongoose:
-        specifier: 9.11.2
-        version: 9.11.2
+        specifier: 9.11.4
+        version: 9.11.4
       morgan:
         specifier: ^1.12.1
         version: 1.12.1(supports-color@5.5.0)
@@ -6658,8 +6658,8 @@ packages:
       socks:
         optional: true
 
-  mongoose@9.11.2:
-    resolution: {integrity: sha512-hFkl/2dccpD58coRAya3a/ht8ooAx9YPLzBfxVX9bEsgcrjsNkvuWQe8gplGfDdmzpw2RfFX1IB/G8PiFwyvwg==}
+  mongoose@9.11.4:
+    resolution: {integrity: sha512-+xME0fduXl1sWF+NZpJHZaNcwQSt+X2vbJ/h7GRSZ/ltLycAkGZSEABhzic0+q3IMF66KqF0viEE5+frchKCAQ==}
     engines: {node: '>=20.19.0'}
 
   morgan@1.12.1:
@@ -6670,8 +6670,8 @@ packages:
     resolution: {integrity: sha512-ikJRQTk8hw5DEoFVxHG1Gn9T/xcjtdnOKIU1JTmGjZZlg9LST2mBLmcX3/ICIbgJydT2GOc15RnNy5mHmzfSew==}
     engines: {node: '>=4.0.0'}
 
-  mquery@6.0.0:
-    resolution: {integrity: sha512-b2KQNsmgtkscfeDgkYMcWGn9vZI9YoXh802VDEwE6qc50zxBFQ0Oo8ROkawbPAsXCY1/Z1yp0MagqsZStPWJjw==}
+  mquery@6.0.1:
+    resolution: {integrity: sha512-/Nijmq3JcpHwDM+5CwBp5yEl6fUa6jLsIhPsoQywlGXU/ZrKIvSpBzfaGnW9BLqcne/CoUwd1ch7MRqptDgFTA==}
     engines: {node: '>=20.19.0'}
 
   mrmime@2.0.1:
@@ -12556,11 +12556,11 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@typegoose/typegoose@13.5.0(mongoose@9.11.2)':
+  '@typegoose/typegoose@13.5.0(mongoose@9.11.4)':
     dependencies:
       lodash: 4.18.1
       loglevel: 1.9.2
-      mongoose: 9.11.2
+      mongoose: 9.11.4
       reflect-metadata: 0.2.2
       semver: 7.8.5
       tslib: 2.8.1
@@ -17081,13 +17081,13 @@ snapshots:
       bson: 7.3.3
       mongodb-connection-string-url: 7.0.2
 
-  mongoose@9.11.2:
+  mongoose@9.11.4:
     dependencies:
       '@standard-schema/spec': 1.1.0
       kareem: 3.4.1
       mongodb: 7.7.0
       mpath: 0.9.0
-      mquery: 6.0.0
+      mquery: 6.0.1
       ms: 2.1.3
       sift: 17.1.3
     transitivePeerDependencies:
@@ -17111,7 +17111,7 @@ snapshots:
 
   mpath@0.9.0: {}
 
-  mquery@6.0.0: {}
+  mquery@6.0.1: {}
 
   mrmime@2.0.1: {}
 
