@@ -224,8 +224,8 @@ importers:
         specifier: ^10.6.0
         version: 10.6.0
       '@redocly/cli':
-        specifier: ^2.67.1
-        version: 2.67.1
+        specifier: ^2.72.0
+        version: 2.72.0
       '@types/cors':
         specifier: ^2.8.19
         version: 2.8.19
@@ -2549,8 +2549,8 @@ packages:
     peerDependencies:
       '@redis/client': ^6.3.0
 
-  '@redocly/cli@2.67.1':
-    resolution: {integrity: sha512-syZ7eZ0DGY/R+5nTQX1IRnKegUN76nqhfdLezUY9S538o/aVNXA9eLorKupRpXRNWd6G49lr4D5IWK2z8jkN0g==}
+  '@redocly/cli@2.72.0':
+    resolution: {integrity: sha512-uxBuakWcy/myh7WzwVtMCW49Aehs5xSgCj860MeguXBoTnOrGH5LfLrte+U7V1ZtcLAXPeJIxiv5BnV+5WC3qA==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
     hasBin: true
 
@@ -12244,7 +12244,7 @@ snapshots:
     dependencies:
       '@redis/client': 6.3.0(@opentelemetry/api@1.9.1)
 
-  '@redocly/cli@2.67.1': {}
+  '@redocly/cli@2.72.0': {}
 
   '@reduxjs/toolkit@2.12.0(react-redux@9.3.0(@types/react@19.3.0)(react@19.3.1)(redux@4.2.1))(react@19.3.1)':
     dependencies:
