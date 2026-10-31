@@ -5,6 +5,13 @@
 
 * **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
 
+## [7.3.5](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.4...5e-srd-api-v7.3.5) (2026-10-31)
+
+
+### Bug Fixes
+
+* **deps:** bump mongoose from 9.11.2 to 9.11.4 ([#1427](https://github.com/5e-bits/5e-srd-api/issues/1427)) ([2711ba7](https://github.com/5e-bits/5e-srd-api/commit/2711ba7f08ee81d01771170a4db53c340ce15088))
+
 ## [7.3.4](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.3...5e-srd-api-v7.3.4) (2026-10-24)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "dnd-5e-srd-api",
-  "version": "7.3.4",
+  "version": "7.3.5",
   "engines": {
     "node": "24.x"
   },
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.6.0",
-    "@redocly/cli": "^2.72.0",
+    "@redocly/cli": "^2.67.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/graphql-depth-limit": "^1.1.3",
