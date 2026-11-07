@@ -31,7 +31,7 @@
     "@types/mongodb": "^4.0.7",
     "@types/node": "^26.6.5",
     "@typescript-eslint/parser": "^8.72.1",
-    "@vitest/coverage-v8": "^5.0.5",
+    "@vitest/coverage-v8": "^5.1.0",
     "@vitest/eslint-plugin": "^1.6.28",
     "deep-diff": "^1.0.2",
     "eslint": "^10.13.0",
