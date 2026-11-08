@@ -304,7 +304,7 @@
     ],
     "cost": {
       "quantity": 4,
-      "unit": "gp"
+      "unit": "sp"
     },
     "weight": 2,
     "description": "A Basket holds up to 40 pounds within 2 cubic feet.",
@@ -421,7 +421,7 @@
     ],
     "cost": {
       "quantity": 5,
-      "unit": "gp"
+      "unit": "sp"
     },
     "weight": 3,
     "description": "While wrapped in a blanket, you have Advantage on saving throws against extreme cold (see “Gameplay Toolbox”).",
@@ -1249,10 +1249,10 @@
       }
     ],
     "cost": {
-      "quantity": 5,
+      "quantity": 2,
       "unit": "gp"
     },
-    "weight": 6,
+    "weight": 4,
     "description": "Traveler's Clothes are resilient garments designed for travel in various environments.",
     "url": "/api/2024/equipment/clothes-travelers"
   },
