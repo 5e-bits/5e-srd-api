@@ -4438,6 +4438,9 @@
         "url": "/api/2024/damage-types/piercing"
       }
     },
+    "range": {
+      "normal": 5
+    },
     "weight": 4,
     "properties": [],
     "mastery": {
