@@ -5651,9 +5651,9 @@
     "damage": {
       "damage_dice": "1d4",
       "damage_type": {
-        "index": "piercing",
-        "name": "Колющий",
-        "url": "/api/2024/damage-types/piercing"
+        "index": "bludgeoning",
+        "name": "Дробящий",
+        "url": "/api/2024/damage-types/bludgeoning"
       }
     },
     "mastery": {
@@ -6425,7 +6425,7 @@
       "unit": "зм"
     },
     "damage": {
-      "damage_dice": "1d6",
+      "damage_dice": "1d8",
       "damage_type": {
         "index": "piercing",
         "name": "Колющий",
@@ -6450,7 +6450,7 @@
       }
     ],
     "two_handed_damage": {
-      "damage_dice": "1d8",
+      "damage_dice": "1d10",
       "damage_type": {
         "index": "piercing",
         "name": "Колющий",
