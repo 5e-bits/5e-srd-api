@@ -28,7 +28,7 @@
       }
     ],
     "cost": {
-      "quantity": 25,
+      "quantity": 50,
       "unit": "gp"
     },
     "weight": 1,
@@ -157,7 +157,7 @@
       "quantity": 50,
       "unit": "gp"
     },
-    "weight": 1,
+    "weight": 0,
     "description": "As a Bonus Action, you can drink a vial of Antitoxin to gain Advantage on saving throws to avoid or end the Poisoned condition for 1 hour.",
     "url": "/api/2024/equipment/antitoxin"
   },
@@ -303,7 +303,7 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 4,
       "unit": "gp"
     },
     "weight": 2,
@@ -384,10 +384,10 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 1,
       "unit": "gp"
     },
-    "weight": 25,
+    "weight": 7,
     "description": "A Bedroll sleeps one Small or Medium creature. While in a Bedroll, you automatically succeed on saving throws against extreme cold (see “Gameplay Toolbox”).",
     "url": "/api/2024/equipment/bedroll"
   },
@@ -405,7 +405,7 @@
       "quantity": 1,
       "unit": "gp"
     },
-    "weight": 1,
+    "weight": 0,
     "description": "When rung as a Utilize action, a Bell produces a sound that can be heard up to 60 feet away.",
     "url": "/api/2024/equipment/bell"
   },
@@ -843,7 +843,7 @@
       }
     ],
     "description": "A Burglar's Pack contains the following items: Backpack, Ball Bearings, Bell, 10 Candles, Crowbar, Hooded Lantern, 7 flasks of Oil, 5 days of Rations, Rope, Tinderbox, and Waterskin.",
-    "weight": 20,
+    "weight": 42,
     "url": "/api/2024/equipment/burglars-pack"
   },
   {
@@ -915,7 +915,7 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 1,
       "unit": "gp"
     },
     "weight": 2,
@@ -1126,7 +1126,7 @@
       "quantity": 5,
       "unit": "gp"
     },
-    "weight": 6,
+    "weight": 10,
     "description": "As a Utilize action, you can wrap a Chain around an unwilling creature within 5 feet of yourself that has the Grappled, Incapacitated, or Restrained condition if you succeed on a DC 13 Strength (Athletics) check. If the creature's legs are bound, the creature has the Restrained condition until it escapes. Escaping the Chain requires the creature to make a successful DC 18 Dexterity (Acrobatics) check as an action. Bursting the Chain requires a successful DC 20 Strength (Athletics) check as an action.",
     "url": "/api/2024/equipment/chain"
   },
@@ -1189,7 +1189,7 @@
     "doff_time": "1 minute",
     "stealth_disadvantage": false,
     "str_minimum": 0,
-    "weight": 14,
+    "weight": 20,
     "url": "/api/2024/equipment/chain-shirt"
   },
   {
@@ -1203,10 +1203,10 @@
       }
     ],
     "cost": {
-      "quantity": 50,
+      "quantity": 5,
       "unit": "gp"
     },
-    "weight": 20,
+    "weight": 25,
     "description": "A Chest holds up to 12 cubic feet of contents.",
     "url": "/api/2024/equipment/chest"
   },
@@ -1224,7 +1224,7 @@
       "quantity": 25,
       "unit": "gp"
     },
-    "weight": 8,
+    "weight": 12,
     "description": "A Climber's Kit includes boot tips, gloves, pitons, and a harness. As a Utilize action, you can use the Climber's Kit to anchor yourself; when you do, you can't fall more than 25 feet from the anchor point, and you can't move more than 25 feet from there without undoing the anchor as a Bonus Action.",
     "url": "/api/2024/equipment/climbers-kit"
   },
@@ -1242,7 +1242,7 @@
       "quantity": 15,
       "unit": "gp"
     },
-    "weight": 3,
+    "weight": 6,
     "description": "Fine Clothes are made of expensive fabrics and adorned with expertly crafted details. Some events and locations admit only people wearing these clothes.",
     "url": "/api/2024/equipment/clothes-fine"
   },
@@ -1260,7 +1260,7 @@
       "quantity": 5,
       "unit": "gp"
     },
-    "weight": 4,
+    "weight": 6,
     "description": "Traveler's Clothes are resilient garments designed for travel in various environments.",
     "url": "/api/2024/equipment/clothes-travelers"
   },
@@ -1378,11 +1378,11 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 25,
       "unit": "gp"
     },
     "description": "A Component Pouch is watertight and filled with compartments that hold all the free Material components of your spells.",
-    "weight": 1,
+    "weight": 2,
     "url": "/api/2024/equipment/component-pouch"
   },
   {
@@ -1599,7 +1599,7 @@
     ],
     "cost": {
       "quantity": 5,
-      "unit": "gp"
+      "unit": "cp"
     },
     "damage": {
       "damage_dice": "1d4",
@@ -1808,7 +1808,7 @@
       }
     ],
     "description": "A Diplomat's Pack contains the following items: Chest, Fine Clothes, Ink, 5 Ink Pens, Lamp, 2 Map or Scroll Cases, 4 flasks of Oil, 5 sheets of Paper, 5 sheets of Parchment, Perfume, and Tinderbox.",
-    "weight": 20,
+    "weight": 39,
     "url": "/api/2024/equipment/diplomat-pack"
   },
   {
@@ -2906,7 +2906,7 @@
       }
     ],
     "cost": {
-      "quantity": 25,
+      "quantity": 75,
       "unit": "gp"
     },
     "damage": {
@@ -2921,7 +2921,7 @@
       "normal": 30,
       "long": 120
     },
-    "weight": 2,
+    "weight": 3,
     "properties": [
       {
         "index": "ammunition",
@@ -3356,7 +3356,7 @@
     ],
     "cost": {
       "quantity": 5,
-      "unit": "gp"
+      "unit": "sp"
     },
     "damage": {
       "damage_dice": "1d6",
@@ -3946,7 +3946,7 @@
       }
     ],
     "cost": {
-      "quantity": 5,
+      "quantity": 50,
       "unit": "gp"
     },
     "damage": {
@@ -4200,7 +4200,7 @@
     "range": {
       "normal": 5
     },
-    "weight": 2,
+    "weight": 4,
     "properties": [],
     "mastery": {
       "index": "sap",
@@ -4830,8 +4830,8 @@
       }
     ],
     "cost": {
-      "quantity": 3,
-      "unit": "gp"
+      "quantity": 1,
+      "unit": "sp"
     },
     "description": "One sheet of Parchment can hold about 250 handwritten words.",
     "weight": 0,
@@ -4895,7 +4895,7 @@
     "range": {
       "normal": 5
     },
-    "weight": 6,
+    "weight": 18,
     "properties": [
       {
         "index": "heavy",
@@ -5007,7 +5007,7 @@
       "url": "/api/2024/ability-scores/int"
     },
     "cost": {
-      "quantity": 5,
+      "quantity": 50,
       "unit": "gp"
     },
     "craft": [
@@ -5593,7 +5593,7 @@
       "unit": "gp"
     },
     "description": "A Robe has vocational or ceremonial significance. Some events and locations admit only people wearing a Robe bearing certain colors or symbols.",
-    "weight": 1,
+    "weight": 4,
     "url": "/api/2024/equipment/robe"
   },
   {
@@ -6455,7 +6455,7 @@
       }
     ],
     "cost": {
-      "quantity": 5,
+      "quantity": 1,
       "unit": "gp"
     },
     "damage": {
@@ -6469,7 +6469,7 @@
     "range": {
       "normal": 5
     },
-    "weight": 2,
+    "weight": 3,
     "properties": [
       {
         "index": "thrown",
@@ -6570,7 +6570,7 @@
       "unit": "gp"
     },
     "description": "Iron Spikes come in bundles of ten. As a Utilize action, you can use a blunt object, such as a Light Hammer, to hammer a spike into wood, earth, or a similar material. You can do so to jam a door shut or to then tie a Rope or Chain to the Spike.",
-    "weight": 2,
+    "weight": 5,
     "url": "/api/2024/equipment/spikes-iron"
   },
   {
