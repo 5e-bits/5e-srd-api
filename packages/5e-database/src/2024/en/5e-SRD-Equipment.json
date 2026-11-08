@@ -257,7 +257,7 @@
   },
   {
     "index": "ball-bearings",
-    "name": "Ball bearings",
+    "name": "Ball Bearings",
     "equipment_categories": [
       {
         "index": "adventuring-gear",
@@ -429,7 +429,7 @@
   },
   {
     "index": "block-and-tackle",
-    "name": "Block and tackle",
+    "name": "Block and Tackle",
     "equipment_categories": [
       {
         "index": "adventuring-gear",
@@ -756,7 +756,7 @@
       {
         "item": {
           "index": "ball-bearings",
-          "name": "Ball bearings",
+          "name": "Ball Bearings",
           "url": "/api/2024/equipment/ball-bearings"
         },
         "quantity": 1
@@ -792,14 +792,6 @@
           "url": "/api/2024/equipment/lantern-hooded"
         },
         "quantity": 1
-      },
-      {
-        "item": {
-          "index": "flask",
-          "name": "Flask",
-          "url": "/api/2024/equipment/flask"
-        },
-        "quantity": 7
       },
       {
         "item": {
@@ -1760,14 +1752,6 @@
       },
       {
         "item": {
-          "index": "flask",
-          "name": "Flask",
-          "url": "/api/2024/equipment/flask"
-        },
-        "quantity": 4
-      },
-      {
-        "item": {
           "index": "oil",
           "name": "Oil",
           "url": "/api/2024/equipment/oil"
@@ -2052,7 +2036,7 @@
           "name": "Caltrops",
           "url": "/api/2024/equipment/caltrops"
         },
-        "quantity": 10
+        "quantity": 1
       },
       {
         "item": {
@@ -2061,14 +2045,6 @@
           "url": "/api/2024/equipment/crowbar"
         },
         "quantity": 1
-      },
-      {
-        "item": {
-          "index": "flask",
-          "name": "Flask",
-          "url": "/api/2024/equipment/flask"
-        },
-        "quantity": 2
       },
       {
         "item": {
@@ -2147,79 +2123,110 @@
     "url": "/api/2024/equipment/emblem"
   },
   {
-    "index": "entertainers-pack",
-    "name": "Entertainer's Pack",
-    "equipment_categories": [
-      {
-      "index": "adventuring-gear",
-      "name": "Adventuring Gear",
-      "url": "/api/2024/equipment-categories/adventuring-gear"
-    }
-    ],
-    "cost": {
-      "quantity": 40,
-      "unit": "gp"
-    },
-    "contents": [
-      {
-        "item": {
-          "index": "backpack",
-          "name": "Backpack",
-          "url": "/api/2024/equipment/backpack"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "bedroll",
-          "name": "Bedroll",
-          "url": "/api/2024/equipment/bedroll"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "costume",
-          "name": "Costume",
-          "url": "/api/2024/equipment/costume"
-        },
-        "quantity": 2
-      },
-      {
-        "item": {
-          "index": "candle",
-          "name": "Candle",
-          "url": "/api/2024/equipment/candle"
-        },
-        "quantity": 5
-      },
-      {
-        "item": {
-          "index": "rations",
-          "name": "Rations",
-          "url": "/api/2024/equipment/rations"
-        },
-        "quantity": 5
-      },
-      {
-        "item": {
-          "index": "waterskin",
-          "name": "Waterskin",
-          "url": "/api/2024/equipment/waterskin"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "disguise-kit",
-          "name": "Disguise Kit",
-          "url": "/api/2024/equipment/disguise-kit"
-        },
-        "quantity": 1
-      }
-    ],
-    "url": "/api/2024/equipment/entertainers-pack"
-  },
+	  "index": "entertainers-pack",
+	  "name": "Entertainer's Pack",
+	  "equipment_categories": [
+		{
+		  "index": "adventuring-gear",
+		  "name": "Adventuring Gear",
+		  "url": "/api/2024/equipment-categories/adventuring-gear"
+		},
+		{
+		  "index": "equipment-packs",
+		  "name": "Equipment Packs",
+		  "url": "/api/2024/equipment-categories/equipment-packs"
+		}
+	  ],
+	  "cost": {
+		"quantity": 40,
+		"unit": "gp"
+	  },
+	  "contents": [
+		{
+		  "item": {
+			"index": "backpack",
+			"name": "Backpack",
+			"url": "/api/2024/equipment/backpack"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "bedroll",
+			"name": "Bedroll",
+			"url": "/api/2024/equipment/bedroll"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "bell",
+			"name": "Bell",
+			"url": "/api/2024/equipment/bell"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "lantern-bullseye",
+			"name": "Lantern, Bullseye",
+			"url": "/api/2024/equipment/lantern-bullseye"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "costume",
+			"name": "Costume",
+			"url": "/api/2024/equipment/costume"
+		  },
+		  "quantity": 3
+		},
+		{
+		  "item": {
+			"index": "mirror",
+			"name": "Mirror",
+			"url": "/api/2024/equipment/mirror"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "oil",
+			"name": "Oil",
+			"url": "/api/2024/equipment/oil"
+		  },
+		  "quantity": 8
+		},
+		{
+		  "item": {
+			"index": "rations",
+			"name": "Rations",
+			"url": "/api/2024/equipment/rations"
+		  },
+		  "quantity": 9
+		},
+		{
+		  "item": {
+			"index": "tinderbox",
+			"name": "Tinderbox",
+			"url": "/api/2024/equipment/tinderbox"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "waterskin",
+			"name": "Waterskin",
+			"url": "/api/2024/equipment/waterskin"
+		  },
+		  "quantity": 1
+		}
+	  ],
+	  "description": "An Entertainer’s Pack contains the following items: Backpack, Bedroll, Bell, Bullseye Lantern, 3 Costumes, Mirror, 8 flasks of Oil, 9 days of Rations, Tinderbox, and Waterskin.",
+	  "weight": 58.5,
+	  "url": "/api/2024/equipment/entertainers-pack"
+	},
   {
     "index": "explorers-pack",
     "name": "Explorer's Pack",
@@ -2228,6 +2235,11 @@
         "index": "adventuring-gear",
         "name": "Adventuring Gear",
         "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Equipment Packs",
+        "url": "/api/2024/equipment-categories/equipment-packs"
       }
     ],
     "contents": [
@@ -2851,7 +2863,7 @@
   },
   {
     "index": "half-plate-armor",
-    "name": "Half-Plate Armor",
+    "name": "Half Plate Armor",
     "equipment_categories": [
       {
         "index": "armor",
@@ -3526,7 +3538,7 @@
       "quantity": 5,
       "unit": "sp"
     },
-    "description": "A Lamp burns Oil as fuel to cast Bright Light in a 15- foot radius and Dim Light for an additional 30 feet",
+    "description": "A Lamp burns Oil as fuel to cast Bright Light in a 15-foot radius and Dim Light for an additional 30 feet",
     "weight": 1,
     "url": "/api/2024/equipment/lamp"
   },
@@ -4272,7 +4284,7 @@
     "craft": [
       {
         "index": "block-and-tackle",
-        "name": "Block and tackle",
+        "name": "Block and Tackle",
         "url": "/api/2024/equipment/block-and-tackle"
       }
     ],
@@ -5651,7 +5663,7 @@
       "unit": "cp"
     },
     "description": "A Sack holds up to 30 pounds within 1 cubic foot.",
-    "weight": 1,
+    "weight": 0.5,
     "url": "/api/2024/equipment/sack"
   },
   {
@@ -5706,14 +5718,6 @@
           "index": "backpack",
           "name": "Backpack",
           "url": "/api/2024/equipment/backpack"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "blanket",
-          "name": "Blanket",
-          "url": "/api/2024/equipment/blanket"
         },
         "quantity": 1
       },
@@ -5778,7 +5782,7 @@
       "quantity": 40,
       "unit": "gp"
     },
-    "description": "A Scholar's Pack contains the following items: Backpack, Blanket, Book, Ink, Ink Pen, Lamp, 10 flasks of Oil, 10 sheets of Parchment, and Tinderbox.",
+    "description": "A Scholar's Pack contains the following items: Backpack, Book, Ink, Ink Pen, Lamp, 10 flasks of Oil, 10 sheets of Parchment, and Tinderbox.",
     "weight": 22,
     "url": "/api/2024/equipment/scholars-pack"
   },
@@ -6333,7 +6337,7 @@
       },
       {
         "index": "half-plate-armor",
-        "name": "Half-Plate Armor",
+        "name": "Half Plate Armor",
         "url": "/api/2024/equipment/half-plate-armor"
       },
       {
@@ -6363,7 +6367,7 @@
       },
       {
         "index": "ball-bearings",
-        "name": "Ball bearings",
+        "name": "Ball Bearings",
         "url": "/api/2024/equipment/ball-bearings"
       },
       {
@@ -7127,7 +7131,7 @@
         }
       }
     ],
-    "weight": 2,
+    "weight": 1,
     "url": "/api/2024/equipment/viol"
   },
   {
