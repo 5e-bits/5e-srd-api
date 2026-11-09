@@ -1572,7 +1572,7 @@
     "index": "wood-elf-speed-increase",
     "url": "/api/2024/traits/wood-elf-speed-increase",
     "name": "Wood Elf: Movement Speed Increase",
-    "description": "Your Movement Speed increases to 35 feet.",
+    "description": "Your Speed increases to 35 feet.",
     "speed": 35,
     "species": [
       {
