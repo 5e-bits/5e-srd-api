@@ -593,7 +593,7 @@
 			"S",
 			"M"
 		],
-		"material": "(gold dust worth 25+ GP, which the spell consumes",
+		"material": "gold dust worth 25+ GP, which the spell consumes",
 		"duration": "Until dispelled",
 		"concentration": false,
 		"description": "You touch a closed door, window, gate, container, or hatch and magically lock it for the duration. This lock can't be unlocked by any nonmagical means. You and any creatures you designate when you cast the spell can open and close the object despite the lock. You can also set a password that, when spoken within 5 feet of the object, unlocks it for 1 minute."
@@ -628,7 +628,7 @@
 			"S",
 			"M"
 		],
-		"material": "(a miniature sword worth 250+ GP",
+		"material": "a miniature sword worth 250+ GP",
 		"duration": "up to 1 minute",
 		"concentration": true,
 		"attack_type": "melee",
@@ -739,7 +739,7 @@
 			"S",
 			"M"
 		],
-		"material": "(specially marked sticks, bones, cards, or other divinatory tokens worth 25+ GP",
+		"material": "specially marked sticks, bones, cards, or other divinatory tokens worth 25+ GP",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "You receive an omen from an otherworldly entity about the results of a course of action that you plan to take within the next 30 minutes. The GM chooses the omen from the Omens table. Omens Omen    For Results That Will Be ... Woe    Bad  Weal and woe    Good and bad     Indifference    Neither good nor bad The spell doesn't account for circumstances, such as other spells, that might change the results.\n  If you cast the spell more than once before finishing a Long Rest, there is a cumulative 25 percent chance for each casting after the first that you get no answer."
@@ -1727,7 +1727,7 @@
 			"S",
 			"M"
 		],
-		"material": "the powder of a crushed black, pearl worth 500+ GP",
+		"material": "the powder of a crushed black pearl worth 500+ GP",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"damage": {
@@ -2545,7 +2545,7 @@
 			"S",
 			"M"
 		],
-		"material": "ruby dust worth 50+ GP, which, the spell consumes",
+		"material": "ruby dust worth 50+ GP, which the spell consumes",
 		"duration": "Until dispelled",
 		"concentration": false,
 		"description": "A flame springs from an object that you touch. The effect casts Bright Light in a 20-foot radius and Dim Light for an additional 20 feet. It looks like a regular flame, but it creates no heat and consumes no fuel. The flame can be covered or hidden but not smothered or quenched."
@@ -2781,7 +2781,7 @@
 			"S",
 			"M"
 		],
-		"material": "one 150+ GP black onyx stone, for each corpse",
+		"material": "one 150+ GP black onyx stone for each corpse",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "You can cast this spell only at night. Choose up to three corpses of Medium or Small Humanoids within range. Each one becomes a Ghoul under your control (see \"Monsters\" for its stat block).\n  As a Bonus Action on each of your turns, you can mentally command any creature you animated with this spell if the creature is within 120 feet of you (if you control multiple creatures, you can command any of them at the same time, issuing the same command to them). You decide what action the creature will take and where it will move on its next turn, or you can issue a general command, such as to guard a particular place. If you issue no commands, the creature takes the Dodge action and moves only to avoid harm. Once given an order, the creature continues to follow the order until its task is complete.\n  The creature is under your control for 24 hours, after which it stops obeying any command you've given it. To maintain control of the creature for another 24 hours, you must cast this spell on the creature before the current 24-hour period ends. This use of the spell reasserts your control over up to three creatures you have animated with this spell rather than animating new ones.",
@@ -3628,7 +3628,7 @@
 			"S",
 			"M"
 		],
-		"material": "incense worth 25+ GP, which the, spell consumes",
+		"material": "incense worth 25+ GP, which the spell consumes",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "This spell puts you in contact with a god or a god's servants. You ask one question about a specific goal, event, or activity to occur within 7 days. The GM offers a truthful reply, which might be a short phrase or cryptic rhyme. The spell doesn't account for circumstances that might change the answer, such as the casting of other spells.\n  If you cast the spell more than once before finishing a Long Rest, there is a cumulative 25 percent chance for each casting after the first that you get no answer."
@@ -5360,7 +5360,7 @@
 			"S",
 			"M"
 		],
-		"material": "ruby dust worth 1,500+ GP,, which the spell consumes",
+		"material": "ruby dust worth 1,500+ GP, which the spell consumes",
 		"duration": "up to 1 hour",
 		"concentration": true,
 		"description": "An immobile, Invisible, Cube-shaped prison composed of magical force springs into existence around an area you choose within range. The prison can be a cage or a solid box, as you choose.\n  A prison in the shape of a cage can be up to 20 feet on a side and is made from 1/2-inch diameter bars spaced 1/2 inch apart. A prison in the shape of a box can be up to 10 feet on a side, creating a solid barrier that prevents any matter from passing through it and blocking any spells cast into or out from the area.\n  When you cast the spell, any creature that is completely inside the cage's area is trapped. Creatures only partially within the area, or those too large to fit inside it, are pushed away from the center of the area until they are completely outside it.\n  A creature inside the cage can't leave it by nonmagical means. If the creature tries to use teleportation or interplanar travel to leave, it must first make a Charisma saving throw. On a successful save, the creature can use that magic to exit the cage. On a failed save, the creature doesn't exit the cage and wastes the spell or effect. The cage also extends into the Ethereal Plane, blocking ethereal travel. This spell can't be dispelled by Dispel Magic."
@@ -7040,7 +7040,7 @@
 			"S",
 			"M"
 		],
-		"material": "a statuette of the target worth, 5,000+ GP",
+		"material": "a statuette of the target worth 5,000+ GP",
 		"duration": "Until dispelled",
 		"concentration": false,
 		"description": "You create a magical restraint to hold a creature that you can see within range. The target must make a Wisdom saving throw. On a successful save, the target is unaffected, and it is immune to this spell for the next 24 hours. On a failed save, the target is imprisoned. While imprisoned, the target doesn't need to breathe, eat, or drink, and it doesn't age. Divination spells can't locate or perceive the imprisoned target, and the target can't teleport.\n  Until the spell ends, the target is also affected by one of the following effects of your choice: Burial. The target is entombed beneath the earth in a hollow globe of magical force that is just large enough to contain the target. Nothing can pass into or out of the globe. Chaining. Chains firmly rooted in the ground hold the target in place. The target has the Restrained condition and can't be moved by any means. Hedged Prison. The target is trapped in a demiplane that is warded against teleportation and planar travel. The demiplane is your choice of a labyrinth, a cage, a tower, or the like. Minimus Containment. The target becomes 1 inch tall and is trapped inside an indestructible gemstone or a similar object. Light can pass through the gemstone (allowing the target to see out and other creatures to see in), but nothing else can pass through by any means. Slumber. The target has the Unconscious condition and can't be awoken.\n  Ending the Spell. When you cast the spell, specify a trigger that will end it. The trigger can be as simple or as elaborate as you choose, but the GM must agree that it has a high likelihood of happening within the next decade. The trigger must be an observable action, such as someone making a particular offering at the temple of your god, saving your true love, or defeating a specific monster.\n  A Dispel Magic spell can end the spell only if it is cast with a level 9 spell slot, targeting either the prison or the component used to create it."
@@ -7932,7 +7932,7 @@
 			"S",
 			"M"
 		],
-		"material": "a gem, crystal, or reliquary worth, 500+ GP",
+		"material": "a gem, crystal, or reliquary worth 500+ GP",
 		"duration": "Until dispelled",
 		"concentration": false,
 		"description": "Your body falls into a catatonic state as your soul leaves it and enters the container you used for the spell's Material component. While your soul inhabits the container, you are aware of your surroundings as if you were in the container's space. You can't move or take Reactions. The only action you can take is to project your soul up to 100 feet out of the container, either returning to your living body (and ending the spell) or attempting to possess a Humanoid's body.\n  You can attempt to possess any Humanoid within 100 feet of you that you can see (creatures warded by a Protection from Evil and Good or Magic Circle spell can't be possessed). The target makes a Charisma saving throw. On a failed save, your soul enters the target's body, and the target's soul becomes trapped in the container. On a successful save, the target resists your efforts to possess it, and you can't attempt to possess it again for 24 hours.\n  Once you possess a creature's body, you control it. Your Hit Points, Hit Point Dice, Strength, Dexterity, Constitution, Speed, and senses are replaced by the creature's. You otherwise keep your game statistics.\n  Meanwhile, the possessed creature's soul can perceive from the container using its own senses, but it can't move and it is Incapacitated.\n  While possessing a body, you can take a Magic action to return from the host body to the container if it is within 100 feet of you, returning the host creature's soul to its body. If the host body dies while you're in it, the creature dies, and you make a Charisma saving throw against your own spellcasting DC. On a success, you return to the container if it is within 100 feet of you. Otherwise, you die.\n  If the container is destroyed or the spell ends, your soul returns to your body. If your body is more than 100 feet away from you or if your body is dead, you die. If another creature's soul is in the container when it is destroyed, the creature's soul returns to its body if the body is alive and within 100 feet. Otherwise, that creature dies. When the spell ends, the container is destroyed."
@@ -8914,7 +8914,7 @@
 			"S",
 			"M"
 		],
-		"material": "a pinch of diamond dust worth, 25+ GP, which the spell consumes",
+		"material": "a pinch of diamond dust worth 25+ GP, which the spell consumes",
 		"duration": "8 hours",
 		"concentration": false,
 		"description": "For the duration, you hide a target that you touch from Divination spells. The target can be a willing creature, or it can be a place or an object no larger than 10 feet in any dimension. The target can't be targeted by any Divination spell or perceived through magical scrying sensors."
@@ -9230,7 +9230,7 @@
 			"S",
 			"M"
 		],
-		"material": "a forked, metal rod worth 250+, GP and attuned to a plane of existence",
+		"material": "a forked, metal rod worth 250+ GP and attuned to a plane of existence",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "You and up to eight willing creatures who link hands in a circle are transported to a different plane of existence. You can specify a target destination in general terms, such as a specific city on the Elemental Plane of Fire or palace on the second level of the Nine Hells, and you appear in or near that destination, as determined by the GM.\n  Alternatively, if you know the sigil sequence of a teleportation circle on another plane of existence, this spell can take you to that circle. If the teleportation circle is too small to hold all the creatures you transported, they appear in the closest unoccupied spaces next to the circle."
@@ -9795,7 +9795,7 @@
 			"S",
 			"M"
 		],
-		"material": "a statuette of yourself worth, 5+ GP",
+		"material": "a statuette of yourself worth 5+ GP",
 		"duration": "up to 1 day",
 		"concentration": true,
 		"description": "You create an illusory copy of yourself that lasts for the duration. The copy can appear at any location within range that you have seen before, regardless of intervening obstacles. The illusion looks and sounds like you, but it is intangible. If the illusion takes any damage, it disappears, and the spell ends.\n  You can see through the illusion's eyes and hear through its ears as if you were in its space. As a Magic action, you can move it up to 60 feet and make it gesture, speak, and behave in whatever way you choose. It mimics your mannerisms perfectly.\n  Physical interaction with the image reveals it to be illusory, since things can pass through it. A creature that takes the Study action to examine the image can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the creature can see through the image, and any noise it makes sounds hollow to the creature."
@@ -9893,7 +9893,7 @@
 			"S",
 			"M"
 		],
-		"material": "a flask of Holy Water worth 25+, GP, which the spell consumes",
+		"material": "a flask of Holy Water worth 25+ GP, which the spell consumes",
 		"duration": "Concentration up to 10 minutes",
 		"concentration": false,
 		"description": "Until the spell ends, one willing creature you touch is protected against creatures that are Aberrations, Celestials, Elementals, Fey, Fiends, or Undead. The protection grants several benefits. Creatures of those types have Disadvantage on attack rolls against the target. The target also can't be possessed by or gain the Charmed or Frightened conditions from them. If the target is already possessed, Charmed, or Frightened by such a creature, the target has Advantage on any new saving throw against the relevant effect."
@@ -10014,7 +10014,7 @@
 			"S",
 			"M"
 		],
-		"material": "a diamond worth 500+ GP, which, the spell consumes",
+		"material": "a diamond worth 500+ GP, which the spell consumes",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "With a touch, you revive a dead creature if it has been dead no longer than 10 days and it wasn't Undead when it died.\n  The creature returns to life with 1 Hit Point. This spell also neutralizes any poisons that affected the creature at the time of death.\n  This spell closes all mortal wounds, but it doesn't restore missing body parts. If the creature is lacking body parts or organs integral for its survivalits head, for instance-the spell automatically fails.\n  Coming back from the dead is an ordeal. The target takes a -4 penalty to D20 Tests. Every time the target finishes a Long Rest, the penalty is reduced by 1 until it becomes 0."
@@ -10621,7 +10621,7 @@
 			"S",
 			"M"
 		],
-		"material": "a focus worth 1,000+ GP, such as, a crystal ball, mirror, or water-filled font",
+		"material": "a focus worth 1,000+ GP, such as a crystal ball, mirror, or water-filled font",
 		"duration": "up to 10 minutes",
 		"concentration": true,
 		"description": "You can see and hear a creature you choose that is on the same plane of existence as you. The target makes a Wisdom saving throw, which is modified (see the tables below) by how well you know the target and the sort of physical connection you have to it. The target doesn't know what it is making the save against, only that it feels uneasy. Your Knowledge of the Target Is ...    Save Modifier Firsthand (met the target)    +0 You Have the Target's ...    Save Modifier Garment or other possession    -4\n  On a successful save, the target isn't affected, and you can't use this spell on it again for 24 hours.\n  On a failed save, the spell creates an Invisible, intangible sensor within 10 feet of the target. You can see and hear through the sensor as if you were there. The sensor moves with the target, remaining within 10 feet of it for the duration. If something can see the sensor, it appears as a luminous orb about the size of your fist.\n  Instead of targeting a creature, you can target a location you have seen. When you do so, the sensor appears at that location and doesn't move."
@@ -10835,7 +10835,7 @@
 			"S",
 			"M"
 		],
-		"material": "gem dust worth 5,000+ GP,, which the spell consumes",
+		"material": "gem dust worth 5,000+ GP, which the spell consumes",
 		"duration": "Until dispelled",
 		"concentration": false,
 		"description": "With a touch, you magically sequester an object or a willing creature. For the duration, the target has the Invisible condition and can't be targeted by Divination spells, detected by magic, or viewed remotely with magic.\n  If the target is a creature, it enters a state of suspended animation; it has the Unconscious condition, doesn't age, and doesn't need food, water, or air.\n  You can set a condition for the spell to end early. The condition can be anything you choose, but it must occur or be visible within 1 mile of the target. Examples include \"after 1,000 years\" or \"when the tarrasque awakens.\" This spell also ends if the target takes any damage."
@@ -11208,7 +11208,7 @@
 			"S",
 			"M"
 		],
-		"material": "powdered ruby worth 1,500+ GP,, which the spell consumes",
+		"material": "powdered ruby worth 1,500+ GP, which the spell consumes",
 		"duration": "Until dispelled",
 		"concentration": false,
 		"description": " You create a simulacrum of one Beast or Humanoid that is within 10 feet of you for the entire casting of the spell. You finish the casting by touching both the creature and a pile of ice or snow that is the same size as that creature, and the pile turns into the simulacrum, which is a creature. It uses the game statistics of the original creature at the time of casting, except it is a Construct, its Hit Point maximum is half as much, and it can't cast this spell.\n  The simulacrum is Friendly to you and creatures you designate. It obeys your commands and acts on your turn in combat. The simulacrum can't gain levels, and it can't take Short or Long Rests.\n  If the simulacrum takes damage, the only way to restore its Hit Points is to repair it as you take a Long Rest, during which you expend components worth 100 GP per Hit Point restored. The simulacrum must stay within 5 feet of you for the repair.\n  The simulacrum lasts until it drops to 0 Hit Points, at which point it reverts to snow and melts away. If you cast this spell again, any simulacrum you created with this spell is instantly destroyed."
@@ -11946,7 +11946,7 @@
 			"S",
 			"M"
 		],
-		"material": "an object with the image of a, dragon engraved on it worth 500+ GP",
+		"material": "an object with the image of a dragon engraved on it worth 500+ GP",
 		"duration": "up to 1 hour",
 		"concentration": true,
 		"description": "You call forth a Dragon spirit. It manifests in an unoccupied space that you can see within range and uses the Draconic Spirit stat block. The creature disappears when it drops to 0 Hit Points or when the spell ends.\n  The creature is an ally to you and your allies. In combat, the creature shares your Initiative count, but it takes its turn immediately after yours. It obeys your verbal commands (no action required by you). If you don't issue any, it takes the Dodge action and uses its movement to avoid danger.",
@@ -12271,7 +12271,7 @@
 			"V",
 			"M"
 		],
-		"material": "rare inks worth 50+ GP, which the, spell consumes",
+		"material": "rare inks worth 50+ GP, which the spell consumes",
 		"duration": "1 round",
 		"concentration": false,
 		"description": "As you cast the spell, you draw a 5-foot-radius circle on the ground inscribed with sigils that link your location to a permanent teleportation circle of your choice whose sigil sequence you know and that is on the same plane of existence as you. A shimmering portal opens within the circle you drew and remains open until the end of your next turn. Any creature that enters the portal instantly appears within 5 feet of the destination circle or in the nearest unoccupied space if that space is occupied.\n  Many major temples, guildhalls, and other important places have permanent teleportation circles. Each circle includes a unique sigil sequence-a string of runes arranged in a particular pattern.\n  When you first gain the ability to cast this spell, you learn the sigil sequences for two destinations on the Material Plane, determined by the GM. You might learn additional sigil sequences during your adventures. You can commit a new sigil sequence to memory after studying it for 1 minute.\n  You can create a permanent teleportation circle by casting this spell in the same location every day for 365 days."
@@ -12603,7 +12603,7 @@
 			"S",
 			"M"
 		],
-		"material": "diamonds worth 25,000+ GP,, which the spell consumes",
+		"material": "diamonds worth 25,000+ GP, which the spell consumes",
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "You touch a creature that has been dead for no longer than 200 years and that died for any reason except old age. The creature is revived with all its Hit Points.\n  This spell closes all wounds, neutralizes any poison, cures all magical contagions, and lifts any curses affecting the creature when it died. The spell replaces damaged or missing organs and limbs. If the creature was Undead, it is restored to its non-Undead form.\n  The spell can provide a new body if the original no longer exists, in which case you must speak the creature's name. The creature then appears in an unoccupied space you choose within 10 feet of you."
@@ -12653,7 +12653,7 @@
 			"S",
 			"M"
 		],
-		"material": "mushroom powder worth 25+, GP, which the spell consumes",
+		"material": "mushroom powder worth 25+ GP, which the spell consumes",
 		"duration": "1 hour",
 		"concentration": false,
 		"description": "For the duration, the willing creature you touch has Truesight with a range of 120 feet."
