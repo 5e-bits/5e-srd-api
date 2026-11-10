@@ -3063,7 +3063,7 @@
         "hit_die": 8,
         "proficiency_choices": [
             {
-                "desc": "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, or Stealth",
+                "desc": "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth",
                 "choose": 4,
                 "type": "proficiencies",
                 "from": {
@@ -3123,14 +3123,6 @@
                                 "index": "skill-perception",
                                 "name": "Skill: Perception",
                                 "url": "/api/2024/proficiencies/skill-perception"
-                            }
-                        },
-                        {
-                            "option_type": "reference",
-                            "item": {
-                                "index": "skill-performance",
-                                "name": "Skill: Performance",
-                                "url": "/api/2024/proficiencies/skill-performance"
                             }
                         },
                         {
