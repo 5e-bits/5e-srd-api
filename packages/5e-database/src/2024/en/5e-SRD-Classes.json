@@ -3994,7 +3994,7 @@
         "hit_die": 6,
         "proficiency_choices": [
             {
-                "desc": "Choose 2: Arcana, History, Insight, Investigation, Medicine, or Religion",
+                "desc": "Choose 2: Arcana, History, Insight, Investigation, Medicine, Nature, or Religion",
                 "choose": 2,
                 "type": "proficiencies",
                 "from": {
@@ -4038,6 +4038,14 @@
                                 "index": "skill-medicine",
                                 "name": "Skill: Medicine",
                                 "url": "/api/2024/proficiencies/skill-medicine"
+                            }
+                        },
+                        {
+                            "option_type": "reference",
+                            "item": {
+                                "index": "skill-nature",
+                                "name": "Skill: Nature",
+                                "url": "/api/2024/proficiencies/skill-nature"
                             }
                         },
                         {
