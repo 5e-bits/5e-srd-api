@@ -3165,11 +3165,6 @@
                 "url": "/api/2024/proficiencies/simple-weapons"
             },
             {
-                "index": "longswords",
-                "name": "Longswords",
-                "url": "/api/2024/proficiencies/longswords"
-            },
-            {
                 "index": "rapiers",
                 "name": "Rapiers",
                 "url": "/api/2024/proficiencies/rapiers"
@@ -3406,14 +3401,6 @@
                                     "index": "skill-perception",
                                     "name": "Skill: Perception",
                                     "url": "/api/2024/proficiencies/skill-perception"
-                                }
-                            },
-                            {
-                                "option_type": "reference",
-                                "item": {
-                                    "index": "skill-performance",
-                                    "name": "Skill: Performance",
-                                    "url": "/api/2024/proficiencies/skill-performance"
                                 }
                             },
                             {
