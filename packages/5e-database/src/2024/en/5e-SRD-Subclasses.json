@@ -238,7 +238,7 @@
 			{
 				"name": "Oath of Devotion Spells",
 				"level": 3,
-				"description": "The magic of your oath ensures you always have certain spells ready; when you reach a Paladin level specified in the Oath of Devotion Spells table, you thereafter always have the listed spells prepared.\n   Oath of Devotion Spells\nPaladin Level Spells\nLevel 3 Paladin Spells\nSpell School Special\n5 Aid, Zone of Truth\n \nDaylight Evocation -\nMagic Circle Abjuration M\nRevivify Necromancy M\nLevel 4 Paladin Spells\nSpell School Special\nBanishment Abjuration C\nLocate Creature Divination C\nLevel 5 Paladin Spells\nSpell School Special\nGeas Enchantment -\nRaise Dead Necromancy M\n13 Freedom of Movement, Guardian of Faith"
+				"description": "The magic of your oath ensures you always have certain spells ready; when you reach a Paladin level specified in the Oath of Devotion Spells table, you thereafter always have the listed spells prepared.\n\nOath of Devotion Spells\nPaladin Level / Spells\n3 / Protection from Evil and Good, Shield of Faith\n5 / Aid, Zone of Truth\n9 / Beacon of Hope, Dispel Magic\n13 / Freedom of Movement, Guardian of Faith\n17 / Commune, Flame Strike"
 			},
 			{
 				"name": "Sacred Weapon",
