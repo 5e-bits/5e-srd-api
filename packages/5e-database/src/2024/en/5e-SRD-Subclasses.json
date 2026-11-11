@@ -119,9 +119,9 @@
 		"description": "The Circle of the Land comprises mystics and sages who safeguard ancient knowledge and rites. These Druids meet within sacred circles of trees or standing stones to whisper primal secrets in Druidic. The circle's wisest members preside as the chief priests of their communities.",
 		"features": [
 			{
-				"name": "Circle of the Land Spells Whenever you finish a Long Rest, choose one type of land: arid, polar, temperate, or tropical. Consult the table below that corresponds to the chosen type; you have the spells listed for your Druid level and lower prepared.",
+				"name": "Circle of the Land Spells",
 				"level": 3,
-				"description": "Arid Land\nDruid Level Circle Spells\n3 Blur, Burning Hands, Fire Bolt\n5 Fireball\n7 Blight\n9 Wall of Stone\nPolar Land\nDruid Level Circle Spells\n3 Fog Cloud, Hold Person, Ray of Frost\n5 Sleet Storm\n7 Ice Storm\n9 Cone of Cold\nTemperate Land\nDruid Level Circle Spells\n3 Misty Step, Shocking Grasp, Sleep\n5 Lightning Bolt\n7 Freedom of Movement\n9 Tree Stride\nTropical Land\nDruid Level Circle Spells\n3 Acid Splash, Ray of Sickness, Web\n5 Stinking Cloud\n7 Polymorph\n9 Insect Plague"
+				"description": "Whenever you finish a Long Rest, choose one type of land: arid, polar, temperate, or tropical. Consult the table below that corresponds to the chosen type; you have the spells listed for your Druid level and lower prepared.\nArid Land\nDruid Level Circle Spells\n3 Blur, Burning Hands, Fire Bolt\n5 Fireball\n7 Blight\n9 Wall of Stone\nPolar Land\nDruid Level Circle Spells\n3 Fog Cloud, Hold Person, Ray of Frost\n5 Sleet Storm\n7 Ice Storm\n9 Cone of Cold\nTemperate Land\nDruid Level Circle Spells\n3 Misty Step, Shocking Grasp, Sleep\n5 Lightning Bolt\n7 Freedom of Movement\n9 Tree Stride\nTropical Land\nDruid Level Circle Spells\n3 Acid Splash, Ray of Sickness, Web\n5 Stinking Cloud\n7 Polymorph\n9 Insect Plague"
 			},
 			{
 				"name": "Land's Aid",
