@@ -1,0 +1,262 @@
+[
+  {
+    "index": "light-armor",
+    "name": "Лёгкий доспех"
+  },
+  {
+    "index": "medium-armor",
+    "name": "Средний доспех"
+  },
+  {
+    "index": "heavy-armor",
+    "name": "Тяжёлый доспех"
+  },
+  {
+    "index": "all-armor",
+    "name": "Все доспехи"
+  },
+  {
+    "index": "shields",
+    "name": "Щиты"
+  },
+  {
+    "index": "simple-weapons",
+    "name": "Простое оружие"
+  },
+  {
+    "index": "martial-weapons",
+    "name": "Воинское оружие"
+  },
+  {
+    "index": "longswords",
+    "name": "Длинные мечи"
+  },
+  {
+    "index": "rapiers",
+    "name": "Рапиры"
+  },
+  {
+    "index": "scimitars",
+    "name": "Скимитары"
+  },
+  {
+    "index": "shortswords",
+    "name": "Короткие мечи"
+  },
+  {
+    "index": "whips",
+    "name": "Кнуты"
+  },
+  {
+    "index": "hand-crossbows",
+    "name": "Одноручные арбалеты"
+  },
+  {
+    "index": "alchemists-supplies",
+    "name": "Инструменты алхимика"
+  },
+  {
+    "index": "brewers-supplies",
+    "name": "Инструменты пивовара"
+  },
+  {
+    "index": "carpenters-tools",
+    "name": "Инструменты плотника"
+  },
+  {
+    "index": "cartographers-tools",
+    "name": "Инструменты картографа"
+  },
+  {
+    "index": "cobblers-tools",
+    "name": "Инструменты сапожника"
+  },
+  {
+    "index": "glassblowers-tools",
+    "name": "Инструменты стеклодува"
+  },
+  {
+    "index": "jewelers-tools",
+    "name": "Инструменты ювелира"
+  },
+  {
+    "index": "leatherworkers-tools",
+    "name": "Инструменты кожевника"
+  },
+  {
+    "index": "masons-tools",
+    "name": "Инструменты каменщика"
+  },
+  {
+    "index": "painters-supplies",
+    "name": "Инструменты художника"
+  },
+  {
+    "index": "potters-tools",
+    "name": "Инструменты гончара"
+  },
+  {
+    "index": "smiths-tools",
+    "name": "Инструменты кузнеца"
+  },
+  {
+    "index": "tinkers-tools",
+    "name": "Инструменты оружейника"
+  },
+  {
+    "index": "weavers-tools",
+    "name": "Инструменты ткача"
+  },
+  {
+    "index": "woodcarvers-tools",
+    "name": "Инструменты резчика по дереву"
+  },
+  {
+    "index": "disguise-kit",
+    "name": "Набор для грима"
+  },
+  {
+    "index": "forgery-kit",
+    "name": "Набор для фальсификации"
+  },
+  {
+    "index": "bagpipes",
+    "name": "Волынка"
+  },
+  {
+    "index": "drum",
+    "name": "Барабан"
+  },
+  {
+    "index": "dulcimer",
+    "name": "Дульцимер"
+  },
+  {
+    "index": "flute",
+    "name": "Флейта"
+  },
+  {
+    "index": "lute",
+    "name": "Лютня"
+  },
+  {
+    "index": "lyre",
+    "name": "Лира"
+  },
+  {
+    "index": "horn",
+    "name": "Рожок"
+  },
+  {
+    "index": "pan-flute",
+    "name": "Свирель"
+  },
+  {
+    "index": "shawm",
+    "name": "Шалмей"
+  },
+  {
+    "index": "viol",
+    "name": "Виола"
+  },
+  {
+    "index": "herbalism-kit",
+    "name": "Набор травника"
+  },
+  {
+    "index": "saving-throw-str",
+    "name": "Спасбросок: СИЛ"
+  },
+  {
+    "index": "saving-throw-dex",
+    "name": "Спасбросок: ЛОВ"
+  },
+  {
+    "index": "saving-throw-con",
+    "name": "Спасбросок: ТЕЛ"
+  },
+  {
+    "index": "saving-throw-int",
+    "name": "Спасбросок: ИНТ"
+  },
+  {
+    "index": "saving-throw-wis",
+    "name": "Спасбросок: МУД"
+  },
+  {
+    "index": "saving-throw-cha",
+    "name": "Спасбросок: ХАР"
+  },
+  {
+    "index": "skill-acrobatics",
+    "name": "Акробатика"
+  },
+  {
+    "index": "skill-animal-handling",
+    "name": "Уход за животными"
+  },
+  {
+    "index": "skill-arcana",
+    "name": "Магия"
+  },
+  {
+    "index": "skill-athletics",
+    "name": "Атлетика"
+  },
+  {
+    "index": "skill-deception",
+    "name": "Обман"
+  },
+  {
+    "index": "skill-history",
+    "name": "История"
+  },
+  {
+    "index": "skill-insight",
+    "name": "Проницательность"
+  },
+  {
+    "index": "skill-intimidation",
+    "name": "Запугивание"
+  },
+  {
+    "index": "skill-investigation",
+    "name": "Расследование"
+  },
+  {
+    "index": "skill-medicine",
+    "name": "Медицина"
+  },
+  {
+    "index": "skill-nature",
+    "name": "Природа"
+  },
+  {
+    "index": "skill-perception",
+    "name": "Восприятие"
+  },
+  {
+    "index": "skill-performance",
+    "name": "Выступление"
+  },
+  {
+    "index": "skill-persuasion",
+    "name": "Убеждение"
+  },
+  {
+    "index": "skill-religion",
+    "name": "Религия"
+  },
+  {
+    "index": "skill-sleight-of-hand",
+    "name": "Ловкость рук"
+  },
+  {
+    "index": "skill-stealth",
+    "name": "Скрытность"
+  },
+  {
+    "index": "skill-survival",
+    "name": "Выживание"
+  }
+]

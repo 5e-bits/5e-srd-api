@@ -1,0 +1,14 @@
+[
+  {
+    "index": "champion",
+    "name": "Чемпион"
+  },
+  {
+    "index": "hunter",
+    "name": "Охотник"
+  },
+  {
+    "index": "thief",
+    "name": "Плут"
+  }
+]

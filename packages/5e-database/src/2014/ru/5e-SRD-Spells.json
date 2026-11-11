@@ -1,0 +1,1774 @@
+[
+  {
+    "index": "acid-arrow",
+    "name": "Кислотная стрела Мельфа",
+    "range": "90 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "acid-splash",
+    "name": "Брызги кислоты",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "aid",
+    "name": "Подмога",
+    "range": "30 футов",
+    "duration": "8 часов"
+  },
+  {
+    "index": "alarm",
+    "name": "Сигнал тревоги",
+    "range": "30 футов",
+    "duration": "8 часов",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "alter-self",
+    "name": "Смена обличья",
+    "range": "На себя"
+  },
+  {
+    "index": "animal-friendship",
+    "name": "Дружба с животными",
+    "range": "30 футов",
+    "duration": "24 часа"
+  },
+  {
+    "index": "animal-messenger",
+    "name": "Почтовое животное",
+    "range": "30 футов",
+    "duration": "24 часа"
+  },
+  {
+    "index": "animal-shapes",
+    "name": "Превращение в животных",
+    "range": "30 футов"
+  },
+  {
+    "index": "animate-dead",
+    "name": "Поднятие мертвеца",
+    "range": "10 футов",
+    "duration": "Мгновенная",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "animate-objects",
+    "name": "Оживление вещей",
+    "range": "120 футов"
+  },
+  {
+    "index": "antilife-shell",
+    "name": "Преграда жизни",
+    "range": "На себя"
+  },
+  {
+    "index": "antimagic-field",
+    "name": "Поле антимагии",
+    "range": "На себя"
+  },
+  {
+    "index": "antipathy-sympathy",
+    "name": "Антипатия/симпатия",
+    "range": "60 футов",
+    "duration": "10 дней",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "arcane-eye",
+    "name": "Магический глаз",
+    "range": "30 футов"
+  },
+  {
+    "index": "arcane-hand",
+    "name": "Длань Бигби",
+    "range": "120 футов"
+  },
+  {
+    "index": "arcane-lock",
+    "name": "Волшебный замок",
+    "range": "Касание",
+    "duration": "Пока не снято"
+  },
+  {
+    "index": "arcane-sword",
+    "name": "Меч Морденкайнена"
+  },
+  {
+    "index": "arcanists-magic-aura",
+    "name": "Волшебная аура Нистула",
+    "range": "Касание",
+    "duration": "24 часа"
+  },
+  {
+    "index": "astral-projection",
+    "name": "Проекция в астрал",
+    "range": "10 футов",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "augury",
+    "name": "Гадание",
+    "range": "На себя",
+    "duration": "Мгновенная",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "awaken",
+    "name": "Пробуждение разума",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "8 часов"
+  },
+  {
+    "index": "bane",
+    "name": "Порча",
+    "range": "30 футов"
+  },
+  {
+    "index": "banishment",
+    "name": "Изгнание"
+  },
+  {
+    "index": "barkskin",
+    "name": "Дубовая кожа",
+    "range": "Касание"
+  },
+  {
+    "index": "beacon-of-hope",
+    "name": "Маяк надежды",
+    "range": "30 футов"
+  },
+  {
+    "index": "bestow-curse",
+    "name": "Наложение проклятия",
+    "range": "Касание"
+  },
+  {
+    "index": "black-tentacles",
+    "name": "Чёрные щупальца Эварда",
+    "range": "90 футов"
+  },
+  {
+    "index": "blade-barrier",
+    "name": "Стена клинков",
+    "range": "90 футов"
+  },
+  {
+    "index": "bless",
+    "name": "Благословение",
+    "range": "30 футов"
+  },
+  {
+    "index": "blight",
+    "name": "Усыхание",
+    "range": "30 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "blindness-deafness",
+    "name": "Глухота/слепота",
+    "duration": "1 минута"
+  },
+  {
+    "index": "blink",
+    "name": "Мерцание",
+    "range": "На себя",
+    "duration": "1 минута"
+  },
+  {
+    "index": "blur",
+    "name": "Размытый образ",
+    "range": "На себя"
+  },
+  {
+    "index": "burning-hands",
+    "name": "Огненные ладони",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "call-lightning",
+    "name": "Призыв молнии",
+    "range": "120 футов"
+  },
+  {
+    "index": "calm-emotions",
+    "name": "Умиротворение",
+    "range": "60 футов"
+  },
+  {
+    "index": "chain-lightning",
+    "name": "Цепная молния",
+    "range": "150 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "charm-person",
+    "name": "Очарование личности",
+    "range": "30 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "chill-touch",
+    "name": "Леденящее прикосновение"
+  },
+  {
+    "index": "circle-of-death",
+    "name": "Круг смерти",
+    "range": "150 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "clairvoyance",
+    "name": "Подсматривание",
+    "range": "1 миля",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "clone",
+    "name": "Клон",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "cloudkill",
+    "name": "Облако смерти",
+    "range": "120 футов"
+  },
+  {
+    "index": "color-spray",
+    "name": "Сверкающие брызги",
+    "range": "На себя"
+  },
+  {
+    "index": "command",
+    "name": "Приказ",
+    "range": "60 футов"
+  },
+  {
+    "index": "commune",
+    "name": "Общение",
+    "range": "На себя",
+    "duration": "1 минута",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "comprehend-languages",
+    "name": "Понимание языков",
+    "range": "На себя",
+    "duration": "1 час"
+  },
+  {
+    "index": "compulsion",
+    "name": "Принуждение",
+    "range": "30 футов"
+  },
+  {
+    "index": "cone-of-cold",
+    "name": "Конус холода",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "confusion",
+    "name": "Смятение",
+    "range": "90 футов"
+  },
+  {
+    "index": "conjure-animals",
+    "name": "Призыв животных",
+    "range": "60 футов"
+  },
+  {
+    "index": "conjure-celestial",
+    "name": "Призыв небожителя",
+    "range": "90 футов"
+  },
+  {
+    "index": "conjure-elemental",
+    "name": "Призыв элементаля"
+  },
+  {
+    "index": "conjure-fey",
+    "name": "Призыв феи"
+  },
+  {
+    "index": "conjure-minor-elementals",
+    "name": "Призыв малых элементалей"
+  },
+  {
+    "index": "conjure-woodland-beings",
+    "name": "Призыв лесных обитателей"
+  },
+  {
+    "index": "contact-other-plane",
+    "name": "Связь с иным планом",
+    "range": "На себя",
+    "duration": "1 минута",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "contagion",
+    "name": "Заражение",
+    "duration": "7 дней"
+  },
+  {
+    "index": "contingency",
+    "name": "Предосторожность",
+    "range": "На себя",
+    "duration": "10 дней",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "continual-flame",
+    "name": "Вечный огонь",
+    "range": "Касание",
+    "duration": "Пока не снято"
+  },
+  {
+    "index": "control-water",
+    "name": "Власть над водами",
+    "range": "300 футов"
+  },
+  {
+    "index": "control-weather",
+    "name": "Власть над погодой",
+    "range": "На себя",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "counterspell",
+    "name": "Контрзаклинание",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "create-food-and-water",
+    "name": "Сотворение пищи и воды",
+    "range": "30 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "create-undead",
+    "name": "Сотворение нежити",
+    "range": "10 футов",
+    "duration": "Мгновенная",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "create-or-destroy-water",
+    "name": "Сотворение или уничтожение воды",
+    "range": "30 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "creation",
+    "name": "Сотворение",
+    "range": "30 футов",
+    "duration": "Особая",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "cure-wounds",
+    "name": "Лечение ран",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "dancing-lights",
+    "name": "Пляшущие огоньки",
+    "range": "120 футов"
+  },
+  {
+    "index": "darkness",
+    "name": "Тьма",
+    "range": "60 футов"
+  },
+  {
+    "index": "darkvision",
+    "name": "Тёмное зрение",
+    "range": "Касание",
+    "duration": "8 часов"
+  },
+  {
+    "index": "daylight",
+    "name": "Дневной свет",
+    "range": "60 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "death-ward",
+    "name": "Защита от смерти",
+    "range": "Касание",
+    "duration": "8 часов"
+  },
+  {
+    "index": "delayed-blast-fireball",
+    "name": "Замедленный огненный шар",
+    "range": "150 футов"
+  },
+  {
+    "index": "demiplane",
+    "name": "Демиплан",
+    "range": "60 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "detect-evil-and-good",
+    "name": "Обнаружение добра и зла",
+    "range": "На себя"
+  },
+  {
+    "index": "detect-magic",
+    "name": "Обнаружение магии",
+    "range": "На себя"
+  },
+  {
+    "index": "detect-poison-and-disease",
+    "name": "Обнаружение болезней и ядов",
+    "range": "На себя"
+  },
+  {
+    "index": "detect-thoughts",
+    "name": "Обнаружение мыслей",
+    "range": "На себя"
+  },
+  {
+    "index": "dimension-door",
+    "name": "Переносящая дверь",
+    "range": "500 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "disguise-self",
+    "name": "Маскировка",
+    "range": "На себя",
+    "duration": "1 час"
+  },
+  {
+    "index": "disintegrate",
+    "name": "Дезинтеграция",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "dispel-evil-and-good",
+    "name": "Рассеивание добра и зла",
+    "range": "На себя"
+  },
+  {
+    "index": "dispel-magic",
+    "name": "Рассеивание магии",
+    "range": "120 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "divination",
+    "name": "Предсказание",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "divine-favor",
+    "name": "Божественное благоволение",
+    "range": "На себя"
+  },
+  {
+    "index": "divine-word",
+    "name": "Божественное слово",
+    "range": "30 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "dominate-beast",
+    "name": "Подчинение зверя",
+    "range": "60 футов"
+  },
+  {
+    "index": "dominate-monster",
+    "name": "Подчинение монстра",
+    "range": "60 футов"
+  },
+  {
+    "index": "dominate-person",
+    "name": "Подчинение личности",
+    "range": "60 футов"
+  },
+  {
+    "index": "dream",
+    "name": "Грёзы",
+    "range": "Особая",
+    "duration": "8 часов",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "druidcraft",
+    "name": "Искусство друидов",
+    "range": "30 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "earthquake",
+    "name": "Землетрясение",
+    "range": "500 футов"
+  },
+  {
+    "index": "eldritch-blast",
+    "name": "Мистический заряд",
+    "range": "120 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "enhance-ability",
+    "name": "Улучшение характеристики",
+    "range": "Касание"
+  },
+  {
+    "index": "enlarge-reduce",
+    "name": "Увеличение/уменьшение",
+    "range": "30 футов"
+  },
+  {
+    "index": "entangle",
+    "name": "Опутывание",
+    "range": "90 футов"
+  },
+  {
+    "index": "enthrall",
+    "name": "Речь златоуста",
+    "range": "60 футов"
+  },
+  {
+    "index": "etherealness",
+    "name": "Эфирность",
+    "range": "На себя"
+  },
+  {
+    "index": "expeditious-retreat",
+    "name": "Поспешное отступление",
+    "range": "На себя"
+  },
+  {
+    "index": "eyebite",
+    "name": "Разящее око",
+    "range": "На себя"
+  },
+  {
+    "index": "fabricate",
+    "name": "Изготовление",
+    "range": "120 футов",
+    "duration": "Мгновенная",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "faerie-fire",
+    "name": "Огонь фей",
+    "range": "60 футов"
+  },
+  {
+    "index": "faithful-hound",
+    "name": "Верный пёс Морденкайнена",
+    "range": "30 футов",
+    "duration": "8 часов"
+  },
+  {
+    "index": "false-life",
+    "name": "Псевдожизнь",
+    "range": "На себя"
+  },
+  {
+    "index": "fear",
+    "name": "Ужас",
+    "range": "На себя"
+  },
+  {
+    "index": "feather-fall",
+    "name": "Падение пёрышком",
+    "range": "60 футов",
+    "duration": "1 минута"
+  },
+  {
+    "index": "find-familiar",
+    "name": "Обретение фамильяра",
+    "range": "10 футов",
+    "duration": "Мгновенная",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "find-steed",
+    "name": "Обретение скакуна",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "find-traps",
+    "name": "Поиск ловушек",
+    "range": "120 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "find-the-path",
+    "name": "Поиск пути",
+    "range": "На себя",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "finger-of-death",
+    "name": "Перст смерти",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "fire-bolt",
+    "name": "Огненный снаряд",
+    "range": "120 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "fire-shield",
+    "name": "Огненный щит",
+    "range": "На себя",
+    "duration": "10 минут"
+  },
+  {
+    "index": "fire-storm",
+    "name": "Огненная буря",
+    "range": "150 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "fireball",
+    "name": "Огненный шар",
+    "range": "150 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "flame-blade",
+    "name": "Горящий клинок",
+    "range": "На себя"
+  },
+  {
+    "index": "flame-strike",
+    "name": "Небесный огонь",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "flaming-sphere",
+    "name": "Пылающий шар",
+    "range": "60 футов"
+  },
+  {
+    "index": "flesh-to-stone",
+    "name": "Окаменение",
+    "range": "60 футов"
+  },
+  {
+    "index": "floating-disk",
+    "name": "Парящий диск Тензера",
+    "range": "30 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "fly",
+    "name": "Полёт",
+    "range": "Касание"
+  },
+  {
+    "index": "fog-cloud",
+    "name": "Туманное облако",
+    "range": "120 футов"
+  },
+  {
+    "index": "forbiddance",
+    "name": "Запрет",
+    "range": "Касание",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "forcecage",
+    "name": "Узилище",
+    "range": "100 футов"
+  },
+  {
+    "index": "foresight",
+    "name": "Предвидение",
+    "range": "Касание",
+    "duration": "8 часов",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "freedom-of-movement",
+    "name": "Свобода перемещения",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "freezing-sphere",
+    "name": "Ледяной шар Отилюка",
+    "range": "300 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "gaseous-form",
+    "name": "Газообразная форма",
+    "range": "Касание"
+  },
+  {
+    "index": "gate",
+    "name": "Врата",
+    "range": "60 футов"
+  },
+  {
+    "index": "geas",
+    "name": "Гейс",
+    "range": "60 футов",
+    "duration": "30 дней",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "gentle-repose",
+    "name": "Нетленные останки",
+    "range": "Касание",
+    "duration": "10 дней"
+  },
+  {
+    "index": "giant-insect",
+    "name": "Гигантское насекомое"
+  },
+  {
+    "index": "glibness",
+    "name": "Находчивость",
+    "desc": [
+      "До окончания заклинания, когда вы совершаете проверку Харизмы, вы можете заменить выпавшее число на 15. Кроме того, что бы вы ни сказали, магия, определяющая, говорите ли вы правду, указывает, что вы говорите правду."
+    ],
+    "range": "На себя",
+    "duration": "1 час"
+  },
+  {
+    "index": "globe-of-invulnerability",
+    "name": "Сфера неуязвимости",
+    "range": "На себя"
+  },
+  {
+    "index": "glyph-of-warding",
+    "name": "Охранная руна",
+    "range": "Касание",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "goodberry",
+    "name": "Добряника"
+  },
+  {
+    "index": "grease",
+    "name": "Намасливание",
+    "range": "60 футов",
+    "duration": "1 минута"
+  },
+  {
+    "index": "greater-invisibility",
+    "name": "Высшая невидимость",
+    "range": "Касание"
+  },
+  {
+    "index": "greater-restoration",
+    "name": "Высшее восстановление",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "guardian-of-faith",
+    "name": "Страж веры",
+    "range": "30 футов",
+    "duration": "8 часов"
+  },
+  {
+    "index": "guards-and-wards",
+    "name": "Стражи и обереги",
+    "range": "Касание",
+    "duration": "24 часа"
+  },
+  {
+    "index": "guidance",
+    "name": "Наставление"
+  },
+  {
+    "index": "guiding-bolt",
+    "name": "Направляющий снаряд",
+    "range": "120 футов",
+    "duration": "1 раунд"
+  },
+  {
+    "index": "gust-of-wind",
+    "name": "Порыв ветра",
+    "range": "На себя"
+  },
+  {
+    "index": "hallow",
+    "name": "Святилище",
+    "range": "Касание",
+    "duration": "Пока не снято",
+    "casting_time": "24 часа"
+  },
+  {
+    "index": "hallucinatory-terrain",
+    "name": "Мираж",
+    "range": "300 футов",
+    "duration": "24 часа",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "harm",
+    "name": "Поражение",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "haste",
+    "name": "Ускорение",
+    "range": "30 футов"
+  },
+  {
+    "index": "heal",
+    "name": "Исцеление",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "healing-word",
+    "name": "Лечащее слово",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "heat-metal",
+    "name": "Нагрев металла",
+    "range": "60 футов"
+  },
+  {
+    "index": "hellish-rebuke",
+    "name": "Адское возмездие",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "heroes-feast",
+    "name": "Пир героев",
+    "duration": "Мгновенная",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "heroism",
+    "name": "Героизм",
+    "range": "Касание"
+  },
+  {
+    "index": "hideous-laughter",
+    "name": "Жуткий смех Таши",
+    "range": "30 футов"
+  },
+  {
+    "index": "hold-monster",
+    "name": "Удержание монстра",
+    "range": "90 футов"
+  },
+  {
+    "index": "hold-person",
+    "name": "Удержание личности",
+    "range": "60 футов"
+  },
+  {
+    "index": "holy-aura",
+    "name": "Аура святости",
+    "range": "На себя"
+  },
+  {
+    "index": "hunters-mark",
+    "name": "Метка охотника",
+    "range": "90 футов"
+  },
+  {
+    "index": "hypnotic-pattern",
+    "name": "Гипнотический узор",
+    "range": "120 футов"
+  },
+  {
+    "index": "ice-storm",
+    "name": "Град",
+    "range": "300 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "identify",
+    "name": "Опознание",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "illusory-script",
+    "name": "Иллюзорные письмена",
+    "range": "Касание",
+    "duration": "10 дней",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "imprisonment",
+    "name": "Заточение",
+    "range": "30 футов",
+    "duration": "Пока не снято",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "incendiary-cloud",
+    "name": "Воспламеняющаяся туча",
+    "range": "150 футов"
+  },
+  {
+    "index": "inflict-wounds",
+    "name": "Нанесение ран",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "insect-plague",
+    "name": "Нашествие насекомых",
+    "range": "300 футов"
+  },
+  {
+    "index": "instant-summons",
+    "name": "Мгновенный вызов Дромиджа",
+    "range": "Касание",
+    "duration": "Пока не снято",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "invisibility",
+    "name": "Невидимость",
+    "range": "Касание"
+  },
+  {
+    "index": "irresistible-dance",
+    "name": "Неудержимая пляска Отто",
+    "range": "30 футов"
+  },
+  {
+    "index": "jump",
+    "name": "Прыжок",
+    "range": "Касание",
+    "duration": "1 минута"
+  },
+  {
+    "index": "knock",
+    "name": "Стук",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "legend-lore",
+    "name": "Знание легенд",
+    "range": "На себя",
+    "duration": "Мгновенная",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "lesser-restoration",
+    "name": "Малое восстановление",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "levitate",
+    "name": "Левитация",
+    "range": "60 футов"
+  },
+  {
+    "index": "light",
+    "name": "Свет",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "lightning-bolt",
+    "name": "Молния",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "locate-animals-or-plants",
+    "name": "Поиск животных или растений",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "locate-creature",
+    "name": "Поиск существа",
+    "range": "На себя"
+  },
+  {
+    "index": "locate-object",
+    "name": "Поиск объекта",
+    "range": "На себя"
+  },
+  {
+    "index": "longstrider",
+    "name": "Скороход",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "mage-armor",
+    "name": "Доспехи мага",
+    "range": "Касание",
+    "duration": "8 часов"
+  },
+  {
+    "index": "mage-hand",
+    "name": "Волшебная рука",
+    "range": "30 футов",
+    "duration": "1 минута"
+  },
+  {
+    "index": "magic-circle",
+    "name": "Магический круг",
+    "range": "10 футов",
+    "duration": "1 час",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "magic-jar",
+    "name": "Волшебный сосуд",
+    "range": "На себя",
+    "duration": "Пока не снято",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "magic-missile",
+    "name": "Волшебная стрела",
+    "range": "120 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "magic-mouth",
+    "name": "Волшебные уста",
+    "range": "30 футов",
+    "duration": "Пока не снято",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "magic-weapon",
+    "name": "Магическое оружие",
+    "range": "Касание"
+  },
+  {
+    "index": "magnificent-mansion",
+    "name": "Великолепный особняк Морденкайнена",
+    "range": "300 футов",
+    "duration": "24 часа",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "major-image",
+    "name": "Образ",
+    "range": "120 футов"
+  },
+  {
+    "index": "mass-cure-wounds",
+    "name": "Множественное лечение ран",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "mass-heal",
+    "name": "Множественное исцеление",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "mass-healing-word",
+    "name": "Множественное лечащее слово",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "mass-suggestion",
+    "name": "Множественное внушение",
+    "range": "60 футов",
+    "duration": "24 часа"
+  },
+  {
+    "index": "maze",
+    "name": "Лабиринт",
+    "range": "60 футов"
+  },
+  {
+    "index": "mending",
+    "name": "Починка",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "message",
+    "name": "Сообщение",
+    "range": "120 футов",
+    "duration": "1 раунд"
+  },
+  {
+    "index": "meteor-swarm",
+    "name": "Метеоритный дождь",
+    "range": "1 миля",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "mind-blank",
+    "name": "Сокрытие разума",
+    "range": "Касание",
+    "duration": "24 часа"
+  },
+  {
+    "index": "minor-illusion",
+    "name": "Малая иллюзия",
+    "range": "30 футов",
+    "duration": "1 минута"
+  },
+  {
+    "index": "mirage-arcane",
+    "name": "Таинственный мираж",
+    "range": "В пределах видимости",
+    "duration": "10 дней",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "mirror-image",
+    "name": "Отражения",
+    "range": "На себя",
+    "duration": "1 минута"
+  },
+  {
+    "index": "mislead",
+    "name": "Фальшивый двойник",
+    "range": "На себя"
+  },
+  {
+    "index": "misty-step",
+    "name": "Туманный шаг",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "modify-memory",
+    "name": "Изменение памяти",
+    "range": "30 футов"
+  },
+  {
+    "index": "moonbeam",
+    "name": "Лунный луч",
+    "range": "120 футов"
+  },
+  {
+    "index": "move-earth",
+    "name": "Движение почвы",
+    "range": "120 футов"
+  },
+  {
+    "index": "nondetection",
+    "name": "Необнаружимость",
+    "range": "Касание",
+    "duration": "8 часов"
+  },
+  {
+    "index": "passwall",
+    "name": "Создание прохода",
+    "range": "30 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "phantasmal-killer",
+    "name": "Воображаемый убийца",
+    "range": "120 футов"
+  },
+  {
+    "index": "phantom-steed",
+    "name": "Призрачный скакун",
+    "range": "30 футов",
+    "duration": "1 час",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "planar-ally",
+    "name": "Планарный союзник",
+    "range": "60 футов",
+    "duration": "Мгновенная",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "planar-binding",
+    "name": "Планарные узы",
+    "range": "60 футов",
+    "duration": "24 часа",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "plane-shift",
+    "name": "Планарный переход",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "plant-growth",
+    "name": "Рост растений",
+    "range": "150 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "poison-spray",
+    "name": "Ядовитые брызги",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "polymorph",
+    "name": "Превращение",
+    "range": "60 футов"
+  },
+  {
+    "index": "power-word-kill",
+    "name": "Слово силы: смерть",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "power-word-stun",
+    "name": "Слово силы: ошеломление",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "prayer-of-healing",
+    "name": "Молебен лечения",
+    "range": "30 футов",
+    "duration": "Мгновенная",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "prestidigitation",
+    "name": "Фокусы",
+    "range": "10 футов"
+  },
+  {
+    "index": "prismatic-spray",
+    "name": "Радужные брызги",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "prismatic-wall",
+    "name": "Радужная стена",
+    "range": "60 футов",
+    "duration": "10 минут"
+  },
+  {
+    "index": "private-sanctum",
+    "name": "Кабинет Морденкайнена",
+    "range": "120 футов",
+    "duration": "24 часа",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "produce-flame",
+    "name": "Сотворение пламени",
+    "range": "На себя",
+    "duration": "10 минут"
+  },
+  {
+    "index": "programmed-illusion",
+    "name": "Заданная иллюзия",
+    "range": "120 футов",
+    "duration": "Пока не снято"
+  },
+  {
+    "index": "project-image",
+    "name": "Проекция",
+    "range": "500 миль"
+  },
+  {
+    "index": "protection-from-evil-and-good",
+    "name": "Защита от зла и добра",
+    "range": "Касание"
+  },
+  {
+    "index": "protection-from-poison",
+    "name": "Защита от яда",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "purify-food-and-drink",
+    "name": "Очищение пищи и питья",
+    "range": "10 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "raise-dead",
+    "name": "Возвращение к жизни",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "ray-of-enfeeblement",
+    "name": "Луч слабости",
+    "range": "60 футов"
+  },
+  {
+    "index": "ray-of-frost",
+    "name": "Луч холода",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "regenerate",
+    "name": "Регенерация",
+    "range": "Касание",
+    "duration": "1 час",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "reincarnate",
+    "name": "Реинкарнация",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "remove-curse",
+    "name": "Снятие проклятия",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "resilient-sphere",
+    "name": "Упругий шар Отилюка",
+    "range": "30 футов"
+  },
+  {
+    "index": "resistance",
+    "name": "Сопротивление"
+  },
+  {
+    "index": "resurrection",
+    "name": "Воскрешение",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "reverse-gravity",
+    "name": "Изменение тяготения",
+    "range": "100 футов"
+  },
+  {
+    "index": "revivify",
+    "name": "Оживление",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "rope-trick",
+    "name": "Трюк с верёвкой",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "sacred-flame",
+    "name": "Священное пламя",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "sanctuary",
+    "name": "Убежище",
+    "range": "30 футов",
+    "duration": "1 минута"
+  },
+  {
+    "index": "scorching-ray",
+    "name": "Палящий луч",
+    "range": "120 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "scrying",
+    "name": "Наблюдение",
+    "range": "На себя",
+    "casting_time": "10 минут"
+  },
+  {
+    "index": "secret-chest",
+    "name": "Потайной сундук Леомунда",
+    "range": "Касание"
+  },
+  {
+    "index": "see-invisibility",
+    "name": "Видение невидимого",
+    "range": "На себя",
+    "duration": "1 час"
+  },
+  {
+    "index": "seeming",
+    "name": "Притворство",
+    "range": "30 футов",
+    "duration": "8 часов"
+  },
+  {
+    "index": "sending",
+    "name": "Послание",
+    "range": "Неограниченная"
+  },
+  {
+    "index": "sequester",
+    "name": "Изоляция",
+    "range": "Касание",
+    "duration": "Пока не снято"
+  },
+  {
+    "index": "shapechange",
+    "name": "Преображение",
+    "range": "На себя"
+  },
+  {
+    "index": "shatter",
+    "name": "Дребезги",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "shield",
+    "name": "Щит",
+    "range": "На себя",
+    "duration": "1 раунд"
+  },
+  {
+    "index": "shield-of-faith",
+    "name": "Вера щита",
+    "range": "60 футов"
+  },
+  {
+    "index": "shillelagh",
+    "name": "Шилейла",
+    "duration": "1 минута"
+  },
+  {
+    "index": "shocking-grasp",
+    "name": "Электрошок",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "silence",
+    "name": "Тишина",
+    "range": "120 футов"
+  },
+  {
+    "index": "silent-image",
+    "name": "Безмолвный образ",
+    "range": "60 футов"
+  },
+  {
+    "index": "simulacrum",
+    "name": "Симулякр",
+    "range": "Касание",
+    "duration": "Пока не снято",
+    "casting_time": "12 часов"
+  },
+  {
+    "index": "sleep",
+    "name": "Усыпление"
+  },
+  {
+    "index": "sleet-storm",
+    "name": "Метель",
+    "range": "150 футов"
+  },
+  {
+    "index": "slow",
+    "name": "Замедление",
+    "range": "120 футов"
+  },
+  {
+    "index": "spare-the-dying",
+    "name": "Уход за умирающим",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "speak-with-animals",
+    "name": "Разговор с животными",
+    "range": "На себя",
+    "duration": "10 минут"
+  },
+  {
+    "index": "speak-with-dead",
+    "name": "Разговор с мёртвыми",
+    "range": "10 футов",
+    "duration": "10 минут"
+  },
+  {
+    "index": "speak-with-plants",
+    "name": "Разговор с растениями",
+    "range": "На себя",
+    "duration": "10 минут"
+  },
+  {
+    "index": "spider-climb",
+    "name": "Паучье лазанье",
+    "range": "Касание"
+  },
+  {
+    "index": "spike-growth",
+    "name": "Поросль шипов",
+    "range": "150 футов"
+  },
+  {
+    "index": "spirit-guardians",
+    "name": "Духовные стражи",
+    "range": "На себя"
+  },
+  {
+    "index": "spiritual-weapon",
+    "name": "Духовное оружие",
+    "range": "60 футов"
+  },
+  {
+    "index": "stinking-cloud",
+    "name": "Зловонное облако",
+    "range": "90 футов"
+  },
+  {
+    "index": "stone-shape",
+    "name": "Изменение формы камня",
+    "range": "Касание",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "stoneskin",
+    "name": "Каменная кожа",
+    "range": "Касание"
+  },
+  {
+    "index": "storm-of-vengeance",
+    "name": "Гроза гнева"
+  },
+  {
+    "index": "suggestion",
+    "name": "Внушение",
+    "range": "30 футов"
+  },
+  {
+    "index": "sunbeam",
+    "name": "Солнечный луч",
+    "range": "На себя"
+  },
+  {
+    "index": "sunburst",
+    "name": "Солнечный ожог",
+    "range": "150 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "symbol",
+    "name": "Знак",
+    "range": "Касание",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "telekinesis",
+    "name": "Телекинез",
+    "range": "60 футов"
+  },
+  {
+    "index": "telepathic-bond",
+    "name": "Ментальная связь Рэри",
+    "range": "30 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "teleport",
+    "name": "Телепортация",
+    "range": "10 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "teleportation-circle",
+    "name": "Круг телепортации",
+    "range": "10 футов",
+    "duration": "1 раунд",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "thaumaturgy",
+    "name": "Чудотворство",
+    "range": "30 футов"
+  },
+  {
+    "index": "thunderwave",
+    "name": "Волна грома",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "time-stop",
+    "name": "Остановка времени",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "tiny-hut",
+    "name": "Хижина Леомунда",
+    "range": "На себя",
+    "duration": "8 часов",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "tongues",
+    "name": "Языки",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "transport-via-plants",
+    "name": "Путешествие через растения",
+    "desc": [
+      "Это заклинание создаёт магическую связь между неодушевлённым растением Большого размера или больше в пределах дистанции и другим растением на любом расстоянии на том же плане бытия. Вы должны были видеть или касаться растения назначения хотя бы раз прежде. На время длительности любое существо может войти в целевое растение и выйти из растения назначения, потратив 5 футов перемещения."
+    ],
+    "range": "10 футов"
+  },
+  {
+    "index": "tree-stride",
+    "name": "Древесный путь",
+    "range": "На себя"
+  },
+  {
+    "index": "true-polymorph",
+    "name": "Истинное превращение",
+    "range": "30 футов"
+  },
+  {
+    "index": "true-resurrection",
+    "name": "Истинное воскрешение",
+    "range": "Касание",
+    "duration": "Мгновенная",
+    "casting_time": "1 час"
+  },
+  {
+    "index": "true-seeing",
+    "name": "Истинный взор",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "true-strike",
+    "name": "Меткий удар"
+  },
+  {
+    "index": "unseen-servant",
+    "name": "Невидимый слуга",
+    "range": "60 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "vampiric-touch",
+    "name": "Прикосновение вампира",
+    "range": "На себя"
+  },
+  {
+    "index": "vicious-mockery",
+    "name": "Злая насмешка",
+    "range": "60 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "wall-of-fire",
+    "name": "Огненная стена",
+    "range": "120 футов"
+  },
+  {
+    "index": "wall-of-force",
+    "name": "Силовая стена",
+    "range": "120 футов"
+  },
+  {
+    "index": "wall-of-ice",
+    "name": "Ледяная стена",
+    "range": "120 футов"
+  },
+  {
+    "index": "wall-of-stone",
+    "name": "Каменная стена",
+    "range": "120 футов"
+  },
+  {
+    "index": "wall-of-thorns",
+    "name": "Терновая стена",
+    "range": "120 футов"
+  },
+  {
+    "index": "warding-bond",
+    "name": "Охраняющая связь",
+    "range": "Касание",
+    "duration": "1 час"
+  },
+  {
+    "index": "water-breathing",
+    "name": "Подводное дыхание",
+    "range": "30 футов",
+    "duration": "24 часа"
+  },
+  {
+    "index": "water-walk",
+    "name": "Хождение по воде",
+    "range": "30 футов",
+    "duration": "1 час"
+  },
+  {
+    "index": "web",
+    "name": "Паутина",
+    "range": "60 футов"
+  },
+  {
+    "index": "weird",
+    "name": "Жуть",
+    "range": "120 футов"
+  },
+  {
+    "index": "wind-walk",
+    "name": "Хождение по ветру",
+    "range": "30 футов",
+    "duration": "8 часов",
+    "casting_time": "1 минута"
+  },
+  {
+    "index": "wind-wall",
+    "name": "Стена ветров",
+    "range": "120 футов"
+  },
+  {
+    "index": "wish",
+    "name": "Желание",
+    "range": "На себя",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "word-of-recall",
+    "name": "Слово возврата",
+    "range": "5 футов",
+    "duration": "Мгновенная"
+  },
+  {
+    "index": "zone-of-truth",
+    "name": "Область истины",
+    "range": "60 футов",
+    "duration": "10 минут"
+  }
+]
