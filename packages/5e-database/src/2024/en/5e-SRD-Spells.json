@@ -800,7 +800,7 @@
 		"material": "specially marked sticks, bones, cards, or other divinatory tokens worth 25+ GP",
 		"duration": "Instantaneous",
 		"concentration": false,
-		"description": "You receive an omen from an otherworldly entity about the results of a course of action that you plan to take within the next 30 minutes. The GM chooses the omen from the Omens table. Omens Omen    For Results That Will Be ... Woe    Bad  Weal and woe    Good and bad     Indifference    Neither good nor bad The spell doesn't account for circumstances, such as other spells, that might change the results.\n  If you cast the spell more than once before finishing a Long Rest, there is a cumulative 25 percent chance for each casting after the first that you get no answer."
+		"description": "You receive an omen from an otherworldly entity about the results of a course of action that you plan to take within the next 30 minutes. The GM chooses the omen from the Omens table.\nOmens\nOmen | For Results That Will Be ...\nWeal | Good\nWoe | Bad\nWeal and woe | Good and bad\nIndifference | Neither good nor bad\nThe spell doesn't account for circumstances, such as other spells, that might change the results.\n  If you cast the spell more than once before finishing a Long Rest, there is a cumulative 25 percent chance for each casting after the first that you get no answer."
 	},
 	{
 		"index": "aura-of-life",
@@ -2473,7 +2473,7 @@
 			"type": "sphere",
 			"size": 10
 		},
-		"description": "Each creature in a 10-foot-radius Sphere centered on a point you choose within range must succeed on a Wisdom saving throw, or that target can't take Bonus Actions or Reactions and must roll 1d10 at the start of each of its turns to determine its behavior for that turn, consulting the table below. 1d10 Behavior for the Turn 2-6    The target doesn't move or take actions. 9-10  The target chooses its behavior.\n  At the end of each of its turns, an affected target repeats the save, ending the spell on itself on a success.",
+		"description": "Each creature in a 10-foot-radius Sphere centered on a point you choose within range must succeed on a Wisdom saving throw, or that target can't take Bonus Actions or Reactions and must roll 1d10 at the start of each of its turns to determine its behavior for that turn, consulting the table below.\n1d10 | Behavior for the Turn\n1 | The target doesn't take an action, and it uses all its movement to move. Roll 1d4 for the direction: 1, north; 2, east; 3, south; or 4, west.\n2-6 | The target doesn't move or take actions.\n7-8 | The target doesn't move, and it takes the Attack action to make one melee attack against a random creature within reach. If none are within reach, the target takes no action.\n9-10 | The target chooses its behavior.\n  At the end of each of its turns, an affected target repeats the save, ending the spell on itself on a success.",
 		"higher_level": "The Sphere's radius increases by 5 feet for each spell slot level above 4."
 	},
 	{
@@ -2811,7 +2811,7 @@
 			},
 			"dc_success": "other"
 		},
-		"description": "You mentally contact a demigod, the spirit of a longdead sage, or some other knowledgeable entity from another plane. Contacting this otherworldly intelligence can break your mind. When you cast this spell, make a DC 15 Intelligence saving throw. On a successful save, you can ask the entity up to five questions. You must ask your questions before the spell ends. The GM answers each question with one word, such as \"yes,\" \"no,\" \"maybe,\" \"never,\" \"irrelevant,\" or \"unclear\" (if the entity doesn't know the answer to the question). If a one-word answer would be misleading, the GM might instead offer a short phrase as an answer.\n  On a failed save, you take 6d6 Psychic damage and have the Incapacitated condition until you finish a Long Rest. A Greater Restoration spell cast on you ends this effect."
+		"description": "You mentally contact a demigod, the spirit of a long-dead sage, or some other knowledgeable entity from another plane. Contacting this otherworldly intelligence can break your mind. When you cast this spell, make a DC 15 Intelligence saving throw. On a successful save, you can ask the entity up to five questions. You must ask your questions before the spell ends. The GM answers each question with one word, such as \"yes,\" \"no,\" \"maybe,\" \"never,\" \"irrelevant,\" or \"unclear\" (if the entity doesn't know the answer to the question). If a one-word answer would be misleading, the GM might instead offer a short phrase as an answer.\n  On a failed save, you take 6d6 Psychic damage and have the Incapacitated condition until you finish a Long Rest. A Greater Restoration spell cast on you ends this effect."
 	},
 	{
 		"index": "contagion",
@@ -2838,7 +2838,10 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "Touch",
-		"components": [],
+		"components": [
+			"V",
+			"S"
+		],
 		"duration": "7 days",
 		"concentration": false,
 		"damage": {
@@ -3031,7 +3034,7 @@
 		"material": "burning incense",
 		"duration": "up to 8 hours",
 		"concentration": true,
-		"description": "You take control of the weather within 5 miles of you for the duration. You must be outdoors to cast this spell, and it ends early if you go indoors.\n  When you cast the spell, you change the current weather conditions, which are determined by the GM. You can change precipitation, temperature, and wind. It takes 1d4 × 10 minutes for the new"
+		"description": "You take control of the weather within 5 miles of you for the duration. You must be outdoors to cast this spell, and it ends early if you go indoors.\n  When you cast the spell, you change the current weather conditions, which are determined by the GM. You can change precipitation, temperature, and wind. It takes 1d4 × 10 minutes for the new conditions to take effect. Once they do so, you can change the conditions again. When the spell ends, the weather gradually returns to normal.\n  When you change the weather conditions, find a current condition on the following tables and change its stage by one, up or down. When changing the wind, you can change its direction.\nPrecipitation\nStage | Condition\n1 | Clear\n2 | Light clouds\n3 | Overcast or ground fog\n4 | Rain, hail, or snow\n5 | Torrential rain, driving hail, or blizzard\nTemperature\nStage | Condition\n1 | Heat wave\n2 | Hot\n3 | Warm\n4 | Cool\n5 | Cold\n6 | Freezing\nWind\nStage | Condition\n1 | Calm\n2 | Moderate wind\n3 | Strong wind\n4 | Gale\n5 | Storm"
 	},
 	{
 		"index": "counterspell",
@@ -3229,7 +3232,7 @@
 			"type": "cube",
 			"size": 5
 		},
-		"description": "You pull wisps of shadow material from the Shadowfell to create an object within range. It is either an object of vegetable matter (soft goods, rope, wood, and the like) or mineral matter (stone, crystal, metal, and the like). The object must be no larger than a 5-foot Cube, and the object must be of a form and material that you have seen.\n  The spell's duration depends on the object's material, as shown in the Materials table. If the object is composed of multiple materials, use the shortest duration. Using any object created by this spell as another spell's Material component causes the other spell to fail. Materials Material    Duration Stone or crystal    12 hours Gems    10 minutes  Adamantine or mithral    1 minute   ",
+		"description": "You pull wisps of shadow material from the Shadowfell to create an object within range. It is either an object of vegetable matter (soft goods, rope, wood, and the like) or mineral matter (stone, crystal, metal, and the like). The object must be no larger than a 5-foot Cube, and the object must be of a form and material that you have seen.\n  The spell's duration depends on the object's material, as shown in the Materials table. If the object is composed of multiple materials, use the shortest duration. Using any object created by this spell as another spell's Material component causes the other spell to fail.\nMaterials\nMaterial | Duration\nVegetable matter | 24 hours\nStone or crystal | 12 hours\nPrecious metals | 1 hour\nGems | 10 minutes\nAdamantine or mithral | 1 minute",
 		"higher_level": "The Cube increases by 5 feet for each spell slot level above 5."
 	},
 	{
@@ -3878,7 +3881,7 @@
 		],
 		"duration": "1 hour",
 		"concentration": false,
-		"description": "You make yourself-including your clothing, armor, weapons, and other belongings on your personlook different until the spell ends. You can seem 1 foot shorter or taller and can appear heavier or lighter. You must adopt a form that has the same basic arrangement of limbs as you have. Otherwise, the extent of the illusion is up to you.\n  The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing.\n  To discern that you are disguised, a creature must take the Study action to inspect your appearance and succeed on an Intelligence (Investigation) check against your spell save DC."
+		"description": "You make yourself-including your clothing, armor, weapons, and other belongings on your person-look different until the spell ends. You can seem 1 foot shorter or taller and can appear heavier or lighter. You must adopt a form that has the same basic arrangement of limbs as you have. Otherwise, the extent of the illusion is up to you.\n  The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing.\n  To discern that you are disguised, a creature must take the Study action to inspect your appearance and succeed on an Intelligence (Investigation) check against your spell save DC."
 	},
 	{
 		"index": "disintegrate",
@@ -4187,7 +4190,9 @@
 		"casting_time": "Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike",
 		"ritual": false,
 		"range": "Self",
-		"components": [],
+		"components": [
+			"V"
+		],
 		"duration": "Instantaneous",
 		"concentration": false,
 		"damage": {
@@ -4244,7 +4249,7 @@
 			},
 			"dc_success": "none"
 		},
-		"description": "You utter a word imbued with power from the Upper Planes. Each creature of your choice in range makes a Charisma saving throw. On a failed save, a target that has 50 Hit Points or fewer suffers an effect based on its current Hit Points, as shown in the Divine Word Effects table. Regardless of its Hit Points, a Celestial, an Elemental, a Fey, or a Fiend target that fails its save is forced back to its plane of origin (if it isn't there already) and can't return to the current plane for 24 hours by any means short of a Wish spell.\nDivine Word Effects | Hit Points Effect\n0-20 | The target dies.\n21-30 | The target has the Blinded, Deafened, and Stunned conditions for 1 hour.\n41-50 | The target has the Deafened condition for 1 minute."
+		"description": "You utter a word imbued with power from the Upper Planes. Each creature of your choice in range makes a Charisma saving throw. On a failed save, a target that has 50 Hit Points or fewer suffers an effect based on its current Hit Points, as shown in the Divine Word Effects table. Regardless of its Hit Points, a Celestial, an Elemental, a Fey, or a Fiend target that fails its save is forced back to its plane of origin (if it isn't there already) and can't return to the current plane for 24 hours by any means short of a Wish spell.\nDivine Word Effects | Hit Points Effect\n0-20 | The target dies.\n21-30 | The target has the Blinded, Deafened, and Stunned conditions for 1 hour.\n31-40 | The target has the Blinded and Deafened conditions for 10 minutes.\n41-50 | The target has the Deafened condition for 1 minute."
 	},
 	{
 		"index": "dominate-beast",
@@ -5353,7 +5358,10 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "30 feet",
-		"components": [],
+		"components": [
+			"V",
+			"S"
+		],
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "You summon an otherworldly being that appears as a loyal steed in an unoccupied space of your choice within range. This creature uses the Otherworldly Steed stat block. If you already have a steed from this spell, the steed is replaced by the new one.\n  The steed resembles a Large, rideable animal of your choice, such as a horse, a camel, a dire wolf, or an elk. Whenever you cast the spell, choose the steed's creature type-Celestial, Fey, or Fiendwhich determines certain traits in the stat block.\n  Combat. The steed is an ally to you and your allies. In combat, it shares your Initiative count, and it functions as a controlled mount while you ride it (as defined in the rules on mounted combat). If you have the Incapacitated condition, the steed takes its turn immediately after yours and acts independently, focusing on protecting you.\n  Disappearance of the Steed. The steed disappears if it drops to 0 Hit Points or if you die. When it disappears, it leaves behind anything it was wearing or carrying. If you cast this spell again, you decide whether you summon the steed that disappeared or a different one.",
@@ -6876,7 +6884,10 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "Touch",
-		"components": [],
+		"components": [
+			"V",
+			"S"
+		],
 		"duration": "up to 1 minute",
 		"concentration": true,
 		"description": "You touch a willing creature and choose a skill. Until the spell ends, the creature adds 1d4 to any ability check using the chosen skill."
@@ -9147,7 +9158,7 @@
 		"material": "a miniature door worth 15+ GP",
 		"duration": "24 hours",
 		"concentration": false,
-		"description": "You conjure a shimmering door in range that lasts for the duration. The door leads to an extradimensional dwelling and is 5 feet wide and 10 feet tall. You and any creature you designate when you cast the spell can enter the extradimensional dwelling as long as the door remains open. You can open or close it (no action required) if you are within 30 feet of it. While closed, the door is imperceptible.\n  Beyond the door is a magnificent foyer with numerous chambers beyond. The dwelling's atmosphere is clean, fresh, and warm.\n  You can create any floor plan you like for the dwelling, but it can't exceed 50 contiguous 10-foot Cubes. The place is furnished and decorated as you choose. It contains sufficient food to serve a ninecourse banquet for up to 100 people. Furnishings and other objects created by this spell dissipate into smoke if removed from it.\n  A staff of 100 near-transparent servants attends all who enter. You determine the appearance of these servants and their attire. They are invulnerable and obey your commands. Each servant can perform tasks that a human could perform, but they can't attack or take any action that would directly harm another creature. Thus the servants can fetch things, clean, mend, fold clothes, light fires, serve food, pour wine, and so on. The servants can't leave the dwelling.\n  When the spell ends, any creatures or objects left inside the extradimensional space are expelled into the unoccupied spaces nearest to the entrance."
+		"description": "You conjure a shimmering door in range that lasts for the duration. The door leads to an extradimensional dwelling and is 5 feet wide and 10 feet tall. You and any creature you designate when you cast the spell can enter the extradimensional dwelling as long as the door remains open. You can open or close it (no action required) if you are within 30 feet of it. While closed, the door is imperceptible.\n  Beyond the door is a magnificent foyer with numerous chambers beyond. The dwelling's atmosphere is clean, fresh, and warm.\n  You can create any floor plan you like for the dwelling, but it can't exceed 50 contiguous 10-foot Cubes. The place is furnished and decorated as you choose. It contains sufficient food to serve a nine-course banquet for up to 100 people. Furnishings and other objects created by this spell dissipate into smoke if removed from it.\n  A staff of 100 near-transparent servants attends all who enter. You determine the appearance of these servants and their attire. They are invulnerable and obey your commands. Each servant can perform tasks that a human could perform, but they can't attack or take any action that would directly harm another creature. Thus the servants can fetch things, clean, mend, fold clothes, light fires, serve food, pour wine, and so on. The servants can't leave the dwelling.\n  When the spell ends, any creatures or objects left inside the extradimensional space are expelled into the unoccupied spaces nearest to the entrance."
 	},
 	{
 		"index": "major-image",
@@ -10595,7 +10606,9 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "60 feet",
-		"components": [],
+		"components": [
+			"V"
+		],
 		"duration": "Instantaneous",
 		"concentration": false,
 		"description": "A wave of healing energy washes over one creature you can see within range. The target regains all its Hit Points. If the creature has the Charmed, Frightened, Paralyzed, Poisoned, or Stunned condition, the condition ends. If the creature has the Prone condition, it can use its Reaction to stand up."
@@ -10635,7 +10648,9 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "60 feet",
-		"components": [],
+		"components": [
+			"V"
+		],
 		"duration": "Instantaneous",
 		"concentration": false,
 		"damage": {
@@ -10833,7 +10848,7 @@
 			"type": "cone",
 			"size": 60
 		},
-		"description": "Eight rays of light flash from you in a 60-foot Cone. Each creature in the Cone makes a Dexterity saving throw. For each target, roll 1d8 to determine which color ray affects it, consulting the Prismatic Rays table. Prismatic Rays 1d8 Ray 2    Orange. Failed Save: 12d6 Acid damage. Successful Save: Half as much damage. 4    Green. Failed Save: 12d6 Poison damage. Successful Save: Half as much damage. 1d8 Ray 6    Indigo. Failed Save: The target has the Restrained condition and makes a Constitution saving throw at the end of each of its turns. If it successfully saves three times, the condition ends. If it fails three times, it has the Petrified condition until it is freed by an effect like the Greater Restoration spell. The successes and failures needn't be consecutive; keep track of both until the target collects three of a kind. 8    Special. The target is struck by two rays. Roll twice, rerolling any 8."
+		"description": "Eight rays of light flash from you in a 60-foot Cone. Each creature in the Cone makes a Dexterity saving throw. For each target, roll 1d8 to determine which color ray affects it, consulting the Prismatic Rays table.\nPrismatic Rays\n1d8 | Ray\n1 | Red. Failed Save: 12d6 Fire damage. Successful Save: Half as much damage.\n2 | Orange. Failed Save: 12d6 Acid damage. Successful Save: Half as much damage.\n3 | Yellow. Failed Save: 12d6 Lightning damage. Successful Save: Half as much damage.\n4 | Green. Failed Save: 12d6 Poison damage. Successful Save: Half as much damage.\n5 | Blue. Failed Save: 12d6 Cold damage. Successful Save: Half as much damage.\n6 | Indigo. Failed Save: The target has the Restrained condition and makes a Constitution saving throw at the end of each of its turns. If it successfully saves three times, the condition ends. If it fails three times, it has the Petrified condition until it is freed by an effect like the Greater Restoration spell. The successes and failures needn't be consecutive; keep track of both until the target collects three of a kind.\n7 | Violet. Failed Save: The target has the Blinded condition and makes a Wisdom saving throw at the start of your next turn. On a successful save, the condition ends. On a failed save, the condition ends, and the creature teleports to another plane of existence (GM's choice).\n8 | Special. The target is struck by two rays. Roll twice, rerolling any 8."
 	},
 	{
 		"index": "prismatic-wall",
@@ -10880,7 +10895,7 @@
 			"type": "line",
 			"size": 90
 		},
-		"description": "A shimmering, multicolored plane of light forms a vertical opaque wall-up to 90 feet long, 30 feet high, and 1 inch thick-centered on a point within range. Alternatively, you shape the wall into a globe up to 30 feet in diameter centered on a point within range. The wall lasts for the duration. If you position the wall in a space occupied by a creature, the spell ends instantly without effect.\n  The wall sheds Bright Light within 100 feet and Dim Light for an additional 100 feet. You and creatures you designate when you cast the spell can pass through and be near the wall without harm. If another creature that can see the wall moves within 20 feet of it or starts its turn there, the creature must succeed on a Constitution saving throw or have the Blinded condition for 1 minute.\n  The wall consists of seven layers, each with a different color. When a creature reaches into or passes through the wall, it does so one layer at a time through all the layers. Each layer forces the creature to make a Dexterity saving throw or be affected by that layer's properties as described in the Prismatic Layers table.\n  The wall, which has AC 10, can be destroyed one layer at a time, in order from red to violet, by means specific to each layer. If a layer is destroyed, it is gone for the duration. Antimagic Field has no effect on the wall, and Dispel Magic can affect only the violet layer. Prismatic Layers Order  Effects 2    Orange. Failed Save: 12d6 Acid damage. Successful Save: Half as much damage. Additional Effects: Magical ranged attacks can't pass through this layer, which is destroyed by a strong wind (such as the one created by Gust of Wind). 4    Green. Failed Save: 12d6 Poison damage. Successful Save: Half as much damage. Additional Effects: A Passwall spell, or another spell of equal or greater level that can open a portal on a solid surface, destroys this layer. 6    Indigo. Failed Save: The target has the Restrained condition and makes a Constitution saving throw at the end of each of its turns. If it successfully saves three times, the condition ends. If it fails three times, it has the Petrified condition until it is freed by an effect like the Greater Restoration spell. The successes and failures needn't be consecutive; keep track of both until the target collects three of a kind. Additional Effects: Spells can't be cast through this layer, which is destroyed by Bright Light shed by the Daylight spell."
+		"description": "A shimmering, multicolored plane of light forms a vertical opaque wall-up to 90 feet long, 30 feet high, and 1 inch thick-centered on a point within range. Alternatively, you shape the wall into a globe up to 30 feet in diameter centered on a point within range. The wall lasts for the duration. If you position the wall in a space occupied by a creature, the spell ends instantly without effect.\n  The wall sheds Bright Light within 100 feet and Dim Light for an additional 100 feet. You and creatures you designate when you cast the spell can pass through and be near the wall without harm. If another creature that can see the wall moves within 20 feet of it or starts its turn there, the creature must succeed on a Constitution saving throw or have the Blinded condition for 1 minute.\n  The wall consists of seven layers, each with a different color. When a creature reaches into or passes through the wall, it does so one layer at a time through all the layers. Each layer forces the creature to make a Dexterity saving throw or be affected by that layer's properties as described in the Prismatic Layers table.\n  The wall, which has AC 10, can be destroyed one layer at a time, in order from red to violet, by means specific to each layer. If a layer is destroyed, it is gone for the duration. Antimagic Field has no effect on the wall, and Dispel Magic can affect only the violet layer.\nPrismatic Layers\nOrder | Effects\n1 | Red. Failed Save: 12d6 Fire damage. Successful Save: Half as much damage. Additional Effects: Nonmagical ranged attacks can't pass through this layer, which is destroyed if it takes at least 25 Cold damage.\n2 | Orange. Failed Save: 12d6 Acid damage. Successful Save: Half as much damage. Additional Effects: Magical ranged attacks can't pass through this layer, which is destroyed by a strong wind (such as the one created by Gust of Wind).\n3 | Yellow. Failed Save: 12d6 Lightning damage. Successful Save: Half as much damage. Additional Effects: The layer is destroyed if it takes at least 60 Force damage.\n4 | Green. Failed Save: 12d6 Poison damage. Successful Save: Half as much damage. Additional Effects: A Passwall spell, or another spell of equal or greater level that can open a portal on a solid surface, destroys this layer.\n5 | Blue. Failed Save: 12d6 Cold damage. Successful Save: Half as much damage. Additional Effects: The layer is destroyed if it takes at least 25 Fire damage.\n6 | Indigo. Failed Save: The target has the Restrained condition and makes a Constitution saving throw at the end of each of its turns. If it successfully saves three times, the condition ends. If it fails three times, it has the Petrified condition until it is freed by an effect like the Greater Restoration spell. The successes and failures needn't be consecutive; keep track of both until the target collects three of a kind. Additional Effects: Spells can't be cast through this layer, which is destroyed by Bright Light shed by the Daylight spell.\n7 | Violet. Failed Save: The target has the Blinded condition and makes a Wisdom saving throw at the start of your next turn. On a successful save, the condition ends. On a failed save, the condition ends, and the creature teleports to another plane of existence (GM's choice). Additional Effects: This layer is destroyed by Dispel Magic."
 	},
 	{
 		"index": "private-sanctum",
@@ -11127,8 +11142,8 @@
 			"M"
 		],
 		"material": "a flask of Holy Water worth 25+ GP, which the spell consumes",
-		"duration": "Concentration up to 10 minutes",
-		"concentration": false,
+		"duration": "up to 10 minutes",
+		"concentration": true,
 		"description": "Until the spell ends, one willing creature you touch is protected against creatures that are Aberrations, Celestials, Elementals, Fey, Fiends, or Undead. The protection grants several benefits. Creatures of those types have Disadvantage on attack rolls against the target. The target also can't be possessed by or gain the Charmed or Frightened conditions from them. If the target is already possessed, Charmed, or Frightened by such a creature, the target has Advantage on any new saving throw against the relevant effect."
 	},
 	{
@@ -11254,7 +11269,7 @@
 		"material": "a diamond worth 500+ GP, which the spell consumes",
 		"duration": "Instantaneous",
 		"concentration": false,
-		"description": "With a touch, you revive a dead creature if it has been dead no longer than 10 days and it wasn't Undead when it died.\n  The creature returns to life with 1 Hit Point. This spell also neutralizes any poisons that affected the creature at the time of death.\n  This spell closes all mortal wounds, but it doesn't restore missing body parts. If the creature is lacking body parts or organs integral for its survivalits head, for instance-the spell automatically fails.\n  Coming back from the dead is an ordeal. The target takes a -4 penalty to D20 Tests. Every time the target finishes a Long Rest, the penalty is reduced by 1 until it becomes 0."
+		"description": "With a touch, you revive a dead creature if it has been dead no longer than 10 days and it wasn't Undead when it died.\n  The creature returns to life with 1 Hit Point. This spell also neutralizes any poisons that affected the creature at the time of death.\n  This spell closes all mortal wounds, but it doesn't restore missing body parts. If the creature is lacking body parts or organs integral for its survival-its head, for instance-the spell automatically fails.\n  Coming back from the dead is an ordeal. The target takes a -4 penalty to D20 Tests. Every time the target finishes a Long Rest, the penalty is reduced by 1 until it becomes 0."
 	},
 	{
 		"index": "ray-of-enfeeblement",
@@ -11464,7 +11479,7 @@
 		"material": "rare oils worth 1,000+ GP, which the spell consumes",
 		"duration": "Instantaneous",
 		"concentration": false,
-		"description": "You touch a dead Humanoid or a piece of one. If the creature has been dead no longer than 10 days, the spell forms a new body for it and calls the soul to enter that body. Roll 1d10 and consult the table below to determine the body's species, or the GM chooses another playable species. 1d10 Species 1d10 Species 1 Roll again. 6 Goliath 2 Dragonborn 7 Halfling 3 Dwarf 8 Human 4 Elf 9 Orc 5    Gnome\n10    Tiefling    \n  The reincarnated creature makes any choices that a species' description offers, and the creature recalls its former life. It retains the capabilities it had in its original form, except it loses the traits of its previous species and gains the traits of its new one."
+		"description": "You touch a dead Humanoid or a piece of one. If the creature has been dead no longer than 10 days, the spell forms a new body for it and calls the soul to enter that body. Roll 1d10 and consult the table below to determine the body's species, or the GM chooses another playable species. 1d10 Species 1d10 Species 1 Roll again. 6 Goliath 2 Dragonborn 7 Halfling 3 Dwarf 8 Human 4 Elf 9 Orc 5    Gnome\n10    Tiefling\n  The reincarnated creature makes any choices that a species' description offers, and the creature recalls its former life. It retains the capabilities it had in its original form, except it loses the traits of its previous species and gains the traits of its new one."
 	},
 	{
 		"index": "remove-curse",
@@ -11572,7 +11587,10 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "Touch",
-		"components": [],
+		"components": [
+			"V",
+			"S"
+		],
 		"duration": "up to 1 minute",
 		"concentration": true,
 		"description": "You touch a willing creature and choose a damage type: Acid, Bludgeoning, Cold, Fire, Lightning, Necrotic, Piercing, Poison, Radiant, Slashing, or Thunder. When the creature takes damage of the chosen type before the spell ends, the creature reduces the total damage taken by 1d4. A creature can benefit from this spell only once per turn."
@@ -11927,7 +11945,7 @@
 			},
 			"dc_success": "none"
 		},
-		"description": "You can see and hear a creature you choose that is on the same plane of existence as you. The target makes a Wisdom saving throw, which is modified (see the tables below) by how well you know the target and the sort of physical connection you have to it. The target doesn't know what it is making the save against, only that it feels uneasy. Your Knowledge of the Target Is ...    Save Modifier Firsthand (met the target)    +0 You Have the Target's ...    Save Modifier Garment or other possession    -4\n  On a successful save, the target isn't affected, and you can't use this spell on it again for 24 hours.\n  On a failed save, the spell creates an Invisible, intangible sensor within 10 feet of the target. You can see and hear through the sensor as if you were there. The sensor moves with the target, remaining within 10 feet of it for the duration. If something can see the sensor, it appears as a luminous orb about the size of your fist.\n  Instead of targeting a creature, you can target a location you have seen. When you do so, the sensor appears at that location and doesn't move."
+		"description": "You can see and hear a creature you choose that is on the same plane of existence as you. The target makes a Wisdom saving throw, which is modified (see the tables below) by how well you know the target and the sort of physical connection you have to it. The target doesn't know what it is making the save against, only that it feels uneasy.\nYour Knowledge of the Target Is ... | Save Modifier\nSecondhand (heard of the target) | +5\nFirsthand (met the target) | +0\nExtensive (know the target well) | -5\nYou Have the Target's ... | Save Modifier\nPicture or other likeness | -2\nGarment or other possession | -4\nBody part, lock of hair, or bit of nail | -10\n  On a successful save, the target isn't affected, and you can't use this spell on it again for 24 hours.\n  On a failed save, the spell creates an Invisible, intangible sensor within 10 feet of the target. You can see and hear through the sensor as if you were there. The sensor moves with the target, remaining within 10 feet of it for the duration. If something can see the sensor, it appears as a luminous orb about the size of your fist.\n  Instead of targeting a creature, you can target a location you have seen. When you do so, the sensor appears at that location and doesn't move."
 	},
 	{
 		"index": "searing-smite",
@@ -11949,7 +11967,9 @@
 		"casting_time": "Bonus Action, which you take immediately after hitting a target with a Melee weapon or an Unarmed Strike",
 		"ritual": false,
 		"range": "Self",
-		"components": [],
+		"components": [
+			"V"
+		],
 		"duration": "1 minute",
 		"concentration": false,
 		"damage": {
@@ -12753,7 +12773,10 @@
 		"casting_time": "Action",
 		"ritual": false,
 		"range": "120 feet",
-		"components": [],
+		"components": [
+			"V",
+			"S"
+		],
 		"duration": "Instantaneous",
 		"concentration": false,
 		"attack_type": "ranged",
@@ -14673,7 +14696,7 @@
 			},
 			"dc_success": "other"
 		},
-		"description": "A nonmagical wall of solid stone springs into existence at a point you choose within range. The wall is 6 inches thick and is composed of ten 10-foot-by10-foot panels. Each panel must be contiguous with another panel. Alternatively, you can create 10-footby-20-foot panels that are only 3 inches thick.\n  If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (you choose which side). If a creature would be surrounded on all sides by the wall (or the wall and another solid surface), that creature can make a Dexterity saving throw. On a success, it can use its Reaction to move up to its Speed so that it is no longer enclosed by the wall.\n  The wall can have any shape you desire, though it can't occupy the same space as a creature or object. The wall doesn't need to be vertical or rest on a firm foundation. It must, however, merge with and be solidly supported by existing stone. Thus, you can use this spell to bridge a chasm or create a ramp.\n  If you create a span greater than 20 feet in length, you must halve the size of each panel to create supports. You can crudely shape the wall to create battlements and the like. The wall is an object made of stone that can be damaged and thus breached. Each panel has AC 15 and 30 Hit Points per inch of thickness, and it has Immunity to Poison and Psychic damage. Reducing a panel to 0 Hit Points destroys it and might cause connected panels to collapse at the GM's discretion.\n  If you maintain your Concentration on this spell for its full duration, the wall becomes permanent and can't be dispelled. Otherwise, the wall disappears when the spell ends."
+		"description": "A nonmagical wall of solid stone springs into existence at a point you choose within range. The wall is 6 inches thick and is composed of ten 10-foot-by-10-foot panels. Each panel must be contiguous with another panel. Alternatively, you can create 10-footby-20-foot panels that are only 3 inches thick.\n  If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (you choose which side). If a creature would be surrounded on all sides by the wall (or the wall and another solid surface), that creature can make a Dexterity saving throw. On a success, it can use its Reaction to move up to its Speed so that it is no longer enclosed by the wall.\n  The wall can have any shape you desire, though it can't occupy the same space as a creature or object. The wall doesn't need to be vertical or rest on a firm foundation. It must, however, merge with and be solidly supported by existing stone. Thus, you can use this spell to bridge a chasm or create a ramp.\n  If you create a span greater than 20 feet in length, you must halve the size of each panel to create supports. You can crudely shape the wall to create battlements and the like. The wall is an object made of stone that can be damaged and thus breached. Each panel has AC 15 and 30 Hit Points per inch of thickness, and it has Immunity to Poison and Psychic damage. Reducing a panel to 0 Hit Points destroys it and might cause connected panels to collapse at the GM's discretion.\n  If you maintain your Concentration on this spell for its full duration, the wall becomes permanent and can't be dispelled. Otherwise, the wall disappears when the spell ends."
 	},
 	{
 		"index": "wall-of-thorns",
