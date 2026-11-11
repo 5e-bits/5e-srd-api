@@ -5835,9 +5835,9 @@
 		]
 	},
 	{
-		"index": "stone-of-good-luck-(luckstone)",
-		"url": "/api/2024/magic-items/stone-of-good-luck-(luckstone)",
-		"image": "/api/images/magic-items/stone-of-good-luck-(luckstone).png",
+		"index": "stone-of-good-luck-luckstone",
+		"url": "/api/2024/magic-items/stone-of-good-luck-luckstone",
+		"image": "/api/images/magic-items/stone-of-good-luck-luckstone.png",
 		"name": "Stone of Good Luck (Luckstone)",
 		"equipment_category": {
 			"index": "wondrous-items",
