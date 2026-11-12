@@ -3071,7 +3071,7 @@
         "hit_die": 8,
         "proficiency_choices": [
             {
-                "desc": "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, or Stealth",
+                "desc": "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth",
                 "choose": 4,
                 "type": "proficiencies",
                 "from": {
@@ -3136,14 +3136,6 @@
                         {
                             "option_type": "reference",
                             "item": {
-                                "index": "skill-performance",
-                                "name": "Skill: Performance",
-                                "url": "/api/2024/proficiencies/skill-performance"
-                            }
-                        },
-                        {
-                            "option_type": "reference",
-                            "item": {
                                 "index": "skill-persuasion",
                                 "name": "Skill: Persuasion",
                                 "url": "/api/2024/proficiencies/skill-persuasion"
@@ -3179,11 +3171,6 @@
                 "index": "simple-weapons",
                 "name": "Simple Weapons",
                 "url": "/api/2024/proficiencies/simple-weapons"
-            },
-            {
-                "index": "longswords",
-                "name": "Longswords",
-                "url": "/api/2024/proficiencies/longswords"
             },
             {
                 "index": "rapiers",
@@ -3422,14 +3409,6 @@
                                     "index": "skill-perception",
                                     "name": "Skill: Perception",
                                     "url": "/api/2024/proficiencies/skill-perception"
-                                }
-                            },
-                            {
-                                "option_type": "reference",
-                                "item": {
-                                    "index": "skill-performance",
-                                    "name": "Skill: Performance",
-                                    "url": "/api/2024/proficiencies/skill-performance"
                                 }
                             },
                             {
