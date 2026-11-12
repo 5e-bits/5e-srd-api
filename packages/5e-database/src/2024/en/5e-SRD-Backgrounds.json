@@ -256,6 +256,7 @@
     "feat": {
       "index": "magic-initiate",
       "name": "Magic Initiate",
+      "note": "Wizard",
       "url": "/api/2024/feats/magic-initiate"
     },
     "proficiencies": [
