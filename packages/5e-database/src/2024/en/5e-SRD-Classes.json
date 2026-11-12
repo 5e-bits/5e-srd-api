@@ -1490,7 +1490,7 @@
         "hit_die": 10,
         "proficiency_choices": [
             {
-                "desc": "Choose 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, or Survival",
+                "desc": "Choose 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Persuasion, Perception, or Survival",
                 "choose": 2,
                 "type": "proficiencies",
                 "from": {
@@ -1542,6 +1542,14 @@
                                 "index": "skill-intimidation",
                                 "name": "Skill: Intimidation",
                                 "url": "/api/2024/proficiencies/skill-intimidation"
+                            }
+                        },
+                        {
+                            "option_type": "reference",
+                            "item": {
+                                "index": "skill-persuasion",
+                                "name": "Skill: Persuasion",
+                                "url": "/api/2024/proficiencies/skill-persuasion"
                             }
                         },
                         {

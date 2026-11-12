@@ -110,7 +110,7 @@
   },
   {
     "index": "two-weapon-fighting",
-    "name": "Two Weapon Fighting",
+    "name": "Two-Weapon Fighting",
     "type": "fighting-style",
     "prerequisites": {
       "feature_named": "Fighting Style"
@@ -155,7 +155,7 @@
     "prerequisites": {
       "minimum_level": 19
     },
-    "description": "You gain the following benefits.\n**Ability Score Increase.** Increase one ability score of your choice by 1, to a maximum of 30.\n**Overcome Defenses.** The Bludgeoning, Piercing, and Slashing damage you deal always ignores Resistance.\n**Overwhelming Strike.** When you roll a 20 on the d20 for an attack roll, you can deal extra damage to the target equal to the ability score increased by this feat. The extra damage's type is the same as the attack's type.",
+    "description": "You gain the following benefits.\n**Ability Score Increase.** Increase your Strength or Dexterity score by 1, to a maximum of 30.\n**Overcome Defenses.** The Bludgeoning, Piercing, and Slashing damage you deal always ignores Resistance.\n**Overwhelming Strike.** When you roll a 20 on the d20 for an attack roll, you can deal extra damage to the target equal to the ability score increased by this feat. The extra damage's type is the same as the attack's type.",
     "url": "/api/2024/feats/boon-of-irresistible-offense"
   },
   {
@@ -166,7 +166,7 @@
       "minimum_level": 19,
       "feature_named": "Spellcasting"
     },
-    "description": "You gain the following benefits.\n**Ability Score Increase.** Increase one ability score of your choice by 1, to a maximum of 30.\n**Free Casting.** Whenever you cast a spell with a level 1–4 spell slot, roll 1d4. If the number you roll is the same as the slot's level, the slot isn't expended.",
+    "description": "You gain the following benefits.\n**Ability Score Increase.** Increase your Intelligence, Wisdom, or Charisma score by 1, to a maximum of 30.\n**Free Casting.** Whenever you cast a spell with a level 1–4 spell slot, roll 1d4. If the number you roll is the same as the slot's level, the slot isn't expended.",
     "url": "/api/2024/feats/boon-of-spell-recall"
   },
   {
