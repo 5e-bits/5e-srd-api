@@ -1,0 +1,46 @@
+[
+  {
+    "index": "dwarven-resilience",
+    "name": "Дварфийская стойкость"
+  },
+  {
+    "index": "stonecunning",
+    "name": "Знание камня"
+  },
+  {
+    "index": "dwarven-toughness",
+    "name": "Дварфийская живучесть"
+  },
+  {
+    "index": "keen-senses",
+    "name": "Обострённые чувства"
+  },
+  {
+    "index": "fey-ancestry",
+    "name": "Наследие фей"
+  },
+  {
+    "index": "trance",
+    "name": "Транс"
+  },
+  {
+    "index": "brave",
+    "name": "Храбрость"
+  },
+  {
+    "index": "halfling-nimbleness",
+    "name": "Ловкость полурослика"
+  },
+  {
+    "index": "naturally-stealthy",
+    "name": "Прирождённая скрытность"
+  },
+  {
+    "index": "draconic-ancestry",
+    "name": "Наследие драконов"
+  },
+  {
+    "index": "relentless-endurance",
+    "name": "Неуклонная выносливость"
+  }
+]

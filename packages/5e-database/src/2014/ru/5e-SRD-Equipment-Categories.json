@@ -1,0 +1,102 @@
+[
+  {
+    "index": "armor",
+    "name": "Доспехи"
+  },
+  {
+    "index": "adventuring-gear",
+    "name": "Снаряжение путешественника"
+  },
+  {
+    "index": "ammunition",
+    "name": "Боеприпасы"
+  },
+  {
+    "index": "tools",
+    "name": "Инструменты"
+  },
+  {
+    "index": "simple-weapons",
+    "name": "Простое оружие"
+  },
+  {
+    "index": "martial-weapons",
+    "name": "Воинское оружие"
+  },
+  {
+    "index": "melee-weapons",
+    "name": "Ближнее оружие"
+  },
+  {
+    "index": "ranged-weapons",
+    "name": "Дальнобойное оружие"
+  },
+  {
+    "index": "simple-melee-weapons",
+    "name": "Простое ближнее оружие"
+  },
+  {
+    "index": "simple-ranged-weapons",
+    "name": "Простое дальнобойное оружие"
+  },
+  {
+    "index": "martial-melee-weapons",
+    "name": "Воинское ближнее оружие"
+  },
+  {
+    "index": "martial-ranged-weapons",
+    "name": "Воинское дальнее оружие"
+  },
+  {
+    "index": "light-armor",
+    "name": "Лёгкий доспех"
+  },
+  {
+    "index": "medium-armor",
+    "name": "Средний доспех"
+  },
+  {
+    "index": "heavy-armor",
+    "name": "Тяжёлый доспех"
+  },
+  {
+    "index": "shields",
+    "name": "Щиты"
+  },
+  {
+    "index": "equipment-packs",
+    "name": "Наборы снаряжения"
+  },
+  {
+    "index": "artisans-tools",
+    "name": "Инструменты ремесленника"
+  },
+  {
+    "index": "gaming-sets",
+    "name": "Игровые наборы"
+  },
+  {
+    "index": "musical-instruments",
+    "name": "Музыкальные инструменты"
+  },
+  {
+    "index": "other-tools",
+    "name": "Прочие инструменты"
+  },
+  {
+    "index": "arcane-foci",
+    "name": "Магические фокусы"
+  },
+  {
+    "index": "druidic-foci",
+    "name": "Друидические фокусы"
+  },
+  {
+    "index": "holy-symbols",
+    "name": "Священные символы"
+  },
+  {
+    "index": "wondrous-items",
+    "name": "Чудесные предметы"
+  }
+]

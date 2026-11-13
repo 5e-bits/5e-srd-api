@@ -1,0 +1,469 @@
+[
+  {
+    "index": "club",
+    "name": "Дубинка"
+  },
+  {
+    "index": "dagger",
+    "name": "Кинжал"
+  },
+  {
+    "index": "greatclub",
+    "name": "Палица"
+  },
+  {
+    "index": "handaxe",
+    "name": "Одноручный топор"
+  },
+  {
+    "index": "javelin",
+    "name": "Метательное копьё"
+  },
+  {
+    "index": "mace",
+    "name": "Булава"
+  },
+  {
+    "index": "quarterstaff",
+    "name": "Боевой посох"
+  },
+  {
+    "index": "sickle",
+    "name": "Серп"
+  },
+  {
+    "index": "spear",
+    "name": "Копьё"
+  },
+  {
+    "index": "dart",
+    "name": "Дротик"
+  },
+  {
+    "index": "shortbow",
+    "name": "Короткий лук"
+  },
+  {
+    "index": "sling",
+    "name": "Праща"
+  },
+  {
+    "index": "battleaxe",
+    "name": "Боевой топор"
+  },
+  {
+    "index": "flail",
+    "name": "Цеп"
+  },
+  {
+    "index": "glaive",
+    "name": "Глефа"
+  },
+  {
+    "index": "greataxe",
+    "name": "Секира"
+  },
+  {
+    "index": "greatsword",
+    "name": "Двуручный меч"
+  },
+  {
+    "index": "halberd",
+    "name": "Алебарда"
+  },
+  {
+    "index": "lance",
+    "name": "Кавалерийское копьё"
+  },
+  {
+    "index": "longsword",
+    "name": "Длинный меч"
+  },
+  {
+    "index": "maul",
+    "name": "Молот"
+  },
+  {
+    "index": "morningstar",
+    "name": "Моргенштерн"
+  },
+  {
+    "index": "pike",
+    "name": "Пика"
+  },
+  {
+    "index": "rapier",
+    "name": "Рапира"
+  },
+  {
+    "index": "scimitar",
+    "name": "Скимитар"
+  },
+  {
+    "index": "shortsword",
+    "name": "Короткий меч"
+  },
+  {
+    "index": "trident",
+    "name": "Трезубец"
+  },
+  {
+    "index": "warhammer",
+    "name": "Боевой молот"
+  },
+  {
+    "index": "whip",
+    "name": "Кнут"
+  },
+  {
+    "index": "blowgun",
+    "name": "Духовая трубка"
+  },
+  {
+    "index": "longbow",
+    "name": "Длинный лук"
+  },
+  {
+    "index": "net",
+    "name": "Сеть"
+  },
+  {
+    "index": "padded-armor",
+    "name": "Стёганый доспех"
+  },
+  {
+    "index": "leather-armor",
+    "name": "Кожаный доспех"
+  },
+  {
+    "index": "studded-leather-armor",
+    "name": "Проклёпанный кожаный доспех"
+  },
+  {
+    "index": "hide-armor",
+    "name": "Шкурный доспех"
+  },
+  {
+    "index": "chain-shirt",
+    "name": "Кольчужная рубаха"
+  },
+  {
+    "index": "scale-mail",
+    "name": "Чешуйчатый доспех"
+  },
+  {
+    "index": "breastplate",
+    "name": "Кираса"
+  },
+  {
+    "index": "ring-mail",
+    "name": "Колечный доспех"
+  },
+  {
+    "index": "chain-mail",
+    "name": "Кольчужный доспех"
+  },
+  {
+    "index": "splint-armor",
+    "name": "Пластинчатый доспех"
+  },
+  {
+    "index": "plate-armor",
+    "name": "Латный доспех"
+  },
+  {
+    "index": "shield",
+    "name": "Щит"
+  },
+  {
+    "index": "amulet",
+    "name": "Амулет"
+  },
+  {
+    "index": "crystal",
+    "name": "Кристалл"
+  },
+  {
+    "index": "orb",
+    "name": "Сфера"
+  },
+  {
+    "index": "rod",
+    "name": "Деревянный посох"
+  },
+  {
+    "index": "staff",
+    "name": "Посох"
+  },
+  {
+    "index": "wand",
+    "name": "Волшебная палочка"
+  },
+  {
+    "index": "backpack",
+    "name": "Рюкзак"
+  },
+  {
+    "index": "barrel",
+    "name": "Бочка"
+  },
+  {
+    "index": "basket",
+    "name": "Корзина"
+  },
+  {
+    "index": "bedroll",
+    "name": "Спальник"
+  },
+  {
+    "index": "bell",
+    "name": "Колокольчик"
+  },
+  {
+    "index": "blanket",
+    "name": "Одеяло"
+  },
+  {
+    "index": "block-and-tackle",
+    "name": "Блок и лебёдка"
+  },
+  {
+    "index": "book",
+    "name": "Книга"
+  },
+  {
+    "index": "bucket",
+    "name": "Ведро"
+  },
+  {
+    "index": "caltrops",
+    "name": "Калтропы"
+  },
+  {
+    "index": "candle",
+    "name": "Свеча"
+  },
+  {
+    "index": "chest",
+    "name": "Сундук"
+  },
+  {
+    "index": "crowbar",
+    "name": "Ломик"
+  },
+  {
+    "index": "emblem",
+    "name": "Эмблема"
+  },
+  {
+    "index": "climbers-kit",
+    "name": "Комплект для лазания"
+  },
+  {
+    "index": "disguise-kit",
+    "name": "Набор для грима"
+  },
+  {
+    "index": "forgery-kit",
+    "name": "Набор для фальсификации"
+  },
+  {
+    "index": "herbalism-kit",
+    "name": "Набор травника"
+  },
+  {
+    "index": "healers-kit",
+    "name": "Комплект целителя"
+  },
+  {
+    "index": "poisoners-kit",
+    "name": "Инструменты отравителя"
+  },
+  {
+    "index": "lamp",
+    "name": "Лампа"
+  },
+  {
+    "index": "lock",
+    "name": "Замок"
+  },
+  {
+    "index": "manacles",
+    "name": "Кандалы"
+  },
+  {
+    "index": "pouch",
+    "name": "Кошель"
+  },
+  {
+    "index": "quiver",
+    "name": "Колчан"
+  },
+  {
+    "index": "reliquary",
+    "name": "Реликварий"
+  },
+  {
+    "index": "sack",
+    "name": "Мешок"
+  },
+  {
+    "index": "shovel",
+    "name": "Лопата"
+  },
+  {
+    "index": "spellbook",
+    "name": "Книга заклинаний",
+    "desc": [
+      "Необходимая волшебникам, книга заклинаний — это переплетённый в кожу том со 100 пустыми пергаментными страницами, пригодными для записи заклинаний."
+    ]
+  },
+  {
+    "index": "spyglass",
+    "name": "Подзорная труба"
+  },
+  {
+    "index": "tinderbox",
+    "name": "Трутница"
+  },
+  {
+    "index": "torch",
+    "name": "Факел"
+  },
+  {
+    "index": "vial",
+    "name": "Флакон"
+  },
+  {
+    "index": "waterskin",
+    "name": "Бурдюк"
+  },
+  {
+    "index": "burglars-pack",
+    "name": "Набор взломщика"
+  },
+  {
+    "index": "entertainers-pack",
+    "name": "Набор артиста"
+  },
+  {
+    "index": "explorers-pack",
+    "name": "Набор путешественника"
+  },
+  {
+    "index": "priests-pack",
+    "name": "Набор священника"
+  },
+  {
+    "index": "scholars-pack",
+    "name": "Набор учёного"
+  },
+  {
+    "index": "alchemists-supplies",
+    "name": "Инструменты алхимика"
+  },
+  {
+    "index": "brewers-supplies",
+    "name": "Инструменты пивовара"
+  },
+  {
+    "index": "calligraphers-supplies",
+    "name": "Инструменты каллиграфа"
+  },
+  {
+    "index": "carpenters-tools",
+    "name": "Инструменты плотника"
+  },
+  {
+    "index": "cobblers-tools",
+    "name": "Инструменты сапожника"
+  },
+  {
+    "index": "glassblowers-tools",
+    "name": "Инструменты стеклодува"
+  },
+  {
+    "index": "jewelers-tools",
+    "name": "Инструменты ювелира"
+  },
+  {
+    "index": "leatherworkers-tools",
+    "name": "Инструменты кожевника"
+  },
+  {
+    "index": "masons-tools",
+    "name": "Инструменты каменщика"
+  },
+  {
+    "index": "painters-supplies",
+    "name": "Инструменты художника"
+  },
+  {
+    "index": "potters-tools",
+    "name": "Инструменты гончара"
+  },
+  {
+    "index": "smiths-tools",
+    "name": "Инструменты кузнеца"
+  },
+  {
+    "index": "tinkers-tools",
+    "name": "Инструменты ремонтника"
+  },
+  {
+    "index": "weavers-tools",
+    "name": "Инструменты ткача"
+  },
+  {
+    "index": "woodcarvers-tools",
+    "name": "Инструменты резчика по дереву"
+  },
+  {
+    "index": "bagpipes",
+    "name": "Волынка"
+  },
+  {
+    "index": "drum",
+    "name": "Барабан"
+  },
+  {
+    "index": "dulcimer",
+    "name": "Дульцимер"
+  },
+  {
+    "index": "flute",
+    "name": "Флейта"
+  },
+  {
+    "index": "lute",
+    "name": "Лютня"
+  },
+  {
+    "index": "lyre",
+    "name": "Лира"
+  },
+  {
+    "index": "horn",
+    "name": "Рожок"
+  },
+  {
+    "index": "pan-flute",
+    "name": "Свирель"
+  },
+  {
+    "index": "shawm",
+    "name": "Шалмей"
+  },
+  {
+    "index": "viol",
+    "name": "Виола"
+  },
+  {
+    "index": "navigators-tools",
+    "name": "Инструменты навигатора"
+  },
+  {
+    "index": "thieves-tools",
+    "name": "Воровские инструменты"
+  }
+]
