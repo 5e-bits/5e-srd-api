@@ -30,7 +30,7 @@
       },
       {
         "index": "ball-bearings",
-        "name": "Ball bearings",
+        "name": "Ball Bearings",
         "url": "/api/2024/equipment/ball-bearings"
       },
       {
@@ -60,7 +60,7 @@
       },
       {
         "index": "block-and-tackle",
-        "name": "Block and tackle",
+        "name": "Block and Tackle",
         "url": "/api/2024/equipment/block-and-tackle"
       },
       {
@@ -162,6 +162,16 @@
         "index": "emblem",
         "name": "Emblem",
         "url": "/api/2024/equipment/emblem"
+      },
+      {
+        "index": "entertainers-pack",
+        "name": "Entertainer's Pack",
+        "url": "/api/2024/equipment/entertainers-pack"
+      },
+      {
+        "index": "explorers-pack",
+        "name": "Explorer's Pack",
+        "url": "/api/2024/equipment/explorers-pack"
       },
       {
         "index": "flask",
@@ -526,7 +536,7 @@
       },
       {
         "index": "half-plate-armor",
-        "name": "Half-Plate Armor",
+        "name": "Half Plate Armor",
         "url": "/api/2024/equipment/half-plate-armor"
       },
       {
@@ -719,6 +729,11 @@
         "index": "dungeoneer-pack",
         "name": "Dungeoneer's Pack",
         "url": "/api/2024/equipment/dungeoneer-pack"
+      },
+      {
+        "index": "entertainers-pack",
+        "name": "Entertainer's Pack",
+        "url": "/api/2024/equipment/entertainers-pack"
       },
       {
         "index": "priests-pack",
@@ -1103,7 +1118,7 @@
       },
       {
         "index": "half-plate-armor",
-        "name": "Half-Plate Armor",
+        "name": "Half Plate Armor",
         "url": "/api/2024/equipment/half-plate-armor"
       },
       {
