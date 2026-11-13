@@ -367,6 +367,12 @@
 				"level": 1
 			},
 			{
+				"index": "lineage-spell-druidcraft",
+				"url": "/api/2024/traits/lineage-spell-druidcraft",
+				"name": "Druidcraft",
+				"level": 1
+			},
+			{
 				"index": "lineage-spell-longstrider",
 				"url": "/api/2024/traits/lineage-spell-longstrider",
 				"name": "Longstrider",

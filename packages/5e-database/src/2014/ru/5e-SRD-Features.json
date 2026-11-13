@@ -1,0 +1,50 @@
+[
+  {
+    "index": "barbarian-unarmored-defense",
+    "name": "Защита без доспехов"
+  },
+  {
+    "index": "barbarian-extra-attack",
+    "name": "Дополнительная атака"
+  },
+  {
+    "index": "fighter-fighting-style",
+    "name": "Боевой стиль"
+  },
+  {
+    "index": "monk-unarmored-defense",
+    "name": "Защита без доспехов"
+  },
+  {
+    "index": "open-hand-technique",
+    "name": "Техника открытой ладони"
+  },
+  {
+    "index": "monk-extra-attack",
+    "name": "Дополнительная атака"
+  },
+  {
+    "index": "monk-evasion",
+    "name": "Уклонение"
+  },
+  {
+    "index": "paladin-fighting-style",
+    "name": "Боевой стиль"
+  },
+  {
+    "index": "paladin-extra-attack",
+    "name": "Дополнительная атака"
+  },
+  {
+    "index": "ranger-fighting-style",
+    "name": "Боевой стиль"
+  },
+  {
+    "index": "ranger-extra-attack",
+    "name": "Дополнительная атака"
+  },
+  {
+    "index": "rogue-evasion",
+    "name": "Уклонение"
+  }
+]

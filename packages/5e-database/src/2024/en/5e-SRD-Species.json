@@ -60,6 +60,11 @@
 		],
 		"traits": [
 			{
+				"index": "draconic-ancestry",
+				"url": "/api/2024/traits/draconic-ancestry",
+				"name": "Draconic Ancestry"
+			},
+			{
 				"index": "darkvision-60",
 				"url": "/api/2024/traits/darkvision-60",
 				"name": "Darkvision (60 ft.)"
