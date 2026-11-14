@@ -35,7 +35,7 @@
     "express-rate-limit": "^8.7.3",
     "graphql": "^16.14.1",
     "graphql-depth-limit": "^1.1.0",
-    "mongoose": "9.11.4",
+    "mongoose": "9.12.1",
     "morgan": "^1.12.1",
     "redis": "^6.3.1",
     "reflect-metadata": "^0.2.2",
