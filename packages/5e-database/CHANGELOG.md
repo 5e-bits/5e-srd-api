@@ -5,6 +5,27 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.10.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.9.1...5e-database-v7.10.0) (2026-11-14)
+
+
+### Features
+
+* **db:** add ru translations for 2024 monsters and magic items ([#1454](https://github.com/5e-bits/5e-srd-api/issues/1454)) ([49c4319](https://github.com/5e-bits/5e-srd-api/commit/49c43195d87f38d983051ff915eb1d9ef5eb7429))
+* **db:** add shared Russian translations for 2014 reference data ([#1469](https://github.com/5e-bits/5e-srd-api/issues/1469)) ([ef931ea](https://github.com/5e-bits/5e-srd-api/commit/ef931eadea72c9c5ee87ff4d6ee1cb73eb279138))
+
+
+### Bug Fixes
+
+* **deps:** bump redis from 6.3.0 to 6.3.1 ([#1435](https://github.com/5e-bits/5e-srd-api/issues/1435)) ([a4d1351](https://github.com/5e-bits/5e-srd-api/commit/a4d1351d8a2b468485b47adfa8a15f051b7d6f3b))
+* **features and druid:** Other small fixes ([#1467](https://github.com/5e-bits/5e-srd-api/issues/1467)) ([1a6f8bf](https://github.com/5e-bits/5e-srd-api/commit/1a6f8bfed1935ac76dd71a7590236825f324aa32))
+* **features:** Fixed a typo and a wrong description in Oath of Devotion Paladin ([#1463](https://github.com/5e-bits/5e-srd-api/issues/1463)) ([9b4205c](https://github.com/5e-bits/5e-srd-api/commit/9b4205c598f0d9ff2d4a2b3eb2c40219070fdd56))
+* Fix formatting and punctuation in Barbarian descriptions ([#1461](https://github.com/5e-bits/5e-srd-api/issues/1461)) ([79d9e4a](https://github.com/5e-bits/5e-srd-api/commit/79d9e4a4757b1a1261a3c6ed33515597ded50a91))
+* **items:** Various fix to magic items ([#1468](https://github.com/5e-bits/5e-srd-api/issues/1468)) ([87c8fdc](https://github.com/5e-bits/5e-srd-api/commit/87c8fdc7c19d2e8bac8eee38ebe346f1fdca2f9d))
+* Missing proficency for fighter and wrong text for some feats ([#1460](https://github.com/5e-bits/5e-srd-api/issues/1460)) ([66bdb61](https://github.com/5e-bits/5e-srd-api/commit/66bdb6120c4f821eeafe97259fb2db1f27de2a2e))
+* Remove some wrong proficiencies from Rogue ([#1462](https://github.com/5e-bits/5e-srd-api/issues/1462)) ([930e018](https://github.com/5e-bits/5e-srd-api/commit/930e018aafff6ecc4634a0bbd24d6aeb953aa9fa))
+* **warlock:** Wrong number of invocation on 2014 warlock ([#1466](https://github.com/5e-bits/5e-srd-api/issues/1466)) ([7a36b5c](https://github.com/5e-bits/5e-srd-api/commit/7a36b5c14508eec72b9acfc804a485fed403cff6))
+* **wizard:** Add missing proficency and fixed prepared spells ([#1465](https://github.com/5e-bits/5e-srd-api/issues/1465)) ([34a68f2](https://github.com/5e-bits/5e-srd-api/commit/34a68f27f93516085267d75a5d2d875315fdb316))
+
 ## [7.9.1](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.9.0...5e-database-v7.9.1) (2026-10-29)
 
 
