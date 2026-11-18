@@ -14,8 +14,10 @@ runs:
     - name: Validate PR title
       id: validate
       shell: bash
+      env:
+        TITLE: ${{ inputs.title }}
       run: |
-        title="${{ inputs.title }}"
+        title="$TITLE"
 
         # Define allowed types
         allowed_types="feat|fix|docs|style|refactor|perf|test|build|ci|chore|deps"
