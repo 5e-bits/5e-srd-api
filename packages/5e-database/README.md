@@ -36,6 +36,35 @@ You can load this data locally by running:
 MONGODB_URI=mongodb://localhost/5e-database pnpm run db:refresh
 ```
 
+## Translations
+
+English is the source of truth and lives in `src/{year}/en/`. Translations are community-driven and need nothing but a text editor and a fork — no database access.
+
+To add one, create `src/{year}/{lang}/5e-SRD-{Collection}.json`, where `{lang}` is a [BCP 47](https://www.rfc-editor.org/rfc/rfc5646) language tag (e.g. `de`, `fr-FR`, `pt-BR`):
+
+```
+src/2014/de/5e-SRD-Spells.json
+src/2024/pt-BR/5e-SRD-Conditions.json
+```
+
+Each file is a JSON array. Every entry needs its `index` (identical to the English entry) plus **only the text fields you are translating**:
+
+```json
+[
+  {
+    "index": "acid-arrow",
+    "name": "Säurepfeil",
+    "desc": ["Ein glitzernder grüner Pfeil schießt auf ein Ziel..."]
+  }
+]
+```
+
+Don't translate or include `url`, numeric values, or API reference objects. Partial translations are fine: the API falls back to English per field for anything you leave out.
+
+Run `pnpm test` before opening a PR. It fails if a translation references an `index` or field that isn't in the English source, repeats an `index`, or produces an invalid document once merged with the English entry. CI runs the same checks.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md#contributing-translations) for the full guide.
+
 ## API Issues
 
 If you see anything wrong with the API and not the data, please open an issue or PR over [here](https://github.com/5e-bits/5e-srd-api).
