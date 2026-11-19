@@ -7,12 +7,12 @@ import { AreaOfEffect } from '@/models/common/areaOfEffect'
 import { field, T } from '@/util/field'
 import { srdModelOptions } from '@/util/modelOptions'
 
+import { Choice } from '../common/choice'
 import { AbilityScore } from './abilityScore'
 import { DamageType } from './damageType'
 import { Proficiency } from './proficiency'
 import { Race } from './race'
 import { Subrace } from './subrace'
-import { Choice } from '../common/choice'
 
 @ObjectType({ description: 'Damage details for an action' })
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
