@@ -28,7 +28,7 @@
       }
     ],
     "cost": {
-      "quantity": 25,
+      "quantity": 50,
       "unit": "gp"
     },
     "weight": 1,
@@ -157,7 +157,7 @@
       "quantity": 50,
       "unit": "gp"
     },
-    "weight": 1,
+    "weight": 0,
     "description": "As a Bonus Action, you can drink a vial of Antitoxin to gain Advantage on saving throws to avoid or end the Poisoned condition for 1 hour.",
     "url": "/api/2024/equipment/antitoxin"
   },
@@ -257,7 +257,7 @@
   },
   {
     "index": "ball-bearings",
-    "name": "Ball bearings",
+    "name": "Ball Bearings",
     "equipment_categories": [
       {
         "index": "adventuring-gear",
@@ -303,8 +303,8 @@
       }
     ],
     "cost": {
-      "quantity": 2,
-      "unit": "gp"
+      "quantity": 4,
+      "unit": "sp"
     },
     "weight": 2,
     "description": "A Basket holds up to 40 pounds within 2 cubic feet.",
@@ -384,10 +384,10 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 1,
       "unit": "gp"
     },
-    "weight": 25,
+    "weight": 7,
     "description": "A Bedroll sleeps one Small or Medium creature. While in a Bedroll, you automatically succeed on saving throws against extreme cold (see “Gameplay Toolbox”).",
     "url": "/api/2024/equipment/bedroll"
   },
@@ -405,7 +405,7 @@
       "quantity": 1,
       "unit": "gp"
     },
-    "weight": 1,
+    "weight": 0,
     "description": "When rung as a Utilize action, a Bell produces a sound that can be heard up to 60 feet away.",
     "url": "/api/2024/equipment/bell"
   },
@@ -421,7 +421,7 @@
     ],
     "cost": {
       "quantity": 5,
-      "unit": "gp"
+      "unit": "sp"
     },
     "weight": 3,
     "description": "While wrapped in a blanket, you have Advantage on saving throws against extreme cold (see “Gameplay Toolbox”).",
@@ -429,7 +429,7 @@
   },
   {
     "index": "block-and-tackle",
-    "name": "Block and tackle",
+    "name": "Block and Tackle",
     "equipment_categories": [
       {
         "index": "adventuring-gear",
@@ -756,7 +756,7 @@
       {
         "item": {
           "index": "ball-bearings",
-          "name": "Ball bearings",
+          "name": "Ball Bearings",
           "url": "/api/2024/equipment/ball-bearings"
         },
         "quantity": 1
@@ -792,14 +792,6 @@
           "url": "/api/2024/equipment/lantern-hooded"
         },
         "quantity": 1
-      },
-      {
-        "item": {
-          "index": "flask",
-          "name": "Flask",
-          "url": "/api/2024/equipment/flask"
-        },
-        "quantity": 7
       },
       {
         "item": {
@@ -843,7 +835,7 @@
       }
     ],
     "description": "A Burglar's Pack contains the following items: Backpack, Ball Bearings, Bell, 10 Candles, Crowbar, Hooded Lantern, 7 flasks of Oil, 5 days of Rations, Rope, Tinderbox, and Waterskin.",
-    "weight": 20,
+    "weight": 42,
     "url": "/api/2024/equipment/burglars-pack"
   },
   {
@@ -915,7 +907,7 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 1,
       "unit": "gp"
     },
     "weight": 2,
@@ -1126,7 +1118,7 @@
       "quantity": 5,
       "unit": "gp"
     },
-    "weight": 6,
+    "weight": 10,
     "description": "As a Utilize action, you can wrap a Chain around an unwilling creature within 5 feet of yourself that has the Grappled, Incapacitated, or Restrained condition if you succeed on a DC 13 Strength (Athletics) check. If the creature's legs are bound, the creature has the Restrained condition until it escapes. Escaping the Chain requires the creature to make a successful DC 18 Dexterity (Acrobatics) check as an action. Bursting the Chain requires a successful DC 20 Strength (Athletics) check as an action.",
     "url": "/api/2024/equipment/chain"
   },
@@ -1189,7 +1181,7 @@
     "doff_time": "1 minute",
     "stealth_disadvantage": false,
     "str_minimum": 0,
-    "weight": 14,
+    "weight": 20,
     "url": "/api/2024/equipment/chain-shirt"
   },
   {
@@ -1203,10 +1195,10 @@
       }
     ],
     "cost": {
-      "quantity": 50,
+      "quantity": 5,
       "unit": "gp"
     },
-    "weight": 20,
+    "weight": 25,
     "description": "A Chest holds up to 12 cubic feet of contents.",
     "url": "/api/2024/equipment/chest"
   },
@@ -1224,7 +1216,7 @@
       "quantity": 25,
       "unit": "gp"
     },
-    "weight": 8,
+    "weight": 12,
     "description": "A Climber's Kit includes boot tips, gloves, pitons, and a harness. As a Utilize action, you can use the Climber's Kit to anchor yourself; when you do, you can't fall more than 25 feet from the anchor point, and you can't move more than 25 feet from there without undoing the anchor as a Bonus Action.",
     "url": "/api/2024/equipment/climbers-kit"
   },
@@ -1242,7 +1234,7 @@
       "quantity": 15,
       "unit": "gp"
     },
-    "weight": 3,
+    "weight": 6,
     "description": "Fine Clothes are made of expensive fabrics and adorned with expertly crafted details. Some events and locations admit only people wearing these clothes.",
     "url": "/api/2024/equipment/clothes-fine"
   },
@@ -1257,7 +1249,7 @@
       }
     ],
     "cost": {
-      "quantity": 5,
+      "quantity": 2,
       "unit": "gp"
     },
     "weight": 4,
@@ -1378,11 +1370,11 @@
       }
     ],
     "cost": {
-      "quantity": 2,
+      "quantity": 25,
       "unit": "gp"
     },
     "description": "A Component Pouch is watertight and filled with compartments that hold all the free Material components of your spells.",
-    "weight": 1,
+    "weight": 2,
     "url": "/api/2024/equipment/component-pouch"
   },
   {
@@ -1599,7 +1591,7 @@
     ],
     "cost": {
       "quantity": 5,
-      "unit": "gp"
+      "unit": "cp"
     },
     "damage": {
       "damage_dice": "1d4",
@@ -1760,14 +1752,6 @@
       },
       {
         "item": {
-          "index": "flask",
-          "name": "Flask",
-          "url": "/api/2024/equipment/flask"
-        },
-        "quantity": 4
-      },
-      {
-        "item": {
           "index": "oil",
           "name": "Oil",
           "url": "/api/2024/equipment/oil"
@@ -1808,7 +1792,7 @@
       }
     ],
     "description": "A Diplomat's Pack contains the following items: Chest, Fine Clothes, Ink, 5 Ink Pens, Lamp, 2 Map or Scroll Cases, 4 flasks of Oil, 5 sheets of Paper, 5 sheets of Parchment, Perfume, and Tinderbox.",
-    "weight": 20,
+    "weight": 39,
     "url": "/api/2024/equipment/diplomat-pack"
   },
   {
@@ -2052,7 +2036,7 @@
           "name": "Caltrops",
           "url": "/api/2024/equipment/caltrops"
         },
-        "quantity": 10
+        "quantity": 1
       },
       {
         "item": {
@@ -2061,14 +2045,6 @@
           "url": "/api/2024/equipment/crowbar"
         },
         "quantity": 1
-      },
-      {
-        "item": {
-          "index": "flask",
-          "name": "Flask",
-          "url": "/api/2024/equipment/flask"
-        },
-        "quantity": 2
       },
       {
         "item": {
@@ -2147,79 +2123,110 @@
     "url": "/api/2024/equipment/emblem"
   },
   {
-    "index": "entertainers-pack",
-    "name": "Entertainer's Pack",
-    "equipment_categories": [
-      {
-      "index": "adventuring-gear",
-      "name": "Adventuring Gear",
-      "url": "/api/2024/equipment-categories/adventuring-gear"
-    }
-    ],
-    "cost": {
-      "quantity": 40,
-      "unit": "gp"
-    },
-    "contents": [
-      {
-        "item": {
-          "index": "backpack",
-          "name": "Backpack",
-          "url": "/api/2024/equipment/backpack"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "bedroll",
-          "name": "Bedroll",
-          "url": "/api/2024/equipment/bedroll"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "costume",
-          "name": "Costume",
-          "url": "/api/2024/equipment/costume"
-        },
-        "quantity": 2
-      },
-      {
-        "item": {
-          "index": "candle",
-          "name": "Candle",
-          "url": "/api/2024/equipment/candle"
-        },
-        "quantity": 5
-      },
-      {
-        "item": {
-          "index": "rations",
-          "name": "Rations",
-          "url": "/api/2024/equipment/rations"
-        },
-        "quantity": 5
-      },
-      {
-        "item": {
-          "index": "waterskin",
-          "name": "Waterskin",
-          "url": "/api/2024/equipment/waterskin"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "disguise-kit",
-          "name": "Disguise Kit",
-          "url": "/api/2024/equipment/disguise-kit"
-        },
-        "quantity": 1
-      }
-    ],
-    "url": "/api/2024/equipment/entertainers-pack"
-  },
+	  "index": "entertainers-pack",
+	  "name": "Entertainer's Pack",
+	  "equipment_categories": [
+		{
+		  "index": "adventuring-gear",
+		  "name": "Adventuring Gear",
+		  "url": "/api/2024/equipment-categories/adventuring-gear"
+		},
+		{
+		  "index": "equipment-packs",
+		  "name": "Equipment Packs",
+		  "url": "/api/2024/equipment-categories/equipment-packs"
+		}
+	  ],
+	  "cost": {
+		"quantity": 40,
+		"unit": "gp"
+	  },
+	  "contents": [
+		{
+		  "item": {
+			"index": "backpack",
+			"name": "Backpack",
+			"url": "/api/2024/equipment/backpack"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "bedroll",
+			"name": "Bedroll",
+			"url": "/api/2024/equipment/bedroll"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "bell",
+			"name": "Bell",
+			"url": "/api/2024/equipment/bell"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "lantern-bullseye",
+			"name": "Lantern, Bullseye",
+			"url": "/api/2024/equipment/lantern-bullseye"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "costume",
+			"name": "Costume",
+			"url": "/api/2024/equipment/costume"
+		  },
+		  "quantity": 3
+		},
+		{
+		  "item": {
+			"index": "mirror",
+			"name": "Mirror",
+			"url": "/api/2024/equipment/mirror"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "oil",
+			"name": "Oil",
+			"url": "/api/2024/equipment/oil"
+		  },
+		  "quantity": 8
+		},
+		{
+		  "item": {
+			"index": "rations",
+			"name": "Rations",
+			"url": "/api/2024/equipment/rations"
+		  },
+		  "quantity": 9
+		},
+		{
+		  "item": {
+			"index": "tinderbox",
+			"name": "Tinderbox",
+			"url": "/api/2024/equipment/tinderbox"
+		  },
+		  "quantity": 1
+		},
+		{
+		  "item": {
+			"index": "waterskin",
+			"name": "Waterskin",
+			"url": "/api/2024/equipment/waterskin"
+		  },
+		  "quantity": 1
+		}
+	  ],
+	  "description": "An Entertainer’s Pack contains the following items: Backpack, Bedroll, Bell, Bullseye Lantern, 3 Costumes, Mirror, 8 flasks of Oil, 9 days of Rations, Tinderbox, and Waterskin.",
+	  "weight": 58.5,
+	  "url": "/api/2024/equipment/entertainers-pack"
+	},
   {
     "index": "explorers-pack",
     "name": "Explorer's Pack",
@@ -2228,6 +2235,11 @@
         "index": "adventuring-gear",
         "name": "Adventuring Gear",
         "url": "/api/2024/equipment-categories/adventuring-gear"
+      },
+      {
+        "index": "equipment-packs",
+        "name": "Equipment Packs",
+        "url": "/api/2024/equipment-categories/equipment-packs"
       }
     ],
     "contents": [
@@ -2851,7 +2863,7 @@
   },
   {
     "index": "half-plate-armor",
-    "name": "Half-Plate Armor",
+    "name": "Half Plate Armor",
     "equipment_categories": [
       {
         "index": "armor",
@@ -2906,7 +2918,7 @@
       }
     ],
     "cost": {
-      "quantity": 25,
+      "quantity": 75,
       "unit": "gp"
     },
     "damage": {
@@ -2921,7 +2933,7 @@
       "normal": 30,
       "long": 120
     },
-    "weight": 2,
+    "weight": 3,
     "properties": [
       {
         "index": "ammunition",
@@ -3356,7 +3368,7 @@
     ],
     "cost": {
       "quantity": 5,
-      "unit": "gp"
+      "unit": "sp"
     },
     "damage": {
       "damage_dice": "1d6",
@@ -3526,7 +3538,7 @@
       "quantity": 5,
       "unit": "sp"
     },
-    "description": "A Lamp burns Oil as fuel to cast Bright Light in a 15- foot radius and Dim Light for an additional 30 feet",
+    "description": "A Lamp burns Oil as fuel to cast Bright Light in a 15-foot radius and Dim Light for an additional 30 feet",
     "weight": 1,
     "url": "/api/2024/equipment/lamp"
   },
@@ -3946,7 +3958,7 @@
       }
     ],
     "cost": {
-      "quantity": 5,
+      "quantity": 50,
       "unit": "gp"
     },
     "damage": {
@@ -4200,7 +4212,7 @@
     "range": {
       "normal": 5
     },
-    "weight": 2,
+    "weight": 4,
     "properties": [],
     "mastery": {
       "index": "sap",
@@ -4272,7 +4284,7 @@
     "craft": [
       {
         "index": "block-and-tackle",
-        "name": "Block and tackle",
+        "name": "Block and Tackle",
         "url": "/api/2024/equipment/block-and-tackle"
       }
     ],
@@ -4425,6 +4437,9 @@
         "name": "Piercing",
         "url": "/api/2024/damage-types/piercing"
       }
+    },
+    "range": {
+      "normal": 5
     },
     "weight": 4,
     "properties": [],
@@ -4830,8 +4845,8 @@
       }
     ],
     "cost": {
-      "quantity": 3,
-      "unit": "gp"
+      "quantity": 1,
+      "unit": "sp"
     },
     "description": "One sheet of Parchment can hold about 250 handwritten words.",
     "weight": 0,
@@ -4895,7 +4910,7 @@
     "range": {
       "normal": 5
     },
-    "weight": 6,
+    "weight": 18,
     "properties": [
       {
         "index": "heavy",
@@ -5007,7 +5022,7 @@
       "url": "/api/2024/ability-scores/int"
     },
     "cost": {
-      "quantity": 5,
+      "quantity": 50,
       "unit": "gp"
     },
     "craft": [
@@ -5593,7 +5608,7 @@
       "unit": "gp"
     },
     "description": "A Robe has vocational or ceremonial significance. Some events and locations admit only people wearing a Robe bearing certain colors or symbols.",
-    "weight": 1,
+    "weight": 4,
     "url": "/api/2024/equipment/robe"
   },
   {
@@ -5651,7 +5666,7 @@
       "unit": "cp"
     },
     "description": "A Sack holds up to 30 pounds within 1 cubic foot.",
-    "weight": 1,
+    "weight": 0.5,
     "url": "/api/2024/equipment/sack"
   },
   {
@@ -5706,14 +5721,6 @@
           "index": "backpack",
           "name": "Backpack",
           "url": "/api/2024/equipment/backpack"
-        },
-        "quantity": 1
-      },
-      {
-        "item": {
-          "index": "blanket",
-          "name": "Blanket",
-          "url": "/api/2024/equipment/blanket"
         },
         "quantity": 1
       },
@@ -5778,7 +5785,7 @@
       "quantity": 40,
       "unit": "gp"
     },
-    "description": "A Scholar's Pack contains the following items: Backpack, Blanket, Book, Ink, Ink Pen, Lamp, 10 flasks of Oil, 10 sheets of Parchment, and Tinderbox.",
+    "description": "A Scholar's Pack contains the following items: Backpack, Book, Ink, Ink Pen, Lamp, 10 flasks of Oil, 10 sheets of Parchment, and Tinderbox.",
     "weight": 22,
     "url": "/api/2024/equipment/scholars-pack"
   },
@@ -6177,9 +6184,9 @@
     "damage": {
       "damage_dice": "1d4",
       "damage_type": {
-        "index": "piercing",
-        "name": "Piercing",
-        "url": "/api/2024/damage-types/piercing"
+        "index": "bludgeoning",
+        "name": "Bludgeoning",
+        "url": "/api/2024/damage-types/bludgeoning"
       }
     },
     "range": {
@@ -6333,7 +6340,7 @@
       },
       {
         "index": "half-plate-armor",
-        "name": "Half-Plate Armor",
+        "name": "Half Plate Armor",
         "url": "/api/2024/equipment/half-plate-armor"
       },
       {
@@ -6363,7 +6370,7 @@
       },
       {
         "index": "ball-bearings",
-        "name": "Ball bearings",
+        "name": "Ball Bearings",
         "url": "/api/2024/equipment/ball-bearings"
       },
       {
@@ -6455,7 +6462,7 @@
       }
     ],
     "cost": {
-      "quantity": 5,
+      "quantity": 1,
       "unit": "gp"
     },
     "damage": {
@@ -6469,7 +6476,7 @@
     "range": {
       "normal": 5
     },
-    "weight": 2,
+    "weight": 3,
     "properties": [
       {
         "index": "thrown",
@@ -6570,7 +6577,7 @@
       "unit": "gp"
     },
     "description": "Iron Spikes come in bundles of ten. As a Utilize action, you can use a blunt object, such as a Light Hammer, to hammer a spike into wood, earth, or a similar material. You can do so to jam a door shut or to then tie a Rope or Chain to the Spike.",
-    "weight": 2,
+    "weight": 5,
     "url": "/api/2024/equipment/spikes-iron"
   },
   {
@@ -7017,7 +7024,7 @@
       "unit": "gp"
     },
     "damage": {
-      "damage_dice": "1d6",
+      "damage_dice": "1d8",
       "damage_type": {
         "index": "piercing",
         "name": "Piercing",
@@ -7050,7 +7057,7 @@
       "long": 60
     },
     "two_handed_damage": {
-      "damage_dice": "1d8",
+      "damage_dice": "1d10",
       "damage_type": {
         "index": "piercing",
         "name": "Piercing",
@@ -7127,7 +7134,7 @@
         }
       }
     ],
-    "weight": 2,
+    "weight": 1,
     "url": "/api/2024/equipment/viol"
   },
   {
