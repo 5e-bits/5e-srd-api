@@ -164,6 +164,16 @@
         "url": "/api/2024/equipment/emblem"
       },
       {
+        "index": "entertainers-pack",
+        "name": "Entertainer's Pack",
+        "url": "/api/2024/equipment/entertainers-pack"
+      },
+      {
+        "index": "explorers-pack",
+        "name": "Explorer's Pack",
+        "url": "/api/2024/equipment/explorers-pack"
+      },
+      {
         "index": "flask",
         "name": "Flask",
         "url": "/api/2024/equipment/flask"
@@ -719,6 +729,11 @@
         "index": "dungeoneer-pack",
         "name": "Dungeoneer's Pack",
         "url": "/api/2024/equipment/dungeoneer-pack"
+      },
+      {
+        "index": "entertainers-pack",
+        "name": "Entertainer's Pack",
+        "url": "/api/2024/equipment/entertainers-pack"
       },
       {
         "index": "priests-pack",
