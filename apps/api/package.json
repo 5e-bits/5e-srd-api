@@ -25,7 +25,7 @@
     "test:integration:local": "docker compose up --build --wait db cache && pnpm run test:integration"
   },
   "dependencies": {
-    "@apollo/server": "^5.5.1",
+    "@apollo/server": "^5.5.2",
     "@as-integrations/express5": "^1.1.2",
     "@sentry/node": "^11.14.0",
     "@typegoose/typegoose": "^13.5.0",
