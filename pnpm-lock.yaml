@@ -418,8 +418,8 @@ importers:
         specifier: ^31.0.0
         version: 31.0.0(@noble/hashes@1.8.0)
       mongodb:
-        specifier: ^7.8.0
-        version: 7.8.0
+        specifier: ^7.9.0
+        version: 7.9.0
       redis:
         specifier: ^6.3.1
         version: 6.3.1(@opentelemetry/api@1.9.1)
@@ -6737,6 +6737,33 @@ packages:
       socks:
         optional: true
 
+  mongodb@7.9.0:
+    resolution: {integrity: sha512-HfpNb8qmfmNxno+Ml5JgHn/nyshK+8xF4ESLCXedRKuGLGRyAvkjcpjk19T2Q+rqC6/FlnZKll4if21R6xs/Tg==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@aws-sdk/credential-providers': ^3.806.0
+      '@mongodb-js/zstd': ^7.0.0
+      gcp-metadata: ^7.0.1
+      kerberos: ^7.0.0
+      mongodb-client-encryption: ^7.2.0
+      snappy: ^7.3.2
+      socks: ^2.8.6
+    peerDependenciesMeta:
+      '@aws-sdk/credential-providers':
+        optional: true
+      '@mongodb-js/zstd':
+        optional: true
+      gcp-metadata:
+        optional: true
+      kerberos:
+        optional: true
+      mongodb-client-encryption:
+        optional: true
+      snappy:
+        optional: true
+      socks:
+        optional: true
+
   mongoose@9.12.2:
     resolution: {integrity: sha512-SoWBAJGaC7UJ8SCmsVd34kDmiq/lvyeENVTHTjR1ez+vyfY/cu/K5/uCgIoXA6pYV5yMAHM72sWVe6XuYYEqeA==}
     engines: {node: '>=20.19.0'}
@@ -12858,7 +12885,7 @@ snapshots:
 
   '@types/mongodb@4.0.7':
     dependencies:
-      mongodb: 7.8.0
+      mongodb: 7.9.0
     transitivePeerDependencies:
       - '@aws-sdk/credential-providers'
       - '@mongodb-js/zstd'
@@ -17242,6 +17269,12 @@ snapshots:
       mongodb-connection-string-url: 7.0.2
 
   mongodb@7.8.0:
+    dependencies:
+      '@mongodb-js/saslprep': 1.5.4
+      bson: 7.3.3
+      mongodb-connection-string-url: 7.0.2
+
+  mongodb@7.9.0:
     dependencies:
       '@mongodb-js/saslprep': 1.5.4
       bson: 7.3.3
