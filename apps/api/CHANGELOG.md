@@ -5,6 +5,15 @@
 
 * **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
 
+## [7.3.7](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.6...5e-srd-api-v7.3.7) (2026-11-21)
+
+
+### Bug Fixes
+
+* **deps:** bump @apollo/server from 5.5.1 to 5.5.2 ([#1489](https://github.com/5e-bits/5e-srd-api/issues/1489)) ([c8a35b8](https://github.com/5e-bits/5e-srd-api/commit/c8a35b8b1cbd0ebab413e3ef6e94f4cce6c6680d))
+* **deps:** bump @sentry/node from 11.12.0 to 11.14.0 in the sentry group ([#1488](https://github.com/5e-bits/5e-srd-api/issues/1488)) ([b6106a8](https://github.com/5e-bits/5e-srd-api/commit/b6106a85459fcefdca8f6e67423667c82fb38200))
+* **deps:** bump mongoose from 9.12.1 to 9.12.2 ([#1491](https://github.com/5e-bits/5e-srd-api/issues/1491)) ([78b710b](https://github.com/5e-bits/5e-srd-api/commit/78b710b8e1af1129109171cc3ce5dbd435be9010))
+
 ## [7.3.6](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.5...5e-srd-api-v7.3.6) (2026-11-18)
 
 
