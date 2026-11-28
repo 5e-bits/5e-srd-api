@@ -33,7 +33,7 @@ export const apiReferenceFactory = Factory.define<APIReference>(({ sequence, par
 // --- AreaOfEffect ---
 export const areaOfEffectFactory = Factory.define<AreaOfEffect>(() => ({
   size: faker.number.int({ min: 5, max: 30 }),
-  type: faker.helpers.arrayElement(['sphere', 'cube', 'cylinder', 'line', 'cone'])
+  type: faker.helpers.arrayElement(['sphere', 'cube', 'cylinder', 'line', 'cone', 'emanation'])
 }))
 
 // --- DifficultyClass ---

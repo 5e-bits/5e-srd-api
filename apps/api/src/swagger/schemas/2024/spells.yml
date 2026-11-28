@@ -5,7 +5,7 @@ area-of-effect-model-2024:
       type: integer
     type:
       type: string
-      enum: [sphere, cube, cylinder, line, cone]
+      enum: [sphere, cube, cylinder, line, cone, emanation]
 
 spell-damage-model-2024:
   type: object
