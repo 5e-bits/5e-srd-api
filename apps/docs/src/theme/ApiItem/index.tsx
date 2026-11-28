@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import React from "react";
 import ApiItem from "@theme-original/ApiItem";
 import AiContextMenuOverlay from "@site/src/components/AiContextMenuOverlay";
