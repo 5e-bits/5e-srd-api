@@ -18,7 +18,7 @@ export const SpellsSchema = z.strictObject({
   name: z.string(),
   description: z.string(),
   higher_level: z.string().optional(),
-  range: z.string(),
+  range: z.string().max(9),
   components: z.array(z.string()),
   material: z.string().optional(),
   ritual: z.boolean(),
