@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import React from "react";
 import Layout from "@theme-original/DocItem/Layout";
 import type LayoutType from "@theme/DocItem/Layout";
