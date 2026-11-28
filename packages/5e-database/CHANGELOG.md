@@ -5,6 +5,14 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.10.2](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.10.1...5e-database-v7.10.2) (2026-11-28)
+
+
+### Bug Fixes
+
+* **deps:** bump redis from 6.3.1 to 6.4.0 ([#1518](https://github.com/5e-bits/5e-srd-api/issues/1518)) ([529ac72](https://github.com/5e-bits/5e-srd-api/commit/529ac729fbe911d9c1c3df11a810a40a3b24c21d))
+* **deps:** update dependencies within existing ranges ([#1527](https://github.com/5e-bits/5e-srd-api/issues/1527)) ([950f7db](https://github.com/5e-bits/5e-srd-api/commit/950f7db3125aea0f63923103c35c9494aca63097))
+
 ## [7.10.1](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.10.0...5e-database-v7.10.1) (2026-11-28)
 
 

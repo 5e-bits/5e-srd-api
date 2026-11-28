@@ -5,6 +5,17 @@
 
 * **api:** set up Sentry releases ([#1337](https://github.com/5e-bits/5e-srd-api/issues/1337)) ([0d07384](https://github.com/5e-bits/5e-srd-api/commit/0d073848f9378bc711c412e87184377ab864c141))
 
+## [7.3.9](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.8...5e-srd-api-v7.3.9) (2026-11-28)
+
+
+### Bug Fixes
+
+* **deps:** bump @sentry/node from 11.14.0 to 11.17.0 in the sentry group ([#1509](https://github.com/5e-bits/5e-srd-api/issues/1509)) ([9650084](https://github.com/5e-bits/5e-srd-api/commit/96500841e903edf194ebeab14ee6fb4c712d3d79))
+* **deps:** bump express-rate-limit from 8.7.4 to 8.7.5 ([#1519](https://github.com/5e-bits/5e-srd-api/issues/1519)) ([ba32a1b](https://github.com/5e-bits/5e-srd-api/commit/ba32a1ba2acfeba97e7d635f0c1342e07ac1a055))
+* **deps:** bump mongoose from 9.12.2 to 9.13.1 ([#1517](https://github.com/5e-bits/5e-srd-api/issues/1517)) ([9188915](https://github.com/5e-bits/5e-srd-api/commit/918891528aa46dc5b82dd5487dd0d57884852b78))
+* **deps:** bump redis from 6.3.1 to 6.4.0 ([#1518](https://github.com/5e-bits/5e-srd-api/issues/1518)) ([529ac72](https://github.com/5e-bits/5e-srd-api/commit/529ac729fbe911d9c1c3df11a810a40a3b24c21d))
+* **deps:** update dependencies within existing ranges ([#1527](https://github.com/5e-bits/5e-srd-api/issues/1527)) ([950f7db](https://github.com/5e-bits/5e-srd-api/commit/950f7db3125aea0f63923103c35c9494aca63097))
+
 ## [7.3.8](https://github.com/5e-bits/5e-srd-api/compare/5e-srd-api-v7.3.7...5e-srd-api-v7.3.8) (2026-11-28)
 
 
