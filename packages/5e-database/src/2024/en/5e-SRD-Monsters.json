@@ -18721,7 +18721,7 @@
         "armor": [
           {
             "index": "half-plate-armor",
-            "name": "Half-Plate Armor",
+            "name": "Half Plate Armor",
             "url": "/api/2024/equipment/half-plate-armor"
           },
           {
@@ -18820,7 +18820,7 @@
         "armor": [
           {
             "index": "half-plate-armor",
-            "name": "Half-Plate Armor",
+            "name": "Half Plate Armor",
             "url": "/api/2024/equipment/half-plate-armor"
           }
         ]
