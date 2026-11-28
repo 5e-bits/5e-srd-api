@@ -36,6 +36,11 @@ jobs:
     name: API Release
     needs: [route]
     if: needs.route.outputs.deploy-type == 'api'
+    # A called workflow's jobs can't exceed what the caller grants, and the
+    # repo's default GITHUB_TOKEN is read-only.
+    permissions:
+      contents: write
+      packages: write
     uses: ./.github/workflows/api-release.yml
     with:
       tag: ${{ needs.route.outputs.tag }}
@@ -45,6 +50,9 @@ jobs:
     name: Database Release
     needs: [route]
     if: needs.route.outputs.deploy-type == 'database'
+    permissions:
+      contents: read
+      packages: write
     uses: ./.github/workflows/database-release.yml
     with:
       tag: ${{ needs.route.outputs.tag }}
