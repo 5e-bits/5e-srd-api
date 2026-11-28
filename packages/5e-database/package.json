@@ -40,7 +40,7 @@
     "glob": "^14.0.6",
     "globals": "^17.14.0",
     "jsdom": "^31.0.1",
-    "mongodb": "^7.9.0",
+    "mongodb": "^7.9.1",
     "redis": "^6.4.0",
     "typescript": "^6.0.3",
     "vitest": "^5.1.1",
