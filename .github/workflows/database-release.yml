@@ -87,7 +87,8 @@ jobs:
 
   redeploy-api:
     name: Redeploy API
-    runs-on: ubuntu-latest
+    # Pinned for the same reason as heroku-deploy in api-release.yml.
+    runs-on: ubuntu-24.04
     # Only depends on db-update, not container-release: it redeploys
     # apps/api's own already-published image, unrelated to the
     # packages/5e-database image container-release builds, so the two run

@@ -131,7 +131,9 @@ jobs:
 
   heroku-deploy:
     name: Deploy to Heroku
-    runs-on: ubuntu-latest
+    # Pinned: pushing to Heroku fails with "error from registry: unsupported"
+    # on ubuntu-26.04, likely due to Docker 29's containerd image store.
+    runs-on: ubuntu-24.04
     needs: [resolve-tag, build-and-publish, container-release]
     permissions:
       contents: read
