@@ -1,5 +1,5 @@
 name: 'Deploy an existing image to Heroku'
-description: 'Pulls an already-published ghcr.io image and releases it on Heroku. Does not build anything.'
+description: 'Copies an already-published ghcr.io image to Heroku and releases it. Does not build anything.'
 inputs:
   image:
     description: 'Full ghcr.io image reference to deploy, e.g. ghcr.io/5e-bits/5e-srd-api:v5.12.0'
@@ -27,13 +27,18 @@ runs:
         REGISTRY_USERNAME: ${{ inputs.registry-username }}
         REGISTRY_PASSWORD: ${{ inputs.registry-password }}
         HEROKU_API_KEY: ${{ inputs.heroku-api-key }}
-    - name: Push release image to Heroku
+    # Heroku's registry takes only a single-platform Docker schema 2 manifest,
+    # while the published image is an OCI index with attestations. skopeo
+    # converts it explicitly, because what `docker push` sends depends on the
+    # runner's Docker version and image store. It reads the logins made above.
+    - name: Copy release image to Heroku
       shell: bash
       run: |
-        DEST=registry.heroku.com/${{ inputs.heroku-app }}/${{ inputs.heroku-process-type }}
-        docker pull "${{ inputs.image }}"
-        docker tag "${{ inputs.image }}" "$DEST"
-        docker push "$DEST"
+        skopeo copy \
+          --override-os linux --override-arch amd64 \
+          --format v2s2 \
+          "docker://${{ inputs.image }}" \
+          "docker://registry.heroku.com/${{ inputs.heroku-app }}/${{ inputs.heroku-process-type }}"
     - name: Install Heroku CLI
       shell: bash
       run: curl https://cli-assets.heroku.com/install.sh | sh
