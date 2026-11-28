@@ -31,7 +31,7 @@
     "@types/mongodb": "^4.0.7",
     "@types/node": "^26.6.7",
     "@typescript-eslint/parser": "^8.74.0",
-    "@vitest/coverage-v8": "^5.1.1",
+    "@vitest/coverage-v8": "^5.1.2",
     "@vitest/eslint-plugin": "^1.6.28",
     "deep-diff": "^1.0.2",
     "eslint": "^10.15.0",
@@ -43,7 +43,7 @@
     "mongodb": "^7.9.1",
     "redis": "^6.4.0",
     "typescript": "^6.0.3",
-    "vitest": "^5.1.1",
+    "vitest": "^5.1.2",
     "zod": "^4.6.7"
   }
 }
