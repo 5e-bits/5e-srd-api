@@ -21,7 +21,7 @@ export const DamageSchema = z.strictObject({
 
 export const AreaOfEffectSchema = z.strictObject({
   size: z.number(),
-  type: z.enum(['sphere', 'cube', 'cylinder', 'line', 'cone']),
+  type: z.enum(['sphere', 'cube', 'cylinder', 'line', 'cone', 'emanation']),
 });
 
 /**
