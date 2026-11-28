@@ -257,7 +257,7 @@
   },
   {
     "index": "ball-bearings",
-    "name": "Ball bearings",
+    "name": "Ball Bearings",
     "equipment_categories": [
       {
         "index": "adventuring-gear",
@@ -429,7 +429,7 @@
   },
   {
     "index": "block-and-tackle",
-    "name": "Block and tackle",
+    "name": "Block and Tackle",
     "equipment_categories": [
       {
         "index": "adventuring-gear",
@@ -756,7 +756,7 @@
       {
         "item": {
           "index": "ball-bearings",
-          "name": "Ball bearings",
+          "name": "Ball Bearings",
           "url": "/api/2024/equipment/ball-bearings"
         },
         "quantity": 1
@@ -2851,7 +2851,7 @@
   },
   {
     "index": "half-plate-armor",
-    "name": "Half-Plate Armor",
+    "name": "Half Plate Armor",
     "equipment_categories": [
       {
         "index": "armor",
@@ -4272,7 +4272,7 @@
     "craft": [
       {
         "index": "block-and-tackle",
-        "name": "Block and tackle",
+        "name": "Block and Tackle",
         "url": "/api/2024/equipment/block-and-tackle"
       }
     ],
@@ -6333,7 +6333,7 @@
       },
       {
         "index": "half-plate-armor",
-        "name": "Half-Plate Armor",
+        "name": "Half Plate Armor",
         "url": "/api/2024/equipment/half-plate-armor"
       },
       {
@@ -6363,7 +6363,7 @@
       },
       {
         "index": "ball-bearings",
-        "name": "Ball bearings",
+        "name": "Ball Bearings",
         "url": "/api/2024/equipment/ball-bearings"
       },
       {
