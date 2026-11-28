@@ -5,6 +5,15 @@
 
 * **db:** add pt-BR translations for 2014 monsters ([#1324](https://github.com/5e-bits/5e-srd-api/issues/1324)) ([ba4f2da](https://github.com/5e-bits/5e-srd-api/commit/ba4f2dac03ef6d42520dcd3548214959fd603e47))
 
+## [7.10.1](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.10.0...5e-database-v7.10.1) (2026-11-28)
+
+
+### Bug Fixes
+
+* Fixed some mistake in the cost/weight and/or damages of some items ([#1459](https://github.com/5e-bits/5e-srd-api/issues/1459)) ([b751f4a](https://github.com/5e-bits/5e-srd-api/commit/b751f4a1d630e1c58bb43edb5fbaa1d0ba336c5d))
+* **spells:** Add missing damage, aoe and dc to Spells and fix some typos ([#1464](https://github.com/5e-bits/5e-srd-api/issues/1464)) ([daa4ee7](https://github.com/5e-bits/5e-srd-api/commit/daa4ee7dddb5c5b9bb89c023b6af35b06cc9af71))
+* **spells:** Fix 2024 spells with components in range data ([#1504](https://github.com/5e-bits/5e-srd-api/issues/1504)) ([ef8d74a](https://github.com/5e-bits/5e-srd-api/commit/ef8d74a78255f2d08a2a6dbbe66d519d3929912c))
+
 ## [7.10.0](https://github.com/5e-bits/5e-srd-api/compare/5e-database-v7.9.1...5e-database-v7.10.0) (2026-11-18)
 
 
