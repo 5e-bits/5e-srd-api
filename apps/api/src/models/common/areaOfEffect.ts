@@ -11,5 +11,5 @@ export class AreaOfEffect {
   public size!: number
 
   @field(T.String, { description: 'The shape of the area of effect.', required: true, index: true })
-  public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone'
+  public type!: 'sphere' | 'cube' | 'cylinder' | 'line' | 'cone' | 'emanation'
 }
