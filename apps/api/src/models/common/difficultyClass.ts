@@ -2,8 +2,8 @@ import { ObjectType } from 'type-graphql'
 
 import { field, T } from '@/util/field' // Path to AbilityScore model
 
-import { APIReference } from './apiReference' // Assuming apiReference.ts is in the same directory
 import { AbilityScore } from '../2014/abilityScore'
+import { APIReference } from './apiReference' // Assuming apiReference.ts is in the same directory
 
 @ObjectType({
   description:
